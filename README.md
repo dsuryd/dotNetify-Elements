@@ -3,46 +3,48 @@
 React components for [dotNetify](http://dotnetify.net/react). 
 
 ### Status
-Starting development...
+Breaking ground...
 
 ### Motivation
 
 The component age is here.  Rapid development of even very complex web applications can be achieved through declarative composition of 
 small, focused, and interchangeable components.  While the focus has always been with the componentization of client-side elements, 
-largely unexplored is the techniques to incorporate back-end logic into the components.  
+it will be exciting to explore ways the back-end logic may be incorporated into the components.  
 
-The dotNetify project was started with the goal of bringing simplicity in connecting front-end elements with the .NET back-end objects.
-This project is yet another step to bring simplicity to the front-end development, by creating a set of reusable components that can be
-used to both build a professional-looking web layout and readily communicate with the server through dotNetify view models,
-and without requiring high proficiency in front-end development techniques and tools.
+The dotNetify project was started with the goal of bringing simplicity to connecting front-end elements with the back-end models.
+This project is yet another step to bring simplicity to the front-end development, by providing a zero-configuration build environment,
+with a set of reusable and customizable components that can be used to build a professional-looking web layout and readily 
+communicate in real-time with the back-end through dotNetify view models, all without requiring high front-end development proficiency.
 
-Here is an example proof of concept:
+Here is an example proof of concept.  We are aiming for a React page that just describes a composition of components, with implementation details, including styles, encapsulated inside each component.  The components that require configuration from the back-end are put inside a context component and use ID convention to establish its link to the back-end view model.
 
-React page:
 ```jsx
-const App = props => (
+export const App = props => (
   <Main>
     <Section>
       <Panel>
-        <VMContext vm="App">
-          <TextField id="MyText" />
-          <DropdownList id="MyDropdown" />
-        </VMContext>
+        <Card>
+          <CardHeader>My App</CardHeader>
+          <CardBody>
+            <VMContext vm="MyApp">
+              <TextField id="MyText" />
+              <DropdownList id="MyDropdown" />
+            </VMContext>
+          </CardBody>
+        </Card>
       </Panel>
     </Section>
   </Main>
 );
-
-export default App;
 ```
 
 .NET view model:
 ```c#
-public class App : BaseVM
+public class MyApp : BaseVM
  {
-    public App()
+    public MyApp()
     {
-       AddProperty("MyText", "")
+       AddProperty("MyText", "default text")
            .SetAttribute(this, new TextField { Label = "Text:", Placeholder = "Enter text" });
 
        AddProperty("MyDropdown", "D3")
@@ -62,4 +64,13 @@ public class App : BaseVM
  }
 ```
 
+### How To Run This Repo
+
+Use VSCode, open a terminal:
+
+```
+cd DevApp
+npm i 
+dotnet watch run
+```
 
