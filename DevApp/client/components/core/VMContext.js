@@ -19,6 +19,7 @@ export class VMContext extends React.Component {
 
     getChildContext() {
         return {
+            vmId: this.props.vm,
             state: this.state,
             setState: state => this.setState(state),
             dispatchState: state => this.vm.$dispatch(state),
@@ -39,6 +40,7 @@ export class VMContext extends React.Component {
 }
 
 export const ContextTypes = Object.assign({}, {
+    vmId: PropTypes.string.isRequired,
     state: PropTypes.object,
     setState: PropTypes.func.isRequired,
     dispatchState: PropTypes.func.isRequired,

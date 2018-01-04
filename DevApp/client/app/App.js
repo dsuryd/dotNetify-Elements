@@ -12,41 +12,50 @@ import {
   DropdownList, RadioGroup, Checkbox
 } from '../elements-bootstrap';
 
-export default class App extends React.Component {
+const App = props => (
+  <Main>
+    <Header>
+      <NavHeader>dotNetify</NavHeader>
+    </Header>
+    <Nav>
+    </Nav>
+    <Section horizontal>
+      <Panel>
+        <VMContext vm="App">
+          <Card>
+            <CardHeader>Vertical Form</CardHeader>
+            <CardBody>
+              <TextField id="MyText" />
+              <EmailField id="MyEmail" />
+              <PasswordField id="MyPassword" />
+              <DropdownList id="MyDropdown" />
+              <TextAreaField id="MyTextArea" />
+              <RadioGroup id="MyRadio" />
+              <Checkbox id="MyCheckbox" />
+            </CardBody>
+          </Card>
+        </VMContext>
+      </Panel>
+      <Panel>
+        <VMContext vm="FormElements">
+          <Card>
+            <CardHeader>Horizontal Form</CardHeader>
+            <CardBody>
+              <TextField id="MyText" horizontal />
+              <EmailField id="MyEmail" horizontal />
+              <PasswordField id="MyPassword" horizontal />
+              <DropdownList id="MyDropdown" horizontal />
+              <TextAreaField id="MyTextArea" horizontal />
+              <RadioGroup id="MyRadio" horizontal />
+              <Checkbox id="MyCheckbox" horizontal />
+            </CardBody>
+          </Card>
+        </VMContext>
+      </Panel>
+    </Section>
+    <Footer>
+    </Footer>
+  </Main>
+);
 
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <Main>
-        <Header>
-          <NavHeader>dotNetify</NavHeader>
-        </Header>
-        <Nav>
-        </Nav>
-        <Section>
-          <Panel>
-            <Card>
-              <CardHeader>Header</CardHeader>
-              <CardBody>
-                <VMContext vm="App">
-                  <TextField id="MyText" />
-                  <EmailField id="MyEmail" />
-                  <PasswordField id="MyPassword" />
-                  <DropdownList id="MyDropdown" />
-                  <TextAreaField id="MyTextArea" />
-                  <RadioGroup id="MyRadio" />
-                  <Checkbox id="MyCheckbox" />
-                </VMContext>
-              </CardBody>
-            </Card>
-          </Panel>
-        </Section>
-        <Footer>
-        </Footer>
-      </Main>
-    );
-  }
-}
+export default App;

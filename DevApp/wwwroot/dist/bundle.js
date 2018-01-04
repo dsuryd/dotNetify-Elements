@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "09b7f8910c25c12e1a4e"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "a42cd16e54ad980e2773"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -9266,6 +9266,7 @@ var VMContext = exports.VMContext = function (_React$Component) {
             var _this2 = this;
 
             return {
+                vmId: this.props.vm,
                 state: this.state,
                 setState: function setState(state) {
                     return _this2.setState(state);
@@ -9324,6 +9325,7 @@ var VMContext = exports.VMContext = function (_React$Component) {
 }(_react2.default.Component);
 
 var ContextTypes = exports.ContextTypes = Object.assign({}, {
+    vmId: _propTypes.PropTypes.string.isRequired,
     state: _propTypes.PropTypes.object,
     setState: _propTypes.PropTypes.func.isRequired,
     dispatchState: _propTypes.PropTypes.func.isRequired,
@@ -11558,8 +11560,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 var _react = __webpack_require__(7);
 
 var _react2 = _interopRequireDefault(_react);
@@ -11578,76 +11578,83 @@ var _elementsBootstrap = __webpack_require__(156);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var App = function (_React$Component) {
-  _inherits(App, _React$Component);
-
-  function App(props) {
-    _classCallCheck(this, App);
-
-    return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
-  }
-
-  _createClass(App, [{
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        _elementsBootstrap.Main,
+var App = function App(props) {
+  return _react2.default.createElement(
+    _elementsBootstrap.Main,
+    null,
+    _react2.default.createElement(
+      _elementsBootstrap.Header,
+      null,
+      _react2.default.createElement(
+        _elementsBootstrap.NavHeader,
+        null,
+        'dotNetify'
+      )
+    ),
+    _react2.default.createElement(_elementsBootstrap.Nav, null),
+    _react2.default.createElement(
+      _elementsBootstrap.Section,
+      { horizontal: true },
+      _react2.default.createElement(
+        _elementsBootstrap.Panel,
         null,
         _react2.default.createElement(
-          _elementsBootstrap.Header,
-          null,
+          _elementsBootstrap.VMContext,
+          { vm: 'App' },
           _react2.default.createElement(
-            _elementsBootstrap.NavHeader,
-            null,
-            'dotNetify'
-          )
-        ),
-        _react2.default.createElement(_elementsBootstrap.Nav, null),
-        _react2.default.createElement(
-          _elementsBootstrap.Section,
-          null,
-          _react2.default.createElement(
-            _elementsBootstrap.Panel,
+            _reactstrap.Card,
             null,
             _react2.default.createElement(
-              _reactstrap.Card,
+              _reactstrap.CardHeader,
               null,
-              _react2.default.createElement(
-                _reactstrap.CardHeader,
-                null,
-                'Header'
-              ),
-              _react2.default.createElement(
-                _reactstrap.CardBody,
-                null,
-                _react2.default.createElement(
-                  _elementsBootstrap.VMContext,
-                  { vm: 'App' },
-                  _react2.default.createElement(_elementsBootstrap.TextField, { id: 'MyText' }),
-                  _react2.default.createElement(_elementsBootstrap.EmailField, { id: 'MyEmail' }),
-                  _react2.default.createElement(_elementsBootstrap.PasswordField, { id: 'MyPassword' }),
-                  _react2.default.createElement(_elementsBootstrap.DropdownList, { id: 'MyDropdown' }),
-                  _react2.default.createElement(_elementsBootstrap.TextAreaField, { id: 'MyTextArea' }),
-                  _react2.default.createElement(_elementsBootstrap.RadioGroup, { id: 'MyRadio' }),
-                  _react2.default.createElement(_elementsBootstrap.Checkbox, { id: 'MyCheckbox' })
-                )
-              )
+              'Vertical Form'
+            ),
+            _react2.default.createElement(
+              _reactstrap.CardBody,
+              null,
+              _react2.default.createElement(_elementsBootstrap.TextField, { id: 'MyText' }),
+              _react2.default.createElement(_elementsBootstrap.EmailField, { id: 'MyEmail' }),
+              _react2.default.createElement(_elementsBootstrap.PasswordField, { id: 'MyPassword' }),
+              _react2.default.createElement(_elementsBootstrap.DropdownList, { id: 'MyDropdown' }),
+              _react2.default.createElement(_elementsBootstrap.TextAreaField, { id: 'MyTextArea' }),
+              _react2.default.createElement(_elementsBootstrap.RadioGroup, { id: 'MyRadio' }),
+              _react2.default.createElement(_elementsBootstrap.Checkbox, { id: 'MyCheckbox' })
             )
           )
-        ),
-        _react2.default.createElement(_elementsBootstrap.Footer, null)
-      );
-    }
-  }]);
-
-  return App;
-}(_react2.default.Component);
+        )
+      ),
+      _react2.default.createElement(
+        _elementsBootstrap.Panel,
+        null,
+        _react2.default.createElement(
+          _elementsBootstrap.VMContext,
+          { vm: 'FormElements' },
+          _react2.default.createElement(
+            _reactstrap.Card,
+            null,
+            _react2.default.createElement(
+              _reactstrap.CardHeader,
+              null,
+              'Horizontal Form'
+            ),
+            _react2.default.createElement(
+              _reactstrap.CardBody,
+              null,
+              _react2.default.createElement(_elementsBootstrap.TextField, { id: 'MyText', horizontal: true }),
+              _react2.default.createElement(_elementsBootstrap.EmailField, { id: 'MyEmail', horizontal: true }),
+              _react2.default.createElement(_elementsBootstrap.PasswordField, { id: 'MyPassword', horizontal: true }),
+              _react2.default.createElement(_elementsBootstrap.DropdownList, { id: 'MyDropdown', horizontal: true }),
+              _react2.default.createElement(_elementsBootstrap.TextAreaField, { id: 'MyTextArea', horizontal: true }),
+              _react2.default.createElement(_elementsBootstrap.RadioGroup, { id: 'MyRadio', horizontal: true }),
+              _react2.default.createElement(_elementsBootstrap.Checkbox, { id: 'MyCheckbox', horizontal: true })
+            )
+          )
+        )
+      )
+    ),
+    _react2.default.createElement(_elementsBootstrap.Footer, null)
+  );
+};
 
 exports.default = App;
 
@@ -31579,8 +31586,8 @@ var _templateObject = _taggedTemplateLiteral(['\n    display: grid;\n    height:
     _templateObject3 = _taggedTemplateLiteral(['\n    display: grid;\n    grid-area: nav;\n    width: 200px;\n    background: ', ';    \n'], ['\n    display: grid;\n    grid-area: nav;\n    width: 200px;\n    background: ', ';    \n']),
     _templateObject4 = _taggedTemplateLiteral(['\n    width: 200px;\n    height: 55px;\n    display: flex;\n    justify-content: center;\n    align-items: center;    \n    background: ', ';\n'], ['\n    width: 200px;\n    height: 55px;\n    display: flex;\n    justify-content: center;\n    align-items: center;    \n    background: ', ';\n']),
     _templateObject5 = _taggedTemplateLiteral(['\n    grid-area: footer;\n    height: 50px;\n    background: ', ';    \n'], ['\n    grid-area: footer;\n    height: 50px;\n    background: ', ';    \n']),
-    _templateObject6 = _taggedTemplateLiteral(['\n    display: grid;\n    grid-area: section;\n    background: ', ';    \n'], ['\n    display: grid;\n    grid-area: section;\n    background: ', ';    \n']),
-    _templateObject7 = _taggedTemplateLiteral(['\n    padding: 1rem;\n'], ['\n    padding: 1rem;\n']);
+    _templateObject6 = _taggedTemplateLiteral(['\n    display: flex;\n    flex-direction: ', ';\n    grid-area: section;\n    background: ', ';    \n    padding: .5rem;\n'], ['\n    display: flex;\n    flex-direction: ', ';\n    grid-area: section;\n    background: ', ';    \n    padding: .5rem;\n']),
+    _templateObject7 = _taggedTemplateLiteral(['\n    flex-grow: 1;\n    flex-basis: ', ';\n    border: solid .5rem transparent;\n'], ['\n    flex-grow: 1;\n    flex-basis: ', ';\n    border: solid .5rem transparent;\n']);
 
 var _react = __webpack_require__(7);
 
@@ -31629,10 +31636,14 @@ var Footer = exports.Footer = _styledComponents2.default.footer(_templateObject5
 });
 
 var Section = exports.Section = _styledComponents2.default.section(_templateObject6, function (props) {
+    return props.horizontal ? 'row' : 'column';
+}, function (props) {
     return props.theme.section;
 });
 
-var Panel = exports.Panel = _styledComponents2.default.div(_templateObject7);
+var Panel = exports.Panel = _styledComponents2.default.div(_templateObject7, function (props) {
+    return props.equalWidth ? '0' : 'auto';
+});
 
 /***/ }),
 /* 150 */
@@ -31709,7 +31720,7 @@ var Checkbox = exports.Checkbox = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (Checkbox.__proto__ || Object.getPrototypeOf(Checkbox)).call(this, props));
 
         _this.handleChange = function (event) {
-            var value = event.target.value;
+            var value = event.target.checked;
             _this.context.setState(_defineProperty({}, _this.props.id, value));
             _this.context.dispatchState(_defineProperty({}, _this.props.id, value));
         };
@@ -31722,6 +31733,7 @@ var Checkbox = exports.Checkbox = function (_React$Component) {
         value: function render() {
             if (!this.context.state) return null;
 
+            var vmId = this.context.vmId;
             var props = this.props;
             var value = this.context.state[props.id];
             var attrs = this.context.getPropAttributes(props.id);
@@ -31732,7 +31744,7 @@ var Checkbox = exports.Checkbox = function (_React$Component) {
                 _react2.default.createElement(
                     _reactstrap.Label,
                     { check: true },
-                    _react2.default.createElement(_reactstrap.Input, { type: 'checkbox', name: props.id, checked: value === true, onChange: this.handleChange }),
+                    _react2.default.createElement(_reactstrap.Input, { type: 'checkbox', name: vmId + '.' + props.id, checked: value === true, onChange: this.handleChange }),
                     label
                 )
             );
@@ -31773,6 +31785,8 @@ var _propTypes = __webpack_require__(11);
 
 var _reactstrap = __webpack_require__(26);
 
+var _Field = __webpack_require__(400);
+
 var _VMContext = __webpack_require__(28);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -31807,6 +31821,7 @@ var DropdownList = exports.DropdownList = function (_React$Component) {
         value: function render() {
             if (!this.context.state) return null;
 
+            var vmId = this.context.vmId;
             var props = this.props;
             var value = this.context.state[props.id];
             var attrs = this.context.getPropAttributes(props.id);
@@ -31819,17 +31834,17 @@ var DropdownList = exports.DropdownList = function (_React$Component) {
             });
             var label = attrs.label || props.label;
             return _react2.default.createElement(
-                _reactstrap.FormGroup,
-                null,
+                _Field.Field,
+                { horizontal: props.horizontal },
                 label ? _react2.default.createElement(
                     _reactstrap.Label,
-                    { 'for': props.id },
+                    { 'for': vmId + '.' + props.id },
                     label
                 ) : null,
                 _react2.default.createElement(
                     _reactstrap.Input,
                     {
-                        id: props.id,
+                        id: vmId + '.' + props.id,
                         type: 'select',
                         value: value,
                         onChange: this.handleChange
@@ -31874,6 +31889,8 @@ var _propTypes = __webpack_require__(11);
 
 var _reactstrap = __webpack_require__(26);
 
+var _Field = __webpack_require__(400);
+
 var _VMContext = __webpack_require__(28);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -31910,6 +31927,7 @@ var RadioGroup = exports.RadioGroup = function (_React$Component) {
 
             if (!this.context.state) return null;
 
+            var vmId = this.context.vmId;
             var props = this.props;
             var value = this.context.state[props.id];
             var attrs = this.context.getPropAttributes(props.id);
@@ -31917,25 +31935,29 @@ var RadioGroup = exports.RadioGroup = function (_React$Component) {
             var radio = (attrs.options || []).map(function (opt) {
                 return _react2.default.createElement(
                     _reactstrap.FormGroup,
-                    { check: true, key: opt.Key },
+                    { check: true, key: opt.Key, id: vmId + '.' + props.id },
                     _react2.default.createElement(
                         _reactstrap.Label,
                         { check: true },
-                        _react2.default.createElement(_reactstrap.Input, { type: 'radio', name: props.id, value: opt.Key, checked: opt.Key == value, onChange: _this2.handleChange }),
+                        _react2.default.createElement(_reactstrap.Input, { type: 'radio', name: vmId + '.' + props.id, value: opt.Key, checked: opt.Key == value, onChange: _this2.handleChange }),
                         opt.Value
                     )
                 );
             });
 
             return _react2.default.createElement(
-                _reactstrap.FormGroup,
-                { tag: 'fieldset' },
+                _Field.Field,
+                { horizontal: props.horizontal },
                 label ? _react2.default.createElement(
                     _reactstrap.Label,
                     { 'for': props.id },
                     label
                 ) : null,
-                radio
+                _react2.default.createElement(
+                    'section',
+                    null,
+                    radio
+                )
             );
         }
     }]);
@@ -31964,15 +31986,23 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.TextAreaField = exports.PasswordField = exports.EmailField = exports.TextField = undefined;
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(7);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _styledComponents = __webpack_require__(80);
+
+var _styledComponents2 = _interopRequireDefault(_styledComponents);
+
 var _propTypes = __webpack_require__(11);
 
 var _reactstrap = __webpack_require__(26);
+
+var _Field = __webpack_require__(400);
 
 var _VMContext = __webpack_require__(28);
 
@@ -32014,21 +32044,22 @@ var TextField = exports.TextField = function (_React$Component) {
         value: function render() {
             if (!this.context.state) return null;
 
+            var vmId = this.context.vmId;
             var props = this.props;
             var attrs = this.context.getPropAttributes(props.id);
             var value = this.context.state[props.id];
             var label = attrs.label || props.label;
             return _react2.default.createElement(
-                _reactstrap.FormGroup,
-                null,
+                _Field.Field,
+                { horizontal: props.horizontal },
                 label ? _react2.default.createElement(
                     _reactstrap.Label,
-                    { 'for': props.id },
+                    { 'for': vmId + '.' + props.id },
                     label
                 ) : null,
                 _react2.default.createElement(_reactstrap.Input, {
+                    id: vmId + '.' + props.id,
                     type: props.type || "text",
-                    id: props.id,
                     placeholder: attrs.placeholder || props.placeholder,
                     value: value,
                     onChange: this.handleChange,
@@ -32041,15 +32072,15 @@ var TextField = exports.TextField = function (_React$Component) {
 }(_react2.default.Component);
 
 var EmailField = exports.EmailField = function EmailField(props) {
-    return _react2.default.createElement(TextField, { type: 'email', id: props.id, label: props.label, placeholder: props.placeholder });
+    return _react2.default.createElement(TextField, _extends({ type: 'email' }, props));
 };
 
 var PasswordField = exports.PasswordField = function PasswordField(props) {
-    return _react2.default.createElement(TextField, { type: 'password', id: props.id, label: props.label, placeholder: props.placeholder });
+    return _react2.default.createElement(TextField, _extends({ type: 'password' }, props));
 };
 
 var TextAreaField = exports.TextAreaField = function TextAreaField(props) {
-    return _react2.default.createElement(TextField, { type: 'textarea', id: props.id, label: props.label, placeholder: props.placeholder });
+    return _react2.default.createElement(TextField, _extends({ type: 'textarea' }, props));
 };
 
 TextField.contextTypes = _VMContext.ContextTypes;
@@ -55936,6 +55967,38 @@ __webpack_require__(145);
 __webpack_require__(146);
 module.exports = __webpack_require__(144);
 
+
+/***/ }),
+/* 398 */,
+/* 399 */,
+/* 400 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.Field = undefined;
+
+var _templateObject = _taggedTemplateLiteral(['\n    display: grid;\n    grid-template-columns: ', ';\n    margin-bottom: 1rem;\n    -ms-user-select: none; \n    user-select: none; \n'], ['\n    display: grid;\n    grid-template-columns: ', ';\n    margin-bottom: 1rem;\n    -ms-user-select: none; \n    user-select: none; \n']);
+
+var _react = __webpack_require__(7);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _styledComponents = __webpack_require__(80);
+
+var _styledComponents2 = _interopRequireDefault(_styledComponents);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+var Field = exports.Field = _styledComponents2.default.div(_templateObject, function (prop) {
+    return prop.horizontal ? '1fr 4fr' : '1fr';
+});
 
 /***/ })
 /******/ ]);

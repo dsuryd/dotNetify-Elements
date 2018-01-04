@@ -1,6 +1,7 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
-import { FormGroup, Label, Input } from 'reactstrap';
+import { Label, Input } from 'reactstrap';
+import { Field } from './Field';
 import { ContextTypes } from '../../core/VMContext';
 
 export class DropdownList extends React.Component {
@@ -19,23 +20,24 @@ export class DropdownList extends React.Component {
         if (!this.context.state)
             return null;
 
+        let vmId = this.context.vmId;
         let props = this.props;
         let value = this.context.state[props.id];
         let attrs = this.context.getPropAttributes(props.id);
         let options = (attrs.options || []).map(opt => <option key={opt.Key} value={opt.Key}>{opt.Value}</option>);
         let label = attrs.label || props.label;
         return (
-            <FormGroup>
-                {label ? <Label for={props.id}>{label}</Label> : null}
+            <Field horizontal={props.horizontal}>
+                {label ? <Label for={`${vmId}.${props.id}`}>{label}</Label> : null}
                 <Input
-                    id={props.id}
+                    id={`${vmId}.${props.id}`}
                     type="select"
                     value={value}
                     onChange={this.handleChange}
                 >
                     {options}
                 </Input>
-            </FormGroup>
+            </Field>
         )
     }
 };

@@ -50,11 +50,15 @@ export const Footer = styled.footer`
 `;
 
 export const Section = styled.section`
-    display: grid;
+    display: flex;
+    flex-direction: ${props => props.horizontal ? 'row' : 'column'};
     grid-area: section;
     background: ${props => props.theme.section};    
+    padding: .5rem;
 `;
 
 export const Panel = styled.div`
-    padding: 1rem;
+    flex-grow: 1;
+    flex-basis: ${props => props.equalWidth ? '0' : 'auto'};
+    border: solid .5rem transparent;
 `;

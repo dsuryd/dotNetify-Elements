@@ -1,6 +1,8 @@
 import React from 'react';
+import styled from 'styled-components';
 import { PropTypes } from 'prop-types';
-import { FormGroup, Label, Input } from 'reactstrap';
+import { Label, Input } from 'reactstrap';
+import { Field } from './Field';
 import { ContextTypes } from '../../core/VMContext';
 
 export class TextField extends React.Component {
@@ -26,35 +28,36 @@ export class TextField extends React.Component {
         if (!this.context.state)
             return null;
 
+        let vmId = this.context.vmId;
         let props = this.props;
         let attrs = this.context.getPropAttributes(props.id);
-        let value = this.context.state[props.id];        
+        let value = this.context.state[props.id];
         let label = attrs.label || props.label;
         return (
-            <FormGroup>
-                {label ? <Label for={props.id}>{label}</Label> : null}
+            <Field horizontal={props.horizontal}>
+                {label ? <Label for={`${vmId}.${props.id}`}>{label}</Label> : null}
                 <Input
-                type={props.type || "text"}
-                id={props.id}
-                placeholder={attrs.placeholder || props.placeholder}
-                value={value}
-                onChange={this.handleChange}
-                onBlur={this.handleBlur} />                
-            </FormGroup>
+                    id={`${vmId}.${props.id}`}
+                    type={props.type || "text"}
+                    placeholder={attrs.placeholder || props.placeholder}
+                    value={value}
+                    onChange={this.handleChange}
+                    onBlur={this.handleBlur} />
+            </Field>
         );
     }
 }
 
 export const EmailField = props => (
-    <TextField type="email" id={props.id} label={props.label} placeholder={props.placeholder} />
+    <TextField type="email" {...props} />
 );
 
 export const PasswordField = props => (
-    <TextField type="password" id={props.id} label={props.label} placeholder={props.placeholder} />
+    <TextField type="password" {...props} />
 );
 
 export const TextAreaField = props => (
-    <TextField type="textarea" id={props.id} label={props.label} placeholder={props.placeholder} />
+    <TextField type="textarea" {...props} />
 );
 
 TextField.contextTypes = ContextTypes;
