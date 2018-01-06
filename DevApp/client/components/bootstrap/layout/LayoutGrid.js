@@ -1,15 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { ThemeProvider } from 'styled-components';
-import defaultTheme from './theme';
+import defaultTheme from '../theme';
 
-export const Main = props => (
-    <ThemeProvider theme={props.theme || defaultTheme}>
-        <MainGrid>{props.children}</MainGrid>
-    </ThemeProvider>
-);
-
-export const MainGrid = styled.main`
+const LayoutGrid = styled.main`
     display: grid;
     height: 100%;
     grid-template-columns: auto 1fr;
@@ -18,6 +12,12 @@ export const MainGrid = styled.main`
                             "nav    section"
                             "nav    footer";
 `;
+
+export const Main = props => (
+    <ThemeProvider theme={props.theme || defaultTheme}>
+        <LayoutGrid>{props.children}</LayoutGrid>
+    </ThemeProvider>
+);
 
 export const Header = styled.header`
     grid-area: header;
@@ -28,19 +28,9 @@ export const Header = styled.header`
 `;
 
 export const Nav = styled.nav`
-    display: grid;
     grid-area: nav;
     width: 200px;
     background: ${props => props.theme.nav};    
-`;
-
-export const NavHeader = styled.div`
-    width: 200px;
-    height: 55px;
-    display: flex;
-    justify-content: center;
-    align-items: center;    
-    background: ${props => props.theme.navHeader};
 `;
 
 export const Footer = styled.footer`
@@ -50,15 +40,6 @@ export const Footer = styled.footer`
 `;
 
 export const Section = styled.section`
-    display: flex;
-    flex-direction: ${props => props.horizontal ? 'row' : 'column'};
     grid-area: section;
-    background: ${props => props.theme.section};    
-    padding: .5rem;
-`;
-
-export const Panel = styled.div`
-    flex-grow: 1;
-    flex-basis: ${props => props.equalWidth ? '0' : 'auto'};
-    border: solid .5rem transparent;
+    background: ${props => props.theme.section}; 
 `;

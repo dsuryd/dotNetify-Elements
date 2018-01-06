@@ -41,4 +41,10 @@ namespace DotNetify
    {
       public string Label { get; set; }
    }
+
+   public class CheckboxGroup
+   {
+       public string Label { get; set; }
+       public KeyValuePair<string, string> Options { get; set; }
+   }
 }
