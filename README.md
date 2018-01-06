@@ -3,7 +3,7 @@
 React components for [dotNetify](http://dotnetify.net/react). 
 
 ### Status
-Breaking ground...
+Starting development...
 
 ### Motivation
 
@@ -13,10 +13,10 @@ it will be exciting to explore ways the back-end logic may be incorporated into 
 
 The dotNetify project was started with the goal of bringing simplicity to connecting front-end elements with the back-end models.
 This project is yet another step to bring simplicity to the front-end development, by providing a zero-configuration build environment,
-with a set of reusable and customizable components that can be used to build a professional-looking web layout and readily 
-communicate in real-time with the back-end through dotNetify view models, all without requiring high front-end development proficiency.
+with a set of reusable and customizable components that can be easily assembled into a professional-looking web layout, and readily 
+communicate in real-time with the back-end through dotNetify view models; all this without requiring high front-end development proficiency.
 
-Here is an example proof of concept.  We are aiming for a React page that just describes a composition of components, with implementation details, including styles, encapsulated inside each component.  The components that require configuration from the back-end are put inside a context component and use ID convention to establish its link to the back-end view model.
+Here is an example proof of concept.  A developer minimally describes the layout of reusable components on a React page, and only assigns identifiers to components that will communicate with the back-end view model.  The styling are provided by default, resulting in a standard but professional looking web app.  All data necessary for the components to render will be provided from the view models.
 
 ```jsx
 export const App = props => (
@@ -73,4 +73,3 @@ cd DevApp
 npm i 
 dotnet watch run
 ```
-
