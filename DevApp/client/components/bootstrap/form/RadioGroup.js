@@ -1,7 +1,7 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import { FormGroup, Label, Input } from 'reactstrap';
-import { Field } from './Field';
+import { FormField } from '../layout/FormField';
 import { ContextTypes } from '../../core/VMContext';
 
 export class RadioGroup extends React.Component {
@@ -35,10 +35,10 @@ export class RadioGroup extends React.Component {
         ));
 
         return (
-            <Field horizontal={props.horizontal}>
+            <FormField horizontal={props.horizontal}>
                 {label ? <Label for={props.id}>{label}</Label> : null}
                 <section>{radio}</section>
-            </Field>
+            </FormField>
         );
     }
 };

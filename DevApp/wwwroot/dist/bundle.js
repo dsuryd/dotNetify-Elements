@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "88fbd52458c997ee3ced"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "be43f87a9c96f5473739"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -11605,36 +11605,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 30 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.Field = undefined;
-
-var _templateObject = _taggedTemplateLiteral(['\n    display: grid;\n    grid-template-columns: ', ';\n    -ms-user-select: none; \n    user-select: none; \n'], ['\n    display: grid;\n    grid-template-columns: ', ';\n    -ms-user-select: none; \n    user-select: none; \n']);
-
-var _react = __webpack_require__(5);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _styledComponents = __webpack_require__(17);
-
-var _styledComponents2 = _interopRequireDefault(_styledComponents);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
-
-var Field = exports.Field = _styledComponents2.default.div(_templateObject, function (prop) {
-    return prop.horizontal ? '1fr 4fr' : '1fr';
-});
-
-/***/ }),
+/* 30 */,
 /* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -31725,7 +31696,7 @@ var _propTypes = __webpack_require__(10);
 
 var _reactstrap = __webpack_require__(19);
 
-var _Field = __webpack_require__(30);
+var _FormField = __webpack_require__(407);
 
 var _VMContext = __webpack_require__(23);
 
@@ -31767,17 +31738,13 @@ var Checkbox = exports.Checkbox = function (_React$Component) {
             var attrs = this.context.getPropAttributes(props.id);
             var label = attrs.label || props.label;
             return _react2.default.createElement(
-                _Field.Field,
+                _FormField.FormField,
                 null,
                 _react2.default.createElement(
-                    _reactstrap.FormGroup,
+                    _reactstrap.Label,
                     { check: true },
-                    _react2.default.createElement(
-                        _reactstrap.Label,
-                        { check: true },
-                        _react2.default.createElement(_reactstrap.Input, { type: 'checkbox', name: vmId + '.' + props.id, checked: value === true, onChange: this.handleChange }),
-                        label
-                    )
+                    _react2.default.createElement(_reactstrap.Input, { type: 'checkbox', name: vmId + '.' + props.id, checked: value === true, onChange: this.handleChange }),
+                    label
                 )
             );
         }
@@ -31817,7 +31784,7 @@ var _propTypes = __webpack_require__(10);
 
 var _reactstrap = __webpack_require__(19);
 
-var _Field = __webpack_require__(30);
+var _FormField = __webpack_require__(407);
 
 var _VMContext = __webpack_require__(23);
 
@@ -31866,18 +31833,18 @@ var CheckboxGroup = exports.CheckboxGroup = function (_React$Component) {
             var checkboxes = (attrs.options || []).map(function (opt) {
                 return _react2.default.createElement(
                     _reactstrap.FormGroup,
-                    { check: true, key: opt.Key, id: vmId + '.' + props.id },
+                    { check: true, key: opt.Key, inline: props.inline },
                     _react2.default.createElement(
                         _reactstrap.Label,
-                        { check: true },
-                        _react2.default.createElement(_reactstrap.Input, { type: 'checkbox', name: vmId + '.' + props.id, value: opt.Key, checked: values.includes(opt.Key), onChange: _this2.handleChange }),
+                        { check: true, id: vmId + '.' + props.id },
+                        _react2.default.createElement(_reactstrap.Input, { type: 'checkbox', value: opt.Key, checked: values.includes(opt.Key), onChange: _this2.handleChange }),
                         opt.Value
                     )
                 );
             });
 
             return _react2.default.createElement(
-                _Field.Field,
+                _FormField.FormField,
                 { horizontal: props.horizontal },
                 label ? _react2.default.createElement(
                     _reactstrap.Label,
@@ -31927,7 +31894,7 @@ var _propTypes = __webpack_require__(10);
 
 var _reactstrap = __webpack_require__(19);
 
-var _Field = __webpack_require__(30);
+var _FormField = __webpack_require__(407);
 
 var _VMContext = __webpack_require__(23);
 
@@ -31976,7 +31943,7 @@ var DropdownList = exports.DropdownList = function (_React$Component) {
             });
             var label = attrs.label || props.label;
             return _react2.default.createElement(
-                _Field.Field,
+                _FormField.FormField,
                 { horizontal: props.horizontal },
                 label ? _react2.default.createElement(
                     _reactstrap.Label,
@@ -32031,7 +31998,7 @@ var _propTypes = __webpack_require__(10);
 
 var _reactstrap = __webpack_require__(19);
 
-var _Field = __webpack_require__(30);
+var _FormField = __webpack_require__(407);
 
 var _VMContext = __webpack_require__(23);
 
@@ -32088,7 +32055,7 @@ var RadioGroup = exports.RadioGroup = function (_React$Component) {
             });
 
             return _react2.default.createElement(
-                _Field.Field,
+                _FormField.FormField,
                 { horizontal: props.horizontal },
                 label ? _react2.default.createElement(
                     _reactstrap.Label,
@@ -32144,7 +32111,7 @@ var _propTypes = __webpack_require__(10);
 
 var _reactstrap = __webpack_require__(19);
 
-var _Field = __webpack_require__(30);
+var _FormField = __webpack_require__(407);
 
 var _VMContext = __webpack_require__(23);
 
@@ -32192,7 +32159,7 @@ var TextField = exports.TextField = function (_React$Component) {
             var value = this.context.state[props.id];
             var label = attrs.label || props.label;
             return _react2.default.createElement(
-                _Field.Field,
+                _FormField.FormField,
                 { horizontal: props.horizontal },
                 label ? _react2.default.createElement(
                     _reactstrap.Label,
@@ -56319,6 +56286,69 @@ var FormPanel = exports.FormPanel = function (_React$Component) {
     }]);
 
     return FormPanel;
+}(_react2.default.Component);
+
+/***/ }),
+/* 406 */,
+/* 407 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.FormField = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _templateObject = _taggedTemplateLiteral(['\n    display: grid;\n    grid-template-columns: ', ';\n    -ms-user-select: none; \n    user-select: none; \n'], ['\n    display: grid;\n    grid-template-columns: ', ';\n    -ms-user-select: none; \n    user-select: none; \n']);
+
+var _react = __webpack_require__(5);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _styledComponents = __webpack_require__(17);
+
+var _styledComponents2 = _interopRequireDefault(_styledComponents);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+var Container = _styledComponents2.default.div(_templateObject, function (prop) {
+    return prop.horizontal ? '1fr 4fr' : '1fr';
+});
+
+var FormField = exports.FormField = function (_React$Component) {
+    _inherits(FormField, _React$Component);
+
+    function FormField() {
+        _classCallCheck(this, FormField);
+
+        return _possibleConstructorReturn(this, (FormField.__proto__ || Object.getPrototypeOf(FormField)).apply(this, arguments));
+    }
+
+    _createClass(FormField, [{
+        key: 'render',
+        value: function render() {
+            var props = this.props;
+            return _react2.default.createElement(
+                Container,
+                props,
+                props.children
+            );
+        }
+    }]);
+
+    return FormField;
 }(_react2.default.Component);
 
 /***/ })

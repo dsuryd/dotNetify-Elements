@@ -1,7 +1,7 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import { FormGroup, Label, Input } from 'reactstrap';
-import { Field } from './Field';
+import { FormField } from '../layout/FormField';
 import { ContextTypes } from '../../core/VMContext';
 
 export class Checkbox extends React.Component {
@@ -26,14 +26,12 @@ export class Checkbox extends React.Component {
         let attrs = this.context.getPropAttributes(props.id);
         let label = attrs.label || props.label;
         return (
-            <Field>
-                <FormGroup check>
-                    <Label check>
-                        <Input type="checkbox" name={`${vmId}.${props.id}`} checked={value === true} onChange={this.handleChange} />
-                        {label}
-                    </Label>
-                </FormGroup>
-            </Field>
+            <FormField>
+                <Label check>
+                    <Input type="checkbox" name={`${vmId}.${props.id}`} checked={value === true} onChange={this.handleChange} />
+                    {label}
+                </Label>
+            </FormField>
         )
     }
 };

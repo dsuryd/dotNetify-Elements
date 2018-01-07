@@ -1,7 +1,7 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import { Label, Input } from 'reactstrap';
-import { Field } from './Field';
+import { FormField } from '../layout/FormField';
 import { ContextTypes } from '../../core/VMContext';
 
 export class DropdownList extends React.Component {
@@ -27,7 +27,7 @@ export class DropdownList extends React.Component {
         let options = (attrs.options || []).map(opt => <option key={opt.Key} value={opt.Key}>{opt.Value}</option>);
         let label = attrs.label || props.label;
         return (
-            <Field horizontal={props.horizontal}>
+            <FormField horizontal={props.horizontal}>
                 {label ? <Label for={`${vmId}.${props.id}`}>{label}</Label> : null}
                 <Input
                     id={`${vmId}.${props.id}`}
@@ -37,7 +37,7 @@ export class DropdownList extends React.Component {
                 >
                     {options}
                 </Input>
-            </Field>
+            </FormField>
         )
     }
 };

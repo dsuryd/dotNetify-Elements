@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { PropTypes } from 'prop-types';
 import { Label, Input } from 'reactstrap';
-import { Field } from './Field';
+import { FormField } from '../layout/FormField';
 import { ContextTypes } from '../../core/VMContext';
 
 export class TextField extends React.Component {
@@ -34,7 +34,7 @@ export class TextField extends React.Component {
         let value = this.context.state[props.id];
         let label = attrs.label || props.label;
         return (
-            <Field horizontal={props.horizontal}>
+            <FormField horizontal={props.horizontal}>
                 {label ? <Label for={`${vmId}.${props.id}`}>{label}</Label> : null}
                 <Input
                     id={`${vmId}.${props.id}`}
@@ -43,7 +43,7 @@ export class TextField extends React.Component {
                     value={value}
                     onChange={this.handleChange}
                     onBlur={this.handleBlur} />
-            </Field>
+            </FormField>
         );
     }
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import { FormGroup, Label, Input } from 'reactstrap';
-import { Field } from './Field';
+import { FormField } from '../layout/FormField';
 import { ContextTypes } from '../../core/VMContext';
 
 export class CheckboxGroup extends React.Component {
@@ -27,19 +27,19 @@ export class CheckboxGroup extends React.Component {
         let attrs = this.context.getPropAttributes(props.id);
         let label = attrs.label || props.label;
         let checkboxes = (attrs.options || []).map(opt => (
-            <FormGroup check key={opt.Key} id={`${vmId}.${props.id}`}>
-                <Label check>
-                    <Input type="checkbox" name={`${vmId}.${props.id}`} value={opt.Key} checked={values.includes(opt.Key)} onChange={this.handleChange} />
+            <FormGroup check key={opt.Key} inline={props.inline}>
+                <Label check id={`${vmId}.${props.id}`}>
+                    <Input type="checkbox" value={opt.Key} checked={values.includes(opt.Key)} onChange={this.handleChange} />
                     {opt.Value}
                 </Label>
             </FormGroup>
         ));
 
         return (
-            <Field horizontal={props.horizontal}>
+            <FormField horizontal={props.horizontal}>
                 {label ? <Label for={props.id}>{label}</Label> : null}
                 <section>{checkboxes}</section>
-            </Field>
+            </FormField>
         );
     }
 };
