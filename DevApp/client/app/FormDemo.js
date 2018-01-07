@@ -7,6 +7,7 @@ import {
     CheckboxGroup,
     DropdownList,
     EmailField,
+    FormPanel,
     TextField,
     TextAreaField,
     PasswordField,
@@ -14,19 +15,21 @@ import {
     VMContext
 } from '../elements-bootstrap';
 
-const FormDemo = ({vm, title}) => (
+const FormDemo = ({ vm, title, horizontal }) => (
     <VMContext vm={vm}>
         <Card>
             <CardHeader>{title}</CardHeader>
             <CardBody>
-                <TextField id="MyText" />
-                <EmailField id="MyEmail" />
-                <PasswordField id="MyPassword" />
-                <DropdownList id="MyDropdown" />
-                <TextAreaField id="MyTextArea" />
-                <RadioGroup id="MyRadio" />
-                <Checkbox id="MyCheckbox" />
-                <CheckboxGroup id="MyCheckboxGroup" />
+                <FormPanel horizontal={horizontal}>
+                    <TextField id="MyText" />
+                    <EmailField id="MyEmail" />
+                    <PasswordField id="MyPassword" />
+                    <DropdownList id="MyDropdown" />
+                    <TextAreaField id="MyTextArea" />
+                    <RadioGroup id="MyRadio" />
+                    <Checkbox id="MyCheckbox" />
+                    <CheckboxGroup id="MyCheckboxGroup" />
+                </FormPanel>
             </CardBody>
         </Card>
     </VMContext>

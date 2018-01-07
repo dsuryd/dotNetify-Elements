@@ -4,14 +4,13 @@ import dotnetify from 'dotnetify';
 import {
   Main,
   Header,
-  Footer,  
+  Footer,
   Nav,
   NavHeader,
   Section,
   Panel
 } from '../elements-bootstrap';
 import FormDemo from './FormDemo';
-import HorizontalFormDemo from './HorizontalFormDemo';
 
 const App = props => (
   <Main>
@@ -22,12 +21,8 @@ const App = props => (
     </Nav>
     <Section>
       <Panel horizontal equalWidth>
-        <Panel>
-          <FormDemo vm="FormDemo" title="Vertical Form" />
-        </Panel>
-        <Panel>
-          <HorizontalFormDemo vm="HorizontalFormDemo" title="Horizontal Form" />
-        </Panel>
+        <FormDemo vm="FormDemo" title="Vertical Form" />
+        <FormDemo vm="HorizontalFormDemo" title="Horizontal Form" horizontal />
       </Panel>
     </Section>
     <Footer>
