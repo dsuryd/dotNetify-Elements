@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "7e176508b23a83bb16fb"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "c15393e69bbbcafcfdae"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -31236,8 +31236,6 @@ var _propTypes = __webpack_require__(10);
 
 var _reactstrap = __webpack_require__(22);
 
-var _FormField = __webpack_require__(30);
-
 var _VMContext = __webpack_require__(23);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -31278,12 +31276,12 @@ var Checkbox = exports.Checkbox = function (_React$Component) {
             var attrs = this.context.getPropAttributes(props.id);
             var label = attrs.label || props.label;
             return _react2.default.createElement(
-                _FormField.FormField,
-                null,
+                _reactstrap.FormGroup,
+                { check: true },
                 _react2.default.createElement(
                     _reactstrap.Label,
                     { check: true },
-                    _react2.default.createElement(_reactstrap.Input, { type: 'checkbox', name: vmId + '.' + props.id, checked: value === true, onChange: this.handleChange }),
+                    _react2.default.createElement(_reactstrap.Input, { type: 'checkbox', name: vmId + '.' + props.id, checked: value, onChange: this.handleChange }),
                     label
                 )
             );
