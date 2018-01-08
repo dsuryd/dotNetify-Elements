@@ -71,5 +71,6 @@ Use VSCode, open a terminal:
 ```
 cd DevApp
 npm i 
+dotnet build
 dotnet watch run
 ```
