@@ -1,40 +1,57 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const getFlexDirection = props => props.horizontal ? 'row' : 'column';
-const getFlexBasis = props => props.equalWidth ? '0' : 'auto';
-const getPadding = props => props.noPadding ? '0' : props.smallPadding ? '.25rem' : '.5rem';
-
 const Container = styled.div`
     display: flex;
-    flex-grow: 1;
-    flex-basis: ${getFlexBasis};
-    flex-direction: ${getFlexDirection};
-    border-style: solid;
-    border-color: transparent;
-    border-width: ${getPadding};
+    justify-content: ${props => props.right ? 'flex-end' : 'flex-start'}; 
+    flex-direction: ${props => props.horizontal ? 'row' : 'column'};
+    margin: ${props => props.margin}
 `;
 
 const ChildContainer = styled.div`
-    display: flex;
-    flex-grow: 1;
-    flex-basis: ${getFlexBasis};    
-    flex-direction: column;
-    border-style: solid;
-    border-color: transparent;
-    border-width: ${getPadding};
+    padding: ${props => props.padding};
+    flex-grow: ${props => props.stretch ? '1' : '0'};
+    flex-basis: ${props => props.equalWidth ? '0' : 'auto'};
 `;
 
 export class Panel extends React.Component {
 
+    getPadding(idx, max, gap, horizontal) {
+        let padding = horizontal ? `0 ${gap} 0 0` : `0 0 ${gap} 0`;
+        return idx < max - 1 ? padding : 0;
+    }
+
     render() {
-        let { equalWidth, ...props } = this.props;
-        let childProps = this.props;
+        let {
+            childProps,
+            equalWidth,
+            gap, noGap, smallGap,
+            horizontal,
+            margin, noMargin, smallMargin,
+            right,
+            stretch
+        } = this.props;
+        const numChildren = React.Children.count(this.props.children);
+
+        gap = gap || (noGap ? "0" : smallGap ? ".5rem" : "1rem");
+        margin = margin || (noMargin ? "0" : smallMargin ? ".5rem" : "1rem");
+
         return (
-        <Container {...props}>
-            {React.Children.map(props.children, child => 
-                <ChildContainer {...childProps}>{child}</ChildContainer>
-            )}
-        </Container>
-    )};
+            <Container
+                margin={margin}
+                horizontal={horizontal}
+                right={right}
+            >
+                {React.Children.map(this.props.children, (child, idx) =>
+                    <ChildContainer
+                        stretch={stretch}
+                        equalWidth={equalWidth}
+                        padding={this.getPadding(idx, numChildren, gap, horizontal)}
+                    >
+                        {childProps ? React.cloneElement(child, childProps) : child}
+                    </ChildContainer>
+                )}
+            </Container>
+        )
+    };
 }

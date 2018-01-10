@@ -20,7 +20,7 @@ const App = props => (
     <Nav>
     </Nav>
     <Section>
-      <Panel horizontal equalWidth>
+      <Panel horizontal equalWidth stretch>
         <FormDemo vm="FormDemo" title="Vertical Form" />
         <FormDemo vm="HorizontalFormDemo" title="Horizontal Form" horizontal />
       </Panel>
