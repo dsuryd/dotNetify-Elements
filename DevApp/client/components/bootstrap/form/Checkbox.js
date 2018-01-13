@@ -1,7 +1,7 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import { FormGroup, Label, Input } from 'reactstrap';
-import { ContextTypes } from '../../core/VMContext';
+import { ContextTypes } from '../../VMContext';
 
 export class Checkbox extends React.Component {
 

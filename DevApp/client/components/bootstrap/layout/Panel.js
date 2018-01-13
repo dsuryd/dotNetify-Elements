@@ -21,6 +21,10 @@ export class Panel extends React.Component {
         return idx < max - 1 ? padding : 0;
     }
 
+    mergeProps(elem, newProps) {
+        return Object.assign({}, newProps, elem.props);
+    }
+
     render() {
         let {
             childProps,
@@ -48,7 +52,7 @@ export class Panel extends React.Component {
                         equalWidth={equalWidth}
                         padding={this.getPadding(idx, numChildren, gap, horizontal)}
                     >
-                        {childProps ? React.cloneElement(child, childProps) : child}
+                        {childProps ? React.cloneElement(child, this.mergeProps(child, childProps)) : child}
                     </ChildContainer>
                 )}
             </Container>

@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "cf92f72cb5521e75fda9"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "0cefbb96f63f09a0298b"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -10429,131 +10429,7 @@ var UncontrolledTooltip = components.UncontrolledTooltip;
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(0)))
 
 /***/ }),
-/* 23 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.ContextTypes = exports.VMContext = undefined;
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(5);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(10);
-
-var _dotnetify = __webpack_require__(57);
-
-var _dotnetify2 = _interopRequireDefault(_dotnetify);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-_dotnetify2.default.debug = true;
-
-var VMContext = exports.VMContext = function (_React$Component) {
-    _inherits(VMContext, _React$Component);
-
-    function VMContext(props) {
-        _classCallCheck(this, VMContext);
-
-        var _this = _possibleConstructorReturn(this, (VMContext.__proto__ || Object.getPrototypeOf(VMContext)).call(this, props));
-
-        if (props.vm) _this.vm = _dotnetify2.default.react.connect(props.vm, _this);
-        return _this;
-    }
-
-    _createClass(VMContext, [{
-        key: 'componentWillUnmount',
-        value: function componentWillUnmount() {
-            this.vm.$destroy();
-        }
-    }, {
-        key: 'getChildContext',
-        value: function getChildContext() {
-            var _this2 = this;
-
-            return {
-                vmId: this.props.vm,
-                state: this.state,
-                setState: function setState(state) {
-                    return _this2.setState(state);
-                },
-                dispatchState: function dispatchState(state) {
-                    return _this2.vm.$dispatch(state);
-                },
-                getPropAttributes: function getPropAttributes(propId) {
-                    return _this2.toCamelCase(_this2.state && _this2.state[propId + "_attr"] || {});
-                }
-            };
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            return _react2.default.createElement(
-                'div',
-                null,
-                this.props.children
-            );
-        }
-    }, {
-        key: 'toCamelCase',
-        value: function toCamelCase(obj) {
-            var newObj = {};
-            var _iteratorNormalCompletion = true;
-            var _didIteratorError = false;
-            var _iteratorError = undefined;
-
-            try {
-                for (var _iterator = Object.keys(obj)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-                    var key = _step.value;
-
-                    newObj[key.substr(0, 1).toLowerCase() + key.substr(1)] = obj[key];
-                }
-            } catch (err) {
-                _didIteratorError = true;
-                _iteratorError = err;
-            } finally {
-                try {
-                    if (!_iteratorNormalCompletion && _iterator.return) {
-                        _iterator.return();
-                    }
-                } finally {
-                    if (_didIteratorError) {
-                        throw _iteratorError;
-                    }
-                }
-            }
-
-            return newObj;
-        }
-    }]);
-
-    return VMContext;
-}(_react2.default.Component);
-
-var ContextTypes = exports.ContextTypes = Object.assign({}, {
-    vmId: _propTypes.PropTypes.string.isRequired,
-    state: _propTypes.PropTypes.object,
-    setState: _propTypes.PropTypes.func.isRequired,
-    dispatchState: _propTypes.PropTypes.func.isRequired,
-    getPropAttributes: _propTypes.PropTypes.func
-});
-
-VMContext.childContextTypes = ContextTypes;
-
-/***/ }),
+/* 23 */,
 /* 24 */
 /***/ (function(module, exports) {
 
@@ -11734,68 +11610,7 @@ SyntheticEvent.augmentClass(SyntheticUIEvent, UIEventInterface);
 module.exports = SyntheticUIEvent;
 
 /***/ }),
-/* 38 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.FormField = undefined;
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _templateObject = _taggedTemplateLiteral(['\n    display: grid;\n    grid-template-columns: ', ';\n    -ms-user-select: none; \n    user-select: none; \n'], ['\n    display: grid;\n    grid-template-columns: ', ';\n    -ms-user-select: none; \n    user-select: none; \n']);
-
-var _react = __webpack_require__(5);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _styledComponents = __webpack_require__(17);
-
-var _styledComponents2 = _interopRequireDefault(_styledComponents);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
-
-var Container = _styledComponents2.default.div(_templateObject, function (prop) {
-    return prop.horizontal ? '1fr 4fr' : '1fr';
-});
-
-var FormField = exports.FormField = function (_React$Component) {
-    _inherits(FormField, _React$Component);
-
-    function FormField() {
-        _classCallCheck(this, FormField);
-
-        return _possibleConstructorReturn(this, (FormField.__proto__ || Object.getPrototypeOf(FormField)).apply(this, arguments));
-    }
-
-    _createClass(FormField, [{
-        key: 'render',
-        value: function render() {
-            var props = this.props;
-            return _react2.default.createElement(
-                Container,
-                props,
-                props.children
-            );
-        }
-    }]);
-
-    return FormField;
-}(_react2.default.Component);
-
-/***/ }),
+/* 38 */,
 /* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15559,47 +15374,51 @@ module.exports = function(module) {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.VMContext = exports.Form = exports.NavToggle = exports.CheckboxGroup = exports.Checkbox = exports.RadioGroup = exports.DropdownList = exports.TextAreaField = exports.PasswordField = exports.EmailField = exports.TextField = exports.Panel = exports.Section = exports.Footer = exports.NavHeader = exports.Nav = exports.Header = exports.Main = undefined;
+exports.VMContext = exports.TextAreaField = exports.PasswordField = exports.EmailField = exports.TextField = exports.RadioGroup = exports.Panel = exports.NavToggle = exports.NavHeader = exports.Section = exports.Footer = exports.Nav = exports.Header = exports.Main = exports.Form = exports.DropdownList = exports.ContextTypes = exports.CheckboxGroup = exports.Checkbox = exports.Button = undefined;
 
-var _VMContext = __webpack_require__(23);
-
-var _LayoutGrid = __webpack_require__(159);
-
-var _NavHeader = __webpack_require__(160);
-
-var _Panel = __webpack_require__(161);
-
-var _NavToggle = __webpack_require__(152);
-
-var _Form = __webpack_require__(406);
-
-var _TextField = __webpack_require__(157);
-
-var _DropdownList = __webpack_require__(155);
-
-var _RadioGroup = __webpack_require__(156);
+var _Button = __webpack_require__(407);
 
 var _Checkbox = __webpack_require__(153);
 
 var _CheckboxGroup = __webpack_require__(154);
 
+var _DropdownList = __webpack_require__(155);
+
+var _Form = __webpack_require__(406);
+
+var _LayoutGrid = __webpack_require__(159);
+
+var _NavHeader = __webpack_require__(160);
+
+var _NavToggle = __webpack_require__(152);
+
+var _Panel = __webpack_require__(161);
+
+var _RadioGroup = __webpack_require__(156);
+
+var _TextField = __webpack_require__(157);
+
+var _VMContext = __webpack_require__(408);
+
+exports.Button = _Button.Button;
+exports.Checkbox = _Checkbox.Checkbox;
+exports.CheckboxGroup = _CheckboxGroup.CheckboxGroup;
+exports.ContextTypes = _VMContext.ContextTypes;
+exports.DropdownList = _DropdownList.DropdownList;
+exports.Form = _Form.Form;
 exports.Main = _LayoutGrid.Main;
 exports.Header = _LayoutGrid.Header;
 exports.Nav = _LayoutGrid.Nav;
-exports.NavHeader = _NavHeader.NavHeader;
 exports.Footer = _LayoutGrid.Footer;
 exports.Section = _LayoutGrid.Section;
+exports.NavHeader = _NavHeader.NavHeader;
+exports.NavToggle = _NavToggle.NavToggle;
 exports.Panel = _Panel.Panel;
+exports.RadioGroup = _RadioGroup.RadioGroup;
 exports.TextField = _TextField.TextField;
 exports.EmailField = _TextField.EmailField;
 exports.PasswordField = _TextField.PasswordField;
 exports.TextAreaField = _TextField.TextAreaField;
-exports.DropdownList = _DropdownList.DropdownList;
-exports.RadioGroup = _RadioGroup.RadioGroup;
-exports.Checkbox = _Checkbox.Checkbox;
-exports.CheckboxGroup = _CheckboxGroup.CheckboxGroup;
-exports.NavToggle = _NavToggle.NavToggle;
-exports.Form = _Form.Form;
 exports.VMContext = _VMContext.VMContext;
 
 /***/ }),
@@ -31168,30 +30987,26 @@ var FormDemo = function FormDemo(_ref) {
                     null,
                     _react2.default.createElement(
                         _elementsBootstrap.Panel,
-                        { noMargin: true },
-                        _react2.default.createElement(
-                            _elementsBootstrap.Panel,
-                            { noMargin: true, childProps: { horizontal: horizontal } },
-                            _react2.default.createElement(_elementsBootstrap.TextField, { id: 'MyText' }),
-                            _react2.default.createElement(_elementsBootstrap.EmailField, { id: 'MyEmail' }),
-                            _react2.default.createElement(_elementsBootstrap.PasswordField, { id: 'MyPassword' }),
-                            _react2.default.createElement(_elementsBootstrap.DropdownList, { id: 'MyDropdown' }),
-                            _react2.default.createElement(_elementsBootstrap.TextAreaField, { id: 'MyTextArea' }),
-                            _react2.default.createElement(_elementsBootstrap.RadioGroup, { id: 'MyRadio' }),
-                            _react2.default.createElement(_elementsBootstrap.Checkbox, { id: 'MyCheckbox' }),
-                            _react2.default.createElement(_elementsBootstrap.CheckboxGroup, { id: 'MyCheckboxGroup' })
-                        ),
+                        { noMargin: true, childProps: { horizontal: horizontal } },
+                        _react2.default.createElement(_elementsBootstrap.TextField, { id: 'MyText' }),
+                        _react2.default.createElement(_elementsBootstrap.EmailField, { id: 'MyEmail' }),
+                        _react2.default.createElement(_elementsBootstrap.PasswordField, { id: 'MyPassword' }),
+                        _react2.default.createElement(_elementsBootstrap.DropdownList, { id: 'MyDropdown' }),
+                        _react2.default.createElement(_elementsBootstrap.TextAreaField, { id: 'MyTextArea' }),
+                        _react2.default.createElement(_elementsBootstrap.RadioGroup, { id: 'MyRadio' }),
+                        _react2.default.createElement(_elementsBootstrap.Checkbox, { id: 'MyCheckbox' }),
+                        _react2.default.createElement(_elementsBootstrap.CheckboxGroup, { id: 'MyCheckboxGroup' }),
                         _react2.default.createElement(
                             _elementsBootstrap.Panel,
                             { horizontal: true, right: true, noMargin: true },
                             _react2.default.createElement(
-                                _reactstrap.Button,
-                                { color: 'primary' },
+                                _elementsBootstrap.Button,
+                                { secondary: true, cancel: true },
                                 'Cancel'
                             ),
                             _react2.default.createElement(
-                                _reactstrap.Button,
-                                { color: 'primary' },
+                                _elementsBootstrap.Button,
+                                { primary: true, submit: true },
                                 'Submit'
                             )
                         )
@@ -31258,7 +31073,7 @@ var _propTypes = __webpack_require__(10);
 
 var _reactstrap = __webpack_require__(22);
 
-var _VMContext = __webpack_require__(23);
+var _VMContext = __webpack_require__(408);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -31344,9 +31159,9 @@ var _propTypes = __webpack_require__(10);
 
 var _reactstrap = __webpack_require__(22);
 
-var _FormField = __webpack_require__(38);
+var _FieldPanel = __webpack_require__(410);
 
-var _VMContext = __webpack_require__(23);
+var _VMContext = __webpack_require__(408);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -31404,7 +31219,7 @@ var CheckboxGroup = exports.CheckboxGroup = function (_React$Component) {
             });
 
             return _react2.default.createElement(
-                _FormField.FormField,
+                _FieldPanel.FieldPanel,
                 { horizontal: props.horizontal },
                 label ? _react2.default.createElement(
                     _reactstrap.Label,
@@ -31454,9 +31269,9 @@ var _propTypes = __webpack_require__(10);
 
 var _reactstrap = __webpack_require__(22);
 
-var _FormField = __webpack_require__(38);
+var _FieldPanel = __webpack_require__(410);
 
-var _VMContext = __webpack_require__(23);
+var _VMContext = __webpack_require__(408);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -31503,7 +31318,7 @@ var DropdownList = exports.DropdownList = function (_React$Component) {
             });
             var label = attrs.label || props.label;
             return _react2.default.createElement(
-                _FormField.FormField,
+                _FieldPanel.FieldPanel,
                 { horizontal: props.horizontal },
                 label ? _react2.default.createElement(
                     _reactstrap.Label,
@@ -31558,9 +31373,9 @@ var _propTypes = __webpack_require__(10);
 
 var _reactstrap = __webpack_require__(22);
 
-var _FormField = __webpack_require__(38);
+var _FieldPanel = __webpack_require__(410);
 
-var _VMContext = __webpack_require__(23);
+var _VMContext = __webpack_require__(408);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -31615,7 +31430,7 @@ var RadioGroup = exports.RadioGroup = function (_React$Component) {
             });
 
             return _react2.default.createElement(
-                _FormField.FormField,
+                _FieldPanel.FieldPanel,
                 { horizontal: props.horizontal },
                 label ? _react2.default.createElement(
                     _reactstrap.Label,
@@ -31671,9 +31486,9 @@ var _propTypes = __webpack_require__(10);
 
 var _reactstrap = __webpack_require__(22);
 
-var _FormField = __webpack_require__(38);
+var _FieldPanel = __webpack_require__(410);
 
-var _VMContext = __webpack_require__(23);
+var _VMContext = __webpack_require__(408);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -31719,20 +31534,24 @@ var TextField = exports.TextField = function (_React$Component) {
             var value = this.context.state[props.id];
             var label = attrs.label || props.label;
             return _react2.default.createElement(
-                _FormField.FormField,
+                _FieldPanel.FieldPanel,
                 { horizontal: props.horizontal },
                 label ? _react2.default.createElement(
                     _reactstrap.Label,
                     { 'for': vmId + '.' + props.id },
                     label
                 ) : null,
-                _react2.default.createElement(_reactstrap.Input, {
-                    id: vmId + '.' + props.id,
-                    type: props.type || "text",
-                    placeholder: attrs.placeholder || props.placeholder,
-                    value: value,
-                    onChange: this.handleChange,
-                    onBlur: this.handleBlur })
+                _react2.default.createElement(
+                    'div',
+                    null,
+                    _react2.default.createElement(_reactstrap.Input, {
+                        id: vmId + '.' + props.id,
+                        type: props.type || "text",
+                        placeholder: attrs.placeholder || props.placeholder,
+                        value: value,
+                        onChange: this.handleChange,
+                        onBlur: this.handleBlur })
+                )
             );
         }
     }]);
@@ -31928,6 +31747,11 @@ var Panel = exports.Panel = function (_React$Component) {
             return idx < max - 1 ? padding : 0;
         }
     }, {
+        key: 'mergeProps',
+        value: function mergeProps(elem, newProps) {
+            return Object.assign({}, newProps, elem.props);
+        }
+    }, {
         key: 'render',
         value: function render() {
             var _this2 = this;
@@ -31965,7 +31789,7 @@ var Panel = exports.Panel = function (_React$Component) {
                             equalWidth: equalWidth,
                             padding: _this2.getPadding(idx, numChildren, gap, horizontal)
                         },
-                        childProps ? _react2.default.cloneElement(child, childProps) : child
+                        childProps ? _react2.default.cloneElement(child, _this2.mergeProps(child, childProps)) : child
                     );
                 })
             );
@@ -55805,7 +55629,13 @@ var _react2 = _interopRequireDefault(_react);
 
 var _propTypes = __webpack_require__(10);
 
-var _VMContext = __webpack_require__(23);
+var _VMContext = __webpack_require__(408);
+
+var _utils = __webpack_require__(409);
+
+var utils = _interopRequireWildcard(_utils);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -55821,19 +55651,209 @@ var Form = exports.Form = function (_React$Component) {
     function Form(props) {
         _classCallCheck(this, Form);
 
-        return _possibleConstructorReturn(this, (Form.__proto__ || Object.getPrototypeOf(Form)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (Form.__proto__ || Object.getPrototypeOf(Form)).call(this, props));
+
+        _this.state = { changed: false };
+        return _this;
     }
 
     _createClass(Form, [{
         key: 'getChildContext',
         value: function getChildContext() {
+            var _this2 = this;
+
             var context = this.context;
             return {
                 vmId: context.vmId,
                 state: context.state,
                 setState: context.setState,
-                dispatchState: context.dispatchState,
+                dispatchState: function dispatchState(state) {
+                    return _this2.setState({ changed: true, data: state });
+                },
                 getPropAttributes: context.getPropAttributes
+            };
+        }
+    }, {
+        key: 'handleSubmit',
+        value: function handleSubmit() {
+            var data = this.state.data;
+
+            if (data) this.context.dispatchState(data);
+            this.setState({ changed: false, data: null });
+        }
+    }, {
+        key: 'handleCancel',
+        value: function handleCancel() {
+            this.setState({ changed: false, data: null });
+        }
+    }, {
+        key: 'mapButtons',
+        value: function mapButtons(children) {
+            var _this3 = this;
+
+            return utils.mapChildren(children, function (child) {
+                return child.props.submit || child.props.cancel;
+            }, function (child) {
+                return _react2.default.cloneElement(child, {
+                    onClick: child.props.submit ? function () {
+                        return _this3.handleSubmit();
+                    } : function () {
+                        return _this3.handleCancel();
+                    },
+                    disabled: !_this3.state.changed
+                });
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                'div',
+                null,
+                this.mapButtons(this.props.children)
+            );
+        }
+    }]);
+
+    return Form;
+}(_react2.default.Component);
+
+Form.childContextTypes = _VMContext.ContextTypes;
+Form.contextTypes = _VMContext.ContextTypes;
+
+/***/ }),
+/* 407 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.Button = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(5);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactstrap = __webpack_require__(22);
+
+var _utils = __webpack_require__(409);
+
+var utils = _interopRequireWildcard(_utils);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Button = exports.Button = function (_React$Component) {
+    _inherits(Button, _React$Component);
+
+    function Button() {
+        _classCallCheck(this, Button);
+
+        return _possibleConstructorReturn(this, (Button.__proto__ || Object.getPrototypeOf(Button)).apply(this, arguments));
+    }
+
+    _createClass(Button, [{
+        key: 'render',
+        value: function render() {
+            var props = utils.mapStyle(this.props);
+
+            var submit = props.submit,
+                cancel = props.cancel,
+                rest = _objectWithoutProperties(props, ['submit', 'cancel']);
+
+            return _react2.default.createElement(
+                _reactstrap.Button,
+                rest,
+                props.children
+            );
+        }
+    }]);
+
+    return Button;
+}(_react2.default.Component);
+
+/***/ }),
+/* 408 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.ContextTypes = exports.VMContext = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(5);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(10);
+
+var _dotnetify = __webpack_require__(57);
+
+var _dotnetify2 = _interopRequireDefault(_dotnetify);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+_dotnetify2.default.debug = true;
+
+var VMContext = exports.VMContext = function (_React$Component) {
+    _inherits(VMContext, _React$Component);
+
+    function VMContext(props) {
+        _classCallCheck(this, VMContext);
+
+        var _this = _possibleConstructorReturn(this, (VMContext.__proto__ || Object.getPrototypeOf(VMContext)).call(this, props));
+
+        if (props.vm) _this.vm = _dotnetify2.default.react.connect(props.vm, _this);
+        return _this;
+    }
+
+    _createClass(VMContext, [{
+        key: 'componentWillUnmount',
+        value: function componentWillUnmount() {
+            this.vm.$destroy();
+        }
+    }, {
+        key: 'getChildContext',
+        value: function getChildContext() {
+            var _this2 = this;
+
+            return {
+                vmId: this.props.vm,
+                state: this.state,
+                setState: function setState(state) {
+                    return _this2.setState(state);
+                },
+                dispatchState: function dispatchState(state) {
+                    return _this2.vm.$dispatch(state);
+                },
+                getPropAttributes: function getPropAttributes(propId) {
+                    return _this2.toCamelCase(_this2.state && _this2.state[propId + "_attr"] || {});
+                }
             };
         }
     }, {
@@ -55845,13 +55865,161 @@ var Form = exports.Form = function (_React$Component) {
                 this.props.children
             );
         }
+    }, {
+        key: 'toCamelCase',
+        value: function toCamelCase(obj) {
+            var newObj = {};
+            var _iteratorNormalCompletion = true;
+            var _didIteratorError = false;
+            var _iteratorError = undefined;
+
+            try {
+                for (var _iterator = Object.keys(obj)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                    var key = _step.value;
+
+                    newObj[key.substr(0, 1).toLowerCase() + key.substr(1)] = obj[key];
+                }
+            } catch (err) {
+                _didIteratorError = true;
+                _iteratorError = err;
+            } finally {
+                try {
+                    if (!_iteratorNormalCompletion && _iterator.return) {
+                        _iterator.return();
+                    }
+                } finally {
+                    if (_didIteratorError) {
+                        throw _iteratorError;
+                    }
+                }
+            }
+
+            return newObj;
+        }
     }]);
 
-    return Form;
+    return VMContext;
 }(_react2.default.Component);
 
-Form.childContextTypes = _VMContext.ContextTypes;
-Form.contextTypes = _VMContext.ContextTypes;
+var ContextTypes = exports.ContextTypes = Object.assign({}, {
+    vmId: _propTypes.PropTypes.string.isRequired,
+    state: _propTypes.PropTypes.object,
+    setState: _propTypes.PropTypes.func.isRequired,
+    dispatchState: _propTypes.PropTypes.func.isRequired,
+    getPropAttributes: _propTypes.PropTypes.func
+});
+
+VMContext.childContextTypes = ContextTypes;
+
+/***/ }),
+/* 409 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.mapChildren = mapChildren;
+exports.mapStyle = mapStyle;
+
+var _react = __webpack_require__(5);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+function mapChildren(children, predicate, mapper) {
+    var _this = this;
+
+    return _react2.default.Children.map(children, function (child) {
+        if (child.type && predicate(child)) return mapper(child);else if (child.props && child.props.children) return _react2.default.cloneElement(child, child.props, _this.mapChildren(child.props.children, predicate, mapper));
+        return child;
+    });
+}
+
+function mapStyle(props) {
+    var primary = props.primary,
+        secondary = props.secondary,
+        success = props.success,
+        danger = props.danger,
+        warning = props.warning,
+        info = props.info,
+        light = props.light,
+        dark = props.dark,
+        small = props.small,
+        large = props.large,
+        rest = _objectWithoutProperties(props, ["primary", "secondary", "success", "danger", "warning", "info", "light", "dark", "small", "large"]);
+
+    var color = primary ? "primary" : secondary ? "secondary" : success ? "success" : danger ? "danger" : warning ? "warning" : info ? "info" : light ? "light" : dark ? "dark" : null;
+    var size = small ? "sm" : large ? "lg" : null;
+    return Object.assign({}, { color: color, size: size }, rest);
+}
+
+/***/ }),
+/* 410 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.FieldPanel = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _templateObject = _taggedTemplateLiteral(['\n    display: grid;\n    grid-template-columns: ', ';\n    -ms-user-select: none; \n    user-select: none; \n'], ['\n    display: grid;\n    grid-template-columns: ', ';\n    -ms-user-select: none; \n    user-select: none; \n']);
+
+var _react = __webpack_require__(5);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _styledComponents = __webpack_require__(17);
+
+var _styledComponents2 = _interopRequireDefault(_styledComponents);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+var Container = _styledComponents2.default.div(_templateObject, function (prop) {
+    return prop.horizontal ? '1fr 4fr' : '1fr';
+});
+
+var FieldPanel = exports.FieldPanel = function (_React$Component) {
+    _inherits(FieldPanel, _React$Component);
+
+    function FieldPanel() {
+        _classCallCheck(this, FieldPanel);
+
+        return _possibleConstructorReturn(this, (FieldPanel.__proto__ || Object.getPrototypeOf(FieldPanel)).apply(this, arguments));
+    }
+
+    _createClass(FieldPanel, [{
+        key: 'render',
+        value: function render() {
+            var props = this.props;
+            return _react2.default.createElement(
+                Container,
+                props,
+                props.children
+            );
+        }
+    }]);
+
+    return FieldPanel;
+}(_react2.default.Component);
 
 /***/ })
 /******/ ]);

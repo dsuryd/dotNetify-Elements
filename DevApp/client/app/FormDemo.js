@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import dotnetify from 'dotnetify';
-import { Button, Card, CardHeader, CardBody } from 'reactstrap';
+import { Card, CardHeader, CardBody } from 'reactstrap';
 import {
+    Button,
     Checkbox,
     CheckboxGroup,
     DropdownList,
@@ -23,20 +24,18 @@ const FormDemo = ({ vm, title, horizontal }) => (
             <CardHeader>{title}</CardHeader>
             <CardBody>
                 <Form>
-                    <Panel noMargin>
-                        <Panel noMargin childProps={{ horizontal }}>
-                            <TextField id="MyText" />
-                            <EmailField id="MyEmail" />
-                            <PasswordField id="MyPassword" />
-                            <DropdownList id="MyDropdown" />
-                            <TextAreaField id="MyTextArea" />
-                            <RadioGroup id="MyRadio" />
-                            <Checkbox id="MyCheckbox" />
-                            <CheckboxGroup id="MyCheckboxGroup" />
-                        </Panel>
+                    <Panel noMargin childProps={{ horizontal: horizontal }}>
+                        <TextField id="MyText" />
+                        <EmailField id="MyEmail" />
+                        <PasswordField id="MyPassword" />
+                        <DropdownList id="MyDropdown" />
+                        <TextAreaField id="MyTextArea" />
+                        <RadioGroup id="MyRadio" />
+                        <Checkbox id="MyCheckbox" />
+                        <CheckboxGroup id="MyCheckboxGroup" />
                         <Panel horizontal right noMargin>
-                            <Button color="primary">Cancel</Button>
-                            <Button color="primary">Submit</Button>
+                            <Button secondary cancel>Cancel</Button>
+                            <Button primary submit>Submit</Button>
                         </Panel>
                     </Panel>
                 </Form>

@@ -1,11 +1,13 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
-import { ContextTypes } from '../../core/VMContext';
+import { ContextTypes } from '../../VMContext';
+import * as utils from '../../utils';
 
 export class Form extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state = { changed: false };
     }
 
     getChildContext() {
@@ -14,13 +16,34 @@ export class Form extends React.Component {
             vmId: context.vmId,
             state: context.state,
             setState: context.setState,
-            dispatchState: context.dispatchState,
+            dispatchState: state => this.setState({ changed: true, data: state }),
             getPropAttributes: context.getPropAttributes
         };
     }
 
+    handleSubmit() {
+        const { data } = this.state;
+        if (data)
+            this.context.dispatchState(data);
+        this.setState({ changed: false, data: null });
+    }
+
+    handleCancel() {
+        this.setState({ changed: false, data: null });
+    }
+
+    mapButtons(children) {
+        return utils.mapChildren(children,
+            child => child.props.submit || child.props.cancel,
+            child => React.cloneElement(child, {
+                onClick: child.props.submit ? () => this.handleSubmit() : () => this.handleCancel(),
+                disabled: !this.state.changed
+            })
+        );
+    }
+
     render() {
-        return <div>{this.props.children}</div>;
+        return <div>{this.mapButtons(this.props.children)}</div>;
     }
 }
 

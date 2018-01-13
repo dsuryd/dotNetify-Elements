@@ -1,8 +1,8 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import { FormGroup, Label, Input } from 'reactstrap';
-import { FormField } from '../layout/FormField';
-import { ContextTypes } from '../../core/VMContext';
+import { FieldPanel } from '../layout/FieldPanel';
+import { ContextTypes } from '../../VMContext';
 
 export class CheckboxGroup extends React.Component {
 
@@ -36,10 +36,10 @@ export class CheckboxGroup extends React.Component {
         ));
 
         return (
-            <FormField horizontal={props.horizontal}>
+            <FieldPanel horizontal={props.horizontal}>
                 {label ? <Label for={props.id}>{label}</Label> : null}
                 <section>{checkboxes}</section>
-            </FormField>
+            </FieldPanel>
         );
     }
 };

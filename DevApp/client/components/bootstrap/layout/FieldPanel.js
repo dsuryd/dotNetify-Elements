@@ -8,7 +8,7 @@ const Container = styled.div`
     user-select: none; 
 `;
 
-export class FormField extends React.Component {
+export class FieldPanel extends React.Component {
 
     render() {
         let props = this.props;

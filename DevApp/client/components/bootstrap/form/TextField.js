@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { PropTypes } from 'prop-types';
 import { Label, Input } from 'reactstrap';
-import { FormField } from '../layout/FormField';
-import { ContextTypes } from '../../core/VMContext';
+import { FieldPanel } from '../layout/FieldPanel';
+import { ContextTypes } from '../../VMContext';
 
 export class TextField extends React.Component {
 
@@ -34,16 +34,18 @@ export class TextField extends React.Component {
         let value = this.context.state[props.id];
         let label = attrs.label || props.label;
         return (
-            <FormField horizontal={props.horizontal}>
+            <FieldPanel horizontal={props.horizontal}>
                 {label ? <Label for={`${vmId}.${props.id}`}>{label}</Label> : null}
-                <Input
-                    id={`${vmId}.${props.id}`}
-                    type={props.type || "text"}
-                    placeholder={attrs.placeholder || props.placeholder}
-                    value={value}
-                    onChange={this.handleChange}
-                    onBlur={this.handleBlur} />
-            </FormField>
+                <div>
+                    <Input
+                        id={`${vmId}.${props.id}`}
+                        type={props.type || "text"}
+                        placeholder={attrs.placeholder || props.placeholder}
+                        value={value}
+                        onChange={this.handleChange}
+                        onBlur={this.handleBlur} />
+                </div>
+            </FieldPanel>
         );
     }
 }
