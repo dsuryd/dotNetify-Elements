@@ -19,32 +19,32 @@ using System.Collections.Generic;
 
 namespace DotNetify
 {
-   public class TextField
+   public class TextFieldAttribute
    {
       public string Label { get; set; }
       public string Placeholder { get; set; }
    }
 
-   public class DropdownList
+   public class DropdownListAttribute
    {
       public string Label { get; set; }
       public KeyValuePair<string, string>[] Options { get; set; }
    }
 
-   public class RadioGroup
+   public class RadioGroupAttribute
    {
       public string Label { get; set; }
       public KeyValuePair<string, string>[] Options { get; set; }
    }
 
-   public class Checkbox
+   public class CheckboxAttribute
    {
       public string Label { get; set; }
    }
 
-   public class CheckboxGroup
+   public class CheckboxGroupAttribute
    {
-       public string Label { get; set; }
-       public KeyValuePair<string, string> Options { get; set; }
+      public string Label { get; set; }
+      public KeyValuePair<string, string> Options { get; set; }
    }
 }

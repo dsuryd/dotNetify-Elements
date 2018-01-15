@@ -9,7 +9,7 @@ export class VMContext extends React.Component {
 
     constructor(props) {
         super(props);
-        if (props.vm)
+        if (props.vm) 
             this.vm = dotnetify.react.connect(props.vm, this);
     }
 
@@ -19,7 +19,9 @@ export class VMContext extends React.Component {
 
     getChildContext() {
         return {
+            ...this.context,
             vmId: this.props.vm,
+            vm: this.vm,
             state: this.state,
             setState: state => this.setState(state),
             dispatchState: state => this.vm.$dispatch(state),
@@ -41,10 +43,11 @@ export class VMContext extends React.Component {
 
 export const ContextTypes = Object.assign({}, {
     vmId: PropTypes.string.isRequired,
+    vm: PropTypes.object.isRequired,
     state: PropTypes.object,
     setState: PropTypes.func.isRequired,
     dispatchState: PropTypes.func.isRequired,
-    getPropAttributes: PropTypes.func    
+    getPropAttributes: PropTypes.func.isRequired    
 });
 
 VMContext.childContextTypes = ContextTypes;

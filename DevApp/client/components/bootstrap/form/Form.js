@@ -13,11 +13,8 @@ export class Form extends React.Component {
     getChildContext() {
         let context = this.context;
         return {
-            vmId: context.vmId,
-            state: context.state,
-            setState: context.setState,
-            dispatchState: state => this.setState({ changed: true, data: state }),
-            getPropAttributes: context.getPropAttributes
+            ...this.context,
+            dispatchState: state => this.setState({ changed: true, data: state })
         };
     }
 

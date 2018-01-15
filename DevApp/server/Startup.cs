@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -28,7 +29,7 @@ namespace dotNetify_forms
          app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
          {
             HotModuleReplacement = true,
-            ReactHotModuleReplacement = true
+            ReactHotModuleReplacement = false
          });
 
          app.UseStaticFiles();
@@ -38,8 +39,8 @@ namespace dotNetify_forms
             var uri = context.Request.Path.ToUriComponent();
             if (uri.EndsWith(".map"))
                return;
-            else if (uri.EndsWith("_hmr"))  // Fix HMR for deep links.
-                  context.Response.Redirect("/dist/__webpack_hmr");
+            else if (uri.EndsWith("_hmr") || uri.Contains("hot-update"))  // Fix HMR for deep links.
+               context.Response.Redirect(Regex.Replace(uri, ".+/dist", "/dist"));
 
             using (var reader = new StreamReader(File.OpenRead("wwwroot/index.html")))
                await context.Response.WriteAsync(reader.ReadToEnd());

@@ -21,12 +21,12 @@
     "react-chartjs-2": "^2.6.4",
     "react-dom": "15.6.2",
     "react-hot-loader": "3.1.1",
-    "react-icons": "^2.2.7",
+    "react-icons": "2.2.7",
     "reactstrap": "^5.0.0-alpha.4",
     "style-loader": "0.19.0",
-    "styled-components": "^2.3.0",
+    "styled-components": "2.4.0",
     "url-loader": "0.6.2",
-    "webpack": "2.5.1",
-    "webpack-hot-middleware": "2.18.2"
+    "webpack": "3.10.0",
+    "webpack-hot-middleware": "2.21.0"
   }
 }

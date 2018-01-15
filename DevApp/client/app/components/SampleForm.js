@@ -16,9 +16,9 @@ import {
     PasswordField,
     RadioGroup,
     VMContext
-} from '../elements-bootstrap';
+} from '../../elements-bootstrap';
 
-const FormDemo = ({ vm, title, horizontal }) => (
+const SampleForm = ({ vm, title, horizontal }) => (
     <VMContext vm={vm}>
         <Card>
             <CardHeader>{title}</CardHeader>
@@ -44,4 +44,4 @@ const FormDemo = ({ vm, title, horizontal }) => (
     </VMContext>
 );
 
-export default FormDemo;
+export default SampleForm;

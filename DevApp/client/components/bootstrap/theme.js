@@ -4,7 +4,8 @@ const DefaultTheme = {
     navHeader: 'white',    
     footer: 'white',
     section: 'rgb(228, 229, 230)',    
-    icon: '#a4b7c1'
+    
+    font: 'white'
 };
 
 export default DefaultTheme;
