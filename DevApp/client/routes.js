@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import dotnetify from 'dotnetify';
-import { App, FormDemo, HorizontalFormDemo } from 'app/views';
+import App from 'app/views/App';
+import FormDemo from 'app/views/FormDemo';
+import HorizontalFormDemo from 'app/views/HorizontalFormDemo';
 
 // Import all the routeable views into the global window variable.
 Object.assign(window, {
