@@ -5,7 +5,8 @@ const DefaultTheme = {
     footer: 'white',
     section: 'rgb(228, 229, 230)',    
     
-    font: 'white'
+    navRoute: '#868e96',
+    navGroup: '#868e96'
 };
 
 export default DefaultTheme;

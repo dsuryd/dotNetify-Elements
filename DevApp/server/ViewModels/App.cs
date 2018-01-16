@@ -29,8 +29,14 @@ namespace dotNetify_Elements
          AddProperty("NavMenu", new NavMenu(
             new NavMenuItem[]
             {
-               new NavMenuItem { Label = "Form Elements", Route = this.GetRoute(nameof(Route.FormDemo)) },
-               new NavMenuItem { Label = "Horizontal Form", Route = this.GetRoute(nameof(Route.HorizontalFormDemo)) }
+               new NavGroup {
+                  Label = "Form Elements",
+                  Routes = new NavRoute[]
+                  {
+                     new NavRoute { Label = "Vertical Form", Route = this.GetRoute(nameof(Route.FormDemo)) },
+                     new NavRoute { Label = "Horizontal Form", Route = this.GetRoute(nameof(Route.HorizontalFormDemo)) }
+                  }
+               }
             }));
       }
    }

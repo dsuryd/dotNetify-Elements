@@ -1,19 +1,46 @@
 import React from 'react';
-import { PropTypes } from 'prop-types';
 import styled from 'styled-components';
-import { Label } from 'reactstrap';
+import { PropTypes } from 'prop-types';
 import { ContextTypes } from '../VMContext';
+import { Panel } from '../bootstrap/layout/Panel';
+import { Collapsible } from '../bootstrap/layout/Collapsible';
 import { RouteLink } from 'dotnetify/dist/dotnetify-react.router';
 
-const Container = styled.div`
-    display: flex;
-    flex-direction: column;
-    color: ${props => props.theme.font};
-    background: ${props => props.theme.nav};
-    margin: 1rem;
+const Container = styled.div``;
+
+const GroupToggleContainer = styled.div`
+    &:hover {
+        cursor: pointer;
+    }
 `;
 
-const ChildContainer = styled.div`
+const GroupContainer = props => (
+    <Collapsible
+        toggleContainer={GroupToggleContainer}
+        {...props}
+    >
+        {props.children}
+    </Collapsible>
+);
+
+const GroupLabel = styled.div`
+    color: ${props => props.theme.navGroup};
+    padding: 1rem;
+    &:hover {
+        color: #adb5bd;
+    }    
+`;
+
+const RouteContainer = styled.div`
+`;
+
+const RouteLabel = styled.div`
+    color: ${props => props.theme.navRoute};
+    padding: 1rem;
+    &:hover {
+        color: #adb5bd;
+        text-decoration: none;
+    }        
 `;
 
 export const NavMenuTarget = _ => (<div id="NavMenuTarget" />);
@@ -26,29 +53,39 @@ export class NavMenu extends React.Component {
 
     componentWillMount() {
         if (this.context.vm)
-        this.context.vm.onRouteEnter = (path, template) => template.Target = this.props.target || "NavMenuTarget";
+            this.context.vm.onRouteEnter = (path, template) => template.Target = this.props.target || "NavMenuTarget";
+    }
+
+    buildRoute(navRoute) {
+        let _RouteContainer = this.props.routeContainer || RouteContainer;
+        let _RouteLabel = this.props.routeLabelComponent || RouteLabel;
+        return (
+            <_RouteContainer key={navRoute.Route.TemplateId}>
+                <RouteLink vm={this.context.vm} route={navRoute.Route}>
+                    <_RouteLabel>{navRoute.Label}</_RouteLabel>
+                </RouteLink>
+            </_RouteContainer>
+        );
     }
 
     render() {
-        if (!this.context.state)
-            return null;
+        let _Container = this.props.container || Container;
+        let _GroupContainer = this.props.groupContainer || GroupContainer;
+        let _GroupLabelComponent = this.props.groupLabelComponent || GroupLabel;
 
         let vmId = this.context.vmId;
         let props = this.props;
-        let value = this.context.state[props.id];
+        let value = this.context.getState(props.id) || [];
 
-        let menu = value.map((menuItem, idx) => (
-            <ChildContainer key={idx}>
-                <RouteLink vm={this.context.vm} route={menuItem.Route}>
-                    <Label>{menuItem.Label}</Label>                
-                </RouteLink>
-            </ChildContainer>
-        ));
-        return (
-            <Container>
-                {menu}
-            </Container>
-        )
+        let navMenu = value.map((navItem, idx) => {
+            return navItem.Routes ? (
+                <_GroupContainer key={idx} label={navItem.Label} labelComponent={_GroupLabelComponent}>
+                    {navItem.Routes.map(navRoute => this.buildRoute(navRoute))}
+                </_GroupContainer>
+            ) : this.buildRoute(navItem);
+        });
+
+        return <_Container>{navMenu}</_Container>;
     }
 };
 

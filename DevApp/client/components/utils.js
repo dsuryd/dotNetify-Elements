@@ -11,15 +11,15 @@ export function mapChildren(children, predicate, mapper) {
 }
 
 export function mapStyle(props) {
-    const { primary, secondary, success, danger, warning, info, light, dark, small, large, ...rest } = props;
-    const color = primary ? "primary"
+    const { color, size, primary, secondary, success, danger, warning, info, light, dark, small, large, ...rest } = props;
+    const _color = primary ? "primary"
         : secondary ? "secondary"
             : success ? "success"
                 : danger ? "danger"
                     : warning ? "warning"
                         : info ? "info"
                             : light ? "light"
-                                : dark ? "dark" : null;
-    const size = small ? "sm" : large ? "lg" : null;
-    return Object.assign({}, { color: color, size: size }, rest);
+                                : dark ? "dark" : color;
+    const _size = small ? "sm" : large ? "lg" : size;
+    return Object.assign({}, { color: _color, size: _size }, rest);
 }

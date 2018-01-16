@@ -1,6 +1,7 @@
 import { Button } from './components/bootstrap/form/Button';
 import { Checkbox } from './components/bootstrap/form/Checkbox';
 import { CheckboxGroup } from './components/bootstrap/form/CheckboxGroup';
+import { Collapsible } from './components/bootstrap/layout/Collapsible';
 import { DropdownList } from './components/bootstrap/form/DropdownList';
 import { Form } from './components/bootstrap/form/Form';
 import { Main, Header, Nav, Footer, Section } from './components/bootstrap/layout/LayoutGrid';
@@ -18,6 +19,7 @@ export {
     Button,
     Checkbox,
     CheckboxGroup,
+    Collapsible,
     ContextTypes,
     DropdownList,
     Form,

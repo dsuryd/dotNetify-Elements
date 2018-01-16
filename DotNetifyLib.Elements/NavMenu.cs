@@ -31,7 +31,17 @@ namespace DotNetify
    {
       public string Label { get; set; }
       public string Icon { get; set; }
+   }
+
+   public class NavGroup : NavMenuItem
+   {
+      public bool IsExpanded { get; set; }
+
+      public NavRoute[] Routes { get; set; }
+   }
+
+   public class NavRoute : NavMenuItem
+   {
       public Route Route { get; set; }
-      public NavMenu SubMenu { get; set; }
    }
 }
