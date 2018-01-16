@@ -16,28 +16,27 @@ export class Checkbox extends React.Component {
     }
 
     render() {
-        if (!this.context.state)
-            return null;
+        let _Label = this.props.checkLabelComponent || Label;
 
         let vmId = this.context.vmId;
         let props = this.props;
-        let value = this.context.state[props.id];
+        let value = this.context.getState(props.id) || false;
         let attrs = this.context.getPropAttributes(props.id);
         let label = attrs.label || props.label;
         return (
             <FormGroup check>
-                <Label check>
+                <_Label check>
                     <Input type="checkbox" name={`${vmId}.${props.id}`} checked={value} onChange={this.handleChange} />
                     {label}
-                </Label>
+                </_Label>
             </FormGroup>
         )
     }
 };
 
+Checkbox.contextTypes = ContextTypes;
+
 Checkbox.propTypes = {
     id: PropTypes.string.isRequired,
     label: PropTypes.string,
 };
-
-Checkbox.contextTypes = ContextTypes;

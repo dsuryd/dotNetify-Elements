@@ -5,6 +5,10 @@ import { Label, Input } from 'reactstrap';
 import { FieldPanel } from '../layout/FieldPanel';
 import { ContextTypes } from '../../VMContext';
 
+const InputContainer = styled.div`
+    width: calc(100% - 1px);
+`;
+
 export class TextField extends React.Component {
 
     constructor(props) {
@@ -25,18 +29,18 @@ export class TextField extends React.Component {
     }
 
     render() {
-        if (!this.context.state)
-            return null;
+        let _Container = this.props.container || FieldPanel;
+        let _Label = this.props.labelComponent || Label;
 
         let vmId = this.context.vmId;
         let props = this.props;
         let attrs = this.context.getPropAttributes(props.id);
-        let value = this.context.state[props.id];
+        let value = this.context.getState(props.id) || "";
         let label = attrs.label || props.label;
         return (
-            <FieldPanel horizontal={props.horizontal}>
-                {label ? <Label for={`${vmId}.${props.id}`}>{label}</Label> : null}
-                <div>
+            <_Container horizontal={props.horizontal}>
+                {label ? <_Label for={`${vmId}.${props.id}`}>{label}</_Label> : null}
+                <InputContainer>
                     <Input
                         id={`${vmId}.${props.id}`}
                         type={props.type || "text"}
@@ -44,8 +48,8 @@ export class TextField extends React.Component {
                         value={value}
                         onChange={this.handleChange}
                         onBlur={this.handleBlur} />
-                </div>
-            </FieldPanel>
+                </InputContainer>
+            </_Container>
         );
     }
 }

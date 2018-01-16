@@ -15,7 +15,6 @@ Object.assign(window, {
 if (module.hot) {
   const render = (react, elemId) => {
 
-     //dotnetify.react.getViewModels().forEach(vm => vm.$destroy());
      ReactDOM.unmountComponentAtNode(document.getElementById(elemId));
      ReactDOM.render(React.createElement(react), document.getElementById(elemId));
   }

@@ -17,18 +17,18 @@ export class DropdownList extends React.Component {
     }
 
     render() {
-        if (!this.context.state)
-            return null;
+        let _Container = this.props.container || FieldPanel;
+        let _Label = this.props.labelComponent || Label;  
 
         let vmId = this.context.vmId;
         let props = this.props;
-        let value = this.context.state[props.id];
+        let value = this.context.getState(props.id);
         let attrs = this.context.getPropAttributes(props.id);
         let options = (attrs.options || []).map(opt => <option key={opt.Key} value={opt.Key}>{opt.Value}</option>);
         let label = attrs.label || props.label;
         return (
-            <FieldPanel horizontal={props.horizontal}>
-                {label ? <Label for={`${vmId}.${props.id}`}>{label}</Label> : null}
+            <_Container horizontal={props.horizontal}>
+                {label ? <_Label for={`${vmId}.${props.id}`}>{label}</_Label> : null}
                 <Input
                     id={`${vmId}.${props.id}`}
                     type="select"
@@ -37,14 +37,14 @@ export class DropdownList extends React.Component {
                 >
                     {options}
                 </Input>
-            </FieldPanel>
+            </_Container>
         )
     }
 };
+
+DropdownList.contextTypes = ContextTypes;
 
 DropdownList.propTypes = {
     id: PropTypes.string.isRequired,
     label: PropTypes.string,
 };
-
-DropdownList.contextTypes = ContextTypes;

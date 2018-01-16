@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "f21e4879628e83a75468"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "58e1a9756c430d1848ff"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -9959,7 +9959,10 @@ var VMContext = exports.VMContext = function (_React$Component) {
 
         var _this = _possibleConstructorReturn(this, (VMContext.__proto__ || Object.getPrototypeOf(VMContext)).call(this, props));
 
-        if (props.vm) _this.vm = _dotnetify2.default.react.connect(props.vm, _this);
+        if (props.vm) {
+            _this.removeOrphan(props.vm);
+            _this.vm = _dotnetify2.default.react.connect(props.vm, _this);
+        }
         return _this;
     }
 
@@ -9977,6 +9980,9 @@ var VMContext = exports.VMContext = function (_React$Component) {
                 vmId: this.props.vm,
                 vm: this.vm,
                 state: this.state,
+                getState: function getState(id) {
+                    return _this2.state && _this2.state[id] || undefined;
+                },
                 setState: function setState(state) {
                     return _this2.setState(state);
                 },
@@ -10028,6 +10034,15 @@ var VMContext = exports.VMContext = function (_React$Component) {
 
             return newObj;
         }
+    }, {
+        key: 'removeOrphan',
+        value: function removeOrphan(vmId) {
+            _dotnetify2.default.react.getViewModels().filter(function (vm) {
+                return vm.$vmId === vmId;
+            }).forEach(function (vm) {
+                return vm.$destroy();
+            });
+        }
     }]);
 
     return VMContext;
@@ -10037,6 +10052,7 @@ var ContextTypes = exports.ContextTypes = Object.assign({}, {
     vmId: _propTypes.PropTypes.string.isRequired,
     vm: _propTypes.PropTypes.object.isRequired,
     state: _propTypes.PropTypes.object,
+    getState: _propTypes.PropTypes.func.isRequired,
     setState: _propTypes.PropTypes.func.isRequired,
     dispatchState: _propTypes.PropTypes.func.isRequired,
     getPropAttributes: _propTypes.PropTypes.func.isRequired
@@ -47711,18 +47727,18 @@ var Checkbox = exports.Checkbox = function (_React$Component) {
     _createClass(Checkbox, [{
         key: 'render',
         value: function render() {
-            if (!this.context.state) return null;
+            var _Label = this.props.checkLabelComponent || _reactstrap.Label;
 
             var vmId = this.context.vmId;
             var props = this.props;
-            var value = this.context.state[props.id];
+            var value = this.context.getState(props.id) || false;
             var attrs = this.context.getPropAttributes(props.id);
             var label = attrs.label || props.label;
             return _react2.default.createElement(
                 _reactstrap.FormGroup,
                 { check: true },
                 _react2.default.createElement(
-                    _reactstrap.Label,
+                    _Label,
                     { check: true },
                     _react2.default.createElement(_reactstrap.Input, { type: 'checkbox', name: vmId + '.' + props.id, checked: value, onChange: this.handleChange }),
                     label
@@ -47736,12 +47752,12 @@ var Checkbox = exports.Checkbox = function (_React$Component) {
 
 ;
 
+Checkbox.contextTypes = _VMContext.ContextTypes;
+
 Checkbox.propTypes = {
     id: _propTypes.PropTypes.string.isRequired,
     label: _propTypes.PropTypes.string
 };
-
-Checkbox.contextTypes = _VMContext.ContextTypes;
 
 /***/ }),
 /* 230 */
@@ -49390,11 +49406,13 @@ var CheckboxGroup = exports.CheckboxGroup = function (_React$Component) {
         value: function render() {
             var _this2 = this;
 
-            if (!this.context.state) return null;
+            var _Container = this.props.container || _FieldPanel.FieldPanel;
+            var _Label = this.props.labelComponent || _reactstrap.Label;
+            var _CheckLabel = this.props.checkLabelComponent || _reactstrap.Label;
 
             var vmId = this.context.vmId;
             var props = this.props;
-            var values = this.context.state[props.id] || [];
+            var values = this.context.getState(props.id) || [];
             var attrs = this.context.getPropAttributes(props.id);
             var label = attrs.label || props.label;
             var checkboxes = (attrs.options || []).map(function (opt) {
@@ -49402,7 +49420,7 @@ var CheckboxGroup = exports.CheckboxGroup = function (_React$Component) {
                     _reactstrap.FormGroup,
                     { check: true, key: opt.Key, inline: props.inline },
                     _react2.default.createElement(
-                        _reactstrap.Label,
+                        _CheckLabel,
                         { check: true, id: vmId + '.' + props.id },
                         _react2.default.createElement(_reactstrap.Input, { type: 'checkbox', value: opt.Key, checked: values.includes(opt.Key), onChange: _this2.handleChange }),
                         opt.Value
@@ -49411,10 +49429,10 @@ var CheckboxGroup = exports.CheckboxGroup = function (_React$Component) {
             });
 
             return _react2.default.createElement(
-                _FieldPanel.FieldPanel,
+                _Container,
                 { horizontal: props.horizontal },
                 label ? _react2.default.createElement(
-                    _reactstrap.Label,
+                    _Label,
                     { 'for': props.id },
                     label
                 ) : null,
@@ -49432,12 +49450,12 @@ var CheckboxGroup = exports.CheckboxGroup = function (_React$Component) {
 
 ;
 
+CheckboxGroup.contextTypes = _VMContext.ContextTypes;
+
 CheckboxGroup.propTypes = {
     id: _propTypes.PropTypes.string.isRequired,
     label: _propTypes.PropTypes.string
 };
-
-CheckboxGroup.contextTypes = _VMContext.ContextTypes;
 
 /***/ }),
 /* 238 */
@@ -49495,11 +49513,12 @@ var DropdownList = exports.DropdownList = function (_React$Component) {
     _createClass(DropdownList, [{
         key: 'render',
         value: function render() {
-            if (!this.context.state) return null;
+            var _Container = this.props.container || _FieldPanel.FieldPanel;
+            var _Label = this.props.labelComponent || _reactstrap.Label;
 
             var vmId = this.context.vmId;
             var props = this.props;
-            var value = this.context.state[props.id];
+            var value = this.context.getState(props.id);
             var attrs = this.context.getPropAttributes(props.id);
             var options = (attrs.options || []).map(function (opt) {
                 return _react2.default.createElement(
@@ -49510,10 +49529,10 @@ var DropdownList = exports.DropdownList = function (_React$Component) {
             });
             var label = attrs.label || props.label;
             return _react2.default.createElement(
-                _FieldPanel.FieldPanel,
+                _Container,
                 { horizontal: props.horizontal },
                 label ? _react2.default.createElement(
-                    _reactstrap.Label,
+                    _Label,
                     { 'for': vmId + '.' + props.id },
                     label
                 ) : null,
@@ -49536,12 +49555,12 @@ var DropdownList = exports.DropdownList = function (_React$Component) {
 
 ;
 
+DropdownList.contextTypes = _VMContext.ContextTypes;
+
 DropdownList.propTypes = {
     id: _propTypes.PropTypes.string.isRequired,
     label: _propTypes.PropTypes.string
 };
-
-DropdownList.contextTypes = _VMContext.ContextTypes;
 
 /***/ }),
 /* 239 */
@@ -49598,10 +49617,9 @@ var Form = exports.Form = function (_React$Component) {
         value: function getChildContext() {
             var _this2 = this;
 
-            var context = this.context;
             return _extends({}, this.context, {
                 dispatchState: function dispatchState(state) {
-                    return _this2.setState({ changed: true, data: state });
+                    return _this2.setState({ changed: true, data: Object.assign({}, _this2.state.data, state) });
                 }
             });
         }
@@ -50972,11 +50990,13 @@ var RadioGroup = exports.RadioGroup = function (_React$Component) {
         value: function render() {
             var _this2 = this;
 
-            if (!this.context.state) return null;
+            var _Container = this.props.container || _FieldPanel.FieldPanel;
+            var _Label = this.props.labelComponent || _reactstrap.Label;
+            var _RadioLabel = this.props.radioLabelComponent || _reactstrap.Label;
 
             var vmId = this.context.vmId;
             var props = this.props;
-            var value = this.context.state[props.id];
+            var value = this.context.getState(props.id);
             var attrs = this.context.getPropAttributes(props.id);
             var label = attrs.label || props.label;
             var radio = (attrs.options || []).map(function (opt) {
@@ -50984,7 +51004,7 @@ var RadioGroup = exports.RadioGroup = function (_React$Component) {
                     _reactstrap.FormGroup,
                     { check: true, key: opt.Key, id: vmId + '.' + props.id },
                     _react2.default.createElement(
-                        _reactstrap.Label,
+                        _RadioLabel,
                         { check: true },
                         _react2.default.createElement(_reactstrap.Input, { type: 'radio', name: vmId + '.' + props.id, value: opt.Key, checked: opt.Key == value, onChange: _this2.handleChange }),
                         opt.Value
@@ -50993,10 +51013,10 @@ var RadioGroup = exports.RadioGroup = function (_React$Component) {
             });
 
             return _react2.default.createElement(
-                _FieldPanel.FieldPanel,
+                _Container,
                 { horizontal: props.horizontal },
                 label ? _react2.default.createElement(
-                    _reactstrap.Label,
+                    _Label,
                     { 'for': props.id },
                     label
                 ) : null,
@@ -51014,12 +51034,12 @@ var RadioGroup = exports.RadioGroup = function (_React$Component) {
 
 ;
 
+RadioGroup.contextTypes = _VMContext.ContextTypes;
+
 RadioGroup.propTypes = {
     id: _propTypes.PropTypes.string.isRequired,
     label: _propTypes.PropTypes.string
 };
-
-RadioGroup.contextTypes = _VMContext.ContextTypes;
 
 /***/ }),
 /* 248 */
@@ -51036,6 +51056,8 @@ exports.TextAreaField = exports.PasswordField = exports.EmailField = exports.Tex
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _templateObject = _taggedTemplateLiteral(['\n    width: calc(100% - 1px);\n'], ['\n    width: calc(100% - 1px);\n']);
 
 var _react = __webpack_require__(4);
 
@@ -51063,6 +51085,10 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+var InputContainer = _styledComponents2.default.div(_templateObject);
+
 var TextField = exports.TextField = function (_React$Component) {
     _inherits(TextField, _React$Component);
 
@@ -51089,23 +51115,24 @@ var TextField = exports.TextField = function (_React$Component) {
     _createClass(TextField, [{
         key: 'render',
         value: function render() {
-            if (!this.context.state) return null;
+            var _Container = this.props.container || _FieldPanel.FieldPanel;
+            var _Label = this.props.labelComponent || _reactstrap.Label;
 
             var vmId = this.context.vmId;
             var props = this.props;
             var attrs = this.context.getPropAttributes(props.id);
-            var value = this.context.state[props.id];
+            var value = this.context.getState(props.id) || "";
             var label = attrs.label || props.label;
             return _react2.default.createElement(
-                _FieldPanel.FieldPanel,
+                _Container,
                 { horizontal: props.horizontal },
                 label ? _react2.default.createElement(
-                    _reactstrap.Label,
+                    _Label,
                     { 'for': vmId + '.' + props.id },
                     label
                 ) : null,
                 _react2.default.createElement(
-                    'div',
+                    InputContainer,
                     null,
                     _react2.default.createElement(_reactstrap.Input, {
                         id: vmId + '.' + props.id,
@@ -51359,7 +51386,6 @@ Object.assign(window, {
 if (true) {
   var render = function render(react, elemId) {
 
-    //dotnetify.react.getViewModels().forEach(vm => vm.$destroy());
     _reactDom2.default.unmountComponentAtNode(document.getElementById(elemId));
     _reactDom2.default.render(_react2.default.createElement(react), document.getElementById(elemId));
   };

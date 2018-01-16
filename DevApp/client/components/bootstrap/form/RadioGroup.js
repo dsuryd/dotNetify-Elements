@@ -17,35 +17,36 @@ export class RadioGroup extends React.Component {
     }    
 
     render() {
-        if (!this.context.state)
-            return null;
+        let _Container = this.props.container || FieldPanel;   
+        let _Label = this.props.labelComponent || Label;   
+        let _RadioLabel = this.props.radioLabelComponent || Label;
 
         let vmId = this.context.vmId;
         let props = this.props;
-        let value = this.context.state[props.id];
+        let value = this.context.getState(props.id);
         let attrs = this.context.getPropAttributes(props.id);
         let label = attrs.label || props.label;
         let radio = (attrs.options || []).map(opt => (
             <FormGroup check key={opt.Key} id={`${vmId}.${props.id}`}>
-                <Label check>
+                <_RadioLabel check>
                     <Input type="radio" name={`${vmId}.${props.id}`} value={opt.Key} checked={opt.Key == value} onChange={this.handleChange} />
                     {opt.Value}
-                </Label>
+                </_RadioLabel>
             </FormGroup>
         ));
 
         return (
-            <FieldPanel horizontal={props.horizontal}>
-                {label ? <Label for={props.id}>{label}</Label> : null}
+            <_Container horizontal={props.horizontal}>
+                {label ? <_Label for={props.id}>{label}</_Label> : null}
                 <section>{radio}</section>
-            </FieldPanel>
+            </_Container>
         );
     }
 };
+
+RadioGroup.contextTypes = ContextTypes;
 
 RadioGroup.propTypes = {
     id: PropTypes.string.isRequired,
     label: PropTypes.string,
 };
-
-RadioGroup.contextTypes = ContextTypes;

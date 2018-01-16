@@ -11,10 +11,9 @@ export class Form extends React.Component {
     }
 
     getChildContext() {
-        let context = this.context;
         return {
             ...this.context,
-            dispatchState: state => this.setState({ changed: true, data: state })
+            dispatchState: state => this.setState({ changed: true, data: Object.assign({}, this.state.data, state) })
         };
     }
 
