@@ -3,12 +3,13 @@ import styled from 'styled-components';
 import { PropTypes } from 'prop-types';
 import { ContextTypes } from '../../VMContext';
 import { Panel } from '../layout/Panel';
-import { Collapsible } from '../layout/Collapsible';
+import { Collapsible, ToggleContainer } from '../layout/Collapsible';
 import { RouteLink } from 'dotnetify/dist/dotnetify-react.router';
 
 const Container = styled.div``;
 
-const GroupToggleContainer = styled.div`
+const GroupToggleContainer =ToggleContainer.extend`
+    color: ${props => props.theme.navGroup};
     &:hover {
         cursor: pointer;
     }
@@ -24,7 +25,6 @@ const GroupContainer = props => (
 );
 
 const GroupLabel = styled.div`
-    color: ${props => props.theme.navGroup};
     padding: 1rem;
     &:hover {
         color: #adb5bd;
