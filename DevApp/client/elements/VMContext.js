@@ -33,7 +33,7 @@ export class VMContext extends React.Component {
     }
 
     render() {
-        return <div>{this.props.children}</div>;
+        return this.state ? <div>{this.props.children}</div> : null;
     }
 
     toCamelCase(obj) {

@@ -23,13 +23,13 @@ export const Header = styled.header`
     grid-area: header;
     display: flex;
     align-items: center;
-    height: 55px;
+    height: ${props => props.height || '55px'}; 
     background: ${props => props.theme.header};    
 `;
 
 export const Nav = styled.nav`
     grid-area: nav;
-    width: 200px;
+    width: ${props => props.width || '250px'};
     background: ${props => props.theme.nav};    
 `;
 

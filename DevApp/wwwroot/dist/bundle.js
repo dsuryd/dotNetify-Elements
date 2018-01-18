@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "7d09476ef823b0d82c94"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "6fe943ec11a091a3afa0"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -9997,11 +9997,11 @@ var VMContext = exports.VMContext = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            return _react2.default.createElement(
+            return this.state ? _react2.default.createElement(
                 'div',
                 null,
                 this.props.children
-            );
+            ) : null;
         }
     }, {
         key: 'toCamelCase',
@@ -30391,11 +30391,11 @@ exports.default = DefaultTheme;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.Panel = undefined;
+exports.Panel = exports.ChildContainer = exports.Container = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _templateObject = _taggedTemplateLiteral(['\n    display: flex;\n    justify-content: ', '; \n    flex-direction: ', ';\n    margin: ', '\n'], ['\n    display: flex;\n    justify-content: ', '; \n    flex-direction: ', ';\n    margin: ', '\n']),
+var _templateObject = _taggedTemplateLiteral(['\n    display: flex;\n    justify-content: ', '; \n    flex-direction: ', ';\n    margin: ', ';\n    height: ', ';\n    width: ', ';\n'], ['\n    display: flex;\n    justify-content: ', '; \n    flex-direction: ', ';\n    margin: ', ';\n    height: ', ';\n    width: ', ';\n']),
     _templateObject2 = _taggedTemplateLiteral(['\n    padding: ', ';\n    flex-grow: ', ';\n    flex-basis: ', ';\n'], ['\n    padding: ', ';\n    flex-grow: ', ';\n    flex-basis: ', ';\n']);
 
 var _react = __webpack_require__(3);
@@ -30416,15 +30416,19 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var Container = _styledComponents2.default.div(_templateObject, function (props) {
+var Container = exports.Container = _styledComponents2.default.div(_templateObject, function (props) {
     return props.right ? 'flex-end' : 'flex-start';
 }, function (props) {
     return props.horizontal ? 'row' : 'column';
 }, function (props) {
     return props.margin;
+}, function (props) {
+    return props.height;
+}, function (props) {
+    return props.width;
 });
 
-var ChildContainer = _styledComponents2.default.div(_templateObject2, function (props) {
+var ChildContainer = exports.ChildContainer = _styledComponents2.default.div(_templateObject2, function (props) {
     return props.padding;
 }, function (props) {
     return props.stretch ? '1' : '0';
@@ -30458,6 +30462,8 @@ var Panel = exports.Panel = function (_React$Component) {
             var _this2 = this;
 
             var _props = this.props,
+                container = _props.container,
+                childContainer = _props.childContainer,
                 childProps = _props.childProps,
                 equalWidth = _props.equalWidth,
                 gap = _props.gap,
@@ -30468,23 +30474,30 @@ var Panel = exports.Panel = function (_React$Component) {
                 noMargin = _props.noMargin,
                 smallMargin = _props.smallMargin,
                 right = _props.right,
-                stretch = _props.stretch;
+                stretch = _props.stretch,
+                height = _props.height,
+                width = _props.width;
 
             var numChildren = _react2.default.Children.count(this.props.children);
 
             gap = gap || (noGap ? "0" : smallGap ? ".5rem" : "1rem");
             margin = margin || (noMargin ? "0" : smallMargin ? ".5rem" : "1rem");
 
+            var _Container = container || Container;
+            var _ChildContainer = childContainer || ChildContainer;
+
             return _react2.default.createElement(
-                Container,
+                _Container,
                 {
                     margin: margin,
                     horizontal: horizontal,
-                    right: right
+                    right: right,
+                    width: width,
+                    height: height
                 },
                 _react2.default.Children.map(this.props.children, function (child, idx) {
                     return _react2.default.createElement(
-                        ChildContainer,
+                        _ChildContainer,
                         {
                             stretch: stretch,
                             equalWidth: equalWidth,
@@ -50160,8 +50173,8 @@ Object.defineProperty(exports, "__esModule", {
 exports.Section = exports.Footer = exports.Nav = exports.Header = exports.Main = undefined;
 
 var _templateObject = _taggedTemplateLiteral(['\n    display: grid;\n    height: 100%;\n    grid-template-columns: auto 1fr;\n    grid-template-rows: auto 1fr auto;\n    grid-template-areas:    "header header"\n                            "nav    section"\n                            "nav    footer";\n'], ['\n    display: grid;\n    height: 100%;\n    grid-template-columns: auto 1fr;\n    grid-template-rows: auto 1fr auto;\n    grid-template-areas:    "header header"\n                            "nav    section"\n                            "nav    footer";\n']),
-    _templateObject2 = _taggedTemplateLiteral(['\n    grid-area: header;\n    display: flex;\n    align-items: center;\n    height: 55px;\n    background: ', ';    \n'], ['\n    grid-area: header;\n    display: flex;\n    align-items: center;\n    height: 55px;\n    background: ', ';    \n']),
-    _templateObject3 = _taggedTemplateLiteral(['\n    grid-area: nav;\n    width: 200px;\n    background: ', ';    \n'], ['\n    grid-area: nav;\n    width: 200px;\n    background: ', ';    \n']),
+    _templateObject2 = _taggedTemplateLiteral(['\n    grid-area: header;\n    display: flex;\n    align-items: center;\n    height: ', '; \n    background: ', ';    \n'], ['\n    grid-area: header;\n    display: flex;\n    align-items: center;\n    height: ', '; \n    background: ', ';    \n']),
+    _templateObject3 = _taggedTemplateLiteral(['\n    grid-area: nav;\n    width: ', ';\n    background: ', ';    \n'], ['\n    grid-area: nav;\n    width: ', ';\n    background: ', ';    \n']),
     _templateObject4 = _taggedTemplateLiteral(['\n    grid-area: footer;\n    height: 50px;\n    background: ', ';    \n'], ['\n    grid-area: footer;\n    height: 50px;\n    background: ', ';    \n']),
     _templateObject5 = _taggedTemplateLiteral(['\n    grid-area: section;\n    background: ', '; \n'], ['\n    grid-area: section;\n    background: ', '; \n']);
 
@@ -50196,10 +50209,14 @@ var Main = exports.Main = function Main(props) {
 };
 
 var Header = exports.Header = _styledComponents2.default.header(_templateObject2, function (props) {
+    return props.height || '55px';
+}, function (props) {
     return props.theme.header;
 });
 
 var Nav = exports.Nav = _styledComponents2.default.nav(_templateObject3, function (props) {
+    return props.width || '250px';
+}, function (props) {
     return props.theme.nav;
 });
 
