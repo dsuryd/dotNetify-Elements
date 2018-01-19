@@ -23,3 +23,11 @@ export function mapStyle(props) {
     const _size = small ? "sm" : large ? "lg" : size;
     return Object.assign({}, { color: _color, size: _size }, rest);
 }
+
+export function resolveComponents(type, props) {
+    return Object.keys(type.componentTypes).map(key => props[toCamelCase(key)] || type.componentTypes[key]);
+}
+
+function toCamelCase(key) {
+    return key.substr(0, 1).toLowerCase() + key.substr(1);
+}

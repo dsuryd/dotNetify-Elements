@@ -4,8 +4,7 @@ import * as utils from '../../utils';
 
 export class Button extends React.Component {
     render() {
-        const props = utils.mapStyle(this.props);
-        const { submit, cancel, ...rest } = props;
-        return <_Button {...rest}>{props.children}</_Button>;
+        const { submit, cancel, children, ...rest } = utils.mapStyle(this.props);
+        return <_Button {...rest}>{children}</_Button>;
     }
 }  

@@ -2,41 +2,49 @@ import React from 'react';
 import { PropTypes } from 'prop-types';
 import { FormGroup, Label, Input } from 'reactstrap';
 import { ContextTypes } from '../../VMContext';
+import * as utils from '../../utils';
 
 export class Checkbox extends React.Component {
+
+    static contextTypes = ContextTypes;
+
+    static propTypes = {
+        id: PropTypes.string.isRequired,
+        label: PropTypes.string,
+    }
+
+    static componentTypes = {
+        Container: FormGroup,
+        LabelComponent: Label,
+        InputComponent: Input
+    }
 
     constructor(props) {
         super(props);
     }
 
     handleChange = (event) => {
-        let value = event.target.checked;
+        const value = event.target.checked;
         this.context.setState({ [this.props.id]: value });
         this.context.dispatchState({ [this.props.id]: value });
     }
 
     render() {
-        let _Label = this.props.checkLabelComponent || Label;
+        const [Container, Label, Input] = utils.resolveComponents(Checkbox, this.props);
 
-        let vmId = this.context.vmId;
-        let props = this.props;
-        let value = this.context.getState(props.id) || false;
-        let attrs = this.context.getPropAttributes(props.id);
-        let label = attrs.label || props.label;
+        const vmId = this.context.vmId;
+        const props = this.props;
+        const value = this.context.getState(props.id) || false;
+        const attrs = this.context.getPropAttributes(props.id);
+        const label = attrs.label || props.label;
+
         return (
-            <FormGroup check>
-                <_Label check>
+            <Container check>
+                <Label check>
                     <Input type="checkbox" name={`${vmId}.${props.id}`} checked={value} onChange={this.handleChange} />
                     {label}
-                </_Label>
-            </FormGroup>
+                </Label>
+            </Container>
         )
     }
-};
-
-Checkbox.contextTypes = ContextTypes;
-
-Checkbox.propTypes = {
-    id: PropTypes.string.isRequired,
-    label: PropTypes.string,
-};
+}

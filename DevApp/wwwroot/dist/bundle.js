@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "6fe943ec11a091a3afa0"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "b94ab8f19adf3dc3e6b8"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -13016,6 +13016,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.FieldPanel = undefined;
 
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _templateObject = _taggedTemplateLiteral(['\n    display: grid;\n    grid-template-columns: ', ';\n    -ms-user-select: none; \n    user-select: none; \n'], ['\n    display: grid;\n    grid-template-columns: ', ';\n    -ms-user-select: none; \n    user-select: none; \n']);
@@ -13027,6 +13029,12 @@ var _react2 = _interopRequireDefault(_react);
 var _styledComponents = __webpack_require__(14);
 
 var _styledComponents2 = _interopRequireDefault(_styledComponents);
+
+var _utils = __webpack_require__(101);
+
+var utils = _interopRequireWildcard(_utils);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -13054,17 +13062,24 @@ var FieldPanel = exports.FieldPanel = function (_React$Component) {
     _createClass(FieldPanel, [{
         key: 'render',
         value: function render() {
-            var props = this.props;
+            var _utils$resolveCompone = utils.resolveComponents(FieldPanel, this.props),
+                _utils$resolveCompone2 = _slicedToArray(_utils$resolveCompone, 1),
+                Container = _utils$resolveCompone2[0];
+
             return _react2.default.createElement(
                 Container,
-                props,
-                props.children
+                this.props,
+                this.props.children
             );
         }
     }]);
 
     return FieldPanel;
 }(_react2.default.Component);
+
+FieldPanel.componentTypes = {
+    Container: Container
+};
 
 /***/ }),
 /* 44 */
@@ -30192,6 +30207,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.mapChildren = mapChildren;
 exports.mapStyle = mapStyle;
+exports.resolveComponents = resolveComponents;
 
 var _react = __webpack_require__(3);
 
@@ -30230,6 +30246,16 @@ function mapStyle(props) {
     return Object.assign({}, { color: _color, size: _size }, rest);
 }
 
+function resolveComponents(type, props) {
+    return Object.keys(type.componentTypes).map(function (key) {
+        return props[toCamelCase(key)] || type.componentTypes[key];
+    });
+}
+
+function toCamelCase(key) {
+    return key.substr(0, 1).toLowerCase() + key.substr(1);
+}
+
 /***/ }),
 /* 102 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -30240,15 +30266,18 @@ function mapStyle(props) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Collapsible = exports.Label = exports.ToggleContainer = exports.Container = exports.AngleExpandIcon = exports.AngleCollapseIcon = undefined;
+exports.Collapsible = undefined;
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _templateObject = _taggedTemplateLiteral(['\n  display: flex;\n  align-items: center;\n  padding: 1rem;\n'], ['\n  display: flex;\n  align-items: center;\n  padding: 1rem;\n']),
-    _templateObject2 = _taggedTemplateLiteral(['\n'], ['\n']),
-    _templateObject3 = _taggedTemplateLiteral(['\n   display: flex;\n   flex-direction: row;\n   justify-content: space-between;\n   &:hover {\n      cursor: pointer;\n  }   \n'], ['\n   display: flex;\n   flex-direction: row;\n   justify-content: space-between;\n   &:hover {\n      cursor: pointer;\n  }   \n']);
+var _templateObject = _taggedTemplateLiteral(['\n'], ['\n']),
+    _templateObject2 = _taggedTemplateLiteral(['\n   display: flex;\n   flex-direction: row;\n   justify-content: space-between;\n   &:hover {\n      cursor: pointer;\n  }   \n'], ['\n   display: flex;\n   flex-direction: row;\n   justify-content: space-between;\n   &:hover {\n      cursor: pointer;\n  }   \n']),
+    _templateObject3 = _taggedTemplateLiteral(['\nbackground: red;\n'], ['\nbackground: red;\n']),
+    _templateObject4 = _taggedTemplateLiteral(['\n  display: flex;\n  align-items: center;\n  padding: 1rem;\n'], ['\n  display: flex;\n  align-items: center;\n  padding: 1rem;\n']);
 
 var _react = __webpack_require__(3);
 
@@ -30260,6 +30289,12 @@ var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
 var _reactstrap = __webpack_require__(16);
 
+var _utils = __webpack_require__(101);
+
+var utils = _interopRequireWildcard(_utils);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -30270,9 +30305,15 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var IconContainer = _styledComponents2.default.div(_templateObject);
+var Container = _styledComponents2.default.div(_templateObject);
 
-var AngleCollapseIcon = exports.AngleCollapseIcon = function AngleCollapseIcon(props) {
+var HeaderContainer = _styledComponents2.default.div(_templateObject2);
+
+var Label = _styledComponents2.default.div(_templateObject3);
+
+var IconContainer = _styledComponents2.default.div(_templateObject4);
+
+var AngleCollapseIcon = function AngleCollapseIcon(props) {
   return _react2.default.createElement(
     IconContainer,
     null,
@@ -30288,7 +30329,7 @@ var AngleCollapseIcon = exports.AngleCollapseIcon = function AngleCollapseIcon(p
   );
 };
 
-var AngleExpandIcon = exports.AngleExpandIcon = function AngleExpandIcon(props) {
+var AngleExpandIcon = function AngleExpandIcon(props) {
   return _react2.default.createElement(
     IconContainer,
     null,
@@ -30303,12 +30344,6 @@ var AngleExpandIcon = exports.AngleExpandIcon = function AngleExpandIcon(props) 
     )
   );
 };
-
-var Container = exports.Container = _styledComponents2.default.div(_templateObject2);
-
-var ToggleContainer = exports.ToggleContainer = _styledComponents2.default.div(_templateObject3);
-
-var Label = exports.Label = _styledComponents2.default.div(_templateObject2);
 
 var Collapsible = exports.Collapsible = function (_React$Component) {
   _inherits(Collapsible, _React$Component);
@@ -30329,18 +30364,22 @@ var Collapsible = exports.Collapsible = function (_React$Component) {
   _createClass(Collapsible, [{
     key: 'render',
     value: function render() {
-      var _Container = this.props.Container || Container;
-      var _ToggleContainer = this.props.toggleContainer || ToggleContainer;
-      var _Label = this.props.labelComponent || Label;
+      var _utils$resolveCompone = utils.resolveComponents(Collapsible, this.props),
+          _utils$resolveCompone2 = _slicedToArray(_utils$resolveCompone, 5),
+          Container = _utils$resolveCompone2[0],
+          HeaderContainer = _utils$resolveCompone2[1],
+          Label = _utils$resolveCompone2[2],
+          AngleCollapseIcon = _utils$resolveCompone2[3],
+          AngleExpandIcon = _utils$resolveCompone2[4];
 
       return _react2.default.createElement(
-        _Container,
+        Container,
         null,
         _react2.default.createElement(
-          _ToggleContainer,
+          HeaderContainer,
           { onClick: this.handleClick },
           _react2.default.createElement(
-            _Label,
+            Label,
             { isOpen: this.state.open },
             this.props.label
           ),
@@ -30357,6 +30396,14 @@ var Collapsible = exports.Collapsible = function (_React$Component) {
 
   return Collapsible;
 }(_react2.default.Component);
+
+Collapsible.componentTypes = {
+  Container: Container,
+  HeaderContainer: HeaderContainer,
+  LabelComponent: Label,
+  AngleCollapseIcon: AngleCollapseIcon,
+  AngleExpandIcon: AngleExpandIcon
+};
 
 /***/ }),
 /* 103 */
@@ -30391,7 +30438,9 @@ exports.default = DefaultTheme;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.Panel = exports.ChildContainer = exports.Container = undefined;
+exports.Panel = undefined;
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -30402,9 +30451,17 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = __webpack_require__(8);
+
 var _styledComponents = __webpack_require__(14);
 
 var _styledComponents2 = _interopRequireDefault(_styledComponents);
+
+var _utils = __webpack_require__(101);
+
+var utils = _interopRequireWildcard(_utils);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -30416,7 +30473,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var Container = exports.Container = _styledComponents2.default.div(_templateObject, function (props) {
+var Container = _styledComponents2.default.div(_templateObject, function (props) {
     return props.right ? 'flex-end' : 'flex-start';
 }, function (props) {
     return props.horizontal ? 'row' : 'column';
@@ -30428,7 +30485,7 @@ var Container = exports.Container = _styledComponents2.default.div(_templateObje
     return props.width;
 });
 
-var ChildContainer = exports.ChildContainer = _styledComponents2.default.div(_templateObject2, function (props) {
+var ChildContainer = _styledComponents2.default.div(_templateObject2, function (props) {
     return props.padding;
 }, function (props) {
     return props.stretch ? '1' : '0';
@@ -30461,9 +30518,12 @@ var Panel = exports.Panel = function (_React$Component) {
         value: function render() {
             var _this2 = this;
 
+            var _utils$resolveCompone = utils.resolveComponents(Panel, this.props),
+                _utils$resolveCompone2 = _slicedToArray(_utils$resolveCompone, 2),
+                Container = _utils$resolveCompone2[0],
+                ChildContainer = _utils$resolveCompone2[1];
+
             var _props = this.props,
-                container = _props.container,
-                childContainer = _props.childContainer,
                 childProps = _props.childProps,
                 equalWidth = _props.equalWidth,
                 gap = _props.gap,
@@ -30480,16 +30540,13 @@ var Panel = exports.Panel = function (_React$Component) {
 
             var numChildren = _react2.default.Children.count(this.props.children);
 
-            gap = gap || (noGap ? "0" : smallGap ? ".5rem" : "1rem");
-            margin = margin || (noMargin ? "0" : smallMargin ? ".5rem" : "1rem");
-
-            var _Container = container || Container;
-            var _ChildContainer = childContainer || ChildContainer;
+            var _gap = gap || (noGap ? "0" : smallGap ? ".5rem" : "1rem");
+            var _margin = margin || (noMargin ? "0" : smallMargin ? ".5rem" : "1rem");
 
             return _react2.default.createElement(
-                _Container,
+                Container,
                 {
-                    margin: margin,
+                    margin: _margin,
                     horizontal: horizontal,
                     right: right,
                     width: width,
@@ -30497,11 +30554,11 @@ var Panel = exports.Panel = function (_React$Component) {
                 },
                 _react2.default.Children.map(this.props.children, function (child, idx) {
                     return _react2.default.createElement(
-                        _ChildContainer,
+                        ChildContainer,
                         {
                             stretch: stretch,
                             equalWidth: equalWidth,
-                            padding: _this2.getPadding(idx, numChildren, gap, horizontal)
+                            padding: _this2.getPadding(idx, numChildren, _gap, horizontal)
                         },
                         childProps ? _react2.default.cloneElement(child, _this2.mergeProps(child, childProps)) : child
                     );
@@ -30512,6 +30569,26 @@ var Panel = exports.Panel = function (_React$Component) {
 
     return Panel;
 }(_react2.default.Component);
+
+Panel.propTypes = {
+    childProps: _propTypes.PropTypes.object,
+    equalWidth: _propTypes.PropTypes.bool,
+    gap: _propTypes.PropTypes.bool,
+    noGap: _propTypes.PropTypes.bool,
+    smallGap: _propTypes.PropTypes.bool,
+    horizontal: _propTypes.PropTypes.bool,
+    margin: _propTypes.PropTypes.bool,
+    noMargin: _propTypes.PropTypes.bool,
+    smallMargin: _propTypes.PropTypes.bool,
+    right: _propTypes.PropTypes.bool,
+    stretch: _propTypes.PropTypes.bool,
+    height: _propTypes.PropTypes.string,
+    width: _propTypes.PropTypes.string
+};
+Panel.componentTypes = {
+    Container: Container,
+    ChildContainer: ChildContainer
+};
 
 /***/ }),
 /* 105 */
@@ -46391,16 +46468,16 @@ var Button = exports.Button = function (_React$Component) {
     _createClass(Button, [{
         key: 'render',
         value: function render() {
-            var props = utils.mapStyle(this.props);
-
-            var submit = props.submit,
-                cancel = props.cancel,
-                rest = _objectWithoutProperties(props, ['submit', 'cancel']);
+            var _utils$mapStyle = utils.mapStyle(this.props),
+                submit = _utils$mapStyle.submit,
+                cancel = _utils$mapStyle.cancel,
+                children = _utils$mapStyle.children,
+                rest = _objectWithoutProperties(_utils$mapStyle, ['submit', 'cancel', 'children']);
 
             return _react2.default.createElement(
                 _reactstrap.Button,
                 rest,
-                props.children
+                children
             );
         }
     }]);
@@ -49760,6 +49837,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Checkbox = undefined;
 
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(3);
@@ -49771,6 +49850,12 @@ var _propTypes = __webpack_require__(8);
 var _reactstrap = __webpack_require__(16);
 
 var _VMContext = __webpack_require__(18);
+
+var _utils = __webpack_require__(101);
+
+var utils = _interopRequireWildcard(_utils);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -49802,20 +49887,25 @@ var Checkbox = exports.Checkbox = function (_React$Component) {
     _createClass(Checkbox, [{
         key: 'render',
         value: function render() {
-            var _Label = this.props.checkLabelComponent || _reactstrap.Label;
+            var _utils$resolveCompone = utils.resolveComponents(Checkbox, this.props),
+                _utils$resolveCompone2 = _slicedToArray(_utils$resolveCompone, 3),
+                Container = _utils$resolveCompone2[0],
+                Label = _utils$resolveCompone2[1],
+                Input = _utils$resolveCompone2[2];
 
             var vmId = this.context.vmId;
             var props = this.props;
             var value = this.context.getState(props.id) || false;
             var attrs = this.context.getPropAttributes(props.id);
             var label = attrs.label || props.label;
+
             return _react2.default.createElement(
-                _reactstrap.FormGroup,
+                Container,
                 { check: true },
                 _react2.default.createElement(
-                    _Label,
+                    Label,
                     { check: true },
-                    _react2.default.createElement(_reactstrap.Input, { type: 'checkbox', name: vmId + '.' + props.id, checked: value, onChange: this.handleChange }),
+                    _react2.default.createElement(Input, { type: 'checkbox', name: vmId + '.' + props.id, checked: value, onChange: this.handleChange }),
                     label
                 )
             );
@@ -49825,13 +49915,15 @@ var Checkbox = exports.Checkbox = function (_React$Component) {
     return Checkbox;
 }(_react2.default.Component);
 
-;
-
 Checkbox.contextTypes = _VMContext.ContextTypes;
-
 Checkbox.propTypes = {
     id: _propTypes.PropTypes.string.isRequired,
     label: _propTypes.PropTypes.string
+};
+Checkbox.componentTypes = {
+    Container: _reactstrap.FormGroup,
+    LabelComponent: _reactstrap.Label,
+    InputComponent: _reactstrap.Input
 };
 
 /***/ }),
@@ -49846,6 +49938,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.CheckboxGroup = undefined;
 
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(3);
@@ -49859,6 +49953,12 @@ var _reactstrap = __webpack_require__(16);
 var _FieldPanel = __webpack_require__(43);
 
 var _VMContext = __webpack_require__(18);
+
+var _utils = __webpack_require__(101);
+
+var utils = _interopRequireWildcard(_utils);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -49895,33 +49995,38 @@ var CheckboxGroup = exports.CheckboxGroup = function (_React$Component) {
         value: function render() {
             var _this2 = this;
 
-            var _Container = this.props.container || _FieldPanel.FieldPanel;
-            var _Label = this.props.labelComponent || _reactstrap.Label;
-            var _CheckLabel = this.props.checkLabelComponent || _reactstrap.Label;
+            var _utils$resolveCompone = utils.resolveComponents(CheckboxGroup, this.props),
+                _utils$resolveCompone2 = _slicedToArray(_utils$resolveCompone, 5),
+                Container = _utils$resolveCompone2[0],
+                Label = _utils$resolveCompone2[1],
+                CheckboxContainer = _utils$resolveCompone2[2],
+                CheckboxLabel = _utils$resolveCompone2[3],
+                Input = _utils$resolveCompone2[4];
 
             var vmId = this.context.vmId;
             var props = this.props;
             var values = this.context.getState(props.id) || [];
             var attrs = this.context.getPropAttributes(props.id);
             var label = attrs.label || props.label;
+
             var checkboxes = (attrs.options || []).map(function (opt) {
                 return _react2.default.createElement(
-                    _reactstrap.FormGroup,
+                    CheckboxContainer,
                     { check: true, key: opt.Key, inline: props.inline },
                     _react2.default.createElement(
-                        _CheckLabel,
+                        CheckboxLabel,
                         { check: true, id: vmId + '.' + props.id },
-                        _react2.default.createElement(_reactstrap.Input, { type: 'checkbox', value: opt.Key, checked: values.includes(opt.Key), onChange: _this2.handleChange }),
+                        _react2.default.createElement(Input, { type: 'checkbox', value: opt.Key, checked: values.includes(opt.Key), onChange: _this2.handleChange }),
                         opt.Value
                     )
                 );
             });
 
             return _react2.default.createElement(
-                _Container,
+                Container,
                 { horizontal: props.horizontal },
                 label ? _react2.default.createElement(
-                    _Label,
+                    Label,
                     { 'for': props.id },
                     label
                 ) : null,
@@ -49937,13 +50042,17 @@ var CheckboxGroup = exports.CheckboxGroup = function (_React$Component) {
     return CheckboxGroup;
 }(_react2.default.Component);
 
-;
-
 CheckboxGroup.contextTypes = _VMContext.ContextTypes;
-
 CheckboxGroup.propTypes = {
     id: _propTypes.PropTypes.string.isRequired,
     label: _propTypes.PropTypes.string
+};
+CheckboxGroup.componentTypes = {
+    Container: _FieldPanel.FieldPanel,
+    LabelComponent: _reactstrap.Label,
+    CheckboxContainer: _reactstrap.FormGroup,
+    CheckboxLabelComponent: _reactstrap.Label,
+    InputComponent: _reactstrap.Input
 };
 
 /***/ }),
@@ -49958,6 +50067,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.DropdownList = undefined;
 
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(3);
@@ -49971,6 +50082,12 @@ var _reactstrap = __webpack_require__(16);
 var _FieldPanel = __webpack_require__(43);
 
 var _VMContext = __webpack_require__(18);
+
+var _utils = __webpack_require__(101);
+
+var utils = _interopRequireWildcard(_utils);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -50002,8 +50119,11 @@ var DropdownList = exports.DropdownList = function (_React$Component) {
     _createClass(DropdownList, [{
         key: 'render',
         value: function render() {
-            var _Container = this.props.container || _FieldPanel.FieldPanel;
-            var _Label = this.props.labelComponent || _reactstrap.Label;
+            var _utils$resolveCompone = utils.resolveComponents(DropdownList, this.props),
+                _utils$resolveCompone2 = _slicedToArray(_utils$resolveCompone, 3),
+                Container = _utils$resolveCompone2[0],
+                Label = _utils$resolveCompone2[1],
+                Input = _utils$resolveCompone2[2];
 
             var vmId = this.context.vmId;
             var props = this.props;
@@ -50017,16 +50137,17 @@ var DropdownList = exports.DropdownList = function (_React$Component) {
                 );
             });
             var label = attrs.label || props.label;
+
             return _react2.default.createElement(
-                _Container,
+                Container,
                 { horizontal: props.horizontal },
                 label ? _react2.default.createElement(
-                    _Label,
+                    Label,
                     { 'for': vmId + '.' + props.id },
                     label
                 ) : null,
                 _react2.default.createElement(
-                    _reactstrap.Input,
+                    Input,
                     {
                         id: vmId + '.' + props.id,
                         type: 'select',
@@ -50042,13 +50163,15 @@ var DropdownList = exports.DropdownList = function (_React$Component) {
     return DropdownList;
 }(_react2.default.Component);
 
-;
-
 DropdownList.contextTypes = _VMContext.ContextTypes;
-
 DropdownList.propTypes = {
     id: _propTypes.PropTypes.string.isRequired,
     label: _propTypes.PropTypes.string
+};
+DropdownList.componentTypes = {
+    Container: _FieldPanel.FieldPanel,
+    LabelComponent: _reactstrap.Label,
+    InputComponent: _reactstrap.Input
 };
 
 /***/ }),
@@ -50236,11 +50359,11 @@ var Section = exports.Section = _styledComponents2.default.section(_templateObje
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+   value: true
 });
 exports.NavHeader = undefined;
 
-var _templateObject = _taggedTemplateLiteral(['\nwidth: 200px;\nheight: 55px;\ndisplay: flex;\njustify-content: center;\nalign-items: center;    \nbackground: ', ';\n'], ['\nwidth: 200px;\nheight: 55px;\ndisplay: flex;\njustify-content: center;\nalign-items: center;    \nbackground: ', ';\n']);
+var _templateObject = _taggedTemplateLiteral(['\n   width: 250px;\n   height: 55px;\n   display: flex;\n   justify-content: center;\n   align-items: center;    \n   background: ', ';\n'], ['\n   width: 250px;\n   height: 55px;\n   display: flex;\n   justify-content: center;\n   align-items: center;    \n   background: ', ';\n']);
 
 var _react = __webpack_require__(3);
 
@@ -50255,7 +50378,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 var NavHeader = exports.NavHeader = _styledComponents2.default.div(_templateObject, function (props) {
-  return props.theme.navHeader;
+   return props.theme.navHeader;
 });
 
 /***/ }),
@@ -50270,14 +50393,16 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.NavMenu = exports.NavMenuTarget = undefined;
 
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _templateObject = _taggedTemplateLiteral([''], ['']),
     _templateObject2 = _taggedTemplateLiteral(['\n    color: ', ';\n    &:hover {\n        cursor: pointer;\n    }\n'], ['\n    color: ', ';\n    &:hover {\n        cursor: pointer;\n    }\n']),
-    _templateObject3 = _taggedTemplateLiteral(['\n    padding: 1rem;\n    &:hover {\n        color: #adb5bd;\n    }    \n'], ['\n    padding: 1rem;\n    &:hover {\n        color: #adb5bd;\n    }    \n']),
-    _templateObject4 = _taggedTemplateLiteral(['\n'], ['\n']),
+    _templateObject3 = _taggedTemplateLiteral(['\n'], ['\n']),
+    _templateObject4 = _taggedTemplateLiteral(['\n    padding: 1rem;\n    &:hover {\n        color: #adb5bd;\n    }    \n'], ['\n    padding: 1rem;\n    &:hover {\n        color: #adb5bd;\n    }    \n']),
     _templateObject5 = _taggedTemplateLiteral(['\n    color: ', ';\n    padding: 1rem;\n    &:hover {\n        color: #adb5bd;\n        text-decoration: none;\n    }        \n'], ['\n    color: ', ';\n    padding: 1rem;\n    &:hover {\n        color: #adb5bd;\n        text-decoration: none;\n    }        \n']);
 
 var _react = __webpack_require__(3);
@@ -50298,6 +50423,12 @@ var _Collapsible = __webpack_require__(102);
 
 var _dotnetifyReact = __webpack_require__(249);
 
+var _utils = __webpack_require__(101);
+
+var utils = _interopRequireWildcard(_utils);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -50310,7 +50441,7 @@ function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defi
 
 var Container = _styledComponents2.default.div(_templateObject);
 
-var GroupToggleContainer = _Collapsible.ToggleContainer.extend(_templateObject2, function (props) {
+var GroupHeaderContainer = _Collapsible.Collapsible.componentTypes.HeaderContainer.extend(_templateObject2, function (props) {
     return props.theme.navGroup;
 });
 
@@ -50318,15 +50449,15 @@ var GroupContainer = function GroupContainer(props) {
     return _react2.default.createElement(
         _Collapsible.Collapsible,
         _extends({
-            toggleContainer: GroupToggleContainer
+            headerContainer: GroupHeaderContainer
         }, props),
         props.children
     );
 };
 
-var GroupLabel = _styledComponents2.default.div(_templateObject3);
+var RouteContainer = _styledComponents2.default.div(_templateObject3);
 
-var RouteContainer = _styledComponents2.default.div(_templateObject4);
+var GroupHeaderLabel = _styledComponents2.default.div(_templateObject4);
 
 var RouteLabel = _styledComponents2.default.div(_templateObject5, function (props) {
     return props.theme.navRoute;
@@ -50357,16 +50488,19 @@ var NavMenu = exports.NavMenu = function (_React$Component) {
     }, {
         key: 'buildRoute',
         value: function buildRoute(navRoute) {
-            var _RouteContainer = this.props.routeContainer || RouteContainer;
-            var _RouteLabel = this.props.routeLabelComponent || RouteLabel;
+            var _utils$resolveCompone = utils.resolveComponents(NavMenu, this.props),
+                _utils$resolveCompone2 = _slicedToArray(_utils$resolveCompone, 5),
+                RouteContainer = _utils$resolveCompone2[2],
+                RouteLabel = _utils$resolveCompone2[4];
+
             return _react2.default.createElement(
-                _RouteContainer,
+                RouteContainer,
                 { key: navRoute.Route.TemplateId },
                 _react2.default.createElement(
                     _dotnetifyReact.RouteLink,
                     { vm: this.context.vm, route: navRoute.Route },
                     _react2.default.createElement(
-                        _RouteLabel,
+                        RouteLabel,
                         null,
                         navRoute.Label
                     )
@@ -50378,9 +50512,11 @@ var NavMenu = exports.NavMenu = function (_React$Component) {
         value: function render() {
             var _this3 = this;
 
-            var _Container = this.props.container || Container;
-            var _GroupContainer = this.props.groupContainer || GroupContainer;
-            var _GroupLabelComponent = this.props.groupLabelComponent || GroupLabel;
+            var _utils$resolveCompone3 = utils.resolveComponents(NavMenu, this.props),
+                _utils$resolveCompone4 = _slicedToArray(_utils$resolveCompone3, 4),
+                Container = _utils$resolveCompone4[0],
+                GroupContainer = _utils$resolveCompone4[1],
+                GroupHeaderLabel = _utils$resolveCompone4[3];
 
             var vmId = this.context.vmId;
             var props = this.props;
@@ -50388,16 +50524,16 @@ var NavMenu = exports.NavMenu = function (_React$Component) {
 
             var navMenu = value.map(function (navItem, idx) {
                 return navItem.Routes ? _react2.default.createElement(
-                    _GroupContainer,
-                    { key: idx, label: navItem.Label, labelComponent: _GroupLabelComponent },
+                    GroupContainer,
+                    { key: idx, label: navItem.Label, labelComponent: GroupHeaderLabel },
                     navItem.Routes.map(function (navRoute) {
                         return _this3.buildRoute(navRoute);
                     })
-                ) : _this3.buildRoute(navItem);
+                ) : buildRoute(navItem);
             });
 
             return _react2.default.createElement(
-                _Container,
+                Container,
                 null,
                 navMenu
             );
@@ -50407,13 +50543,18 @@ var NavMenu = exports.NavMenu = function (_React$Component) {
     return NavMenu;
 }(_react2.default.Component);
 
-;
-
+NavMenu.contextTypes = _VMContext.ContextTypes;
 NavMenu.propTypes = {
     id: _propTypes.PropTypes.string.isRequired
 };
-
-NavMenu.contextTypes = _VMContext.ContextTypes;
+NavMenu.componentTypes = {
+    Container: Container,
+    GroupContainer: GroupContainer,
+    RouteContainer: RouteContainer,
+    GroupHeaderLabelComponent: GroupHeaderLabel,
+    RouteLabelComponent: RouteLabel
+};
+;
 
 /***/ }),
 /* 249 */
@@ -51357,6 +51498,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.RadioGroup = undefined;
 
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(3);
@@ -51370,6 +51513,12 @@ var _reactstrap = __webpack_require__(16);
 var _FieldPanel = __webpack_require__(43);
 
 var _VMContext = __webpack_require__(18);
+
+var _utils = __webpack_require__(101);
+
+var utils = _interopRequireWildcard(_utils);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -51403,33 +51552,38 @@ var RadioGroup = exports.RadioGroup = function (_React$Component) {
         value: function render() {
             var _this2 = this;
 
-            var _Container = this.props.container || _FieldPanel.FieldPanel;
-            var _Label = this.props.labelComponent || _reactstrap.Label;
-            var _RadioLabel = this.props.radioLabelComponent || _reactstrap.Label;
+            var _utils$resolveCompone = utils.resolveComponents(RadioGroup, this.props),
+                _utils$resolveCompone2 = _slicedToArray(_utils$resolveCompone, 5),
+                Container = _utils$resolveCompone2[0],
+                Label = _utils$resolveCompone2[1],
+                RadioContainer = _utils$resolveCompone2[2],
+                RadioLabel = _utils$resolveCompone2[3],
+                Input = _utils$resolveCompone2[4];
 
             var vmId = this.context.vmId;
             var props = this.props;
             var value = this.context.getState(props.id);
             var attrs = this.context.getPropAttributes(props.id);
             var label = attrs.label || props.label;
+
             var radio = (attrs.options || []).map(function (opt) {
                 return _react2.default.createElement(
-                    _reactstrap.FormGroup,
+                    RadioContainer,
                     { check: true, key: opt.Key, id: vmId + '.' + props.id },
                     _react2.default.createElement(
-                        _RadioLabel,
+                        RadioLabel,
                         { check: true },
-                        _react2.default.createElement(_reactstrap.Input, { type: 'radio', name: vmId + '.' + props.id, value: opt.Key, checked: opt.Key == value, onChange: _this2.handleChange }),
+                        _react2.default.createElement(Input, { type: 'radio', name: vmId + '.' + props.id, value: opt.Key, checked: opt.Key == value, onChange: _this2.handleChange }),
                         opt.Value
                     )
                 );
             });
 
             return _react2.default.createElement(
-                _Container,
+                Container,
                 { horizontal: props.horizontal },
                 label ? _react2.default.createElement(
-                    _Label,
+                    Label,
                     { 'for': props.id },
                     label
                 ) : null,
@@ -51445,13 +51599,17 @@ var RadioGroup = exports.RadioGroup = function (_React$Component) {
     return RadioGroup;
 }(_react2.default.Component);
 
-;
-
 RadioGroup.contextTypes = _VMContext.ContextTypes;
-
 RadioGroup.propTypes = {
     id: _propTypes.PropTypes.string.isRequired,
     label: _propTypes.PropTypes.string
+};
+RadioGroup.componentTypes = {
+    Container: _FieldPanel.FieldPanel,
+    LabelComponent: _reactstrap.Label,
+    RadioContainer: _reactstrap.FormGroup,
+    RadioLabelComponent: _reactstrap.Label,
+    InputComponent: _reactstrap.Input
 };
 
 /***/ }),
@@ -51467,6 +51625,8 @@ Object.defineProperty(exports, "__esModule", {
 exports.TextAreaField = exports.PasswordField = exports.EmailField = exports.TextField = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -51487,6 +51647,12 @@ var _reactstrap = __webpack_require__(16);
 var _FieldPanel = __webpack_require__(43);
 
 var _VMContext = __webpack_require__(18);
+
+var _utils = __webpack_require__(101);
+
+var utils = _interopRequireWildcard(_utils);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -51528,26 +51694,31 @@ var TextField = exports.TextField = function (_React$Component) {
     _createClass(TextField, [{
         key: 'render',
         value: function render() {
-            var _Container = this.props.container || _FieldPanel.FieldPanel;
-            var _Label = this.props.labelComponent || _reactstrap.Label;
+            var _utils$resolveCompone = utils.resolveComponents(TextField, this.props),
+                _utils$resolveCompone2 = _slicedToArray(_utils$resolveCompone, 4),
+                Container = _utils$resolveCompone2[0],
+                Label = _utils$resolveCompone2[1],
+                InputContainer = _utils$resolveCompone2[2],
+                Input = _utils$resolveCompone2[3];
 
             var vmId = this.context.vmId;
             var props = this.props;
             var attrs = this.context.getPropAttributes(props.id);
             var value = this.context.getState(props.id) || "";
             var label = attrs.label || props.label;
+
             return _react2.default.createElement(
-                _Container,
+                Container,
                 { horizontal: props.horizontal },
                 label ? _react2.default.createElement(
-                    _Label,
+                    Label,
                     { 'for': vmId + '.' + props.id },
                     label
                 ) : null,
                 _react2.default.createElement(
                     InputContainer,
                     null,
-                    _react2.default.createElement(_reactstrap.Input, {
+                    _react2.default.createElement(Input, {
                         id: vmId + '.' + props.id,
                         type: props.type || "text",
                         placeholder: attrs.placeholder || props.placeholder,
@@ -51562,6 +51733,18 @@ var TextField = exports.TextField = function (_React$Component) {
     return TextField;
 }(_react2.default.Component);
 
+TextField.contextTypes = _VMContext.ContextTypes;
+TextField.propTypes = {
+    id: _propTypes.PropTypes.string.isRequired,
+    label: _propTypes.PropTypes.string,
+    placeholder: _propTypes.PropTypes.string
+};
+TextField.componentTypes = {
+    Container: _FieldPanel.FieldPanel,
+    LabelComponent: _reactstrap.Label,
+    InputContainer: InputContainer,
+    InputComponent: _reactstrap.Input
+};
 var EmailField = exports.EmailField = function EmailField(props) {
     return _react2.default.createElement(TextField, _extends({ type: 'email' }, props));
 };
@@ -51574,16 +51757,10 @@ var TextAreaField = exports.TextAreaField = function TextAreaField(props) {
     return _react2.default.createElement(TextField, _extends({ type: 'textarea' }, props));
 };
 
-TextField.contextTypes = _VMContext.ContextTypes;
 EmailField.contextTypes = _VMContext.ContextTypes;
 PasswordField.contextTypes = _VMContext.ContextTypes;
 TextAreaField.contextTypes = _VMContext.ContextTypes;
 
-TextField.propTypes = {
-    id: _propTypes.PropTypes.string.isRequired,
-    label: _propTypes.PropTypes.string,
-    placeholder: _propTypes.PropTypes.string
-};
 EmailField.propTypes = Object.assign({}, TextField.propTypes);
 PasswordField.propTypes = Object.assign({}, TextField.propTypes);
 TextAreaField.propTypes = Object.assign({}, TextField.propTypes);

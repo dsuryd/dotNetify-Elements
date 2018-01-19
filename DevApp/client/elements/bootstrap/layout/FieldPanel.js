@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import * as utils from '../../utils';
 
 const Container = styled.div`
     display: grid;
@@ -10,11 +11,15 @@ const Container = styled.div`
 
 export class FieldPanel extends React.Component {
 
+    static componentTypes = {
+        Container
+    }
+
     render() {
-        let props = this.props;
+        const [Container] = utils.resolveComponents(FieldPanel, this.props);
         return (
-            <Container {...props}>
-                {props.children}
+            <Container {...this.props}>
+                {this.props.children}
             </Container>
         )
     };

@@ -5,6 +5,9 @@ import * as utils from '../../utils';
 
 export class Form extends React.Component {
 
+    static childContextTypes = ContextTypes;
+    static contextTypes = ContextTypes;
+
     constructor(props) {
         super(props);
         this.state = { changed: false };
@@ -42,6 +45,3 @@ export class Form extends React.Component {
         return <div>{this.mapButtons(this.props.children)}</div>;
     }
 }
-
-Form.childContextTypes = ContextTypes;
-Form.contextTypes = ContextTypes;

@@ -4,6 +4,7 @@ import { PropTypes } from 'prop-types';
 import { Label, Input } from 'reactstrap';
 import { FieldPanel } from '../layout/FieldPanel';
 import { ContextTypes } from '../../VMContext';
+import * as utils from '../../utils';
 
 const InputContainer = styled.div`
     width: calc(100% - 1px);
@@ -11,13 +12,28 @@ const InputContainer = styled.div`
 
 export class TextField extends React.Component {
 
+    static contextTypes = ContextTypes;
+
+    static propTypes = {
+        id: PropTypes.string.isRequired,
+        label: PropTypes.string,
+        placeholder: PropTypes.string
+    }
+
+    static componentTypes = {
+        Container: FieldPanel,
+        LabelComponent: Label,
+        InputContainer,
+        InputComponent: Input
+    }
+
     constructor(props) {
         super(props);
         this.state = { changed: false };
     }
 
     handleChange = (event) => {
-        let value = event.target.value;
+        const value = event.target.value;
         this.setState({ value: value, changed: true });
         this.context.setState({ [this.props.id]: value });
     }
@@ -29,17 +45,17 @@ export class TextField extends React.Component {
     }
 
     render() {
-        let _Container = this.props.container || FieldPanel;
-        let _Label = this.props.labelComponent || Label;
+        const [Container, Label, InputContainer, Input] = utils.resolveComponents(TextField, this.props);
 
-        let vmId = this.context.vmId;
-        let props = this.props;
-        let attrs = this.context.getPropAttributes(props.id);
-        let value = this.context.getState(props.id) || "";
-        let label = attrs.label || props.label;
+        const vmId = this.context.vmId;
+        const props = this.props;
+        const attrs = this.context.getPropAttributes(props.id);
+        const value = this.context.getState(props.id) || "";
+        const label = attrs.label || props.label;
+        
         return (
-            <_Container horizontal={props.horizontal}>
-                {label ? <_Label for={`${vmId}.${props.id}`}>{label}</_Label> : null}
+            <Container horizontal={props.horizontal}>
+                {label ? <Label for={`${vmId}.${props.id}`}>{label}</Label> : null}
                 <InputContainer>
                     <Input
                         id={`${vmId}.${props.id}`}
@@ -49,7 +65,7 @@ export class TextField extends React.Component {
                         onChange={this.handleChange}
                         onBlur={this.handleBlur} />
                 </InputContainer>
-            </_Container>
+            </Container>
         );
     }
 }
@@ -66,16 +82,10 @@ export const TextAreaField = props => (
     <TextField type="textarea" {...props} />
 );
 
-TextField.contextTypes = ContextTypes;
 EmailField.contextTypes = ContextTypes;
 PasswordField.contextTypes = ContextTypes;
 TextAreaField.contextTypes = ContextTypes;
 
-TextField.propTypes = {
-    id: PropTypes.string.isRequired,
-    label: PropTypes.string,
-    placeholder: PropTypes.string
-};
 EmailField.propTypes = Object.assign({}, TextField.propTypes);
 PasswordField.propTypes = Object.assign({}, TextField.propTypes);
 TextAreaField.propTypes = Object.assign({}, TextField.propTypes);

@@ -3,8 +3,24 @@ import { PropTypes } from 'prop-types';
 import { FormGroup, Label, Input } from 'reactstrap';
 import { FieldPanel } from '../layout/FieldPanel';
 import { ContextTypes } from '../../VMContext';
+import * as utils from '../../utils';
 
 export class CheckboxGroup extends React.Component {
+
+    static contextTypes = ContextTypes;
+
+    static propTypes = {
+        id: PropTypes.string.isRequired,
+        label: PropTypes.string,
+    }
+
+    static componentTypes = {
+        Container: FieldPanel,
+        LabelComponent: Label,
+        CheckboxContainer: FormGroup,
+        CheckboxLabelComponent: Label,
+        InputComponent: Input
+    }
 
     constructor(props) {
         super(props);
@@ -18,36 +34,28 @@ export class CheckboxGroup extends React.Component {
     }
 
     render() {
-        let _Container = this.props.container || FieldPanel;
-        let _Label = this.props.labelComponent || Label;
-        let _CheckLabel = this.props.checkLabelComponent || Label;
+        const [Container, Label, CheckboxContainer, CheckboxLabel, Input] = utils.resolveComponents(CheckboxGroup, this.props);
 
-        let vmId = this.context.vmId;
-        let props = this.props;
-        let values = this.context.getState(props.id) || [];
-        let attrs = this.context.getPropAttributes(props.id);
-        let label = attrs.label || props.label;
-        let checkboxes = (attrs.options || []).map(opt => (
-            <FormGroup check key={opt.Key} inline={props.inline}>
-                <_CheckLabel check id={`${vmId}.${props.id}`}>
+        const vmId = this.context.vmId;
+        const props = this.props;
+        const values = this.context.getState(props.id) || [];
+        const attrs = this.context.getPropAttributes(props.id);
+        const label = attrs.label || props.label;
+
+        const checkboxes = (attrs.options || []).map(opt => (
+            <CheckboxContainer check key={opt.Key} inline={props.inline}>
+                <CheckboxLabel check id={`${vmId}.${props.id}`}>
                     <Input type="checkbox" value={opt.Key} checked={values.includes(opt.Key)} onChange={this.handleChange} />
                     {opt.Value}
-                </_CheckLabel>
-            </FormGroup>
+                </CheckboxLabel>
+            </CheckboxContainer>
         ));
 
         return (
-            <_Container horizontal={props.horizontal}>
-                {label ? <_Label for={props.id}>{label}</_Label> : null}
+            <Container horizontal={props.horizontal}>
+                {label ? <Label for={props.id}>{label}</Label> : null}
                 <section>{checkboxes}</section>
-            </_Container>
+            </Container>
         );
     }
-};
-
-CheckboxGroup.contextTypes = ContextTypes;
-
-CheckboxGroup.propTypes = {
-    id: PropTypes.string.isRequired,
-    label: PropTypes.string,
-};
+}
