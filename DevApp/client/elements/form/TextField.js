@@ -1,10 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { PropTypes } from 'prop-types';
-import { Label, Input } from 'reactstrap';
 import { FieldPanel } from '../layout/FieldPanel';
-import { ContextTypes } from '../../VMContext';
-import * as utils from '../../utils';
+import { ContextTypes } from '../VMContext';
+import * as utils from '../utils';
 
 const InputContainer = styled.div`
     width: calc(100% - 1px);
@@ -22,9 +21,9 @@ export class TextField extends React.Component {
 
     static componentTypes = {
         Container: FieldPanel,
-        LabelComponent: Label,
+        LabelComponent: undefined,
         InputContainer,
-        InputComponent: Input
+        InputComponent: undefined
     }
 
     constructor(props) {
@@ -52,7 +51,7 @@ export class TextField extends React.Component {
         const attrs = this.context.getPropAttributes(props.id);
         const value = this.context.getState(props.id) || "";
         const label = attrs.label || props.label;
-        
+
         return (
             <Container horizontal={props.horizontal}>
                 {label ? <Label for={`${vmId}.${props.id}`}>{label}</Label> : null}

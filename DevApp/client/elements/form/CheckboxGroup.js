@@ -1,9 +1,8 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
-import { FormGroup, Label, Input } from 'reactstrap';
 import { FieldPanel } from '../layout/FieldPanel';
-import { ContextTypes } from '../../VMContext';
-import * as utils from '../../utils';
+import { ContextTypes } from '../VMContext';
+import * as utils from '../utils';
 
 export class CheckboxGroup extends React.Component {
 
@@ -16,10 +15,10 @@ export class CheckboxGroup extends React.Component {
 
     static componentTypes = {
         Container: FieldPanel,
-        LabelComponent: Label,
-        CheckboxContainer: FormGroup,
-        CheckboxLabelComponent: Label,
-        InputComponent: Input
+        LabelComponent: undefined,
+        CheckboxContainer: undefined,
+        CheckboxLabelComponent: undefined,
+        InputComponent: undefined
     }
 
     constructor(props) {

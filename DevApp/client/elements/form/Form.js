@@ -1,7 +1,7 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
-import { ContextTypes } from '../../VMContext';
-import * as utils from '../../utils';
+import { ContextTypes } from '../VMContext';
+import * as utils from '../utils';
 
 export class Form extends React.Component {
 

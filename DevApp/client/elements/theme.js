@@ -1,4 +1,4 @@
-const DefaultTheme = {
+const defaultTheme = {
     nav: 'rgb(41, 54, 61)',
     header: 'white',
     navHeader: 'white',    
@@ -9,4 +9,4 @@ const DefaultTheme = {
     navGroup: '#868e96'
 };
 
-export default DefaultTheme;
+export default defaultTheme;

@@ -1,9 +1,8 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
-import { Label, Input } from 'reactstrap';
 import { FieldPanel } from '../layout/FieldPanel';
-import { ContextTypes } from '../../VMContext';
-import * as utils from '../../utils';
+import { ContextTypes } from '../VMContext';
+import * as utils from '../utils';
 
 export class DropdownList extends React.Component {
 
@@ -16,8 +15,8 @@ export class DropdownList extends React.Component {
 
     static componentTypes = {
         Container: FieldPanel,
-        LabelComponent: Label,
-        InputComponent: Input
+        LabelComponent: undefined,
+        InputComponent: undefined
     }
 
     constructor(props) {

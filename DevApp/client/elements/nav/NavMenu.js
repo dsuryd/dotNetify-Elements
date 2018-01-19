@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import { PropTypes } from 'prop-types';
-import { ContextTypes } from '../../VMContext';
+import { ContextTypes } from '../VMContext';
 import { Panel } from '../layout/Panel';
 import { Collapsible } from '../layout/Collapsible';
 import { RouteLink } from 'dotnetify/dist/dotnetify-react.router';
-import * as utils from '../../utils';
+import * as utils from '../utils';
 
 const Container = styled.div``;
 

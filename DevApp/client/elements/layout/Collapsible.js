@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Collapse } from 'reactstrap';
-import * as utils from '../../utils';
+import * as utils from '../utils';
 
 const Container = styled.div`
 `;
@@ -53,13 +52,14 @@ export class Collapsible extends React.Component {
     HeaderContainer,
     LabelComponent: Label,
     AngleCollapseIcon,
-    AngleExpandIcon
+    AngleExpandIcon,
+    Collapse: undefined
   }
 
   handleClick = _ => this.setState({ open: !this.state.open });
 
   render() {
-    const [Container, HeaderContainer, Label, AngleCollapseIcon, AngleExpandIcon] = utils.resolveComponents(Collapsible, this.props);
+    const [Container, HeaderContainer, Label, AngleCollapseIcon, AngleExpandIcon, Collapse] = utils.resolveComponents(Collapsible, this.props);
 
     return (
       <Container>

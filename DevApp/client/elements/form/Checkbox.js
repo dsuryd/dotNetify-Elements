@@ -1,8 +1,7 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
-import { FormGroup, Label, Input } from 'reactstrap';
-import { ContextTypes } from '../../VMContext';
-import * as utils from '../../utils';
+import { ContextTypes } from '../VMContext';
+import * as utils from '../utils';
 
 export class Checkbox extends React.Component {
 
@@ -14,9 +13,9 @@ export class Checkbox extends React.Component {
     }
 
     static componentTypes = {
-        Container: FormGroup,
-        LabelComponent: Label,
-        InputComponent: Input
+        Container: undefined,
+        LabelComponent: undefined,
+        InputComponent: undefined
     }
 
     constructor(props) {
