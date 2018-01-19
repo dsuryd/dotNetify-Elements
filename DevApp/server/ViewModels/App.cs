@@ -31,6 +31,7 @@ namespace dotNetify_Elements
             {
                new NavGroup {
                   Label = "Form Elements",
+                  Icon = "fa fa-list",
                   Routes = new NavRoute[]
                   {
                      new NavRoute { Label = "Vertical Form", Route = this.GetRoute(nameof(Route.FormDemo)) },

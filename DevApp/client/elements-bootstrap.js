@@ -31,7 +31,7 @@ Object.assign(CheckboxGroup.componentTypes, {
     InputComponent: Input
 });
 
-Collapsible.componentTypes.Collapse = Collapse;
+Collapsible.componentTypes.CollapsePanel = Collapse;
 
 Object.assign(DropdownList.componentTypes, {
     LabelComponent: Label,

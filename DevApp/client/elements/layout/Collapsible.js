@@ -8,6 +8,7 @@ const Container = styled.div`
 const HeaderContainer = styled.div`
    display: flex;
    flex-direction: row;
+   align-items: center;
    justify-content: space-between;
    &:hover {
       cursor: pointer;
@@ -15,7 +16,6 @@ const HeaderContainer = styled.div`
 `;
 
 const Label = styled.div`
-background: red;
 `;
 
 const IconContainer = styled.div`
@@ -53,13 +53,13 @@ export class Collapsible extends React.Component {
     LabelComponent: Label,
     AngleCollapseIcon,
     AngleExpandIcon,
-    Collapse: undefined
+    CollapsePanel: undefined
   }
 
   handleClick = _ => this.setState({ open: !this.state.open });
 
   render() {
-    const [Container, HeaderContainer, Label, AngleCollapseIcon, AngleExpandIcon, Collapse] = utils.resolveComponents(Collapsible, this.props);
+    const [Container, HeaderContainer, Label, AngleCollapseIcon, AngleExpandIcon, CollapsePanel] = utils.resolveComponents(Collapsible, this.props);
 
     return (
       <Container>
@@ -67,9 +67,9 @@ export class Collapsible extends React.Component {
           <Label isOpen={this.state.open}>{this.props.label}</Label>
           {this.state.open ? <AngleCollapseIcon /> : <AngleExpandIcon />}
         </HeaderContainer>
-        <Collapse isOpen={this.state.open}>
+        <CollapsePanel isOpen={this.state.open}>
           {this.props.children}
-        </Collapse>
+        </CollapsePanel>
       </Container>
     );
   }
