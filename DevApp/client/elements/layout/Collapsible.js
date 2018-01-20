@@ -41,10 +41,12 @@ const AngleExpandIcon = props => (
 export class Collapsible extends React.Component {
 
   static propTypes = {
+    collapsed: PropTypes.bool,
     noIcon: PropTypes.bool,
     right: PropTypes.bool,
     apart: PropTypes.bool,
-    label: PropTypes.string
+    label: PropTypes.string,
+    onToggled: PropTypes.func
   }
 
   static componentTypes = {
@@ -59,10 +61,14 @@ export class Collapsible extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { open: props.isOpen || true };
+    this.state = { open: !props.collapsed };
   }  
 
-  handleClick = _ => this.setState({ open: !this.state.open });
+  handleClick = _ => {
+    const open = !this.state.open;
+    this.setState({ open: open });
+    this.props.onToggled && this.props.onToggled(open);
+  }
 
   render() {
     const [Container, HeaderContainer, IconLabel, Label, AngleCollapseIcon, AngleExpandIcon, CollapsePanel] = utils.resolveComponents(Collapsible, this.props);

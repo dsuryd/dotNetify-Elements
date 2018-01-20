@@ -21,9 +21,9 @@ namespace dotNetify_Elements
       {
          this.RegisterRoutes("/", new List<RouteTemplate>
          {
-            new RouteTemplate (nameof(Route.Home)) { UrlPattern = "", ViewUrl = nameof(Route.FormDemo) },
-            new RouteTemplate (nameof(Route.FormDemo)) { UrlPattern = "form" },
-            new RouteTemplate (nameof(Route.HorizontalFormDemo)) { UrlPattern = "form/horizontal" },
+            new RouteTemplate (nameof(Route.Home))                { UrlPattern = "", ViewUrl = nameof(Route.FormDemo) },
+            new RouteTemplate (nameof(Route.FormDemo))            { UrlPattern = "form" },
+            new RouteTemplate (nameof(Route.HorizontalFormDemo))  { UrlPattern = "form/horizontal" },
          });
 
          AddProperty("NavMenu", new NavMenu(
@@ -34,8 +34,8 @@ namespace dotNetify_Elements
                   Icon = "fa fa-list",
                   Routes = new NavRoute[]
                   {
-                     new NavRoute { Label = "Vertical Form", Route = this.GetRoute(nameof(Route.FormDemo)) },
-                     new NavRoute { Label = "Horizontal Form", Route = this.GetRoute(nameof(Route.HorizontalFormDemo)) }
+                     new NavRoute("Vertical Form",    this.GetRoute(nameof(Route.FormDemo))),
+                     new NavRoute("Horizontal Form",  this.GetRoute(nameof(Route.HorizontalFormDemo)))
                   }
                }
             }));

@@ -22,12 +22,10 @@ namespace DotNetify
 {
    public class NavMenu : List<NavMenuItem>
    {
-      public NavMenu(NavMenuItem[] navMenuItems) : base(navMenuItems)
-      {
-      }
+      public NavMenu(NavMenuItem[] navMenuItems) : base(navMenuItems) { }
    }
 
-   public class NavMenuItem
+   public abstract class NavMenuItem
    {
       public string Label { get; set; }
       public string Icon { get; set; }
@@ -35,7 +33,7 @@ namespace DotNetify
 
    public class NavGroup : NavMenuItem
    {
-      public bool IsExpanded { get; set; }
+      public bool IsExpanded { get; set; } = true;
 
       public NavRoute[] Routes { get; set; }
    }
@@ -43,5 +41,14 @@ namespace DotNetify
    public class NavRoute : NavMenuItem
    {
       public Route Route { get; set; }
+
+      public NavRoute() { }
+
+      public NavRoute(string label, Route route, string icon = null)
+      {
+         Label = label;
+         Route = route;
+         Icon = icon;
+      }
    }
 }

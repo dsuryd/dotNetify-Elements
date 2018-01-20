@@ -103,7 +103,7 @@ export class NavMenu extends React.Component {
         const navMenu = value.map((navItem, idx) => {
             const groupLabel = props => <GroupLabel icon={navItem.Icon} {...props} />;
             return navItem.Routes ? (
-                <GroupContainer key={idx} label={navItem.Label} labelComponent={groupLabel}>
+                <GroupContainer key={idx} label={navItem.Label} labelComponent={groupLabel} collapsed={!navItem.IsExpanded}>
                     {navItem.Routes.map(navRoute => this.buildRoute(navRoute, navItem))}
                 </GroupContainer>
             ) : buildRoute(navItem);
