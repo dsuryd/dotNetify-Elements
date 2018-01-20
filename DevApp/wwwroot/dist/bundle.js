@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "102e2de0bac242311f0e"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "2655163744847b1aa81c"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -30358,6 +30358,8 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = __webpack_require__(8);
+
 var _styledComponents = __webpack_require__(13);
 
 var _styledComponents2 = _interopRequireDefault(_styledComponents);
@@ -30485,6 +30487,12 @@ var Collapsible = exports.Collapsible = function (_React$Component) {
   return Collapsible;
 }(_react2.default.Component);
 
+Collapsible.propTypes = {
+  noIcon: _propTypes.PropTypes.bool,
+  right: _propTypes.PropTypes.bool,
+  apart: _propTypes.PropTypes.bool,
+  label: _propTypes.PropTypes.string
+};
 Collapsible.componentTypes = {
   Container: Container,
   HeaderContainer: HeaderContainer,

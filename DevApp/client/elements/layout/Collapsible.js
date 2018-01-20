@@ -1,4 +1,5 @@
 import React from 'react';
+import { PropTypes } from 'prop-types';
 import styled from 'styled-components';
 import * as utils from '../utils';
 import { IconLabel } from './IconLabel';
@@ -39,9 +40,11 @@ const AngleExpandIcon = props => (
 
 export class Collapsible extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.state = { open: props.isOpen || true };
+  static propTypes = {
+    noIcon: PropTypes.bool,
+    right: PropTypes.bool,
+    apart: PropTypes.bool,
+    label: PropTypes.string
   }
 
   static componentTypes = {
@@ -53,6 +56,11 @@ export class Collapsible extends React.Component {
     AngleExpandIcon,
     CollapsePanel: undefined
   }
+
+  constructor(props) {
+    super(props);
+    this.state = { open: props.isOpen || true };
+  }  
 
   handleClick = _ => this.setState({ open: !this.state.open });
 
