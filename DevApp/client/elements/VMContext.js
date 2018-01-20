@@ -2,6 +2,7 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import dotnetify from 'dotnetify';
+import * as utils from './utils';
 
 dotnetify.debug = true;
 
@@ -28,19 +29,12 @@ export class VMContext extends React.Component {
             getState: id => (this.state && this.state[id]) || undefined,
             setState: state => this.setState(state),
             dispatchState: state => this.vm.$dispatch(state),
-            getPropAttributes: propId => this.toCamelCase((this.state && this.state[propId + "_attr"]) || {})
+            getPropAttributes: propId => utils.toCamelCase((this.state && this.state[propId + "_attr"]) || {})
         };
     }
 
     render() {
         return this.state ? <div>{this.props.children}</div> : null;
-    }
-
-    toCamelCase(obj) {
-        let newObj = {};
-        for (let key of Object.keys(obj))
-            newObj[key.substr(0, 1).toLowerCase() + key.substr(1)] = obj[key];
-        return newObj;
     }
 
     removeOrphan(vmId) {

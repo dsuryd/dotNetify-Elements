@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { PropTypes } from 'prop-types';
 import { ContextTypes } from '../VMContext';
-import { Panel } from '../layout/Panel';
 import { Collapsible } from '../layout/Collapsible';
+import { IconLabel } from '../layout/IconLabel';
 import { RouteLink } from 'dotnetify/dist/dotnetify-react.router';
 import * as utils from '../utils';
 
@@ -33,6 +33,7 @@ const RouteContainer = styled.div`
 `;
 
 const GroupHeaderContainer = Collapsible.componentTypes.HeaderContainer.extend`
+    padding-right: 1rem;
     color: ${props => props.theme.navGroup.color};
     background: ${props => props.theme.navGroup.background};
     &:hover {
@@ -41,37 +42,17 @@ const GroupHeaderContainer = Collapsible.componentTypes.HeaderContainer.extend`
     }        
 `;
 
-const GroupLabelContainer = styled.div`
-    display: flex;
-    align-items: center;
-    padding: .75rem; 
-`;
-
 const GroupLabel = props => (
-    <GroupLabelContainer>
-        {props.icon ? <Icon name={props.icon} /> : null}
-        <span>{props.children}</span>
-    </GroupLabelContainer>
+    <div style={{ padding: props.padding || '.75rem 1rem' }}>
+        <IconLabel name={props.icon}>{props.children}</IconLabel>
+    </div>
 );
-
-const RouteLabelContainer = styled.div`
-    padding: .75rem;
-    padding-left: ${props => props.indent ? '2.5rem' : '1rem'};        
-`;
 
 const RouteLabel = props => (
-    <RouteLabelContainer indent={props.indent}>
-        {props.icon ? <Icon name={props.icon} /> : null}
-        <span>{props.children}</span>
-    </RouteLabelContainer>
+    <div style={{ padding: props.padding || '.75rem 1rem', paddingLeft: props.indent ? '2rem' : '1rem' }}>
+        <IconLabel name={props.icon}>{props.children}</IconLabel>
+    </div>
 );
-
-const Icon = styled.span.attrs({
-    className: props => props.name
-}) `
-    padding-right: .5rem;
-    font-size: x-large;
-`;
 
 export const NavMenuTarget = _ => (<div id="NavMenuTarget" />);
 

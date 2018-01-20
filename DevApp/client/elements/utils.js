@@ -28,6 +28,14 @@ export function resolveComponents(type, props) {
     return Object.keys(type.componentTypes).map(key => props[toCamelCase(key)] || type.componentTypes[key]);
 }
 
-function toCamelCase(key) {
-    return key.substr(0, 1).toLowerCase() + key.substr(1);
+export function toCamelCase(obj) {
+    if (typeof obj == "string")
+        return obj.substr(0, 1).toLowerCase() + obj.substr(1);
+    else if (typeof obj === "object") {
+        let newObj = {};
+        for (let key of Object.keys(obj))
+            newObj[toCamelCase(key)] = obj[key];
+        return newObj;
+    }
+    return obj;
 }

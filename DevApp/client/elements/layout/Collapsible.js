@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import * as utils from '../utils';
+import { IconLabel } from './IconLabel';
 
 const Container = styled.div`
 `;
@@ -15,13 +16,9 @@ const HeaderContainer = styled.div`
   }   
 `;
 
-const Label = styled.div`
-`;
-
 const IconContainer = styled.div`
   display: flex;
   align-items: center;
-  padding: 1rem;
 `;
 
 const AngleCollapseIcon = props => (
@@ -50,7 +47,8 @@ export class Collapsible extends React.Component {
   static componentTypes = {
     Container,
     HeaderContainer,
-    LabelComponent: Label,
+    IconLabelComponent: IconLabel,
+    LabelComponent: IconLabel,
     AngleCollapseIcon,
     AngleExpandIcon,
     CollapsePanel: undefined
@@ -59,16 +57,18 @@ export class Collapsible extends React.Component {
   handleClick = _ => this.setState({ open: !this.state.open });
 
   render() {
-    const [Container, HeaderContainer, Label, AngleCollapseIcon, AngleExpandIcon, CollapsePanel] = utils.resolveComponents(Collapsible, this.props);
-
+    const [Container, HeaderContainer, IconLabel, Label, AngleCollapseIcon, AngleExpandIcon, CollapsePanel] = utils.resolveComponents(Collapsible, this.props);
+    const { noIcon, label, children } = this.props;
+    const icon = this.state.open ? <AngleCollapseIcon /> : <AngleExpandIcon />;
     return (
       <Container>
         <HeaderContainer onClick={this.handleClick}>
-          <Label isOpen={this.state.open}>{this.props.label}</Label>
-          {this.state.open ? <AngleCollapseIcon /> : <AngleExpandIcon />}
+          <IconLabel right apart icon={noIcon ? null : icon}>
+            <Label isOpen={this.state.open}>{this.props.label}</Label>
+          </IconLabel>
         </HeaderContainer>
         <CollapsePanel isOpen={this.state.open}>
-          {this.props.children}
+          {children}
         </CollapsePanel>
       </Container>
     );

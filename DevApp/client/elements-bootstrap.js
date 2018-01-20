@@ -5,6 +5,7 @@ import { CheckboxGroup } from './elements/form/CheckboxGroup';
 import { Collapsible } from './elements/layout/Collapsible';
 import { DropdownList } from './elements/form/DropdownList';
 import { Form } from './elements/form/Form';
+import { IconLabel } from './elements/layout/IconLabel';
 import { Main, Header, Nav, Footer, Section } from './elements/layout/LayoutGrid';
 import { NavHeader } from './elements/layout/NavHeader';
 import { NavMenu, NavMenuTarget } from './elements/nav/NavMenu';
@@ -59,6 +60,7 @@ export {
     ContextTypes,
     DropdownList,
     Form,
+    IconLabel,
     Main, Header, Nav, Footer, Section,
     NavHeader,
     NavMenu,
