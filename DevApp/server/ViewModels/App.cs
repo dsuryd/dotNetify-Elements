@@ -21,9 +21,9 @@ namespace dotNetify_Elements
       {
          this.RegisterRoutes("/", new List<RouteTemplate>
          {
-            new RouteTemplate (nameof(Route.Home))                { UrlPattern = "", ViewUrl = nameof(Route.FormDemo) },
-            new RouteTemplate (nameof(Route.FormDemo))            { UrlPattern = "form" },
-            new RouteTemplate (nameof(Route.HorizontalFormDemo))  { UrlPattern = "form/horizontal" },
+            new RouteTemplate(nameof(Route.Home))              { UrlPattern = "", ViewUrl = nameof(Route.FormDemo) },
+            new RouteTemplate(nameof(Route.FormDemo))          { UrlPattern = "form" },
+            new RouteTemplate(nameof(Route.HorizontalFormDemo)){ UrlPattern = "form/horizontal" },
          });
 
          AddProperty("NavMenu", new NavMenu(
