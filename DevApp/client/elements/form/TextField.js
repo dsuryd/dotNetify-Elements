@@ -6,10 +6,6 @@ import { ContextTypes } from '../VMContext';
 import { FieldPanel } from '../layout/FieldPanel';
 import * as utils from '../utils';
 
-const InputContainer = styled.div`
-    width: calc(100% - 1px);
-`;
-
 export class TextField extends React.Component {
 
     static contextTypes = ContextTypes;
@@ -22,8 +18,6 @@ export class TextField extends React.Component {
 
     static componentTypes = {
         Container: FieldPanel,
-        LabelComponent: undefined,
-        InputContainer,
         InputComponent: undefined
     }
 
@@ -47,24 +41,21 @@ export class TextField extends React.Component {
     }
 
     render() {
-        const [Container, Label, InputContainer, Input] = utils.resolveComponents(TextField, this.props);
+        const [Container, Input] = utils.resolveComponents(TextField, this.props);
         const { id, value, attrs } = this.vmInput.props;
 
         const label = attrs.label || this.props.label;
         const placeholder = attrs.placeholder || this.props.placeholder;
 
         return (
-            <Container horizontal={this.props.horizontal}>
-                {label ? <Label for={id}>{label}</Label> : null}
-                <InputContainer>
-                    <Input
-                        id={id}
-                        type={this.props.type || "text"}
-                        placeholder={placeholder}
-                        value={value || ""}
-                        onChange={this.handleChange}
-                        onBlur={this.handleBlur} />
-                </InputContainer>
+            <Container id={id} label={label} horizontal={this.props.horizontal}>
+                <Input
+                    id={id}
+                    type={this.props.type || "text"}
+                    placeholder={placeholder}
+                    value={value || ""}
+                    onChange={this.handleChange}
+                    onBlur={this.handleBlur} />
             </Container>
         );
     }

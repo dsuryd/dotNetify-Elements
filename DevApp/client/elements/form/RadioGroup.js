@@ -16,7 +16,6 @@ export class RadioGroup extends React.Component {
 
     static componentTypes = {
         Container: FieldPanel,
-        LabelComponent: undefined,
         RadioContainer: undefined,
         RadioLabelComponent: undefined,
         InputComponent: undefined
@@ -33,9 +32,10 @@ export class RadioGroup extends React.Component {
     handleChange = (event) =>this.vmInput.value = event.target.value;
 
     render() {
-        const [Container, Label, RadioContainer, RadioLabel, Input] = utils.resolveComponents(RadioGroup, this.props);
+        const [Container, RadioContainer, RadioLabel, Input] = utils.resolveComponents(RadioGroup, this.props);
         const { id, value, attrs } = this.vmInput.props;
 
+        const label = attrs.label || this.props.label;
         const radio = (attrs.options || []).map(opt => (
             <RadioContainer check key={opt.Key} id={id}>
                 <RadioLabel check>
@@ -44,12 +44,9 @@ export class RadioGroup extends React.Component {
                 </RadioLabel>
             </RadioContainer>
         ));
-        
-        const label = attrs.label || this.props.label;
 
         return (
-            <Container horizontal={this.props.horizontal}>
-                {label ? <Label for={id}>{label}</Label> : null}
+            <Container id={id} label={label} horizontal={this.props.horizontal}>
                 <section>{radio}</section>
             </Container>
         );

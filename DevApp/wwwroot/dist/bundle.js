@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "5132806e19180cc1f3c6"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "5eac4bdf94353b877e6b"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -7541,7 +7541,7 @@ exports.default = App;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.VMInput = exports.VMContext = exports.TextAreaField = exports.PasswordField = exports.EmailField = exports.TextField = exports.RadioGroup = exports.Panel = exports.NavToggle = exports.NavMenuTarget = exports.NavMenu = exports.NavHeader = exports.Section = exports.Footer = exports.Nav = exports.Header = exports.Main = exports.IconLabel = exports.Form = exports.DropdownList = exports.ContextTypes = exports.Collapsible = exports.CheckboxGroup = exports.Checkbox = exports.Button = exports.defaultTheme = undefined;
+exports.VMInput = exports.VMContext = exports.TextAreaField = exports.PasswordField = exports.EmailField = exports.TextField = exports.RadioGroup = exports.Panel = exports.NavToggle = exports.NavMenuTarget = exports.NavMenu = exports.NavHeader = exports.Section = exports.Footer = exports.Nav = exports.Header = exports.Main = exports.IconLabel = exports.Form = exports.FieldPanel = exports.DropdownList = exports.ContextTypes = exports.Collapsible = exports.CheckboxGroup = exports.Checkbox = exports.Button = exports.defaultTheme = undefined;
 
 var _theme = __webpack_require__(103);
 
@@ -7556,6 +7556,8 @@ var _CheckboxGroup = __webpack_require__(233);
 var _Collapsible = __webpack_require__(104);
 
 var _DropdownList = __webpack_require__(234);
+
+var _FieldPanel = __webpack_require__(43);
 
 var _Form = __webpack_require__(235);
 
@@ -7592,30 +7594,22 @@ Object.assign(_Checkbox.Checkbox.componentTypes, {
 });
 
 Object.assign(_CheckboxGroup.CheckboxGroup.componentTypes, {
-    LabelComponent: _reactstrap.Label,
     CheckboxContainer: _reactstrap.FormGroup,
     CheckboxLabelComponent: _reactstrap.Label,
     InputComponent: _reactstrap.Input
 });
 
 _Collapsible.Collapsible.componentTypes.CollapsePanel = _reactstrap.Collapse;
-
-Object.assign(_DropdownList.DropdownList.componentTypes, {
-    LabelComponent: _reactstrap.Label,
-    InputComponent: _reactstrap.Input
-});
+_FieldPanel.FieldPanel.componentTypes.LabelComponent = _reactstrap.Label;
+_DropdownList.DropdownList.componentTypes.InputComponent = _reactstrap.Input;
 
 Object.assign(_RadioGroup.RadioGroup.componentTypes, {
-    LabelComponent: _reactstrap.Label,
     RadioContainer: _reactstrap.FormGroup,
     RadioLabelComponent: _reactstrap.Label,
     InputComponent: _reactstrap.Input
 });
 
-Object.assign(_TextField.TextField.componentTypes, {
-    LabelComponent: _reactstrap.Label,
-    InputComponent: _reactstrap.Input
-});
+_TextField.TextField.componentTypes.InputComponent = _reactstrap.Input;
 
 exports.defaultTheme = _theme2.default;
 exports.Button = _Button2.Button;
@@ -7624,6 +7618,7 @@ exports.CheckboxGroup = _CheckboxGroup.CheckboxGroup;
 exports.Collapsible = _Collapsible.Collapsible;
 exports.ContextTypes = _VMContext.ContextTypes;
 exports.DropdownList = _DropdownList.DropdownList;
+exports.FieldPanel = _FieldPanel.FieldPanel;
 exports.Form = _Form.Form;
 exports.IconLabel = _IconLabel.IconLabel;
 exports.Main = _LayoutGrid.Main;
@@ -7676,6 +7671,8 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -7687,6 +7684,10 @@ var Container = _styledComponents2.default.div.withConfig({
 })(['display:grid;grid-template-columns:', ';-ms-user-select:none;user-select:none;'], function (prop) {
     return prop.horizontal ? '1fr 4fr' : '1fr';
 });
+
+var InputContainer = _styledComponents2.default.div.withConfig({
+    displayName: 'FieldPanel__InputContainer'
+})(['width:calc(100% - 1px);']);
 
 var FieldPanel = exports.FieldPanel = function (_React$Component) {
     _inherits(FieldPanel, _React$Component);
@@ -7701,13 +7702,30 @@ var FieldPanel = exports.FieldPanel = function (_React$Component) {
         key: 'render',
         value: function render() {
             var _utils$resolveCompone = utils.resolveComponents(FieldPanel, this.props),
-                _utils$resolveCompone2 = _slicedToArray(_utils$resolveCompone, 1),
-                Container = _utils$resolveCompone2[0];
+                _utils$resolveCompone2 = _slicedToArray(_utils$resolveCompone, 3),
+                Container = _utils$resolveCompone2[0],
+                Label = _utils$resolveCompone2[1],
+                InputContainer = _utils$resolveCompone2[2];
+
+            var _props = this.props,
+                id = _props.id,
+                label = _props.label,
+                horizontal = _props.horizontal,
+                props = _objectWithoutProperties(_props, ['id', 'label', 'horizontal']);
 
             return _react2.default.createElement(
                 Container,
-                this.props,
-                this.props.children
+                { horizontal: horizontal },
+                label ? _react2.default.createElement(
+                    Label,
+                    { 'for': id },
+                    label
+                ) : null,
+                _react2.default.createElement(
+                    InputContainer,
+                    null,
+                    this.props.children
+                )
             );
         }
     }]);
@@ -7716,7 +7734,9 @@ var FieldPanel = exports.FieldPanel = function (_React$Component) {
 }(_react2.default.Component);
 
 FieldPanel.componentTypes = {
-    Container: Container
+    Container: Container,
+    LabelComponent: undefined,
+    InputContainer: InputContainer
 };
 
 /***/ }),
@@ -46695,12 +46715,11 @@ var CheckboxGroup = exports.CheckboxGroup = function (_React$Component) {
             var _this2 = this;
 
             var _utils$resolveCompone = utils.resolveComponents(CheckboxGroup, this.props),
-                _utils$resolveCompone2 = _slicedToArray(_utils$resolveCompone, 5),
+                _utils$resolveCompone2 = _slicedToArray(_utils$resolveCompone, 4),
                 Container = _utils$resolveCompone2[0],
-                Label = _utils$resolveCompone2[1],
-                CheckboxContainer = _utils$resolveCompone2[2],
-                CheckboxLabel = _utils$resolveCompone2[3],
-                Input = _utils$resolveCompone2[4];
+                CheckboxContainer = _utils$resolveCompone2[1],
+                CheckboxLabel = _utils$resolveCompone2[2],
+                Input = _utils$resolveCompone2[3];
 
             var _vmInput$props = this.vmInput.props,
                 id = _vmInput$props.id,
@@ -46726,12 +46745,7 @@ var CheckboxGroup = exports.CheckboxGroup = function (_React$Component) {
 
             return _react2.default.createElement(
                 Container,
-                { horizontal: this.props.horizontal },
-                label ? _react2.default.createElement(
-                    Label,
-                    { 'for': id },
-                    label
-                ) : null,
+                { id: id, label: label, horizontal: this.props.horizontal },
                 _react2.default.createElement(
                     'section',
                     { id: id },
@@ -46751,7 +46765,6 @@ CheckboxGroup.propTypes = {
 };
 CheckboxGroup.componentTypes = {
     Container: _FieldPanel.FieldPanel,
-    LabelComponent: undefined,
     CheckboxContainer: undefined,
     CheckboxLabelComponent: undefined,
     InputComponent: undefined
@@ -46823,10 +46836,9 @@ var DropdownList = exports.DropdownList = function (_React$Component) {
         key: 'render',
         value: function render() {
             var _utils$resolveCompone = utils.resolveComponents(DropdownList, this.props),
-                _utils$resolveCompone2 = _slicedToArray(_utils$resolveCompone, 3),
+                _utils$resolveCompone2 = _slicedToArray(_utils$resolveCompone, 2),
                 Container = _utils$resolveCompone2[0],
-                Label = _utils$resolveCompone2[1],
-                Input = _utils$resolveCompone2[2];
+                Input = _utils$resolveCompone2[1];
 
             var _vmInput$props = this.vmInput.props,
                 id = _vmInput$props.id,
@@ -46845,12 +46857,7 @@ var DropdownList = exports.DropdownList = function (_React$Component) {
 
             return _react2.default.createElement(
                 Container,
-                { horizontal: this.props.horizontal },
-                label ? _react2.default.createElement(
-                    Label,
-                    { 'for': id },
-                    label
-                ) : null,
+                { id: id, label: label, horizontal: this.props.horizontal },
                 _react2.default.createElement(
                     Input,
                     {
@@ -46875,7 +46882,6 @@ DropdownList.propTypes = {
 };
 DropdownList.componentTypes = {
     Container: _FieldPanel.FieldPanel,
-    LabelComponent: undefined,
     InputComponent: undefined
 };
 
@@ -51802,12 +51808,11 @@ var RadioGroup = exports.RadioGroup = function (_React$Component) {
             var _this2 = this;
 
             var _utils$resolveCompone = utils.resolveComponents(RadioGroup, this.props),
-                _utils$resolveCompone2 = _slicedToArray(_utils$resolveCompone, 5),
+                _utils$resolveCompone2 = _slicedToArray(_utils$resolveCompone, 4),
                 Container = _utils$resolveCompone2[0],
-                Label = _utils$resolveCompone2[1],
-                RadioContainer = _utils$resolveCompone2[2],
-                RadioLabel = _utils$resolveCompone2[3],
-                Input = _utils$resolveCompone2[4];
+                RadioContainer = _utils$resolveCompone2[1],
+                RadioLabel = _utils$resolveCompone2[2],
+                Input = _utils$resolveCompone2[3];
 
             var _vmInput$props = this.vmInput.props,
                 id = _vmInput$props.id,
@@ -51815,6 +51820,7 @@ var RadioGroup = exports.RadioGroup = function (_React$Component) {
                 attrs = _vmInput$props.attrs;
 
 
+            var label = attrs.label || this.props.label;
             var radio = (attrs.options || []).map(function (opt) {
                 return _react2.default.createElement(
                     RadioContainer,
@@ -51828,16 +51834,9 @@ var RadioGroup = exports.RadioGroup = function (_React$Component) {
                 );
             });
 
-            var label = attrs.label || this.props.label;
-
             return _react2.default.createElement(
                 Container,
-                { horizontal: this.props.horizontal },
-                label ? _react2.default.createElement(
-                    Label,
-                    { 'for': id },
-                    label
-                ) : null,
+                { id: id, label: label, horizontal: this.props.horizontal },
                 _react2.default.createElement(
                     'section',
                     null,
@@ -51857,7 +51856,6 @@ RadioGroup.propTypes = {
 };
 RadioGroup.componentTypes = {
     Container: _FieldPanel.FieldPanel,
-    LabelComponent: undefined,
     RadioContainer: undefined,
     RadioLabelComponent: undefined,
     InputComponent: undefined
@@ -51911,10 +51909,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var InputContainer = _styledComponents2.default.div.withConfig({
-    displayName: 'TextField__InputContainer'
-})(['width:calc(100% - 1px);']);
-
 var TextField = exports.TextField = function (_React$Component) {
     _inherits(TextField, _React$Component);
 
@@ -51946,11 +51940,9 @@ var TextField = exports.TextField = function (_React$Component) {
         key: 'render',
         value: function render() {
             var _utils$resolveCompone = utils.resolveComponents(TextField, this.props),
-                _utils$resolveCompone2 = _slicedToArray(_utils$resolveCompone, 4),
+                _utils$resolveCompone2 = _slicedToArray(_utils$resolveCompone, 2),
                 Container = _utils$resolveCompone2[0],
-                Label = _utils$resolveCompone2[1],
-                InputContainer = _utils$resolveCompone2[2],
-                Input = _utils$resolveCompone2[3];
+                Input = _utils$resolveCompone2[1];
 
             var _vmInput$props = this.vmInput.props,
                 id = _vmInput$props.id,
@@ -51963,23 +51955,14 @@ var TextField = exports.TextField = function (_React$Component) {
 
             return _react2.default.createElement(
                 Container,
-                { horizontal: this.props.horizontal },
-                label ? _react2.default.createElement(
-                    Label,
-                    { 'for': id },
-                    label
-                ) : null,
-                _react2.default.createElement(
-                    InputContainer,
-                    null,
-                    _react2.default.createElement(Input, {
-                        id: id,
-                        type: this.props.type || "text",
-                        placeholder: placeholder,
-                        value: value || "",
-                        onChange: this.handleChange,
-                        onBlur: this.handleBlur })
-                )
+                { id: id, label: label, horizontal: this.props.horizontal },
+                _react2.default.createElement(Input, {
+                    id: id,
+                    type: this.props.type || "text",
+                    placeholder: placeholder,
+                    value: value || "",
+                    onChange: this.handleChange,
+                    onBlur: this.handleBlur })
             );
         }
     }]);
@@ -51995,8 +51978,6 @@ TextField.propTypes = {
 };
 TextField.componentTypes = {
     Container: _FieldPanel.FieldPanel,
-    LabelComponent: undefined,
-    InputContainer: InputContainer,
     InputComponent: undefined
 };
 var EmailField = exports.EmailField = function EmailField(props) {

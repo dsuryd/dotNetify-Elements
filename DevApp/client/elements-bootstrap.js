@@ -4,6 +4,7 @@ import { Checkbox } from './elements/form/Checkbox';
 import { CheckboxGroup } from './elements/form/CheckboxGroup';
 import { Collapsible } from './elements/layout/Collapsible';
 import { DropdownList } from './elements/form/DropdownList';
+import { FieldPanel } from './elements/layout/FieldPanel';
 import { Form } from './elements/form/Form';
 import { IconLabel } from './elements/layout/IconLabel';
 import { Main, Header, Nav, Footer, Section } from './elements/layout/LayoutGrid';
@@ -27,30 +28,22 @@ Object.assign(Checkbox.componentTypes, {
 });
 
 Object.assign(CheckboxGroup.componentTypes, {
-    LabelComponent: Label,
     CheckboxContainer: FormGroup,
     CheckboxLabelComponent: Label,
     InputComponent: Input
 });
 
 Collapsible.componentTypes.CollapsePanel = Collapse;
-
-Object.assign(DropdownList.componentTypes, {
-    LabelComponent: Label,
-    InputComponent: Input
-});
+FieldPanel.componentTypes.LabelComponent = Label;
+DropdownList.componentTypes.InputComponent = Input;
 
 Object.assign(RadioGroup.componentTypes, {
-    LabelComponent: Label,
     RadioContainer: FormGroup,
     RadioLabelComponent: Label,
     InputComponent: Input
 });
 
-Object.assign(TextField.componentTypes, {
-    LabelComponent: Label,
-    InputComponent: Input
-});
+TextField.componentTypes.InputComponent = Input;
 
 export {
     defaultTheme,
@@ -60,6 +53,7 @@ export {
     Collapsible,
     ContextTypes,
     DropdownList,
+    FieldPanel,
     Form,
     IconLabel,
     Main, Header, Nav, Footer, Section,

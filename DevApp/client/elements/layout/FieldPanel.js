@@ -9,17 +9,27 @@ const Container = styled.div`
     user-select: none; 
 `;
 
+const InputContainer = styled.div`
+    width: calc(100% - 1px);
+`;
+
 export class FieldPanel extends React.Component {
 
     static componentTypes = {
-        Container
+        Container,
+        LabelComponent: undefined,
+        InputContainer
     }
 
     render() {
-        const [Container] = utils.resolveComponents(FieldPanel, this.props);
+        const [Container, Label, InputContainer] = utils.resolveComponents(FieldPanel, this.props);
+        const { id, label, horizontal, ...props } = this.props;
         return (
-            <Container {...this.props}>
-                {this.props.children}
+            <Container horizontal={horizontal}>
+                {label ? <Label for={id}>{label}</Label> : null}
+                <InputContainer>
+                    {this.props.children}
+                </InputContainer>
             </Container>
         )
     };

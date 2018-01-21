@@ -16,7 +16,6 @@ export class CheckboxGroup extends React.Component {
 
     static componentTypes = {
         Container: FieldPanel,
-        LabelComponent: undefined,
         CheckboxContainer: undefined,
         CheckboxLabelComponent: undefined,
         InputComponent: undefined
@@ -37,7 +36,7 @@ export class CheckboxGroup extends React.Component {
     }
 
     render() {
-        const [Container, Label, CheckboxContainer, CheckboxLabel, Input] = utils.resolveComponents(CheckboxGroup, this.props);
+        const [Container, CheckboxContainer, CheckboxLabel, Input] = utils.resolveComponents(CheckboxGroup, this.props);
         const { id, value, attrs } = this.vmInput.props;        
 
         const values = value || [];
@@ -53,8 +52,7 @@ export class CheckboxGroup extends React.Component {
         ));
 
         return (
-            <Container horizontal={this.props.horizontal}>
-                {label ? <Label for={id}>{label}</Label> : null}
+            <Container id={id} label={label} horizontal={this.props.horizontal}>
                 <section id={id}>{checkboxes}</section>
             </Container>
         );
