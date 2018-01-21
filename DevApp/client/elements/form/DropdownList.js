@@ -2,6 +2,7 @@ import React from 'react';
 import { PropTypes } from 'prop-types';
 import { FieldPanel } from '../layout/FieldPanel';
 import { ContextTypes } from '../VMContext';
+import { VMInput } from '../VMInput';
 import * as utils from '../utils';
 
 export class DropdownList extends React.Component {
@@ -23,27 +24,24 @@ export class DropdownList extends React.Component {
         super(props);
     }
 
-    handleChange = (event) => {
-        const value = event.target.value;
-        this.context.setState({ [this.props.id]: value });
-        this.context.dispatchState({ [this.props.id]: value });
+    componentWillMount() {
+        this.vmInput = new VMInput(this.context, this.props.id);
     }
+
+    handleChange = (event) =>this.vmInput.value = event.target.value;
 
     render() {
         const [Container, Label, Input] = utils.resolveComponents(DropdownList, this.props);
+        const { id, value, attrs } = this.vmInput.props;
 
-        const vmId = this.context.vmId;
-        const props = this.props;
-        const value = this.context.getState(props.id);
-        const attrs = this.context.getPropAttributes(props.id);
         const options = (attrs.options || []).map(opt => <option key={opt.Key} value={opt.Key}>{opt.Value}</option>);
-        const label = attrs.label || props.label;
+        const label = attrs.label || this.props.label;
 
         return (
-            <Container horizontal={props.horizontal}>
-                {label ? <Label for={`${vmId}.${props.id}`}>{label}</Label> : null}
+            <Container horizontal={this.props.horizontal}>
+                {label ? <Label for={id}>{label}</Label> : null}
                 <Input
-                    id={`${vmId}.${props.id}`}
+                    id={id}
                     type="select"
                     value={value}
                     onChange={this.handleChange}

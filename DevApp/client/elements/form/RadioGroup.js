@@ -2,6 +2,7 @@ import React from 'react';
 import { PropTypes } from 'prop-types';
 import { FieldPanel } from '../layout/FieldPanel';
 import { ContextTypes } from '../VMContext';
+import { VMInput } from '../VMInput';
 import * as utils from '../utils';
 
 export class RadioGroup extends React.Component {
@@ -25,33 +26,30 @@ export class RadioGroup extends React.Component {
         super(props);
     }
 
-    handleChange = (event) => {
-        const value = event.target.value;
-        this.context.setState({ [this.props.id]: value });
-        this.context.dispatchState({ [this.props.id]: value });
+    componentWillMount() {
+        this.vmInput = new VMInput(this.context, this.props.id);
     }
+
+    handleChange = (event) =>this.vmInput.value = event.target.value;
 
     render() {
         const [Container, Label, RadioContainer, RadioLabel, Input] = utils.resolveComponents(RadioGroup, this.props);
-
-        const vmId = this.context.vmId;
-        const props = this.props;
-        const value = this.context.getState(props.id);
-        const attrs = this.context.getPropAttributes(props.id);
-        const label = attrs.label || props.label;
+        const { id, value, attrs } = this.vmInput.props;
 
         const radio = (attrs.options || []).map(opt => (
-            <RadioContainer check key={opt.Key} id={`${vmId}.${props.id}`}>
+            <RadioContainer check key={opt.Key} id={id}>
                 <RadioLabel check>
-                    <Input type="radio" name={`${vmId}.${props.id}`} value={opt.Key} checked={opt.Key == value} onChange={this.handleChange} />
+                    <Input type="radio" name={id} value={opt.Key} checked={opt.Key == value} onChange={this.handleChange} />
                     {opt.Value}
                 </RadioLabel>
             </RadioContainer>
         ));
+        
+        const label = attrs.label || this.props.label;
 
         return (
-            <Container horizontal={props.horizontal}>
-                {label ? <Label for={props.id}>{label}</Label> : null}
+            <Container horizontal={this.props.horizontal}>
+                {label ? <Label for={id}>{label}</Label> : null}
                 <section>{radio}</section>
             </Container>
         );

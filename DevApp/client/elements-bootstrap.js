@@ -13,6 +13,7 @@ import { NavToggle } from './elements/nav/NavToggle';
 import { Panel } from './elements/layout/Panel';
 import { RadioGroup } from './elements/form/RadioGroup';
 import { TextField, EmailField, PasswordField, TextAreaField } from './elements/form/TextField';
+import { VMInput } from './elements/VMInput';
 import { VMContext, ContextTypes } from './elements/VMContext';
 
 import { Button as _Button, Collapse, FormGroup, Label, Input } from 'reactstrap';
@@ -69,5 +70,6 @@ export {
     Panel,
     RadioGroup,
     TextField, EmailField, PasswordField, TextAreaField,
-    VMContext
+    VMContext,
+    VMInput
 };

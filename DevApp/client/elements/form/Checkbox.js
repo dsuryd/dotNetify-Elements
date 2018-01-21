@@ -1,5 +1,6 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
+import { VMInput } from '../VMInput';
 import { ContextTypes } from '../VMContext';
 import * as utils from '../utils';
 
@@ -22,25 +23,22 @@ export class Checkbox extends React.Component {
         super(props);
     }
 
-    handleChange = (event) => {
-        const value = event.target.checked;
-        this.context.setState({ [this.props.id]: value });
-        this.context.dispatchState({ [this.props.id]: value });
-    }
+    componentWillMount() {
+        this.vmInput = new VMInput(this.context, this.props.id);
+    } 
+
+    handleChange = (event) => this.vmInput.value = event.target.checked;
 
     render() {
         const [Container, Label, Input] = utils.resolveComponents(Checkbox, this.props);
+        const { id, value, attrs } = this.vmInput.props;    
 
-        const vmId = this.context.vmId;
-        const props = this.props;
-        const value = this.context.getState(props.id) || false;
-        const attrs = this.context.getPropAttributes(props.id);
-        const label = attrs.label || props.label;
+        const label = attrs.label || this.props.label;
 
         return (
             <Container check>
                 <Label check>
-                    <Input type="checkbox" name={`${vmId}.${props.id}`} checked={value} onChange={this.handleChange} />
+                    <Input type="checkbox" name={id} checked={value || false} onChange={this.handleChange} />
                     {label}
                 </Label>
             </Container>

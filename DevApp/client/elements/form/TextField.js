@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { PropTypes } from 'prop-types';
-import { FieldPanel } from '../layout/FieldPanel';
+import { VMInput } from '../VMInput';
 import { ContextTypes } from '../VMContext';
+import { FieldPanel } from '../layout/FieldPanel';
 import * as utils from '../utils';
 
 const InputContainer = styled.div`
@@ -31,36 +32,36 @@ export class TextField extends React.Component {
         this.state = { changed: false };
     }
 
+    componentWillMount() {
+        this.vmInput = new VMInput(this.context, this.props.id);
+    }
+
     handleChange = (event) => {
-        const value = event.target.value;
-        this.setState({ value: value, changed: true });
-        this.context.setState({ [this.props.id]: value });
+        this.setState({ changed: true });
+        this.vmInput.set(event.target.value);
     }
 
     handleBlur = _ => {
-        if (this.state.changed)
-            this.context.dispatchState({ [this.props.id]: this.context.state[this.props.id] });
+        this.state.changed && this.vmInput.dispatch();
         this.setState({ changed: false });
     }
 
     render() {
         const [Container, Label, InputContainer, Input] = utils.resolveComponents(TextField, this.props);
+        const { id, value, attrs } = this.vmInput.props;
 
-        const vmId = this.context.vmId;
-        const props = this.props;
-        const attrs = this.context.getPropAttributes(props.id);
-        const value = this.context.getState(props.id) || "";
-        const label = attrs.label || props.label;
+        const label = attrs.label || this.props.label;
+        const placeholder = attrs.placeholder || this.props.placeholder;
 
         return (
-            <Container horizontal={props.horizontal}>
-                {label ? <Label for={`${vmId}.${props.id}`}>{label}</Label> : null}
+            <Container horizontal={this.props.horizontal}>
+                {label ? <Label for={id}>{label}</Label> : null}
                 <InputContainer>
                     <Input
-                        id={`${vmId}.${props.id}`}
-                        type={props.type || "text"}
-                        placeholder={attrs.placeholder || props.placeholder}
-                        value={value}
+                        id={id}
+                        type={this.props.type || "text"}
+                        placeholder={placeholder}
+                        value={value || ""}
                         onChange={this.handleChange}
                         onBlur={this.handleBlur} />
                 </InputContainer>

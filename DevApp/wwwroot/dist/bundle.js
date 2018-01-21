@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "d1f8acc4563c70932bc6"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "5132806e19180cc1f3c6"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -7541,7 +7541,7 @@ exports.default = App;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.VMContext = exports.TextAreaField = exports.PasswordField = exports.EmailField = exports.TextField = exports.RadioGroup = exports.Panel = exports.NavToggle = exports.NavMenuTarget = exports.NavMenu = exports.NavHeader = exports.Section = exports.Footer = exports.Nav = exports.Header = exports.Main = exports.IconLabel = exports.Form = exports.DropdownList = exports.ContextTypes = exports.Collapsible = exports.CheckboxGroup = exports.Checkbox = exports.Button = exports.defaultTheme = undefined;
+exports.VMInput = exports.VMContext = exports.TextAreaField = exports.PasswordField = exports.EmailField = exports.TextField = exports.RadioGroup = exports.Panel = exports.NavToggle = exports.NavMenuTarget = exports.NavMenu = exports.NavHeader = exports.Section = exports.Footer = exports.Nav = exports.Header = exports.Main = exports.IconLabel = exports.Form = exports.DropdownList = exports.ContextTypes = exports.Collapsible = exports.CheckboxGroup = exports.Checkbox = exports.Button = exports.defaultTheme = undefined;
 
 var _theme = __webpack_require__(103);
 
@@ -7574,6 +7574,8 @@ var _Panel = __webpack_require__(252);
 var _RadioGroup = __webpack_require__(253);
 
 var _TextField = __webpack_require__(254);
+
+var _VMInput = __webpack_require__(261);
 
 var _VMContext = __webpack_require__(18);
 
@@ -7640,6 +7642,7 @@ exports.EmailField = _TextField.EmailField;
 exports.PasswordField = _TextField.PasswordField;
 exports.TextAreaField = _TextField.TextAreaField;
 exports.VMContext = _VMContext.VMContext;
+exports.VMInput = _VMInput.VMInput;
 
 /***/ }),
 /* 43 */
@@ -46538,6 +46541,8 @@ var _react2 = _interopRequireDefault(_react);
 
 var _propTypes = __webpack_require__(8);
 
+var _VMInput = __webpack_require__(261);
+
 var _VMContext = __webpack_require__(18);
 
 var _utils = __webpack_require__(10);
@@ -46547,8 +46552,6 @@ var utils = _interopRequireWildcard(_utils);
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -46565,15 +46568,18 @@ var Checkbox = exports.Checkbox = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (Checkbox.__proto__ || Object.getPrototypeOf(Checkbox)).call(this, props));
 
         _this.handleChange = function (event) {
-            var value = event.target.checked;
-            _this.context.setState(_defineProperty({}, _this.props.id, value));
-            _this.context.dispatchState(_defineProperty({}, _this.props.id, value));
+            return _this.vmInput.value = event.target.checked;
         };
 
         return _this;
     }
 
     _createClass(Checkbox, [{
+        key: 'componentWillMount',
+        value: function componentWillMount() {
+            this.vmInput = new _VMInput.VMInput(this.context, this.props.id);
+        }
+    }, {
         key: 'render',
         value: function render() {
             var _utils$resolveCompone = utils.resolveComponents(Checkbox, this.props),
@@ -46582,11 +46588,13 @@ var Checkbox = exports.Checkbox = function (_React$Component) {
                 Label = _utils$resolveCompone2[1],
                 Input = _utils$resolveCompone2[2];
 
-            var vmId = this.context.vmId;
-            var props = this.props;
-            var value = this.context.getState(props.id) || false;
-            var attrs = this.context.getPropAttributes(props.id);
-            var label = attrs.label || props.label;
+            var _vmInput$props = this.vmInput.props,
+                id = _vmInput$props.id,
+                value = _vmInput$props.value,
+                attrs = _vmInput$props.attrs;
+
+
+            var label = attrs.label || this.props.label;
 
             return _react2.default.createElement(
                 Container,
@@ -46594,7 +46602,7 @@ var Checkbox = exports.Checkbox = function (_React$Component) {
                 _react2.default.createElement(
                     Label,
                     { check: true },
-                    _react2.default.createElement(Input, { type: 'checkbox', name: vmId + '.' + props.id, checked: value, onChange: this.handleChange }),
+                    _react2.default.createElement(Input, { type: 'checkbox', name: id, checked: value || false, onChange: this.handleChange }),
                     label
                 )
             );
@@ -46639,6 +46647,8 @@ var _propTypes = __webpack_require__(8);
 
 var _FieldPanel = __webpack_require__(43);
 
+var _VMInput = __webpack_require__(261);
+
 var _VMContext = __webpack_require__(18);
 
 var _utils = __webpack_require__(10);
@@ -46648,8 +46658,6 @@ var utils = _interopRequireWildcard(_utils);
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -46666,18 +46674,22 @@ var CheckboxGroup = exports.CheckboxGroup = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (CheckboxGroup.__proto__ || Object.getPrototypeOf(CheckboxGroup)).call(this, props));
 
         _this.handleChange = function (event) {
-            var values = _this.context.state[_this.props.id] || [];
+            var values = _this.vmInput.value || [];
             values = event.target.checked ? values.concat([event.target.value]) : values.filter(function (value) {
                 return value != event.target.value;
             });
-            _this.context.setState(_defineProperty({}, _this.props.id, values));
-            _this.context.dispatchState(_defineProperty({}, _this.props.id, values));
+            _this.vmInput.value = values;
         };
 
         return _this;
     }
 
     _createClass(CheckboxGroup, [{
+        key: 'componentWillMount',
+        value: function componentWillMount() {
+            this.vmInput = new _VMInput.VMInput(this.context, this.props.id);
+        }
+    }, {
         key: 'render',
         value: function render() {
             var _this2 = this;
@@ -46690,19 +46702,22 @@ var CheckboxGroup = exports.CheckboxGroup = function (_React$Component) {
                 CheckboxLabel = _utils$resolveCompone2[3],
                 Input = _utils$resolveCompone2[4];
 
-            var vmId = this.context.vmId;
-            var props = this.props;
-            var values = this.context.getState(props.id) || [];
-            var attrs = this.context.getPropAttributes(props.id);
+            var _vmInput$props = this.vmInput.props,
+                id = _vmInput$props.id,
+                value = _vmInput$props.value,
+                attrs = _vmInput$props.attrs;
+
+
+            var values = value || [];
             var label = attrs.label || props.label;
 
             var checkboxes = (attrs.options || []).map(function (opt) {
                 return _react2.default.createElement(
                     CheckboxContainer,
-                    { check: true, key: opt.Key, inline: props.inline },
+                    { check: true, key: opt.Key, inline: _this2.props.inline },
                     _react2.default.createElement(
                         CheckboxLabel,
-                        { check: true, id: vmId + '.' + props.id },
+                        { check: true },
                         _react2.default.createElement(Input, { type: 'checkbox', value: opt.Key, checked: values.includes(opt.Key), onChange: _this2.handleChange }),
                         opt.Value
                     )
@@ -46711,15 +46726,15 @@ var CheckboxGroup = exports.CheckboxGroup = function (_React$Component) {
 
             return _react2.default.createElement(
                 Container,
-                { horizontal: props.horizontal },
+                { horizontal: this.props.horizontal },
                 label ? _react2.default.createElement(
                     Label,
-                    { 'for': props.id },
+                    { 'for': id },
                     label
                 ) : null,
                 _react2.default.createElement(
                     'section',
-                    null,
+                    { id: id },
                     checkboxes
                 )
             );
@@ -46768,6 +46783,8 @@ var _FieldPanel = __webpack_require__(43);
 
 var _VMContext = __webpack_require__(18);
 
+var _VMInput = __webpack_require__(261);
+
 var _utils = __webpack_require__(10);
 
 var utils = _interopRequireWildcard(_utils);
@@ -46775,8 +46792,6 @@ var utils = _interopRequireWildcard(_utils);
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -46793,15 +46808,18 @@ var DropdownList = exports.DropdownList = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (DropdownList.__proto__ || Object.getPrototypeOf(DropdownList)).call(this, props));
 
         _this.handleChange = function (event) {
-            var value = event.target.value;
-            _this.context.setState(_defineProperty({}, _this.props.id, value));
-            _this.context.dispatchState(_defineProperty({}, _this.props.id, value));
+            return _this.vmInput.value = event.target.value;
         };
 
         return _this;
     }
 
     _createClass(DropdownList, [{
+        key: 'componentWillMount',
+        value: function componentWillMount() {
+            this.vmInput = new _VMInput.VMInput(this.context, this.props.id);
+        }
+    }, {
         key: 'render',
         value: function render() {
             var _utils$resolveCompone = utils.resolveComponents(DropdownList, this.props),
@@ -46810,10 +46828,12 @@ var DropdownList = exports.DropdownList = function (_React$Component) {
                 Label = _utils$resolveCompone2[1],
                 Input = _utils$resolveCompone2[2];
 
-            var vmId = this.context.vmId;
-            var props = this.props;
-            var value = this.context.getState(props.id);
-            var attrs = this.context.getPropAttributes(props.id);
+            var _vmInput$props = this.vmInput.props,
+                id = _vmInput$props.id,
+                value = _vmInput$props.value,
+                attrs = _vmInput$props.attrs;
+
+
             var options = (attrs.options || []).map(function (opt) {
                 return _react2.default.createElement(
                     'option',
@@ -46821,20 +46841,20 @@ var DropdownList = exports.DropdownList = function (_React$Component) {
                     opt.Value
                 );
             });
-            var label = attrs.label || props.label;
+            var label = attrs.label || this.props.label;
 
             return _react2.default.createElement(
                 Container,
-                { horizontal: props.horizontal },
+                { horizontal: this.props.horizontal },
                 label ? _react2.default.createElement(
                     Label,
-                    { 'for': vmId + '.' + props.id },
+                    { 'for': id },
                     label
                 ) : null,
                 _react2.default.createElement(
                     Input,
                     {
-                        id: vmId + '.' + props.id,
+                        id: id,
                         type: 'select',
                         value: value,
                         onChange: this.handleChange
@@ -51740,6 +51760,8 @@ var _FieldPanel = __webpack_require__(43);
 
 var _VMContext = __webpack_require__(18);
 
+var _VMInput = __webpack_require__(261);
+
 var _utils = __webpack_require__(10);
 
 var utils = _interopRequireWildcard(_utils);
@@ -51747,8 +51769,6 @@ var utils = _interopRequireWildcard(_utils);
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -51765,15 +51785,18 @@ var RadioGroup = exports.RadioGroup = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (RadioGroup.__proto__ || Object.getPrototypeOf(RadioGroup)).call(this, props));
 
         _this.handleChange = function (event) {
-            var value = event.target.value;
-            _this.context.setState(_defineProperty({}, _this.props.id, value));
-            _this.context.dispatchState(_defineProperty({}, _this.props.id, value));
+            return _this.vmInput.value = event.target.value;
         };
 
         return _this;
     }
 
     _createClass(RadioGroup, [{
+        key: 'componentWillMount',
+        value: function componentWillMount() {
+            this.vmInput = new _VMInput.VMInput(this.context, this.props.id);
+        }
+    }, {
         key: 'render',
         value: function render() {
             var _this2 = this;
@@ -51786,31 +51809,33 @@ var RadioGroup = exports.RadioGroup = function (_React$Component) {
                 RadioLabel = _utils$resolveCompone2[3],
                 Input = _utils$resolveCompone2[4];
 
-            var vmId = this.context.vmId;
-            var props = this.props;
-            var value = this.context.getState(props.id);
-            var attrs = this.context.getPropAttributes(props.id);
-            var label = attrs.label || props.label;
+            var _vmInput$props = this.vmInput.props,
+                id = _vmInput$props.id,
+                value = _vmInput$props.value,
+                attrs = _vmInput$props.attrs;
+
 
             var radio = (attrs.options || []).map(function (opt) {
                 return _react2.default.createElement(
                     RadioContainer,
-                    { check: true, key: opt.Key, id: vmId + '.' + props.id },
+                    { check: true, key: opt.Key, id: id },
                     _react2.default.createElement(
                         RadioLabel,
                         { check: true },
-                        _react2.default.createElement(Input, { type: 'radio', name: vmId + '.' + props.id, value: opt.Key, checked: opt.Key == value, onChange: _this2.handleChange }),
+                        _react2.default.createElement(Input, { type: 'radio', name: id, value: opt.Key, checked: opt.Key == value, onChange: _this2.handleChange }),
                         opt.Value
                     )
                 );
             });
 
+            var label = attrs.label || this.props.label;
+
             return _react2.default.createElement(
                 Container,
-                { horizontal: props.horizontal },
+                { horizontal: this.props.horizontal },
                 label ? _react2.default.createElement(
                     Label,
-                    { 'for': props.id },
+                    { 'for': id },
                     label
                 ) : null,
                 _react2.default.createElement(
@@ -51866,9 +51891,11 @@ var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
 var _propTypes = __webpack_require__(8);
 
-var _FieldPanel = __webpack_require__(43);
+var _VMInput = __webpack_require__(261);
 
 var _VMContext = __webpack_require__(18);
+
+var _FieldPanel = __webpack_require__(43);
 
 var _utils = __webpack_require__(10);
 
@@ -51877,8 +51904,6 @@ var utils = _interopRequireWildcard(_utils);
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -51899,13 +51924,12 @@ var TextField = exports.TextField = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (TextField.__proto__ || Object.getPrototypeOf(TextField)).call(this, props));
 
         _this.handleChange = function (event) {
-            var value = event.target.value;
-            _this.setState({ value: value, changed: true });
-            _this.context.setState(_defineProperty({}, _this.props.id, value));
+            _this.setState({ changed: true });
+            _this.vmInput.set(event.target.value);
         };
 
         _this.handleBlur = function (_) {
-            if (_this.state.changed) _this.context.dispatchState(_defineProperty({}, _this.props.id, _this.context.state[_this.props.id]));
+            _this.state.changed && _this.vmInput.dispatch();
             _this.setState({ changed: false });
         };
 
@@ -51914,6 +51938,11 @@ var TextField = exports.TextField = function (_React$Component) {
     }
 
     _createClass(TextField, [{
+        key: 'componentWillMount',
+        value: function componentWillMount() {
+            this.vmInput = new _VMInput.VMInput(this.context, this.props.id);
+        }
+    }, {
         key: 'render',
         value: function render() {
             var _utils$resolveCompone = utils.resolveComponents(TextField, this.props),
@@ -51923,28 +51952,31 @@ var TextField = exports.TextField = function (_React$Component) {
                 InputContainer = _utils$resolveCompone2[2],
                 Input = _utils$resolveCompone2[3];
 
-            var vmId = this.context.vmId;
-            var props = this.props;
-            var attrs = this.context.getPropAttributes(props.id);
-            var value = this.context.getState(props.id) || "";
-            var label = attrs.label || props.label;
+            var _vmInput$props = this.vmInput.props,
+                id = _vmInput$props.id,
+                value = _vmInput$props.value,
+                attrs = _vmInput$props.attrs;
+
+
+            var label = attrs.label || this.props.label;
+            var placeholder = attrs.placeholder || this.props.placeholder;
 
             return _react2.default.createElement(
                 Container,
-                { horizontal: props.horizontal },
+                { horizontal: this.props.horizontal },
                 label ? _react2.default.createElement(
                     Label,
-                    { 'for': vmId + '.' + props.id },
+                    { 'for': id },
                     label
                 ) : null,
                 _react2.default.createElement(
                     InputContainer,
                     null,
                     _react2.default.createElement(Input, {
-                        id: vmId + '.' + props.id,
-                        type: props.type || "text",
-                        placeholder: attrs.placeholder || props.placeholder,
-                        value: value,
+                        id: id,
+                        type: this.props.type || "text",
+                        placeholder: placeholder,
+                        value: value || "",
                         onChange: this.handleChange,
                         onBlur: this.handleBlur })
                 )
@@ -54365,6 +54397,84 @@ TextAreaField.propTypes = Object.assign({}, TextField.propTypes);
     define('fas', icons);
   });
 })();
+
+/***/ }),
+/* 260 */,
+/* 261 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.VMInput = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(8);
+
+var _VMContext = __webpack_require__(18);
+
+var _utils = __webpack_require__(10);
+
+var utils = _interopRequireWildcard(_utils);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var VMInput = exports.VMInput = function () {
+    function VMInput(context, propId) {
+        var _this = this;
+
+        _classCallCheck(this, VMInput);
+
+        this.set = function (value) {
+            return _this.context.setState(_defineProperty({}, _this.propId, value));
+        };
+
+        this.dispatch = function (value) {
+            return _this.context.dispatchState(_defineProperty({}, _this.propId, value === undefined ? _this.value : value));
+        };
+
+        this.context = context;
+        this.propId = propId;
+    }
+
+    _createClass(VMInput, [{
+        key: 'value',
+        get: function get() {
+            return this.context.getState(this.propId);
+        },
+        set: function set(value) {
+            this.set(value);
+            this.dispatch(value);
+        }
+    }, {
+        key: 'props',
+        get: function get() {
+            var attrs = this.context.getPropAttributes(this.propId);
+            return {
+                id: this.context.vmId + '.' + this.propId,
+                value: this.value,
+                onChange: this.onChange,
+                attrs: attrs
+            };
+        }
+    }]);
+
+    return VMInput;
+}();
 
 /***/ })
 /******/ ]);
