@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "5eac4bdf94353b877e6b"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "c43a0b106cb17e8808d2"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -7659,6 +7659,8 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = __webpack_require__(8);
+
 var _styledComponents = __webpack_require__(13);
 
 var _styledComponents2 = _interopRequireDefault(_styledComponents);
@@ -7733,6 +7735,11 @@ var FieldPanel = exports.FieldPanel = function (_React$Component) {
     return FieldPanel;
 }(_react2.default.Component);
 
+FieldPanel.propTypes = {
+    id: _propTypes.PropTypes.string.isRequired,
+    label: _propTypes.PropTypes.string,
+    horizontal: _propTypes.PropTypes.bool
+};
 FieldPanel.componentTypes = {
     Container: Container,
     LabelComponent: undefined,
@@ -46618,7 +46625,7 @@ var Checkbox = exports.Checkbox = function (_React$Component) {
 
             return _react2.default.createElement(
                 Container,
-                { check: true },
+                { id: id, check: true },
                 _react2.default.createElement(
                     Label,
                     { check: true },

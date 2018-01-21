@@ -1,4 +1,5 @@
 import React from 'react';
+import { PropTypes } from 'prop-types';
 import styled from 'styled-components';
 import * as utils from '../utils';
 
@@ -14,6 +15,12 @@ const InputContainer = styled.div`
 `;
 
 export class FieldPanel extends React.Component {
+
+    static propTypes = {
+        id: PropTypes.string.isRequired,
+        label: PropTypes.string,
+        horizontal: PropTypes.bool
+    }
 
     static componentTypes = {
         Container,
