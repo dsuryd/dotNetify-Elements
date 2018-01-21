@@ -1,4 +1,9 @@
 import React from 'react';
+import { VMInput } from './VMInput';
+
+export function getVMInput(component) {
+    return component._vmInput || (component._vmInput = new VMInput(component.context, component.props.id));
+}
 
 export function mapChildren(children, predicate, mapper) {
     return React.Children.map(children, child => {

@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "c43a0b106cb17e8808d2"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "dc465f9413fe9523207c"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -1862,6 +1862,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
+exports.getVMInput = getVMInput;
 exports.mapChildren = mapChildren;
 exports.mapStyle = mapStyle;
 exports.resolveComponents = resolveComponents;
@@ -1871,9 +1872,15 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _VMInput = __webpack_require__(261);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+function getVMInput(component) {
+    return component._vmInput || (component._vmInput = new _VMInput.VMInput(component.context, component.props.id));
+}
 
 function mapChildren(children, predicate, mapper) {
     var _this = this;
@@ -1897,7 +1904,7 @@ function mapStyle(props) {
         dark = props.dark,
         small = props.small,
         large = props.large,
-        rest = _objectWithoutProperties(props, ["color", "size", "primary", "secondary", "success", "danger", "warning", "info", "light", "dark", "small", "large"]);
+        rest = _objectWithoutProperties(props, ['color', 'size', 'primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark', 'small', 'large']);
 
     var _color = primary ? "primary" : secondary ? "secondary" : success ? "success" : danger ? "danger" : warning ? "warning" : info ? "info" : light ? "light" : dark ? "dark" : color;
     var _size = small ? "sm" : large ? "lg" : size;
@@ -1911,7 +1918,7 @@ function resolveComponents(type, props) {
 }
 
 function toCamelCase(obj) {
-    if (typeof obj == "string") return obj.substr(0, 1).toLowerCase() + obj.substr(1);else if ((typeof obj === "undefined" ? "undefined" : _typeof(obj)) === "object") {
+    if (typeof obj == "string") return obj.substr(0, 1).toLowerCase() + obj.substr(1);else if ((typeof obj === 'undefined' ? 'undefined' : _typeof(obj)) === "object") {
         var newObj = {};
         var _iteratorNormalCompletion = true;
         var _didIteratorError = false;
@@ -7541,7 +7548,7 @@ exports.default = App;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.VMInput = exports.VMContext = exports.TextAreaField = exports.PasswordField = exports.EmailField = exports.TextField = exports.RadioGroup = exports.Panel = exports.NavToggle = exports.NavMenuTarget = exports.NavMenu = exports.NavHeader = exports.Section = exports.Footer = exports.Nav = exports.Header = exports.Main = exports.IconLabel = exports.Form = exports.FieldPanel = exports.DropdownList = exports.ContextTypes = exports.Collapsible = exports.CheckboxGroup = exports.Checkbox = exports.Button = exports.defaultTheme = undefined;
+exports.VMContext = exports.TextAreaField = exports.PasswordField = exports.EmailField = exports.TextField = exports.RadioGroup = exports.Panel = exports.NavToggle = exports.NavMenuTarget = exports.NavMenu = exports.NavHeader = exports.Section = exports.Footer = exports.Nav = exports.Header = exports.Main = exports.IconLabel = exports.Form = exports.FieldPanel = exports.DropdownList = exports.ContextTypes = exports.Collapsible = exports.CheckboxGroup = exports.Checkbox = exports.Button = exports.defaultTheme = undefined;
 
 var _theme = __webpack_require__(103);
 
@@ -7576,8 +7583,6 @@ var _Panel = __webpack_require__(252);
 var _RadioGroup = __webpack_require__(253);
 
 var _TextField = __webpack_require__(254);
-
-var _VMInput = __webpack_require__(261);
 
 var _VMContext = __webpack_require__(18);
 
@@ -7637,7 +7642,6 @@ exports.EmailField = _TextField.EmailField;
 exports.PasswordField = _TextField.PasswordField;
 exports.TextAreaField = _TextField.TextAreaField;
 exports.VMContext = _VMContext.VMContext;
-exports.VMInput = _VMInput.VMInput;
 
 /***/ }),
 /* 43 */
@@ -7689,7 +7693,7 @@ var Container = _styledComponents2.default.div.withConfig({
 
 var InputContainer = _styledComponents2.default.div.withConfig({
     displayName: 'FieldPanel__InputContainer'
-})(['width:calc(100% - 1px);']);
+})(['width:calc(100% - 1px);}']);
 
 var FieldPanel = exports.FieldPanel = function (_React$Component) {
     _inherits(FieldPanel, _React$Component);
@@ -46568,8 +46572,6 @@ var _react2 = _interopRequireDefault(_react);
 
 var _propTypes = __webpack_require__(8);
 
-var _VMInput = __webpack_require__(261);
-
 var _VMContext = __webpack_require__(18);
 
 var _utils = __webpack_require__(10);
@@ -46602,11 +46604,6 @@ var Checkbox = exports.Checkbox = function (_React$Component) {
     }
 
     _createClass(Checkbox, [{
-        key: 'componentWillMount',
-        value: function componentWillMount() {
-            this.vmInput = new _VMInput.VMInput(this.context, this.props.id);
-        }
-    }, {
         key: 'render',
         value: function render() {
             var _utils$resolveCompone = utils.resolveComponents(Checkbox, this.props),
@@ -46633,6 +46630,11 @@ var Checkbox = exports.Checkbox = function (_React$Component) {
                     label
                 )
             );
+        }
+    }, {
+        key: 'vmInput',
+        get: function get() {
+            return utils.getVMInput(this);
         }
     }]);
 
@@ -46674,8 +46676,6 @@ var _propTypes = __webpack_require__(8);
 
 var _FieldPanel = __webpack_require__(43);
 
-var _VMInput = __webpack_require__(261);
-
 var _VMContext = __webpack_require__(18);
 
 var _utils = __webpack_require__(10);
@@ -46712,11 +46712,6 @@ var CheckboxGroup = exports.CheckboxGroup = function (_React$Component) {
     }
 
     _createClass(CheckboxGroup, [{
-        key: 'componentWillMount',
-        value: function componentWillMount() {
-            this.vmInput = new _VMInput.VMInput(this.context, this.props.id);
-        }
-    }, {
         key: 'render',
         value: function render() {
             var _this2 = this;
@@ -46759,6 +46754,11 @@ var CheckboxGroup = exports.CheckboxGroup = function (_React$Component) {
                     checkboxes
                 )
             );
+        }
+    }, {
+        key: 'vmInput',
+        get: function get() {
+            return utils.getVMInput(this);
         }
     }]);
 
@@ -46803,8 +46803,6 @@ var _FieldPanel = __webpack_require__(43);
 
 var _VMContext = __webpack_require__(18);
 
-var _VMInput = __webpack_require__(261);
-
 var _utils = __webpack_require__(10);
 
 var utils = _interopRequireWildcard(_utils);
@@ -46835,11 +46833,6 @@ var DropdownList = exports.DropdownList = function (_React$Component) {
     }
 
     _createClass(DropdownList, [{
-        key: 'componentWillMount',
-        value: function componentWillMount() {
-            this.vmInput = new _VMInput.VMInput(this.context, this.props.id);
-        }
-    }, {
         key: 'render',
         value: function render() {
             var _utils$resolveCompone = utils.resolveComponents(DropdownList, this.props),
@@ -46876,6 +46869,11 @@ var DropdownList = exports.DropdownList = function (_React$Component) {
                     options
                 )
             );
+        }
+    }, {
+        key: 'vmInput',
+        get: function get() {
+            return utils.getVMInput(this);
         }
     }]);
 
@@ -47167,7 +47165,7 @@ var GroupContainer = function GroupContainer(props) {
 
 var RouteContainer = _styledComponents2.default.div.withConfig({
     displayName: 'NavMenu__RouteContainer'
-})(['color:', ';background:', ';&:hover{color:', ';background:', ';}> a{color:', ';&:hover{color:', ';}&:active{color:', ';}&:focus{color:', ';}}'], function (props) {
+})(['color:', ';background:', ';&:hover{color:', ';background:', ';}> a{color:', ';&:hover{color:', ';text-decoration:none;}&:active{color:', ';}&:focus{color:', ';}}'], function (props) {
     return props.theme.navRoute.color;
 }, function (props) {
     return props.theme.navRoute.background;
@@ -51773,8 +51771,6 @@ var _FieldPanel = __webpack_require__(43);
 
 var _VMContext = __webpack_require__(18);
 
-var _VMInput = __webpack_require__(261);
-
 var _utils = __webpack_require__(10);
 
 var utils = _interopRequireWildcard(_utils);
@@ -51805,11 +51801,6 @@ var RadioGroup = exports.RadioGroup = function (_React$Component) {
     }
 
     _createClass(RadioGroup, [{
-        key: 'componentWillMount',
-        value: function componentWillMount() {
-            this.vmInput = new _VMInput.VMInput(this.context, this.props.id);
-        }
-    }, {
         key: 'render',
         value: function render() {
             var _this2 = this;
@@ -51850,6 +51841,11 @@ var RadioGroup = exports.RadioGroup = function (_React$Component) {
                     radio
                 )
             );
+        }
+    }, {
+        key: 'vmInput',
+        get: function get() {
+            return utils.getVMInput(this);
         }
     }]);
 
@@ -51896,8 +51892,6 @@ var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
 var _propTypes = __webpack_require__(8);
 
-var _VMInput = __webpack_require__(261);
-
 var _VMContext = __webpack_require__(18);
 
 var _FieldPanel = __webpack_require__(43);
@@ -51939,11 +51933,6 @@ var TextField = exports.TextField = function (_React$Component) {
     }
 
     _createClass(TextField, [{
-        key: 'componentWillMount',
-        value: function componentWillMount() {
-            this.vmInput = new _VMInput.VMInput(this.context, this.props.id);
-        }
-    }, {
         key: 'render',
         value: function render() {
             var _utils$resolveCompone = utils.resolveComponents(TextField, this.props),
@@ -51971,6 +51960,11 @@ var TextField = exports.TextField = function (_React$Component) {
                     onChange: this.handleChange,
                     onBlur: this.handleBlur })
             );
+        }
+    }, {
+        key: 'vmInput',
+        get: function get() {
+            return utils.getVMInput(this);
         }
     }]);
 

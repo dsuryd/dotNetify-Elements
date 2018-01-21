@@ -1,6 +1,5 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
-import { VMInput } from '../VMInput';
 import { ContextTypes } from '../VMContext';
 import * as utils from '../utils';
 
@@ -23,9 +22,9 @@ export class Checkbox extends React.Component {
         super(props);
     }
 
-    componentWillMount() {
-        this.vmInput = new VMInput(this.context, this.props.id);
-    } 
+    get vmInput() { 
+        return utils.getVMInput(this);
+    }
 
     handleChange = (event) => this.vmInput.value = event.target.checked;
 

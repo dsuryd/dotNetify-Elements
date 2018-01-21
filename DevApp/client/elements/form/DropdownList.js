@@ -2,7 +2,6 @@ import React from 'react';
 import { PropTypes } from 'prop-types';
 import { FieldPanel } from '../layout/FieldPanel';
 import { ContextTypes } from '../VMContext';
-import { VMInput } from '../VMInput';
 import * as utils from '../utils';
 
 export class DropdownList extends React.Component {
@@ -23,8 +22,8 @@ export class DropdownList extends React.Component {
         super(props);
     }
 
-    componentWillMount() {
-        this.vmInput = new VMInput(this.context, this.props.id);
+    get vmInput() { 
+        return utils.getVMInput(this);
     }
 
     handleChange = (event) =>this.vmInput.value = event.target.value;

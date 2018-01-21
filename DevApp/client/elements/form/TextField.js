@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { PropTypes } from 'prop-types';
-import { VMInput } from '../VMInput';
 import { ContextTypes } from '../VMContext';
 import { FieldPanel } from '../layout/FieldPanel';
 import * as utils from '../utils';
@@ -26,8 +25,8 @@ export class TextField extends React.Component {
         this.state = { changed: false };
     }
 
-    componentWillMount() {
-        this.vmInput = new VMInput(this.context, this.props.id);
+    get vmInput() { 
+        return utils.getVMInput(this);
     }
 
     handleChange = (event) => {

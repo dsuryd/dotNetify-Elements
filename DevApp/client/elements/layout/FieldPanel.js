@@ -12,6 +12,7 @@ const Container = styled.div`
 
 const InputContainer = styled.div`
     width: calc(100% - 1px);
+  }    
 `;
 
 export class FieldPanel extends React.Component {

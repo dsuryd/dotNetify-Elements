@@ -1,7 +1,6 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import { FieldPanel } from '../layout/FieldPanel';
-import { VMInput } from '../VMInput';
 import { ContextTypes } from '../VMContext';
 import * as utils from '../utils';
 
@@ -25,9 +24,9 @@ export class CheckboxGroup extends React.Component {
         super(props);
     }
 
-    componentWillMount() {
-        this.vmInput = new VMInput(this.context, this.props.id);
-    }    
+    get vmInput() { 
+        return utils.getVMInput(this);
+    }
 
     handleChange = (event) => {
         let values = this.vmInput.value || [];
@@ -37,7 +36,7 @@ export class CheckboxGroup extends React.Component {
 
     render() {
         const [Container, CheckboxContainer, CheckboxLabel, Input] = utils.resolveComponents(CheckboxGroup, this.props);
-        const { id, value, attrs } = this.vmInput.props;        
+        const { id, value, attrs } = this.vmInput.props;
 
         const values = value || [];
         const label = attrs.label || props.label;

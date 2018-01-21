@@ -26,7 +26,10 @@ const RouteContainer = styled.div`
     }
     > a {
         color: ${props => props.theme.navRoute.color};   
-        &:hover { color: ${props => props.theme.navRoute.hover.color}; } 
+        &:hover { 
+            color: ${props => props.theme.navRoute.hover.color};
+            text-decoration: none;
+        } 
         &:active {color: ${props => props.theme.navRoute.active.color}; }
         &:focus {color: ${props => props.theme.navRoute.focus.color}; }
     }
