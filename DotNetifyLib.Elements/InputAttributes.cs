@@ -23,6 +23,7 @@ namespace DotNetify
    {
       public string Label { get; set; }
       public string Placeholder { get; set; }
+      public int MaxLength { get; set; }
    }
 
    public class DropdownListAttribute

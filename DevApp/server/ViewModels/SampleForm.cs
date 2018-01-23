@@ -13,8 +13,10 @@ namespace dotNetify_Elements
              .SetAttribute(this, new TextFieldAttribute
              {
                 Label = "Text:",
-                Placeholder = "Enter text"
-             });
+                Placeholder = "Enter text",
+                MaxLength = 10
+             })
+             .Validate(this, new RequiredValidation("Required"));
 
          AddProperty("MyEmail", "email_address@server.com")
              .SetAttribute(this, new TextFieldAttribute

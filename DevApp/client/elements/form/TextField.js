@@ -29,6 +29,11 @@ export class TextField extends React.Component {
         return utils.getVMInput(this);
     }
 
+    componentWillMount() {
+        if (this.vmInput.isRequired && !this.vmInput.props.value)
+            this.setState({changed: true});
+    }
+
     handleChange = (event) => {
         this.setState({ changed: true });
         this.vmInput.set(event.target.value);
@@ -45,11 +50,14 @@ export class TextField extends React.Component {
 
         const label = attrs.label || this.props.label;
         const placeholder = attrs.placeholder || this.props.placeholder;
+        const maxLength = attrs.maxLength || this.props.maxLength;
+
 
         return (
             <Container id={id} label={label} horizontal={this.props.horizontal}>
-                <Input
+                <Input 
                     id={id}
+                    maxLength={maxLength}
                     type={this.props.type || "text"}
                     placeholder={placeholder}
                     value={value || ""}

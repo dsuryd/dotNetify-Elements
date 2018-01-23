@@ -14,13 +14,38 @@ See the License for the specific language governing permissions and
 limitations under the License.
  */
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
 namespace DotNetify
 {
    public static class ReactivePropertyExtensions
    {
       public static ReactiveProperty<TProp> SetAttribute<TProp, TAttr>(this ReactiveProperty<TProp> prop, IReactiveProperties vm, TAttr attr)
       {
-         vm.AddProperty<TAttr>($"{prop.Name}_attr", attr);
+         var attrName = $"{prop.Name}_attr";
+         if (vm.RuntimeProperties.FirstOrDefault(x => x.Name == attrName) != null)
+            throw new Exception($"{prop.Name} already has attribute");
+
+         vm.AddProperty(attrName, attr);
+         return prop;
+      }
+
+      public static ReactiveProperty<TProp> Validate<TProp>(this ReactiveProperty<TProp> prop, IReactiveProperties vm, Validation validation)
+      {
+         var validationName = $"{prop.Name}_validate";
+         var validationProp = vm.RuntimeProperties.FirstOrDefault(x => x.Name == validationName);
+
+         List<Validation> validationEntries = null;
+         if (validationProp != null && validationProp.Value is List<Validation>)
+            validationEntries = validationProp.Value as List<Validation>;
+         else
+         {
+            validationEntries = new List<Validation>();
+            vm.AddProperty(validationName, validationEntries);
+         }
+         validationEntries.Add(validation);
          return prop;
       }
    }
