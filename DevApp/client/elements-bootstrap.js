@@ -42,7 +42,10 @@ Object.assign(RadioGroup.componentTypes, {
     InputComponent: Input
 });
 
-TextField.componentTypes.InputComponent = Input;
+Object.assign(TextField.componentTypes, {
+    InputComponent: Input,
+    ValidationMessageComponent: Label
+});
 
 export {
     defaultTheme,

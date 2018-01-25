@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "5cebbb4d9d810e3c896d"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "0badec99d17dd7fbf230"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -1481,6 +1481,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 exports.getVMInput = getVMInput;
 exports.mapChildren = mapChildren;
+exports.extractChildren = extractChildren;
 exports.mapStyle = mapStyle;
 exports.resolveComponents = resolveComponents;
 exports.toCamelCase = toCamelCase;
@@ -1506,6 +1507,17 @@ function mapChildren(children, predicate, mapper) {
         if (child.type && predicate(child)) return mapper(child);else if (child.props && child.props.children) return _react2.default.cloneElement(child, child.props, _this.mapChildren(child.props.children, predicate, mapper));
         return child;
     });
+}
+
+function extractChildren(children, typeName) {
+    var result = void 0;
+    var rest = _react2.default.Children.map(children, function (child) {
+        if (child.type && child.type.name === typeName) {
+            result = child;
+            return null;
+        } else return child;
+    });
+    return [result, rest];
 }
 
 function mapStyle(props) {
@@ -6324,6 +6336,10 @@ var InputContainer = _styledComponents2.default.div.withConfig({
     displayName: 'FieldPanel__InputContainer'
 })(['width:calc(100% - 1px);}']);
 
+var ValidationMessageContainer = _styledComponents2.default.div.withConfig({
+    displayName: 'FieldPanel__ValidationMessageContainer'
+})(['']);
+
 var FieldPanel = exports.FieldPanel = function (_React$Component) {
     _inherits(FieldPanel, _React$Component);
 
@@ -6337,16 +6353,28 @@ var FieldPanel = exports.FieldPanel = function (_React$Component) {
         key: 'render',
         value: function render() {
             var _utils$resolveCompone = utils.resolveComponents(FieldPanel, this.props),
-                _utils$resolveCompone2 = _slicedToArray(_utils$resolveCompone, 3),
+                _utils$resolveCompone2 = _slicedToArray(_utils$resolveCompone, 4),
                 Container = _utils$resolveCompone2[0],
                 Label = _utils$resolveCompone2[1],
-                InputContainer = _utils$resolveCompone2[2];
+                InputContainer = _utils$resolveCompone2[2],
+                ValidationMessageContainer = _utils$resolveCompone2[3];
 
             var _props = this.props,
                 id = _props.id,
                 label = _props.label,
                 horizontal = _props.horizontal,
                 props = _objectWithoutProperties(_props, ['id', 'label', 'horizontal']);
+
+            var _utils$extractChildre = utils.extractChildren(this.props.children, "ValidationMessage"),
+                _utils$extractChildre2 = _slicedToArray(_utils$extractChildre, 2),
+                ValidationMessage = _utils$extractChildre2[0],
+                children = _utils$extractChildre2[1];
+
+            var validationMessage = ValidationMessage ? _react2.default.createElement(
+                ValidationMessageContainer,
+                null,
+                _react2.default.createElement(ValidationMessage, null)
+            ) : null;
 
             return _react2.default.createElement(
                 Container,
@@ -6359,8 +6387,9 @@ var FieldPanel = exports.FieldPanel = function (_React$Component) {
                 _react2.default.createElement(
                     InputContainer,
                     null,
-                    this.props.children
-                )
+                    children
+                ),
+                validationMessage
             );
         }
     }]);
@@ -6376,7 +6405,8 @@ FieldPanel.propTypes = {
 FieldPanel.componentTypes = {
     Container: Container,
     LabelComponent: undefined,
-    InputContainer: InputContainer
+    InputContainer: InputContainer,
+    ValidationMessageContainer: ValidationMessageContainer
 };
 
 /***/ }),
@@ -7725,7 +7755,10 @@ Object.assign(_RadioGroup.RadioGroup.componentTypes, {
     InputComponent: _reactstrap.Input
 });
 
-_TextField.TextField.componentTypes.InputComponent = _reactstrap.Input;
+Object.assign(_TextField.TextField.componentTypes, {
+    InputComponent: _reactstrap.Input,
+    ValidationMessageComponent: _reactstrap.Label
+});
 
 exports.defaultTheme = _theme2.default;
 exports.Button = _Button2.Button;
@@ -52042,7 +52075,7 @@ var TextField = exports.TextField = function (_React$Component) {
             _this.setState({ changed: false });
         };
 
-        _this.state = { changed: false, validationErrors: [] };
+        _this.state = { changed: false, validationMessages: [] };
         return _this;
     }
 
@@ -52053,17 +52086,21 @@ var TextField = exports.TextField = function (_React$Component) {
 
             if (this.vmInput.isRequired && !this.vmInput.props.value) this.setState({ changed: true });
 
-            this.vmInput.onValidated = function (errors) {
-                return _this2.setState({ valid: errors.length > 0 ? false : null, validationErrors: errors });
+            this.vmInput.onValidated = function (messages) {
+                return _this2.setState({
+                    valid: messages.length > 0 ? false : null,
+                    validationMessages: messages
+                });
             };
         }
     }, {
         key: 'render',
         value: function render() {
             var _utils$resolveCompone = utils.resolveComponents(TextField, this.props),
-                _utils$resolveCompone2 = _slicedToArray(_utils$resolveCompone, 2),
+                _utils$resolveCompone2 = _slicedToArray(_utils$resolveCompone, 3),
                 Container = _utils$resolveCompone2[0],
-                Input = _utils$resolveCompone2[1];
+                Input = _utils$resolveCompone2[1],
+                ValidationMessage = _utils$resolveCompone2[2];
 
             var _vmInput$props = this.vmInput.props,
                 id = _vmInput$props.id,
@@ -52086,7 +52123,14 @@ var TextField = exports.TextField = function (_React$Component) {
                     placeholder: placeholder,
                     value: value || "",
                     onChange: this.handleChange,
-                    onBlur: this.handleBlur })
+                    onBlur: this.handleBlur }),
+                this.state.validationMessages.map(function (message, idx) {
+                    return _react2.default.createElement(
+                        ValidationMessage,
+                        { key: idx },
+                        message
+                    );
+                })
             );
         }
     }, {
@@ -52107,7 +52151,8 @@ TextField.propTypes = {
 };
 TextField.componentTypes = {
     Container: _FieldPanel.FieldPanel,
-    InputComponent: undefined
+    InputComponent: undefined,
+    ValidationMessageComponent: undefined
 };
 var EmailField = exports.EmailField = function EmailField(props) {
     return _react2.default.createElement(TextField, _extends({ type: 'email' }, props));

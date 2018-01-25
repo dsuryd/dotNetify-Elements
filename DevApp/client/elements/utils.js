@@ -15,6 +15,18 @@ export function mapChildren(children, predicate, mapper) {
     });
 }
 
+export function extractChildren(children, typeName) {
+    let result;
+    const rest = React.Children.map(children, child => {
+        if (child.type && child.type.name === typeName) {
+            result = child;
+            return null;
+        }
+        else return child;
+    });
+    return [result, rest];
+}
+
 export function mapStyle(props) {
     const { color, size, primary, secondary, success, danger, warning, info, light, dark, small, large, ...rest } = props;
     const _color = primary ? "primary"

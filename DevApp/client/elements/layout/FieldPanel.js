@@ -15,6 +15,9 @@ const InputContainer = styled.div`
   }    
 `;
 
+const ValidationMessageContainer = styled.div`
+`;
+
 export class FieldPanel extends React.Component {
 
     static propTypes = {
@@ -26,18 +29,28 @@ export class FieldPanel extends React.Component {
     static componentTypes = {
         Container,
         LabelComponent: undefined,
-        InputContainer
+        InputContainer,
+        ValidationMessageContainer
     }
 
     render() {
-        const [Container, Label, InputContainer] = utils.resolveComponents(FieldPanel, this.props);
+        const [Container, Label, InputContainer, ValidationMessageContainer] = utils.resolveComponents(FieldPanel, this.props);
         const { id, label, horizontal, ...props } = this.props;
+
+        const [ValidationMessage, children] = utils.extractChildren(this.props.children, "ValidationMessage");
+        const validationMessage = ValidationMessage ? (
+            <ValidationMessageContainer>
+                <ValidationMessage />
+            </ValidationMessageContainer>
+        ) : null;
+
         return (
             <Container horizontal={horizontal}>
                 {label ? <Label for={id}>{label}</Label> : null}
                 <InputContainer>
-                    {this.props.children}
+                    {children}
                 </InputContainer>
+                {validationMessage}
             </Container>
         )
     };

@@ -17,23 +17,27 @@ export class TextField extends React.Component {
 
     static componentTypes = {
         Container: FieldPanel,
-        InputComponent: undefined
+        InputComponent: undefined,
+        ValidationMessageComponent: undefined
     }
 
     constructor(props) {
         super(props);
-        this.state = { changed: false, validationErrors: [] };
+        this.state = { changed: false, validationMessages: [] };
     }
 
-    get vmInput() { 
+    get vmInput() {
         return utils.getVMInput(this);
     }
 
     componentWillMount() {
         if (this.vmInput.isRequired && !this.vmInput.props.value)
-            this.setState({changed: true});
-        
-        this.vmInput.onValidated = errors => this.setState({valid: errors.length > 0 ? false : null, validationErrors: errors});
+            this.setState({ changed: true });
+
+        this.vmInput.onValidated = messages => this.setState({
+            valid: messages.length > 0 ? false : null, 
+            validationMessages: messages
+        });
     }
 
     handleChange = (event) => {
@@ -47,7 +51,7 @@ export class TextField extends React.Component {
     }
 
     render() {
-        const [Container, Input] = utils.resolveComponents(TextField, this.props);
+        const [Container, Input, ValidationMessage] = utils.resolveComponents(TextField, this.props);
         const { id, value, attrs } = this.vmInput.props;
 
         const label = attrs.label || this.props.label;
@@ -57,7 +61,7 @@ export class TextField extends React.Component {
 
         return (
             <Container id={id} label={label} horizontal={this.props.horizontal}>
-                <Input 
+                <Input
                     valid={this.state.valid}
                     id={id}
                     maxLength={maxLength}
@@ -66,6 +70,7 @@ export class TextField extends React.Component {
                     value={value || ""}
                     onChange={this.handleChange}
                     onBlur={this.handleBlur} />
+                {this.state.validationMessages.map((message, idx) => <ValidationMessage key={idx}>{message}</ValidationMessage>)}
             </Container>
         );
     }
