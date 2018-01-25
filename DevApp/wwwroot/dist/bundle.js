@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "35ce0a8abfad387230df"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "a2158eb5e97bdb3c078e"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -46594,8 +46594,6 @@ var VMInput = exports.VMInput = function () {
 
         this.context = context;
         this.propId = propId;
-
-        this.validations = { "Required": this.validateRequired };
     }
 
     _createClass(VMInput, [{
@@ -46606,18 +46604,29 @@ var VMInput = exports.VMInput = function () {
     }, {
         key: 'dispatch',
         value: function dispatch(value) {
+            value = value === undefined ? this.value : value;
             this.validate(value);
-            this.context.dispatchState(_defineProperty({}, this.propId, value === undefined ? this.value : value));
+            this.context.dispatchState(_defineProperty({}, this.propId, value));
         }
     }, {
         key: 'validate',
         value: function validate(value) {
             var _this = this;
 
-            var validations = this.context.getValidations(this.propId);
-            validations.forEach(function (v) {
-                return _this.validations[v.Type] && _this.validations[v.Type](value);
+            return this.context.getValidations(this.propId).map(function (v) {
+                return _this.getValidator(v.Type)(value) === true ? v.Message : null;
+            }).filter(function (e) {
+                return e;
             });
+        }
+    }, {
+        key: 'getValidator',
+        value: function getValidator(type) {
+            var funcName = "validate" + type;
+            var prototype = Object.getPrototypeOf(this);
+            return prototype.hasOwnProperty(funcName) ? prototype[funcName] : function () {
+                return true;
+            };
         }
     }, {
         key: 'validateRequired',

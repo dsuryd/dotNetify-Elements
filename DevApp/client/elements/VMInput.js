@@ -8,8 +8,6 @@ export class VMInput {
     constructor(context, propId) {
         this.context = context;
         this.propId = propId;
-
-        this.validations = { "Required": this.validateRequired };
     }
 
     get value() {
@@ -39,13 +37,21 @@ export class VMInput {
     }
 
     dispatch(value) {
+        value = value === undefined ? this.value : value;
         this.validate(value);
-        this.context.dispatchState({ [this.propId]: value === undefined ? this.value : value });
+        this.context.dispatchState({ [this.propId]: value });
     }
 
     validate(value) {
-        const validations = this.context.getValidations(this.propId);
-        validations.forEach(v => this.validations[v.Type] && this.validations[v.Type](value));
+        return this.context.getValidations(this.propId)
+            .map(v => this.getValidator(v.Type)(value) === true ? v.Message : null)
+            .filter(e => e);
+    }
+
+    getValidator(type) {
+        const funcName = "validate" + type;
+        const prototype = Object.getPrototypeOf(this);
+        return prototype.hasOwnProperty(funcName) ? prototype[funcName] : () => true;
     }
 
     validateRequired(value) {
