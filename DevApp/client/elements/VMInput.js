@@ -23,7 +23,6 @@ export class VMInput {
         return {
             id: `${this.context.vmId}.${this.propId}`,
             value: this.value,
-            onChange: this.onChange,
             attrs: attrs
         }
     }
@@ -38,7 +37,8 @@ export class VMInput {
 
     dispatch(value) {
         value = value === undefined ? this.value : value;
-        this.validate(value);
+        if (typeof this.onValidated === "function")
+            this.onValidated(this.validate(value));
         this.context.dispatchState({ [this.propId]: value });
     }
 

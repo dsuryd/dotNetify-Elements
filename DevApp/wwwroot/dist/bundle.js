@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "a2158eb5e97bdb3c078e"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "5cebbb4d9d810e3c896d"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -46605,7 +46605,7 @@ var VMInput = exports.VMInput = function () {
         key: 'dispatch',
         value: function dispatch(value) {
             value = value === undefined ? this.value : value;
-            this.validate(value);
+            if (typeof this.onValidated === "function") this.onValidated(this.validate(value));
             this.context.dispatchState(_defineProperty({}, this.propId, value));
         }
     }, {
@@ -46649,7 +46649,6 @@ var VMInput = exports.VMInput = function () {
             return {
                 id: this.context.vmId + '.' + this.propId,
                 value: this.value,
-                onChange: this.onChange,
                 attrs: attrs
             };
         }
@@ -52043,14 +52042,20 @@ var TextField = exports.TextField = function (_React$Component) {
             _this.setState({ changed: false });
         };
 
-        _this.state = { changed: false };
+        _this.state = { changed: false, validationErrors: [] };
         return _this;
     }
 
     _createClass(TextField, [{
         key: 'componentWillMount',
         value: function componentWillMount() {
+            var _this2 = this;
+
             if (this.vmInput.isRequired && !this.vmInput.props.value) this.setState({ changed: true });
+
+            this.vmInput.onValidated = function (errors) {
+                return _this2.setState({ valid: errors.length > 0 ? false : null, validationErrors: errors });
+            };
         }
     }, {
         key: 'render',
@@ -52074,6 +52079,7 @@ var TextField = exports.TextField = function (_React$Component) {
                 Container,
                 { id: id, label: label, horizontal: this.props.horizontal },
                 _react2.default.createElement(Input, {
+                    valid: this.state.valid,
                     id: id,
                     maxLength: maxLength,
                     type: this.props.type || "text",

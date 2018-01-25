@@ -22,7 +22,7 @@ export class TextField extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { changed: false };
+        this.state = { changed: false, validationErrors: [] };
     }
 
     get vmInput() { 
@@ -32,6 +32,8 @@ export class TextField extends React.Component {
     componentWillMount() {
         if (this.vmInput.isRequired && !this.vmInput.props.value)
             this.setState({changed: true});
+        
+        this.vmInput.onValidated = errors => this.setState({valid: errors.length > 0 ? false : null, validationErrors: errors});
     }
 
     handleChange = (event) => {
@@ -56,6 +58,7 @@ export class TextField extends React.Component {
         return (
             <Container id={id} label={label} horizontal={this.props.horizontal}>
                 <Input 
+                    valid={this.state.valid}
                     id={id}
                     maxLength={maxLength}
                     type={this.props.type || "text"}
