@@ -18,7 +18,8 @@ const defaultTheme = {
         hover: {
             color: '#adb5bd'
         }
-    }
+    },
+    validationError: 'red'
 };
 
 export default defaultTheme;

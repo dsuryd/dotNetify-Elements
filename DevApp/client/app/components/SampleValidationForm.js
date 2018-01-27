@@ -3,21 +3,15 @@ import dotnetify from 'dotnetify';
 import { Card, CardHeader, CardBody } from 'reactstrap';
 import {
     Button,
-    Checkbox,
-    CheckboxGroup,
-    DropdownList,
     EmailField,
     Form,
     FormBody,
     Panel,
     TextField,
-    TextAreaField,
-    PasswordField,
-    RadioGroup,
     VMContext
 } from '../../elements-bootstrap';
 
-const SampleForm = ({ vm, title, horizontal }) => (
+const SampleValidationForm = ({ vm, title, horizontal }) => (
     <VMContext vm={vm}>
         <Card>
             <CardHeader>{title}</CardHeader>
@@ -25,12 +19,7 @@ const SampleForm = ({ vm, title, horizontal }) => (
                 <Form>
                     <Panel noMargin childProps={{ horizontal: horizontal }}>
                         <TextField id="MyText" />
-                        <PasswordField id="MyPassword" />
-                        <DropdownList id="MyDropdown" />
-                        <TextAreaField id="MyTextArea" />
-                        <RadioGroup id="MyRadio" />
-                        <Checkbox id="MyCheckbox" />
-                        <CheckboxGroup id="MyCheckboxGroup" />
+                        <TextField id="MyEmail" />
                         <Panel horizontal right noMargin>
                             <Button secondary cancel>Cancel</Button>
                             <Button primary submit>Submit</Button>
@@ -42,4 +31,4 @@ const SampleForm = ({ vm, title, horizontal }) => (
     </VMContext>
 );
 
-export default SampleForm;
+export default SampleValidationForm;

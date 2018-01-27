@@ -5,7 +5,7 @@ import * as utils from '../utils';
 
 const Container = styled.div`
     display: grid;
-    grid-template-columns: ${prop => prop.horizontal ? '1fr 4fr' : '1fr'};
+    grid-template-columns: ${props => props.horizontal ? '1fr 4fr' : '1fr'};
     -ms-user-select: none; 
     user-select: none; 
 `;
@@ -16,6 +16,8 @@ const InputContainer = styled.div`
 `;
 
 const ValidationMessageContainer = styled.div`
+    color: ${props => props.theme.validationError};
+    grid-column: ${props => props.horizontal ? '2' : '1'};
 `;
 
 export class FieldPanel extends React.Component {
@@ -37,20 +39,16 @@ export class FieldPanel extends React.Component {
         const [Container, Label, InputContainer, ValidationMessageContainer] = utils.resolveComponents(FieldPanel, this.props);
         const { id, label, horizontal, ...props } = this.props;
 
-        const [ValidationMessage, children] = utils.extractChildren(this.props.children, "ValidationMessage");
-        const validationMessage = ValidationMessage ? (
-            <ValidationMessageContainer>
-                <ValidationMessage />
-            </ValidationMessageContainer>
-        ) : null;
-
+        const [validationMessages, children] = utils.filterChildren(this.props.children, child => child.key && child.key.startsWith("validationMessage"));
         return (
             <Container horizontal={horizontal}>
                 {label ? <Label for={id}>{label}</Label> : null}
                 <InputContainer>
                     {children}
                 </InputContainer>
-                {validationMessage}
+                <ValidationMessageContainer horizontal={horizontal}>
+                    {validationMessages}
+                </ValidationMessageContainer>
             </Container>
         )
     };

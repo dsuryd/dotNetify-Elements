@@ -31,13 +31,10 @@ export class TextField extends React.Component {
     }
 
     componentWillMount() {
-        if (this.vmInput.isRequired && !this.vmInput.props.value)
-            this.setState({ changed: true });
-
-        this.vmInput.onValidated = messages => this.setState({
-            valid: messages.length > 0 ? false : null, 
-            validationMessages: messages
-        });
+        this.vmInput.onValidated(result => this.setState({
+            valid: result.valid ? null : false,
+            validationMessages: result.messages
+        }));
     }
 
     handleChange = (event) => {
@@ -70,7 +67,8 @@ export class TextField extends React.Component {
                     value={value || ""}
                     onChange={this.handleChange}
                     onBlur={this.handleBlur} />
-                {this.state.validationMessages.map((message, idx) => <ValidationMessage key={idx}>{message}</ValidationMessage>)}
+                {this.state.validationMessages.map((message, idx) =>
+                    <ValidationMessage key={"validationMessage" + idx}>{message}</ValidationMessage>)}
             </Container>
         );
     }

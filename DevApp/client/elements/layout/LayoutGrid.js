@@ -13,10 +13,14 @@ const LayoutGrid = styled.main`
                             "nav    footer";
 `;
 
+export const Theme = props => (
+    <ThemeProvider theme={props.theme || defaultTheme}>{props.children}</ThemeProvider>
+);
+
 export const Main = props => (
-    <ThemeProvider theme={props.theme || defaultTheme}>
+    <Theme theme={props.theme}>
         <LayoutGrid>{props.children}</LayoutGrid>
-    </ThemeProvider>
+    </Theme>
 );
 
 export const Header = styled.header`

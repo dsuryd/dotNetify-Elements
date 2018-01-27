@@ -7,7 +7,7 @@ import { DropdownList } from './elements/form/DropdownList';
 import { FieldPanel } from './elements/layout/FieldPanel';
 import { Form } from './elements/form/Form';
 import { IconLabel } from './elements/layout/IconLabel';
-import { Main, Header, Nav, Footer, Section } from './elements/layout/LayoutGrid';
+import { Main, Header, Nav, Footer, Section, Theme } from './elements/layout/LayoutGrid';
 import { NavHeader } from './elements/layout/NavHeader';
 import { NavMenu, NavMenuTarget } from './elements/nav/NavMenu';
 import { NavToggle } from './elements/nav/NavToggle';
@@ -58,7 +58,7 @@ export {
     FieldPanel,
     Form,
     IconLabel,
-    Main, Header, Nav, Footer, Section,
+    Main, Header, Nav, Footer, Section, Theme,
     NavHeader,
     NavMenu,
     NavMenuTarget,

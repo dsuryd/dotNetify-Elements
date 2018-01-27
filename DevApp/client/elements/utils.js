@@ -1,5 +1,5 @@
 import React from 'react';
-import { VMInput } from './VMInput';
+import VMInput from './VMInput';
 
 export function getVMInput(component) {
     return component._vmInput || (component._vmInput = new VMInput(component.context, component.props.id));
@@ -15,11 +15,11 @@ export function mapChildren(children, predicate, mapper) {
     });
 }
 
-export function extractChildren(children, typeName) {
-    let result;
+export function filterChildren(children, predicate) {
+    let result = [];
     const rest = React.Children.map(children, child => {
-        if (child.type && child.type.name === typeName) {
-            result = child;
+        if (child.type && predicate(child)) {
+            result.push(child);
             return null;
         }
         else return child;

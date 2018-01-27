@@ -12,7 +12,8 @@ namespace dotNetify_Elements
       {
          Home,
          FormDemo,
-         HorizontalFormDemo
+         HorizontalFormDemo,
+         ValidationFormDemo
       }
 
       public RoutingState RoutingState { get; set; }
@@ -21,9 +22,10 @@ namespace dotNetify_Elements
       {
          this.RegisterRoutes("/", new List<RouteTemplate>
          {
-            new RouteTemplate(nameof(Route.Home))              { UrlPattern = "", ViewUrl = nameof(Route.FormDemo) },
-            new RouteTemplate(nameof(Route.FormDemo))          { UrlPattern = "form" },
-            new RouteTemplate(nameof(Route.HorizontalFormDemo)){ UrlPattern = "form/horizontal" },
+            new RouteTemplate(nameof(Route.Home))                 { UrlPattern = "", ViewUrl = nameof(Route.FormDemo) },
+            new RouteTemplate(nameof(Route.FormDemo))             { UrlPattern = "form" },
+            new RouteTemplate(nameof(Route.HorizontalFormDemo))   { UrlPattern = "form/horizontal" },
+            new RouteTemplate(nameof(Route.ValidationFormDemo))   { UrlPattern = "form/validation" },
          });
 
          AddProperty("NavMenu", new NavMenu(
@@ -35,7 +37,8 @@ namespace dotNetify_Elements
                   Routes = new NavRoute[]
                   {
                      new NavRoute("Vertical Form",    this.GetRoute(nameof(Route.FormDemo))),
-                     new NavRoute("Horizontal Form",  this.GetRoute(nameof(Route.HorizontalFormDemo)))
+                     new NavRoute("Horizontal Form",  this.GetRoute(nameof(Route.HorizontalFormDemo))),
+                     new NavRoute("Validation Form",  this.GetRoute(nameof(Route.ValidationFormDemo)))
                   }
                }
             }));

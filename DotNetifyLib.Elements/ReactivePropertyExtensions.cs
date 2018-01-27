@@ -22,17 +22,19 @@ namespace DotNetify
 {
    public static class ReactivePropertyExtensions
    {
-      public static ReactiveProperty<TProp> SetAttribute<TProp, TAttr>(this ReactiveProperty<TProp> prop, IReactiveProperties vm, TAttr attr)
+      public static ReactiveProperty<TProp> WithAttribute<TProp, TAttr>(this ReactiveProperty<TProp> prop, IReactiveProperties vm, TAttr attr)
       {
          var attrName = $"{prop.Name}_attr";
          if (vm.RuntimeProperties.FirstOrDefault(x => x.Name == attrName) != null)
-            throw new Exception($"{prop.Name} already has attribute");
+            throw new Exception($"{prop.Name} already has an attribute");
 
          vm.AddProperty(attrName, attr);
          return prop;
       }
 
-      public static ReactiveProperty<TProp> Validate<TProp>(this ReactiveProperty<TProp> prop, IReactiveProperties vm, Validation validation)
+      #region Validations
+
+      public static ReactiveProperty<TProp> WithValidation<TProp>(this ReactiveProperty<TProp> prop, IReactiveProperties vm, Validation validation)
       {
          var validationName = $"{prop.Name}_validate";
          var validationProp = vm.RuntimeProperties.FirstOrDefault(x => x.Name == validationName);
@@ -48,5 +50,17 @@ namespace DotNetify
          validationEntries.Add(validation);
          return prop;
       }
+
+      public static ReactiveProperty<TProp> WithRequiredValidation<TProp>(this ReactiveProperty<TProp> prop, IReactiveProperties vm, string message)
+      {
+         return prop.WithValidation(vm, new RequiredValidation(message));
+      }
+
+      public static ReactiveProperty<TProp> WithPatternValidation<TProp>(this ReactiveProperty<TProp> prop, IReactiveProperties vm, string regexPattern)
+      {
+         return prop.WithValidation(vm, new PatternValidation(regexPattern));
+      }
+
+      #endregion
    }
 }

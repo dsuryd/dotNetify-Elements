@@ -30,7 +30,7 @@ export class VMContext extends React.Component {
             setState: state => this.setState(state),
             dispatchState: state => this.vm.$dispatch(state),
             getPropAttributes: propId => utils.toCamelCase((this.state && this.state[propId + "_attr"]) || {}),
-            getValidations: propId => (this.state && this.state[propId + "_validate"] || [])
+            getPropValidations: propId => (this.state && this.state[propId + "_validate"] || [])
         };
     }
 
@@ -53,7 +53,7 @@ export const ContextTypes = Object.assign({}, {
     setState: PropTypes.func.isRequired,
     dispatchState: PropTypes.func.isRequired,
     getPropAttributes: PropTypes.func,
-    getValidations: PropTypes.func,
+    getPropValidations: PropTypes.func,
 });
 
 VMContext.childContextTypes = ContextTypes;

@@ -10,30 +10,22 @@ namespace dotNetify_Elements
       public SampleForm()
       {
          AddProperty("MyText", "")
-             .SetAttribute(this, new TextFieldAttribute
+             .WithAttribute(this, new TextFieldAttribute
              {
                 Label = "Text:",
                 Placeholder = "Enter text",
                 MaxLength = 10
-             })
-             .Validate(this, new RequiredValidation("Required"));
-
-         AddProperty("MyEmail", "email_address@server.com")
-             .SetAttribute(this, new TextFieldAttribute
-             {
-                Label = "Email:",
-                Placeholder = "Enter email address"
              });
 
          AddProperty("MyPassword", "")
-             .SetAttribute(this, new TextFieldAttribute
+             .WithAttribute(this, new TextFieldAttribute
              {
                 Label = "Password:",
                 Placeholder = "Enter password"
              });
 
          AddProperty("MyDropdown", "D3")
-             .SetAttribute(this, new DropdownListAttribute
+             .WithAttribute(this, new DropdownListAttribute
              {
                 Label = "Dropdown list:",
                 Options = new Dictionary<string, string>
@@ -47,10 +39,10 @@ namespace dotNetify_Elements
              });
 
          AddProperty("MyTextArea", "")
-             .SetAttribute(this, new TextFieldAttribute { Label = "Text area:", Placeholder = "Enter text" });
+             .WithAttribute(this, new TextFieldAttribute { Label = "Text area:", Placeholder = "Enter text" });
 
          AddProperty("MyRadio", "R1")
-             .SetAttribute(this, new RadioGroupAttribute
+             .WithAttribute(this, new RadioGroupAttribute
              {
                 Label = "Radio Group:",
                 Options = new Dictionary<string, string>
@@ -62,10 +54,10 @@ namespace dotNetify_Elements
              });
 
          AddProperty("MyCheckbox", true)
-             .SetAttribute(this, new CheckboxAttribute { Label = "Check me" });
+             .WithAttribute(this, new CheckboxAttribute { Label = "Check me" });
 
          AddProperty("MyCheckboxGroup", new string[] { "C1", "C3" })
-             .SetAttribute(this, new RadioGroupAttribute
+             .WithAttribute(this, new RadioGroupAttribute
              {
                 Label = "Checkbox Group:",
                 Options = new Dictionary<string, string>
@@ -77,6 +69,4 @@ namespace dotNetify_Elements
              });
       }
    }
-
-   public class SampleFormHorizontal : SampleForm { }
 }
