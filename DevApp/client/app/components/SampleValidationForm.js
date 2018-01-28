@@ -18,11 +18,11 @@ const SampleValidationForm = ({ vm, title, horizontal }) => (
             <CardBody>
                 <Form>
                     <Panel noMargin childProps={{ horizontal: horizontal }}>
-                        <TextField id="MyText" />
-                        <TextField id="MyEmail" />
+                        <TextField id="Name" />
+                        <TextField id="Email" />
                         <Panel horizontal right noMargin>
                             <Button secondary cancel>Cancel</Button>
-                            <Button primary submit>Submit</Button>
+                            <Button id="Submit" primary submit>Submit</Button>
                         </Panel>
                     </Panel>
                 </Form>

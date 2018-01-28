@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "e57925661cce609987f9"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "eea7ec58c007e0cf6ba4"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -30619,9 +30619,10 @@ var VMInputValidator = function () {
       value: function validate(value) {
          var _this = this;
 
-         value = value !== undefined || this.value;
+         if (value === undefined) value = this.value;
+
          var validationMessages = this.context.getPropValidations(this.propId).map(function (validation) {
-            return _this.getValidator(validation.Type)(value) === true ? validation.Message : null;
+            return _this.getValidator(validation.Type)(value, validation) === false ? validation.Message : null;
          }).filter(function (message) {
             return message;
          });
@@ -30646,7 +30647,12 @@ var VMInputValidator = function () {
    }, {
       key: 'validateRequired',
       value: function validateRequired(value) {
-         return !value || value.trim() === "";
+         return typeof value != 'undefined' && value != null && (typeof value != 'string' || value.trim().length > 0);
+      }
+   }, {
+      key: 'validatePattern',
+      value: function validatePattern(value, validation) {
+         return new RegExp(validation.Pattern).test(value);
       }
    }, {
       key: 'onValidated',
@@ -47214,6 +47220,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -47260,15 +47268,8 @@ var Form = exports.Form = function (_React$Component) {
             var data = this.state.data;
 
             if (data) {
-                var result = this.validators.map(function (validator) {
-                    return validator.validate();
-                }).reduce(function (aggregate, current) {
-                    return {
-                        valid: aggregate.valid && current.valid,
-                        messages: [].concat(_toConsumableArray(aggregate.messages), _toConsumableArray(current.messages))
-                    };
-                });
-                if (result.valid) this.context.dispatchState(data);
+                var validationResult = this.validate();
+                if (validationResult.valid) this.submit(data);
             }
             this.setState({ changed: false, data: null });
         }
@@ -47285,6 +47286,7 @@ var Form = exports.Form = function (_React$Component) {
             return utils.mapChildren(children, function (child) {
                 return child.props.submit || child.props.cancel;
             }, function (child) {
+                _this3.submitPropId = child.props.submit && child.props.id;
                 return _react2.default.cloneElement(child, {
                     onClick: child.props.submit ? function () {
                         return _this3.handleSubmit();
@@ -47303,6 +47305,23 @@ var Form = exports.Form = function (_React$Component) {
                 null,
                 this.mapButtons(this.props.children)
             );
+        }
+    }, {
+        key: 'submit',
+        value: function submit(data) {
+            this.context.dispatchState(this.submitPropId ? _defineProperty({}, this.submitPropId, data) : data);
+        }
+    }, {
+        key: 'validate',
+        value: function validate() {
+            return this.validators.map(function (validator) {
+                return validator.validate();
+            }).reduce(function (aggregate, current) {
+                return {
+                    valid: aggregate.valid && current.valid,
+                    messages: [].concat(_toConsumableArray(aggregate.messages), _toConsumableArray(current.messages))
+                };
+            });
         }
     }]);
 
@@ -52397,8 +52416,8 @@ var SampleValidationForm = function SampleValidationForm(_ref) {
                     _react2.default.createElement(
                         _elementsBootstrap.Panel,
                         { noMargin: true, childProps: { horizontal: horizontal } },
-                        _react2.default.createElement(_elementsBootstrap.TextField, { id: 'MyText' }),
-                        _react2.default.createElement(_elementsBootstrap.TextField, { id: 'MyEmail' }),
+                        _react2.default.createElement(_elementsBootstrap.TextField, { id: 'Name' }),
+                        _react2.default.createElement(_elementsBootstrap.TextField, { id: 'Email' }),
                         _react2.default.createElement(
                             _elementsBootstrap.Panel,
                             { horizontal: true, right: true, noMargin: true },
@@ -52409,7 +52428,7 @@ var SampleValidationForm = function SampleValidationForm(_ref) {
                             ),
                             _react2.default.createElement(
                                 _elementsBootstrap.Button,
-                                { primary: true, submit: true },
+                                { id: 'Submit', primary: true, submit: true },
                                 'Submit'
                             )
                         )

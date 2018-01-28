@@ -20,9 +20,11 @@ export default class VMInputValidator {
    }
 
    validate(value) {
-      value = value !== undefined || this.value;
+      if (value === undefined)
+         value = this.value;
+
       const validationMessages = this.context.getPropValidations(this.propId)
-         .map(validation => this.getValidator(validation.Type)(value) === true ? validation.Message : null)
+         .map(validation => this.getValidator(validation.Type)(value, validation) === false ? validation.Message : null)
          .filter(message => message);
       
       const result = {
@@ -41,7 +43,11 @@ export default class VMInputValidator {
    }
 
    validateRequired(value) {
-      return !value || value.trim() === "";
+      return typeof value != 'undefined' && value != null && (typeof value != 'string' || value.trim().length > 0) ;
+   }
+
+   validatePattern(value, validation) {
+      return new RegExp(validation.Pattern).test(value);
    }
 
    onValidated(handler) {

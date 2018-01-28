@@ -2,27 +2,47 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using DotNetify;
+using System.Reactive.Linq;
+using Newtonsoft.Json;
 
 namespace dotNetify_Elements
 {
    public class SampleValidationForm : BaseVM
    {
+      public class FormData
+      {
+         public string Name { get; set; }
+         public string Email { get; set; }
+      }
+
       public SampleValidationForm()
       {
-         AddProperty("MyText", "")
+         AddProperty<string>(nameof(FormData.Name))
              .WithAttribute(this, new TextFieldAttribute
              {
-                Label = "Text:",
-                Placeholder = "Enter required text"
+                Label = "Name:",
+                Placeholder = "Enter name"
              })
-            .WithValidation(this, new RequiredValidation("MyText is required"));
+            .WithRequiredValidation(this, "Name is required");
 
-         AddProperty("MyEmail", "")
+         AddProperty<string>(nameof(FormData.Email))
              .WithAttribute(this, new TextFieldAttribute
              {
                 Label = "Email:",
                 Placeholder = "Enter email address"
-             });
+             })
+             .WithEmailValidation(this, "Email is invalid");
+
+         var submit = AddProperty<Action<FormData>>("Submit");
+
+         AddProperty<bool>("IsSubmitted")
+            .SubscribeTo(
+               submit.Select(value =>
+               {
+                  System.Diagnostics.Trace.WriteLine(JsonConvert.SerializeObject(value));
+                  return true;
+               })
+         );
 
       }
    }

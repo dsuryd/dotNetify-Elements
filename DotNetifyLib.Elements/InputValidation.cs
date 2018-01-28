@@ -30,12 +30,12 @@ namespace DotNetify
    {
       public string Type => GetType().Name.Replace(nameof(Validation), "");
       public string Message { get; set; }
-      public ValidationCategory Category { get; set; }
+      public string Category { get; set; }
 
       public Validation(string message, ValidationCategory category)
       {
          Message = message;
-         Category = category;
+         Category = category.ToString();
       }
    }
 
@@ -46,6 +46,11 @@ namespace DotNetify
 
    public class PatternValidation : Validation
    {
-      public PatternValidation(string message, ValidationCategory category = ValidationCategory.Error) : base(message, category) { }
+      public string Pattern { get; set; }
+
+      public PatternValidation(string pattern, string message, ValidationCategory category = ValidationCategory.Error) : base(message, category)
+      {
+         Pattern = pattern;
+      }
    }
 }

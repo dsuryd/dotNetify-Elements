@@ -34,14 +34,9 @@ export class Form extends React.Component {
     handleSubmit() {
         const { data } = this.state;
         if (data) {
-            const result = this.validators
-                .map(validator => validator.validate())
-                .reduce((aggregate, current) => ({
-                    valid: aggregate.valid && current.valid,
-                    messages: [...aggregate.messages, ...current.messages]
-                }));
-            if (result.valid)
-                this.context.dispatchState(data);
+            const validationResult = this.validate();
+            if (validationResult.valid)
+                this.submit(data);
         }
         this.setState({ changed: false, data: null });
     }
@@ -53,14 +48,30 @@ export class Form extends React.Component {
     mapButtons(children) {
         return utils.mapChildren(children,
             child => child.props.submit || child.props.cancel,
-            child => React.cloneElement(child, {
-                onClick: child.props.submit ? () => this.handleSubmit() : () => this.handleCancel(),
-                disabled: !this.state.changed
-            })
+            child => {
+                this.submitPropId = child.props.submit && child.props.id;
+                return React.cloneElement(child, {
+                    onClick: child.props.submit ? () => this.handleSubmit() : () => this.handleCancel(),
+                    disabled: !this.state.changed
+                })
+            }
         );
     }
 
     render() {
         return <div>{this.mapButtons(this.props.children)}</div>;
+    }
+
+    submit(data) {
+        this.context.dispatchState(this.submitPropId ? ({ [this.submitPropId]: data }) : data);
+    }
+
+    validate() {
+        return this.validators
+            .map(validator => validator.validate())
+            .reduce((aggregate, current) => ({
+                valid: aggregate.valid && current.valid,
+                messages: [...aggregate.messages, ...current.messages]
+            }));
     }
 }
