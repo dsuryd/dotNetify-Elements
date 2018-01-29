@@ -30,7 +30,7 @@ export class VMContext extends React.Component {
             setState: state => this.setState(state),
             dispatchState: state => this.vm.$dispatch(state),
             getPropAttributes: propId => utils.toCamelCase((this.state && this.state[propId + "_attr"]) || {}),
-            getPropValidations: propId => (this.state && this.state[propId + "_validate"] || [])
+            getPropValidations: propId => (this.state && this.state[propId + "_validate"] || []).map(v => utils.toCamelCase(v))
         };
     }
 

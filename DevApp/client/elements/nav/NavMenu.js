@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { PropTypes } from 'prop-types';
 import { ContextTypes } from '../VMContext';
 import { Collapsible } from '../layout/Collapsible';
-import { IconLabel } from '../layout/IconLabel';
+import { Label } from '../layout/Label';
 import { RouteLink } from 'dotnetify/dist/dotnetify-react.router';
 import * as utils from '../utils';
 
@@ -47,13 +47,13 @@ const GroupHeaderContainer = Collapsible.componentTypes.HeaderContainer.extend`
 
 const GroupLabel = props => (
     <div style={{ padding: props.padding || '.75rem 1rem' }}>
-        <IconLabel name={props.icon}>{props.children}</IconLabel>
+        <Label name={props.icon}>{props.children}</Label>
     </div>
 );
 
 const RouteLabel = props => (
-    <div style={{ padding: props.padding || '.75rem 1rem', paddingLeft: props.indent ? '2rem' : '1rem' }}>
-        <IconLabel name={props.icon}>{props.children}</IconLabel>
+    <div style={{ padding: props.padding || '.75rem 1rem', paddingLeft: props.indent ? '2.5rem' : '1rem' }}>
+        <Label name={props.icon}>{props.children}</Label>
     </div>
 );
 

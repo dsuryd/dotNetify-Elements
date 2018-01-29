@@ -11,14 +11,19 @@ import {
     VMContext
 } from '../../elements-bootstrap';
 
-const SampleValidationForm = ({ vm, title, horizontal }) => (
+const nameLengthValidation = {
+    validate: value => typeof value !== 'undefined' && value.length >= 10,
+    message: 'Name must be at least 10 characters'
+}
+
+const SampleValidationForm = ({ vm, title }) => (
     <VMContext vm={vm}>
         <Card>
             <CardHeader>{title}</CardHeader>
             <CardBody>
                 <Form>
-                    <Panel noMargin childProps={{ horizontal: horizontal }}>
-                        <TextField id="Name" />
+                    <Panel noMargin>
+                        <TextField id="Name" validation={nameLengthValidation} />
                         <TextField id="Email" />
                         <Panel horizontal right noMargin>
                             <Button secondary cancel>Cancel</Button>

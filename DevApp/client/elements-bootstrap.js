@@ -6,7 +6,7 @@ import { Collapsible } from './elements/layout/Collapsible';
 import { DropdownList } from './elements/form/DropdownList';
 import { FieldPanel } from './elements/layout/FieldPanel';
 import { Form } from './elements/form/Form';
-import { IconLabel } from './elements/layout/IconLabel';
+import { Label } from './elements/layout/Label';
 import { Main, Header, Nav, Footer, Section, Theme } from './elements/layout/LayoutGrid';
 import { NavHeader } from './elements/layout/NavHeader';
 import { NavMenu, NavMenuTarget } from './elements/nav/NavMenu';
@@ -16,35 +16,33 @@ import { RadioGroup } from './elements/form/RadioGroup';
 import { TextField, EmailField, PasswordField, TextAreaField } from './elements/form/TextField';
 import { VMContext, ContextTypes } from './elements/VMContext';
 
-import { Button as _Button, Collapse, FormGroup, Label, Input } from 'reactstrap';
+import { Button as _Button, Collapse, FormGroup, Label as _Label, Input } from 'reactstrap';
 
 Button.componentTypes.ButtonComponent = _Button;
 
 Object.assign(Checkbox.componentTypes, {
     Container: FormGroup,
-    LabelComponent: Label,
+    LabelComponent: _Label,
     InputComponent: Input
 });
 
 Object.assign(CheckboxGroup.componentTypes, {
     CheckboxContainer: FormGroup,
-    CheckboxLabelComponent: Label,
+    CheckboxLabelComponent: _Label,
     InputComponent: Input
 });
 
 Collapsible.componentTypes.CollapsePanel = Collapse;
-FieldPanel.componentTypes.LabelComponent = Label;
 DropdownList.componentTypes.InputComponent = Input;
 
 Object.assign(RadioGroup.componentTypes, {
     RadioContainer: FormGroup,
-    RadioLabelComponent: Label,
+    RadioLabelComponent: _Label,
     InputComponent: Input
 });
 
 Object.assign(TextField.componentTypes, {
-    InputComponent: Input,
-    ValidationMessageComponent: Label
+    InputComponent: Input
 });
 
 export {
@@ -57,7 +55,7 @@ export {
     DropdownList,
     FieldPanel,
     Form,
-    IconLabel,
+    Label,
     Main, Header, Nav, Footer, Section, Theme,
     NavHeader,
     NavMenu,

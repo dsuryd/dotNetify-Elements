@@ -5,53 +5,61 @@ import * as utils from './utils';
 
 export default class VMInputValidator {
 
-   constructor(context, propId) {
-      this.context = context;
-      this.propId = propId;
-      this.handleValidated = null;
-   }
+    constructor(context, propId) {
+        this.context = context;
+        this.propId = propId;
+        this.handleValidated = null;
+        this.validations = this.context.getPropValidations(propId) || [];
+    }
 
-   get value() {
-      return this.context.getState(this.propId);
-  }
+    get value() {
+        return this.context.getState(this.propId);
+    }
 
-   get isRequired() {
-      return this.context.getPropValidations(this.propId).filter(v => v.Type === "Required").length > 0;
-   }
+    get isRequired() {
+        return this.validations.filter(v => v.type === "Required").length > 0;
+    }
 
-   validate(value) {
-      if (value === undefined)
-         value = this.value;
+    addValidation(validation) {
+        this.validations.push(validation);
+    }
 
-      const validationMessages = this.context.getPropValidations(this.propId)
-         .map(validation => this.getValidator(validation.Type)(value, validation) === false ? validation.Message : null)
-         .filter(message => message);
-      
-      const result = {
-         valid: validationMessages.length == 0,
-         messages: validationMessages
-      }
+    validate(value) {
+        if (value === undefined)
+            value = this.value;
 
-      this.handleValidated && this.handleValidated(result);
-      return result;
-   }
+        const validationMessages = this.validations
+            .map(validation => this.getValidator(validation)(value, validation) === false ? validation.message : null)
+            .filter(message => message);
 
-   getValidator(type) {
-      const funcName = "validate" + type;
-      const prototype = Object.getPrototypeOf(this);
-      return prototype.hasOwnProperty(funcName) ? prototype[funcName] : () => true;
-   }
+        const result = {
+            valid: validationMessages.length == 0,
+            messages: validationMessages
+        }
 
-   validateRequired(value) {
-      return typeof value != 'undefined' && value != null && (typeof value != 'string' || value.trim().length > 0) ;
-   }
+        this.handleValidated && this.handleValidated(result);
+        return result;
+    }
 
-   validatePattern(value, validation) {
-      return new RegExp(validation.Pattern).test(value);
-   }
+    getValidator(validation) {
+        if (typeof validation.validate === 'function')
+            return validation.validate;
 
-   onValidated(handler) {
-      if (typeof handler === "function")
-         this.handleValidated = handler;
-   }
+        const funcName = "validate" + validation.type;
+        const prototype = Object.getPrototypeOf(this);
+        return prototype.hasOwnProperty(funcName) ? prototype[funcName] : () => true;
+    }
+
+    validateRequired(value) {
+        return typeof value != 'undefined' && value != null && (typeof value != 'string' || value.trim().length > 0);
+    }
+
+    validatePattern(value, validation) {
+        return new RegExp(validation.pattern).test(value);
+    }
+
+    onValidated(handler) {
+        if (typeof handler === "function")
+            this.handleValidated = handler;
+    }
 }

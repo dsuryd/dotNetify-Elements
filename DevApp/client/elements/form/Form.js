@@ -6,10 +6,15 @@ import * as utils from '../utils';
 
 export class Form extends React.Component {
 
+    static contextTypes = ContextTypes;
+
     static childContextTypes = Object.assign(ContextTypes, {
         getValidator: PropTypes.func
     });
-    static contextTypes = ContextTypes;
+
+    static propTypes = {
+        onSubmit: PropTypes.func
+    }
 
     constructor(props) {
         super(props);
@@ -63,7 +68,8 @@ export class Form extends React.Component {
     }
 
     submit(data) {
-        this.context.dispatchState(this.submitPropId ? ({ [this.submitPropId]: data }) : data);
+        if (this.props.onSubmit && this.props.onSubmit(data) !== false)
+            this.context.dispatchState(this.submitPropId ? ({ [this.submitPropId]: data }) : data);
     }
 
     validate() {

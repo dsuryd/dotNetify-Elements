@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { PropTypes } from 'prop-types';
 import { ContextTypes } from '../VMContext';
 import { FieldPanel } from '../layout/FieldPanel';
+import { Label } from '../layout/Label';
 import * as utils from '../utils';
 
 export class TextField extends React.Component {
@@ -18,7 +19,7 @@ export class TextField extends React.Component {
     static componentTypes = {
         Container: FieldPanel,
         InputComponent: undefined,
-        ValidationMessageComponent: undefined
+        ValidationMessageComponent: Label
     }
 
     constructor(props) {
@@ -35,6 +36,9 @@ export class TextField extends React.Component {
             valid: result.valid ? null : false,
             validationMessages: result.messages
         }));
+
+        if (this.props.validation)
+            this.vmInput.addValidation(this.props.validation);
     }
 
     handleChange = (event) => {
@@ -51,18 +55,18 @@ export class TextField extends React.Component {
         const [Container, Input, ValidationMessage] = utils.resolveComponents(TextField, this.props);
         const { id, value, attrs } = this.vmInput.props;
 
-        const label = attrs.label || this.props.label;
-        const placeholder = attrs.placeholder || this.props.placeholder;
-        const maxLength = attrs.maxLength || this.props.maxLength;
-
+        let { label, placeholder, maxLength, horizontal, type, ...props } = this.props;
+        label = attrs.label || label;
+        placeholder = attrs.placeholder || placeholder;
+        maxLength = attrs.maxLength || maxLength;
 
         return (
-            <Container id={id} label={label} horizontal={this.props.horizontal}>
+            <Container id={id} label={label} horizontal={horizontal}>
                 <Input
                     valid={this.state.valid}
                     id={id}
                     maxLength={maxLength}
-                    type={this.props.type || "text"}
+                    type={type || "text"}
                     placeholder={placeholder}
                     value={value || ""}
                     onChange={this.handleChange}

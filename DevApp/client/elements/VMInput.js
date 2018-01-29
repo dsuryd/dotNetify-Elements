@@ -45,6 +45,10 @@ export default class VMInput {
         this.context.dispatchState({ [this.propId]: value });
     }
 
+    addValidation(validation) {
+        this.validator.addValidation(validation);
+    }
+
     onValidated(handler) {
         this.validator.onValidated(handler);
     }

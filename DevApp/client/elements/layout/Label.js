@@ -9,6 +9,7 @@ const LabelContainer = styled.div`
     flex-direction: ${props => props.right ? 'row-reverse' : 'row'};
     justify-content: ${props => props.apart ? 'space-between' : 'flex-start'};
     width: ${props => props.apart ? '100%' : 'inherit'};
+    padding: ${props => props.padding || '0'};
 `;
 
 const Icon = styled.span.attrs({
@@ -17,12 +18,13 @@ const Icon = styled.span.attrs({
     margin: ${props => props.right ? '0 0 0 .5rem' : '0 .5rem 0 0'};
 `;
 
-export class IconLabel extends React.Component {
+export class Label extends React.Component {
 
     static propTypes = {
         right: PropTypes.bool,
         apart: PropTypes.bool,
-        icon: PropTypes.object
+        icon: PropTypes.object,
+        padding: PropTypes.string
     }
 
     static componentTypes = {
@@ -31,11 +33,11 @@ export class IconLabel extends React.Component {
     }
 
     render() {
-        const [LabelContainer, Icon] = utils.resolveComponents(IconLabel, this.props);
-        const { right, apart, name, icon, children } = this.props;
+        const [LabelContainer, Icon] = utils.resolveComponents(Label, this.props);
+        const { right, apart, name, icon, padding, children } = this.props;
         return (
-            <LabelContainer right={right} apart={apart}>
-                {icon ? icon : <Icon name={name} right={right} />}
+            <LabelContainer right={right} apart={apart} padding={padding}>
+                {icon ? icon : (name ? <Icon name={name} right={right} /> : null)}
                 {children}
             </LabelContainer>
         );

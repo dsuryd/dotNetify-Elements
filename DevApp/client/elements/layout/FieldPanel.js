@@ -1,6 +1,7 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import styled from 'styled-components';
+import { Label } from './Label';
 import * as utils from '../utils';
 
 const Container = styled.div`
@@ -10,12 +11,20 @@ const Container = styled.div`
     user-select: none; 
 `;
 
+const LabelContainer = styled.div`
+    display: flex;
+    align-items: flex-start;
+  }    
+`;
+
 const InputContainer = styled.div`
     width: calc(100% - 1px);
   }    
 `;
 
 const ValidationMessageContainer = styled.div`
+    display: flex;
+    flex-direction: column;
     color: ${props => props.theme.validationError};
     grid-column: ${props => props.horizontal ? '2' : '1'};
 `;
@@ -30,19 +39,23 @@ export class FieldPanel extends React.Component {
 
     static componentTypes = {
         Container,
-        LabelComponent: undefined,
+        LabelContainer,
+        LabelComponent: Label,
         InputContainer,
         ValidationMessageContainer
     }
 
     render() {
-        const [Container, Label, InputContainer, ValidationMessageContainer] = utils.resolveComponents(FieldPanel, this.props);
+        const [Container, LabelContainer, Label, InputContainer, ValidationMessageContainer] = utils.resolveComponents(FieldPanel, this.props);
         const { id, label, horizontal, ...props } = this.props;
+        const labelPadding = horizontal ? null : "0 0 .5rem 0";
 
         const [validationMessages, children] = utils.filterChildren(this.props.children, child => child.key && child.key.startsWith("validationMessage"));
         return (
             <Container horizontal={horizontal}>
-                {label ? <Label for={id}>{label}</Label> : null}
+                <LabelContainer>
+                {label ? <Label for={id} padding={labelPadding}>{label}</Label> : null}
+                </LabelContainer>
                 <InputContainer>
                     {children}
                 </InputContainer>

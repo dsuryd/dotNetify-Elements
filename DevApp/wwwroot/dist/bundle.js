@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "eea7ec58c007e0cf6ba4"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "73e1a0664bd9629f009c"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -4155,7 +4155,9 @@ var VMContext = exports.VMContext = function (_React$Component) {
                     return utils.toCamelCase(_this2.state && _this2.state[propId + "_attr"] || {});
                 },
                 getPropValidations: function getPropValidations(propId) {
-                    return _this2.state && _this2.state[propId + "_validate"] || [];
+                    return (_this2.state && _this2.state[propId + "_validate"] || []).map(function (v) {
+                        return utils.toCamelCase(v);
+                    });
                 }
             });
         }
@@ -5623,7 +5625,7 @@ module.exports = DOMLazyTree;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.VMContext = exports.TextAreaField = exports.PasswordField = exports.EmailField = exports.TextField = exports.RadioGroup = exports.Panel = exports.NavToggle = exports.NavMenuTarget = exports.NavMenu = exports.NavHeader = exports.Theme = exports.Section = exports.Footer = exports.Nav = exports.Header = exports.Main = exports.IconLabel = exports.Form = exports.FieldPanel = exports.DropdownList = exports.ContextTypes = exports.Collapsible = exports.CheckboxGroup = exports.Checkbox = exports.Button = exports.defaultTheme = undefined;
+exports.VMContext = exports.TextAreaField = exports.PasswordField = exports.EmailField = exports.TextField = exports.RadioGroup = exports.Panel = exports.NavToggle = exports.NavMenuTarget = exports.NavMenu = exports.NavHeader = exports.Theme = exports.Section = exports.Footer = exports.Nav = exports.Header = exports.Main = exports.Label = exports.Form = exports.FieldPanel = exports.DropdownList = exports.ContextTypes = exports.Collapsible = exports.CheckboxGroup = exports.Checkbox = exports.Button = exports.defaultTheme = undefined;
 
 var _theme = __webpack_require__(104);
 
@@ -5643,7 +5645,7 @@ var _FieldPanel = __webpack_require__(32);
 
 var _Form = __webpack_require__(238);
 
-var _IconLabel = __webpack_require__(63);
+var _Label2 = __webpack_require__(265);
 
 var _LayoutGrid = __webpack_require__(239);
 
@@ -5680,7 +5682,6 @@ Object.assign(_CheckboxGroup.CheckboxGroup.componentTypes, {
 });
 
 _Collapsible.Collapsible.componentTypes.CollapsePanel = _reactstrap.Collapse;
-_FieldPanel.FieldPanel.componentTypes.LabelComponent = _reactstrap.Label;
 _DropdownList.DropdownList.componentTypes.InputComponent = _reactstrap.Input;
 
 Object.assign(_RadioGroup.RadioGroup.componentTypes, {
@@ -5690,8 +5691,7 @@ Object.assign(_RadioGroup.RadioGroup.componentTypes, {
 });
 
 Object.assign(_TextField.TextField.componentTypes, {
-    InputComponent: _reactstrap.Input,
-    ValidationMessageComponent: _reactstrap.Label
+    InputComponent: _reactstrap.Input
 });
 
 exports.defaultTheme = _theme2.default;
@@ -5703,7 +5703,7 @@ exports.ContextTypes = _VMContext.ContextTypes;
 exports.DropdownList = _DropdownList.DropdownList;
 exports.FieldPanel = _FieldPanel.FieldPanel;
 exports.Form = _Form.Form;
-exports.IconLabel = _IconLabel.IconLabel;
+exports.Label = _Label2.Label;
 exports.Main = _LayoutGrid.Main;
 exports.Header = _LayoutGrid.Header;
 exports.Nav = _LayoutGrid.Nav;
@@ -6427,6 +6427,8 @@ var _styledComponents = __webpack_require__(15);
 
 var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
+var _Label = __webpack_require__(265);
+
 var _utils = __webpack_require__(9);
 
 var utils = _interopRequireWildcard(_utils);
@@ -6449,13 +6451,17 @@ var Container = _styledComponents2.default.div.withConfig({
     return props.horizontal ? '1fr 4fr' : '1fr';
 });
 
+var LabelContainer = _styledComponents2.default.div.withConfig({
+    displayName: 'FieldPanel__LabelContainer'
+})(['display:flex;align-items:flex-start;}']);
+
 var InputContainer = _styledComponents2.default.div.withConfig({
     displayName: 'FieldPanel__InputContainer'
 })(['width:calc(100% - 1px);}']);
 
 var ValidationMessageContainer = _styledComponents2.default.div.withConfig({
     displayName: 'FieldPanel__ValidationMessageContainer'
-})(['color:', ';grid-column:', ';'], function (props) {
+})(['display:flex;flex-direction:column;color:', ';grid-column:', ';'], function (props) {
     return props.theme.validationError;
 }, function (props) {
     return props.horizontal ? '2' : '1';
@@ -6474,17 +6480,20 @@ var FieldPanel = exports.FieldPanel = function (_React$Component) {
         key: 'render',
         value: function render() {
             var _utils$resolveCompone = utils.resolveComponents(FieldPanel, this.props),
-                _utils$resolveCompone2 = _slicedToArray(_utils$resolveCompone, 4),
+                _utils$resolveCompone2 = _slicedToArray(_utils$resolveCompone, 5),
                 Container = _utils$resolveCompone2[0],
-                Label = _utils$resolveCompone2[1],
-                InputContainer = _utils$resolveCompone2[2],
-                ValidationMessageContainer = _utils$resolveCompone2[3];
+                LabelContainer = _utils$resolveCompone2[1],
+                Label = _utils$resolveCompone2[2],
+                InputContainer = _utils$resolveCompone2[3],
+                ValidationMessageContainer = _utils$resolveCompone2[4];
 
             var _props = this.props,
                 id = _props.id,
                 label = _props.label,
                 horizontal = _props.horizontal,
                 props = _objectWithoutProperties(_props, ['id', 'label', 'horizontal']);
+
+            var labelPadding = horizontal ? null : "0 0 .5rem 0";
 
             var _utils$filterChildren = utils.filterChildren(this.props.children, function (child) {
                 return child.key && child.key.startsWith("validationMessage");
@@ -6496,11 +6505,15 @@ var FieldPanel = exports.FieldPanel = function (_React$Component) {
             return _react2.default.createElement(
                 Container,
                 { horizontal: horizontal },
-                label ? _react2.default.createElement(
-                    Label,
-                    { 'for': id },
-                    label
-                ) : null,
+                _react2.default.createElement(
+                    LabelContainer,
+                    null,
+                    label ? _react2.default.createElement(
+                        Label,
+                        { 'for': id, padding: labelPadding },
+                        label
+                    ) : null
+                ),
                 _react2.default.createElement(
                     InputContainer,
                     null,
@@ -6525,7 +6538,8 @@ FieldPanel.propTypes = {
 };
 FieldPanel.componentTypes = {
     Container: Container,
-    LabelComponent: undefined,
+    LabelContainer: LabelContainer,
+    LabelComponent: _Label.Label,
     InputContainer: InputContainer,
     ValidationMessageContainer: ValidationMessageContainer
 };
@@ -15135,112 +15149,7 @@ function getEventCharCode(nativeEvent) {
 module.exports = getEventCharCode;
 
 /***/ }),
-/* 63 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.IconLabel = undefined;
-
-var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(3);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(7);
-
-var _styledComponents = __webpack_require__(15);
-
-var _styledComponents2 = _interopRequireDefault(_styledComponents);
-
-var _utils = __webpack_require__(9);
-
-var utils = _interopRequireWildcard(_utils);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var LabelContainer = _styledComponents2.default.div.withConfig({
-    displayName: 'IconLabel__LabelContainer'
-})(['display:flex;align-items:center;flex-direction:', ';justify-content:', ';width:', ';'], function (props) {
-    return props.right ? 'row-reverse' : 'row';
-}, function (props) {
-    return props.apart ? 'space-between' : 'flex-start';
-}, function (props) {
-    return props.apart ? '100%' : 'inherit';
-});
-
-var Icon = _styledComponents2.default.span.attrs({
-    className: function className(props) {
-        return props.name;
-    }
-}).withConfig({
-    displayName: 'IconLabel__Icon'
-})(['margin:', ';'], function (props) {
-    return props.right ? '0 0 0 .5rem' : '0 .5rem 0 0';
-});
-
-var IconLabel = exports.IconLabel = function (_React$Component) {
-    _inherits(IconLabel, _React$Component);
-
-    function IconLabel() {
-        _classCallCheck(this, IconLabel);
-
-        return _possibleConstructorReturn(this, (IconLabel.__proto__ || Object.getPrototypeOf(IconLabel)).apply(this, arguments));
-    }
-
-    _createClass(IconLabel, [{
-        key: 'render',
-        value: function render() {
-            var _utils$resolveCompone = utils.resolveComponents(IconLabel, this.props),
-                _utils$resolveCompone2 = _slicedToArray(_utils$resolveCompone, 2),
-                LabelContainer = _utils$resolveCompone2[0],
-                Icon = _utils$resolveCompone2[1];
-
-            var _props = this.props,
-                right = _props.right,
-                apart = _props.apart,
-                name = _props.name,
-                icon = _props.icon,
-                children = _props.children;
-
-            return _react2.default.createElement(
-                LabelContainer,
-                { right: right, apart: apart },
-                icon ? icon : _react2.default.createElement(Icon, { name: name, right: right }),
-                children
-            );
-        }
-    }]);
-
-    return IconLabel;
-}(_react2.default.Component);
-
-IconLabel.propTypes = {
-    right: _propTypes.PropTypes.bool,
-    apart: _propTypes.PropTypes.bool,
-    icon: _propTypes.PropTypes.object
-};
-IconLabel.componentTypes = {
-    LabelContainer: LabelContainer,
-    IconComponent: Icon
-};
-
-/***/ }),
+/* 63 */,
 /* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -30582,7 +30491,7 @@ exports.default = defaultTheme;
 
 
 Object.defineProperty(exports, "__esModule", {
-   value: true
+    value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -30606,74 +30515,82 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var VMInputValidator = function () {
-   function VMInputValidator(context, propId) {
-      _classCallCheck(this, VMInputValidator);
+    function VMInputValidator(context, propId) {
+        _classCallCheck(this, VMInputValidator);
 
-      this.context = context;
-      this.propId = propId;
-      this.handleValidated = null;
-   }
+        this.context = context;
+        this.propId = propId;
+        this.handleValidated = null;
+        this.validations = this.context.getPropValidations(propId) || [];
+    }
 
-   _createClass(VMInputValidator, [{
-      key: 'validate',
-      value: function validate(value) {
-         var _this = this;
+    _createClass(VMInputValidator, [{
+        key: 'addValidation',
+        value: function addValidation(validation) {
+            this.validations.push(validation);
+        }
+    }, {
+        key: 'validate',
+        value: function validate(value) {
+            var _this = this;
 
-         if (value === undefined) value = this.value;
+            if (value === undefined) value = this.value;
 
-         var validationMessages = this.context.getPropValidations(this.propId).map(function (validation) {
-            return _this.getValidator(validation.Type)(value, validation) === false ? validation.Message : null;
-         }).filter(function (message) {
-            return message;
-         });
+            var validationMessages = this.validations.map(function (validation) {
+                return _this.getValidator(validation)(value, validation) === false ? validation.message : null;
+            }).filter(function (message) {
+                return message;
+            });
 
-         var result = {
-            valid: validationMessages.length == 0,
-            messages: validationMessages
-         };
+            var result = {
+                valid: validationMessages.length == 0,
+                messages: validationMessages
+            };
 
-         this.handleValidated && this.handleValidated(result);
-         return result;
-      }
-   }, {
-      key: 'getValidator',
-      value: function getValidator(type) {
-         var funcName = "validate" + type;
-         var prototype = Object.getPrototypeOf(this);
-         return prototype.hasOwnProperty(funcName) ? prototype[funcName] : function () {
-            return true;
-         };
-      }
-   }, {
-      key: 'validateRequired',
-      value: function validateRequired(value) {
-         return typeof value != 'undefined' && value != null && (typeof value != 'string' || value.trim().length > 0);
-      }
-   }, {
-      key: 'validatePattern',
-      value: function validatePattern(value, validation) {
-         return new RegExp(validation.Pattern).test(value);
-      }
-   }, {
-      key: 'onValidated',
-      value: function onValidated(handler) {
-         if (typeof handler === "function") this.handleValidated = handler;
-      }
-   }, {
-      key: 'value',
-      get: function get() {
-         return this.context.getState(this.propId);
-      }
-   }, {
-      key: 'isRequired',
-      get: function get() {
-         return this.context.getPropValidations(this.propId).filter(function (v) {
-            return v.Type === "Required";
-         }).length > 0;
-      }
-   }]);
+            this.handleValidated && this.handleValidated(result);
+            return result;
+        }
+    }, {
+        key: 'getValidator',
+        value: function getValidator(validation) {
+            if (typeof validation.validate === 'function') return validation.validate;
 
-   return VMInputValidator;
+            var funcName = "validate" + validation.type;
+            var prototype = Object.getPrototypeOf(this);
+            return prototype.hasOwnProperty(funcName) ? prototype[funcName] : function () {
+                return true;
+            };
+        }
+    }, {
+        key: 'validateRequired',
+        value: function validateRequired(value) {
+            return typeof value != 'undefined' && value != null && (typeof value != 'string' || value.trim().length > 0);
+        }
+    }, {
+        key: 'validatePattern',
+        value: function validatePattern(value, validation) {
+            return new RegExp(validation.pattern).test(value);
+        }
+    }, {
+        key: 'onValidated',
+        value: function onValidated(handler) {
+            if (typeof handler === "function") this.handleValidated = handler;
+        }
+    }, {
+        key: 'value',
+        get: function get() {
+            return this.context.getState(this.propId);
+        }
+    }, {
+        key: 'isRequired',
+        get: function get() {
+            return this.validations.filter(function (v) {
+                return v.type === "Required";
+            }).length > 0;
+        }
+    }]);
+
+    return VMInputValidator;
 }();
 
 exports.default = VMInputValidator;
@@ -30710,7 +30627,7 @@ var _utils = __webpack_require__(9);
 
 var utils = _interopRequireWildcard(_utils);
 
-var _IconLabel = __webpack_require__(63);
+var _Label = __webpack_require__(265);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -30791,7 +30708,7 @@ var Collapsible = exports.Collapsible = function (_React$Component) {
           _utils$resolveCompone2 = _slicedToArray(_utils$resolveCompone, 7),
           Container = _utils$resolveCompone2[0],
           HeaderContainer = _utils$resolveCompone2[1],
-          IconLabel = _utils$resolveCompone2[2],
+          Header = _utils$resolveCompone2[2],
           Label = _utils$resolveCompone2[3],
           AngleCollapseIcon = _utils$resolveCompone2[4],
           AngleExpandIcon = _utils$resolveCompone2[5],
@@ -30810,7 +30727,7 @@ var Collapsible = exports.Collapsible = function (_React$Component) {
           HeaderContainer,
           { onClick: this.handleClick },
           _react2.default.createElement(
-            IconLabel,
+            Header,
             { right: true, apart: true, icon: noIcon ? null : icon },
             _react2.default.createElement(
               Label,
@@ -30842,8 +30759,8 @@ Collapsible.propTypes = {
 Collapsible.componentTypes = {
   Container: Container,
   HeaderContainer: HeaderContainer,
-  IconLabelComponent: _IconLabel.IconLabel,
-  LabelComponent: _IconLabel.IconLabel,
+  HeaderComponent: _Label.Label,
+  LabelComponent: _Label.Label,
   AngleCollapseIcon: AngleCollapseIcon,
   AngleExpandIcon: AngleExpandIcon,
   CollapsePanel: undefined
@@ -46807,6 +46724,11 @@ var VMInput = function () {
             this.context.dispatchState(_defineProperty({}, this.propId, value));
         }
     }, {
+        key: 'addValidation',
+        value: function addValidation(validation) {
+            this.validator.addValidation(validation);
+        }
+    }, {
         key: 'onValidated',
         value: function onValidated(handler) {
             this.validator.onValidated(handler);
@@ -47309,7 +47231,7 @@ var Form = exports.Form = function (_React$Component) {
     }, {
         key: 'submit',
         value: function submit(data) {
-            this.context.dispatchState(this.submitPropId ? _defineProperty({}, this.submitPropId, data) : data);
+            if (this.props.onSubmit && this.props.onSubmit(data) !== false) this.context.dispatchState(this.submitPropId ? _defineProperty({}, this.submitPropId, data) : data);
         }
     }, {
         key: 'validate',
@@ -47328,10 +47250,13 @@ var Form = exports.Form = function (_React$Component) {
     return Form;
 }(_react2.default.Component);
 
+Form.contextTypes = _VMContext.ContextTypes;
 Form.childContextTypes = Object.assign(_VMContext.ContextTypes, {
     getValidator: _propTypes.PropTypes.func
 });
-Form.contextTypes = _VMContext.ContextTypes;
+Form.propTypes = {
+    onSubmit: _propTypes.PropTypes.func
+};
 
 /***/ }),
 /* 239 */
@@ -47473,7 +47398,7 @@ var _VMContext = __webpack_require__(16);
 
 var _Collapsible = __webpack_require__(106);
 
-var _IconLabel = __webpack_require__(63);
+var _Label = __webpack_require__(265);
 
 var _dotnetifyReact = __webpack_require__(242);
 
@@ -47540,7 +47465,7 @@ var GroupLabel = function GroupLabel(props) {
         'div',
         { style: { padding: props.padding || '.75rem 1rem' } },
         _react2.default.createElement(
-            _IconLabel.IconLabel,
+            _Label.Label,
             { name: props.icon },
             props.children
         )
@@ -47550,9 +47475,9 @@ var GroupLabel = function GroupLabel(props) {
 var RouteLabel = function RouteLabel(props) {
     return _react2.default.createElement(
         'div',
-        { style: { padding: props.padding || '.75rem 1rem', paddingLeft: props.indent ? '2rem' : '1rem' } },
+        { style: { padding: props.padding || '.75rem 1rem', paddingLeft: props.indent ? '2.5rem' : '1rem' } },
         _react2.default.createElement(
-            _IconLabel.IconLabel,
+            _Label.Label,
             { name: props.icon },
             props.children
         )
@@ -52238,6 +52163,8 @@ var _VMContext = __webpack_require__(16);
 
 var _FieldPanel = __webpack_require__(32);
 
+var _Label = __webpack_require__(265);
+
 var _utils = __webpack_require__(9);
 
 var utils = _interopRequireWildcard(_utils);
@@ -52245,6 +52172,8 @@ var utils = _interopRequireWildcard(_utils);
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -52285,6 +52214,8 @@ var TextField = exports.TextField = function (_React$Component) {
                     validationMessages: result.messages
                 });
             });
+
+            if (this.props.validation) this.vmInput.addValidation(this.props.validation);
         }
     }, {
         key: 'render',
@@ -52300,19 +52231,26 @@ var TextField = exports.TextField = function (_React$Component) {
                 value = _vmInput$props.value,
                 attrs = _vmInput$props.attrs;
 
+            var _props = this.props,
+                label = _props.label,
+                placeholder = _props.placeholder,
+                maxLength = _props.maxLength,
+                horizontal = _props.horizontal,
+                type = _props.type,
+                props = _objectWithoutProperties(_props, ['label', 'placeholder', 'maxLength', 'horizontal', 'type']);
 
-            var label = attrs.label || this.props.label;
-            var placeholder = attrs.placeholder || this.props.placeholder;
-            var maxLength = attrs.maxLength || this.props.maxLength;
+            label = attrs.label || label;
+            placeholder = attrs.placeholder || placeholder;
+            maxLength = attrs.maxLength || maxLength;
 
             return _react2.default.createElement(
                 Container,
-                { id: id, label: label, horizontal: this.props.horizontal },
+                { id: id, label: label, horizontal: horizontal },
                 _react2.default.createElement(Input, {
                     valid: this.state.valid,
                     id: id,
                     maxLength: maxLength,
-                    type: this.props.type || "text",
+                    type: type || "text",
                     placeholder: placeholder,
                     value: value || "",
                     onChange: this.handleChange,
@@ -52345,7 +52283,7 @@ TextField.propTypes = {
 TextField.componentTypes = {
     Container: _FieldPanel.FieldPanel,
     InputComponent: undefined,
-    ValidationMessageComponent: undefined
+    ValidationMessageComponent: _Label.Label
 };
 var EmailField = exports.EmailField = function EmailField(props) {
     return _react2.default.createElement(TextField, _extends({ type: 'email' }, props));
@@ -52392,10 +52330,16 @@ var _elementsBootstrap = __webpack_require__(25);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var nameLengthValidation = {
+    validate: function validate(value) {
+        return typeof value !== 'undefined' && value.length >= 10;
+    },
+    message: 'Name must be at least 10 characters'
+};
+
 var SampleValidationForm = function SampleValidationForm(_ref) {
     var vm = _ref.vm,
-        title = _ref.title,
-        horizontal = _ref.horizontal;
+        title = _ref.title;
     return _react2.default.createElement(
         _elementsBootstrap.VMContext,
         { vm: vm },
@@ -52415,8 +52359,8 @@ var SampleValidationForm = function SampleValidationForm(_ref) {
                     null,
                     _react2.default.createElement(
                         _elementsBootstrap.Panel,
-                        { noMargin: true, childProps: { horizontal: horizontal } },
-                        _react2.default.createElement(_elementsBootstrap.TextField, { id: 'Name' }),
+                        { noMargin: true },
+                        _react2.default.createElement(_elementsBootstrap.TextField, { id: 'Name', validation: nameLengthValidation }),
                         _react2.default.createElement(_elementsBootstrap.TextField, { id: 'Email' }),
                         _react2.default.createElement(
                             _elementsBootstrap.Panel,
@@ -54819,6 +54763,117 @@ exports.default = SampleValidationForm;
     define('fas', icons);
   });
 })();
+
+/***/ }),
+/* 264 */,
+/* 265 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.Label = undefined;
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(7);
+
+var _styledComponents = __webpack_require__(15);
+
+var _styledComponents2 = _interopRequireDefault(_styledComponents);
+
+var _utils = __webpack_require__(9);
+
+var utils = _interopRequireWildcard(_utils);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var LabelContainer = _styledComponents2.default.div.withConfig({
+    displayName: 'Label__LabelContainer'
+})(['display:flex;align-items:center;flex-direction:', ';justify-content:', ';width:', ';padding:', ';'], function (props) {
+    return props.right ? 'row-reverse' : 'row';
+}, function (props) {
+    return props.apart ? 'space-between' : 'flex-start';
+}, function (props) {
+    return props.apart ? '100%' : 'inherit';
+}, function (props) {
+    return props.padding || '0';
+});
+
+var Icon = _styledComponents2.default.span.attrs({
+    className: function className(props) {
+        return props.name;
+    }
+}).withConfig({
+    displayName: 'Label__Icon'
+})(['margin:', ';'], function (props) {
+    return props.right ? '0 0 0 .5rem' : '0 .5rem 0 0';
+});
+
+var Label = exports.Label = function (_React$Component) {
+    _inherits(Label, _React$Component);
+
+    function Label() {
+        _classCallCheck(this, Label);
+
+        return _possibleConstructorReturn(this, (Label.__proto__ || Object.getPrototypeOf(Label)).apply(this, arguments));
+    }
+
+    _createClass(Label, [{
+        key: 'render',
+        value: function render() {
+            var _utils$resolveCompone = utils.resolveComponents(Label, this.props),
+                _utils$resolveCompone2 = _slicedToArray(_utils$resolveCompone, 2),
+                LabelContainer = _utils$resolveCompone2[0],
+                Icon = _utils$resolveCompone2[1];
+
+            var _props = this.props,
+                right = _props.right,
+                apart = _props.apart,
+                name = _props.name,
+                icon = _props.icon,
+                padding = _props.padding,
+                children = _props.children;
+
+            return _react2.default.createElement(
+                LabelContainer,
+                { right: right, apart: apart, padding: padding },
+                icon ? icon : name ? _react2.default.createElement(Icon, { name: name, right: right }) : null,
+                children
+            );
+        }
+    }]);
+
+    return Label;
+}(_react2.default.Component);
+
+Label.propTypes = {
+    right: _propTypes.PropTypes.bool,
+    apart: _propTypes.PropTypes.bool,
+    icon: _propTypes.PropTypes.object,
+    padding: _propTypes.PropTypes.string
+};
+Label.componentTypes = {
+    LabelContainer: LabelContainer,
+    IconComponent: Icon
+};
 
 /***/ })
 /******/ ]);

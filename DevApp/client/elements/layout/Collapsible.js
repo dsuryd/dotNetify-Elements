@@ -2,7 +2,7 @@ import React from 'react';
 import { PropTypes } from 'prop-types';
 import styled from 'styled-components';
 import * as utils from '../utils';
-import { IconLabel } from './IconLabel';
+import { Label } from './Label';
 
 const Container = styled.div`
 `;
@@ -52,8 +52,8 @@ export class Collapsible extends React.Component {
   static componentTypes = {
     Container,
     HeaderContainer,
-    IconLabelComponent: IconLabel,
-    LabelComponent: IconLabel,
+    HeaderComponent: Label,
+    LabelComponent: Label,
     AngleCollapseIcon,
     AngleExpandIcon,
     CollapsePanel: undefined
@@ -71,15 +71,15 @@ export class Collapsible extends React.Component {
   }
 
   render() {
-    const [Container, HeaderContainer, IconLabel, Label, AngleCollapseIcon, AngleExpandIcon, CollapsePanel] = utils.resolveComponents(Collapsible, this.props);
+    const [Container, HeaderContainer, Header, Label, AngleCollapseIcon, AngleExpandIcon, CollapsePanel] = utils.resolveComponents(Collapsible, this.props);
     const { noIcon, label, children } = this.props;
     const icon = this.state.open ? <AngleCollapseIcon /> : <AngleExpandIcon />;
     return (
       <Container>
         <HeaderContainer onClick={this.handleClick}>
-          <IconLabel right apart icon={noIcon ? null : icon}>
+          <Header right apart icon={noIcon ? null : icon}>
             <Label isOpen={this.state.open}>{this.props.label}</Label>
-          </IconLabel>
+          </Header>
         </HeaderContainer>
         <CollapsePanel isOpen={this.state.open}>
           {children}
