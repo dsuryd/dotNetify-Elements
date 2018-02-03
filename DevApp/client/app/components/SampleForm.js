@@ -2,20 +2,8 @@ import React from 'react';
 import dotnetify from 'dotnetify';
 import { Card, CardHeader, CardBody } from 'reactstrap';
 import {
-    Alert,
-    Button,
-    Checkbox,
-    CheckboxGroup,
-    DropdownList,
-    EmailField,
-    Form,
-    FormBody,
-    Panel,
-    TextField,
-    TextAreaField,
-    PasswordField,
-    RadioGroup,
-    VMContext
+    Alert, Button, Checkbox, CheckboxGroup, DropdownList, EmailField, Form,
+    Panel, TextField, TextAreaField, PasswordField, RadioGroup, VMContext
 } from '../../elements-bootstrap';
 
 const SampleForm = ({ vm, title, horizontal }) => (
@@ -39,7 +27,7 @@ const SampleForm = ({ vm, title, horizontal }) => (
                             </Panel>
                         </Panel>
                     </Form>
-                    <Alert id="Alert">Test</Alert>
+                    <Alert id="SubmitSuccess" />
                 </Panel>
             </CardBody>
         </Card>

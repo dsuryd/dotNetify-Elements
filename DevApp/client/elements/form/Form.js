@@ -20,10 +20,11 @@ export class Form extends React.Component {
         super(props);
         this.state = { changed: false };
         this.validators = [];
+        this.inputProps = [];
     }
 
     componentWillUpdate() {
-        this.initialState = this.initialState || this.context.state;
+        this.initialState = this.initialState || this.getInitialState();
     }
 
     dispatchState(state) {
@@ -41,9 +42,16 @@ export class Form extends React.Component {
         };
     }
 
+    getInitialState() {
+        return Object.entries(this.context.state)
+        .filter(pair => this.inputProps.includes(pair[0]))
+        .reduce((aggregate, pair) => Object.assign(aggregate, { [pair[0]]: pair[1] }), {});
+    }
+
     getValidator(context, propId) {
         const validator = new VMInputValidator(context, propId);
         this.validators.push(validator);
+        this.inputProps.push(propId);
         return validator;
     }
 
@@ -81,8 +89,9 @@ export class Form extends React.Component {
     }
 
     submit(data) {
-        if (typeof this.props.onSubmit != "function" || this.props.onSubmit(data) !== false)
-            this.context.dispatchState(this.submitPropId ? ({ [this.submitPropId]: data }) : data);
+        let formData = Object.assign({}, this.initialState, data);
+        if (typeof this.props.onSubmit != "function" || this.props.onSubmit(formData) !== false)
+            this.context.dispatchState(this.submitPropId ? ({ [this.submitPropId]: formData }) : data);
     }
 
     validate() {

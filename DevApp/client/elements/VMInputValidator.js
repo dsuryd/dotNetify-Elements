@@ -55,7 +55,7 @@ export default class VMInputValidator {
     }
 
     validatePattern(value, validation) {
-        return new RegExp(validation.pattern).test(value);
+        return !value || new RegExp(validation.pattern).test(value);
     }
 
     onValidated(handler) {

@@ -1,9 +1,7 @@
-using System;
+using DotNetify;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
-using DotNetify;
-using Newtonsoft.Json;
 
 namespace dotNetify_Elements
 {
@@ -17,12 +15,12 @@ namespace dotNetify_Elements
          public string MyTextArea { get; set; }
          public string MyRadio { get; set; }
          public bool MyCheckbox { get; set; }
-         public string MyCheckboxGroup { get; set; }
+         public string[] MyCheckboxGroup { get; set; }
       }
 
       public SampleForm()
       {
-         AddProperty("MyText", "")
+         AddProperty(nameof(FormData.MyText), "")
              .WithAttribute(this, new TextFieldAttribute
              {
                 Label = "Text:",
@@ -30,14 +28,14 @@ namespace dotNetify_Elements
                 MaxLength = 10
              });
 
-         AddProperty("MyPassword", "")
+         AddProperty(nameof(FormData.MyPassword), "")
              .WithAttribute(this, new TextFieldAttribute
              {
                 Label = "Password:",
                 Placeholder = "Enter password"
              });
 
-         AddProperty("MyDropdown", "D3")
+         AddProperty(nameof(FormData.MyDropdown), "D3")
              .WithAttribute(this, new DropdownListAttribute
              {
                 Label = "Dropdown list:",
@@ -51,10 +49,10 @@ namespace dotNetify_Elements
                 }.ToArray()
              });
 
-         AddProperty("MyTextArea", "")
+         AddProperty(nameof(FormData.MyTextArea), "")
              .WithAttribute(this, new TextFieldAttribute { Label = "Text area:", Placeholder = "Enter text" });
 
-         AddProperty("MyRadio", "R1")
+         AddProperty(nameof(FormData.MyRadio), "R1")
              .WithAttribute(this, new RadioGroupAttribute
              {
                 Label = "Radio Group:",
@@ -66,10 +64,10 @@ namespace dotNetify_Elements
                 }.ToArray()
              });
 
-         AddProperty("MyCheckbox", true)
+         AddProperty(nameof(FormData.MyCheckbox), true)
              .WithAttribute(this, new CheckboxAttribute { Label = "Check me" });
 
-         AddProperty("MyCheckboxGroup", new string[] { "C1", "C3" })
+         AddProperty(nameof(FormData.MyCheckboxGroup), new string[] { "C1", "C3" })
              .WithAttribute(this, new RadioGroupAttribute
              {
                 Label = "Checkbox Group:",
@@ -81,10 +79,21 @@ namespace dotNetify_Elements
                 }.ToArray()
              });
 
-         AddProperty<string>("Alert")
+         AddProperty<string>("SubmitSuccess")
             .SubscribeTo(
-               AddProperty<Action<dynamic>>("Submit")
-                  .Select(data => JsonConvert.SerializeObject(data)));
+               AddProperty<FormData>("Submit").Select(data => SuccessMessage(data)));
       }
+
+      private string SuccessMessage(FormData data) => 
+         $@"**Submitted:**  
+         MyText: **{WhitespaceIfEmpty(data.MyText)}**  
+         MyPassword: **{WhitespaceIfEmpty(data.MyPassword)}**  
+         MyDropdown: **{data.MyDropdown}**  
+         MyTextArea: **{WhitespaceIfEmpty(data.MyTextArea)}**  
+         MyRadio: **{data.MyRadio}**  
+         MyCheckbox: **{data.MyCheckbox}**  
+         MyCheckboxGroup: **{WhitespaceIfEmpty(string.Join(", ", data.MyCheckboxGroup))}**";
+
+      private string WhitespaceIfEmpty(string text) => !string.IsNullOrEmpty(text) ? text : " ";
    }
 }

@@ -1,5 +1,7 @@
 import React from 'react';
 import VMInput from './VMInput';
+import marked from 'marked';
+import sanitize from 'sanitize-html';
 
 export function getVMInput(component) {
     return component._vmInput || (component._vmInput = new VMInput(component.context, component.props.id));
@@ -25,6 +27,10 @@ export function filterChildren(children, predicate) {
         else return child;
     });
     return [result, rest];
+}
+
+export function markdown(text) {
+    return <div dangerouslySetInnerHTML={{__html: sanitize(marked(text))}} />;
 }
 
 export function mapStyle(props) {

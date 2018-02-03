@@ -24,7 +24,7 @@ namespace dotNetify_forms
       {
          app.UseWebSockets();
          app.UseSignalR(routes => routes.MapDotNetifyHub());
-         app.UseDotNetify();
+         app.UseDotNetify(config => config.UseDeveloperLogging());
 
          app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
          {
