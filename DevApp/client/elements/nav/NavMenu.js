@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { PropTypes } from 'prop-types';
 import { ContextTypes } from '../VMContext';
 import { Collapsible } from '../layout/Collapsible';
-import { Label } from '../layout/Label';
+import { Label } from '../display/Label';
 import { RouteLink } from 'dotnetify/dist/dotnetify-react.router';
 import * as utils from '../utils';
 

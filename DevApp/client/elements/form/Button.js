@@ -1,7 +1,13 @@
 import React from 'react';
+import { PropTypes } from 'prop-types';
 import * as utils from '../utils';
 
 export class Button extends React.Component {
+
+    static propTypes = {
+        submit: PropTypes.bool,
+        cancel: PropTypes.bool
+    }
 
     static componentTypes = {
         ButtonComponent: undefined

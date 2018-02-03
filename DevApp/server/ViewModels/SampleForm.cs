@@ -1,12 +1,25 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive.Linq;
 using DotNetify;
+using Newtonsoft.Json;
 
 namespace dotNetify_Elements
 {
    public class SampleForm : BaseVM
    {
+      private class FormData
+      {
+         public string MyText { get; set; }
+         public string MyPassword { get; set; }
+         public string MyDropdown { get; set; }
+         public string MyTextArea { get; set; }
+         public string MyRadio { get; set; }
+         public bool MyCheckbox { get; set; }
+         public string MyCheckboxGroup { get; set; }
+      }
+
       public SampleForm()
       {
          AddProperty("MyText", "")
@@ -67,6 +80,11 @@ namespace dotNetify_Elements
                   { "C3", "Checkbox 3" }
                 }.ToArray()
              });
+
+         AddProperty<string>("Alert")
+            .SubscribeTo(
+               AddProperty<Action<dynamic>>("Submit")
+                  .Select(data => JsonConvert.SerializeObject(data)));
       }
    }
 }

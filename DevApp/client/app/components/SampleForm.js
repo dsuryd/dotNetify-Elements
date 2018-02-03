@@ -2,6 +2,7 @@ import React from 'react';
 import dotnetify from 'dotnetify';
 import { Card, CardHeader, CardBody } from 'reactstrap';
 import {
+    Alert,
     Button,
     Checkbox,
     CheckboxGroup,
@@ -22,21 +23,24 @@ const SampleForm = ({ vm, title, horizontal }) => (
         <Card>
             <CardHeader>{title}</CardHeader>
             <CardBody>
-                <Form>
-                    <Panel noMargin childProps={{ horizontal: horizontal }}>
-                        <TextField id="MyText" />
-                        <PasswordField id="MyPassword" />
-                        <DropdownList id="MyDropdown" />
-                        <TextAreaField id="MyTextArea" />
-                        <RadioGroup id="MyRadio" />
-                        <Checkbox id="MyCheckbox" />
-                        <CheckboxGroup id="MyCheckboxGroup" />
-                        <Panel horizontal right noMargin>
-                            <Button secondary cancel>Cancel</Button>
-                            <Button primary submit>Submit</Button>
+                <Panel noMargin>
+                    <Form>
+                        <Panel noMargin childProps={{ horizontal: horizontal }}>
+                            <TextField id="MyText" />
+                            <PasswordField id="MyPassword" />
+                            <DropdownList id="MyDropdown" />
+                            <TextAreaField id="MyTextArea" />
+                            <RadioGroup id="MyRadio" />
+                            <Checkbox id="MyCheckbox" />
+                            <CheckboxGroup id="MyCheckboxGroup" />
+                            <Panel horizontal right noMargin>
+                                <Button secondary cancel>Cancel</Button>
+                                <Button id="Submit" primary submit>Submit</Button>
+                            </Panel>
                         </Panel>
-                    </Panel>
-                </Form>
+                    </Form>
+                    <Alert id="Alert">Test</Alert>
+                </Panel>
             </CardBody>
         </Card>
     </VMContext>

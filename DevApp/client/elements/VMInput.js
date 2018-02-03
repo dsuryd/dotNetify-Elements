@@ -39,7 +39,7 @@ export default class VMInput {
     }
 
     dispatch(value) {
-        value = value === undefined ? this.value : value;
+        value = typeof value == 'undefined' ? this.value : value;
 
         this.validator.validate(value);
         this.context.dispatchState({ [this.propId]: value });

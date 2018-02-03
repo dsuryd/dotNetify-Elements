@@ -2,7 +2,7 @@ import React from 'react';
 import { PropTypes } from 'prop-types';
 import styled from 'styled-components';
 import * as utils from '../utils';
-import { Label } from './Label';
+import { Label } from '../display/Label';
 
 const Container = styled.div`
 `;

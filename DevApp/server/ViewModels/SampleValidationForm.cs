@@ -33,11 +33,9 @@ namespace dotNetify_Elements
              })
              .WithEmailValidation(this, "Email is invalid");
 
-         var submit = AddProperty<Action<FormData>>("Submit");
-
          AddProperty<bool>("IsSubmitted")
             .SubscribeTo(
-               submit.Select(value =>
+               AddProperty<Action<FormData>>("Submit").Select(value =>
                {
                   System.Diagnostics.Trace.WriteLine(JsonConvert.SerializeObject(value));
                   return true;

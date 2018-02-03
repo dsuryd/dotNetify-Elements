@@ -1,4 +1,5 @@
 import defaultTheme from './elements/theme';
+import { Alert } from './elements/display/Alert';
 import { Button } from './elements/form/Button';
 import { Checkbox } from './elements/form/Checkbox';
 import { CheckboxGroup } from './elements/form/CheckboxGroup';
@@ -6,7 +7,7 @@ import { Collapsible } from './elements/layout/Collapsible';
 import { DropdownList } from './elements/form/DropdownList';
 import { FieldPanel } from './elements/layout/FieldPanel';
 import { Form } from './elements/form/Form';
-import { Label } from './elements/layout/Label';
+import { Label } from './elements/display/Label';
 import { Main, Header, Nav, Footer, Section, Theme } from './elements/layout/LayoutGrid';
 import { NavHeader } from './elements/layout/NavHeader';
 import { NavMenu, NavMenuTarget } from './elements/nav/NavMenu';
@@ -16,37 +17,39 @@ import { RadioGroup } from './elements/form/RadioGroup';
 import { TextField, EmailField, PasswordField, TextAreaField } from './elements/form/TextField';
 import { VMContext, ContextTypes } from './elements/VMContext';
 
-import { Button as _Button, Collapse, FormGroup, Label as _Label, Input } from 'reactstrap';
+import * as rs from 'reactstrap';
 
-Button.componentTypes.ButtonComponent = _Button;
+Alert.componentTypes.AlertComponent = rs.Alert;
+Button.componentTypes.ButtonComponent = rs.Button;
 
 Object.assign(Checkbox.componentTypes, {
-    Container: FormGroup,
-    LabelComponent: _Label,
-    InputComponent: Input
+    Container: rs.FormGroup,
+    LabelComponent: rs.Label,
+    InputComponent: rs.Input
 });
 
 Object.assign(CheckboxGroup.componentTypes, {
-    CheckboxContainer: FormGroup,
-    CheckboxLabelComponent: _Label,
-    InputComponent: Input
+    CheckboxContainer: rs.FormGroup,
+    CheckboxLabelComponent: rs.Label,
+    InputComponent: rs.Input
 });
 
-Collapsible.componentTypes.CollapsePanel = Collapse;
-DropdownList.componentTypes.InputComponent = Input;
+Collapsible.componentTypes.CollapsePanel = rs.Collapse;
+DropdownList.componentTypes.InputComponent = rs.Input;
 
 Object.assign(RadioGroup.componentTypes, {
-    RadioContainer: FormGroup,
-    RadioLabelComponent: _Label,
-    InputComponent: Input
+    RadioContainer: rs.FormGroup,
+    RadioLabelComponent: rs.Label,
+    InputComponent: rs.Input
 });
 
 Object.assign(TextField.componentTypes, {
-    InputComponent: Input
+    InputComponent: rs.Input
 });
 
 export {
     defaultTheme,
+    Alert,
     Button,
     Checkbox,
     CheckboxGroup,

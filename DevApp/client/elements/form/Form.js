@@ -22,10 +22,21 @@ export class Form extends React.Component {
         this.validators = [];
     }
 
+    componentWillUpdate() {
+        this.initialState = this.initialState || this.context.state;
+    }
+
+    dispatchState(state) {
+        this.setState({
+            changed: true,
+            data: Object.assign({}, this.state.data, state)
+        })
+    }
+
     getChildContext() {
         return {
             ...this.context,
-            dispatchState: state => this.setState({ changed: true, data: Object.assign({}, this.state.data, state) }),
+            dispatchState: state => this.dispatchState(state),
             getValidator: (context, propId) => this.getValidator(context, propId)
         };
     }
@@ -44,9 +55,11 @@ export class Form extends React.Component {
                 this.submit(data);
         }
         this.setState({ changed: false, data: null });
+        this.initialState = null;
     }
 
     handleCancel() {
+        this.context.setState(this.initialState);
         this.setState({ changed: false, data: null });
     }
 
@@ -68,7 +81,7 @@ export class Form extends React.Component {
     }
 
     submit(data) {
-        if (this.props.onSubmit && this.props.onSubmit(data) !== false)
+        if (typeof this.props.onSubmit != "function" || this.props.onSubmit(data) !== false)
             this.context.dispatchState(this.submitPropId ? ({ [this.submitPropId]: data }) : data);
     }
 

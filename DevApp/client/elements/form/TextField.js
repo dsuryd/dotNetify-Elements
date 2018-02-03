@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { PropTypes } from 'prop-types';
 import { ContextTypes } from '../VMContext';
 import { FieldPanel } from '../layout/FieldPanel';
-import { Label } from '../layout/Label';
+import { Label } from '../display/Label';
 import * as utils from '../utils';
 
 export class TextField extends React.Component {
