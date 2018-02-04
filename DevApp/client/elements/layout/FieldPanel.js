@@ -14,12 +14,10 @@ const Container = styled.div`
 const LabelContainer = styled.div`
     display: flex;
     align-items: flex-start;
-  }    
 `;
 
 const InputContainer = styled.div`
     width: calc(100% - 1px);
-  }    
 `;
 
 const ValidationMessageContainer = styled.div`

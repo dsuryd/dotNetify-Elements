@@ -41,9 +41,9 @@ export class Panel extends React.Component {
         ChildContainer
     }
 
-    getPadding(idx, max, gap, horizontal) {
-        let padding = horizontal ? `0 ${gap} 0 0` : `0 0 ${gap} 0`;
-        return idx < max - 1 ? padding : 0;
+    getPadding(idx, gap, horizontal) {
+        let padding = horizontal ? `0 0 0 ${gap}` : `${gap} 0 0 0`;
+        return idx > 0 ? padding : 0;
     }
 
     mergeProps(elem, newProps) {
@@ -64,7 +64,6 @@ export class Panel extends React.Component {
             height,
             width
         } = this.props;
-        const numChildren = React.Children.count(this.props.children);
 
         let _gap = gap || (noGap ? "0" : smallGap ? ".5rem" : "1rem");
         let _margin = margin || (noMargin ? "0" : smallMargin ? ".5rem" : "1rem");
@@ -81,7 +80,7 @@ export class Panel extends React.Component {
                     <ChildContainer
                         stretch={stretch}
                         equalWidth={equalWidth}
-                        padding={this.getPadding(idx, numChildren, _gap, horizontal)}
+                        padding={this.getPadding(idx, _gap, horizontal)}
                     >
                         {childProps ? React.cloneElement(child, this.mergeProps(child, childProps)) : child}
                     </ChildContainer>
@@ -90,3 +89,7 @@ export class Panel extends React.Component {
         )
     };
 }
+
+export const Divider = props => (
+    <Panel noMargin {...props} />
+);

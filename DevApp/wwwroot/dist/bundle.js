@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "f16f5d5d95eca21af8e6"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "2bda330a06bd66e1f964"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -5824,7 +5824,7 @@ module.exports = DOMLazyTree;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.VMContext = exports.TextAreaField = exports.PasswordField = exports.EmailField = exports.TextField = exports.RadioGroup = exports.Panel = exports.NavToggle = exports.NavMenuTarget = exports.NavMenu = exports.NavHeader = exports.Theme = exports.Section = exports.Footer = exports.Nav = exports.Header = exports.Main = exports.Label = exports.Form = exports.FieldPanel = exports.DropdownList = exports.ContextTypes = exports.Collapsible = exports.CheckboxGroup = exports.Checkbox = exports.Button = exports.Alert = exports.defaultTheme = undefined;
+exports.VMContext = exports.TextAreaField = exports.PasswordField = exports.TextField = exports.RadioGroup = exports.Panel = exports.NavToggle = exports.NavMenuTarget = exports.NavMenu = exports.NavHeader = exports.Theme = exports.Section = exports.Footer = exports.Nav = exports.Header = exports.Main = exports.Label = exports.Form = exports.FieldPanel = exports.DropdownList = exports.Divider = exports.ContextTypes = exports.Collapsible = exports.CheckboxGroup = exports.Checkbox = exports.Card = exports.Button = exports.Alert = exports.defaultTheme = undefined;
 
 var _theme = __webpack_require__(131);
 
@@ -5833,6 +5833,8 @@ var _theme2 = _interopRequireDefault(_theme);
 var _Alert = __webpack_require__(282);
 
 var _Button = __webpack_require__(343);
+
+var _Card = __webpack_require__(374);
 
 var _Checkbox = __webpack_require__(344);
 
@@ -5875,6 +5877,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 _Alert.Alert.componentTypes.AlertComponent = rs.Alert;
 _Button.Button.componentTypes.ButtonComponent = rs.Button;
 
+Object.assign(_Card.Card.componentTypes, {
+    Container: rs.Card,
+    HeaderContainer: rs.CardHeader,
+    BodyContainer: rs.CardBody
+});
+
 Object.assign(_Checkbox.Checkbox.componentTypes, {
     Container: rs.FormGroup,
     LabelComponent: rs.Label,
@@ -5903,10 +5911,12 @@ Object.assign(_TextField.TextField.componentTypes, {
 exports.defaultTheme = _theme2.default;
 exports.Alert = _Alert.Alert;
 exports.Button = _Button.Button;
+exports.Card = _Card.Card;
 exports.Checkbox = _Checkbox.Checkbox;
 exports.CheckboxGroup = _CheckboxGroup.CheckboxGroup;
 exports.Collapsible = _Collapsible.Collapsible;
 exports.ContextTypes = _VMContext.ContextTypes;
+exports.Divider = _Panel.Divider;
 exports.DropdownList = _DropdownList.DropdownList;
 exports.FieldPanel = _FieldPanel.FieldPanel;
 exports.Form = _Form.Form;
@@ -5924,7 +5934,6 @@ exports.NavToggle = _NavToggle.NavToggle;
 exports.Panel = _Panel.Panel;
 exports.RadioGroup = _RadioGroup.RadioGroup;
 exports.TextField = _TextField.TextField;
-exports.EmailField = _TextField.EmailField;
 exports.PasswordField = _TextField.PasswordField;
 exports.TextAreaField = _TextField.TextAreaField;
 exports.VMContext = _VMContext.VMContext;
@@ -9160,11 +9169,11 @@ var Container = _styledComponents2.default.div.withConfig({
 
 var LabelContainer = _styledComponents2.default.div.withConfig({
     displayName: 'FieldPanel__LabelContainer'
-})(['display:flex;align-items:flex-start;}']);
+})(['display:flex;align-items:flex-start;']);
 
 var InputContainer = _styledComponents2.default.div.withConfig({
     displayName: 'FieldPanel__InputContainer'
-})(['width:calc(100% - 1px);}']);
+})(['width:calc(100% - 1px);']);
 
 var ValidationMessageContainer = _styledComponents2.default.div.withConfig({
     displayName: 'FieldPanel__ValidationMessageContainer'
@@ -42828,8 +42837,6 @@ var _dotnetify = __webpack_require__(33);
 
 var _dotnetify2 = _interopRequireDefault(_dotnetify);
 
-var _reactstrap = __webpack_require__(58);
-
 var _elementsBootstrap = __webpack_require__(28);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -42842,50 +42849,41 @@ var SampleForm = function SampleForm(_ref) {
         _elementsBootstrap.VMContext,
         { vm: vm },
         _react2.default.createElement(
-            _reactstrap.Card,
-            null,
+            _elementsBootstrap.Card,
+            { header: title },
             _react2.default.createElement(
-                _reactstrap.CardHeader,
-                null,
-                title
-            ),
-            _react2.default.createElement(
-                _reactstrap.CardBody,
+                _elementsBootstrap.Divider,
                 null,
                 _react2.default.createElement(
-                    _elementsBootstrap.Panel,
-                    { noMargin: true },
+                    _elementsBootstrap.Form,
+                    null,
                     _react2.default.createElement(
-                        _elementsBootstrap.Form,
-                        null,
+                        _elementsBootstrap.Divider,
+                        { childProps: { horizontal: horizontal } },
+                        _react2.default.createElement(_elementsBootstrap.TextField, { id: 'MyText' }),
+                        _react2.default.createElement(_elementsBootstrap.PasswordField, { id: 'MyPassword' }),
+                        _react2.default.createElement(_elementsBootstrap.DropdownList, { id: 'MyDropdown' }),
+                        _react2.default.createElement(_elementsBootstrap.TextAreaField, { id: 'MyTextArea' }),
+                        _react2.default.createElement(_elementsBootstrap.RadioGroup, { id: 'MyRadio' }),
+                        _react2.default.createElement(_elementsBootstrap.Checkbox, { id: 'MyCheckbox' }),
+                        _react2.default.createElement(_elementsBootstrap.CheckboxGroup, { id: 'MyCheckboxGroup' }),
                         _react2.default.createElement(
-                            _elementsBootstrap.Panel,
-                            { noMargin: true, childProps: { horizontal: horizontal } },
-                            _react2.default.createElement(_elementsBootstrap.TextField, { id: 'MyText' }),
-                            _react2.default.createElement(_elementsBootstrap.PasswordField, { id: 'MyPassword' }),
-                            _react2.default.createElement(_elementsBootstrap.DropdownList, { id: 'MyDropdown' }),
-                            _react2.default.createElement(_elementsBootstrap.TextAreaField, { id: 'MyTextArea' }),
-                            _react2.default.createElement(_elementsBootstrap.RadioGroup, { id: 'MyRadio' }),
-                            _react2.default.createElement(_elementsBootstrap.Checkbox, { id: 'MyCheckbox' }),
-                            _react2.default.createElement(_elementsBootstrap.CheckboxGroup, { id: 'MyCheckboxGroup' }),
+                            _elementsBootstrap.Divider,
+                            { horizontal: true, right: true },
                             _react2.default.createElement(
-                                _elementsBootstrap.Panel,
-                                { horizontal: true, right: true, noMargin: true },
-                                _react2.default.createElement(
-                                    _elementsBootstrap.Button,
-                                    { secondary: true, cancel: true },
-                                    'Cancel'
-                                ),
-                                _react2.default.createElement(
-                                    _elementsBootstrap.Button,
-                                    { id: 'Submit', primary: true, submit: true },
-                                    'Submit'
-                                )
+                                _elementsBootstrap.Button,
+                                { secondary: true, cancel: true },
+                                'Cancel'
+                            ),
+                            _react2.default.createElement(
+                                _elementsBootstrap.Button,
+                                { id: 'Submit', primary: true, submit: true },
+                                'Submit'
                             )
                         )
-                    ),
-                    _react2.default.createElement(_elementsBootstrap.Alert, { id: 'SubmitSuccess' })
-                )
+                    )
+                ),
+                _react2.default.createElement(_elementsBootstrap.Alert, { id: 'SubmitSuccess' })
             )
         )
     );
@@ -72165,14 +72163,9 @@ var Button = exports.Button = function (_React$Component) {
             var _utils$mapStyle = utils.mapStyle(this.props),
                 submit = _utils$mapStyle.submit,
                 cancel = _utils$mapStyle.cancel,
-                children = _utils$mapStyle.children,
-                rest = _objectWithoutProperties(_utils$mapStyle, ['submit', 'cancel', 'children']);
+                props = _objectWithoutProperties(_utils$mapStyle, ['submit', 'cancel']);
 
-            return _react2.default.createElement(
-                _Button,
-                rest,
-                children
-            );
+            return _react2.default.createElement(_Button, props);
         }
     }]);
 
@@ -77313,7 +77306,9 @@ module.exports = toNumber;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.Panel = undefined;
+exports.Divider = exports.Panel = undefined;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
@@ -77378,9 +77373,9 @@ var Panel = exports.Panel = function (_React$Component) {
 
     _createClass(Panel, [{
         key: 'getPadding',
-        value: function getPadding(idx, max, gap, horizontal) {
-            var padding = horizontal ? '0 ' + gap + ' 0 0' : '0 0 ' + gap + ' 0';
-            return idx < max - 1 ? padding : 0;
+        value: function getPadding(idx, gap, horizontal) {
+            var padding = horizontal ? '0 0 0 ' + gap : gap + ' 0 0 0';
+            return idx > 0 ? padding : 0;
         }
     }, {
         key: 'mergeProps',
@@ -77412,7 +77407,6 @@ var Panel = exports.Panel = function (_React$Component) {
                 height = _props.height,
                 width = _props.width;
 
-            var numChildren = _react2.default.Children.count(this.props.children);
 
             var _gap = gap || (noGap ? "0" : smallGap ? ".5rem" : "1rem");
             var _margin = margin || (noMargin ? "0" : smallMargin ? ".5rem" : "1rem");
@@ -77432,7 +77426,7 @@ var Panel = exports.Panel = function (_React$Component) {
                         {
                             stretch: stretch,
                             equalWidth: equalWidth,
-                            padding: _this2.getPadding(idx, numChildren, _gap, horizontal)
+                            padding: _this2.getPadding(idx, _gap, horizontal)
                         },
                         childProps ? _react2.default.cloneElement(child, _this2.mergeProps(child, childProps)) : child
                     );
@@ -77462,6 +77456,9 @@ Panel.propTypes = {
 Panel.componentTypes = {
     Container: Container,
     ChildContainer: ChildContainer
+};
+var Divider = exports.Divider = function Divider(props) {
+    return _react2.default.createElement(Panel, _extends({ noMargin: true }, props));
 };
 
 /***/ }),
@@ -77593,7 +77590,7 @@ RadioGroup.componentTypes = {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.TextAreaField = exports.PasswordField = exports.EmailField = exports.TextField = undefined;
+exports.TextAreaField = exports.PasswordField = exports.TextField = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -77737,10 +77734,6 @@ TextField.componentTypes = {
     InputComponent: undefined,
     ValidationMessageComponent: _Label.Label
 };
-var EmailField = exports.EmailField = function EmailField(props) {
-    return _react2.default.createElement(TextField, _extends({ type: 'email' }, props));
-};
-
 var PasswordField = exports.PasswordField = function PasswordField(props) {
     return _react2.default.createElement(TextField, _extends({ type: 'password' }, props));
 };
@@ -77749,11 +77742,9 @@ var TextAreaField = exports.TextAreaField = function TextAreaField(props) {
     return _react2.default.createElement(TextField, _extends({ type: 'textarea' }, props));
 };
 
-EmailField.contextTypes = _VMContext.ContextTypes;
 PasswordField.contextTypes = _VMContext.ContextTypes;
 TextAreaField.contextTypes = _VMContext.ContextTypes;
 
-EmailField.propTypes = Object.assign({}, TextField.propTypes);
 PasswordField.propTypes = Object.assign({}, TextField.propTypes);
 TextAreaField.propTypes = Object.assign({}, TextField.propTypes);
 
@@ -77776,8 +77767,6 @@ var _dotnetify = __webpack_require__(33);
 
 var _dotnetify2 = _interopRequireDefault(_dotnetify);
 
-var _reactstrap = __webpack_require__(58);
-
 var _elementsBootstrap = __webpack_require__(28);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -77796,46 +77785,37 @@ var SampleValidationForm = function SampleValidationForm(_ref) {
         _elementsBootstrap.VMContext,
         { vm: vm },
         _react2.default.createElement(
-            _reactstrap.Card,
-            null,
+            _elementsBootstrap.Card,
+            { header: title },
             _react2.default.createElement(
-                _reactstrap.CardHeader,
-                null,
-                title
-            ),
-            _react2.default.createElement(
-                _reactstrap.CardBody,
+                _elementsBootstrap.Divider,
                 null,
                 _react2.default.createElement(
-                    _elementsBootstrap.Panel,
-                    { noMargin: true },
+                    _elementsBootstrap.Form,
+                    null,
                     _react2.default.createElement(
-                        _elementsBootstrap.Form,
+                        _elementsBootstrap.Divider,
                         null,
+                        _react2.default.createElement(_elementsBootstrap.TextField, { id: 'Name', validation: nameLengthValidation }),
+                        _react2.default.createElement(_elementsBootstrap.TextField, { id: 'Email' }),
                         _react2.default.createElement(
-                            _elementsBootstrap.Panel,
-                            { noMargin: true },
-                            _react2.default.createElement(_elementsBootstrap.TextField, { id: 'Name', validation: nameLengthValidation }),
-                            _react2.default.createElement(_elementsBootstrap.TextField, { id: 'Email' }),
+                            _elementsBootstrap.Divider,
+                            { horizontal: true, right: true },
                             _react2.default.createElement(
-                                _elementsBootstrap.Panel,
-                                { horizontal: true, right: true, noMargin: true },
-                                _react2.default.createElement(
-                                    _elementsBootstrap.Button,
-                                    { secondary: true, cancel: true },
-                                    'Cancel'
-                                ),
-                                _react2.default.createElement(
-                                    _elementsBootstrap.Button,
-                                    { id: 'Submit', primary: true, submit: true },
-                                    'Submit'
-                                )
+                                _elementsBootstrap.Button,
+                                { secondary: true, cancel: true },
+                                'Cancel'
+                            ),
+                            _react2.default.createElement(
+                                _elementsBootstrap.Button,
+                                { id: 'Submit', primary: true, submit: true },
+                                'Submit'
                             )
                         )
-                    ),
-                    _react2.default.createElement(_elementsBootstrap.Alert, { danger: true, id: 'SubmitError' }),
-                    _react2.default.createElement(_elementsBootstrap.Alert, { success: true, id: 'SubmitSuccess' })
-                )
+                    )
+                ),
+                _react2.default.createElement(_elementsBootstrap.Alert, { id: 'SubmitError', danger: true }),
+                _react2.default.createElement(_elementsBootstrap.Alert, { id: 'SubmitSuccess', success: true })
             )
         )
     );
@@ -80221,6 +80201,94 @@ exports.default = SampleValidationForm;
     define('fas', icons);
   });
 })();
+
+/***/ }),
+/* 373 */,
+/* 374 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+   value: true
+});
+exports.Card = undefined;
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(6);
+
+var _utils = __webpack_require__(9);
+
+var utils = _interopRequireWildcard(_utils);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Card = exports.Card = function (_React$Component) {
+   _inherits(Card, _React$Component);
+
+   function Card() {
+      _classCallCheck(this, Card);
+
+      return _possibleConstructorReturn(this, (Card.__proto__ || Object.getPrototypeOf(Card)).apply(this, arguments));
+   }
+
+   _createClass(Card, [{
+      key: 'render',
+      value: function render() {
+         var _utils$resolveCompone = utils.resolveComponents(Card, this.props),
+             _utils$resolveCompone2 = _slicedToArray(_utils$resolveCompone, 3),
+             Container = _utils$resolveCompone2[0],
+             Header = _utils$resolveCompone2[1],
+             Body = _utils$resolveCompone2[2];
+
+         var _utils$mapStyle = utils.mapStyle(this.props),
+             header = _utils$mapStyle.header,
+             children = _utils$mapStyle.children,
+             props = _objectWithoutProperties(_utils$mapStyle, ['header', 'children']);
+
+         return _react2.default.createElement(
+            Container,
+            null,
+            header ? _react2.default.createElement(
+               Header,
+               null,
+               header
+            ) : null,
+            _react2.default.createElement(
+               Body,
+               null,
+               children
+            )
+         );
+      }
+   }]);
+
+   return Card;
+}(_react2.default.Component);
+
+Card.componentTypes = {
+   Container: undefined,
+   HeaderContainer: undefined,
+   BodyContainer: undefined
+};
 
 /***/ })
 /******/ ]);

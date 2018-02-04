@@ -78,10 +78,6 @@ export class TextField extends React.Component {
     }
 }
 
-export const EmailField = props => (
-    <TextField type="email" {...props} />
-);
-
 export const PasswordField = props => (
     <TextField type="password" {...props} />
 );
@@ -90,10 +86,8 @@ export const TextAreaField = props => (
     <TextField type="textarea" {...props} />
 );
 
-EmailField.contextTypes = ContextTypes;
 PasswordField.contextTypes = ContextTypes;
 TextAreaField.contextTypes = ContextTypes;
 
-EmailField.propTypes = Object.assign({}, TextField.propTypes);
 PasswordField.propTypes = Object.assign({}, TextField.propTypes);
 TextAreaField.propTypes = Object.assign({}, TextField.propTypes);
