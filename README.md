@@ -11,7 +11,7 @@ _The component age is here_.  Rapid development of even very complex web applica
 small, focused, and interchangeable components.  While the focus has always been with the componentization of client-side elements, 
 it will be exciting to explore ways the back-end logic may be incorporated into the components.  
 
-The dotNetify project was started with the goal of bringing simplicity to the front-end development for .NET back-end developers.
+The dotNetify project was started with the goal of bringing simplicity to the modern web development.
 This project serves as another step towards that goal, by providing a **zero-configuration** build environment,
 with a set of reusable and customizable components that can be easily assembled into a professional-looking, **zero-styling** web layout and readily communicate in real-time with the back-end through dotNetify view models.
 
