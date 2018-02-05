@@ -35,7 +35,7 @@ namespace dotNetify_Elements
                 Label = "Email:",
                 Placeholder = "Enter email address"
              })
-             .WithEmailValidation(this, "Email is invalid");
+             .WithPatternValidation(this, Pattern.Email, "Email is invalid");
 
 
          var submitValidation = AddProperty<ValidatedFormData>("SubmitValidation")

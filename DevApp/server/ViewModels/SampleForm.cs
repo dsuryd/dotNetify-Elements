@@ -1,7 +1,8 @@
-using DotNetify;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
+using DotNetify;
 
 namespace dotNetify_Elements
 {
@@ -12,6 +13,7 @@ namespace dotNetify_Elements
          public string MyText { get; set; }
          public string MyPassword { get; set; }
          public string MyDropdown { get; set; }
+         public DateTimeOffset MyDate { get; set; }
          public string MyTextArea { get; set; }
          public string MyRadio { get; set; }
          public bool MyCheckbox { get; set; }
@@ -47,6 +49,14 @@ namespace dotNetify_Elements
                   { "D4", "Dropdown 4" },
                   { "D5", "Dropdown 5" }
                 }.ToArray()
+             });
+
+         AddProperty(nameof(FormData.MyDate), DateTimeOffset.Now)
+             .WithAttribute(this, new DateFieldAttribute
+             {
+                Label = "Date:",
+                Min = DateTimeOffset.Now.AddMonths(-1),
+                Max = DateTimeOffset.Now.AddMonths(6)
              });
 
          AddProperty(nameof(FormData.MyTextArea), "")
@@ -89,6 +99,7 @@ namespace dotNetify_Elements
          MyText: **{WhitespaceIfEmpty(data.MyText)}**  
          MyPassword: **{WhitespaceIfEmpty(data.MyPassword)}**  
          MyDropdown: **{data.MyDropdown}**  
+         MyDate: **{data.MyDate}**  
          MyTextArea: **{WhitespaceIfEmpty(data.MyTextArea)}**  
          MyRadio: **{data.MyRadio}**  
          MyCheckbox: **{data.MyCheckbox}**  

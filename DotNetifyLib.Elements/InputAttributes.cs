@@ -26,6 +26,13 @@ namespace DotNetify
       public int MaxLength { get; set; }
    }
 
+   public class DateFieldAttribute
+   {
+      public string Label { get; set; }
+      public DateTimeOffset Min { get; set; }
+      public DateTimeOffset Max { get; set; }
+   }
+
    public class DropdownListAttribute
    {
       public string Label { get; set; }

@@ -61,11 +61,6 @@ namespace DotNetify
          return prop.WithValidation(vm, new PatternValidation(regexPattern, message));
       }
 
-      public static ReactiveProperty<TProp> WithEmailValidation<TProp>(this ReactiveProperty<TProp> prop, IReactiveProperties vm, string message)
-      {
-         return prop.WithValidation(vm, new PatternValidation(@"^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$", message));
-      }
-
       #endregion
    }
 }

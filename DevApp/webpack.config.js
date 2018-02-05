@@ -21,7 +21,7 @@ module.exports = {
             { test: /\.tsx?$/, use: 'awesome-typescript-loader?silent=true' },
             { test: /\.css$/, use: ExtractTextPlugin.extract({ use: 'css-loader?minimize' }) },
             { test: /\.(png|jpg|jpeg|gif|svg)$/, use: 'url-loader?limit=25000' },
-            { test: /\.(eot|svg|ttf|woff(2)?)(\?v=\d+\.\d+\.\d+)?/, loader: 'url' }
+            { test: /\.(eot|svg|ttf|woff(2)?)(\?v=\d+\.\d+\.\d+)?/, loader: 'url-loader' }
         ]
     },
     plugins: [
