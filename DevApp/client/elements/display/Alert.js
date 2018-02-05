@@ -7,6 +7,10 @@ export class Alert extends React.Component {
 
    static contextTypes = ContextTypes;
 
+   static propTypes = {
+      onShow: PropTypes.func
+   }
+ 
    static componentTypes = {
       AlertComponent: undefined
    }
@@ -21,10 +25,12 @@ export class Alert extends React.Component {
 
    render() {
       const [_Alert] = utils.resolveComponents(Alert, this.props);
-      const { children, ...props } = utils.mapStyle(this.props);
+      const { children, onShow, ...props } = utils.mapStyle(this.props);
       const { id, value, attrs } = this.vmInput.props;
 
-      const noVmPropValue = id && !value;
-      return noVmPropValue ? null : <_Alert id={id} {...props}>{utils.markdown(value) || children}</_Alert>;
+      const show = (!id || value) ? true : false;
+      this.props.onShow && this.props.onShow(show);
+
+      return show ? <_Alert id={id} {...props}>{utils.markdown(value) || children}</_Alert> : null;
    }
 }  

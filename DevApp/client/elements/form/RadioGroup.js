@@ -11,6 +11,7 @@ export class RadioGroup extends React.Component {
     static propTypes = {
         id: PropTypes.string.isRequired,
         label: PropTypes.string,
+        horizontal: PropTypes.bool
     }
 
     static componentTypes = {

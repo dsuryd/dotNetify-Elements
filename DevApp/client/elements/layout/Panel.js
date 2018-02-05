@@ -34,6 +34,11 @@ export class Panel extends React.Component {
         stretch: PropTypes.bool,
         height: PropTypes.string,
         width: PropTypes.string,
+        onShow: PropTypes.func
+    }
+
+    static defaultProps = {
+        noMargin: true
     }
 
     static componentTypes = {
@@ -41,13 +46,33 @@ export class Panel extends React.Component {
         ChildContainer
     }
 
+    get numChildren() {
+        return React.Children.count(this.props.children);
+    }
+
+    constructor(props) {
+        super(props);
+        this.state = { showChildren: new Array(this.numChildren).fill(true) };
+    }
+
     getPadding(idx, gap, horizontal) {
         let padding = horizontal ? `0 0 0 ${gap}` : `${gap} 0 0 0`;
         return idx > 0 ? padding : 0;
     }
 
-    mergeProps(elem, newProps) {
-        return Object.assign({}, newProps, elem.props);
+    getStyle = idx => {
+        const showChild = this.state.showChildren[idx] !== false;
+        return !showChild ? { display: 'none' } : null;
+    }
+
+    handleShow = (idx, show) => {
+        setTimeout(() => {
+            let showChildren = this.state.showChildren;
+            if (showChildren[idx] !== show) {
+                showChildren[idx] = show;
+                this.setState({ showChildren });
+            }
+        }, 1);
     }
 
     render() {
@@ -77,12 +102,13 @@ export class Panel extends React.Component {
                 height={height}
             >
                 {React.Children.map(this.props.children, (child, idx) =>
-                    <ChildContainer
+                    <ChildContainer key={idx}
+                        style={this.getStyle(idx)}
                         stretch={stretch}
                         equalWidth={equalWidth}
-                        padding={this.getPadding(idx, _gap, horizontal)}
+                        padding={this.numChildren <= 1 ? 0 : this.getPadding(idx, _gap, horizontal)}
                     >
-                        {childProps ? React.cloneElement(child, this.mergeProps(child, childProps)) : child}
+                        {React.cloneElement(child, utils.mergeProps(child, childProps, { onShow: show => this.handleShow(idx, show) }))}
                     </ChildContainer>
                 )}
             </Container>
@@ -90,6 +116,6 @@ export class Panel extends React.Component {
     };
 }
 
-export const Divider = props => (
-    <Panel noMargin {...props} />
+export const Frame = props => (
+    <Panel noMargin={false} stretch {...props} />
 );

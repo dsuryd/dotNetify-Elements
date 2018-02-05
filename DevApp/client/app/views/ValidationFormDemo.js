@@ -1,12 +1,12 @@
 import React from 'react';
-import { Panel, Theme } from '../../elements-bootstrap';
+import { Frame, Theme } from '../../elements-bootstrap';
 import SampleValidationForm from '../components/SampleValidationForm';
 
 const ValidationFormDemo = props => (
   <Theme>
-    <Panel stretch>
+    <Frame>
       <SampleValidationForm vm="SampleValidationForm" title="Validation Form" horizontal />
-    </Panel>
+    </Frame>
   </Theme>
 );
 

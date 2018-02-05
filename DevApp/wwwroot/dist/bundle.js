@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "2bda330a06bd66e1f964"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "e27648b387cb04f4aed2"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -1484,6 +1484,7 @@ exports.mapChildren = mapChildren;
 exports.filterChildren = filterChildren;
 exports.markdown = markdown;
 exports.mapStyle = mapStyle;
+exports.mergeProps = mergeProps;
 exports.resolveComponents = resolveComponents;
 exports.toCamelCase = toCamelCase;
 
@@ -1504,6 +1505,8 @@ var _sanitizeHtml = __webpack_require__(285);
 var _sanitizeHtml2 = _interopRequireDefault(_sanitizeHtml);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
@@ -1553,6 +1556,24 @@ function mapStyle(props) {
     var _color = primary ? "primary" : secondary ? "secondary" : success ? "success" : danger ? "danger" : warning ? "warning" : info ? "info" : light ? "light" : dark ? "dark" : color;
     var _size = small ? "sm" : large ? "lg" : size;
     return Object.assign({}, { color: _color, size: _size }, rest);
+}
+
+function mergeProps(elem) {
+    var propTypes = Object.keys(elem.type.propTypes || {});
+
+    for (var _len = arguments.length, newProps = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+        newProps[_key - 1] = arguments[_key];
+    }
+
+    var props = newProps.reduce(function (aggregate, prop) {
+        return Object.assign(aggregate, prop);
+    }, {});
+    var validProps = Object.keys(props).filter(function (key) {
+        return propTypes.includes(key);
+    }).reduce(function (aggregate, key) {
+        return Object.assign(aggregate, _defineProperty({}, key, props[key]));
+    }, {});
+    return Object.assign({}, validProps, elem.props);
 }
 
 function resolveComponents(type, props) {
@@ -5824,7 +5845,7 @@ module.exports = DOMLazyTree;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.VMContext = exports.TextAreaField = exports.PasswordField = exports.TextField = exports.RadioGroup = exports.Panel = exports.NavToggle = exports.NavMenuTarget = exports.NavMenu = exports.NavHeader = exports.Theme = exports.Section = exports.Footer = exports.Nav = exports.Header = exports.Main = exports.Label = exports.Form = exports.FieldPanel = exports.DropdownList = exports.Divider = exports.ContextTypes = exports.Collapsible = exports.CheckboxGroup = exports.Checkbox = exports.Card = exports.Button = exports.Alert = exports.defaultTheme = undefined;
+exports.VMContext = exports.TextAreaField = exports.PasswordField = exports.TextField = exports.RadioGroup = exports.Frame = exports.Panel = exports.NavToggle = exports.NavMenuTarget = exports.NavMenu = exports.NavHeader = exports.Theme = exports.Section = exports.Footer = exports.Nav = exports.Header = exports.Main = exports.Label = exports.Form = exports.FieldPanel = exports.DropdownList = exports.ContextTypes = exports.Collapsible = exports.CheckboxGroup = exports.Checkbox = exports.Card = exports.Button = exports.Alert = exports.defaultTheme = undefined;
 
 var _theme = __webpack_require__(131);
 
@@ -5865,6 +5886,10 @@ var _RadioGroup = __webpack_require__(365);
 var _TextField = __webpack_require__(366);
 
 var _VMContext = __webpack_require__(14);
+
+__webpack_require__(368);
+
+__webpack_require__(376);
 
 var _reactstrap = __webpack_require__(58);
 
@@ -5916,7 +5941,6 @@ exports.Checkbox = _Checkbox.Checkbox;
 exports.CheckboxGroup = _CheckboxGroup.CheckboxGroup;
 exports.Collapsible = _Collapsible.Collapsible;
 exports.ContextTypes = _VMContext.ContextTypes;
-exports.Divider = _Panel.Divider;
 exports.DropdownList = _DropdownList.DropdownList;
 exports.FieldPanel = _FieldPanel.FieldPanel;
 exports.Form = _Form.Form;
@@ -5932,6 +5956,7 @@ exports.NavMenu = _NavMenu.NavMenu;
 exports.NavMenuTarget = _NavMenu.NavMenuTarget;
 exports.NavToggle = _NavToggle.NavToggle;
 exports.Panel = _Panel.Panel;
+exports.Frame = _Panel.Frame;
 exports.RadioGroup = _RadioGroup.RadioGroup;
 exports.TextField = _TextField.TextField;
 exports.PasswordField = _TextField.PasswordField;
@@ -21890,8 +21915,8 @@ var FormDemo = function FormDemo(props) {
     _elementsBootstrap.Theme,
     null,
     _react2.default.createElement(
-      _elementsBootstrap.Panel,
-      { stretch: true },
+      _elementsBootstrap.Frame,
+      null,
       _react2.default.createElement(_SampleForm2.default, { vm: 'SampleForm', title: 'Vertical Form' })
     )
   );
@@ -21927,8 +21952,8 @@ var HorizontalFormDemo = function HorizontalFormDemo(props) {
     _elementsBootstrap.Theme,
     null,
     _react2.default.createElement(
-      _elementsBootstrap.Panel,
-      { stretch: true },
+      _elementsBootstrap.Frame,
+      null,
       _react2.default.createElement(_SampleForm2.default, { vm: 'SampleFormHorizontal', title: 'Horizontal Form', horizontal: true })
     )
   );
@@ -21964,8 +21989,8 @@ var ValidationFormDemo = function ValidationFormDemo(props) {
     _elementsBootstrap.Theme,
     null,
     _react2.default.createElement(
-      _elementsBootstrap.Panel,
-      { stretch: true },
+      _elementsBootstrap.Frame,
+      null,
       _react2.default.createElement(_SampleValidationForm2.default, { vm: 'SampleValidationForm', title: 'Validation Form', horizontal: true })
     )
   );
@@ -42852,13 +42877,13 @@ var SampleForm = function SampleForm(_ref) {
             _elementsBootstrap.Card,
             { header: title },
             _react2.default.createElement(
-                _elementsBootstrap.Divider,
+                _elementsBootstrap.Panel,
                 null,
                 _react2.default.createElement(
                     _elementsBootstrap.Form,
                     null,
                     _react2.default.createElement(
-                        _elementsBootstrap.Divider,
+                        _elementsBootstrap.Panel,
                         { childProps: { horizontal: horizontal } },
                         _react2.default.createElement(_elementsBootstrap.TextField, { id: 'MyText' }),
                         _react2.default.createElement(_elementsBootstrap.PasswordField, { id: 'MyPassword' }),
@@ -42868,16 +42893,16 @@ var SampleForm = function SampleForm(_ref) {
                         _react2.default.createElement(_elementsBootstrap.Checkbox, { id: 'MyCheckbox' }),
                         _react2.default.createElement(_elementsBootstrap.CheckboxGroup, { id: 'MyCheckboxGroup' }),
                         _react2.default.createElement(
-                            _elementsBootstrap.Divider,
+                            _elementsBootstrap.Panel,
                             { horizontal: true, right: true },
                             _react2.default.createElement(
                                 _elementsBootstrap.Button,
-                                { secondary: true, cancel: true },
+                                { cancel: true, secondary: true },
                                 'Cancel'
                             ),
                             _react2.default.createElement(
                                 _elementsBootstrap.Button,
-                                { id: 'Submit', primary: true, submit: true },
+                                { id: 'Submit', submit: true, primary: true },
                                 'Submit'
                             )
                         )
@@ -44174,15 +44199,13 @@ var _routes = __webpack_require__(129);
 
 var _routes2 = _interopRequireDefault(_routes);
 
-__webpack_require__(368);
-
-__webpack_require__(369);
-
 __webpack_require__(370);
 
 __webpack_require__(371);
 
 __webpack_require__(372);
+
+__webpack_require__(369);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -58658,7 +58681,8 @@ var Alert = exports.Alert = function (_React$Component) {
 
          var _utils$mapStyle = utils.mapStyle(this.props),
              children = _utils$mapStyle.children,
-             props = _objectWithoutProperties(_utils$mapStyle, ['children']);
+             onShow = _utils$mapStyle.onShow,
+             props = _objectWithoutProperties(_utils$mapStyle, ['children', 'onShow']);
 
          var _vmInput$props = this.vmInput.props,
              id = _vmInput$props.id,
@@ -58666,12 +58690,14 @@ var Alert = exports.Alert = function (_React$Component) {
              attrs = _vmInput$props.attrs;
 
 
-         var noVmPropValue = id && !value;
-         return noVmPropValue ? null : _react2.default.createElement(
+         var show = !id || value ? true : false;
+         this.props.onShow && this.props.onShow(show);
+
+         return show ? _react2.default.createElement(
             _Alert,
             _extends({ id: id }, props),
             utils.markdown(value) || children
-         );
+         ) : null;
       }
    }, {
       key: 'vmInput',
@@ -58684,6 +58710,9 @@ var Alert = exports.Alert = function (_React$Component) {
 }(_react2.default.Component);
 
 Alert.contextTypes = _VMContext.ContextTypes;
+Alert.propTypes = {
+   onShow: _propTypes.PropTypes.func
+};
 Alert.componentTypes = {
    AlertComponent: undefined
 };
@@ -72398,7 +72427,8 @@ var CheckboxGroup = exports.CheckboxGroup = function (_React$Component) {
 CheckboxGroup.contextTypes = _VMContext.ContextTypes;
 CheckboxGroup.propTypes = {
     id: _propTypes.PropTypes.string.isRequired,
-    label: _propTypes.PropTypes.string
+    label: _propTypes.PropTypes.string,
+    horizontal: _propTypes.PropTypes.bool
 };
 CheckboxGroup.componentTypes = {
     Container: _FieldPanel.FieldPanel,
@@ -72513,7 +72543,8 @@ var DropdownList = exports.DropdownList = function (_React$Component) {
 DropdownList.contextTypes = _VMContext.ContextTypes;
 DropdownList.propTypes = {
     id: _propTypes.PropTypes.string.isRequired,
-    label: _propTypes.PropTypes.string
+    label: _propTypes.PropTypes.string,
+    horizontal: _propTypes.PropTypes.bool
 };
 DropdownList.componentTypes = {
     Container: _FieldPanel.FieldPanel,
@@ -77306,7 +77337,7 @@ module.exports = toNumber;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.Divider = exports.Panel = undefined;
+exports.Frame = exports.Panel = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -77365,10 +77396,35 @@ var ChildContainer = _styledComponents2.default.div.withConfig({
 var Panel = exports.Panel = function (_React$Component) {
     _inherits(Panel, _React$Component);
 
-    function Panel() {
+    _createClass(Panel, [{
+        key: 'numChildren',
+        get: function get() {
+            return _react2.default.Children.count(this.props.children);
+        }
+    }]);
+
+    function Panel(props) {
         _classCallCheck(this, Panel);
 
-        return _possibleConstructorReturn(this, (Panel.__proto__ || Object.getPrototypeOf(Panel)).apply(this, arguments));
+        var _this = _possibleConstructorReturn(this, (Panel.__proto__ || Object.getPrototypeOf(Panel)).call(this, props));
+
+        _this.getStyle = function (idx) {
+            var showChild = _this.state.showChildren[idx] !== false;
+            return !showChild ? { display: 'none' } : null;
+        };
+
+        _this.handleShow = function (idx, show) {
+            setTimeout(function () {
+                var showChildren = _this.state.showChildren;
+                if (showChildren[idx] !== show) {
+                    showChildren[idx] = show;
+                    _this.setState({ showChildren: showChildren });
+                }
+            }, 1);
+        };
+
+        _this.state = { showChildren: new Array(_this.numChildren).fill(true) };
+        return _this;
     }
 
     _createClass(Panel, [{
@@ -77376,11 +77432,6 @@ var Panel = exports.Panel = function (_React$Component) {
         value: function getPadding(idx, gap, horizontal) {
             var padding = horizontal ? '0 0 0 ' + gap : gap + ' 0 0 0';
             return idx > 0 ? padding : 0;
-        }
-    }, {
-        key: 'mergeProps',
-        value: function mergeProps(elem, newProps) {
-            return Object.assign({}, newProps, elem.props);
         }
     }, {
         key: 'render',
@@ -77423,12 +77474,15 @@ var Panel = exports.Panel = function (_React$Component) {
                 _react2.default.Children.map(this.props.children, function (child, idx) {
                     return _react2.default.createElement(
                         ChildContainer,
-                        {
+                        { key: idx,
+                            style: _this2.getStyle(idx),
                             stretch: stretch,
                             equalWidth: equalWidth,
-                            padding: _this2.getPadding(idx, _gap, horizontal)
+                            padding: _this2.numChildren <= 1 ? 0 : _this2.getPadding(idx, _gap, horizontal)
                         },
-                        childProps ? _react2.default.cloneElement(child, _this2.mergeProps(child, childProps)) : child
+                        _react2.default.cloneElement(child, utils.mergeProps(child, childProps, { onShow: function onShow(show) {
+                                return _this2.handleShow(idx, show);
+                            } }))
                     );
                 })
             );
@@ -77451,14 +77505,18 @@ Panel.propTypes = {
     right: _propTypes.PropTypes.bool,
     stretch: _propTypes.PropTypes.bool,
     height: _propTypes.PropTypes.string,
-    width: _propTypes.PropTypes.string
+    width: _propTypes.PropTypes.string,
+    onShow: _propTypes.PropTypes.func
+};
+Panel.defaultProps = {
+    noMargin: true
 };
 Panel.componentTypes = {
     Container: Container,
     ChildContainer: ChildContainer
 };
-var Divider = exports.Divider = function Divider(props) {
-    return _react2.default.createElement(Panel, _extends({ noMargin: true }, props));
+var Frame = exports.Frame = function Frame(props) {
+    return _react2.default.createElement(Panel, _extends({ noMargin: false, stretch: true }, props));
 };
 
 /***/ }),
@@ -77571,7 +77629,8 @@ var RadioGroup = exports.RadioGroup = function (_React$Component) {
 RadioGroup.contextTypes = _VMContext.ContextTypes;
 RadioGroup.propTypes = {
     id: _propTypes.PropTypes.string.isRequired,
-    label: _propTypes.PropTypes.string
+    label: _propTypes.PropTypes.string,
+    horizontal: _propTypes.PropTypes.bool
 };
 RadioGroup.componentTypes = {
     Container: _FieldPanel.FieldPanel,
@@ -77727,7 +77786,8 @@ TextField.contextTypes = _VMContext.ContextTypes;
 TextField.propTypes = {
     id: _propTypes.PropTypes.string.isRequired,
     label: _propTypes.PropTypes.string,
-    placeholder: _propTypes.PropTypes.string
+    placeholder: _propTypes.PropTypes.string,
+    horizontal: _propTypes.PropTypes.bool
 };
 TextField.componentTypes = {
     Container: _FieldPanel.FieldPanel,
@@ -77773,9 +77833,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var nameLengthValidation = {
     validate: function validate(value) {
-        return typeof value !== 'undefined' && value.length >= 10;
+        return typeof value !== 'undefined' && value.length >= 2;
     },
-    message: 'Name must be at least 10 characters'
+    message: 'Name must be at least 2 characters'
 };
 
 var SampleValidationForm = function SampleValidationForm(_ref) {
@@ -77788,27 +77848,27 @@ var SampleValidationForm = function SampleValidationForm(_ref) {
             _elementsBootstrap.Card,
             { header: title },
             _react2.default.createElement(
-                _elementsBootstrap.Divider,
+                _elementsBootstrap.Panel,
                 null,
                 _react2.default.createElement(
                     _elementsBootstrap.Form,
                     null,
                     _react2.default.createElement(
-                        _elementsBootstrap.Divider,
+                        _elementsBootstrap.Panel,
                         null,
                         _react2.default.createElement(_elementsBootstrap.TextField, { id: 'Name', validation: nameLengthValidation }),
                         _react2.default.createElement(_elementsBootstrap.TextField, { id: 'Email' }),
                         _react2.default.createElement(
-                            _elementsBootstrap.Divider,
+                            _elementsBootstrap.Panel,
                             { horizontal: true, right: true },
                             _react2.default.createElement(
                                 _elementsBootstrap.Button,
-                                { secondary: true, cancel: true },
+                                { cancel: true, secondary: true },
                                 'Cancel'
                             ),
                             _react2.default.createElement(
                                 _elementsBootstrap.Button,
-                                { id: 'Submit', primary: true, submit: true },
+                                { id: 'Submit', submit: true, primary: true },
                                 'Submit'
                             )
                         )
@@ -80289,6 +80349,13 @@ Card.componentTypes = {
    HeaderContainer: undefined,
    BodyContainer: undefined
 };
+
+/***/ }),
+/* 375 */,
+/* 376 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

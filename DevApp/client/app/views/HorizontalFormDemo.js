@@ -1,12 +1,12 @@
 import React from 'react';
-import { Panel, Theme } from '../../elements-bootstrap';
+import { Frame, Theme } from '../../elements-bootstrap';
 import SampleForm from '../components/SampleForm';
 
 const HorizontalFormDemo = props => (
   <Theme>
-    <Panel stretch>
+    <Frame>
       <SampleForm vm="SampleFormHorizontal" title="Horizontal Form" horizontal />
-    </Panel>
+    </Frame>
   </Theme>
 );
 

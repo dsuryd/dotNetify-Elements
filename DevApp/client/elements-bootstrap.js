@@ -13,11 +13,13 @@ import { Main, Header, Nav, Footer, Section, Theme } from './elements/layout/Lay
 import { NavHeader } from './elements/layout/NavHeader';
 import { NavMenu, NavMenuTarget } from './elements/nav/NavMenu';
 import { NavToggle } from './elements/nav/NavToggle';
-import { Panel, Divider } from './elements/layout/Panel';
+import { Panel, Frame } from './elements/layout/Panel';
 import { RadioGroup } from './elements/form/RadioGroup';
 import { TextField, PasswordField, TextAreaField } from './elements/form/TextField';
 import { VMContext, ContextTypes } from './elements/VMContext';
 
+import 'bootstrap/dist/css/bootstrap.css';
+import './elements/bootstrapOverride.css';
 import * as rs from 'reactstrap';
 
 Alert.componentTypes.AlertComponent = rs.Alert;
@@ -63,7 +65,6 @@ export {
     CheckboxGroup,
     Collapsible,
     ContextTypes,
-    Divider,
     DropdownList,
     FieldPanel,
     Form,
@@ -73,7 +74,7 @@ export {
     NavMenu,
     NavMenuTarget,
     NavToggle,
-    Panel,
+    Panel, Frame,
     RadioGroup,
     TextField, PasswordField, TextAreaField,
     VMContext

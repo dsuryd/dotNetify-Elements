@@ -47,6 +47,15 @@ export function mapStyle(props) {
     return Object.assign({}, { color: _color, size: _size }, rest);
 }
 
+export function mergeProps(elem, ...newProps) {
+    const propTypes = Object.keys(elem.type.propTypes || {});
+    let props = newProps.reduce((aggregate, prop) => Object.assign(aggregate, prop), {});
+    let validProps = Object.keys(props)
+        .filter(key => propTypes.includes(key))
+        .reduce((aggregate, key) => Object.assign(aggregate, {[key]: props[key]}), {});
+    return Object.assign({}, validProps, elem.props);
+}
+
 export function resolveComponents(type, props) {
     return Object.keys(type.componentTypes).map(key => props[toCamelCase(key)] || type.componentTypes[key]);
 }

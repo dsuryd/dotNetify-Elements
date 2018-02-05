@@ -13,7 +13,8 @@ export class TextField extends React.Component {
     static propTypes = {
         id: PropTypes.string.isRequired,
         label: PropTypes.string,
-        placeholder: PropTypes.string
+        placeholder: PropTypes.string,
+        horizontal: PropTypes.bool
     }
 
     static componentTypes = {

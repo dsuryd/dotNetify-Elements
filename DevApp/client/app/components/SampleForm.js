@@ -1,16 +1,16 @@
 import React from 'react';
 import dotnetify from 'dotnetify';
 import {
-    Alert, Button, Card, Checkbox, CheckboxGroup, Divider, Panel, DropdownList,
+    Alert, Button, Card, Checkbox, CheckboxGroup, Panel, DropdownList,
     Form, TextField, TextAreaField, PasswordField, RadioGroup, VMContext
 } from '../../elements-bootstrap';
 
 const SampleForm = ({ vm, title, horizontal }) => (
     <VMContext vm={vm}>
         <Card header={title}>
-            <Divider>
+            <Panel>
                 <Form>
-                    <Divider childProps={{ horizontal: horizontal }}>
+                    <Panel childProps={{ horizontal: horizontal }}>
                         <TextField id="MyText" />
                         <PasswordField id="MyPassword" />
                         <DropdownList id="MyDropdown" />
@@ -18,14 +18,14 @@ const SampleForm = ({ vm, title, horizontal }) => (
                         <RadioGroup id="MyRadio" />
                         <Checkbox id="MyCheckbox" />
                         <CheckboxGroup id="MyCheckboxGroup" />
-                        <Divider horizontal right>
-                            <Button secondary cancel>Cancel</Button>
-                            <Button id="Submit" primary submit>Submit</Button>
-                        </Divider>
-                    </Divider>
+                        <Panel horizontal right>
+                            <Button cancel secondary>Cancel</Button>
+                            <Button id="Submit" submit primary>Submit</Button>
+                        </Panel>
+                    </Panel>
                 </Form>
                 <Alert id="SubmitSuccess" />
-            </Divider>
+            </Panel>
         </Card>
     </VMContext>
 );
