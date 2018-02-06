@@ -3,20 +3,19 @@
 React components for [dotNetify](http://dotnetify.net/react). 
 
 ### Status
-Starting development...
+Still under development...but a lot already got done; see screenshot below! 
 
 ### Motivation
 
-The component age is here.  Rapid development of even very complex web applications can be achieved through declarative composition of 
+_The component age is here_.  Rapid development of even very complex web applications can be achieved through declarative composition of 
 small, focused, and interchangeable components.  While the focus has always been with the componentization of client-side elements, 
 it will be exciting to explore ways the back-end logic may be incorporated into the components.  
 
-The dotNetify project was started with the goal of bringing simplicity to connecting front-end elements with the back-end models.
-This project is yet another step to bring simplicity to the front-end development, by providing a zero-configuration build environment,
-with a set of reusable and customizable components that can be easily assembled into a professional-looking web layout, and readily 
-communicate in real-time with the back-end through dotNetify view models; all without requiring high front-end development proficiency.
+The dotNetify project was started with the goal of bringing simplicity to the modern web development.
+This project serves as another step towards that goal, by providing a **zero-configuration** build environment,
+with a set of reusable and customizable components that can be easily assembled into a professional-looking, **zero-styling** web layout and readily communicate in real-time with the back-end through dotNetify view models.
 
-Here is an example proof of concept.  A developer minimally describes the layout of reusable components on a React page, and only assigns identifiers to components that will communicate with the back-end view model.  The styling are provided by default, resulting in a standard but professional looking web app.  All data necessary for the components to render will be provided from the view models.
+Here is a proof of concept example.  A developer minimally describes the layout of reusable components on a React page, and only assigns identifiers to components that will communicate with the back-end view model.  All data necessary for the components to render will be provided from the view models.
 
 ```jsx
 export const App = props => (
@@ -59,6 +58,9 @@ public class MyApp : BaseVM
     }
  }
 ```
+### Current Progress
+
+![alt screenshot](https://dsuryd.tinytake.com/media/6caa11?filename=1517803251416_04-02-2018-08-00-51.png&sub_type=thumbnail_preview&type=attachment)
 
 ### How To Run This Repo
 
