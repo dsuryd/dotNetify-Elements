@@ -12,8 +12,9 @@ namespace dotNetify_Elements
       {
          public string MyText { get; set; }
          public string MyPassword { get; set; }
-         public string MyDropdown { get; set; }
          public DateTimeOffset MyDate { get; set; }
+         public string MyDropdown { get; set; }
+         public string[] MyMultiselect { get; set; }
          public string MyTextArea { get; set; }
          public string MyRadio { get; set; }
          public bool MyCheckbox { get; set; }
@@ -37,6 +38,14 @@ namespace dotNetify_Elements
                 Placeholder = "Enter password"
              });
 
+         AddProperty(nameof(FormData.MyDate), DateTimeOffset.Now)
+             .WithAttribute(this, new DateFieldAttribute
+             {
+                Label = "Date:",
+                Min = DateTimeOffset.Now.AddMonths(-1),
+                Max = DateTimeOffset.Now.AddMonths(6)
+             });
+
          AddProperty(nameof(FormData.MyDropdown), "D3")
              .WithAttribute(this, new DropdownListAttribute
              {
@@ -51,12 +60,18 @@ namespace dotNetify_Elements
                 }.ToArray()
              });
 
-         AddProperty(nameof(FormData.MyDate), DateTimeOffset.Now)
-             .WithAttribute(this, new DateFieldAttribute
+         AddProperty(nameof(FormData.MyMultiselect), new string[] { "M1", "M4" })
+             .WithAttribute(this, new DropdownListAttribute
              {
-                Label = "Date:",
-                Min = DateTimeOffset.Now.AddMonths(-1),
-                Max = DateTimeOffset.Now.AddMonths(6)
+                Label = "Multiselect list:",
+                Options = new Dictionary<string, string>
+                {
+                  { "M1", "Multiselect 1" },
+                  { "M2", "Multiselect 2" },
+                  { "M3", "Multiselect 3" },
+                  { "M4", "Multiselect 4" },
+                  { "M5", "Multiselect 5" }
+                }.ToArray()
              });
 
          AddProperty(nameof(FormData.MyTextArea), "")
@@ -98,8 +113,9 @@ namespace dotNetify_Elements
          $@"**Submitted:**  
          MyText: **{WhitespaceIfEmpty(data.MyText)}**  
          MyPassword: **{WhitespaceIfEmpty(data.MyPassword)}**  
-         MyDropdown: **{data.MyDropdown}**  
          MyDate: **{data.MyDate}**  
+         MyDropdown: **{data.MyDropdown}**  
+         MyMultiselect: **{WhitespaceIfEmpty(string.Join(", ", data.MyMultiselect))}**  
          MyTextArea: **{WhitespaceIfEmpty(data.MyTextArea)}**  
          MyRadio: **{data.MyRadio}**  
          MyCheckbox: **{data.MyCheckbox}**  

@@ -39,6 +39,12 @@ namespace DotNetify
       public KeyValuePair<string, string>[] Options { get; set; }
    }
 
+   public class MultiselectListAttribute
+   {
+      public string Label { get; set; }
+      public KeyValuePair<string, string>[] Options { get; set; }
+   }
+
    public class RadioGroupAttribute
    {
       public string Label { get; set; }

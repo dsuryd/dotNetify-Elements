@@ -7,6 +7,7 @@ import { CheckboxGroup } from './elements/form/CheckboxGroup';
 import { Collapsible } from './elements/layout/Collapsible';
 import { DateField, TimeField, DateTimeField } from './elements/form/DateTimeField';
 import { DropdownList } from './elements/form/DropdownList';
+import { MultiselectList } from './elements/form/MultiselectList';
 import { FieldPanel } from './elements/layout/FieldPanel';
 import { Form } from './elements/form/Form';
 import { Label } from './elements/display/Label';
@@ -54,6 +55,7 @@ Object.assign(CheckboxGroup.componentTypes, {
 Collapsible.componentTypes.CollapsePanel = rs.Collapse;
 DateTimeField.componentTypes.InputComponent = rw.DateTimePicker;
 DropdownList.componentTypes.InputComponent = rs.Input;
+MultiselectList.componentTypes.InputComponent = rw.Multiselect;
 
 Object.assign(RadioGroup.componentTypes, {
     RadioContainer: rs.FormGroup,
@@ -78,6 +80,7 @@ export {
     Form,
     Label,
     Main, Header, Nav, Footer, Section, Theme,
+    MultiselectList,
     NavHeader,
     NavMenu,
     NavMenuTarget,

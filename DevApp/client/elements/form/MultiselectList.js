@@ -4,7 +4,7 @@ import { FieldPanel } from '../layout/FieldPanel';
 import { ContextTypes } from '../VMContext';
 import * as utils from '../utils';
 
-export class DropdownList extends React.Component {
+export class MultiselectList extends React.Component {
 
     static contextTypes = ContextTypes;
 
@@ -16,7 +16,10 @@ export class DropdownList extends React.Component {
 
     static componentTypes = {
         Container: FieldPanel,
-        InputComponent: undefined
+        InputComponent: undefined,
+        TagComponent: undefined,
+        ItemComponent: undefined,
+        ListComponent: undefined
     }
 
     constructor(props) {
@@ -27,24 +30,30 @@ export class DropdownList extends React.Component {
         return utils.getVMInput(this);
     }
 
-    handleChange = (event) => this.vmInput.value = event.target.value;
+    handleChange = (value) => this.vmInput.value = value.map(val => val.Key);
 
     render() {
-        const [Container, Input] = utils.resolveComponents(DropdownList, this.props);
+        const [Container, Input, Tag, Item, List] = utils.resolveComponents(MultiselectList, this.props);
         const { id, value, attrs } = this.vmInput.props;
 
         const options = (attrs.options || []).map(opt => <option key={opt.Key} value={opt.Key}>{opt.Value}</option>);
-        const label = attrs.label || this.props.label;
+        let {label, ...props} = this.props;
+        label = attrs.label || label;
 
         return (
             <Container id={id} label={label} horizontal={this.props.horizontal}>
                 <Input
                     id={id}
-                    type="select"
                     value={value}
+                    data={attrs.options}
+                    valueField='Key'
+                    textField='Value'
+                    tagComponent={Tag}
+                    itemComponent={Item}
+                    listComponent={List}
                     onChange={this.handleChange}
+                    {...props}
                 >
-                    {options}
                 </Input>
             </Container>
         )
