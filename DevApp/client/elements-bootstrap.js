@@ -5,6 +5,7 @@ import { Card } from './elements/layout/Card';
 import { Checkbox } from './elements/form/Checkbox';
 import { CheckboxGroup } from './elements/form/CheckboxGroup';
 import { Collapsible } from './elements/layout/Collapsible';
+import { DataGrid } from './elements/display/DataGrid';
 import { DateField, TimeField, DateTimeField } from './elements/form/DateTimeField';
 import { DropdownList } from './elements/form/DropdownList';
 import { MultiselectList } from './elements/form/MultiselectList';
@@ -26,6 +27,7 @@ import './elements/bootstrapOverride.css';
 import moment from 'moment';
 import * as rs from 'reactstrap';
 import * as rw from 'react-widgets';
+import ReactDataGrid from 'react-data-grid';
 import momentLocalizer from 'react-widgets-moment';
 
 moment.locale('en');
@@ -53,6 +55,7 @@ Object.assign(CheckboxGroup.componentTypes, {
 });
 
 Collapsible.componentTypes.CollapsePanel = rs.Collapse;
+DataGrid.componentTypes.DataGridComponent = ReactDataGrid;
 DateTimeField.componentTypes.InputComponent = rw.DateTimePicker;
 DropdownList.componentTypes.InputComponent = rs.Input;
 MultiselectList.componentTypes.InputComponent = rw.Multiselect;
@@ -74,6 +77,7 @@ export {
     CheckboxGroup,
     Collapsible,
     ContextTypes,
+    DataGrid,
     DateField, TimeField, DateTimeField,
     DropdownList,
     FieldPanel,
