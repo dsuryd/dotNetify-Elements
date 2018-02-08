@@ -46,6 +46,7 @@ export default class VMInput {
     }
 
     addValidation(validation) {
+        validation = Array.isArray(validation) ? validation : [validation];
         this.validator.addValidation(validation);
     }
 

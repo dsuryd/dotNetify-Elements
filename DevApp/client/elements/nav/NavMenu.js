@@ -86,7 +86,7 @@ export class NavMenu extends React.Component {
 
     buildRoute(navRoute, navGroup) {
         const [, , RouteContainer, , RouteLabel] = utils.resolveComponents(NavMenu, this.props);
-        const indent = navGroup["Icon"] != null;
+        const indent = navGroup ? navGroup.Icon != null : false;
         return (
             <RouteContainer key={navRoute.Route.TemplateId}>
                 <RouteLink vm={this.context.vm} route={navRoute.Route}>
@@ -109,7 +109,7 @@ export class NavMenu extends React.Component {
                 <GroupContainer key={idx} label={navItem.Label} labelComponent={groupLabel} collapsed={!navItem.IsExpanded}>
                     {navItem.Routes.map(navRoute => this.buildRoute(navRoute, navItem))}
                 </GroupContainer>
-            ) : buildRoute(navItem);
+            ) : this.buildRoute(navItem);
         });
 
         return <Container>{navMenu}</Container>;

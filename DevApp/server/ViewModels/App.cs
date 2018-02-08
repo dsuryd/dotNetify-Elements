@@ -13,7 +13,8 @@ namespace dotNetify_Elements
          Home,
          FormDemo,
          HorizontalFormDemo,
-         ValidationFormDemo
+         ValidationFormDemo,
+         DataGridDemo
       }
 
       public RoutingState RoutingState { get; set; }
@@ -26,12 +27,14 @@ namespace dotNetify_Elements
             new RouteTemplate(nameof(Route.FormDemo))             { UrlPattern = "form" },
             new RouteTemplate(nameof(Route.HorizontalFormDemo))   { UrlPattern = "form/horizontal" },
             new RouteTemplate(nameof(Route.ValidationFormDemo))   { UrlPattern = "form/validation" },
+            new RouteTemplate(nameof(Route.DataGridDemo))         { UrlPattern = "datagrid" },
          });
 
          AddProperty("NavMenu", new NavMenu(
             new NavMenuItem[]
             {
-               new NavGroup {
+               new NavGroup
+               {
                   Label = "Form Elements",
                   Icon = "fa fa-list",
                   Routes = new NavRoute[]
@@ -39,8 +42,10 @@ namespace dotNetify_Elements
                      new NavRoute("Vertical Form",    this.GetRoute(nameof(Route.FormDemo))),
                      new NavRoute("Horizontal Form",  this.GetRoute(nameof(Route.HorizontalFormDemo))),
                      new NavRoute("Validation Form",  this.GetRoute(nameof(Route.ValidationFormDemo)))
+                     
                   }
-               }
+               },
+               new NavRoute("Data Grid", this.GetRoute(nameof(Route.DataGridDemo)))
             }));
       }
    }

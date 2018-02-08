@@ -21,7 +21,7 @@ export default class VMInputValidator {
     }
 
     addValidation(validation) {
-        this.validations.push(validation);
+        this.validations.push(...validation);
     }
 
     validate(value) {

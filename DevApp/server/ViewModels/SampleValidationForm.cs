@@ -22,31 +22,17 @@ namespace dotNetify_Elements
       public SampleValidationForm()
       {
          AddProperty<string>(nameof(FormData.Name))
-            .WithAttribute(this, new TextFieldAttribute
-            {
-               Label = "Name:",
-               Placeholder = "Enter name"
-            })
+            .WithAttribute(this, new TextFieldAttribute { Label = "Name:", Placeholder = "Enter name *" })
             .WithRequiredValidation(this, "Name is required");
 
          AddProperty<string>(nameof(FormData.Email))
-             .WithAttribute(this, new TextFieldAttribute
-             {
-                Label = "Email:",
-                Placeholder = "Enter email address"
-             })
+             .WithAttribute(this, new TextFieldAttribute { Label = "Email:", Placeholder = "Enter email address" })
              .WithPatternValidation(this, Pattern.Email, "Email is invalid");
 
-
          var submitValidation = AddProperty<ValidatedFormData>("SubmitValidation")
-            .SubscribeTo(
-               AddProperty<FormData>("Submit").Select(data => ValidateFormSubmission(data)));
-
-         AddProperty<string>("SubmitSuccess")
-            .SubscribeTo(submitValidation.Select(validated => validated.IsValid ? SuccessMessage(validated.FormData) : null));
-
-         AddProperty<string>("SubmitError")
-            .SubscribeTo(submitValidation.Select(validated => validated.IsValid ? null: validated.ErrorMessage));
+            .SubscribeTo(AddProperty<FormData>("Submit").Select(data => ValidateFormSubmission(data)))
+            .SubscribedBy(AddProperty<string>("SubmitSuccess"), x => x.Select(validated => validated.IsValid ? SuccessMessage(validated.FormData) : null))
+            .SubscribedBy(AddProperty<string>("SubmitError"), x => x.Select(validated => validated.IsValid ? null : validated.ErrorMessage));
       }
 
       private ValidatedFormData ValidateFormSubmission(FormData data)
@@ -60,7 +46,7 @@ namespace dotNetify_Elements
             isValid = false;
             errorMessage = "Email domain is not valid. (Use 'example.org')";
          }
-            
+
          return new ValidatedFormData
          {
             FormData = data,

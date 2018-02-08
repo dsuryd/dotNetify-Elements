@@ -15,7 +15,8 @@ export class TextField extends React.Component {
         label: PropTypes.string,
         placeholder: PropTypes.string,
         horizontal: PropTypes.bool,
-        disabled: PropTypes.bool
+        disabled: PropTypes.bool,
+        validation: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
     }
 
     static componentTypes = {
@@ -72,9 +73,9 @@ export class TextField extends React.Component {
                     placeholder={placeholder}
                     value={value || ""}
                     onChange={this.handleChange}
-                    onBlur={this.handleBlur} 
+                    onBlur={this.handleBlur}
                     {...props}
-                    />
+                />
                 {this.state.validationMessages.map((message, idx) =>
                     <ValidationMessage key={"validationMessage" + idx}>{message}</ValidationMessage>)}
             </Container>

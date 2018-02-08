@@ -15,7 +15,8 @@ export class DateTimeField extends React.Component {
         id: PropTypes.string.isRequired,
         label: PropTypes.string,
         horizontal: PropTypes.bool,
-        disabled: PropTypes.bool
+        disabled: PropTypes.bool,
+        validation: PropTypes.oneOfType([PropTypes.array, PropTypes.object])
     }
 
     static componentTypes = {

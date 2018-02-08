@@ -18,19 +18,19 @@ using System;
 
 namespace DotNetify
 {
-   public enum ValidationCategory
-   {
-      Error,
-      Warning
-   }
-
    public abstract class Validation
    {
+      public enum Categories
+      {
+         Error,
+         Warning
+      }
+
       public string Type => GetType().Name.Replace(nameof(Validation), "");
       public string Message { get; set; }
       public string Category { get; set; }
 
-      public Validation(string message, ValidationCategory category)
+      public Validation(string message, Categories category)
       {
          Message = message;
          Category = category.ToString();
@@ -39,14 +39,15 @@ namespace DotNetify
 
    public class RequiredValidation : Validation
    {
-      public RequiredValidation(string message) : base(message, ValidationCategory.Error) { }
+      public RequiredValidation(string message) : base(message, Categories.Error) { }
    }
 
    public class PatternValidation : Validation
    {
       public string Pattern { get; set; }
 
-      public PatternValidation(string pattern, string message, ValidationCategory category = ValidationCategory.Error) : base(message, category)
+      public PatternValidation(string pattern, string message, Categories category = Categories.Error)
+         : base(message, category)
       {
          Pattern = pattern;
       }

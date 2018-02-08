@@ -22,6 +22,13 @@ namespace DotNetify
 {
    public static class ReactivePropertyExtensions
    {
+      public static ReactiveProperty<TSource> SubscribedBy<TSource, TTarget>(this ReactiveProperty<TSource> prop,
+         ReactiveProperty<TTarget> subscriber, Func<IObservable<TSource>, IObservable<TTarget>> mapper)
+      {
+         subscriber.SubscribeTo(mapper(prop));
+         return prop;
+      }
+
       public static ReactiveProperty<TProp> WithAttribute<TProp, TAttr>(this ReactiveProperty<TProp> prop, IReactiveProperties vm, TAttr attr)
       {
          var attrName = $"{prop.Name}_attr";

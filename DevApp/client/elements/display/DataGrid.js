@@ -9,7 +9,7 @@ export class DataGrid extends React.Component {
 
    static propTypes = {
    }
- 
+
    static componentTypes = {
       DataGridComponent: undefined
    }
@@ -27,6 +27,17 @@ export class DataGrid extends React.Component {
       const { ...props } = utils.mapStyle(this.props);
       const { id, value, attrs } = this.vmInput.props;
 
-      return <_DataGrid id={id} {...props}></_DataGrid>;
+      const { columns } = attrs;
+      const rowGetter = idx => value[idx];
+
+      return (
+         <_DataGrid id={id}
+            columns={columns.map(col => utils.toCamelCase(col))}
+            rowGetter={rowGetter}
+            rowsCount={value.length}
+            minHeight={500}
+            {...props}
+         />
+      );
    }
 }  
