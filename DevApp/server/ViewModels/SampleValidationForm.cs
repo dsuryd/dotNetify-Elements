@@ -22,11 +22,11 @@ namespace dotNetify_Elements
       public SampleValidationForm()
       {
          AddProperty<string>(nameof(FormData.Name))
-            .WithAttribute(this, new TextFieldAttribute { Label = "Name:", Placeholder = "Enter name *" })
+            .WithAttribute(this, new { Label = "Name:", Placeholder = "Enter name *" })
             .WithRequiredValidation(this, "Name is required");
 
          AddProperty<string>(nameof(FormData.Email))
-             .WithAttribute(this, new TextFieldAttribute { Label = "Email:", Placeholder = "Enter email address" })
+             .WithAttribute(this, new { Label = "Email:", Placeholder = "Enter email address" })
              .WithPatternValidation(this, Pattern.Email, "Email is invalid");
 
          var submitValidation = AddProperty<ValidatedFormData>("SubmitValidation")

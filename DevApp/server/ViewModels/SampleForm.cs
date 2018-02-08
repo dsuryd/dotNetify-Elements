@@ -110,6 +110,7 @@ namespace dotNetify_Elements
       }
 
       private string SuccessMessage(FormData data) => 
+         // Written in Github-flavored markdown format:
          $@"**Submitted:**  
          MyText: **{WhitespaceIfEmpty(data.MyText)}**  
          MyPassword: **{WhitespaceIfEmpty(data.MyPassword)}**  

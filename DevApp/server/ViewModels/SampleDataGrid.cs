@@ -23,8 +23,7 @@ namespace dotNetify_Elements
             .WithAttribute(this, new DataGridAttribute
             {
                Columns = new DataGridColumn[] {
-                  new DataGridColumn(nameof(SampleRow.Id)),
-                  new DataGridColumn(nameof(SampleRow.FirstName)),
+                  new DataGridColumn(nameof(SampleRow.FirstName)) { Width = 40 },
                   new DataGridColumn(nameof(SampleRow.LastName)),
                   new DataGridColumn(nameof(SampleRow.EmailAddress)),
                   new DataGridColumn(nameof(SampleRow.Phone)),
