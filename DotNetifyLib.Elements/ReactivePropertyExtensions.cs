@@ -20,6 +20,8 @@ using System.Linq;
 
 namespace DotNetify
 {
+   using AttributeDictionary = Dictionary<string, string>;
+
    public static class ReactivePropertyExtensions
    {
       public static ReactiveProperty<TSource> SubscribedBy<TSource, TTarget>(this ReactiveProperty<TSource> prop,
@@ -31,11 +33,13 @@ namespace DotNetify
 
       public static ReactiveProperty<TProp> WithAttribute<TProp, TAttr>(this ReactiveProperty<TProp> prop, IReactiveProperties vm, TAttr attr)
       {
-         var attrName = $"{prop.Name}_attr";
-         if (vm.RuntimeProperties.FirstOrDefault(x => x.Name == attrName) != null)
-            throw new Exception($"{prop.Name} already has an attribute");
+         var attrDictionary = prop.GetAttributes(vm) ?? new AttributeDictionary();
 
-         vm.AddProperty(attrName, attr);
+         attrDictionary = attrDictionary
+             .Concat(attr.GetType().GetProperties().ToDictionary(x => x.Name, x => x.GetValue(attr)?.ToString()))
+             .ToDictionary(x => x.Key, x => x.Value);
+
+         vm.AddProperty(prop.ToAttributeName(), attrDictionary);
          return prop;
       }
 
@@ -43,8 +47,7 @@ namespace DotNetify
 
       public static ReactiveProperty<TProp> WithValidation<TProp>(this ReactiveProperty<TProp> prop, IReactiveProperties vm, Validation validation)
       {
-         var validationName = $"{prop.Name}_validate";
-         var validationProp = vm.RuntimeProperties.FirstOrDefault(x => x.Name == validationName);
+         var validationProp = vm.RuntimeProperties.FirstOrDefault(x => x.Name == prop.ToValidationName());
 
          List<Validation> validationEntries = null;
          if (validationProp != null && validationProp.Value is List<Validation>)
@@ -52,20 +55,51 @@ namespace DotNetify
          else
          {
             validationEntries = new List<Validation>();
-            vm.AddProperty(validationName, validationEntries);
+            vm.AddProperty(prop.ToValidationName(), validationEntries);
          }
          validationEntries.Add(validation);
          return prop;
       }
 
-      public static ReactiveProperty<TProp> WithRequiredValidation<TProp>(this ReactiveProperty<TProp> prop, IReactiveProperties vm, string message)
+      public static ReactiveProperty<TProp> WithRequiredValidation<TProp>(this ReactiveProperty<TProp> prop,
+         IReactiveProperties vm, string message = null)
       {
+         message = message ?? $"{prop.GetLabelAttribute(vm)} is required";
          return prop.WithValidation(vm, new RequiredValidation(message));
       }
 
-      public static ReactiveProperty<TProp> WithPatternValidation<TProp>(this ReactiveProperty<TProp> prop, IReactiveProperties vm, string regexPattern, string message)
+      public static ReactiveProperty<TProp> WithPatternValidation<TProp>(this ReactiveProperty<TProp> prop,
+         IReactiveProperties vm, string regexPattern, string message = null, Validation.Categories category = Validation.Categories.Error)
       {
+         message = message ?? $"{prop.GetLabelAttribute(vm)} must match the pattern '{regexPattern}'";
          return prop.WithValidation(vm, new PatternValidation(regexPattern, message));
+      }
+
+      public static ReactiveProperty<TProp> WithServerValidation<TProp>(this ReactiveProperty<TProp> prop,
+         IReactiveProperties vm, Func<TProp, bool> validate, string message, Validation.Categories category = Validation.Categories.Error)
+      {
+         
+         return prop.WithValidation(vm, new ServerValidation<TProp>(validate, message));
+      }
+
+      #endregion
+
+      #region Private Methods
+
+      private static string ToAttributeName(this IReactiveProperty prop) => $"{prop.Name}_attr";
+
+      private static string ToValidationName(this IReactiveProperty prop) => $"{prop.Name}_validate";
+
+      private static AttributeDictionary GetAttributes(this IReactiveProperty prop, IReactiveProperties vm)
+      {
+         return vm.RuntimeProperties.FirstOrDefault(x => x.Name == prop.ToAttributeName())?.Value as AttributeDictionary ?? null;
+      }
+
+      private static string GetLabelAttribute(this IReactiveProperty prop, IReactiveProperties vm)
+      {
+         var labelKey = nameof(TextFieldAttribute.Label);
+         var attrs = prop.GetAttributes(vm);
+         return attrs?.ContainsKey(labelKey) == true ? attrs[labelKey]?.TrimEnd(':') : string.Empty;
       }
 
       #endregion

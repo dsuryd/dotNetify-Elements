@@ -46,10 +46,19 @@ namespace DotNetify
    {
       public string Pattern { get; set; }
 
-      public PatternValidation(string pattern, string message, Categories category = Categories.Error)
-         : base(message, category)
+      public PatternValidation(string pattern, string message, Categories category = Categories.Error) : base(message, category)
       {
          Pattern = pattern;
+      }
+   }
+
+   public class ServerValidation : Validation
+   {
+      public Func<bool> Validate { get; set; }
+
+      public ServerValidation(Func<bool> validate, string message, Categories category = Categories.Error) : base(message, category)
+      {
+         Validate = validate;
       }
    }
 }
