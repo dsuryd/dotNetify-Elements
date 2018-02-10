@@ -17,7 +17,7 @@ limitations under the License.
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Newtonsoft.Json;
+using System.Reactive.Linq;
 
 namespace DotNetify
 {
@@ -79,16 +79,22 @@ namespace DotNetify
       public static ReactiveProperty<TProp> WithServerValidation<TProp>(this ReactiveProperty<TProp> prop,
          IReactiveProperties vm, Func<TProp, bool> validate, string message, Validation.Categories category = Validation.Categories.Error)
       {
-         return prop.WithValidation(vm, new ServerValidation(message));
+         var serverValidation = new ServerValidation(message);
+         var validationMsgProp = typeof(BaseVM).IsAssignableFrom(vm.GetType()) ?
+            (vm as BaseVM).AddProperty<bool>(ToValidationMessageName(prop, serverValidation.Id)) 
+            : vm.AddProperty<bool>(ToValidationMessageName(prop, serverValidation.Id));
+
+         validationMsgProp.SubscribeTo(prop.Select(val => validate(val)));
+         return prop.WithValidation(vm, serverValidation);
       }
 
       #endregion
 
       #region Private Methods
 
-      private static string ToAttributeName(this IReactiveProperty prop) => $"{prop.Name}_attr";
-
-      private static string ToValidationName(this IReactiveProperty prop) => $"{prop.Name}_validate";
+      private static string ToAttributeName(this IReactiveProperty prop) => $"{prop.Name}__attr";
+      private static string ToValidationName(this IReactiveProperty prop) => $"{prop.Name}__validation";
+      private static string ToValidationMessageName(this IReactiveProperty prop, string id) => $"{prop.Name}__validation_{id}";
 
       private static AttributeDictionary GetAttributes(this IReactiveProperty prop, IReactiveProperties vm)
       {

@@ -27,25 +27,28 @@ export class Form extends React.Component {
         this.initialState = this.initialState || this.getInitialState();
     }
 
-    dispatchState(state) {
-        this.setState({
-            changed: true,
-            data: Object.assign({}, this.state.data, state)
-        })
+    dispatchState(state, toServer) {
+        if (toServer === true)
+            this.context.dispatchState(state);
+        else
+            this.setState({
+                changed: true,
+                data: Object.assign({}, this.state.data, state)
+            })
     }
 
     getChildContext() {
         return {
             ...this.context,
-            dispatchState: state => this.dispatchState(state),
+            dispatchState: (state, toServer) => this.dispatchState(state, toServer),
             getValidator: (context, propId) => this.getValidator(context, propId)
         };
     }
 
     getInitialState() {
         return Object.entries(this.context.state)
-        .filter(pair => this.inputProps.includes(pair[0]))
-        .reduce((aggregate, pair) => Object.assign(aggregate, { [pair[0]]: pair[1] }), {});
+            .filter(pair => this.inputProps.includes(pair[0]))
+            .reduce((aggregate, pair) => Object.assign(aggregate, { [pair[0]]: pair[1] }), {});
     }
 
     getValidator(context, propId) {

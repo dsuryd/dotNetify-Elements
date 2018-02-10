@@ -27,11 +27,11 @@ namespace dotNetify_Elements
             .WithRequiredValidation(this);
 
          AddProperty<string>(nameof(FormData.Email))
-             .WithAttribute(this, new { Label = "Email:", Placeholder = "Enter email address" })
-             .WithPatternValidation(this, Pattern.Email)
-             .WithServerValidation(this, email => IsUnique(email), "Email address is already used");
+            .WithAttribute(this, new { Label = "Email:", Placeholder = "Enter email address" })
+            .WithPatternValidation(this, Pattern.Email)
+            .WithServerValidation(this, email => IsUnique(email), "Email address is already used");
 
-         var submitValidation = AddProperty<ValidatedFormData>("SubmitValidation")
+         AddProperty<ValidatedFormData>("SubmitValidation")
             .SubscribeTo(AddProperty<FormData>("Submit").Select(data => ValidateFormSubmission(data)))
             .SubscribedBy(AddProperty<string>("SubmitSuccess"), x => x.Select(validated => validated.IsValid ? SuccessMessage(validated.FormData) : null))
             .SubscribedBy(AddProperty<string>("SubmitError"), x => x.Select(validated => validated.IsValid ? null : validated.ErrorMessage));

@@ -17,16 +17,29 @@ export default class VMInputValidator {
     }
 
     get isRequired() {
-        return this.validations.filter(v => v.type === "Required").length > 0;
+        return this.validations.filter(v => v.type.toLowerCase() === "required").length > 0;
     }
 
     addValidation(validation) {
         this.validations.push(...validation);
     }
 
+    getValidator(validation) {
+        if (typeof validation.validate === 'function')
+            return validation.validate;
+
+        const funcName = "validate" + validation.type;
+        const prototype = Object.getPrototypeOf(this);
+        return prototype.hasOwnProperty(funcName) ? (prototype[funcName]).bind(this) : () => true;
+    }
+
+    onValidated(handler) {
+        if (typeof handler === "function")
+            this.handleValidated = handler;
+    }
+
     validate(value) {
-        if (value === undefined)
-            value = this.value;
+        value = value === undefined ? this.value : value;
 
         const validationMessages = this.validations
             .map(validation => this.getValidator(validation)(value, validation) === false ? validation.message : null)
@@ -41,15 +54,6 @@ export default class VMInputValidator {
         return result;
     }
 
-    getValidator(validation) {
-        if (typeof validation.validate === 'function')
-            return validation.validate;
-
-        const funcName = "validate" + validation.type;
-        const prototype = Object.getPrototypeOf(this);
-        return prototype.hasOwnProperty(funcName) ? prototype[funcName] : () => true;
-    }
-
     validateRequired(value) {
         return typeof value != 'undefined' && value != null && (typeof value != 'string' || value.trim().length > 0);
     }
@@ -58,8 +62,7 @@ export default class VMInputValidator {
         return !value || new RegExp(validation.pattern).test(value);
     }
 
-    onValidated(handler) {
-        if (typeof handler === "function")
-            this.handleValidated = handler;
+    validateServer(value, validation) {
+        this.context.dispatchState({[this.propId]: value}, true);
     }
 }
