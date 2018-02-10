@@ -17,10 +17,11 @@ limitations under the License.
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
 
 namespace DotNetify
 {
-   using AttributeDictionary = Dictionary<string, string>;
+   using AttributeDictionary = Dictionary<string, object>;
 
    public static class ReactivePropertyExtensions
    {
@@ -36,7 +37,7 @@ namespace DotNetify
          var attrDictionary = prop.GetAttributes(vm) ?? new AttributeDictionary();
 
          attrDictionary = attrDictionary
-             .Concat(attr.GetType().GetProperties().ToDictionary(x => x.Name, x => x.GetValue(attr)?.ToString()))
+             .Concat(attr.GetType().GetProperties().ToDictionary(x => x.Name, x => x.GetValue(attr)))
              .ToDictionary(x => x.Key, x => x.Value);
 
          vm.AddProperty(prop.ToAttributeName(), attrDictionary);
@@ -50,7 +51,7 @@ namespace DotNetify
          var validationProp = vm.RuntimeProperties.FirstOrDefault(x => x.Name == prop.ToValidationName());
 
          List<Validation> validationEntries = null;
-         if (validationProp != null && validationProp.Value is List<Validation>)
+         if (validationProp?.Value is List<Validation>)
             validationEntries = validationProp.Value as List<Validation>;
          else
          {
@@ -78,8 +79,7 @@ namespace DotNetify
       public static ReactiveProperty<TProp> WithServerValidation<TProp>(this ReactiveProperty<TProp> prop,
          IReactiveProperties vm, Func<TProp, bool> validate, string message, Validation.Categories category = Validation.Categories.Error)
       {
-         
-         return prop.WithValidation(vm, new ServerValidation<TProp>(validate, message));
+         return prop.WithValidation(vm, new ServerValidation(message));
       }
 
       #endregion
@@ -99,7 +99,7 @@ namespace DotNetify
       {
          var labelKey = nameof(TextFieldAttribute.Label);
          var attrs = prop.GetAttributes(vm);
-         return attrs?.ContainsKey(labelKey) == true ? attrs[labelKey]?.TrimEnd(':') : string.Empty;
+         return attrs?.ContainsKey(labelKey) == true ? attrs[labelKey]?.ToString().TrimEnd(':') : string.Empty;
       }
 
       #endregion

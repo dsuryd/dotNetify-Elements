@@ -1,4 +1,5 @@
 using DotNetify;
+using System;
 using System.Linq;
 using System.Reactive.Linq;
 
@@ -27,7 +28,8 @@ namespace dotNetify_Elements
 
          AddProperty<string>(nameof(FormData.Email))
              .WithAttribute(this, new { Label = "Email:", Placeholder = "Enter email address" })
-             .WithPatternValidation(this, Pattern.Email);
+             .WithPatternValidation(this, Pattern.Email)
+             .WithServerValidation(this, email => IsUnique(email), "Email address is already used");
 
          var submitValidation = AddProperty<ValidatedFormData>("SubmitValidation")
             .SubscribeTo(AddProperty<FormData>("Submit").Select(data => ValidateFormSubmission(data)))
@@ -41,10 +43,10 @@ namespace dotNetify_Elements
          string errorMessage = "";
 
          /* Do server-side validation here */
-         if (!data.Email.EndsWith("example.org"))
+         if (!data.Email.EndsWith(".org"))
          {
             isValid = false;
-            errorMessage = "Email domain is not valid. (Use 'example.org')";
+            errorMessage = "Email domain must be '.org'";
          }
 
          return new ValidatedFormData
@@ -61,5 +63,7 @@ namespace dotNetify_Elements
          Email: **{WhitespaceIfEmpty(data.Email)}**";
 
       private string WhitespaceIfEmpty(string text) => !string.IsNullOrEmpty(text) ? text : " ";
+
+      private bool IsUnique(string email) => !email.EndsWith("example.org");
    }
 }

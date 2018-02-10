@@ -52,13 +52,23 @@ namespace DotNetify
       }
    }
 
-   public class ServerValidation : Validation
+   public class ServerValidation<TValue> : Validation
    {
-      public Func<bool> Validate { get; set; }
+      public Func<TValue, bool> Validate { get; set; }
 
-      public ServerValidation(Func<bool> validate, string message, Categories category = Categories.Error) : base(message, category)
+      public ServerValidation(Func<TValue, bool> validate, string message, Categories category = Categories.Error) : base(message, category)
       {
          Validate = validate;
+      }
+   }
+
+   internal class ServerValidation : Validation
+   {
+      public string Id { get; set; }
+
+      public ServerValidation(string message, Categories category = Categories.Error) : base(message, category)
+      {
+         Id = GetHashCode().ToString("x");
       }
    }
 }
