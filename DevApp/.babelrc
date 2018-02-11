@@ -1,8 +1,8 @@
 {
     "presets": [
-        "es2015",
-        "react",
-        "stage-0"
+        "env", 
+        "stage-0",
+        "react"
     ],
     "plugins": [
         "babel-plugin-styled-components"
