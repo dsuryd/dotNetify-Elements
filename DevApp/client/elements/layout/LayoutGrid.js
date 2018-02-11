@@ -46,4 +46,5 @@ export const Footer = styled.footer`
 export const Section = styled.section`
     grid-area: section;
     background: ${props => props.theme.section}; 
+    overflow: auto;
 `;
