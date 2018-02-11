@@ -46,7 +46,7 @@ export class DateTimeField extends React.Component {
 
     handleChange = (value) => {
         this.setState({ changed: true });
-        this.vmInput.set(new moment(value).toISOString(true));
+        this.vmInput.value = new moment(value).toISOString(true);
     }
 
     handleBlur = _ => {

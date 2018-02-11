@@ -26,7 +26,7 @@ export class Checkbox extends React.Component {
         return utils.getVMInput(this);
     }
 
-    handleChange = (event) => this.vmInput.value = event.target.checked;
+    handleChange = (event) => this.vmInput.dispatch(event.target.checked);
 
     render() {
         const [Container, Label, Input] = utils.resolveComponents(Checkbox, this.props);

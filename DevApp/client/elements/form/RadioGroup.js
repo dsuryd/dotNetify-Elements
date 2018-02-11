@@ -25,11 +25,11 @@ export class RadioGroup extends React.Component {
         super(props);
     }
 
-    get vmInput() { 
+    get vmInput() {
         return utils.getVMInput(this);
     }
 
-    handleChange = (event) =>this.vmInput.value = event.target.value;
+    handleChange = (event) => this.vmInput.dispatch(event.target.value);
 
     render() {
         const [Container, RadioContainer, RadioLabel, Input] = utils.resolveComponents(RadioGroup, this.props);

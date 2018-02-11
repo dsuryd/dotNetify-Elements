@@ -30,7 +30,7 @@ export class MultiselectList extends React.Component {
         return utils.getVMInput(this);
     }
 
-    handleChange = (value) => this.vmInput.value = value.map(val => val.Key);
+    handleChange = (value) => this.vmInput.dispatch(value.map(val => val.Key));
 
     render() {
         const [Container, Input, Tag, Item, List] = utils.resolveComponents(MultiselectList, this.props);

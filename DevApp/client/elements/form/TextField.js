@@ -46,7 +46,7 @@ export class TextField extends React.Component {
 
     handleChange = (event) => {
         this.setState({ changed: true });
-        this.vmInput.set(event.target.value);
+        this.vmInput.value = event.target.value;
     }
 
     handleBlur = _ => {

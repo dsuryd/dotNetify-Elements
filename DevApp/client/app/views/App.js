@@ -1,16 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {
-  Main,
-  Header,
-  Footer,
-  Nav,
-  NavHeader,
-  NavMenu,
-  NavMenuTarget,
-  Section,
-  VMContext
-} from '../../elements-bootstrap';
+import { Main, Header, Footer, Nav, NavHeader, NavMenu, NavMenuTarget, Section, VMContext } from '../../elements-bootstrap';
 
 const App = props => (
   <VMContext vm="App">

@@ -27,7 +27,7 @@ export class DropdownList extends React.Component {
         return utils.getVMInput(this);
     }
 
-    handleChange = (event) => this.vmInput.value = event.target.value;
+    handleChange = (event) => this.vmInput.dispatch(event.target.value);
 
     render() {
         const [Container, Input] = utils.resolveComponents(DropdownList, this.props);

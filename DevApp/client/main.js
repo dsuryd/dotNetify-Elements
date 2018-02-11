@@ -5,6 +5,9 @@ import './fonts/fa-svg-with-js.css';
 import './fonts/fontawesome';
 import './fonts/fa-solid';
 import './app/styles/app.css';
+import dotnetify from 'dotnetify';
+
+dotnetify.debug = true;
 
 ReactDOM.render(
     <App />,

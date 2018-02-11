@@ -32,7 +32,7 @@ export class CheckboxGroup extends React.Component {
     handleChange = (event) => {
         let values = this.vmInput.value || [];
         values = event.target.checked ? values.concat([event.target.value]) : values.filter(value => value != event.target.value);
-        this.vmInput.value = values;
+        this.vmInput.dispatch(values);
     }
 
     render() {
