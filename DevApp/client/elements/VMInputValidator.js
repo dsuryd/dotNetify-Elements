@@ -24,13 +24,20 @@ export default class VMInputValidator {
         this.validations.push(...validation);
     }
 
+    clear() {
+        const result = { valid: true, messages: [] }
+        this.handleValidated && this.handleValidated(result);
+    }
+
     getValidator(validation) {
+        // Custom client-side validator.
         if (typeof validation.validate === 'function')
             return validation.validate;
 
+        // Pre-defined client-side validator.
         const funcName = "validate" + validation.type;
         const prototype = Object.getPrototypeOf(this);
-        return prototype.hasOwnProperty(funcName) ? (prototype[funcName]).bind(this) : () => true;
+        return prototype.hasOwnProperty(funcName) ? (prototype[funcName]).bind(this, validation) : () => true;
     }
 
     onValidated(handler) {
@@ -39,30 +46,48 @@ export default class VMInputValidator {
     }
 
     validate(value) {
-        value = value === undefined ? this.value : value;
+        // Not all validator may run synchronously, so we'll use promise for all.
+        return new Promise(resolve => {
+            value = typeof value == "undefined" ? (this.value || null) : value;
 
-        const validationMessages = this.validations
-            .map(validation => this.getValidator(validation)(value, validation) === false ? validation.message : null)
-            .filter(message => message);
+            // Run every validator of the input field and aggregate the results.
+            Promise.all(this.validations.map(validation => this.runValidator(validation, value)))
+                .then(results => {
+                    const messages = results.map(result => result.isValid === false ? result.message : null)
+                        .filter(message => message);
 
-        const result = {
-            valid: validationMessages.length == 0,
-            messages: validationMessages
-        }
+                    const result = { valid: messages.length == 0, messages: messages };
+                    this.handleValidated && this.handleValidated(result);
+                    resolve(result);
+                });
+        });
+    }
 
-        this.handleValidated && this.handleValidated(result);
-        return result;
+    runValidator(validation, value) {
+        // Not all validator runs synchronously, so turn every validator output into a promise.
+        const result = this.getValidator(validation)(value);
+        return result instanceof Promise ? result : new Promise(resolve => resolve({ isValid: result, message: validation.message }));
     }
 
     validateRequired(value) {
-        return typeof value != 'undefined' && value != null && (typeof value != 'string' || value.trim().length > 0);
+        return !(typeof value == "undefined" || value == null)
+            && !(typeof value == "string" && value.trim().length == 0);
     }
 
-    validatePattern(value, validation) {
+    validatePattern(validation, value) {
         return !value || new RegExp(validation.pattern).test(value);
     }
 
-    validateServer(value, validation) {
-        this.context.dispatchState({[this.propId]: value}, true);
+    validateServer(validation, value) {
+        // Set an internal view model property to instruct the server to run a validation.
+        const validationResultPropId = `${this.propId}__validation_${validation.id}`;
+        this.context.setState({ [validationResultPropId]: null });
+
+        // Get notified when the server validation result is received.        
+        const promise = this.context.once(validationResultPropId, null);
+
+        // Dispatch the server validation request to the server.
+        this.context.dispatchState({ [this.propId]: value }, true);
+        return promise.then(result => ({ isValid: result, message: validation.message }));
     }
 }

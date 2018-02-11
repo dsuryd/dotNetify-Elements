@@ -9,6 +9,9 @@ export default class VMInput {
     constructor(context, propId) {
         this.context = context;
         this.propId = propId;
+
+        // If this input field is inside the Form context, get the validator from the context
+        // so that the Form can validate all its input fields.  Otherwise, create it here.
         this.validator = this.context.getValidator ? this.context.getValidator(context, propId) : new VMInputValidator(context, propId);
     }
 
@@ -17,8 +20,7 @@ export default class VMInput {
     }
 
     set value(value) {
-        this.set(value);
-        this.dispatch(value);
+        this.context.setState({ [this.propId]: value });
     }
 
     get props() {
@@ -34,20 +36,19 @@ export default class VMInput {
         return this.validator.isRequired;
     }
 
-    set(value) {
-        this.context.setState({ [this.propId]: value });
-    }
-
-    dispatch(value) {
-        value = typeof value == 'undefined' ? this.value : value;
-
-        this.validator.validate(value);
-        this.context.dispatchState({ [this.propId]: value });
-    }
-
     addValidation(validation) {
+        // This is used for adding client-side validation(s).
         validation = Array.isArray(validation) ? validation : [validation];
         this.validator.addValidation(validation);
+    }
+
+    dispatch(newValue) {
+        if (typeof newValue != "undefined")
+            this.value = newValue;
+
+        const value = typeof newValue != "undefined" ? newValue : this.value;
+        this.validator.validate(value);
+        this.context.dispatchState({ [this.propId]: value });
     }
 
     onValidated(handler) {

@@ -4,9 +4,21 @@ import { PropTypes } from 'prop-types';
 import dotnetify from 'dotnetify';
 import * as utils from './utils';
 
-dotnetify.debug = true;
+export const ContextTypes = Object.assign({}, {
+    vmId: PropTypes.string.isRequired,
+    vm: PropTypes.object.isRequired,
+    state: PropTypes.object,
+    getState: PropTypes.func.isRequired,
+    setState: PropTypes.func.isRequired,
+    dispatchState: PropTypes.func.isRequired,
+    getPropAttributes: PropTypes.func,
+    getPropValidations: PropTypes.func,
+    once: PropTypes.func
+});
 
 export class VMContext extends React.Component {
+
+    static childContextTypes = ContextTypes;
 
     constructor(props) {
         super(props);
@@ -14,10 +26,22 @@ export class VMContext extends React.Component {
             this.removeOrphan(props.vm);
             this.vm = dotnetify.react.connect(props.vm, this);
         }
+        this.onceHandlers = [];
     }
 
     componentWillUnmount() {
         this.vm.$destroy();
+        this.onceHandlers = [];
+    }
+
+    componentWillUpdate(props, state) {
+        // If something inside this view model context wishes to be notified on changed, then run the check here.
+        // Right now this only supports handing notification at most once, just to keep it simple.
+        if (this.onceHandlers.length > 0) {
+            const changedProps = this.onceHandlers.filter(o => state.hasOwnProperty(o.propId) && state[o.propId] !== o.value);
+            this.onceHandlers = this.onceHandlers.filter(o => !changedProps.includes(o));
+            changedProps.forEach(o => o.handler(state[o.propId]));
+        }
     }
 
     getChildContext() {
@@ -30,7 +54,8 @@ export class VMContext extends React.Component {
             setState: state => this.setState(state),
             dispatchState: state => this.vm.$dispatch(state),
             getPropAttributes: propId => utils.toCamelCase((this.state && this.state[propId + "__attr"]) || {}),
-            getPropValidations: propId => (this.state && this.state[propId + "__validation"] || []).map(v => utils.toCamelCase(v))
+            getPropValidations: propId => (this.state && this.state[propId + "__validation"] || []).map(v => utils.toCamelCase(v)),
+            once: (propId, oldValue) => new Promise(resolve => this.onceHandlers.push({ propId: propId, handler: newValue => resolve(newValue), value: oldValue }))
         };
     }
 
@@ -39,21 +64,9 @@ export class VMContext extends React.Component {
     }
 
     removeOrphan(vmId) {
+        // Clear any existing connection to the same view model.
         dotnetify.react.getViewModels()
             .filter(vm => vm.$vmId === vmId)
             .forEach(vm => vm.$destroy());
     }
 }
-
-export const ContextTypes = Object.assign({}, {
-    vmId: PropTypes.string.isRequired,
-    vm: PropTypes.object.isRequired,
-    state: PropTypes.object,
-    getState: PropTypes.func.isRequired,
-    setState: PropTypes.func.isRequired,
-    dispatchState: PropTypes.func.isRequired,
-    getPropAttributes: PropTypes.func,
-    getPropValidations: PropTypes.func,
-});
-
-VMContext.childContextTypes = ContextTypes;

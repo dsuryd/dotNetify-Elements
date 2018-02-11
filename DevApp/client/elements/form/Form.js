@@ -24,17 +24,16 @@ export class Form extends React.Component {
     }
 
     componentWillUpdate() {
+        // Keep the initial state so we can restore them on Cancel action.
         this.initialState = this.initialState || this.getInitialState();
     }
 
     dispatchState(state, toServer) {
-        if (toServer === true)
-            this.context.dispatchState(state);
-        else
-            this.setState({
-                changed: true,
-                data: Object.assign({}, this.state.data, state)
-            })
+        // Intercept dispatchState calls from the input fields to group them all first here,
+        // and only send them on Submit button click. But use 'toServer' to override this
+        // for special cases, e.g. letting field value go through to be validated server-side.
+        toServer === true ? this.context.dispatchState(state) :
+            this.setState({ changed: true, data: Object.assign({}, this.state.data, state) })
     }
 
     getChildContext() {
@@ -46,12 +45,14 @@ export class Form extends React.Component {
     }
 
     getInitialState() {
+        // Get the initial state of just the input fields so we can restore them on Cancel.
         return Object.entries(this.context.state)
             .filter(pair => this.inputProps.includes(pair[0]))
             .reduce((aggregate, pair) => Object.assign(aggregate, { [pair[0]]: pair[1] }), {});
     }
 
     getValidator(context, propId) {
+        // Create a validator for an input field.
         const validator = new VMInputValidator(context, propId);
         this.validators.push(validator);
         this.inputProps.push(propId);
@@ -60,18 +61,21 @@ export class Form extends React.Component {
 
     handleSubmit() {
         const { data } = this.state;
-        if (data) {
-            const validationResult = this.validate();
-            if (validationResult.valid)
+        data && this.validate().then(result => {
+            if (result.valid) {
                 this.submit(data);
-        }
-        this.setState({ changed: false, data: null });
-        this.initialState = null;
+                this.setState({ changed: false, data: null });
+                this.initialState = null;
+            }
+        });
+
+
     }
 
     handleCancel() {
         this.context.setState(this.initialState);
         this.setState({ changed: false, data: null });
+        this.validators.forEach(validator => validator.clear());
     }
 
     mapButtons(children) {
@@ -98,11 +102,11 @@ export class Form extends React.Component {
     }
 
     validate() {
-        return this.validators
-            .map(validator => validator.validate())
-            .reduce((aggregate, current) => ({
+        // Run all the input validators and aggregate the results.
+        return Promise.all(this.validators.map(validator => validator.validate()))
+            .then(results => results.reduce((aggregate, current) => ({
                 valid: aggregate.valid && current.valid,
                 messages: [...aggregate.messages, ...current.messages]
-            }));
+            })));
     }
 }
