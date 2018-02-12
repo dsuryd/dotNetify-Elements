@@ -6,10 +6,11 @@ Backend-ready [dotNetify-React](http://dotnetify.net/react) components for .NET-
 Under development...
 - [x] Form elements
 - [x] Form client-side + server-side validation
-- [x] Layout elements
+- [x] Layout
 - [x] Theming
+- [ ] Modal elements
 - [ ] Data grid
-- [ ] Markdown element 
+- [ ] Markdown display
 - [ ] Charts
 
 ### Motivation
