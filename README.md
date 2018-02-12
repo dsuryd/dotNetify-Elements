@@ -1,9 +1,9 @@
 # &nbsp;![alt tag](http://dotnetify.net/content/images/greendot.png) dotNetify-Elements
 
-React components for [dotNetify](http://dotnetify.net/react). 
+Backend-ready [dotNetify-React](http://dotnetify.net/react) components for .NET-based web applications. 
 
 ### Status
-Still under development...but a lot already got done; see screenshot below! 
+Under development...but a lot already got done; see screenshot below! 
 
 ### Motivation
 
@@ -40,7 +40,8 @@ public class MyApp : BaseVM
     {
        AddProperty("MyText", "default text")
            .WithAttribute(this, new TextField { Label = "Text:", Placeholder = "Enter text" })
-           .WithRequiredValidation("MyText is a required field");
+           .WithRequiredValidation("MyText is a required field")
+           .WithServerValidation(value => Validate(), "MyText is invalid");
 
        AddProperty("MyDropdown", "D3")
            .WithAttribute(this, new DropdownList
@@ -60,7 +61,7 @@ public class MyApp : BaseVM
 ```
 ### Current Progress
 
-![alt screenshot](https://dsuryd.tinytake.com/media/6caa11?filename=1517803251416_04-02-2018-08-00-51.png&sub_type=thumbnail_preview&type=attachment)
+![alt screenshot](https://dsuryd.tinytake.com/media/6d630e?filename=1518407649422_11-02-2018-07-54-06.png&sub_type=thumbnail_preview&type=attachment)
 
 ### How To Run This Repo
 
