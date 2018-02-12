@@ -77,7 +77,7 @@ export class TextField extends React.Component {
                     {...props}
                 />
                 {this.state.validationMessages.map((message, idx) =>
-                    <ValidationMessage key={"validationMessage" + idx}>{message}</ValidationMessage>)}
+                    <ValidationMessage key={"validationMsg" + idx}>{message}</ValidationMessage>)}
             </Container>
         );
     }

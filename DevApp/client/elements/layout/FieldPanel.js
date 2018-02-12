@@ -9,22 +9,25 @@ const Container = styled.div`
     grid-template-columns: ${props => props.horizontal ? '1fr 4fr' : '1fr'};
     -ms-user-select: none; 
     user-select: none; 
+    ${props => props.theme.FieldPanel.Container}
 `;
 
 const LabelContainer = styled.div`
     display: flex;
     align-items: flex-start;
+    ${props => props.theme.FieldPanel.LabelContainer}
 `;
 
 const InputContainer = styled.div`
     width: calc(100% - 1px);
+    ${props => props.theme.FieldPanel.InputContainer}
 `;
 
 const ValidationMessageContainer = styled.div`
     display: flex;
     flex-direction: column;
-    color: ${props => props.theme.validationError};
     grid-column: ${props => props.horizontal ? '2' : '1'};
+    ${props => props.theme.FieldPanel.ValidationMessageContainer}
 `;
 
 export class FieldPanel extends React.Component {
@@ -48,7 +51,7 @@ export class FieldPanel extends React.Component {
         const { id, label, horizontal, ...props } = this.props;
         const labelPadding = horizontal ? null : "0 0 .5rem 0";
 
-        const [validationMessages, children] = utils.filterChildren(this.props.children, child => child.key && child.key.startsWith("validationMessage"));
+        const [validationMessages, children] = utils.filterChildren(this.props.children, child => child.key && child.key.startsWith("validationMsg"));
         return (
             <Container horizontal={horizontal}>
                 <LabelContainer>

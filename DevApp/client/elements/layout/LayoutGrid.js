@@ -11,6 +11,7 @@ const LayoutGrid = styled.main`
     grid-template-areas:    "header header"
                             "nav    section"
                             "nav    footer";
+    ${props => props.theme.Main}                            
 `;
 
 export const Main = props => (
@@ -24,23 +25,23 @@ export const Header = styled.header`
     display: flex;
     align-items: center;
     height: ${props => props.height || '55px'}; 
-    background: ${props => props.theme.header};    
+    ${props => props.theme.Header}
 `;
 
 export const Nav = styled.nav`
     grid-area: nav;
     width: ${props => props.width || '250px'};
-    background: ${props => props.theme.nav};    
+    ${props => props.theme.Nav}
 `;
 
 export const Footer = styled.footer`
     grid-area: footer;
     height: 50px;
-    background: ${props => props.theme.footer};    
+    ${props => props.theme.Footer}
 `;
 
 export const Section = styled.section`
     grid-area: section;
-    background: ${props => props.theme.section}; 
     overflow: auto;
+    ${props => props.theme.Section}    
 `;

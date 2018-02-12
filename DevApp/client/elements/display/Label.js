@@ -10,12 +10,14 @@ const LabelContainer = styled.div`
     justify-content: ${props => props.apart ? 'space-between' : 'flex-start'};
     width: ${props => props.apart ? '100%' : 'inherit'};
     padding: ${props => props.padding || '0'};
+    ${props => props.theme.Label.LabelContainer}
 `;
 
 const Icon = styled.span.attrs({
     className: props => props.name
 }) `
     margin: ${props => props.right ? '0 0 0 .5rem' : '0 .5rem 0 0'};
+    ${props => props.theme.Label.IconComponent}    
 `;
 
 export class Label extends React.Component {

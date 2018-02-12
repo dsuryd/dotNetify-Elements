@@ -18,31 +18,12 @@ const GroupContainer = props => (
 );
 
 const RouteContainer = styled.div`
-    color: ${props => props.theme.navRoute.color};    
-    background: ${props => props.theme.navRoute.background};  
-    &:hover {
-        color: ${props => props.theme.navRoute.hover.color};
-        background: ${props => props.theme.navRoute.hover.background};
-    }
-    > a {
-        color: ${props => props.theme.navRoute.color};   
-        &:hover { 
-            color: ${props => props.theme.navRoute.hover.color};
-            text-decoration: none;
-        } 
-        &:active {color: ${props => props.theme.navRoute.active.color}; }
-        &:focus {color: ${props => props.theme.navRoute.focus.color}; }
-    }
+    ${props => props.theme.NavMenu.RouteContainer}
 `;
 
 const GroupHeaderContainer = Collapsible.componentTypes.HeaderContainer.extend`
     padding-right: 1rem;
-    color: ${props => props.theme.navGroup.color};
-    background: ${props => props.theme.navGroup.background};
-    &:hover {
-        color: ${props => props.theme.navGroup.hover.color};
-        background: ${props => props.theme.navGroup.hover.background};
-    }        
+    ${props => props.theme.NavMenu.GroupContainer}      
 `;
 
 const GroupLabel = props => (

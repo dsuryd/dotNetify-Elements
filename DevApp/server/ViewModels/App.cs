@@ -36,7 +36,7 @@ namespace dotNetify_Elements
                new NavGroup
                {
                   Label = "Form Elements",
-                  Icon = "fa fa-list",
+                  Icon = "fa fa-edit",
                   Routes = new NavRoute[]
                   {
                      new NavRoute("Vertical Form",    this.GetRoute(nameof(Route.FormDemo))),
@@ -45,7 +45,7 @@ namespace dotNetify_Elements
                      
                   }
                },
-               new NavRoute("Data Grid", this.GetRoute(nameof(Route.DataGridDemo)))
+               new NavRoute("Data Grid", this.GetRoute(nameof(Route.DataGridDemo)), "fa fa-table")
             }));
       }
    }

@@ -5,6 +5,7 @@ import * as utils from '../utils';
 import { Label } from '../display/Label';
 
 const Container = styled.div`
+  ${props => props.theme.Collapsible.Container}
 `;
 
 const HeaderContainer = styled.div`
@@ -15,6 +16,7 @@ const HeaderContainer = styled.div`
    &:hover {
       cursor: pointer;
   }   
+  ${props => props.theme.Collapsible.HeaderContainer}  
 `;
 
 const IconContainer = styled.div`

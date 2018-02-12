@@ -7,16 +7,18 @@ import { CheckboxGroup } from './elements/form/CheckboxGroup';
 import { Collapsible } from './elements/layout/Collapsible';
 import { DataGrid } from './elements/display/DataGrid';
 import { DateField, TimeField, DateTimeField } from './elements/form/DateTimeField';
+import { DotNetifyLogo } from './elements/display/DotNetifyLogo';
 import { DropdownList } from './elements/form/DropdownList';
 import { MultiselectList } from './elements/form/MultiselectList';
 import { FieldPanel } from './elements/layout/FieldPanel';
 import { Form } from './elements/form/Form';
+import { Frame } from './elements/layout/Frame';
 import { Label } from './elements/display/Label';
 import { Main, Header, Nav, Footer, Section } from './elements/layout/LayoutGrid';
 import { NavHeader } from './elements/layout/NavHeader';
 import { NavMenu, NavMenuTarget } from './elements/nav/NavMenu';
 import { NavToggle } from './elements/nav/NavToggle';
-import { Panel, Frame } from './elements/layout/Panel';
+import { Panel } from './elements/layout/Panel';
 import { RadioGroup } from './elements/form/RadioGroup';
 import { TextField, PasswordField, TextAreaField } from './elements/form/TextField';
 import { Theme } from './elements/layout/Theme';
@@ -80,6 +82,7 @@ export {
     ContextTypes,
     DataGrid,
     DateField, TimeField, DateTimeField,
+    DotNetifyLogo,
     DropdownList,
     FieldPanel,
     Form,

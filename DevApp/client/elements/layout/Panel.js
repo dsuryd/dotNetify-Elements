@@ -10,12 +10,14 @@ const Container = styled.div`
     margin: ${props => props.margin};
     height: ${props => props.height};
     width: ${props => props.width};
+    ${props => props.theme.Panel.Container}
 `;
 
 const ChildContainer = styled.div`
     padding: ${props => props.padding};
     flex-grow: ${props => props.stretch ? '1' : '0'};
     flex-basis: ${props => props.equalWidth ? '0' : 'auto'};
+    ${props => props.theme.Panel.ChildContainer}
 `;
 
 export class Panel extends React.Component {
@@ -95,7 +97,7 @@ export class Panel extends React.Component {
         } = this.props;
 
         let _gap = gap || (noGap ? "0" : smallGap ? ".5rem" : "1rem");
-        let _margin = margin || (noMargin ? "0" : smallMargin ? ".5rem" : "1rem");
+        let _margin = margin || (noMargin ? "0" : smallMargin ? "1rem" : "1.5rem");
 
         return (
             <Container
@@ -119,7 +121,3 @@ export class Panel extends React.Component {
         )
     };
 }
-
-export const Frame = props => (
-    <Panel noMargin={false} stretch {...props} />
-);

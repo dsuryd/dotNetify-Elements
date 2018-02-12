@@ -11,6 +11,7 @@ const nameLengthValidation = {
 const ValidationFormDemo = props => (
   <Theme>
     <Frame>
+      <h1>Form Elements</h1>
       <VMContext vm="SampleValidationForm">
         <Card header="Validation Form">
           <Form>
