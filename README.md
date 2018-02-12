@@ -3,7 +3,14 @@
 Backend-ready [dotNetify-React](http://dotnetify.net/react) components for .NET-based web applications. 
 
 ### Status
-Under development...but a lot already got done; see screenshot below! 
+Under development...
+- [x] Form elements
+- [x] Form client-side + server-side validation
+- [x] Layout elements
+- [x] Theming
+- [ ] Data grid
+- [ ] Markdown element 
+- [ ] Charts
 
 ### Motivation
 
