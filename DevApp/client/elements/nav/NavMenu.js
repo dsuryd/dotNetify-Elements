@@ -79,9 +79,13 @@ export class NavMenu extends React.Component {
         super(props);
     }
 
+    get vmProperty() {
+        return utils.getVMProperty(this);
+    }
+
     componentWillMount() {
-        if (this.context.vm)
-            this.context.vm.onRouteEnter = (path, template) => template.Target = this.props.target || "NavMenuTarget";
+        if (this.vmProperty.vm)
+            this.vmProperty.vm.onRouteEnter = (path, template) => template.Target = this.props.target || "NavMenuTarget";
     }
 
     buildRoute(navRoute, navGroup) {
@@ -89,7 +93,7 @@ export class NavMenu extends React.Component {
         const indent = navGroup ? navGroup.Icon != null : false;
         return (
             <RouteContainer key={navRoute.Route.TemplateId}>
-                <RouteLink vm={this.context.vm} route={navRoute.Route}>
+                <RouteLink vm={this.vmProperty.vm} route={navRoute.Route}>
                     <RouteLabel icon={navRoute.Icon} indent={indent}>{navRoute.Label}</RouteLabel>
                 </RouteLink>
             </RouteContainer>
@@ -99,10 +103,7 @@ export class NavMenu extends React.Component {
     render() {
         const [Container, GroupContainer, , GroupLabel] = utils.resolveComponents(NavMenu, this.props);
 
-        const vmId = this.context.vmId;
-        const props = this.props;
-        const value = this.context.getState(props.id) || [];
-
+        const value = this.vmProperty.value || [];
         const navMenu = value.map((navItem, idx) => {
             const groupLabel = props => <GroupLabel icon={navItem.Icon} {...props} />;
             return navItem.Routes ? (

@@ -1,35 +1,15 @@
 import React from 'react';
-import { PropTypes } from 'prop-types';
-import { ContextTypes } from './VMContext';
+import VMProperty from './VMProperty';
 import VMInputValidator from './VMInputValidator';
-import * as utils from './utils';
 
-export default class VMInput {
+export default class VMInput extends VMProperty {
 
-    constructor(context, propId) {
-        this.context = context;
-        this.propId = propId;
+    constructor(vmContext, propId) {
+        super(vmContext, propId);
 
         // If this input field is inside the Form context, get the validator from the context
         // so that the Form can validate all its input fields.  Otherwise, create it here.
-        this.validator = this.context.getValidator ? this.context.getValidator(context, propId) : new VMInputValidator(context, propId);
-    }
-
-    get value() {
-        return this.context.getState(this.propId);
-    }
-
-    set value(value) {
-        this.context.setState({ [this.propId]: value });
-    }
-
-    get props() {
-        const attrs = this.context.getPropAttributes(this.propId);
-        return {
-            id: `${this.context.vmId}.${this.propId}`,
-            value: this.value,
-            attrs: attrs
-        }
+        this.validator = this.vmContext.getValidator ? this.vmContext.getValidator(vmContext, propId) : new VMInputValidator(vmContext, propId);
     }
 
     get isRequired() {
@@ -48,7 +28,7 @@ export default class VMInput {
 
         const value = typeof newValue != "undefined" ? newValue : this.value;
         this.validator.validate(value);
-        this.context.dispatchState({ [this.propId]: value });
+        this.vmContext.dispatchState({ [this.propId]: value });
     }
 
     onValidated(handler) {

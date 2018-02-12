@@ -19,14 +19,14 @@ export class Alert extends React.Component {
       super(props);
    }
 
-   get vmInput() {
-      return utils.getVMInput(this);
+   get vmProperty() {
+      return utils.getVMProperty(this);
    }
 
    render() {
       const [_Alert] = utils.resolveComponents(Alert, this.props);
       const { children, onShow, ...props } = utils.mapStyle(this.props);
-      const { id, value, attrs } = this.vmInput.props;
+      const { id, value } = this.vmProperty.props;
 
       const show = (!id || value) ? true : false;
       this.props.onShow && this.props.onShow(show);

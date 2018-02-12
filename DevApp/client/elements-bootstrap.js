@@ -12,13 +12,14 @@ import { MultiselectList } from './elements/form/MultiselectList';
 import { FieldPanel } from './elements/layout/FieldPanel';
 import { Form } from './elements/form/Form';
 import { Label } from './elements/display/Label';
-import { Main, Header, Nav, Footer, Section, Theme } from './elements/layout/LayoutGrid';
+import { Main, Header, Nav, Footer, Section } from './elements/layout/LayoutGrid';
 import { NavHeader } from './elements/layout/NavHeader';
 import { NavMenu, NavMenuTarget } from './elements/nav/NavMenu';
 import { NavToggle } from './elements/nav/NavToggle';
 import { Panel, Frame } from './elements/layout/Panel';
 import { RadioGroup } from './elements/form/RadioGroup';
 import { TextField, PasswordField, TextAreaField } from './elements/form/TextField';
+import { Theme } from './elements/layout/Theme';
 import { VMContext, ContextTypes } from './elements/VMContext';
 
 import 'bootstrap/dist/css/bootstrap.css';
@@ -83,7 +84,7 @@ export {
     FieldPanel,
     Form,
     Label,
-    Main, Header, Nav, Footer, Section, Theme,
+    Main, Header, Nav, Footer, Section,
     MultiselectList,
     NavHeader,
     NavMenu,
@@ -92,5 +93,6 @@ export {
     Panel, Frame,
     RadioGroup,
     TextField, PasswordField, TextAreaField,
+    Theme,
     VMContext
 };

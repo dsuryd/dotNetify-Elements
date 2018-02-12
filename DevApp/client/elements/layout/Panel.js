@@ -20,6 +20,10 @@ const ChildContainer = styled.div`
 
 export class Panel extends React.Component {
 
+    static contextTypes = {
+        theme: PropTypes.object
+    }
+
     static propTypes = {
         childProps: PropTypes.object,
         equalWidth: PropTypes.bool,

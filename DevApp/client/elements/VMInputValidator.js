@@ -1,19 +1,12 @@
 import React from 'react';
-import { PropTypes } from 'prop-types';
-import { ContextTypes } from './VMContext';
-import * as utils from './utils';
+import VMProperty from './VMProperty';
 
-export default class VMInputValidator {
+export default class VMInputValidator extends VMProperty {
 
-    constructor(context, propId) {
-        this.context = context;
-        this.propId = propId;
+    constructor(vmContext, propId) {
+        super(vmContext, propId);
         this.handleValidated = null;
-        this.validations = this.context.getPropValidations(propId) || [];
-    }
-
-    get value() {
-        return this.context.getState(this.propId);
+        this.validations = this.vmContext.getPropValidations(propId) || [];
     }
 
     get isRequired() {
@@ -81,13 +74,13 @@ export default class VMInputValidator {
     validateServer(validation, value) {
         // Set an internal view model property to instruct the server to run a validation.
         const validationResultPropId = `${this.propId}__validation_${validation.id}`;
-        this.context.setState({ [validationResultPropId]: null });
+        this.vmContext.setState({ [validationResultPropId]: null });
 
         // Get notified when the server validation result is received.        
-        const promise = this.context.once(validationResultPropId, null);
+        const promise = this.vmContext.once(validationResultPropId, null);
 
         // Dispatch the server validation request to the server.
-        this.context.dispatchState({ [this.propId]: value }, true);
+        this.vmContext.dispatchState({ [this.propId]: value }, true);
         return promise.then(result => ({ isValid: result, message: validation.message }));
     }
 }

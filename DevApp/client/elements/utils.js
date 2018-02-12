@@ -1,10 +1,15 @@
 import React from 'react';
 import VMInput from './VMInput';
+import VMProperty from './VMProperty';
 import marked from 'marked';
 import sanitize from 'sanitize-html';
 
 export function getVMInput(component) {
-    return component._vmInput || (component._vmInput = new VMInput(component.context, component.props.id));
+    return component._vmInput || (component._vmInput = new VMInput(component.context.vmContext, component.props.id));
+}
+
+export function getVMProperty(component) {
+    return component._vmProperty || (component._vmProperty = new VMProperty(component.context.vmContext, component.props.id));
 }
 
 export function mapChildren(children, predicate, mapper) {

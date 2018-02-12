@@ -5,15 +5,8 @@ import dotnetify from 'dotnetify';
 import * as utils from './utils';
 
 export const ContextTypes = Object.assign({}, {
-    vmId: PropTypes.string.isRequired,
-    vm: PropTypes.object.isRequired,
-    state: PropTypes.object,
-    getState: PropTypes.func.isRequired,
-    setState: PropTypes.func.isRequired,
-    dispatchState: PropTypes.func.isRequired,
-    getPropAttributes: PropTypes.func,
-    getPropValidations: PropTypes.func,
-    once: PropTypes.func
+    vmContext: PropTypes.object,
+    theme: PropTypes.object
 });
 
 export class VMContext extends React.Component {
@@ -47,15 +40,17 @@ export class VMContext extends React.Component {
     getChildContext() {
         return {
             ...this.context,
-            vmId: this.props.vm,
-            vm: this.vm,
-            state: this.state,
-            getState: id => (this.state && this.state[id]) || undefined,
-            setState: state => this.setState(state),
-            dispatchState: state => this.vm.$dispatch(state),
-            getPropAttributes: propId => utils.toCamelCase((this.state && this.state[propId + "__attr"]) || {}),
-            getPropValidations: propId => (this.state && this.state[propId + "__validation"] || []).map(v => utils.toCamelCase(v)),
-            once: (propId, oldValue) => new Promise(resolve => this.onceHandlers.push({ propId: propId, handler: newValue => resolve(newValue), value: oldValue }))
+            vmContext: {
+                vmId: this.props.vm,
+                vm: this.vm,
+                getStates: _ => this.state,
+                getState: id => (this.state && this.state[id]) || undefined,
+                setState: state => this.setState(state),
+                dispatchState: state => this.vm.$dispatch(state),
+                getPropAttributes: propId => utils.toCamelCase((this.state && this.state[propId + "__attr"]) || {}),
+                getPropValidations: propId => (this.state && this.state[propId + "__validation"] || []).map(v => utils.toCamelCase(v)),
+                once: (propId, oldValue) => new Promise(resolve => this.onceHandlers.push({ propId: propId, handler: newValue => resolve(newValue), value: oldValue }))
+            }
         };
     }
 

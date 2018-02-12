@@ -8,9 +8,7 @@ export class Form extends React.Component {
 
     static contextTypes = ContextTypes;
 
-    static childContextTypes = Object.assign(ContextTypes, {
-        getValidator: PropTypes.func
-    });
+    static childContextTypes = ContextTypes;
 
     static propTypes = {
         onSubmit: PropTypes.func
@@ -23,6 +21,10 @@ export class Form extends React.Component {
         this.inputProps = [];
     }
 
+    componentWillMount() {
+        this.vmContext = this.context.vmContext;
+    }
+
     componentWillUpdate() {
         // Keep the initial state so we can restore them on Cancel action.
         this.initialState = this.initialState || this.getInitialState();
@@ -32,21 +34,24 @@ export class Form extends React.Component {
         // Intercept dispatchState calls from the input fields to group them all first here,
         // and only send them on Submit button click. But use 'toServer' to override this
         // for special cases, e.g. letting field value go through to be validated server-side.
-        toServer === true ? this.context.dispatchState(state) :
+        toServer === true ? this.vmContext.dispatchState(state) :
             this.setState({ changed: true, data: Object.assign({}, this.state.data, state) })
     }
 
     getChildContext() {
+        let { vmContext, ...context } = this.context;
         return {
-            ...this.context,
-            dispatchState: (state, toServer) => this.dispatchState(state, toServer),
-            getValidator: (context, propId) => this.getValidator(context, propId)
+            ...context,
+            vmContext: Object.assign({}, vmContext, {
+                dispatchState: (state, toServer) => this.dispatchState(state, toServer),
+                getValidator: (context, propId) => this.getValidator(context, propId)
+            })
         };
     }
 
     getInitialState() {
         // Get the initial state of just the input fields so we can restore them on Cancel.
-        return Object.entries(this.context.state)
+        return Object.entries(this.vmContext.getStates())
             .filter(pair => this.inputProps.includes(pair[0]))
             .reduce((aggregate, pair) => Object.assign(aggregate, { [pair[0]]: pair[1] }), {});
     }
@@ -73,7 +78,7 @@ export class Form extends React.Component {
     }
 
     handleCancel() {
-        this.context.setState(this.initialState);
+        this.vmContext.setState(this.initialState);
         this.setState({ changed: false, data: null });
         this.validators.forEach(validator => validator.clear());
     }
@@ -98,7 +103,7 @@ export class Form extends React.Component {
     submit(data) {
         let formData = Object.assign({}, this.initialState, data);
         if (typeof this.props.onSubmit != "function" || this.props.onSubmit(formData) !== false)
-            this.context.dispatchState(this.submitPropId ? ({ [this.submitPropId]: formData }) : data);
+            this.vmContext.dispatchState(this.submitPropId ? ({ [this.submitPropId]: formData }) : data);
     }
 
     validate() {

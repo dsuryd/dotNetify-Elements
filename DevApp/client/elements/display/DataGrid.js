@@ -18,14 +18,14 @@ export class DataGrid extends React.Component {
       super(props);
    }
 
-   get vmInput() {
-      return utils.getVMInput(this);
+   get vmProperty() {
+      return utils.getVMProperty(this);
    }
 
    render() {
       const [_DataGrid] = utils.resolveComponents(DataGrid, this.props);
       const { ...props } = utils.mapStyle(this.props);
-      const { id, value, attrs } = this.vmInput.props;
+      const { id, value, attrs } = this.vmProperty.props;
 
       const { columns } = attrs;
       const rowGetter = idx => value[idx];

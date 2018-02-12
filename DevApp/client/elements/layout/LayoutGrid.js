@@ -1,7 +1,7 @@
 import React from 'react';
+import { PropTypes } from 'prop-types';
 import styled from 'styled-components';
-import { ThemeProvider } from 'styled-components';
-import defaultTheme from '../theme';
+import { Theme } from './Theme';
 
 const LayoutGrid = styled.main`
     display: grid;
@@ -12,10 +12,6 @@ const LayoutGrid = styled.main`
                             "nav    section"
                             "nav    footer";
 `;
-
-export const Theme = props => (
-    <ThemeProvider theme={props.theme || defaultTheme}>{props.children}</ThemeProvider>
-);
 
 export const Main = props => (
     <Theme theme={props.theme}>
