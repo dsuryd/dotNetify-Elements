@@ -3,7 +3,16 @@
 Backend-ready [dotNetify-React](http://dotnetify.net/react) components for .NET-based web applications. 
 
 ### Status
-Under development...but a lot already got done; see screenshot below! 
+Under development...
+- [x] Navigation
+- [x] Form elements
+- [x] Form client-side + server-side validation
+- [x] Layout
+- [x] Theming
+- [ ] Modal elements
+- [ ] Data grid
+- [ ] Markdown display
+- [ ] Charts
 
 ### Motivation
 
@@ -39,12 +48,12 @@ public class MyApp : BaseVM
     public MyApp()
     {
        AddProperty("MyText", "default text")
-           .WithAttribute(this, new TextField { Label = "Text:", Placeholder = "Enter text" })
+           .WithAttribute(this, new TextFieldAttribute { Label = "Text:", Placeholder = "Enter text" })
            .WithRequiredValidation("MyText is a required field")
-           .WithServerValidation(value => Validate(), "MyText is invalid");
+           .WithServerValidation(value => Validate(value), "MyText is invalid");
 
        AddProperty("MyDropdown", "D3")
-           .WithAttribute(this, new DropdownList
+           .WithAttribute(this, new DropdownListAttribute
            {
               Label = "Dropdown list:",
               Options = new Dictionary<string, string>
