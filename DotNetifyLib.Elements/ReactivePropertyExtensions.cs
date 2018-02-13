@@ -62,6 +62,34 @@ namespace DotNetify
          return prop;
       }
 
+      public static ReactiveProperty<TProp> WithPatternValidation<TProp>(this ReactiveProperty<TProp> prop,
+         IReactiveProperties vm, string regexPattern, string message = null, Validation.Categories category = Validation.Categories.Error)
+      {
+         message = message ?? $"{prop.GetLabelAttribute(vm)} must match the pattern '{regexPattern}'";
+         return prop.WithValidation(vm, new PatternValidation(regexPattern, message, category));
+      }
+
+      public static ReactiveProperty<TProp> WithRangeValidation<TProp, T>(this ReactiveProperty<TProp> prop,
+         IReactiveProperties vm, T min, T max, string message = null, Validation.Categories category = Validation.Categories.Error) where T : struct
+      {
+         message = message ?? $"{prop.GetLabelAttribute(vm)} must be between {min} and {max}";
+         return prop.WithValidation(vm, new RangeValidation<T>(min, max, message, category));
+      }
+
+      public static ReactiveProperty<TProp> WithMinValidation<TProp, T>(this ReactiveProperty<TProp> prop,
+         IReactiveProperties vm, T min,  string message = null, Validation.Categories category = Validation.Categories.Error) where T : struct
+      {
+         message = message ?? $"{prop.GetLabelAttribute(vm)} must be at least {min}";
+         return prop.WithValidation(vm, new RangeValidation<T>(min, null, message, category));
+      }
+
+      public static ReactiveProperty<TProp> WithMaxValidation<TProp, T>(this ReactiveProperty<TProp> prop,
+         IReactiveProperties vm, T max, string message = null, Validation.Categories category = Validation.Categories.Error) where T : struct
+      {
+         message = message ?? $"{prop.GetLabelAttribute(vm)} must be at most {max}";
+         return prop.WithValidation(vm, new RangeValidation<T>(null, max, message, category));
+      }
+
       public static ReactiveProperty<TProp> WithRequiredValidation<TProp>(this ReactiveProperty<TProp> prop,
          IReactiveProperties vm, string message = null)
       {
@@ -69,19 +97,12 @@ namespace DotNetify
          return prop.WithValidation(vm, new RequiredValidation(message));
       }
 
-      public static ReactiveProperty<TProp> WithPatternValidation<TProp>(this ReactiveProperty<TProp> prop,
-         IReactiveProperties vm, string regexPattern, string message = null, Validation.Categories category = Validation.Categories.Error)
-      {
-         message = message ?? $"{prop.GetLabelAttribute(vm)} must match the pattern '{regexPattern}'";
-         return prop.WithValidation(vm, new PatternValidation(regexPattern, message));
-      }
-
       public static ReactiveProperty<TProp> WithServerValidation<TProp>(this ReactiveProperty<TProp> prop,
          IReactiveProperties vm, Func<TProp, bool> validate, string message, Validation.Categories category = Validation.Categories.Error)
       {
          var serverValidation = new ServerValidation(message);
          var validationMsgProp = typeof(BaseVM).IsAssignableFrom(vm.GetType()) ?
-            (vm as BaseVM).AddProperty<bool>(ToValidationMessageName(prop, serverValidation.Id)) 
+            (vm as BaseVM).AddProperty<bool>(ToValidationMessageName(prop, serverValidation.Id))
             : vm.AddProperty<bool>(ToValidationMessageName(prop, serverValidation.Id));
 
          validationMsgProp.SubscribeTo(prop.Select(val => validate(val)));

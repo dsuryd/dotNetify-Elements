@@ -12,6 +12,7 @@ namespace dotNetify_Elements
       {
          public string MyText { get; set; }
          public string MyPassword { get; set; }
+         public float MyNumber { get; set; }
          public DateTimeOffset MyDate { get; set; }
          public string MyDropdown { get; set; }
          public string[] MyMultiselect { get; set; }
@@ -27,8 +28,7 @@ namespace dotNetify_Elements
              .WithAttribute(this, new TextFieldAttribute
              {
                 Label = "Text:",
-                Placeholder = "Enter text",
-                MaxLength = 10
+                Placeholder = "Enter text"
              });
 
          AddProperty(nameof(FormData.MyPassword), "")
@@ -36,6 +36,14 @@ namespace dotNetify_Elements
              {
                 Label = "Password:",
                 Placeholder = "Enter password"
+             });
+
+         AddProperty<float>(nameof(FormData.MyNumber))
+             .WithAttribute(this, new TextFieldAttribute
+             {
+                Label = "Number:",
+                Placeholder = "Enter number",
+                MaxLength = 10
              });
 
          AddProperty(nameof(FormData.MyDate), DateTimeOffset.Now)
@@ -114,6 +122,7 @@ namespace dotNetify_Elements
          $@"**Submitted:**  
          MyText: **{WhitespaceIfEmpty(data.MyText)}**  
          MyPassword: **{WhitespaceIfEmpty(data.MyPassword)}**  
+         MyNumber: **{data.MyNumber}**  
          MyDate: **{data.MyDate}**  
          MyDropdown: **{data.MyDropdown}**  
          MyMultiselect: **{WhitespaceIfEmpty(string.Join(", ", data.MyMultiselect))}**  

@@ -11,6 +11,7 @@ namespace dotNetify_Elements
       {
          public string Name { get; set; }
          public string Email { get; set; }
+         public int Age { get; set; }
       }
 
       public class ValidatedFormData
@@ -29,7 +30,12 @@ namespace dotNetify_Elements
          AddProperty<string>(nameof(FormData.Email))
             .WithAttribute(this, new { Label = "Email:", Placeholder = "Enter email address" })
             .WithPatternValidation(this, Pattern.Email)
-            .WithServerValidation(this, email => IsUnique(email), "Email address is already used");
+            .WithServerValidation(this, email => IsUnique(email), "Email address is already registered");
+
+         AddProperty<string>(nameof(FormData.Age))
+            .WithAttribute(this, new { Label = "Age:", Placeholder = "Enter age *", MaxLength = 3 })
+            .WithRequiredValidation(this)
+            .WithMinValidation(this, 13);
 
          AddProperty<ValidatedFormData>("SubmitValidation")
             .SubscribeTo(AddProperty<FormData>("Submit").Select(data => ValidateFormSubmission(data)))
@@ -60,7 +66,8 @@ namespace dotNetify_Elements
       private string SuccessMessage(FormData data) =>
          $@"**Submitted:**  
          Name: **{data.Name}**  
-         Email: **{WhitespaceIfEmpty(data.Email)}**";
+         Email: **{WhitespaceIfEmpty(data.Email)}**  
+         Age: **{data.Age}**";
 
       private string WhitespaceIfEmpty(string text) => !string.IsNullOrEmpty(text) ? text : " ";
 

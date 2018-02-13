@@ -45,8 +45,9 @@ export class TextField extends React.Component {
     }
 
     handleChange = (event) => {
+        const value = event.target.value;
         this.setState({ changed: true });
-        this.vmInput.value = event.target.value;
+        this.vmInput.value = value;
     }
 
     handleBlur = _ => {
@@ -83,6 +84,10 @@ export class TextField extends React.Component {
     }
 }
 
+export const NumberField = props => (
+    <TextField type="number" {...props} />
+);
+
 export const PasswordField = props => (
     <TextField type="password" {...props} />
 );
@@ -91,8 +96,10 @@ export const TextAreaField = props => (
     <TextField type="textarea" {...props} />
 );
 
+NumberField.contextTypes = ContextTypes;
 PasswordField.contextTypes = ContextTypes;
 TextAreaField.contextTypes = ContextTypes;
 
+NumberField.propTypes = Object.assign({}, TextField.propTypes);
 PasswordField.propTypes = Object.assign({}, TextField.propTypes);
 TextAreaField.propTypes = Object.assign({}, TextField.propTypes);

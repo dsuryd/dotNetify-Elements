@@ -1,6 +1,6 @@
 import React from 'react';
 import { Frame, Theme } from '../../elements-bootstrap';
-import { Alert, Button, Card, Panel, Form, TextField, VMContext } from '../../elements-bootstrap';
+import { Alert, Button, Card, Panel, Form, NumberField, TextField, VMContext } from '../../elements-bootstrap';
 
 // This is an example of custom client-side validation.
 const nameLengthValidation = {
@@ -18,6 +18,7 @@ const ValidationFormDemo = props => (
             <Panel>
               <TextField id="Name" validation={nameLengthValidation} />
               <TextField id="Email" />
+              <NumberField id="Age" />
               <Panel horizontal right>
                 <Button cancel secondary>Cancel</Button>
                 <Button id="Submit" submit primary>Submit</Button>

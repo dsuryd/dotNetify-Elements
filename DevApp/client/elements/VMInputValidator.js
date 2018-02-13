@@ -62,13 +62,20 @@ export default class VMInputValidator extends VMProperty {
         return result instanceof Promise ? result : new Promise(resolve => resolve({ isValid: result, message: validation.message }));
     }
 
-    validateRequired(value) {
-        return !(typeof value == "undefined" || value == null)
-            && !(typeof value == "string" && value.trim().length == 0);
-    }
-
     validatePattern(validation, value) {
         return !value || new RegExp(validation.pattern).test(value);
+    }
+
+    validateRange(validation, value) {
+        const num = parseFloat(value);
+        const validMin = !(validation.min && num < validation.min);
+        const validMax = !(validation.max && num > validation.max);
+        return validMin && validMax;
+    }
+
+    validateRequired(validation, value) {
+        return !(typeof value == "undefined" || value == null)
+            && !(typeof value == "string" && value.trim().length == 0);
     }
 
     validateServer(validation, value) {

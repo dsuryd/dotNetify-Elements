@@ -26,7 +26,7 @@ namespace DotNetify
          Warning
       }
 
-      public string Type => GetType().Name.Replace(nameof(Validation), "");
+      public string Type { get; set; }
       public string Message { get; set; }
       public string Category { get; set; }
 
@@ -34,12 +34,8 @@ namespace DotNetify
       {
          Message = message;
          Category = category.ToString();
+         Type = GetType().Name.Replace(nameof(Validation), "");
       }
-   }
-
-   public class RequiredValidation : Validation
-   {
-      public RequiredValidation(string message) : base(message, Categories.Error) { }
    }
 
    public class PatternValidation : Validation
@@ -50,6 +46,24 @@ namespace DotNetify
       {
          Pattern = pattern;
       }
+   }
+
+   public class RangeValidation<T> : Validation where T : struct
+   {
+      public T? Min { get; set; }
+      public T? Max { get; set; }
+
+      public RangeValidation(T? min, T? max, string message, Categories category = Categories.Error) : base(message, category)
+      {
+         Min = min;
+         Max = max;
+         Type = "Range";
+      }
+   }
+
+   public class RequiredValidation : Validation
+   {
+      public RequiredValidation(string message) : base(message, Categories.Error) { }
    }
 
    public class ServerValidation<TValue> : Validation

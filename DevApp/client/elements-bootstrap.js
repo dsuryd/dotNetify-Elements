@@ -20,7 +20,7 @@ import { NavMenu, NavMenuTarget } from './elements/nav/NavMenu';
 import { NavToggle } from './elements/nav/NavToggle';
 import { Panel } from './elements/layout/Panel';
 import { RadioGroup } from './elements/form/RadioGroup';
-import { TextField, PasswordField, TextAreaField } from './elements/form/TextField';
+import { TextField, NumberField, PasswordField, TextAreaField } from './elements/form/TextField';
 import { Theme } from './elements/layout/Theme';
 import { VMContext, ContextTypes } from './elements/VMContext';
 
@@ -95,7 +95,7 @@ export {
     NavToggle,
     Panel, Frame,
     RadioGroup,
-    TextField, PasswordField, TextAreaField,
+    TextField, NumberField, PasswordField, TextAreaField,
     Theme,
     VMContext
 };
