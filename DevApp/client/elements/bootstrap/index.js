@@ -25,6 +25,7 @@ import { Theme } from '../../elements/layout/Theme';
 import { VMContext, ContextTypes } from '../../elements/VMContext';
 
 import { Input, CheckInput, CheckLabel, CheckGroup, SelectInput } from './Forms';
+import { Card as _Card, CardHeader, CardBody } from './Card';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import 'react-widgets/dist/css/react-widgets.css';
@@ -40,11 +41,17 @@ momentLocalizer();
 
 Alert.componentTypes.AlertComponent = rs.Alert;
 Button.componentTypes.ButtonComponent = rs.Button;
+Collapsible.componentTypes.CollapsePanel = rs.Collapse;
+DataGrid.componentTypes.DataGridComponent = ReactDataGrid;
+DateTimeField.componentTypes.InputComponent = rw.DateTimePicker;
+DropdownList.componentTypes.InputComponent = SelectInput;
+MultiselectList.componentTypes.InputComponent = rw.Multiselect;
+TextField.componentTypes.InputComponent = Input;
 
 Object.assign(Card.componentTypes, {
-   Container: rs.Card,
-   HeaderContainer: rs.CardHeader,
-   BodyContainer: rs.CardBody
+   Container: _Card,
+   HeaderContainer: CardHeader,
+   BodyContainer: CardBody
 });
 
 Object.assign(Checkbox.componentTypes, {
@@ -59,19 +66,11 @@ Object.assign(CheckboxGroup.componentTypes, {
    InputComponent: CheckInput
 });
 
-Collapsible.componentTypes.CollapsePanel = rs.Collapse;
-DataGrid.componentTypes.DataGridComponent = ReactDataGrid;
-DateTimeField.componentTypes.InputComponent = rw.DateTimePicker;
-DropdownList.componentTypes.InputComponent = SelectInput;
-MultiselectList.componentTypes.InputComponent = rw.Multiselect;
-
 Object.assign(RadioGroup.componentTypes, {
    RadioContainer: CheckGroup,
    RadioLabelComponent: CheckLabel,
    InputComponent: CheckInput
 });
-
-TextField.componentTypes.InputComponent = Input;
 
 export {
    defaultTheme,

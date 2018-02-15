@@ -35,8 +35,8 @@ export class Checkbox extends React.Component {
         const label = attrs.label || this.props.label;
 
         return (
-            <Container id={id} check>
-                <Label check>
+            <Container id={id}>
+                <Label>
                     <Input type="checkbox" name={id} checked={value || false} onChange={this.handleChange} />
                     {label}
                 </Label>

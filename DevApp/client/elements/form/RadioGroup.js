@@ -37,8 +37,8 @@ export class RadioGroup extends React.Component {
 
         const label = attrs.label || this.props.label;
         const radio = (attrs.options || []).map(opt => (
-            <RadioContainer check key={opt.Key} id={id}>
-                <RadioLabel check>
+            <RadioContainer key={opt.Key} id={id}>
+                <RadioLabel>
                     <Input type="radio" name={id} value={opt.Key} checked={opt.Key == value} onChange={this.handleChange} />
                     {opt.Value}
                 </RadioLabel>

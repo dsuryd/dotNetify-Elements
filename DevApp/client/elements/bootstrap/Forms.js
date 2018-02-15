@@ -2,15 +2,17 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StyledInput = styled.input`
+   ${props => props.theme.Input.Component}
    ${props => props.valid === false ? props.theme.Input.ValidationError : ""};
 `;
 
 export const StyledLabel = styled.label`
-   ${props => props.theme.Label}
+   ${props => props.theme.CheckLabel}
 `;
 
 const StyledSelect = styled.select`
-   ${props => props.valid === false ? props.theme.Input.ValidationError : ""};
+   ${props => props.theme.Input.Component}
+   ${props => props.valid === false ? props.theme.Input.ValidationError : null};
 `;
 
 export const Input = (props) => (

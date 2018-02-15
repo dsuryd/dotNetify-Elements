@@ -43,8 +43,8 @@ export class CheckboxGroup extends React.Component {
         const label = attrs.label || props.label;
 
         const checkboxes = (attrs.options || []).map(opt => (
-            <CheckboxContainer check key={opt.Key} inline={this.props.inline}>
-                <CheckboxLabel check>
+            <CheckboxContainer key={opt.Key} inline={this.props.inline}>
+                <CheckboxLabel>
                     <Input type="checkbox" value={opt.Key} checked={values.includes(opt.Key)} onChange={this.handleChange} />
                     {opt.Value}
                 </CheckboxLabel>

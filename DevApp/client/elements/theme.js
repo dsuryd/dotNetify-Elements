@@ -61,10 +61,14 @@ const defaultTheme = {
         IconComponent: ``
     },
     Input: {
+        Component: ``,
         ValidationError: `
             border-color: #dc3545;
         `
-    }
+    },
+    Card: ``,
+    CardHeader: ``,
+    CardBody: ``
 };
 
 export default defaultTheme;
