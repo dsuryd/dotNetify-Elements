@@ -24,7 +24,7 @@ export class DataGrid extends React.Component {
 
    render() {
       const [_DataGrid] = utils.resolveComponents(DataGrid, this.props);
-      const { ...props } = utils.mapStyle(this.props);
+      const { ...props } = this.props;
       const { id, value, attrs } = this.vmProperty.props;
 
       const { columns } = attrs;

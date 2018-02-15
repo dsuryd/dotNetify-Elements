@@ -24,7 +24,9 @@ import { TextField, NumberField, PasswordField, TextAreaField } from '../../elem
 import { Theme } from '../../elements/layout/Theme';
 import { VMContext, ContextTypes } from '../../elements/VMContext';
 
-import { Input, CheckInput, CheckLabel, CheckGroup, SelectInput } from './Forms';
+import { Alert as _Alert } from './Alert';
+import { Button as _Button } from './Button';
+import { Input, CheckboxInput, CheckboxLabel, CheckboxGroup as _CheckboxGroup, RadioInput, RadioLabel, RadioGroup as _RadioGroup, SelectInput } from './Forms';
 import { Card as _Card, CardHeader, CardBody } from './Card';
 
 import 'bootstrap/dist/css/bootstrap.css';
@@ -39,8 +41,8 @@ import momentLocalizer from 'react-widgets-moment';
 moment.locale('en');
 momentLocalizer();
 
-Alert.componentTypes.AlertComponent = rs.Alert;
-Button.componentTypes.ButtonComponent = rs.Button;
+Alert.componentTypes.AlertComponent = _Alert;
+Button.componentTypes.ButtonComponent = _Button;
 Collapsible.componentTypes.CollapsePanel = rs.Collapse;
 DataGrid.componentTypes.DataGridComponent = ReactDataGrid;
 DateTimeField.componentTypes.InputComponent = rw.DateTimePicker;
@@ -55,21 +57,21 @@ Object.assign(Card.componentTypes, {
 });
 
 Object.assign(Checkbox.componentTypes, {
-   Container: CheckGroup,
-   LabelComponent: CheckLabel,
-   InputComponent: CheckInput
+   Container: _CheckboxGroup,
+   LabelComponent: CheckboxLabel,
+   InputComponent: CheckboxInput
 });
 
 Object.assign(CheckboxGroup.componentTypes, {
-   CheckboxContainer: CheckGroup,
-   CheckboxLabelComponent: CheckLabel,
-   InputComponent: CheckInput
+   CheckboxContainer: _CheckboxGroup,
+   CheckboxLabelComponent: CheckboxLabel,
+   InputComponent: CheckboxInput
 });
 
 Object.assign(RadioGroup.componentTypes, {
-   RadioContainer: CheckGroup,
-   RadioLabelComponent: CheckLabel,
-   InputComponent: CheckInput
+   RadioContainer: _RadioGroup,
+   RadioLabelComponent: RadioLabel,
+   InputComponent: RadioInput
 });
 
 export {

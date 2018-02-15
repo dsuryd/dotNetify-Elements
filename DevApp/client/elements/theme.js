@@ -60,15 +60,20 @@ const defaultTheme = {
         LabelContainer: ``,
         IconComponent: ``
     },
-    Input: {
-        Component: ``,
-        ValidationError: `
+    Input: ``,
+    InputValidationError: `
             border-color: #dc3545;
-        `
-    },
+    `,
     Card: ``,
     CardHeader: ``,
-    CardBody: ``
+    CardBody: ``,
+    CheckboxInput: ``,
+    CheckboxLabel: ``,
+    CheckboxGroup: ``,
+    RadioInput: ``,
+    RadioLabel: ``,
+    RadioGroup: ``,            
+    Button: ``,
 };
 
 export default defaultTheme;

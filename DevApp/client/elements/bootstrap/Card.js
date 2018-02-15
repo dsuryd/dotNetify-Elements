@@ -1,26 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const StyledCard = styled.div`
+export const Card = styled.div.attrs({
+   className: "card"
+})`
    ${props => props.theme.Card}
 `;
 
-const StyledCardHeader = styled.div`
+export const CardHeader = styled.div.attrs({
+   className: "card-header"
+})`
    ${props => props.theme.CardHeader}
 `;
 
-const StyledCardBody = styled.div`
+export const CardBody = styled.div.attrs({
+   className: "card-body"
+})`
    ${props => props.theme.CardBody}
 `;
-
-export const Card = (props) => (
-   <StyledCard className="card" {...props} />
-);
-
-export const CardHeader = (props) => (
-   <StyledCardHeader className="card-header" {...props} />
-);
-
-export const CardBody= (props) => (
-   <StyledCardBody className="card-body" {...props} />
-);

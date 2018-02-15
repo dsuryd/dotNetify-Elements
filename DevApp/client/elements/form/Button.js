@@ -15,7 +15,7 @@ export class Button extends React.Component {
 
     render() {
         const [_Button] = utils.resolveComponents(Button, this.props);
-        const { submit, cancel, ...props } = utils.mapStyle(this.props);
+        const { submit, cancel, ...props } = this.props;
         return <_Button {...props} />
     }
 }  

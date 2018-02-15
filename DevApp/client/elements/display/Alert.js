@@ -25,7 +25,7 @@ export class Alert extends React.Component {
 
    render() {
       const [_Alert] = utils.resolveComponents(Alert, this.props);
-      const { children, onShow, ...props } = utils.mapStyle(this.props);
+      const { children, onShow, ...props } = this.props;
       const { id, value } = this.vmProperty.props;
 
       const show = (!id || value) ? true : false;

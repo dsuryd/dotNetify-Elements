@@ -27,7 +27,7 @@ const SampleForm = ({ vm, title, horizontal }) => (
                         </Panel>
                     </Panel>
                 </Form>
-                <Alert id="SubmitSuccess" />
+                <Alert id="SubmitSuccess" success />
             </Panel>
         </Card>
     </VMContext>

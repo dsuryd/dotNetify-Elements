@@ -1,36 +1,53 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const StyledInput = styled.input`
-   ${props => props.theme.Input.Component}
-   ${props => props.valid === false ? props.theme.Input.ValidationError : ""};
+export const Input = styled.input.attrs({
+   className: "form-control"
+})`
+   ${props => props.theme.Input}
+   ${props => props.valid === false ? props.theme.InputValidationError : ""};
 `;
 
-export const StyledLabel = styled.label`
-   ${props => props.theme.CheckLabel}
-`;
-
-const StyledSelect = styled.select`
-   ${props => props.theme.Input.Component}
+export const SelectInput = styled.select.attrs({
+   className: "form-control"
+})`
+   ${props => props.theme.Input}
    ${props => props.valid === false ? props.theme.Input.ValidationError : null};
 `;
 
-export const Input = (props) => (
-   <StyledInput className="form-control" {...props} />
-);
+export const CheckboxInput = styled.input.attrs({
+   className: "form-check-input"
+})`
+   ${props => props.theme.CheckRadioInput}
+`;
 
-export const CheckInput = (props) => (
-   <StyledInput className="form-check-input" {...props} />
-);
+export const CheckboxLabel = styled.label.attrs({
+   className: "form-check-label"
+})`
+   ${props => props.theme.CheckRadioLabel}
+`;
 
-export const CheckLabel = (props) => (
-   <StyledLabel className="form-check-label" {...props} />
-);
+export const CheckboxGroup = styled.div.attrs({
+   className: "form-check"
+})`
+   ${props => props.theme.CheckRadioGroup}
+`;
 
-export const CheckGroup = (props) => (
-   <div className="form-check" {...props} />
-)
+export const RadioInput = styled.input.attrs({
+   className: "form-check-input"
+})`
+   ${props => props.theme.CheckRadioInput}
+`;
 
-export const SelectInput = (props) => (
-   <StyledSelect className="form-control" {...props} />
-)
+export const RadioLabel = styled.label.attrs({
+   className: "form-check-label"
+})`
+   ${props => props.theme.CheckRadioLabel}
+`;
+
+export const RadioGroup = styled.div.attrs({
+   className: "form-check"
+})`
+   ${props => props.theme.CheckRadioGroup}
+`;
+

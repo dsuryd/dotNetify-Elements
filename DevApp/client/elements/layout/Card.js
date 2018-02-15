@@ -12,7 +12,7 @@ export class Card extends React.Component {
 
    render() {
       const [Container, Header, Body] = utils.resolveComponents(Card, this.props);
-      const { header, children, ...props } = utils.mapStyle(this.props);
+      const { header, children, ...props } = this.props;
       return (
          <Container>
             {header ? <Header>{header}</Header> : null}
