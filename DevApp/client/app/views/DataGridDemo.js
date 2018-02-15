@@ -1,5 +1,5 @@
 import React from 'react';
-import { DataGrid, Frame, Theme, VMContext } from '../../elements-bootstrap';
+import { DataGrid, Frame, Theme, VMContext } from '../../elements/bootstrap';
 
 const DataGridDemo = props => (
    <Theme>

@@ -59,6 +59,11 @@ const defaultTheme = {
     Label: {
         LabelContainer: ``,
         IconComponent: ``
+    },
+    Input: {
+        ValidationError: `
+            border-color: #dc3545;
+        `
     }
 };
 

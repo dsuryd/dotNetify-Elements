@@ -1,5 +1,5 @@
 import React from 'react';
-import { Frame, Theme } from '../../elements-bootstrap';
+import { Frame, Theme } from '../../elements/bootstrap';
 import SampleForm from '../components/SampleForm';
 
 const HorizontalFormDemo = props => (
