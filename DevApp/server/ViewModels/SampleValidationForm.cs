@@ -1,7 +1,8 @@
-using DotNetify;
 using System;
 using System.Linq;
 using System.Reactive.Linq;
+using DotNetify;
+using DotNetify.Elements;
 
 namespace dotNetify_Elements
 {
@@ -10,6 +11,7 @@ namespace dotNetify_Elements
       public class FormData
       {
          public string Name { get; set; }
+         public string Phone { get; set; }
          public string Email { get; set; }
          public int Age { get; set; }
       }
@@ -26,6 +28,15 @@ namespace dotNetify_Elements
          AddProperty<string>(nameof(FormData.Name))
             .WithAttribute(this, new { Label = "Name:", Placeholder = "Enter name *", MaxLength = 30 })
             .WithRequiredValidation(this);
+
+         AddProperty<string>(nameof(FormData.Phone))
+            .WithAttribute(this, new TextFieldAttribute
+            {
+               Label = "Phone:",
+               Placeholder = "Enter phone number",
+               Mask = "(999) 999-9999"
+            })
+            .WithPatternValidation(this, Pattern.USPhoneNumber);
 
          AddProperty<string>(nameof(FormData.Email))
             .WithAttribute(this, new { Label = "Email:", Placeholder = "Enter email address" })
@@ -49,7 +60,7 @@ namespace dotNetify_Elements
          string errorMessage = "";
 
          /* Do server-side validation here */
-         if (!data.Email.EndsWith(".org"))
+         if (data.Email?.EndsWith(".org") == false)
          {
             isValid = false;
             errorMessage = "Email domain must be '.org'";
@@ -66,6 +77,7 @@ namespace dotNetify_Elements
       private string SuccessMessage(FormData data) =>
          $@"**Submitted:**  
          Name: **{data.Name}**  
+         Phone: **{data.Phone}**  
          Email: **{WhitespaceIfEmpty(data.Email)}**  
          Age: **{data.Age}**";
 

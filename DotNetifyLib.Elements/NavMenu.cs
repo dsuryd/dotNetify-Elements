@@ -18,7 +18,7 @@ using System;
 using System.Collections.Generic;
 using DotNetify.Routing;
 
-namespace DotNetify
+namespace DotNetify.Elements
 {
    public class NavMenu : List<NavMenuItem>
    {
@@ -34,7 +34,6 @@ namespace DotNetify
    public class NavGroup : NavMenuItem
    {
       public bool IsExpanded { get; set; } = true;
-
       public NavRoute[] Routes { get; set; }
    }
 

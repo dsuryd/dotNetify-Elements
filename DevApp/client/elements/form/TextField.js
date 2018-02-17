@@ -44,10 +44,13 @@ export class TextField extends React.Component {
             this.vmInput.addValidation(this.props.validation);
     }
 
-    handleChange = (event) => {
-        const value = event.target.value;
+    componentDidMount() {
+        this.vmInput.initMask();
+    }
+
+    handleChange = _ => {
         this.setState({ changed: true });
-        this.vmInput.value = value;
+        this.vmInput.value = this.vmInput.elementValue;
     }
 
     handleBlur = _ => {
@@ -75,6 +78,7 @@ export class TextField extends React.Component {
                     value={value || ""}
                     onChange={this.handleChange}
                     onBlur={this.handleBlur}
+                    innerRef={elem => this.vmInput.element = elem}
                     {...props}
                 />
                 {this.state.validationMessages.map((message, idx) =>

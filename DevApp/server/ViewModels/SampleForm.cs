@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
 using DotNetify;
+using DotNetify.Elements;
 
 namespace dotNetify_Elements
 {
@@ -13,6 +14,7 @@ namespace dotNetify_Elements
          public string MyText { get; set; }
          public string MyPassword { get; set; }
          public float MyNumber { get; set; }
+         public decimal MyMoney { get; set; }
          public DateTimeOffset MyDate { get; set; }
          public string MyDropdown { get; set; }
          public string[] MyMultiselect { get; set; }
@@ -44,6 +46,19 @@ namespace dotNetify_Elements
                 Label = "Number:",
                 Placeholder = "Enter number",
                 MaxLength = 10
+             });
+
+         AddProperty<float>(nameof(FormData.MyMoney))
+             .WithAttribute(this, new TextFieldAttribute
+             {
+                Label = "Money:",
+                Placeholder = "Enter amount",
+                Mask = new NumberMask
+                {
+                   IncludeThousandsSeparator = true,
+                   AllowDecimal = true,
+                   DecimalLimit = 2
+                }
              });
 
          AddProperty(nameof(FormData.MyDate), DateTimeOffset.Now)
@@ -117,12 +132,13 @@ namespace dotNetify_Elements
                AddProperty<FormData>("Submit").Select(data => SuccessMessage(data)));
       }
 
-      private string SuccessMessage(FormData data) => 
+      private string SuccessMessage(FormData data) =>
          // Written in Github-flavored markdown format:
          $@"**Submitted:**  
          MyText: **{WhitespaceIfEmpty(data.MyText)}**  
          MyPassword: **{WhitespaceIfEmpty(data.MyPassword)}**  
          MyNumber: **{data.MyNumber}**  
+         MyMoney: **{data.MyMoney}**  
          MyDate: **{data.MyDate}**  
          MyDropdown: **{data.MyDropdown}**  
          MyMultiselect: **{WhitespaceIfEmpty(string.Join(", ", data.MyMultiselect))}**  

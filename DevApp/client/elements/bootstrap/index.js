@@ -26,7 +26,7 @@ import { VMContext, ContextTypes } from '../../elements/VMContext';
 
 import { Alert as _Alert } from './Alert';
 import { Button as _Button } from './Button';
-import { Input, CheckboxInput, CheckboxLabel, CheckboxGroup as _CheckboxGroup, RadioInput, RadioLabel, RadioGroup as _RadioGroup, SelectInput } from './Forms';
+import { Input, CheckboxInput, CheckboxLabel, CheckboxGroup as _CheckboxGroup, RadioInput, RadioLabel, RadioGroup as _RadioGroup, SelectInput } from './Input';
 import { Card as _Card, CardHeader, CardBody } from './Card';
 
 import 'bootstrap/dist/css/bootstrap.css';

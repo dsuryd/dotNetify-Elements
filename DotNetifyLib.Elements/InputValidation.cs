@@ -16,7 +16,7 @@ limitations under the License.
 
 using System;
 
-namespace DotNetify
+namespace DotNetify.Elements
 {
    public abstract class Validation
    {
@@ -82,6 +82,7 @@ namespace DotNetify
 
       public ServerValidation(string message, Categories category = Categories.Error) : base(message, category)
       {
+         // Generate a unique Id for every server validation.
          Id = GetHashCode().ToString("x");
       }
    }

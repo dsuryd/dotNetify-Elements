@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Bogus;
 using DotNetify;
+using DotNetify.Elements;
 
 namespace dotNetify_Elements
 {

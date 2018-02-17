@@ -17,7 +17,7 @@ limitations under the License.
 using System;
 using System.Collections.Generic;
 
-namespace DotNetify
+namespace DotNetify.Elements
 {
    public class DataGridAttribute
    {

@@ -14,6 +14,7 @@ const SampleForm = ({ vm, title, horizontal }) => (
                         <TextField id="MyText" />
                         <PasswordField id="MyPassword" />
                         <NumberField id="MyNumber" />
+                        <TextField id="MyMoney" />
                         <DateField id="MyDate" />
                         <DropdownList id="MyDropdown" />
                         <MultiselectList id="MyMultiselect" />

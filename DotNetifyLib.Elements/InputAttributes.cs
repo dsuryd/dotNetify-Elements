@@ -17,13 +17,14 @@ limitations under the License.
 using System;
 using System.Collections.Generic;
 
-namespace DotNetify
+namespace DotNetify.Elements
 {
    public class TextFieldAttribute
    {
       public string Label { get; set; }
       public string Placeholder { get; set; }
       public int MaxLength { get; set; }
+      public Mask Mask { get; set; }
    }
 
    public class DateFieldAttribute

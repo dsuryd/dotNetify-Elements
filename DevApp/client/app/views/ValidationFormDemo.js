@@ -16,6 +16,7 @@ const ValidationFormDemo = props => (
           <Form>
             <Panel>
               <TextField id="Name" validation={nameLengthValidation} />
+              <TextField id="Phone" />
               <TextField id="Email" />
               <NumberField id="Age" />
               <Panel horizontal right>
