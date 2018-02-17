@@ -16,12 +16,15 @@ export class DateTimeField extends React.Component {
         label: PropTypes.string,
         horizontal: PropTypes.bool,
         disabled: PropTypes.bool,
+        prefix: PropTypes.any,
+        suffix: PropTypes.any,
         validation: PropTypes.oneOfType([PropTypes.array, PropTypes.object])
     }
 
     static componentTypes = {
         Container: FieldPanel,
         InputComponent: undefined,
+        InputGroupComponent: undefined,
         ValidationMessageComponent: Label
     }
 
@@ -55,26 +58,33 @@ export class DateTimeField extends React.Component {
     }
 
     render() {
-        const [Container, Input, ValidationMessage] = utils.resolveComponents(DateTimeField, this.props);
+        const [Container, Input, InputGroup, ValidationMessage] = utils.resolveComponents(DateTimeField, this.props);
         const { id, value, attrs } = this.vmInput.props;
 
-        let { label, horizontal, ...props } = this.props;
+        let { label, prefix, suffix, horizontal, ...props } = this.props;
         label = attrs.label || label;
+        prefix = attrs.prefix || prefix;
+        suffix = attrs.suffix || suffix;
 
         const { min, max } = attrs;
 
         return (
             <Container id={id} label={label} horizontal={horizontal}>
-                <Input
-                    valid={this.state.valid}
-                    id={id}
-                    value={new Date(value)}
-                    min={new Date(min)}
-                    max={new Date(max)}
-                    onChange={this.handleChange}
-                    onBlur={this.handleBlur}
-                    {...props}
-                />
+                <InputGroup prefix={prefix} suffix={suffix}>
+                    <Input
+                        valid={this.state.valid}
+                        id={id}
+                        value={new Date(value)}
+                        min={new Date(min)}
+                        max={new Date(max)}
+                        prefix={prefix}
+                        suffix={suffix}
+                        onChange={this.handleChange}
+                        onBlur={this.handleBlur}
+                        {...props}
+                    />
+                </InputGroup>
+                
                 {this.state.validationMessages.map((message, idx) =>
                     <ValidationMessage key={"validationMessage" + idx}>{message}</ValidationMessage>)}
             </Container>

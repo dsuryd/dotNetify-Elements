@@ -11,12 +11,15 @@ export class MultiselectList extends React.Component {
     static propTypes = {
         id: PropTypes.string.isRequired,
         label: PropTypes.string,
-        horizontal: PropTypes.bool
+        horizontal: PropTypes.bool,
+        prefix: PropTypes.any,
+        suffix: PropTypes.any
     }
 
     static componentTypes = {
         Container: FieldPanel,
         InputComponent: undefined,
+        InputGroupComponent: undefined,
         TagComponent: undefined,
         ItemComponent: undefined,
         ListComponent: undefined
@@ -33,28 +36,33 @@ export class MultiselectList extends React.Component {
     handleChange = (value) => this.vmInput.dispatch(value.map(val => val.Key));
 
     render() {
-        const [Container, Input, Tag, Item, List] = utils.resolveComponents(MultiselectList, this.props);
+        const [Container, Input, InputGroup, Tag, Item, List] = utils.resolveComponents(MultiselectList, this.props);
         const { id, value, attrs } = this.vmInput.props;
 
         const options = (attrs.options || []).map(opt => <option key={opt.Key} value={opt.Key}>{opt.Value}</option>);
-        let {label, ...props} = this.props;
+        let { label, prefix, suffix, ...props } = this.props;
         label = attrs.label || label;
+        prefix = attrs.prefix || prefix;
+        suffix = attrs.suffix || suffix;
 
         return (
             <Container id={id} label={label} horizontal={this.props.horizontal}>
-                <Input
-                    id={id}
-                    value={value}
-                    data={attrs.options}
-                    valueField='Key'
-                    textField='Value'
-                    tagComponent={Tag}
-                    itemComponent={Item}
-                    listComponent={List}
-                    onChange={this.handleChange}
-                    {...props}
-                >
-                </Input>
+                <InputGroup prefix={prefix} suffix={suffix}>
+                    <Input
+                        id={id}
+                        value={value}
+                        data={attrs.options}
+                        valueField='Key'
+                        textField='Value'
+                        tagComponent={Tag}
+                        itemComponent={Item}
+                        listComponent={List}
+                        prefix={prefix}
+                        suffix={suffix}
+                        onChange={this.handleChange}
+                        {...props}
+                    />
+                </InputGroup>
             </Container>
         )
     }

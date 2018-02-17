@@ -26,7 +26,10 @@ import { VMContext, ContextTypes } from '../../elements/VMContext';
 
 import { Alert as _Alert } from './Alert';
 import { Button as _Button } from './Button';
-import { Input, CheckboxInput, CheckboxLabel, CheckboxGroup as _CheckboxGroup, RadioInput, RadioLabel, RadioGroup as _RadioGroup, SelectInput } from './Input';
+import { Input, InputGroup } from './Input';
+import { Select } from './Select';
+import { CheckboxInput, CheckboxLabel, CheckboxGroup as _CheckboxGroup } from './Checkbox';
+import { RadioInput, RadioLabel, RadioGroup as _RadioGroup } from './Radio';
 import { Card as _Card, CardHeader, CardBody } from './Card';
 
 import 'bootstrap/dist/css/bootstrap.css';
@@ -45,10 +48,6 @@ Alert.componentTypes.AlertComponent = _Alert;
 Button.componentTypes.ButtonComponent = _Button;
 Collapsible.componentTypes.CollapsePanel = rs.Collapse;
 DataGrid.componentTypes.DataGridComponent = ReactDataGrid;
-DateTimeField.componentTypes.InputComponent = rw.DateTimePicker;
-DropdownList.componentTypes.InputComponent = SelectInput;
-MultiselectList.componentTypes.InputComponent = rw.Multiselect;
-TextField.componentTypes.InputComponent = Input;
 
 Object.assign(Card.componentTypes, {
    Container: _Card,
@@ -68,10 +67,30 @@ Object.assign(CheckboxGroup.componentTypes, {
    InputComponent: CheckboxInput
 });
 
+Object.assign(DateTimeField.componentTypes, {
+   InputComponent: rw.DateTimePicker,
+   InputGroupComponent: InputGroup
+});
+
+Object.assign(DropdownList.componentTypes, {
+   InputComponent: Select,
+   InputGroupComponent: InputGroup
+});
+
+Object.assign(MultiselectList.componentTypes, {
+   InputComponent: rw.Multiselect,
+   InputGroupComponent: InputGroup
+});
+
 Object.assign(RadioGroup.componentTypes, {
    RadioContainer: _RadioGroup,
    RadioLabelComponent: RadioLabel,
    InputComponent: RadioInput
+});
+
+Object.assign(TextField.componentTypes, {
+   InputComponent: Input,
+   InputGroupComponent: InputGroup
 });
 
 export {

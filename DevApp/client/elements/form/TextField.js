@@ -16,12 +16,15 @@ export class TextField extends React.Component {
         placeholder: PropTypes.string,
         horizontal: PropTypes.bool,
         disabled: PropTypes.bool,
+        prefix: PropTypes.any,
+        suffix: PropTypes.any,
         validation: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
     }
 
     static componentTypes = {
         Container: FieldPanel,
         InputComponent: undefined,
+        InputGroupComponent: undefined,
         ValidationMessageComponent: Label
     }
 
@@ -59,28 +62,33 @@ export class TextField extends React.Component {
     }
 
     render() {
-        const [Container, Input, ValidationMessage] = utils.resolveComponents(TextField, this.props);
+        const [Container, Input, InputGroup, ValidationMessage] = utils.resolveComponents(TextField, this.props);
         const { id, value, attrs } = this.vmInput.props;
 
-        let { label, placeholder, maxLength, horizontal, type, ...props } = this.props;
+        let { label, placeholder, prefix, suffix, maxLength, horizontal, type, ...props } = this.props;
         label = attrs.label || label;
         placeholder = attrs.placeholder || placeholder;
+        prefix = attrs.prefix || prefix;
+        suffix = attrs.suffix || suffix;
         maxLength = attrs.maxLength || maxLength;
 
         return (
             <Container id={id} label={label} horizontal={horizontal}>
-                <Input
-                    valid={this.state.valid}
-                    id={id}
-                    maxLength={maxLength}
-                    type={type || "text"}
-                    placeholder={placeholder}
-                    value={value || ""}
-                    onChange={this.handleChange}
-                    onBlur={this.handleBlur}
-                    innerRef={elem => this.vmInput.element = elem}
-                    {...props}
-                />
+                <InputGroup prefix={prefix} suffix={suffix}>
+                    <Input
+                        valid={this.state.valid}
+                        id={id}
+                        maxLength={maxLength}
+                        type={type || "text"}
+                        placeholder={placeholder}
+
+                        value={value || ""}
+                        onChange={this.handleChange}
+                        onBlur={this.handleBlur}
+                        innerRef={elem => this.vmInput.element = elem}
+                        {...props}
+                    />
+                </InputGroup>
                 {this.state.validationMessages.map((message, idx) =>
                     <ValidationMessage key={"validationMsg" + idx}>{message}</ValidationMessage>)}
             </Container>

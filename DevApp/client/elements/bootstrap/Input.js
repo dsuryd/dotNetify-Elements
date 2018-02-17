@@ -3,51 +3,29 @@ import styled from 'styled-components';
 
 export const Input = styled.input.attrs({
    className: "form-control"
-})`
+}) `
    ${props => props.theme.Input}
    ${props => props.valid === false ? props.theme.InputValidationError : ""};
 `;
 
-export const SelectInput = styled.select.attrs({
-   className: "form-control"
-})`
-   ${props => props.theme.Input}
-   ${props => props.valid === false ? props.theme.Input.ValidationError : ""};
-`;
+const InputPrepend = props => (
+   <div className="input-group-prepend">
+      <span className="input-group-text">{props.children}</span>
+   </div>
+);
 
-export const CheckboxInput = styled.input.attrs({
-   className: "form-check-input"
-})`
-   ${props => props.theme.CheckboxInput}
-`;
+const InputAppend = props => (
+   <div className="input-group-append">
+      <span className="input-group-text">{props.children}</span>
+   </div>
+);
 
-export const CheckboxLabel = styled.label.attrs({
-   className: "form-check-label"
-})`
-   ${props => props.theme.CheckboxLabel}
-`;
-
-export const CheckboxGroup = styled.div.attrs({
-   className: "form-check"
-})`
-   ${props => props.theme.CheckboxGroup}
-`;
-
-export const RadioInput = styled.input.attrs({
-   className: "form-check-input"
-})`
-   ${props => props.theme.RadioInput}
-`;
-
-export const RadioLabel = styled.label.attrs({
-   className: "form-check-label"
-})`
-   ${props => props.theme.RadioLabel}
-`;
-
-export const RadioGroup = styled.div.attrs({
-   className: "form-check"
-})`
-   ${props => props.theme.RadioGroup}
-`;
-
+export const InputGroup = props => {
+   const { prefix, suffix, children } = props;
+   return prefix || suffix ? (
+      <div className="input-group">
+         {prefix ? <InputPrepend>{prefix}</InputPrepend> : null}
+         {children}
+         {suffix ? <InputAppend>{suffix}</InputAppend> : null}
+      </div>) : children;
+}

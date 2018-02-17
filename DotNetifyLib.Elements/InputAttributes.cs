@@ -23,6 +23,8 @@ namespace DotNetify.Elements
    {
       public string Label { get; set; }
       public string Placeholder { get; set; }
+      public string Prefix { get; set; }
+      public string Suffix { get; set; }
       public int MaxLength { get; set; }
       public Mask Mask { get; set; }
    }
@@ -30,6 +32,8 @@ namespace DotNetify.Elements
    public class DateFieldAttribute
    {
       public string Label { get; set; }
+      public string Prefix { get; set; }
+      public string Suffix { get; set; }
       public DateTimeOffset Min { get; set; }
       public DateTimeOffset Max { get; set; }
    }
@@ -37,12 +41,16 @@ namespace DotNetify.Elements
    public class DropdownListAttribute
    {
       public string Label { get; set; }
+      public string Prefix { get; set; }
+      public string Suffix { get; set; }
       public KeyValuePair<string, string>[] Options { get; set; }
    }
 
    public class MultiselectListAttribute
    {
       public string Label { get; set; }
+      public string Prefix { get; set; }
+      public string Suffix { get; set; }
       public KeyValuePair<string, string>[] Options { get; set; }
    }
 

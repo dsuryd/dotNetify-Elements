@@ -53,6 +53,7 @@ namespace dotNetify_Elements
              {
                 Label = "Money:",
                 Placeholder = "Enter amount",
+                Prefix = "$",
                 Mask = new NumberMask
                 {
                    IncludeThousandsSeparator = true,
