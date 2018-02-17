@@ -29,6 +29,11 @@ namespace DotNetify.Elements
       public Mask Mask { get; set; }
    }
 
+   public class TextAreaFieldAttribute : TextFieldAttribute
+   {
+      public int Rows { get; set; }
+   }
+
    public class DateFieldAttribute
    {
       public string Label { get; set; }

@@ -74,6 +74,7 @@ const defaultTheme = {
     RadioLabel: ``,
     RadioGroup: ``,            
     Button: ``,
+    TextArea: ``,
 };
 
 export default defaultTheme;

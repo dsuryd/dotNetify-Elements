@@ -99,7 +99,7 @@ namespace dotNetify_Elements
              });
 
          AddProperty(nameof(FormData.MyTextArea), "")
-             .WithAttribute(this, new TextFieldAttribute { Label = "Text area:", Placeholder = "Enter text" });
+             .WithAttribute(this, new TextAreaFieldAttribute { Label = "Text area:", Placeholder = "Enter text", Rows = 3 });
 
          AddProperty(nameof(FormData.MyRadio), "R1")
              .WithAttribute(this, new RadioGroupAttribute

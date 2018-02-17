@@ -20,17 +20,19 @@ import { NavMenu, NavMenuTarget } from '../../elements/nav/NavMenu';
 import { NavToggle } from '../../elements/nav/NavToggle';
 import { Panel } from '../../elements/layout/Panel';
 import { RadioGroup } from '../../elements/form/RadioGroup';
-import { TextField, NumberField, PasswordField, TextAreaField } from '../../elements/form/TextField';
+import { TextField, NumberField, PasswordField } from '../../elements/form/TextField';
+import { TextAreaField } from '../../elements/form/TextAreaField';
 import { Theme } from '../../elements/layout/Theme';
 import { VMContext, ContextTypes } from '../../elements/VMContext';
 
 import { Alert as _Alert } from './Alert';
 import { Button as _Button } from './Button';
+import { Card as _Card, CardHeader, CardBody } from './Card';
+import { CheckboxInput, CheckboxLabel, CheckboxGroup as _CheckboxGroup } from './Checkbox';
 import { Input, InputGroup } from './Input';
 import { Select } from './Select';
-import { CheckboxInput, CheckboxLabel, CheckboxGroup as _CheckboxGroup } from './Checkbox';
 import { RadioInput, RadioLabel, RadioGroup as _RadioGroup } from './Radio';
-import { Card as _Card, CardHeader, CardBody } from './Card';
+import { TextArea } from './TextArea';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import 'react-widgets/dist/css/react-widgets.css';
@@ -91,6 +93,10 @@ Object.assign(RadioGroup.componentTypes, {
 Object.assign(TextField.componentTypes, {
    InputComponent: Input,
    InputGroupComponent: InputGroup
+});
+
+Object.assign(TextAreaField.componentTypes, {
+   InputComponent: TextArea
 });
 
 export {

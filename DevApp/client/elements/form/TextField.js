@@ -104,14 +104,8 @@ export const PasswordField = props => (
     <TextField type="password" {...props} />
 );
 
-export const TextAreaField = props => (
-    <TextField type="textarea" {...props} />
-);
-
 NumberField.contextTypes = ContextTypes;
 PasswordField.contextTypes = ContextTypes;
-TextAreaField.contextTypes = ContextTypes;
 
 NumberField.propTypes = Object.assign({}, TextField.propTypes);
 PasswordField.propTypes = Object.assign({}, TextField.propTypes);
-TextAreaField.propTypes = Object.assign({}, TextField.propTypes);
