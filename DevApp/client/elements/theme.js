@@ -68,11 +68,23 @@ const defaultTheme = {
     CardHeader: ``,
     CardBody: ``,
     CheckboxInput: ``,
-    CheckboxLabel: ``,
+    CheckboxLabel: {
+        Default: ``,
+        Checked: ``
+    },
     CheckboxGroup: ``,
     RadioInput: ``,
-    RadioLabel: ``,
-    RadioGroup: ``,            
+    RadioLabel: {
+        Default: ``,
+        Checked: ``
+    },
+    RadioGroup: ``,
+    RadioToggleInput: ``,
+    RadioToggleLabel: {
+        Default: ``,
+        Checked: ``
+    },
+    RadioToggleGroup: ``,
     Button: ``,
     TextArea: ``,
 };

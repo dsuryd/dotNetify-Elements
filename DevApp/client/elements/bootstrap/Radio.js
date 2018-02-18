@@ -10,10 +10,10 @@ export const RadioInput = styled.input.attrs({
 export const RadioLabel = styled.label.attrs({
    className: "form-check-label"
 }) `
-   ${props => props.theme.RadioLabel}
+   ${props => props.checked ? props.theme.RadioLabel.Checked : props.theme.RadioLabel.Default}
 `;
 
-export const RadioGroup = styled.div.attrs({
+export const RadioContainer = styled.div.attrs({
    className: "form-check"
 }) `
    ${props => props.theme.RadioGroup}

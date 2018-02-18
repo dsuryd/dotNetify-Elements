@@ -20,6 +20,7 @@ import { NavMenu, NavMenuTarget } from '../../elements/nav/NavMenu';
 import { NavToggle } from '../../elements/nav/NavToggle';
 import { Panel } from '../../elements/layout/Panel';
 import { RadioGroup } from '../../elements/form/RadioGroup';
+import { RadioToggle } from '../../elements/form/RadioToggle';
 import { TextField, NumberField, PasswordField } from '../../elements/form/TextField';
 import { TextAreaField } from '../../elements/form/TextAreaField';
 import { Theme } from '../../elements/layout/Theme';
@@ -31,7 +32,8 @@ import { Card as _Card, CardHeader, CardBody } from './Card';
 import { CheckboxInput, CheckboxLabel, CheckboxGroup as _CheckboxGroup } from './Checkbox';
 import { Input, InputGroup } from './Input';
 import { Select } from './Select';
-import { RadioInput, RadioLabel, RadioGroup as _RadioGroup } from './Radio';
+import { RadioInput, RadioLabel, RadioContainer } from './Radio';
+import { RadioToggleInput, RadioToggleLabel, RadioToggleGroup, RadioToggleContainer } from './RadioToggle';
 import { TextArea } from './TextArea';
 
 import 'bootstrap/dist/css/bootstrap.css';
@@ -85,9 +87,16 @@ Object.assign(MultiselectList.componentTypes, {
 });
 
 Object.assign(RadioGroup.componentTypes, {
-   RadioContainer: _RadioGroup,
+   RadioContainer: RadioContainer,
    RadioLabelComponent: RadioLabel,
    InputComponent: RadioInput
+});
+
+Object.assign(RadioToggle.componentTypes, {
+   RadioContainer: RadioToggleContainer,
+   RadioGroupContainer: RadioToggleGroup,
+   RadioLabelComponent: RadioToggleLabel,
+   InputComponent: RadioToggleInput
 });
 
 Object.assign(TextField.componentTypes, {
@@ -123,6 +132,7 @@ export {
    NavToggle,
    Panel, Frame,
    RadioGroup,
+   RadioToggle,
    TextField, NumberField, PasswordField, TextAreaField,
    Theme,
    VMContext

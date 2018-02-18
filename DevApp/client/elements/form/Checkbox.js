@@ -33,11 +33,12 @@ export class Checkbox extends React.Component {
         const { id, value, attrs } = this.vmInput.props;    
 
         const label = attrs.label || this.props.label;
+        const checked = value || false;
 
         return (
             <Container id={id}>
-                <Label>
-                    <Input type="checkbox" name={id} checked={value || false} onChange={this.handleChange} />
+                <Label checked={checked}>
+                    <Input type="checkbox" name={id} checked={checked} onChange={this.handleChange} />
                     {label}
                 </Label>
             </Container>

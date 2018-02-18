@@ -2,7 +2,7 @@ import React from 'react';
 import dotnetify from 'dotnetify';
 import {
     Alert, Button, Card, Checkbox, CheckboxGroup, DateField, Panel, DropdownList,
-    Form, MultiselectList, TextField, NumberField, TextAreaField, PasswordField, RadioGroup, VMContext
+    Form, MultiselectList, TextField, NumberField, TextAreaField, PasswordField, RadioGroup, RadioToggle, VMContext
 } from '../../elements/bootstrap';
 
 const SampleForm = ({ vm, title, horizontal }) => (
@@ -20,6 +20,7 @@ const SampleForm = ({ vm, title, horizontal }) => (
                         <MultiselectList id="MyMultiselect" />
                         <TextAreaField id="MyTextArea" />
                         <RadioGroup id="MyRadio" />
+                        <RadioToggle id="MyRadioToggle" />
                         <Checkbox id="MyCheckbox" />
                         <CheckboxGroup id="MyCheckboxGroup" />
                         <Panel horizontal right>

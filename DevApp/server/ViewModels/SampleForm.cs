@@ -20,6 +20,7 @@ namespace dotNetify_Elements
          public string[] MyMultiselect { get; set; }
          public string MyTextArea { get; set; }
          public string MyRadio { get; set; }
+         public string MyRadioToggle { get; set; }
          public bool MyCheckbox { get; set; }
          public string[] MyCheckboxGroup { get; set; }
       }
@@ -105,6 +106,18 @@ namespace dotNetify_Elements
              .WithAttribute(this, new RadioGroupAttribute
              {
                 Label = "Radio Group:",
+                Options = new Dictionary<string, string>
+                {
+                  { "R1", "Radio 1" },
+                  { "R2", "Radio 2" },
+                  { "R3", "Radio 3" }
+                }.ToArray()
+             });
+
+         AddProperty(nameof(FormData.MyRadioToggle), "R2")
+             .WithAttribute(this, new RadioGroupAttribute
+             {
+                Label = "Radio Toggle:",
                 Options = new Dictionary<string, string>
                 {
                   { "R1", "Radio 1" },

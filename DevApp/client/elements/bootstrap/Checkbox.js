@@ -10,7 +10,7 @@ export const CheckboxInput = styled.input.attrs({
 export const CheckboxLabel = styled.label.attrs({
    className: "form-check-label"
 }) `
-   ${props => props.theme.CheckboxLabel}
+   ${props => props.checked ? props.theme.CheckboxLabel.Checked : props.theme.CheckboxLabel.Default}
 `;
 
 export const CheckboxGroup = styled.div.attrs({
