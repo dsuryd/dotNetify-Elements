@@ -4,17 +4,17 @@ import styled from 'styled-components';
 export const Card = styled.div.attrs({
    className: "card"
 })`
-   ${props => props.theme.Card}
+   ${props => props.theme.Card.Container}
 `;
 
 export const CardHeader = styled.div.attrs({
    className: "card-header"
 })`
-   ${props => props.theme.CardHeader}
+   ${props => props.theme.Card.HeaderContainer}
 `;
 
 export const CardBody = styled.div.attrs({
    className: "card-body"
 })`
-   ${props => props.theme.CardBody}
+   ${props => props.theme.Card.BodyContainer}
 `;

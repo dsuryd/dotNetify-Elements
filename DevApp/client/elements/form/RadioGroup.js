@@ -5,8 +5,9 @@ import { FieldPanel } from '../layout/FieldPanel';
 import { ContextTypes } from '../VMContext';
 import * as utils from '../utils';
 
-const RadioGroupContainer = styled.section``;
-const RadioContainer = styled.div``;
+const GroupContainer = styled.section`
+    ${props => props.theme.Radio.GroupContainer}
+`;
 
 export class RadioGroup extends React.Component {
 
@@ -20,9 +21,9 @@ export class RadioGroup extends React.Component {
 
     static componentTypes = {
         Container: FieldPanel,
-        RadioGroupContainer,
-        RadioContainer,
-        RadioLabelComponent: undefined,
+        GroupContainer,
+        RadioContainer: undefined,
+        LabelComponent: undefined,
         InputComponent: undefined
     }
 
@@ -37,22 +38,22 @@ export class RadioGroup extends React.Component {
     handleChange = (event) => this.vmInput.dispatch(event.target.value);
 
     render() {
-        const [Container, RadioGroupContainer, RadioContainer, RadioLabel, Input] = utils.resolveComponents(RadioGroup, this.props);
+        const [Container, GroupContainer, RadioContainer, Label, Input] = utils.resolveComponents(RadioGroup, this.props);
         const { id, value, attrs } = this.vmInput.props;
 
         const label = attrs.label || this.props.label;
         const radio = (attrs.options || []).map(opt => (
-            <RadioContainer key={opt.Key} id={id}>
-                <RadioLabel checked={opt.Key == value}>
+            <RadioContainer key={opt.Key} id={id} checked={opt.Key == value}>
+                <Label>
                     <Input type="radio" name={id} value={opt.Key} checked={opt.Key == value} onChange={this.handleChange} />
                     {opt.Value}
-                </RadioLabel>
+                </Label>
             </RadioContainer>
         ));
 
         return (
             <Container id={id} label={label} horizontal={this.props.horizontal}>
-                <RadioGroupContainer>{radio}</RadioGroupContainer>
+                <GroupContainer>{radio}</GroupContainer>
             </Container>
         );
     }

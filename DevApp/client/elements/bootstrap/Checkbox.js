@@ -4,17 +4,17 @@ import styled from 'styled-components';
 export const CheckboxInput = styled.input.attrs({
    className: "form-check-input"
 }) `
-   ${props => props.theme.CheckboxInput}
+   ${props => props.theme.Checkbox.Input}
 `;
 
 export const CheckboxLabel = styled.label.attrs({
    className: "form-check-label"
 }) `
-   ${props => props.checked ? props.theme.CheckboxLabel.Checked : props.theme.CheckboxLabel.Default}
+   ${props => props.theme.Checkbox.Label}
 `;
 
-export const CheckboxGroup = styled.div.attrs({
+export const CheckboxContainer = styled.div.attrs({
    className: "form-check"
 }) `
-   ${props => props.theme.CheckboxGroup}
+${props => props.checked ? props.theme.Checkbox.Container.Checked : props.theme.Checkbox.Container.Default}
 `;

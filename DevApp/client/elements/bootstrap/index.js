@@ -29,11 +29,11 @@ import { VMContext, ContextTypes } from '../../elements/VMContext';
 import { Alert as _Alert } from './Alert';
 import { Button as _Button } from './Button';
 import { Card as _Card, CardHeader, CardBody } from './Card';
-import { CheckboxInput, CheckboxLabel, CheckboxGroup as _CheckboxGroup } from './Checkbox';
+import { CheckboxInput, CheckboxLabel, CheckboxContainer } from './Checkbox';
 import { Input, InputGroup } from './Input';
 import { Select } from './Select';
 import { RadioInput, RadioLabel, RadioContainer } from './Radio';
-import { RadioToggleInput, RadioToggleLabel, RadioToggleGroup, RadioToggleContainer } from './RadioToggle';
+import { RadioToggleInput, RadioToggleLabel, RadioToggleGroupContainer, RadioToggleContainer } from './RadioToggle';
 import { TextArea } from './TextArea';
 
 import 'bootstrap/dist/css/bootstrap.css';
@@ -60,14 +60,14 @@ Object.assign(Card.componentTypes, {
 });
 
 Object.assign(Checkbox.componentTypes, {
-   Container: _CheckboxGroup,
+   Container: CheckboxContainer,
    LabelComponent: CheckboxLabel,
    InputComponent: CheckboxInput
 });
 
 Object.assign(CheckboxGroup.componentTypes, {
-   CheckboxContainer: _CheckboxGroup,
-   CheckboxLabelComponent: CheckboxLabel,
+   CheckboxContainer: CheckboxContainer,
+   LabelComponent: CheckboxLabel,
    InputComponent: CheckboxInput
 });
 
@@ -88,14 +88,14 @@ Object.assign(MultiselectList.componentTypes, {
 
 Object.assign(RadioGroup.componentTypes, {
    RadioContainer: RadioContainer,
-   RadioLabelComponent: RadioLabel,
+   LabelComponent: RadioLabel,
    InputComponent: RadioInput
 });
 
 Object.assign(RadioToggle.componentTypes, {
-   RadioContainer: RadioToggleContainer,
-   RadioGroupContainer: RadioToggleGroup,
-   RadioLabelComponent: RadioToggleLabel,
+   GroupContainer: RadioToggleGroupContainer,
+   ToggleContainer: RadioToggleContainer,
+   LabelComponent: RadioToggleLabel,
    InputComponent: RadioToggleInput
 });
 

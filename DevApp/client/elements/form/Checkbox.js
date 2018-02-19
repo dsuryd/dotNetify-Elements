@@ -22,7 +22,7 @@ export class Checkbox extends React.Component {
         super(props);
     }
 
-    get vmInput() { 
+    get vmInput() {
         return utils.getVMInput(this);
     }
 
@@ -30,14 +30,14 @@ export class Checkbox extends React.Component {
 
     render() {
         const [Container, Label, Input] = utils.resolveComponents(Checkbox, this.props);
-        const { id, value, attrs } = this.vmInput.props;    
+        const { id, value, attrs } = this.vmInput.props;
 
         const label = attrs.label || this.props.label;
         const checked = value || false;
 
         return (
-            <Container id={id}>
-                <Label checked={checked}>
+            <Container id={id} checked={checked}>
+                <Label>
                     <Input type="checkbox" name={id} checked={checked} onChange={this.handleChange} />
                     {label}
                 </Label>

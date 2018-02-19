@@ -57,34 +57,43 @@ const defaultTheme = {
         `
     },
     Label: {
-        LabelContainer: ``,
+        Container: ``,
         IconComponent: ``
     },
     Input: ``,
     InputValidationError: `
-            border-color: #dc3545;
+        border-color: #dc3545;
     `,
-    Card: ``,
-    CardHeader: ``,
-    CardBody: ``,
-    CheckboxInput: ``,
-    CheckboxLabel: {
-        Default: ``,
-        Checked: ``
+    Card: {
+        Container: ``,
+        HeaderContainer: ``,
+        BodyContainer: ``
     },
-    CheckboxGroup: ``,
-    RadioInput: ``,
-    RadioLabel: {
-        Default: ``,
-        Checked: ``
+    Checkbox: {
+        Container: {
+            Default: ``,
+            Checked: ``,
+        },
+        Label: ``,
+        Input: ``,
     },
-    RadioGroup: ``,
-    RadioToggleInput: ``,
-    RadioToggleLabel: {
-        Default: ``,
-        Checked: ``
+    Radio: {
+        GroupContainer: ``,
+        Container: {
+            Default: ``,
+            Checked: ``
+        },
+        Label: ``,
+        Input: ``,
     },
-    RadioToggleGroup: ``,
+    RadioToggle: {
+        GroupContainer: ``,
+        Label: {
+            Default: ``,
+            Checked: ``,
+        },
+        Input: ``,
+    },
     Button: ``,
     TextArea: ``,
 };

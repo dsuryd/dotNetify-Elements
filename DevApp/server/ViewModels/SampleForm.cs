@@ -158,6 +158,7 @@ namespace dotNetify_Elements
          MyMultiselect: **{WhitespaceIfEmpty(string.Join(", ", data.MyMultiselect))}**  
          MyTextArea: **{WhitespaceIfEmpty(data.MyTextArea)}**  
          MyRadio: **{data.MyRadio}**  
+         MyRadioToggle: **{data.MyRadioToggle}**  
          MyCheckbox: **{data.MyCheckbox}**  
          MyCheckboxGroup: **{WhitespaceIfEmpty(string.Join(", ", data.MyCheckboxGroup))}**";
 

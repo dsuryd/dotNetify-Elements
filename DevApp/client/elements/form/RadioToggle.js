@@ -10,19 +10,19 @@ export class RadioToggle extends React.Component {
 
    static componentTypes = {
       Container: FieldPanel,
-      RadioGroupContainer: undefined,
-      RadioContainer: undefined,
-      RadioLabelComponent: undefined,
+      GroupContainer: undefined,
+      ToggleContainer: undefined,
+      LabelComponent: undefined,
       InputComponent: undefined
    }
 
    render() {
-      const [Container, RadioGroupContainer, RadioContainer, RadioLabel, Input] = utils.resolveComponents(RadioToggle, this.props);
+      const [Container, GroupContainer, ToggleContainer, Label, Input] = utils.resolveComponents(RadioToggle, this.props);
       return <RadioGroup
          container={Container}
-         radioGroupContainer={RadioGroupContainer}
-         radioContainer={RadioContainer}
-         radioLabelComponent={RadioLabel}
+         groupContainer={GroupContainer}
+         radioContainer={ToggleContainer}
+         labelComponent={Label}
          inputComponent={Input}
          {...this.props}
       />

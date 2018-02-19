@@ -10,7 +10,7 @@ const LabelContainer = styled.div`
     justify-content: ${props => props.apart ? 'space-between' : 'flex-start'};
     width: ${props => props.apart ? '100%' : 'inherit'};
     padding: ${props => props.padding || '0'};
-    ${props => props.theme.Label.LabelContainer}
+    ${props => props.theme.Label.Container}
 `;
 
 const Icon = styled.span.attrs({
