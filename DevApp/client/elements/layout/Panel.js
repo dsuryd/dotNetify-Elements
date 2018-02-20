@@ -41,7 +41,6 @@ export class Panel extends React.Component {
         right: PropTypes.bool,
         fit: PropTypes.bool,
         flex: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-        childFlex: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
         height: PropTypes.string,
         width: PropTypes.string,
         onShow: PropTypes.func
@@ -97,14 +96,13 @@ export class Panel extends React.Component {
             height,
             width,
             fit,
-            flex,
-            childFlex
+            flex
         } = this.props;
 
         let _gap = gap || (noGap ? "0" : smallGap ? ".5rem" : "1rem");
         let _margin = margin || (noMargin ? "0" : smallMargin ? "1rem" : "1.5rem");
-        let _flex = typeof flex == "boolean" || fit ? (flex || fit ? "1" : null) : flex;
-        let _childFlex = typeof childFlex == "boolean" || fit ? (childFlex || fit ? "1" : null) : childFlex;
+        let _flex = typeof flex == "boolean" ? (flex ? "1" : null) : flex;
+        _flex = _flex || fit ? "1" : null;
 
         return (
             <Container
@@ -115,16 +113,18 @@ export class Panel extends React.Component {
                 height={height}
                 flex={_flex}
             >
-                {React.Children.map(this.props.children, (child, idx) =>
-                    <ChildContainer key={idx}
-                        style={this.getStyle(idx)}
-                        flex={_childFlex}
-                        fit={fit}
-                        padding={this.numChildren <= 1 ? 0 : this.getPadding(idx, _gap, horizontal)}
-                    >
-                        {React.cloneElement(child, utils.mergeProps(child, childProps, { onShow: show => this.handleShow(idx, show) }))}
-                    </ChildContainer>
-                )}
+                {React.Children.map(this.props.children, (child, idx) => {
+                    return (
+                        <ChildContainer key={idx}
+                            style={this.getStyle(idx)}
+                            flex={child.props.fit ? "1" : null}
+                            fit={child.props.fit}
+                            padding={this.numChildren <= 1 ? 0 : this.getPadding(idx, _gap, horizontal)}
+                        >
+                            {React.cloneElement(child, utils.mergeProps(child, childProps, { onShow: show => this.handleShow(idx, show) }))}
+                        </ChildContainer>
+                    );
+                })}
             </Container>
         )
     };

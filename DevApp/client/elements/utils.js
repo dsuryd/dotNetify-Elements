@@ -35,7 +35,7 @@ export function filterChildren(children, predicate) {
 }
 
 export function markdown(text) {
-    return <div dangerouslySetInnerHTML={{__html: sanitize(marked(text))}} />;
+    return <div dangerouslySetInnerHTML={{ __html: sanitize(marked(text)) }} />;
 }
 
 export function mapStyle(props) {
@@ -57,7 +57,7 @@ export function mergeProps(elem, ...newProps) {
     let props = newProps.reduce((aggregate, prop) => Object.assign(aggregate, prop), {});
     let validProps = Object.keys(props)
         .filter(key => propTypes.includes(key))
-        .reduce((aggregate, key) => Object.assign(aggregate, {[key]: props[key]}), {});
+        .reduce((aggregate, key) => Object.assign(aggregate, { [key]: props[key] }), {});
     return Object.assign({}, validProps, elem.props);
 }
 
@@ -75,4 +75,12 @@ export function toCamelCase(obj) {
         return newObj;
     }
     return obj;
+}
+
+export function toPixel(unit) {
+    if (typeof unit == "string" && unit.endsWith("px"))
+        return parseInt(unit);
+    // Assume unit is rem.
+    const fontSize = window.getComputedStyle(document.body, null)["font-size"];
+    return fontSize.endsWith("px") ? parseInt(unit) * parseInt(fontSize) : parseInt(unit);
 }

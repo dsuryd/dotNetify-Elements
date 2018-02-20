@@ -50,10 +50,11 @@ export class DataGrid extends React.Component {
    mapColumns(children, columns) {
       return columns.map(col => {
          col = utils.toCamelCase(col);
+         col.width = utils.toPixel(col.width);
          const gridColumn = utils.filterChildren(children, child => child.type == GridColumn && child.props.id === col.key).shift().shift();
          if (gridColumn) {
             const { width, formatter, columnChildren } = gridColumn.props;
-            col.width = width || col.width;
+            col.width = utils.toPixel(width || col.width);
             col.formatter = formatter || (columnChildren ? React.Children.only(columnChildren) : null);
          }
          return col;
