@@ -96,6 +96,9 @@ const defaultTheme = {
     },
     Button: ``,
     TextArea: ``,
+    DataGrid: {
+        Container: ``
+    },    
 };
 
 export default defaultTheme;

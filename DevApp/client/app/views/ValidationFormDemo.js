@@ -2,7 +2,7 @@ import React from 'react';
 import { Alert, Button, Card, Frame, Panel, Form, NumberField, TextField, Theme, VMContext } from '../../elements/bootstrap';
 
 // This is an example of custom client-side validation.
-const nameLengthValidation = {
+const nameLengthValidator = {
   validate: value => typeof value == "string" && value.length >= 2,
   message: 'Name must be at least 2 characters'
 }
@@ -15,7 +15,7 @@ const ValidationFormDemo = props => (
         <Card header="Validation Form">
           <Form>
             <Panel>
-              <TextField id="Name" validation={nameLengthValidation} />
+              <TextField id="Name" validation={nameLengthValidator} />
               <TextField id="Phone" />
               <TextField id="Email" />
               <NumberField id="Age" />

@@ -31,9 +31,10 @@ namespace DotNetify.Elements
       public bool Resizeable { get; set; }
       public int? Width { get; set; }
 
-      public DataGridColumn(string key)
+      public DataGridColumn(string key, string name)
       {
          Key = key;
+         Name = name;
       }
    }
 }

@@ -43,5 +43,6 @@ export const Footer = styled.footer`
 export const Section = styled.section`
     grid-area: section;
     overflow: auto;
+    display: flex;
     ${props => props.theme.Section}    
 `;

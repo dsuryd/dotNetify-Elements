@@ -5,7 +5,7 @@ import { Card } from '../../elements/layout/Card';
 import { Checkbox } from '../../elements/form/Checkbox';
 import { CheckboxGroup } from '../../elements/form/CheckboxGroup';
 import { Collapsible } from '../../elements/layout/Collapsible';
-import { DataGrid } from '../../elements/display/DataGrid';
+import { DataGrid, GridColumn } from '../../elements/display/DataGrid';
 import { DateField, TimeField, DateTimeField } from '../../elements/form/DateTimeField';
 import { DotNetifyLogo } from '../../elements/display/DotNetifyLogo';
 import { DropdownList } from '../../elements/form/DropdownList';
@@ -123,6 +123,7 @@ export {
    DropdownList,
    FieldPanel,
    Form,
+   GridColumn,
    Label,
    Main, Header, Nav, Footer, Section,
    MultiselectList,

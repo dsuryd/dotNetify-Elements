@@ -38,8 +38,6 @@ const RouteLabel = props => (
     </div>
 );
 
-export const NavMenuTarget = _ => (<div id="NavMenuTarget" />);
-
 export class NavMenu extends React.Component {
 
     static contextTypes = ContextTypes;
@@ -97,3 +95,12 @@ export class NavMenu extends React.Component {
         return <Container>{navMenu}</Container>;
     }
 };
+
+export const NavMenuTarget = styled.div.attrs({
+    id: "NavMenuTarget"
+}) `
+    display: flex;
+    flex: 1;       
+    width: 100%;
+    height: inherit;
+`;
