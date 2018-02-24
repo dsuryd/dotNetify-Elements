@@ -9,12 +9,9 @@ const layoutOptions = [
 
 const LayoutToggle = props => <RadioToggle id="_layoutOptions" options={layoutOptions} value={props.value} onChange={props.onChange} />
 
-class FormDemo extends React.Component {
+export default class FormDemo extends React.Component {
 
-  constructor() {
-    super();
-    this.state = { horizontal: false };
-  }
+  state = { horizontal: false };
 
   get layout() { return this.state.horizontal ? "horizontal" : "vertical" };
   handleLayoutChange = value => this.setState({ horizontal: value === "horizontal" });
@@ -33,5 +30,3 @@ class FormDemo extends React.Component {
     );
   }
 }
-
-export default FormDemo;
