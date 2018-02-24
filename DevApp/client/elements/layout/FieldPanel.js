@@ -20,6 +20,7 @@ const LabelContainer = styled.div`
 
 const InputContainer = styled.div`
     width: calc(100% - 1px);
+    ${props => props.right ? `display: flex; justify-content: flex-end;` : null}
     ${props => props.theme.FieldPanel.InputContainer}
 `;
 
@@ -35,7 +36,8 @@ export class FieldPanel extends React.Component {
     static propTypes = {
         id: PropTypes.string.isRequired,
         label: PropTypes.string,
-        horizontal: PropTypes.bool
+        horizontal: PropTypes.bool,
+        right: PropTypes.bool
     }
 
     static componentTypes = {
@@ -48,7 +50,7 @@ export class FieldPanel extends React.Component {
 
     render() {
         const [Container, LabelContainer, Label, InputContainer, ValidationMessageContainer] = utils.resolveComponents(FieldPanel, this.props);
-        const { id, label, horizontal, ...props } = this.props;
+        const { id, label, horizontal, right, ...props } = this.props;
         const labelPadding = horizontal ? null : "0 0 .5rem 0";
 
         const [validationMessages, children] = utils.filterChildren(this.props.children, child => child.key && child.key.startsWith("validationMsg"));
@@ -57,7 +59,7 @@ export class FieldPanel extends React.Component {
                 <LabelContainer>
                 {label ? <Label for={id} padding={labelPadding}>{label}</Label> : null}
                 </LabelContainer>
-                <InputContainer>
+                <InputContainer right={right}>
                     {children}
                 </InputContainer>
                 <ValidationMessageContainer horizontal={horizontal}>

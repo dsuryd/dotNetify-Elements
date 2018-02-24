@@ -7,7 +7,7 @@ const nameLengthValidator = {
   message: 'Name must be at least 2 characters'
 }
 
-const ValidationFormDemo = props => (
+const FormValidationDemo = props => (
   <Theme>
     <Frame>
       <h2>Form Elements</h2>
@@ -33,4 +33,4 @@ const ValidationFormDemo = props => (
   </Theme>
 );
 
-export default ValidationFormDemo;
+export default FormValidationDemo;

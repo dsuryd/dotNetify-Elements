@@ -11,8 +11,7 @@ namespace dotNetify_Elements
       {
          Home,
          FormDemo,
-         HorizontalFormDemo,
-         ValidationFormDemo,
+         FormValidationDemo,
          DataGridDemo
       }
 
@@ -24,8 +23,7 @@ namespace dotNetify_Elements
          {
             new RouteTemplate(nameof(Route.Home))                 { UrlPattern = "", ViewUrl = nameof(Route.FormDemo) },
             new RouteTemplate(nameof(Route.FormDemo))             { UrlPattern = "form" },
-            new RouteTemplate(nameof(Route.HorizontalFormDemo))   { UrlPattern = "form/horizontal" },
-            new RouteTemplate(nameof(Route.ValidationFormDemo))   { UrlPattern = "form/validation" },
+            new RouteTemplate(nameof(Route.FormValidationDemo))   { UrlPattern = "form/validation" },
             new RouteTemplate(nameof(Route.DataGridDemo))         { UrlPattern = "datagrid" },
          });
 
@@ -34,14 +32,13 @@ namespace dotNetify_Elements
             {
                new NavGroup
                {
-                  Label = "Form Elements",
+                  Label = "Form",
                   Icon = "fa fa-edit",
                   Routes = new NavRoute[]
                   {
-                     new NavRoute("Vertical Form",    this.GetRoute(nameof(Route.FormDemo))),
-                     new NavRoute("Horizontal Form",  this.GetRoute(nameof(Route.HorizontalFormDemo))),
-                     new NavRoute("Validation Form",  this.GetRoute(nameof(Route.ValidationFormDemo)))
-                     
+                     new NavRoute("Input Elements",   this.GetRoute(nameof(Route.FormDemo))),
+                     new NavRoute("Validation", this.GetRoute(nameof(Route.FormValidationDemo)))
+ 
                   }
                },
                new NavRoute("Data Grid", this.GetRoute(nameof(Route.DataGridDemo)), "fa fa-table")

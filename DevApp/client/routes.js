@@ -3,15 +3,13 @@ import ReactDOM from 'react-dom';
 import dotnetify from 'dotnetify';
 import App from 'app/views/App';
 import FormDemo from 'app/views/FormDemo';
-import HorizontalFormDemo from 'app/views/HorizontalFormDemo';
-import ValidationFormDemo from 'app/views/ValidationFormDemo';
+import FormValidationDemo from 'app/views/FormValidationDemo';
 import DataGridDemo from 'app/views/DataGridDemo';
 
 // Import all the routeable views into the global window variable.
 Object.assign(window, {
    FormDemo,
-   HorizontalFormDemo,
-   ValidationFormDemo,
+   FormValidationDemo,
    DataGridDemo
 });
 
@@ -26,8 +24,7 @@ if (module.hot) {
   module.hot.accept('routes', _ => render(require('./app/views/App').default, 'App'));
   module.hot.accept('app/views/App', _ => render(require('./app/views/App').default, 'App'));
   module.hot.accept('app/views/FormDemo', _ => render(require('./app/views/FormDemo').default, 'NavMenuTarget'));
-  module.hot.accept('app/views/HorizontalFormDemo', _ => render(require('./app/views/HorizontalFormDemo').default, 'NavMenuTarget'));
-  module.hot.accept('app/views/ValidationFormDemo', _ => render(require('./app/views/ValidationFormDemo').default, 'NavMenuTarget'));
+  module.hot.accept('app/views/FormValidationDemo', _ => render(require('./app/views/FormValidationDemo').default, 'NavMenuTarget'));
   module.hot.accept('app/views/DataGridDemo', _ => render(require('./app/views/DataGridDemo').default, 'NavMenuTarget'));
 }
 

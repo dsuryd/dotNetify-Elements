@@ -41,8 +41,10 @@ export class RadioGroup extends React.Component {
         const [Container, GroupContainer, RadioContainer, Label, Input] = utils.resolveComponents(RadioGroup, this.props);
         const { id, value, attrs } = this.vmInput.props;
 
-        const label = attrs.label || this.props.label;
-        const radio = (attrs.options || []).map(opt => (
+        let { label, options, right, horizontal } = this.props;
+        label = label || attrs.label;
+        options = options || attrs.options || [];
+        const radio = options.map(opt => (
             <RadioContainer key={opt.Key} id={id} checked={opt.Key == value}>
                 <Label>
                     <Input type="radio" name={id} value={opt.Key} checked={opt.Key == value} onChange={this.handleChange} />
@@ -52,7 +54,7 @@ export class RadioGroup extends React.Component {
         ));
 
         return (
-            <Container id={id} label={label} horizontal={this.props.horizontal}>
+            <Container id={id} label={label} horizontal={horizontal} right={right}>
                 <GroupContainer>{radio}</GroupContainer>
             </Container>
         );

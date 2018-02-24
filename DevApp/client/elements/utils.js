@@ -5,7 +5,12 @@ import marked from 'marked';
 import sanitize from 'sanitize-html';
 
 export function getVMInput(component) {
-    return component._vmInput || (component._vmInput = new VMInput(component.context.vmContext, component.props.id));
+    const isVMProp = component.context.vmContext && component.context.vmContext.getStates().hasOwnProperty(component.props.id);
+    return isVMProp ? component._vmInput || (component._vmInput = new VMInput(component.context.vmContext, component.props.id)) :
+        {
+            props: { id: component.props.id, value: component.props.value, attrs: {} },
+            dispatch: value => component.props.onChange ? component.props.onChange(value) : null
+        };
 }
 
 export function getVMProperty(component) {
