@@ -72,7 +72,7 @@ public class MyApp : BaseVM
 ```
 ### Current Progress
 
-![alt screenshot](https://dsuryd.tinytake.com/media/6d630e?filename=1518407649422_11-02-2018-07-54-06.png&sub_type=thumbnail_preview&type=attachment)
+![alt screenshot](https://dsuryd.tinytake.com/media/6eafdc?filename=1519496845789_24-02-2018-10-27-22.png&&type=attachment)
 
 ### How To Run This Repo
 
