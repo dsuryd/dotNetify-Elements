@@ -47,12 +47,13 @@ export class RadioGroup extends React.Component {
 
         let { label, options, right, horizontal, plainText } = this.props;
         label = attrs.label || label;
-        options = attrs.options || options || [];
+        options = (attrs.options || options || []).map(opt => utils.toCamelCase(opt));
+
         const radio = options.map(opt => (
-            <RadioContainer key={opt.Key} id={id} checked={opt.Key == value}>
+            <RadioContainer key={opt.key} id={id} checked={opt.key == value}>
                 <Label>
-                    <Input type="radio" name={id} value={opt.Key} checked={opt.Key == value} onChange={this.handleChange} />
-                    {opt.Value}
+                    <Input type="radio" name={id} value={opt.key} checked={opt.key == value} onChange={this.handleChange} />
+                    {opt.value}
                 </Label>
             </RadioContainer>
         ));

@@ -3,8 +3,8 @@ import { Frame, Panel, Checkbox, RadioToggle, Theme } from '../../elements/boots
 import SampleForm from '../components/SampleForm';
 
 const layoutOptions = [
-  { Key: "horizontal", Value: "Horizontal" },
-  { Key: "vertical", Value: "Vertical" }
+  { key: "horizontal", value: "Horizontal" },
+  { key: "vertical", value: "Vertical" }
 ];
 
 export default class FormDemo extends React.Component {
