@@ -21,7 +21,31 @@ namespace DotNetify.Elements
 {
    public class DataGridAttribute
    {
+      private string _selectedKeyProperty;
+
+      public enum Selection
+      {
+         Single,
+         Multiple
+      }
+
+      public string RowKey { get; set; }
       public DataGridColumn[] Columns { get; set; }
+      public string SelectedKeyProperty { get; protected set; }
+      public string SelectMode { get; protected set; }
+
+      /// <summary>
+      /// Indicates the data grid is selectable.
+      /// </summary>
+      /// <param name="selectMode">Selection mode: single or multiple.</param>
+      /// <param name="selectedKeyProperty">View model property that will receive the selected key(s).</param>
+      /// <returns>The data grid object.</returns>
+      public DataGridAttribute CanSelect(Selection selectMode, IReactiveProperty selectedKeyProperty)
+      {
+         SelectMode = selectMode.ToString();
+         SelectedKeyProperty = selectedKeyProperty.Name;
+         return this;
+      }
    }
 
    public class DataGridColumn

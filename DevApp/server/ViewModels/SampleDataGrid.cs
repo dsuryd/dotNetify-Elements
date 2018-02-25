@@ -23,6 +23,7 @@ namespace dotNetify_Elements
          AddProperty("MyDataGrid", GetSampleData())
             .WithAttribute(this, new DataGridAttribute
             {
+               RowKey = nameof(SampleRow.Id),
                Columns = new DataGridColumn[] {
                   new DataGridColumn(nameof(SampleRow.Id), "Id") { Width = 3 },
                   new DataGridColumn(nameof(SampleRow.FirstName), "First Name"),
@@ -31,7 +32,12 @@ namespace dotNetify_Elements
                   new DataGridColumn(nameof(SampleRow.Phone), "Phone"),
                   new DataGridColumn(nameof(SampleRow.LastVisit), "Last Visit")
                 }
-            });
+            }
+               .CanSelect(
+                  DataGridAttribute.Selection.Single,
+                  AddProperty<string[]>("SelectedGridKey")
+                )
+            );
       }
 
       private static List<SampleRow> GetSampleData()

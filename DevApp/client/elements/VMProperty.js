@@ -24,10 +24,15 @@ export default class VMProperty {
    }
 
    get props() {
-       return {
-           id: this.id,
-           value: this.value,
-           attrs: this.vmContext.getPropAttributes(this.propId)
-       }
+      return {
+         id: this.id,
+         value: this.value,
+         attrs: this.vmContext.getPropAttributes(this.propId)
+      }
+   }
+
+   dispatch(value, propId) {
+      propId = propId || this.propId;
+      this.vmContext.dispatchState({ [propId]: value });
    }
 }
