@@ -6,6 +6,7 @@ import * as utils from '../utils';
 const Container = styled.div`
     display: flex;
     flex: ${props => props.flex};
+    ${props => props.centerAligned ? "align-items: center;" : ""}
     justify-content: ${props => props.right ? 'flex-end' : 'flex-start'}; 
     flex-direction: ${props => props.horizontal ? 'row' : 'column'};
     margin: ${props => props.margin};
@@ -39,6 +40,7 @@ export class Panel extends React.Component {
         noMargin: PropTypes.bool,
         smallMargin: PropTypes.bool,
         right: PropTypes.bool,
+        centerAligned: PropTypes.bool,
         fit: PropTypes.bool,
         flex: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
         height: PropTypes.string,
@@ -93,6 +95,7 @@ export class Panel extends React.Component {
             horizontal,
             margin, noMargin, smallMargin,
             right,
+            centerAligned,
             height,
             width,
             fit,
@@ -109,6 +112,7 @@ export class Panel extends React.Component {
                 margin={_margin}
                 horizontal={horizontal}
                 right={right}
+                centerAligned={centerAligned}
                 width={width}
                 height={height}
                 flex={_flex}

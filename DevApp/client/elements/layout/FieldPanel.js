@@ -15,6 +15,7 @@ const Container = styled.div`
 const LabelContainer = styled.div`
     display: flex;
     align-items: flex-start;
+    padding-top: ${props => props.horizontal ? ".4rem" : "0" };
     ${props => props.theme.FieldPanel.LabelContainer}
 `;
 
@@ -45,26 +46,32 @@ export class FieldPanel extends React.Component {
         LabelContainer,
         LabelComponent: Label,
         InputContainer,
+        PlainTextContainer: undefined,
         ValidationMessageContainer
     }
 
     render() {
-        const [Container, LabelContainer, Label, InputContainer, ValidationMessageContainer] = utils.resolveComponents(FieldPanel, this.props);
-        const { id, label, horizontal, right, ...props } = this.props;
+        const [Container, LabelContainer, Label, InputContainer, PlainTextContainer, ValidationMessageContainer] = utils.resolveComponents(FieldPanel, this.props);
+        const { id, label, plainText, horizontal, right, ...props } = this.props;
         const labelPadding = horizontal ? null : "0 0 .5rem 0";
 
         const [validationMessages, children] = utils.filterChildren(this.props.children, child => child.key && child.key.startsWith("validationMsg"));
+
         return (
             <Container horizontal={horizontal}>
-                <LabelContainer>
-                {label ? <Label for={id} padding={labelPadding}>{label}</Label> : null}
+                <LabelContainer horizontal={horizontal}>
+                    {label ? <Label for={id} padding={labelPadding}>{label}</Label> : null}
                 </LabelContainer>
-                <InputContainer right={right}>
-                    {children}
-                </InputContainer>
-                <ValidationMessageContainer horizontal={horizontal}>
-                    {validationMessages}
-                </ValidationMessageContainer>
+                {plainText ? <PlainTextContainer>{children}</PlainTextContainer> :
+                    <React.Fragment>
+                        <InputContainer right={right}>
+                            {children}
+                        </InputContainer>
+                        <ValidationMessageContainer horizontal={horizontal}>
+                            {validationMessages}
+                        </ValidationMessageContainer>
+                    </React.Fragment>
+                }
             </Container>
         )
     };

@@ -9,6 +9,8 @@ const GroupContainer = styled.section`
     ${props => props.theme.Radio.GroupContainer}
 `;
 
+const PlainTextComponent = props => props.children;
+
 export class RadioGroup extends React.Component {
 
     static contextTypes = ContextTypes;
@@ -16,7 +18,8 @@ export class RadioGroup extends React.Component {
     static propTypes = {
         id: PropTypes.string.isRequired,
         label: PropTypes.string,
-        horizontal: PropTypes.bool
+        horizontal: PropTypes.bool,
+        plainText: PropTypes.bool
     }
 
     static componentTypes = {
@@ -24,7 +27,8 @@ export class RadioGroup extends React.Component {
         GroupContainer,
         RadioContainer: undefined,
         LabelComponent: undefined,
-        InputComponent: undefined
+        InputComponent: undefined,
+        PlainTextComponent
     }
 
     constructor(props) {
@@ -38,12 +42,12 @@ export class RadioGroup extends React.Component {
     handleChange = (event) => this.vmInput.dispatch(event.target.value);
 
     render() {
-        const [Container, GroupContainer, RadioContainer, Label, Input] = utils.resolveComponents(RadioGroup, this.props);
+        const [Container, GroupContainer, RadioContainer, Label, Input, PlainText] = utils.resolveComponents(RadioGroup, this.props);
         const { id, value, attrs } = this.vmInput.props;
 
-        let { label, options, right, horizontal } = this.props;
-        label = label || attrs.label;
-        options = options || attrs.options || [];
+        let { label, options, right, horizontal, plainText } = this.props;
+        label = attrs.label || label;
+        options = attrs.options || options || [];
         const radio = options.map(opt => (
             <RadioContainer key={opt.Key} id={id} checked={opt.Key == value}>
                 <Label>
@@ -53,9 +57,12 @@ export class RadioGroup extends React.Component {
             </RadioContainer>
         ));
 
+        const selected = options.filter(opt => value.includes(opt.Key)).shift();
+        const plainTextValue = selected ? selected.Value : "";
+
         return (
-            <Container id={id} label={label} horizontal={horizontal} right={right}>
-                <GroupContainer>{radio}</GroupContainer>
+            <Container id={id} label={label} horizontal={horizontal} right={right} plainText={plainText}>
+                {plainText ? <PlainText>{plainTextValue}</PlainText> :<GroupContainer>{radio}</GroupContainer>}
             </Container>
         );
     }

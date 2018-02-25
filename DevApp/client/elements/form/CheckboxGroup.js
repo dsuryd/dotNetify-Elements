@@ -1,8 +1,15 @@
 import React from 'react';
+import styled from 'styled-components';
 import { PropTypes } from 'prop-types';
 import { FieldPanel } from '../layout/FieldPanel';
 import { ContextTypes } from '../VMContext';
 import * as utils from '../utils';
+
+const GroupContainer = styled.section`
+    ${props => props.theme.Checkbox.GroupContainer}
+`;
+
+const PlainTextComponent = props => React.Children.toArray(props.children).join(", ");
 
 export class CheckboxGroup extends React.Component {
 
@@ -11,21 +18,25 @@ export class CheckboxGroup extends React.Component {
     static propTypes = {
         id: PropTypes.string.isRequired,
         label: PropTypes.string,
-        horizontal: PropTypes.bool
+        horizontal: PropTypes.bool,
+        plainText: PropTypes.bool,
+        inline: PropTypes.bool
     }
 
     static componentTypes = {
         Container: FieldPanel,
+        GroupContainer,
         CheckboxContainer: undefined,
         LabelComponent: undefined,
-        InputComponent: undefined
+        InputComponent: undefined,
+        PlainTextComponent
     }
 
     constructor(props) {
         super(props);
     }
 
-    get vmInput() { 
+    get vmInput() {
         return utils.getVMInput(this);
     }
 
@@ -36,14 +47,15 @@ export class CheckboxGroup extends React.Component {
     }
 
     render() {
-        const [Container, CheckboxContainer, Label, Input] = utils.resolveComponents(CheckboxGroup, this.props);
+        const [Container, GroupContainer, CheckboxContainer, Label, Input, PlainText] = utils.resolveComponents(CheckboxGroup, this.props);
         const { id, value, attrs } = this.vmInput.props;
 
+        let { label, plainText, inline, horizontal } = this.props;
         const values = value || [];
-        const label = attrs.label || props.label;
+        label = label || attrs.label;
 
         const checkboxes = (attrs.options || []).map(opt => (
-            <CheckboxContainer key={opt.Key} inline={this.props.inline} checked={values.includes(opt.Key)}>
+            <CheckboxContainer key={opt.Key} inline={inline} checked={values.includes(opt.Key)}>
                 <Label>
                     <Input type="checkbox" value={opt.Key} checked={values.includes(opt.Key)} onChange={this.handleChange} />
                     {opt.Value}
@@ -51,9 +63,12 @@ export class CheckboxGroup extends React.Component {
             </CheckboxContainer>
         ));
 
+        const selected = attrs.options.filter(opt => value.includes(opt.Key));
+        const plainTextValue = selected.map(x => x.Value);
+
         return (
-            <Container id={id} label={label} horizontal={this.props.horizontal}>
-                <section id={id}>{checkboxes}</section>
+            <Container id={id} label={label} horizontal={horizontal} plainText={plainText}>
+                {plainText ? <PlainText>{plainTextValue}</PlainText> : <GroupContainer id={id}>{checkboxes}</GroupContainer>}
             </Container>
         );
     }

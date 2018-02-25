@@ -7,6 +7,8 @@ import { Label } from '../display/Label';
 import * as utils from '../utils';
 import moment from 'moment';
 
+const PlainTextComponent = props => new Date(props.children).toLocaleDateString();
+
 export class DateTimeField extends React.Component {
 
     static contextTypes = ContextTypes;
@@ -15,6 +17,7 @@ export class DateTimeField extends React.Component {
         id: PropTypes.string.isRequired,
         label: PropTypes.string,
         horizontal: PropTypes.bool,
+        plainText: PropTypes.bool,
         disabled: PropTypes.bool,
         prefix: PropTypes.any,
         suffix: PropTypes.any,
@@ -25,7 +28,8 @@ export class DateTimeField extends React.Component {
         Container: FieldPanel,
         InputComponent: undefined,
         InputGroupComponent: undefined,
-        ValidationMessageComponent: Label
+        ValidationMessageComponent: Label,
+        PlainTextComponent
     }
 
     constructor(props) {
@@ -58,10 +62,10 @@ export class DateTimeField extends React.Component {
     }
 
     render() {
-        const [Container, Input, InputGroup, ValidationMessage] = utils.resolveComponents(DateTimeField, this.props);
+        const [Container, Input, InputGroup, ValidationMessage, PlainText] = utils.resolveComponents(DateTimeField, this.props);
         const { id, value, attrs } = this.vmInput.props;
 
-        let { label, prefix, suffix, horizontal, ...props } = this.props;
+        let { label, plainText, prefix, suffix, horizontal, ...props } = this.props;
         label = attrs.label || label;
         prefix = attrs.prefix || prefix;
         suffix = attrs.suffix || suffix;
@@ -69,22 +73,24 @@ export class DateTimeField extends React.Component {
         const { min, max } = attrs;
 
         return (
-            <Container id={id} label={label} horizontal={horizontal}>
-                <InputGroup prefix={prefix} suffix={suffix}>
-                    <Input
-                        valid={this.state.valid}
-                        id={id}
-                        value={new Date(value)}
-                        min={new Date(min)}
-                        max={new Date(max)}
-                        prefix={prefix}
-                        suffix={suffix}
-                        onChange={this.handleChange}
-                        onBlur={this.handleBlur}
-                        {...props}
-                    />
-                </InputGroup>
-                
+            <Container id={id} label={label} horizontal={horizontal} plainText={plainText}>
+                {plainText ? <PlainText>{value}</PlainText> :
+                    <InputGroup prefix={prefix} suffix={suffix}>
+
+                        <Input
+                            valid={this.state.valid}
+                            id={id}
+                            value={new Date(value)}
+                            min={new Date(min)}
+                            max={new Date(max)}
+                            prefix={prefix}
+                            suffix={suffix}
+                            onChange={this.handleChange}
+                            onBlur={this.handleBlur}
+                            {...props}
+                        />
+                    </InputGroup>
+                }
                 {this.state.validationMessages.map((message, idx) =>
                     <ValidationMessage key={"validationMessage" + idx}>{message}</ValidationMessage>)}
             </Container>

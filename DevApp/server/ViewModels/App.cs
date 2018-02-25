@@ -36,7 +36,7 @@ namespace dotNetify_Elements
                   Icon = "fa fa-edit",
                   Routes = new NavRoute[]
                   {
-                     new NavRoute("Input Elements",   this.GetRoute(nameof(Route.FormDemo))),
+                     new NavRoute("Form Elements",   this.GetRoute(nameof(Route.FormDemo))),
                      new NavRoute("Validation", this.GetRoute(nameof(Route.FormValidationDemo)))
  
                   }

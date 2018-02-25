@@ -6,6 +6,8 @@ import { FieldPanel } from '../layout/FieldPanel';
 import { Label } from '../display/Label';
 import * as utils from '../utils';
 
+const PlainTextComponent = props => props.type === "password" ? '' : props.children;
+
 export class TextField extends React.Component {
 
     static contextTypes = ContextTypes;
@@ -15,6 +17,7 @@ export class TextField extends React.Component {
         label: PropTypes.string,
         placeholder: PropTypes.string,
         horizontal: PropTypes.bool,
+        plainText: PropTypes.bool,
         disabled: PropTypes.bool,
         prefix: PropTypes.any,
         suffix: PropTypes.any,
@@ -25,7 +28,8 @@ export class TextField extends React.Component {
         Container: FieldPanel,
         InputComponent: undefined,
         InputGroupComponent: undefined,
-        ValidationMessageComponent: Label
+        ValidationMessageComponent: Label,
+        PlainTextComponent
     }
 
     constructor(props) {
@@ -51,6 +55,10 @@ export class TextField extends React.Component {
         this.vmInput.initMask();
     }
 
+    componentDidUpdate() {
+        this.vmInput.initMask();
+    }
+
     handleChange = _ => {
         this.setState({ changed: true });
         this.vmInput.value = this.vmInput.elementValue;
@@ -62,33 +70,38 @@ export class TextField extends React.Component {
     }
 
     render() {
-        const [Container, Input, InputGroup, ValidationMessage] = utils.resolveComponents(TextField, this.props);
+        const [Container, Input, InputGroup, ValidationMessage, PlainText] = utils.resolveComponents(TextField, this.props);
         const { id, value, attrs } = this.vmInput.props;
 
-        let { label, placeholder, prefix, suffix, maxLength, horizontal, type, ...props } = this.props;
+        let { label, placeholder, plainText, plainTextEmpty,
+            prefix, suffix, maxLength, horizontal, type, ...props } = this.props;
         label = attrs.label || label;
         placeholder = attrs.placeholder || placeholder;
         prefix = attrs.prefix || prefix;
         suffix = attrs.suffix || suffix;
         maxLength = attrs.maxLength || maxLength;
+        
+        const plainTextValue = `${prefix || ""}${value || ""}${suffix || ""}`;
 
         return (
-            <Container id={id} label={label} horizontal={horizontal}>
-                <InputGroup prefix={prefix} suffix={suffix}>
-                    <Input
-                        valid={this.state.valid}
-                        id={id}
-                        maxLength={maxLength}
-                        type={type || "text"}
-                        placeholder={placeholder}
+            <Container id={id} label={label} horizontal={horizontal} plainText={plainText}>
+                {plainText ? <PlainText type={type}>{plainTextValue}</PlainText> :
+                    <InputGroup prefix={prefix} suffix={suffix}>
+                        <Input
+                            valid={this.state.valid}
+                            id={id}
+                            maxLength={maxLength}
+                            type={type || "text"}
+                            placeholder={placeholder}
 
-                        value={value || ""}
-                        onChange={this.handleChange}
-                        onBlur={this.handleBlur}
-                        innerRef={elem => this.vmInput.element = elem}
-                        {...props}
-                    />
-                </InputGroup>
+                            value={value || ""}
+                            onChange={this.handleChange}
+                            onBlur={this.handleBlur}
+                            innerRef={elem => this.vmInput.element = elem}
+                            {...props}
+                        />
+                    </InputGroup>
+                }
                 {this.state.validationMessages.map((message, idx) =>
                     <ValidationMessage key={"validationMsg" + idx}>{message}</ValidationMessage>)}
             </Container>

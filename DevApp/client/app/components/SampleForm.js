@@ -5,12 +5,12 @@ import {
     Form, MultiselectList, TextField, NumberField, TextAreaField, PasswordField, RadioGroup, RadioToggle, VMContext
 } from '../../elements/bootstrap';
 
-const SampleForm = ({ vm, title, horizontal }) => (
+const SampleForm = ({ vm, title, horizontal, plainText }) => (
     <VMContext vm={vm}>
         <Card header={title}>
             <Panel>
                 <Form>
-                    <Panel childProps={{ horizontal: horizontal }}>
+                    <Panel childProps={{ horizontal: horizontal, plainText: plainText }}>
                         <TextField id="MyText" />
                         <PasswordField id="MyPassword" />
                         <NumberField id="MyNumber" />

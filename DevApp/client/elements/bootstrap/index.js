@@ -31,6 +31,7 @@ import { Button as _Button } from './Button';
 import { Card as _Card, CardHeader, CardBody } from './Card';
 import { CheckboxInput, CheckboxLabel, CheckboxContainer } from './Checkbox';
 import { Input, InputGroup } from './Input';
+import { PlainText } from './PlainText';
 import { Select } from './Select';
 import { RadioInput, RadioLabel, RadioContainer } from './Radio';
 import { RadioToggleInput, RadioToggleLabel, RadioToggleGroupContainer, RadioToggleContainer } from './RadioToggle';
@@ -52,6 +53,7 @@ Alert.componentTypes.AlertComponent = _Alert;
 Button.componentTypes.ButtonComponent = _Button;
 Collapsible.componentTypes.CollapsePanel = rs.Collapse;
 DataGrid.componentTypes.DataGridComponent = ReactDataGrid;
+FieldPanel.componentTypes.PlainTextContainer = PlainText;
 
 Object.assign(Card.componentTypes, {
    Container: _Card,

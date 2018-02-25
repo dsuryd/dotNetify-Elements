@@ -3,17 +3,23 @@ const defaultTheme = {
     Nav: `
         background: #f8f8f8;
         border-right: 1px solid #e7e7e7;
+        z-index: 998;
     `,
     NavHeader: ``,
     Header: `
         background: #f8f8f8;
         border-bottom: 1px solid #e7e7e7;
+        box-shadow: 0 0 5px 0 rgba(0,0,0,.2);
+        z-index: 999;
     `,
     Footer: `
         background: #f8f8f8;
         border-top: 1px solid #e7e7e7;        
+        z-index: 997;
     `,
-    Section: ``,
+    Section: `
+        background: #f4f4f4;
+    `,
     Panel: {
         Container: ``,
         ChildContainer: ``
@@ -54,7 +60,8 @@ const defaultTheme = {
         InputContainer: ``,
         ValidationMessageContainer: `
             color: red;
-        `
+        `,
+        PlainTextContainer: `font-weight: bold;`        
     },
     Label: {
         Container: ``,
@@ -70,6 +77,7 @@ const defaultTheme = {
         BodyContainer: ``
     },
     Checkbox: {
+        GroupContainer: ``,
         Container: {
             Default: ``,
             Checked: ``,

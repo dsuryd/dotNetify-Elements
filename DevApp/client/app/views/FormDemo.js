@@ -1,20 +1,21 @@
 import React from 'react';
-import { Frame, Panel, RadioToggle, Theme } from '../../elements/bootstrap';
+import { Frame, Panel, Checkbox, RadioToggle, Theme } from '../../elements/bootstrap';
 import SampleForm from '../components/SampleForm';
 
 const layoutOptions = [
   { Key: "horizontal", Value: "Horizontal" },
   { Key: "vertical", Value: "Vertical" }
-]
-
-const LayoutToggle = props => <RadioToggle id="_layoutOptions" options={layoutOptions} value={props.value} onChange={props.onChange} />
+];
 
 export default class FormDemo extends React.Component {
 
-  state = { horizontal: false };
+  state = { horizontal: false, plainText: false };
 
   get layout() { return this.state.horizontal ? "horizontal" : "vertical" };
   handleLayoutChange = value => this.setState({ horizontal: value === "horizontal" });
+
+  get plainText() { return this.state.plainText; }
+  handlePlainTextChange = value => this.setState({plainText: value});
 
   render() {
     return (
@@ -22,8 +23,14 @@ export default class FormDemo extends React.Component {
         <Frame>
           <h2>Form Elements</h2>
           <SampleForm vm="SampleForm"
-            title={<LayoutToggle value={this.layout} onChange={this.handleLayoutChange} />}
+            title={
+              <Panel horizontal centerAligned>
+                <RadioToggle id="_layoutOptions" options={layoutOptions} value={this.layout} onChange={this.handleLayoutChange} />
+                <Checkbox id="_plainText" label="Plain Text" value={this.plainText} onChange={this.handlePlainTextChange} />
+              </Panel>
+            }
             horizontal={this.state.horizontal}
+            plainText={this.state.plainText}
           />
         </Frame>
       </Theme>
