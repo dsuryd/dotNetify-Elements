@@ -11,7 +11,7 @@ Under development...
 - [x] Layout
 - [x] Theming
 - [x] Input mask
-- [ ] Data grid
+- [x] Data grid
 - [ ] Modal elements
 - [ ] Markdown display
 - [ ] Charts
