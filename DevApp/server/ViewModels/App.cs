@@ -12,7 +12,8 @@ namespace dotNetify_Elements
          Home,
          FormDemo,
          FormValidationDemo,
-         DataGridDemo
+         DataGridDemo,
+         CustomerInfoPage
       }
 
       public RoutingState RoutingState { get; set; }
@@ -25,6 +26,7 @@ namespace dotNetify_Elements
             new RouteTemplate(nameof(Route.FormDemo))             { UrlPattern = "form" },
             new RouteTemplate(nameof(Route.FormValidationDemo))   { UrlPattern = "form/validation" },
             new RouteTemplate(nameof(Route.DataGridDemo))         { UrlPattern = "datagrid" },
+            new RouteTemplate(nameof(Route.CustomerInfoPage))  { UrlPattern = "examples/customer-info" },
          });
 
          AddProperty("NavMenu", new NavMenu(
@@ -33,15 +35,23 @@ namespace dotNetify_Elements
                new NavGroup
                {
                   Label = "Form",
-                  Icon = "fa fa-edit",
+                  Icon = "far fa-edit",
                   Routes = new NavRoute[]
                   {
                      new NavRoute("Form Elements",   this.GetRoute(nameof(Route.FormDemo))),
                      new NavRoute("Validation", this.GetRoute(nameof(Route.FormValidationDemo)))
- 
                   }
                },
-               new NavRoute("Data Grid", this.GetRoute(nameof(Route.DataGridDemo)), "fa fa-table")
+               new NavRoute("Data Grid", this.GetRoute(nameof(Route.DataGridDemo)), "far fa-list-alt"),
+               new NavGroup
+               {
+                  Label = "Real World Examples",
+                  Icon = "far fa-id-card",
+                  Routes = new NavRoute[]
+                  {
+                     new NavRoute("Customer Info Page",   this.GetRoute(nameof(Route.CustomerInfoPage))),
+                  }
+               },
             }));
       }
    }

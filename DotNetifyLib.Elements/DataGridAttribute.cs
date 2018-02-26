@@ -15,14 +15,11 @@ limitations under the License.
  */
 
 using System;
-using System.Collections.Generic;
 
 namespace DotNetify.Elements
 {
    public class DataGridAttribute
    {
-      private string _selectedKeyProperty;
-
       public enum Selection
       {
          Single,

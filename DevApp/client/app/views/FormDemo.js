@@ -12,9 +12,9 @@ export default class FormDemo extends React.Component {
   state = { horizontal: false, plainText: false };
 
   get layout() { return this.state.horizontal ? "horizontal" : "vertical" };
-  handleLayoutChange = value => this.setState({ horizontal: value === "horizontal" });
-
   get plainText() { return this.state.plainText; }
+  
+  handleLayoutChange = value => this.setState({ horizontal: value === "horizontal" });
   handlePlainTextChange = value => this.setState({plainText: value});
 
   render() {

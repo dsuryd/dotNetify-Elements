@@ -5,12 +5,14 @@ import App from 'app/views/App';
 import FormDemo from 'app/views/FormDemo';
 import FormValidationDemo from 'app/views/FormValidationDemo';
 import DataGridDemo from 'app/views/DataGridDemo';
+import CustomerInfoPage from 'app/views/real-world-examples/CustomerInfoPage';
 
 // Import all the routeable views into the global window variable.
 Object.assign(window, {
    FormDemo,
    FormValidationDemo,
-   DataGridDemo
+   DataGridDemo,
+   CustomerInfoPage
 });
 
 // Hot module replacement.  
@@ -26,6 +28,7 @@ if (module.hot) {
   module.hot.accept('app/views/FormDemo', _ => render(require('./app/views/FormDemo').default, 'NavMenuTarget'));
   module.hot.accept('app/views/FormValidationDemo', _ => render(require('./app/views/FormValidationDemo').default, 'NavMenuTarget'));
   module.hot.accept('app/views/DataGridDemo', _ => render(require('./app/views/DataGridDemo').default, 'NavMenuTarget'));
+  module.hot.accept('app/views/real-world-examples/CustomerInfoPage', _ => render(require('./app/views/real-world-examples/CustomerInfoPage').default, 'NavMenuTarget'));
 }
 
 export default App;
