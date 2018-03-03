@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Bogus;
 using DotNetify;
 using DotNetify.Elements;
 
 namespace dotNetify_Elements
 {
-   public class CustomerInfoPage : BaseVM
+   public partial class CustomerInfoPage : BaseVM
    {
       public class Contact
       {
@@ -20,7 +21,18 @@ namespace dotNetify_Elements
 
       public CustomerInfoPage()
       {
-         AddProperty("Contacts", GetSampleData())
+         var customers = GetSampleData();
+         var contacts = customers.Select(customer => new Contact
+         {
+            Id = customer.Id,
+            Name = customer.Name.FullName,
+            Address = customer.Address.StreetAddress,
+            City = customer.Address.City,
+            ZipCode = customer.Address.Zipcode,
+            Phone = customer.Phone.PrimaryNumber
+         });
+
+         AddProperty("Contacts", contacts)
             .WithAttribute(this, new DataGridAttribute
             {
                RowKey = nameof(Contact.Id),
@@ -37,19 +49,6 @@ namespace dotNetify_Elements
                   AddProperty<string[]>("SelectedContact")
                 )
             );
-      }
-
-      private static List<Contact> GetSampleData()
-      {
-         int id = 1;
-         return new Faker<Contact>()
-            .CustomInstantiator(f => new Contact { Id = id++ })
-            .RuleFor(o => o.Name, f => f.Person.FullName)
-            .RuleFor(o => o.Phone, f => f.Phone.PhoneNumber("(###) ###-####"))
-            .RuleFor(o => o.Address, f => f.Address.StreetAddress())
-            .RuleFor(o => o.City, f => f.Address.City())
-            .RuleFor(o => o.ZipCode, f => f.Address.ZipCode())
-            .Generate(100);
       }
    }
 }
