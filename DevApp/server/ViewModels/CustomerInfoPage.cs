@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive.Linq;
 using Bogus;
 using DotNetify;
 using DotNetify.Elements;
@@ -46,7 +47,8 @@ namespace dotNetify_Elements
             }
                .CanSelect(
                   DataGridAttribute.Selection.Single,
-                  AddProperty<string[]>("SelectedContact")
+                  AddProperty<string>("SelectedContact")
+                     .SubscribedBy(AddProperty<NameInfo>("Name"), x => x.Select(id => customers.FirstOrDefault(cust => cust.Id == int.Parse(id)).Name))
                 )
             );
       }

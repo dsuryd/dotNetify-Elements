@@ -16,10 +16,8 @@ namespace dotNetify_forms
          services.AddMemoryCache();
          services.AddSignalR();
          services.AddDotNetify();
-
-         services.AddTransient<ILiveDataService, MockLiveDataService>();
-         services.AddSingleton<IEmployeeService, EmployeeService>();
       }
+
       public void Configure(IApplicationBuilder app)
       {
          app.UseWebSockets();
