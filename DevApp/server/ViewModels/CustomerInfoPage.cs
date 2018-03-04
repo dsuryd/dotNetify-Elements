@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
-using Bogus;
 using DotNetify;
 using DotNetify.Elements;
 
@@ -10,6 +9,9 @@ namespace dotNetify_Elements
 {
    public partial class CustomerInfoPage : BaseVM
    {
+      private readonly ICustomerRepository _customerRepository;
+      private readonly ReactiveProperty<string> _selectedContact;
+
       public class Contact
       {
          public int Id { get; set; }
@@ -20,18 +22,22 @@ namespace dotNetify_Elements
          public string ZipCode { get; set; }
       }
 
-      public CustomerInfoPage()
+      public CustomerInfoPage(ICustomerRepository customerRepository)
       {
-         var customers = GetSampleData();
-         var contacts = customers.Select(customer => new Contact
-         {
-            Id = customer.Id,
-            Name = customer.Name.FullName,
-            Address = customer.Address.StreetAddress,
-            City = customer.Address.City,
-            ZipCode = customer.Address.Zipcode,
-            Phone = customer.Phone.PrimaryNumber
-         });
+         _customerRepository = customerRepository;
+
+         var contacts = customerRepository.GetAll()
+            .Select(customer => new Contact
+            {
+               Id = customer.Id,
+               Name = customer.Name.FullName,
+               Address = customer.Address.StreetAddress,
+               City = customer.Address.City,
+               ZipCode = customer.Address.Zipcode,
+               Phone = customer.Phone.PrimaryNumber
+            });
+
+         _selectedContact = AddProperty<string>("SelectedContact");
 
          AddProperty("Contacts", contacts)
             .WithAttribute(this, new DataGridAttribute
@@ -44,13 +50,31 @@ namespace dotNetify_Elements
                   new DataGridColumn(nameof(Contact.City), "City"),
                   new DataGridColumn(nameof(Contact.ZipCode), "ZipCode")
                 }
-            }
-               .CanSelect(
-                  DataGridAttribute.Selection.Single,
-                  AddProperty<string>("SelectedContact")
-                     .SubscribedBy(AddProperty<NameInfo>("Name"), x => x.Select(id => customers.FirstOrDefault(cust => cust.Id == int.Parse(id)).Name))
-                )
-            );
+            }.CanSelect(DataGridAttribute.Selection.Single, _selectedContact));
+      }
+
+      public override void OnSubVMCreated(BaseVM subVM)
+      {
+         if (subVM is CustomerFormVM)
+            _selectedContact.SubscribedBy((subVM as CustomerFormVM).Customer, x => x.Select(id => _customerRepository.Get(int.Parse(id))));
+      }
+   }
+
+   public class CustomerFormVM : BaseVM
+   {
+      private readonly ReactiveProperty<Customer> _customer = new ReactiveProperty<Customer>();
+
+      public ReactiveProperty<Customer> Customer => _customer;
+
+      public CustomerFormVM()
+      {
+         AddProperty<string>("FirstName")
+            .WithAttribute(this, new TextFieldAttribute { Label = "First Name:" })
+            .SubscribeTo(_customer.Select(x => x.Name.FirstName));
+
+         AddProperty<string>("LastName")
+            .WithAttribute(this, new TextFieldAttribute { Label = "Last Name:" })
+            .SubscribeTo(_customer.Select(x => x.Name.LastName));
       }
    }
 }

@@ -9,7 +9,9 @@ export function getVMInput(component) {
     return isVMProp ? component._vmInput || (component._vmInput = new VMInput(component.context.vmContext, component.props.id)) :
         {
             props: { id: component.props.id, value: component.props.value, attrs: component.props.attrs || {} },
-            dispatch: value => component.props.onChange ? component.props.onChange(value) : null
+            dispatch: value => component.props.onChange ? component.props.onChange(value) : null,
+            onValidated: _ => {},
+            initMask: _ => {}
         };
 }
 

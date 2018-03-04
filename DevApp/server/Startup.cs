@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.DependencyInjection;
 using DotNetify;
 
-namespace dotNetify_forms
+namespace dotNetify_Elements
 {
    public class Startup
    {
@@ -16,6 +16,8 @@ namespace dotNetify_forms
          services.AddMemoryCache();
          services.AddSignalR();
          services.AddDotNetify();
+
+         services.AddTransient<ICustomerRepository, CustomerRepository>();
       }
 
       public void Configure(IApplicationBuilder app)
