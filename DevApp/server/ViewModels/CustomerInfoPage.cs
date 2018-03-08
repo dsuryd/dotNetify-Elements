@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Reactive.Linq;
+using System.Reflection;
 using DotNetify;
 using DotNetify.Elements;
 
@@ -68,13 +70,39 @@ namespace dotNetify_Elements
 
       public CustomerFormVM()
       {
+         AddProperty<string>("FullName")
+            .WithAttribute(this, new TextFieldAttribute { Label = "Name:" })
+            .SubscribeTo(_customer.Select(x => x.Name.FullName));
+
+         AddProperty<NamePrefix>("Prefix")
+            .WithAttribute(this, new DropdownListAttribute { Label = "Prefix:", Options = ToDescriptions(typeof(NamePrefix)) })
+            .SubscribeTo(_customer.Select(x => x.Name.Prefix));
+
          AddProperty<string>("FirstName")
             .WithAttribute(this, new TextFieldAttribute { Label = "First Name:" })
             .SubscribeTo(_customer.Select(x => x.Name.FirstName));
 
+         AddProperty<string>("MiddleName")
+            .WithAttribute(this, new TextFieldAttribute { Label = "Middle Name:" })
+            .SubscribeTo(_customer.Select(x => x.Name.MiddleName));
+
          AddProperty<string>("LastName")
             .WithAttribute(this, new TextFieldAttribute { Label = "Last Name:" })
             .SubscribeTo(_customer.Select(x => x.Name.LastName));
+
+         AddProperty<NameSuffix>("Suffix")
+            .WithAttribute(this, new DropdownListAttribute { Label = "Suffix:", Options = ToDescriptions(typeof(NameSuffix)) })
+            .SubscribeTo(_customer.Select(x => x.Name.Suffix));
+      }
+
+      private KeyValuePair<string, string>[] ToDescriptions(Type enumType)
+      {
+         return Enum.GetValues(enumType).Cast<int>().Select(enumValue =>
+         {
+            var value = Enum.GetName(enumType, enumValue);
+            value = enumType.GetField(value).GetCustomAttribute<DescriptionAttribute>()?.Description ?? value;
+            return new KeyValuePair<string, string>(enumValue.ToString(), value);
+         }).ToArray();
       }
    }
 }

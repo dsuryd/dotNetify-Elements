@@ -34,11 +34,16 @@ export class DropdownList extends React.Component {
         return utils.getVMInput(this);
     }
 
-    handleChange = (event) => this.vmInput.dispatch(event.target.value);
+    handleChange = (event) => {
+       let value = event.target.value;
+       value = this.valueType == "number" ? parseInt(value) : value;
+       this.vmInput.dispatch(value);
+    }
 
     render() {
         const [Container, Input, InputGroup, PlainText] = utils.resolveComponents(DropdownList, this.props);
         const { id, value, attrs } = this.vmInput.props;
+        this.valueType = typeof value;
 
         const options = (attrs.options || []).map(opt => <option key={opt.Key} value={opt.Key}>{opt.Value}</option>);
         let { label, plainText, prefix, suffix, horizontal, ...props } = this.props;

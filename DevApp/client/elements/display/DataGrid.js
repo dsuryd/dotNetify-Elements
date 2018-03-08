@@ -43,12 +43,12 @@ export class DataGrid extends React.Component {
    }
 
    componentDidMount() {
-      this.updateHeight();
       window.addEventListener("resize", this.updateHeight);
+      setTimeout(() => this.updateHeight(), 0);
    }
 
    componentDidUpdate() {
-      this.updateHeight();
+      setTimeout(() => this.updateHeight(), 0);
    }
 
    mapColumns(children, columns) {

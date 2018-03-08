@@ -44,7 +44,7 @@ export class VMContext extends React.Component {
                 vmId: this.props.vm,
                 vm: this.vm,
                 getStates: _ => this.state,
-                getState: id => (this.state && this.state[id]) || undefined,
+                getState: id => this.state && this.state.hasOwnProperty(id) ? this.state[id] : undefined,
                 setState: state => this.setState(state),
                 dispatchState: state => this.vm.$dispatch(state),
                 getPropAttributes: propId => utils.toCamelCase((this.state && this.state[propId + "__attr"]) || {}),
