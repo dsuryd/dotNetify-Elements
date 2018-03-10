@@ -15,6 +15,14 @@ export class DataGrid extends React.Component {
 
    static contextTypes = ContextTypes;
 
+   static propTypes = {
+      rowHeight: PropTypes.number
+   }
+
+   static defaultProps = {
+      rowHeight: 35
+   }
+
    static componentTypes = {
       Container,
       DataGridComponent: undefined
@@ -102,11 +110,12 @@ export class DataGrid extends React.Component {
 
    render() {
       const [Container, _DataGrid] = utils.resolveComponents(DataGrid, this.props);
-      const { children, ...props } = this.props;
+      const { rowHeight, children, ...props } = this.props;
       const { id, value, attrs } = this.vmProperty.props;
       const rowGetter = idx => value[idx];
 
-      const { rowKey, columns, selectedKeyProperty, canSelect } = attrs;
+      const { rowKey, columns, rows, selectedKeyProperty, canSelect } = attrs;
+      const height = rows ? (rows + 1) * rowHeight : null;
       this.attrs = attrs;
 
       return (
@@ -115,7 +124,8 @@ export class DataGrid extends React.Component {
                columns={this.mapColumns(children, columns)}
                rowGetter={rowGetter}
                rowsCount={value.length}
-               minHeight={this.state.height}
+               rowHeight={rowHeight}
+               minHeight={height || this.state.height}
                onRowClick={this.handleRowClick}
                rowSelection={{
                   showCheckbox: this.isMultiselect,
@@ -138,6 +148,7 @@ export class GridColumn extends React.Component {
       formatter: PropTypes.func,
       children: PropTypes.node
    }
+
    render() {
       return this.props.children;
    }

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 
 namespace dotNetify_Elements
 {
@@ -80,7 +81,8 @@ namespace dotNetify_Elements
       public PhoneInfo Phone { get; set; }
       public CompanyInfo Company { get; set; }
       public DriverLicenseInfo DriverLicense { get; set; }
-      public AdditionalInfo AdditionalInfo { get; set; }
+      public OtherInfo OtherInfo { get; set; }
+      public string Notes { get; set; }
    }
 
    public class NameInfo
@@ -121,10 +123,11 @@ namespace dotNetify_Elements
       public string Organization { get; set; }
    }
 
-   public class AdditionalInfo
+   public class OtherInfo
    {
       public string SSN { get; set; }
       public TaxFilingStatus TaxFilingStatus { get; set; }
+      public DateTimeOffset DateOfBirth { get; set; }
       public Gender Gender { get; set; }
       public MaritalStatus MaritalStatus { get; set; }
    }

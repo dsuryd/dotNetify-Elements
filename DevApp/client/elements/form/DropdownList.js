@@ -45,14 +45,15 @@ export class DropdownList extends React.Component {
         const { id, value, attrs } = this.vmInput.props;
         this.valueType = typeof value;
 
-        const options = (attrs.options || []).map(opt => <option key={opt.Key} value={opt.Key}>{opt.Value}</option>);
+        const options = (attrs.options || options || []).map(opt => utils.toCamelCase(opt));
+        const listOptions = options.map(opt => <option key={opt.key} value={opt.key}>{opt.value}</option>);
         let { label, plainText, prefix, suffix, horizontal, ...props } = this.props;
         label = attrs.label || label;
         prefix = attrs.prefix || prefix;
         suffix = attrs.suffix || suffix;
 
-        const selected = attrs.options.filter(opt => opt.Key == value).shift();
-        const plainTextValue = selected ? selected.Value : "";
+        const selected = options.filter(opt => opt.key == value).shift();
+        const plainTextValue = selected ? selected.value : "";
 
         return (
             <Container id={id} label={label} horizontal={horizontal} plainText={plainText}>
@@ -66,7 +67,7 @@ export class DropdownList extends React.Component {
                             suffix={suffix}
                             onChange={this.handleChange}
                         >
-                            {options}
+                            {listOptions}
                         </Input>
                     </InputGroup>
                 }

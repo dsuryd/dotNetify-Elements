@@ -39,11 +39,15 @@ export class RadioGroup extends React.Component {
         return utils.getVMInput(this);
     }
 
-    handleChange = (event) => this.vmInput.dispatch(event.target.value);
-
+    handleChange = (event) => {
+      let value = event.target.value;
+      value = this.valueType == "number" ? parseInt(value) : value;
+      this.vmInput.dispatch(value);
+   }
     render() {
         const [Container, GroupContainer, RadioContainer, Label, Input, PlainText] = utils.resolveComponents(RadioGroup, this.props);
         const { id, value, attrs } = this.vmInput.props;
+        this.valueType = typeof value;
 
         let { label, options, right, horizontal, plainText } = this.props;
         label = attrs.label || label;
@@ -58,8 +62,8 @@ export class RadioGroup extends React.Component {
             </RadioContainer>
         ));
 
-        const selected = options.filter(opt => value.includes(opt.Key)).shift();
-        const plainTextValue = selected ? selected.Value : "";
+        const selected = options.filter(opt => opt.key == value).shift();
+        const plainTextValue = selected ? selected.value : "";
 
         return (
             <Container id={id} label={label} horizontal={horizontal} right={right} plainText={plainText}>

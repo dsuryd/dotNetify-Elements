@@ -28,6 +28,7 @@ namespace DotNetify.Elements
 
       public string RowKey { get; set; }
       public DataGridColumn[] Columns { get; set; }
+      public int Rows { get; set; }
       public string SelectedKeyProperty { get; protected set; }
       public string SelectMode { get; protected set; }
 

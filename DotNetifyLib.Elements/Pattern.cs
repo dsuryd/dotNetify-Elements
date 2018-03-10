@@ -40,5 +40,7 @@ namespace DotNetify.Elements
       public const string USZipCode = @"^([0-9]{5}(?:-[0-9]{4})?)*$";
 
       public const string IPAddress = @"^((?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))*$";
+
+      public const string USSocialSecurityNumber = @"[0-9]{3}-[0-9]{2}-[0-9]{4}$";
    }
 }

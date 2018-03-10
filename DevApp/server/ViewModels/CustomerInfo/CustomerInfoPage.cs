@@ -47,16 +47,20 @@ namespace dotNetify_Elements
                   new DataGridColumn(nameof(Contact.Address), "Address"),
                   new DataGridColumn(nameof(Contact.City), "City"),
                   new DataGridColumn(nameof(Contact.ZipCode), "ZipCode")
-                }
+                },
+               Rows = 5
             }.CanSelect(DataGridAttribute.Selection.Single, _selectedContact));
       }
 
       public override void OnSubVMCreated(BaseVM subVM)
       {
-         if (subVM is PersonForm)
-            _selectedContact.SubscribedBy((subVM as PersonForm).Customer, x => x.Select(id => _customerRepository.Get(id)));
-         else if (subVM is PhoneForm)
-            _selectedContact.SubscribedBy((subVM as PhoneForm).Customer, x => x.Select(id => _customerRepository.Get(id)));
+         // Have the sub-form subscribes to the customer data grid's selection changed event.
+         var customerPropInfo = subVM.GetType().GetProperty(nameof(Customer));
+         if (typeof(ReactiveProperty<Customer>).IsAssignableFrom(customerPropInfo.PropertyType))
+            _selectedContact.SubscribedBy(
+               customerPropInfo.GetValue(subVM) as ReactiveProperty<Customer>,
+               x => x.Select(id => _customerRepository.Get(id))
+            );
       }
    }
 }
