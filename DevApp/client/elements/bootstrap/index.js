@@ -2,6 +2,7 @@ import defaultTheme from '../../elements/theme';
 import { Alert } from '../../elements/display/Alert';
 import { Button } from '../../elements/form/Button';
 import { Card } from '../../elements/layout/Card';
+import { Cell } from '../../elements/layout/Cell';
 import { Checkbox } from '../../elements/form/Checkbox';
 import { CheckboxGroup } from '../../elements/form/CheckboxGroup';
 import { Collapsible } from '../../elements/layout/Collapsible';
@@ -29,6 +30,7 @@ import { VMContext, ContextTypes } from '../../elements/VMContext';
 import { Alert as _Alert } from './Alert';
 import { Button as _Button } from './Button';
 import { Card as _Card, CardHeader, CardBody } from './Card';
+import { Cell as _Cell, CellHeader, CellBody } from './Cell';
 import { CheckboxInput, CheckboxLabel, CheckboxContainer } from './Checkbox';
 import { Input, InputGroup } from './Input';
 import { PlainText } from './PlainText';
@@ -59,6 +61,12 @@ Object.assign(Card.componentTypes, {
    Container: _Card,
    HeaderContainer: CardHeader,
    BodyContainer: CardBody
+});
+
+Object.assign(Cell.componentTypes, {
+   Container: _Cell,
+   HeaderContainer: CellHeader,
+   BodyContainer: CellBody
 });
 
 Object.assign(Checkbox.componentTypes, {
@@ -115,6 +123,7 @@ export {
    Alert,
    Button,
    Card,
+   Cell,
    Checkbox,
    CheckboxGroup,
    Collapsible,

@@ -1,5 +1,5 @@
 import React from 'react';
-import { DataGrid, Card, DateField, DropdownList, GridColumn, Frame, Panel, RadioGroup, TextField, TextAreaField, Theme, VMContext } from '../../../elements/bootstrap';
+import { DataGrid, Cell, DateField, DropdownList, GridColumn, Frame, Panel, RadioGroup, TextField, TextAreaField, Theme, VMContext } from '../../../elements/bootstrap';
 
 const CustomerInfoPage = props => (
    <VMContext vm="CustomerInfoPage">
@@ -10,7 +10,7 @@ const CustomerInfoPage = props => (
             </DataGrid>
             <Panel horizontal noGap>
                <Panel noGap>
-                  <Card header="Person">
+                  <Cell header="Person" borders="top, left, right">
                      <VMContext vm="CustomerInfoPage.PersonForm">
                         <Panel childProps={{ horizontal: true, plainText: true }}>
                            <TextField id="FullName" plainText />
@@ -21,8 +21,8 @@ const CustomerInfoPage = props => (
                            <DropdownList id="Suffix" />
                         </Panel>
                      </VMContext>
-                  </Card>
-                  <Card header="Phone">
+                  </Cell>
+                  <Cell header="Phone">
                      <VMContext vm="CustomerInfoPage.PhoneForm">
                         <Panel childProps={{ horizontal: true, plainText: true }}>
                            <TextField id="Work" />
@@ -31,10 +31,10 @@ const CustomerInfoPage = props => (
                            <DropdownList id="PrimaryPhone" />
                         </Panel>
                      </VMContext>
-                  </Card>
+                  </Cell>
                </Panel>
                <Panel noGap>
-                  <Card header="Other Info">
+                  <Cell header="Other Info" borders="top, right">
                      <VMContext vm="CustomerInfoPage.OtherInfoForm">
                         <Panel childProps={{ horizontal: true, plainText: true }}>
                            <TextField id="SSN" />
@@ -44,22 +44,22 @@ const CustomerInfoPage = props => (
                            <DropdownList id="MaritalStatus" />
                         </Panel>
                      </VMContext>
-                  </Card>
-                  <Card header="Driver License">
+                  </Cell>
+                  <Cell header="Driver License" borders="top, right">
                      <VMContext vm="CustomerInfoPage.DriverLicenseForm">
                         <Panel childProps={{ horizontal: true, plainText: true }}>
                            <TextField id="Number" />
                            <DropdownList id="State" />
                         </Panel>
                      </VMContext>
-                  </Card>
-                  <Card header="Notes">
+                  </Cell>
+                  <Cell header="Notes" borders="top, right, bottom">
                      <VMContext vm="CustomerInfoPage.NotesForm">
                         <Panel childProps={{ horizontal: true, plainText: true }}>
                            <TextAreaField id="Notes" />
                         </Panel>
                      </VMContext>
-                  </Card>
+                  </Cell>
                </Panel>
             </Panel>
          </Frame>

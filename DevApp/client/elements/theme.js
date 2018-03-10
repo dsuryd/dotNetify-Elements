@@ -76,6 +76,11 @@ const defaultTheme = {
         HeaderContainer: ``,
         BodyContainer: ``
     },
+    Cell: {
+      Container: ``,
+      HeaderContainer: ``,
+      BodyContainer: ``
+  },    
     Checkbox: {
         GroupContainer: ``,
         Container: {

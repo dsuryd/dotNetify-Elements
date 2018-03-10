@@ -4,11 +4,6 @@ import * as utils from '../utils';
 
 export class Card extends React.Component {
 
-   static propTypes = {
-      left: PropTypes.bool,
-      right: PropTypes.bool
-  }
-
    static componentTypes = {
       Container: undefined,
       HeaderContainer: undefined,
@@ -17,9 +12,9 @@ export class Card extends React.Component {
 
    render() {
       const [Container, Header, Body] = utils.resolveComponents(Card, this.props);
-      const { header, children, left, right, ...props } = this.props;
+      const { header, children, ...props } = this.props;
       return (
-         <Container left={left} right={right} >
+         <Container>
             {header ? <Header>{header}</Header> : null}
             <Body>{children}</Body>
          </Container>
