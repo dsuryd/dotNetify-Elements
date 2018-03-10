@@ -45,7 +45,7 @@ namespace dotNetify_Elements
                new NavRoute("Data Grid", this.GetRoute(nameof(Route.DataGridDemo)), "far fa-list-alt"),
                new NavGroup
                {
-                  Label = "Real World Examples",
+                  Label = "Examples",
                   Icon = "far fa-id-card",
                   Routes = new NavRoute[]
                   {

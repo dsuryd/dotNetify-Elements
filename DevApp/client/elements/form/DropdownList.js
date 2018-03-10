@@ -51,7 +51,7 @@ export class DropdownList extends React.Component {
         prefix = attrs.prefix || prefix;
         suffix = attrs.suffix || suffix;
 
-        const selected = attrs.options.filter(opt => opt.Key === value).shift();
+        const selected = attrs.options.filter(opt => opt.Key == value).shift();
         const plainTextValue = selected ? selected.Value : "";
 
         return (

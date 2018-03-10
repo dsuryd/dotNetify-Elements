@@ -8,7 +8,7 @@ namespace dotNetify_Elements
    public interface ICustomerRepository
    {
       IReadOnlyList<Customer> GetAll();
-      Customer Get(int id);
+      Customer Get(string id);
    }
 
    public class CustomerRepository : ICustomerRepository
@@ -16,7 +16,7 @@ namespace dotNetify_Elements
       private IReadOnlyList<Customer> _mockData = GenerateMockData();
 
       public IReadOnlyList<Customer> GetAll() => _mockData;
-      public Customer Get(int id) => _mockData.FirstOrDefault(x => x.Id == id);
+      public Customer Get(string id) => _mockData.FirstOrDefault(x => x.Id.ToString() == id);
 
       private static IReadOnlyList<Customer> GenerateMockData()
       {
