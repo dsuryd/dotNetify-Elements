@@ -5,3 +5,7 @@ p {
 .alert {
    margin-bottom: 0;
 }
+
+.pull-right {
+   float: right;
+}

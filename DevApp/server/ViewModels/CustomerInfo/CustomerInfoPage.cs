@@ -42,11 +42,11 @@ namespace dotNetify_Elements
             {
                RowKey = nameof(Contact.Id),
                Columns = new DataGridColumn[] {
-                  new DataGridColumn(nameof(Contact.Name), "Name"),
-                  new DataGridColumn(nameof(Contact.Phone), "Phone"),
-                  new DataGridColumn(nameof(Contact.Address), "Address"),
-                  new DataGridColumn(nameof(Contact.City), "City"),
-                  new DataGridColumn(nameof(Contact.ZipCode), "ZipCode")
+                  new DataGridColumn(nameof(Contact.Name), "Name") { Sortable = true },
+                  new DataGridColumn(nameof(Contact.Phone), "Phone") { Sortable = true },
+                  new DataGridColumn(nameof(Contact.Address), "Address") { Sortable = true },
+                  new DataGridColumn(nameof(Contact.City), "City") { Sortable = true },
+                  new DataGridColumn(nameof(Contact.ZipCode), "ZipCode") { Sortable = true }
                 },
                Rows = 5
             }.CanSelect(DataGridAttribute.Selection.Single, _selectedContact));

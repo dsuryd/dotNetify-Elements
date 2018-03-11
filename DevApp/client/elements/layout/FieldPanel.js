@@ -16,6 +16,7 @@ const LabelContainer = styled.div`
     display: flex;
     align-items: flex-start;
     padding-top: ${props => props.horizontal ? ".4rem" : "0" };
+    padding-right: 1rem;
     ${props => props.theme.FieldPanel.LabelContainer}
 `;
 

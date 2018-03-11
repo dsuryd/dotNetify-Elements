@@ -52,6 +52,7 @@ namespace DotNetify.Elements
       public string Name { get; set; }
       public bool Resizeable { get; set; }
       public int? Width { get; set; }
+      public bool Sortable { get; set; }
 
       public DataGridColumn(string key, string name)
       {

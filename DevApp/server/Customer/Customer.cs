@@ -25,6 +25,7 @@ namespace dotNetify_Elements
 
    public enum PrimaryPhone
    {
+      [Description("")] None,
       [Description("Work")] Work,
       [Description("Home")] Home,
       [Description("Mobile")] Mobile
@@ -32,6 +33,7 @@ namespace dotNetify_Elements
 
    public enum TaxFilingStatus
    {
+      [Description("")] None,
       [Description("Single")] Single,
       [Description("Married Filing Jointly")] MarriedFilingJointly,
       [Description("Married Filing Separately")] MarriedFilingSeparately,
@@ -41,12 +43,14 @@ namespace dotNetify_Elements
 
    public enum Gender
    {
+      [Description("")] Unknown,
       [Description("Male")] Male,
       [Description("Female")] Female
    }
 
    public enum MaritalStatus
    {
+      [Description("")] Unknown,
       [Description("Never Married")] NeverMarried,
       [Description("Married")] Married,
       [Description("Divorced")] Divorced,
@@ -56,6 +60,7 @@ namespace dotNetify_Elements
 
    public enum State
    {
+      [Description("")] Unknown,
       [Description("Alabama")] AL, [Description("Alaska")] AK, [Description("Arkansas")] AR, [Description("Arizona")] AZ,
       [Description("California")] CA, [Description("Colorado")] CO, [Description("Connecticut")] CT, [Description("D.C.")] DC,
       [Description("Delaware")] DE, [Description("Florida")] FL, [Description("Georgia")] GA, [Description("Hawaii")] HI,

@@ -16,11 +16,11 @@ export class DataGrid extends React.Component {
    static contextTypes = ContextTypes;
 
    static propTypes = {
-      rowHeight: PropTypes.number
+      rowHeight: PropTypes.string
    }
 
    static defaultProps = {
-      rowHeight: 35
+      rowHeight: "35px"
    }
 
    static componentTypes = {
@@ -80,10 +80,17 @@ export class DataGrid extends React.Component {
       return this.attrs.rowKey ? { keys: { rowKey: this.attrs.rowKey, values: this.state.selectedKeys } } : { indexes: this.state.selectedKeys };
    }
 
-   updateHeight = _ => {
-      if (this.elem && this.state.height != this.elem.offsetHeight)
-         this.setState({ height: this.elem.offsetHeight });
-   }
+   handleGridSort = (sortColumn, sortDirection) => {
+      const comparer = (a, b) =>
+         sortDirection == "ASC" ? (a[sortColumn] > b[sortColumn] ? 1 : -1)
+            : sortDirection == "DESC" ? (a[sortColumn] < b[sortColumn] ? 1 : -1)
+               : null;
+
+      const { value } = this.vmProperty.props;
+      if (!this.unsortedValue)
+         this.unsortedValue = [...value];
+      this.vmProperty.value = sortDirection !== 'NONE' ? value.sort(comparer) : [...this.unsortedValue];
+   };
 
    handleRowClick = (idx, row) => {
       if (!row || !this.canSelect)
@@ -108,6 +115,11 @@ export class DataGrid extends React.Component {
       this.setState({ selectedKeys: selectedKeys });
    }
 
+   updateHeight = _ => {
+      if (this.elem && this.state.height != this.elem.offsetHeight)
+         this.setState({ height: this.elem.offsetHeight });
+   }
+
    render() {
       const [Container, _DataGrid] = utils.resolveComponents(DataGrid, this.props);
       const { rowHeight, children, ...props } = this.props;
@@ -115,7 +127,7 @@ export class DataGrid extends React.Component {
       const rowGetter = idx => value[idx];
 
       const { rowKey, columns, rows, selectedKeyProperty, canSelect } = attrs;
-      const height = rows ? (rows + 1) * rowHeight : null;
+      const height = rows ? (rows + 1) * utils.toPixel(rowHeight) : null;
       this.attrs = attrs;
 
       return (
@@ -124,9 +136,10 @@ export class DataGrid extends React.Component {
                columns={this.mapColumns(children, columns)}
                rowGetter={rowGetter}
                rowsCount={value.length}
-               rowHeight={rowHeight}
+               rowHeight={utils.toPixel(rowHeight)}
                minHeight={height || this.state.height}
                onRowClick={this.handleRowClick}
+               onGridSort={this.handleGridSort}
                rowSelection={{
                   showCheckbox: this.isMultiselect,
                   onRowsSelected: this.handleRowsSelected,

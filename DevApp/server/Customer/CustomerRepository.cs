@@ -40,7 +40,7 @@ namespace dotNetify_Elements
             .RuleFor(o => o.Phone, f => new PhoneInfo
             {
                Work = f.Phone.PhoneNumber("(###) ###-####"),
-               Primary = PrimaryPhone.Work
+               Primary = f.PickRandomWithout(PrimaryPhone.None),
             })
             .RuleFor(o => o.Company, f => new CompanyInfo
             {
@@ -51,6 +51,14 @@ namespace dotNetify_Elements
             {
                State = (State)Enum.Parse(typeof(State), f.Address.StateAbbr()),
                Number = f.Finance.Account()
+            })
+            .RuleFor(o => o.OtherInfo, f => new OtherInfo
+            {
+               DateOfBirth = f.Person.DateOfBirth,
+               Gender = f.Person.Gender == Bogus.DataSets.Name.Gender.Male ? Gender.Male : Gender.Female,
+               MaritalStatus = f.PickRandomWithout(MaritalStatus.Unknown),
+               TaxFilingStatus = f.PickRandomWithout(TaxFilingStatus.None),
+               SSN = new Randomizer().Replace("###-##-####")
             })
             .Generate(100);
       }

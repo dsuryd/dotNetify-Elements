@@ -26,11 +26,11 @@ namespace dotNetify_Elements
                RowKey = nameof(SampleRow.Id),
                Columns = new DataGridColumn[] {
                   new DataGridColumn(nameof(SampleRow.Id), "Id") { Width = 3 },
-                  new DataGridColumn(nameof(SampleRow.FirstName), "First Name"),
-                  new DataGridColumn(nameof(SampleRow.LastName), "Last Name"),
-                  new DataGridColumn(nameof(SampleRow.EmailAddress), "Email"),
-                  new DataGridColumn(nameof(SampleRow.Phone), "Phone"),
-                  new DataGridColumn(nameof(SampleRow.LastVisit), "Last Visit")
+                  new DataGridColumn(nameof(SampleRow.FirstName), "First Name") { Sortable = true },
+                  new DataGridColumn(nameof(SampleRow.LastName), "Last Name") { Sortable = true },
+                  new DataGridColumn(nameof(SampleRow.EmailAddress), "Email")  { Sortable = true },
+                  new DataGridColumn(nameof(SampleRow.Phone), "Phone")  { Sortable = true },
+                  new DataGridColumn(nameof(SampleRow.LastVisit), "Last Visit")  { Sortable = true }
                 }
             }
                .CanSelect(
