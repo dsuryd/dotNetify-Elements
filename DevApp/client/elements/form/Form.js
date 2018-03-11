@@ -97,7 +97,7 @@ export class Form extends React.Component {
     }
 
     render() {
-        return <div>{this.mapButtons(this.props.children)}</div>;
+        return this.mapButtons(this.props.children);
     }
 
     submit(data) {
