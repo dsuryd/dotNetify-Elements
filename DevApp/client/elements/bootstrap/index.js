@@ -3,11 +3,12 @@ import { Alert } from '../../elements/display/Alert';
 import { Button } from '../../elements/form/Button';
 import { Card } from '../../elements/layout/Card';
 import { Cell } from '../../elements/layout/Cell';
+import { CellPanel } from '../../elements/layout/CellPanel';
 import { Checkbox } from '../../elements/form/Checkbox';
 import { CheckboxGroup } from '../../elements/form/CheckboxGroup';
 import { Collapsible } from '../../elements/layout/Collapsible';
 import { DataGrid, GridColumn } from '../../elements/display/DataGrid';
-import { DateField, TimeField, DateTimeField } from '../../elements/form/DateTimeField';
+import { DateTimeField, DateField, TimeField } from '../../elements/form/DateTimeField';
 import { DotNetifyLogo } from '../../elements/display/DotNetifyLogo';
 import { DropdownList } from '../../elements/form/DropdownList';
 import { MultiselectList } from '../../elements/form/MultiselectList';
@@ -19,10 +20,12 @@ import { Main, Header, Nav, Footer, Section } from '../../elements/layout/Layout
 import { NavHeader } from '../../elements/layout/NavHeader';
 import { NavMenu, NavMenuTarget } from '../../elements/nav/NavMenu';
 import { NavToggle } from '../../elements/nav/NavToggle';
+import { NumberField } from '../../elements/form/NumberField';
 import { Panel } from '../../elements/layout/Panel';
+import { PasswordField } from '../../elements/form/PasswordField';
 import { RadioGroup } from '../../elements/form/RadioGroup';
 import { RadioToggle } from '../../elements/form/RadioToggle';
-import { TextField, NumberField, PasswordField } from '../../elements/form/TextField';
+import { TextField } from '../../elements/form/TextField';
 import { TextAreaField } from '../../elements/form/TextAreaField';
 import { Theme } from '../../elements/layout/Theme';
 import { VMContext, ContextTypes } from '../../elements/VMContext';
@@ -124,6 +127,7 @@ export {
    Button,
    Card,
    Cell,
+   CellPanel,
    Checkbox,
    CheckboxGroup,
    Collapsible,

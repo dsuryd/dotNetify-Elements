@@ -108,17 +108,3 @@ export class TextField extends React.Component {
         );
     }
 }
-
-export const NumberField = props => (
-    <TextField type="number" {...props} />
-);
-
-export const PasswordField = props => (
-    <TextField type="password" {...props} />
-);
-
-NumberField.contextTypes = ContextTypes;
-PasswordField.contextTypes = ContextTypes;
-
-NumberField.propTypes = Object.assign({}, TextField.propTypes);
-PasswordField.propTypes = Object.assign({}, TextField.propTypes);
