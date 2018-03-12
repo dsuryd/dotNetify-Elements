@@ -1,15 +1,17 @@
 import React from 'react';
 import CustomerInfoForm from './CustomerInfoForm';
 import { Button, DataGrid, Frame, Panel, Theme, VMContext } from '../../../elements/bootstrap';
+import createEventEmitter from '../../../elements/event-emitter';
 
 export default class CustomerInfoPage extends React.Component {
 
-   state = { plainText: true };
+   state = { plainText: true, submitEvent: createEventEmitter() };
 
    handleEdit = _ => this.setState({ plainText: !this.state.plainText });
-   handleUpdate = _ => {}
+   handleUpdate = _ => this.state.submitEvent.emit();
 
    render() {
+      const { plainText, submitEvent } = this.state;
       return (
          <VMContext vm="CustomerInfoPage">
             <Theme>
@@ -20,7 +22,7 @@ export default class CustomerInfoPage extends React.Component {
                      <Button onClick={this.handleEdit}>Edit</Button>
                      <Button onClick={this.handleUpdate}>Update</Button>
                   </Panel>
-                  <CustomerInfoForm plainText={this.state.plainText} />
+                  <CustomerInfoForm plainText={plainText} submitEvent={submitEvent} />
                </Frame>
             </Theme>
          </VMContext >

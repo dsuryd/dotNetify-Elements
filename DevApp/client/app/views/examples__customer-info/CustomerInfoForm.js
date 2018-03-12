@@ -4,12 +4,12 @@ import {
    Frame, Panel, RadioGroup, TextField, TextAreaField, VMContext
 } from '../../../elements/bootstrap';
 
-const CustomerInfoForm = ({ plainText }) => (
+const CustomerInfoForm = ({ plainText, submitEvent }) => (
    <CellPanel horizontal>
       <CellPanel>
          <Cell header="Person" borders="top, left, right">
             <VMContext vm="PersonForm">
-               <Form plainText={plainText}>
+               <Form plainText={plainText} submitEvent={submitEvent}>
                   <Panel childProps={{ horizontal: true }}>
                      <TextField id="FullName" plainText />
                      <DropdownList id="Prefix" />
@@ -23,7 +23,7 @@ const CustomerInfoForm = ({ plainText }) => (
          </Cell>
          <Cell header="Phone">
             <VMContext vm="PhoneForm">
-               <Form plainText={plainText}>
+               <Form plainText={plainText} submitEvent={submitEvent}>
                   <Panel childProps={{ horizontal: true, plainText: plainText }}>
                      <TextField id="Work" />
                      <TextField id="Home" />
@@ -37,7 +37,7 @@ const CustomerInfoForm = ({ plainText }) => (
       <CellPanel>
          <Cell header="Other Info" borders="top, right">
             <VMContext vm="OtherInfoForm">
-               <Form plainText={plainText}>
+               <Form plainText={plainText} submitEvent={submitEvent}>
                   <Panel childProps={{ horizontal: true, plainText: plainText }}>
                      <TextField id="SSN" />
                      <DropdownList id="TaxFilingStatus" />
@@ -50,7 +50,7 @@ const CustomerInfoForm = ({ plainText }) => (
          </Cell>
          <Cell header="Driver License" borders="top, right">
             <VMContext vm="DriverLicenseForm">
-               <Form plainText={plainText}>
+               <Form plainText={plainText} submitEvent={submitEvent}>
                   <Panel childProps={{ horizontal: true, plainText: plainText }}>
                      <TextField id="Number" />
                      <DropdownList id="State" />
@@ -60,7 +60,7 @@ const CustomerInfoForm = ({ plainText }) => (
          </Cell>
          <Cell header="Notes" borders="top, right, bottom">
             <VMContext vm="NotesForm">
-               <Form plainText={plainText}>
+               <Form plainText={plainText} submitEvent={submitEvent}>
                   <Panel childProps={{ horizontal: true, plainText: plainText }}>
                      <TextAreaField id="Notes" />
                   </Panel>

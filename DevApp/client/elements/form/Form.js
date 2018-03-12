@@ -12,7 +12,8 @@ export class Form extends React.Component {
 
    static propTypes = {
       onSubmit: PropTypes.func,
-      plainText: PropTypes.bool
+      plainText: PropTypes.bool,
+      submitEvent: PropTypes.shape({ subscribe: PropTypes.func })
    }
 
    constructor(props) {
@@ -24,6 +25,12 @@ export class Form extends React.Component {
 
    componentWillMount() {
       this.vmContext = this.context.vmContext;
+      if (this.props.submitEvent && this.props.submitEvent.subscribe)
+         this.unsubscribeSubmitEvent = this.props.submitEvent.subscribe(_ => this.handleSubmit());
+   }
+
+   componentWillUnmount() {
+      this.unsubscribeSubmitEvent && this.unsubscribeSubmitEvent();
    }
 
    componentWillUpdate() {

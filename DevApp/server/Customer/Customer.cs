@@ -17,7 +17,7 @@ namespace dotNetify_Elements
    {
       [Description("")] None,
       [Description("Jr.")] Jr,
-      [Description("Sr,")] Sr,
+      [Description("Sr.")] Sr,
       [Description("II")] Second,
       [Description("III")] Third,
       [Description("IV")] Fourth
