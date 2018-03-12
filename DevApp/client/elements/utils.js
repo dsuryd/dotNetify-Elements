@@ -45,20 +45,6 @@ export function markdown(text) {
     return <div dangerouslySetInnerHTML={{ __html: sanitize(marked(text)) }} />;
 }
 
-export function mapStyle(props) {
-    const { color, size, primary, secondary, success, danger, warning, info, light, dark, small, large, ...rest } = props;
-    const _color = primary ? "primary"
-        : secondary ? "secondary"
-            : success ? "success"
-                : danger ? "danger"
-                    : warning ? "warning"
-                        : info ? "info"
-                            : light ? "light"
-                                : dark ? "dark" : color;
-    const _size = small ? "sm" : large ? "lg" : size;
-    return Object.assign({}, { color: _color, size: _size }, rest);
-}
-
 export function mergeProps(elem, ...newProps) {
     const propTypes = Object.keys(elem.type.propTypes || {});
     let props = newProps.reduce((aggregate, prop) => Object.assign(aggregate, prop), {});

@@ -69,9 +69,10 @@ export class DateTimeField extends React.Component {
       const { id, value, attrs } = this.vmInput.props;
 
       let { label, plainText, prefix, suffix, horizontal, ...props } = this.props;
-      label = attrs.label || label;
-      prefix = attrs.prefix || prefix;
-      suffix = attrs.suffix || suffix;
+      label = label || attrs.label;
+      prefix = prefix || attrs.prefix;
+      suffix = suffix || attrs.suffix;
+      plainText = plainText || attrs.plainText;
 
       const { min, max } = attrs;
 

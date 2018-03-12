@@ -77,7 +77,7 @@ namespace dotNetify_Elements
       private string SuccessMessage(FormData data) =>
          $@"**Submitted:**  
          Name: **{data.Name}**  
-         Phone: **{data.Phone}**  
+         Phone: **{WhitespaceIfEmpty(data.Phone)}**  
          Email: **{WhitespaceIfEmpty(data.Email)}**  
          Age: **{data.Age}**";
 

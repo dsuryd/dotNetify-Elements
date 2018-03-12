@@ -45,9 +45,10 @@ export class MultiselectList extends React.Component {
 
         const options = (attrs.options || []).map(opt => <option key={opt.Key} value={opt.Key}>{opt.Value}</option>);
         let { label, plainText, horizontal, prefix, suffix, ...props } = this.props;
-        label = attrs.label || label;
-        prefix = attrs.prefix || prefix;
-        suffix = attrs.suffix || suffix;
+        label = label || attrs.label;
+        prefix = prefix || attrs.prefix;
+        suffix = suffix || attrs.suffix;
+        plainText = plainText || attrs.plainText;
 
         const selected = attrs.options.filter(opt => value.includes(opt.Key));
         const plainTextValue = selected.map(x => x.Value);

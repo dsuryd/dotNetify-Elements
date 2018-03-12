@@ -35,6 +35,7 @@ export class Checkbox extends React.Component {
 
         let { label, plainText } = this.props;
         label = label || attrs.label;
+        plainText = plainText || attrs.plainText;
 
         const checked = value || false;
 

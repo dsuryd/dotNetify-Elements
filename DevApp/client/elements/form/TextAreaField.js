@@ -26,7 +26,7 @@ export class TextAreaField extends React.Component {
 
       const { attrs } = this.vmInput.props;
       let { rows, ...props } = this.props;
-      rows = attrs.rows || rows;
+      rows = rows || attrs.rows || null;
       
       return <TextField inputComponent={Input} rows={rows} {...props} />
    }

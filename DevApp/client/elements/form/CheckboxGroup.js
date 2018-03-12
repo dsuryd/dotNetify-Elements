@@ -53,6 +53,7 @@ export class CheckboxGroup extends React.Component {
         let { label, plainText, inline, horizontal } = this.props;
         const values = value || [];
         label = label || attrs.label;
+        plainText = plainText || attrs.plainText;
 
         const checkboxes = (attrs.options || []).map(opt => (
             <CheckboxContainer key={opt.Key} inline={inline} checked={values.includes(opt.Key)}>

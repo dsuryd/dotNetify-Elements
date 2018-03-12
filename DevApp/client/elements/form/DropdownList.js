@@ -48,9 +48,10 @@ export class DropdownList extends React.Component {
         const options = (attrs.options || options || []).map(opt => utils.toCamelCase(opt));
         const listOptions = options.map(opt => <option key={opt.key} value={opt.key}>{opt.value}</option>);
         let { label, plainText, prefix, suffix, horizontal, ...props } = this.props;
-        label = attrs.label || label;
-        prefix = attrs.prefix || prefix;
-        suffix = attrs.suffix || suffix;
+        label = label || attrs.label;
+        prefix = prefix || attrs.prefix;
+        suffix = suffix || attrs.suffix;
+        plainText = plainText || attrs.plainText;
 
         const selected = options.filter(opt => opt.key == value).shift();
         const plainTextValue = selected ? selected.value : "";

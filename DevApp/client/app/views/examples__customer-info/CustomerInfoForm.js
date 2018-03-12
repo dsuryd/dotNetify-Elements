@@ -5,12 +5,12 @@ import {
 } from '../../../elements/bootstrap';
 
 const CustomerInfoForm = ({ plainText }) => (
-   <Form>
-      <CellPanel horizontal>
-         <CellPanel>
-            <Cell header="Person" borders="top, left, right">
-               <VMContext vm="CustomerInfoPage.PersonForm">
-                  <Panel childProps={{ horizontal: true, plainText: plainText }}>
+   <CellPanel horizontal>
+      <CellPanel>
+         <Cell header="Person" borders="top, left, right">
+            <VMContext vm="PersonForm">
+               <Form plainText={plainText}>
+                  <Panel childProps={{ horizontal: true }}>
                      <TextField id="FullName" plainText />
                      <DropdownList id="Prefix" />
                      <TextField id="FirstName" />
@@ -18,22 +18,26 @@ const CustomerInfoForm = ({ plainText }) => (
                      <TextField id="LastName" />
                      <DropdownList id="Suffix" />
                   </Panel>
-               </VMContext>
-            </Cell>
-            <Cell header="Phone">
-               <VMContext vm="CustomerInfoPage.PhoneForm">
+               </Form>
+            </VMContext>
+         </Cell>
+         <Cell header="Phone">
+            <VMContext vm="PhoneForm">
+               <Form plainText={plainText}>
                   <Panel childProps={{ horizontal: true, plainText: plainText }}>
                      <TextField id="Work" />
                      <TextField id="Home" />
                      <TextField id="Mobile" />
                      <DropdownList id="PrimaryPhone" />
                   </Panel>
-               </VMContext>
-            </Cell>
-         </CellPanel>
-         <CellPanel>
-            <Cell header="Other Info" borders="top, right">
-               <VMContext vm="CustomerInfoPage.OtherInfoForm">
+               </Form>
+            </VMContext>
+         </Cell>
+      </CellPanel>
+      <CellPanel>
+         <Cell header="Other Info" borders="top, right">
+            <VMContext vm="OtherInfoForm">
+               <Form plainText={plainText}>
                   <Panel childProps={{ horizontal: true, plainText: plainText }}>
                      <TextField id="SSN" />
                      <DropdownList id="TaxFilingStatus" />
@@ -41,26 +45,30 @@ const CustomerInfoForm = ({ plainText }) => (
                      <RadioGroup id="Gender" />
                      <DropdownList id="MaritalStatus" />
                   </Panel>
-               </VMContext>
-            </Cell>
-            <Cell header="Driver License" borders="top, right">
-               <VMContext vm="CustomerInfoPage.DriverLicenseForm">
+               </Form>
+            </VMContext>
+         </Cell>
+         <Cell header="Driver License" borders="top, right">
+            <VMContext vm="DriverLicenseForm">
+               <Form plainText={plainText}>
                   <Panel childProps={{ horizontal: true, plainText: plainText }}>
                      <TextField id="Number" />
                      <DropdownList id="State" />
                   </Panel>
-               </VMContext>
-            </Cell>
-            <Cell header="Notes" borders="top, right, bottom">
-               <VMContext vm="CustomerInfoPage.NotesForm">
+               </Form>
+            </VMContext>
+         </Cell>
+         <Cell header="Notes" borders="top, right, bottom">
+            <VMContext vm="NotesForm">
+               <Form plainText={plainText}>
                   <Panel childProps={{ horizontal: true, plainText: plainText }}>
                      <TextAreaField id="Notes" />
                   </Panel>
-               </VMContext>
-            </Cell>
-         </CellPanel>
+               </Form>
+            </VMContext>
+         </Cell>
       </CellPanel>
-   </Form>
+   </CellPanel>
 );
 
 export default CustomerInfoForm;
