@@ -24,7 +24,7 @@ const CustomerInfoForm = ({ plainText, submitEvent, onChanged }) => (
          <Cell header="Phone">
             <VMContext vm="PhoneForm">
                <Form plainText={plainText} submitEvent={submitEvent} onChanged={onChanged}>
-                  <Panel childProps={{ horizontal: true, plainText: plainText }}>
+                  <Panel childProps={{ horizontal: true }}>
                      <TextField id="Work" />
                      <TextField id="Home" />
                      <TextField id="Mobile" />
@@ -38,7 +38,7 @@ const CustomerInfoForm = ({ plainText, submitEvent, onChanged }) => (
          <Cell header="Other Info" borders="top, right">
             <VMContext vm="OtherInfoForm">
                <Form plainText={plainText} submitEvent={submitEvent} onChanged={onChanged}>
-                  <Panel childProps={{ horizontal: true, plainText: plainText }}>
+                  <Panel childProps={{ horizontal: true }}>
                      <TextField id="SSN" />
                      <DropdownList id="TaxFilingStatus" />
                      <DateField id="DateOfBirth" />
@@ -51,7 +51,7 @@ const CustomerInfoForm = ({ plainText, submitEvent, onChanged }) => (
          <Cell header="Driver License" borders="top, right">
             <VMContext vm="DriverLicenseForm">
                <Form plainText={plainText} submitEvent={submitEvent} onChanged={onChanged}>
-                  <Panel childProps={{ horizontal: true, plainText: plainText }}>
+                  <Panel childProps={{ horizontal: true }}>
                      <TextField id="Number" />
                      <DropdownList id="State" />
                   </Panel>
@@ -61,7 +61,7 @@ const CustomerInfoForm = ({ plainText, submitEvent, onChanged }) => (
          <Cell header="Notes" borders="top, right, bottom">
             <VMContext vm="NotesForm">
                <Form plainText={plainText} submitEvent={submitEvent} onChanged={onChanged}>
-                  <Panel childProps={{ horizontal: true, plainText: plainText }}>
+                  <Panel childProps={{ horizontal: true }}>
                      <TextAreaField id="Notes" />
                   </Panel>
                </Form>
