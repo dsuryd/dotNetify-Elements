@@ -58,8 +58,12 @@ export class Panel extends React.Component {
       ChildContainer
    }
 
+   get children() {
+      return React.Children.toArray(this.props.children).filter(x => x);
+   }
+
    get numChildren() {
-      return React.Children.count(this.props.children);
+      return React.Children.count(this.children);
    }
 
    constructor(props) {
@@ -103,8 +107,9 @@ export class Panel extends React.Component {
          flex
       } = this.props;
 
-      let _gap = gap || (noGap ? "0" : smallGap ? ".5rem" : "1rem");
-      let _margin = margin || (noMargin ? "0" : smallMargin ? "1rem" : "1.5rem");
+      const { Gap, Margin } = this.context.theme.Panel;
+      let _gap = gap || (noGap ? "0" : smallGap ? Gap.small : Gap.large);
+      let _margin = margin || (noMargin ? "0" : smallMargin ? Margin.small : Margin.large);
       let _flex = typeof flex == "boolean" ? (flex ? "1" : null) : flex;
       _flex = _flex || fit ? "1" : null;
 
@@ -119,7 +124,7 @@ export class Panel extends React.Component {
             height={height}
             flex={_flex}
          >
-            {React.Children.map(this.props.children, (child, idx) => {
+            {this.children.map((child, idx) => {
                return (
                   <ChildContainer key={idx}
                      style={this.getStyle(idx)}
