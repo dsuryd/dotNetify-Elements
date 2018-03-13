@@ -17,7 +17,8 @@ export class DataGrid extends React.Component {
 
    static propTypes = {
       rowHeight: PropTypes.string,
-      onSelect: PropTypes.func
+      onSelect: PropTypes.func,
+      disabled: PropTypes.bool
    }
 
    static defaultProps = {
@@ -40,7 +41,7 @@ export class DataGrid extends React.Component {
    }
 
    get canSelect() {
-      return ["Single", "Multiple"].includes(this.attrs.selectMode);
+      return ["Single", "Multiple"].includes(this.attrs.selectMode) && !this.props.disabled;
    }
 
    get isMultiselect() {
@@ -133,7 +134,7 @@ export class DataGrid extends React.Component {
       const rowGetter = idx => value[idx];
 
       const { rowKey, columns, rows, canSelect } = attrs;
-      const height = rows ? (rows + 1) * utils.toPixel(rowHeight) : null;
+      const height = rows ? (rows + 1) * utils.toPixel(rowHeight) + 2 : null;
       this.attrs = attrs;
 
       return (
