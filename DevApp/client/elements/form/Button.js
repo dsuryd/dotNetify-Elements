@@ -6,7 +6,8 @@ export class Button extends React.Component {
 
     static propTypes = {
         submit: PropTypes.bool,
-        cancel: PropTypes.bool
+        cancel: PropTypes.bool,
+        disabled: PropTypes.bool
     }
 
     static componentTypes = {

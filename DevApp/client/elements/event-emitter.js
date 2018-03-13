@@ -1,8 +1,8 @@
 const createEventEmitter = _ => {
    let subscribers = []
    return {
-      emit(value) {
-         subscribers.forEach(subscriber => subscriber(value));
+      emit(...args) {
+         subscribers.forEach(subscriber => subscriber(...args));
       },
 
       subscribe(subscriber) {

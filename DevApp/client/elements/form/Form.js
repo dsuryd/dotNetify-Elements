@@ -12,6 +12,7 @@ export class Form extends React.Component {
 
    static propTypes = {
       onSubmit: PropTypes.func,
+      onChanged: PropTypes.func,
       plainText: PropTypes.bool,
       submitEvent: PropTypes.shape({ subscribe: PropTypes.func })
    }
@@ -26,14 +27,18 @@ export class Form extends React.Component {
    componentWillMount() {
       this.vmContext = this.context.vmContext;
       if (this.props.submitEvent && this.props.submitEvent.subscribe)
-         this.unsubscribeSubmitEvent = this.props.submitEvent.subscribe(_ => this.handleSubmit());
+         this.unsubscribeSubmitEvent = this.props.submitEvent.subscribe(submit => submit ? this.handleSubmit() : this.handleCancel());
    }
 
    componentWillUnmount() {
       this.unsubscribeSubmitEvent && this.unsubscribeSubmitEvent();
    }
 
-   componentWillUpdate() {
+   componentWillUpdate(props) {
+      // If plainText is changed to false (indicating this form is entering edit mode), refresh initial state.
+      if (!props.plainText && this.props.plainText)
+         this.initialState = null;
+
       // Keep the initial state so we can restore them on Cancel action.
       this.initialState = this.initialState || this.getInitialState();
    }
@@ -43,7 +48,9 @@ export class Form extends React.Component {
       // and only send them on Submit button click. But use 'toServer' to override this
       // for special cases, e.g. letting field value go through to be validated server-side.
       toServer === true ? this.vmContext.dispatchState(state) :
-         this.setState({ changed: true, data: Object.assign({}, this.state.data, state) })
+         this.setState({ changed: true, data: Object.assign({}, this.state.data, state) });
+
+      this.props.onChanged && this.props.onChanged(state);
    }
 
    getChildContext() {

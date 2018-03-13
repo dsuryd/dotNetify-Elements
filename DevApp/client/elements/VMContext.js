@@ -12,7 +12,13 @@ export const ContextTypes = Object.assign({}, {
 export class VMContext extends React.Component {
 
    static contextTypes = ContextTypes;
+   
    static childContextTypes = ContextTypes;
+
+   static propTypes = {
+      vm: PropTypes.string,
+      onStateChange: PropTypes.func
+   }
 
    constructor(props) {
       super(props);
@@ -41,6 +47,8 @@ export class VMContext extends React.Component {
          this.onceHandlers = this.onceHandlers.filter(o => !changedProps.includes(o));
          changedProps.forEach(o => o.handler(state[o.propId]));
       }
+
+      this.props.onStateChange && this.props.onStateChange(state);
    }
 
    getChildContext() {
