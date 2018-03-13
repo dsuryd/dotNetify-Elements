@@ -16,7 +16,8 @@ export class DataGrid extends React.Component {
    static contextTypes = ContextTypes;
 
    static propTypes = {
-      rowHeight: PropTypes.string
+      rowHeight: PropTypes.string,
+      onSelect: PropTypes.func
    }
 
    static defaultProps = {
@@ -80,6 +81,11 @@ export class DataGrid extends React.Component {
       return this.attrs.rowKey ? { keys: { rowKey: this.attrs.rowKey, values: this.state.selectedKeys } } : { indexes: this.state.selectedKeys };
    }
 
+   dispatchSelection(value) {
+      this.attrs.selectedKeyProperty && this.vmProperty.dispatch(value, this.attrs.selectedKeyProperty);
+      this.props.onSelect && this.props.onSelect(value);
+   }
+
    handleGridSort = (sortColumn, sortDirection) => {
       const comparer = (a, b) =>
          sortDirection == "ASC" ? (a[sortColumn] > b[sortColumn] ? 1 : -1)
@@ -99,7 +105,7 @@ export class DataGrid extends React.Component {
       const selectedKey = this.attrs.rowKey ? row[this.attrs.rowKey] : idx;
       if (!this.state.selectedKeys.includes(selectedKey)) {
          const selectedKeys = this.isMultiselect ? [selectedKey, ...this.state.selectedKeys] : [selectedKey];
-         this.vmProperty.dispatch(this.isMultiselect ? selectedKeys : selectedKey, this.attrs.selectedKeyProperty);
+         this.dispatchSelection(this.isMultiselect ? selectedKeys : selectedKey);
          this.setState({ selectedKeys: selectedKeys });
       }
    }
@@ -111,7 +117,7 @@ export class DataGrid extends React.Component {
    handleRowsDeselected = rows => {
       const deselectedKeys = rows.map(row => this.attrs.rowKey ? row.row[this.attrs.rowKey] : row.rowIdx);
       const selectedKeys = this.state.selectedKeys.filter(key => !deselectedKeys.includes(key));
-      this.vmProperty.dispatch(this.isMultiselect ? selectedKeys : selectedKeys.shift(), this.attrs.selectedKeyProperty);
+      this.dispatchSelection(this.isMultiselect ? selectedKeys : selectedKeys.shift());
       this.setState({ selectedKeys: selectedKeys });
    }
 
@@ -126,7 +132,7 @@ export class DataGrid extends React.Component {
       const { id, value, attrs } = this.vmProperty.props;
       const rowGetter = idx => value[idx];
 
-      const { rowKey, columns, rows, selectedKeyProperty, canSelect } = attrs;
+      const { rowKey, columns, rows, canSelect } = attrs;
       const height = rows ? (rows + 1) * utils.toPixel(rowHeight) : null;
       this.attrs = attrs;
 
