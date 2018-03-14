@@ -4,11 +4,15 @@ import { ContextTypes } from '../VMContext';
 import VMInputValidator from '../VMInputValidator';
 import * as utils from '../utils';
 
+const FormContextTypes = Object.assign({
+   formContext: PropTypes.object
+}, ContextTypes);
+
 export class Form extends React.Component {
 
-   static contextTypes = ContextTypes;
+   static contextTypes = FormContextTypes;
 
-   static childContextTypes = ContextTypes;
+   static childContextTypes = FormContextTypes;
 
    static propTypes = {
       onSubmit: PropTypes.func,
@@ -25,9 +29,9 @@ export class Form extends React.Component {
    }
 
    componentWillMount() {
-      this.vmContext = this.context.vmContext;
-      if (this.props.submitEvent && this.props.submitEvent.subscribe)
-         this.unsubscribeSubmitEvent = this.props.submitEvent.subscribe(submit => submit ? this.handleSubmit() : this.handleCancel());
+
+      if (this.submitEvent && this.submitEvent.subscribe)
+         this.unsubscribeSubmitEvent = this.submitEvent.subscribe(submit => submit ? this.handleSubmit() : this.handleCancel());
    }
 
    componentWillUnmount() {
@@ -36,12 +40,18 @@ export class Form extends React.Component {
 
    componentWillUpdate(props) {
       // If plainText is changed to false (indicating this form is entering edit mode), refresh initial state.
-      if (!props.plainText && this.props.plainText)
+      if (!props.plainText && this.plainText)
          this.initialState = null;
 
       // Keep the initial state so we can restore them on Cancel action.
       this.initialState = this.initialState || this.getInitialState();
    }
+
+   get vmContext() { return this.context.vmContext; }
+   get plainText() { return (this.context.formContext && this.context.formContext.plainText) || this.props.plainText; }
+   get submitEvent() { return (this.context.formContext && this.context.formContext.submitEvent) || this.props.submitEvent; }
+   get onChanged() { return (this.context.formContext && this.context.formContext.onChanged) || this.props.onChanged; }
+   get onSubmit() { return (this.context.formContext && this.context.formContext.onSubmit) || this.props.onSubmit; }
 
    dispatchState(state, toServer) {
       // Intercept dispatchState calls from the input fields to group them all first here,
@@ -50,16 +60,22 @@ export class Form extends React.Component {
       toServer === true ? this.vmContext.dispatchState(state) :
          this.setState({ changed: true, data: Object.assign({}, this.state.data, state) });
 
-      this.props.onChanged && this.props.onChanged(state);
+      this.onChanged && this.onChanged(state);
    }
 
    getChildContext() {
-      let { vmContext, ...context } = this.context;
+      let { vmContext, formContext, ...context } = this.context;
       return {
          ...context,
+         formContext: formContext || {
+            plainText: this.props.plainText,
+            submitEvent: this.props.submitEvent,
+            onChanged: this.props.onChanged,
+            onSubmit: this.props.onSubmit
+         },
          vmContext: Object.assign({}, vmContext, {
             dispatchState: (state, toServer) => this.dispatchState(state, toServer),
-            getValidator: (context, propId) => this.getValidator(context, propId),
+            getValidator: (context, propId) => this.getValidator(vmContext, propId),
             getPropAttributes: propId => this.getPropAttributes(vmContext, propId)
          })
       };
@@ -73,7 +89,7 @@ export class Form extends React.Component {
    }
 
    getPropAttributes(vmContext, propId) {
-      return Object.assign({ plainText: this.props.plainText }, vmContext.getPropAttributes(propId));
+      return Object.assign({ plainText: this.plainText }, vmContext.getPropAttributes(propId));
    }
 
    getValidator(context, propId) {
@@ -120,7 +136,7 @@ export class Form extends React.Component {
 
    submit(data) {
       let formData = Object.assign({}, this.initialState, data);
-      if (typeof this.props.onSubmit != "function" || this.props.onSubmit(formData) !== false)
+      if (!this.onSubmit || this.onSubmit(formData) !== false)
          this.vmContext.dispatchState(this.submitPropId ? ({ [this.submitPropId]: formData }) : data);
    }
 
