@@ -1,6 +1,6 @@
 import React from 'react';
 import CustomerInfoForm from './CustomerInfoForm';
-import { Button, DataGrid, Frame, Panel, Theme, VMContext } from '../../../elements/bootstrap';
+import { Button, DataGrid, Form, Frame, Panel, Theme, VMContext } from '../../../elements/bootstrap';
 import createEventEmitter from '../../../elements/event-emitter';
 
 export default class CustomerInfoPage extends React.Component {
@@ -14,10 +14,10 @@ export default class CustomerInfoPage extends React.Component {
       this.setState({ edit: false, changed: false });
    }
    handleCancel = _ => {
-      this.state.submitEvent.emit(false); 
+      this.state.submitEvent.emit(false);
       this.setState({ edit: false, changed: false });
    }
-   handleChanged = _ => this.setState({changed: true});
+   handleChanged = _ => this.setState({ changed: true });
 
    render() {
       const { editable, edit, changed, submitEvent } = this.state;
@@ -34,7 +34,9 @@ export default class CustomerInfoPage extends React.Component {
                      {showUpdateCancel && <Button submit onClick={this.handleUpdate} disabled={!changed}>Update</Button>}
                      {showUpdateCancel && <Button secondary onClick={this.handleCancel}>Cancel</Button>}
                   </Panel>
-                  <CustomerInfoForm plainText={!edit} submitEvent={submitEvent} onChanged={this.handleChanged} />
+                  <Form plainText={!edit} submitEvent={submitEvent} onChanged={this.handleChanged}>
+                     <CustomerInfoForm />
+                  </Form>
                </Frame>
             </Theme>
          </VMContext >

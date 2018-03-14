@@ -21,6 +21,8 @@ export function getVMProperty(component) {
 
 export function mapChildren(children, predicate, mapper) {
     return React.Children.map(children, child => {
+        if (!child) return;
+        
         if (child.type && predicate(child))
             return mapper(child);
         else if (child.props && child.props.children)
