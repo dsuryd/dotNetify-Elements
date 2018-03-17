@@ -5,7 +5,7 @@ import marked from 'marked';
 import sanitize from 'sanitize-html';
 
 export function getVMInput(component) {
-    const isVMProp = component.context.vmContext && component.context.vmContext.getStates().hasOwnProperty(component.props.id);
+    const isVMProp = component.context.vmContext && component.context.vmContext.getState().hasOwnProperty(component.props.id);
     return isVMProp ? component._vmInput || (component._vmInput = new VMInput(component.context.vmContext, component.props.id)) :
         {
             props: { id: component.props.id, value: component.props.value, attrs: component.props.attrs || {} },
@@ -17,6 +17,10 @@ export function getVMInput(component) {
 
 export function getVMProperty(component) {
     return component._vmProperty || (component._vmProperty = new VMProperty(component.context.vmContext, component.props.id));
+}
+
+export function bool(arg1, arg2) {
+   return typeof arg1 == "boolean" ? arg1 : !!arg2;
 }
 
 export function mapChildren(children, predicate, mapper) {

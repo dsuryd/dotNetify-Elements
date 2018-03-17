@@ -43,7 +43,7 @@ export class VMContext extends React.Component {
       // If something inside this view model context wishes to be notified on changed, then run the check here.
       // Right now this only supports handing notification at most once, just to keep it simple.
       if (this.onceHandlers.length > 0) {
-         const changedProps = this.onceHandlers.filter(o => state.hasOwnProperty(o.propId) && state[o.propId] !== o.value);
+         const changedProps = this.onceHandlers.filter(o => !o.propId || (state.hasOwnProperty(o.propId) && state[o.propId] !== o.value));
          this.onceHandlers = this.onceHandlers.filter(o => !changedProps.includes(o));
          changedProps.forEach(o => o.handler(state[o.propId]));
       }
@@ -57,8 +57,7 @@ export class VMContext extends React.Component {
          vmContext: {
             vmId: this.vmId,
             vm: this.vm,
-            getStates: _ => this.state,
-            getState: id => this.state && this.state.hasOwnProperty(id) ? this.state[id] : undefined,
+            getState: id => id ? (this.state && this.state.hasOwnProperty(id) ? this.state[id] : undefined) : this.state,
             setState: state => this.setState(state),
             dispatchState: state => this.vm.$dispatch(state),
             getPropAttributes: propId => utils.toCamelCase((this.state && this.state[propId + "__attr"]) || {}),

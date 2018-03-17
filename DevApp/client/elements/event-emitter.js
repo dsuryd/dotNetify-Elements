@@ -6,7 +6,7 @@ const createEventEmitter = _ => {
       },
 
       subscribe(subscriber) {
-         subscribers.push(subscriber);
+         !subscribers.includes(subscriber) && subscribers.push(subscriber);
          return () => subscribers = subscribers.filter(x => x !== subscriber);
       }
    }

@@ -79,7 +79,7 @@ export class TextField extends React.Component {
       prefix = prefix || attrs.prefix;
       suffix = suffix || attrs.suffix;
       maxLength = maxLength || attrs.maxLength || null;
-      plainText = plainText || attrs.plainText;
+      plainText = utils.bool(plainText, attrs.plainText);
 
       const plainTextValue = `${prefix || ""}${value || ""}${suffix || ""}`;
 

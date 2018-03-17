@@ -52,7 +52,7 @@ export class RadioGroup extends React.Component {
       let { label, options, right, horizontal, plainText } = this.props;
       label = label || attrs.label;
       options = (options || attrs.options || []).map(opt => utils.toCamelCase(opt));
-      plainText = plainText || attrs.plainText;
+      plainText = utils.bool(plainText, attrs.plainText);
 
       const radio = options.map(opt => (
          <RadioContainer key={opt.key} id={id} checked={opt.key == value}>

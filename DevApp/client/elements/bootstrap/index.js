@@ -25,6 +25,7 @@ import { Panel } from '../../elements/layout/Panel';
 import { PasswordField } from '../../elements/form/PasswordField';
 import { RadioGroup } from '../../elements/form/RadioGroup';
 import { RadioToggle } from '../../elements/form/RadioToggle';
+import { SubmitButton } from '../../elements/form/SubmitButton';
 import { TextField } from '../../elements/form/TextField';
 import { TextAreaField } from '../../elements/form/TextAreaField';
 import { Theme } from '../../elements/layout/Theme';
@@ -149,6 +150,7 @@ export {
    Panel, Frame,
    RadioGroup,
    RadioToggle,
+   SubmitButton,
    TextField, NumberField, PasswordField, TextAreaField,
    Theme,
    VMContext

@@ -50,6 +50,8 @@ namespace dotNetify_Elements
                 },
                Rows = 5
             }.CanSelect(DataGridAttribute.Selection.Single, _selectedContact));
+
+         AddProperty<object>("Submit");
       }
 
       public override void OnSubVMCreated(BaseVM subVM)

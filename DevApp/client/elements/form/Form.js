@@ -4,7 +4,7 @@ import { ContextTypes } from '../VMContext';
 import VMInputValidator from '../VMInputValidator';
 import * as utils from '../utils';
 
-const FormContextTypes = Object.assign({
+export const FormContextTypes = Object.assign({
    formContext: PropTypes.object
 }, ContextTypes);
 
@@ -17,8 +17,18 @@ export class Form extends React.Component {
    static propTypes = {
       onSubmit: PropTypes.func,
       onChanged: PropTypes.func,
-      plainText: PropTypes.bool,
-      submitEvent: PropTypes.shape({ subscribe: PropTypes.func })
+      plainText: PropTypes.bool
+   }
+
+   get formProps() { return this.context.formContext ? this.context.formContext.props : this.props };
+   get plainText() { return this.formProps.plainText; }
+   get onChanged() { return this.formProps.onChanged; }
+   get onSubmit() { return this.formProps.onSubmit; }
+
+   get enteringEditMode() {
+      const result = this._plainText && !this.plainText;
+      this._plainText = this.plainText;
+      return result;
    }
 
    constructor(props) {
@@ -26,53 +36,53 @@ export class Form extends React.Component {
       this.state = { changed: false };
       this.validators = [];
       this.inputProps = [];
+      this.subForms = [];
    }
 
    componentWillMount() {
-
-      if (this.submitEvent && this.submitEvent.subscribe)
-         this.unsubscribeSubmitEvent = this.submitEvent.subscribe(submit => submit ? this.handleSubmit() : this.handleCancel());
+      this.resetForm();
+      this.context.formContext && this.context.formContext.subForms.push(this);
    }
 
-   componentWillUnmount() {
-      this.unsubscribeSubmitEvent && this.unsubscribeSubmitEvent();
+   componentDidUpdate() {
+      if (this.enteringEditMode)
+         this.resetForm();
+
+      // Keep the pre-edit state so we can restore them on Cancel action.
+      this.preEditState = this.preEditState || this.getPreEditState();
    }
 
-   componentWillUpdate(props) {
-      // If plainText is changed to false (indicating this form is entering edit mode), refresh initial state.
-      if (!props.plainText && this.plainText)
-         this.initialState = null;
-
-      // Keep the initial state so we can restore them on Cancel action.
-      this.initialState = this.initialState || this.getInitialState();
+   changed(state) {
+      this.setState({ changed: true });
+      this.context.formContext && this.context.formContext.setChanged(state);
+      this.onChanged && this.onChanged(state);
    }
-
-   get vmContext() { return this.context.vmContext; }
-   get plainText() { return (this.context.formContext && this.context.formContext.plainText) || this.props.plainText; }
-   get submitEvent() { return (this.context.formContext && this.context.formContext.submitEvent) || this.props.submitEvent; }
-   get onChanged() { return (this.context.formContext && this.context.formContext.onChanged) || this.props.onChanged; }
-   get onSubmit() { return (this.context.formContext && this.context.formContext.onSubmit) || this.props.onSubmit; }
 
    dispatchState(state, toServer) {
       // Intercept dispatchState calls from the input fields to group them all first here,
       // and only send them on Submit button click. But use 'toServer' to override this
       // for special cases, e.g. letting field value go through to be validated server-side.
-      toServer === true ? this.vmContext.dispatchState(state) :
+      toServer === true ? this.context.vmContext.dispatchState(state) :
          this.setState({ changed: true, data: Object.assign({}, this.state.data, state) });
 
-      this.onChanged && this.onChanged(state);
+      this.changed(state);
    }
 
    getChildContext() {
       let { vmContext, formContext, ...context } = this.context;
+
+      formContext = formContext || {
+         props: this.props,
+         subForms: this.subForms,
+         changed: this.state.changed,
+         setChanged: state => this.changed(state),
+         submit: propId => this.handleSubmit(propId),
+         cancel: _ => this.handleCancel()
+      };
+
       return {
          ...context,
-         formContext: formContext || {
-            plainText: this.props.plainText,
-            submitEvent: this.props.submitEvent,
-            onChanged: this.props.onChanged,
-            onSubmit: this.props.onSubmit
-         },
+         formContext: formContext,
          vmContext: Object.assign({}, vmContext, {
             dispatchState: (state, toServer) => this.dispatchState(state, toServer),
             getValidator: (context, propId) => this.getValidator(vmContext, propId),
@@ -81,9 +91,9 @@ export class Form extends React.Component {
       };
    }
 
-   getInitialState() {
-      // Get the initial state of just the input fields so we can restore them on Cancel.
-      return Object.entries(this.vmContext.getStates())
+   getPreEditState() {
+      // Get the pre-edit state of only the input fields so we can restore them on Cancel.
+      return Object.entries(this.vmContextState)
          .filter(pair => this.inputProps.includes(pair[0]))
          .reduce((aggregate, pair) => Object.assign(aggregate, { [pair[0]]: pair[1] }), {});
    }
@@ -100,44 +110,52 @@ export class Form extends React.Component {
       return validator;
    }
 
-   handleSubmit() {
-      const { data } = this.state;
-      data && this.validate().then(result => {
-         if (result.valid) {
-            this.submit(data);
-            this.setState({ changed: false, data: null });
-            this.initialState = null;
-         }
-      });
+   handleSubmit(propId) {
+      if (this.subForms.length == 0)
+         return this.submitOnValidated(propId);
+
+      Promise.all(this.subForms.map(form => form.submitOnValidated(propId)))
+         .then(results => results.reduce((aggregate, current) => ({
+            valid: aggregate.valid && current.valid,
+            messages: [...aggregate.messages, ...current.messages]
+         })))
+         .then(result => result.valid && this.submit(propId));
    }
 
    handleCancel() {
-      this.vmContext.setState(this.initialState);
+      this.subForms.forEach(form => form.cancel());
+      this.cancel();
+   }
+
+   cancel() {
+      this.context.vmContext.setState(this.preEditState);
       this.setState({ changed: false, data: null });
       this.validators.forEach(validator => validator.clear());
    }
 
-   mapButtons(children) {
-      return utils.mapChildren(children,
-         child => child.props.submit || child.props.cancel,
-         child => {
-            this.submitPropId = child.props.submit && child.props.id;
-            return React.cloneElement(child, {
-               onClick: child.props.submit ? () => this.handleSubmit() : () => this.handleCancel(),
-               disabled: !this.state.changed
-            })
-         }
-      );
-   }
-
    render() {
-      return this.mapButtons(this.props.children);
+      return this.props.children;
    }
 
-   submit(data) {
-      let formData = Object.assign({}, this.initialState, data);
+   resetForm() {
+      this.preEditState = null;
+      this.vmContextState = this.context.vmContext.getState();
+      this._plainText = this.plainText;
+   }
+
+   submitOnValidated(propId) {
+      const { data } = this.state;
+      return !data ? Promise.resolve({ valid: true, messages: [] }) :
+         this.validate().then(result => result.valid && this.submit(propId, data) ? result : result);
+   }
+
+   submit(propId, data) {
+      let formData = Object.assign({}, this.preEditState, data);
       if (!this.onSubmit || this.onSubmit(formData) !== false)
-         this.vmContext.dispatchState(this.submitPropId ? ({ [this.submitPropId]: formData }) : data);
+         this.context.vmContext.dispatchState(propId ? ({ [propId]: formData }) : data);
+
+      this.setState({ changed: false, data: null });
+      this.resetForm();
    }
 
    validate() {

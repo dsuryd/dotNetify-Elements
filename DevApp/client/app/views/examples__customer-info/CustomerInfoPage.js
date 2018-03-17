@@ -5,22 +5,13 @@ import createEventEmitter from '../../../elements/event-emitter';
 
 export default class CustomerInfoPage extends React.Component {
 
-   state = { editable: false, edit: false, changed: false, submitEvent: createEventEmitter() };
+   state = { editable: false, edit: false };
 
    handleSelect = value => this.setState({ editable: value ? true : false });
-   handleEdit = _ => this.setState({ edit: true });
-   handleUpdate = _ => {
-      this.state.submitEvent.emit(true);
-      this.setState({ edit: false, changed: false });
-   }
-   handleCancel = _ => {
-      this.state.submitEvent.emit(false);
-      this.setState({ edit: false, changed: false });
-   }
-   handleChanged = _ => this.setState({ changed: true });
+   toggleEdit = _ => this.setState({ edit: !this.state.edit });
 
    render() {
-      const { editable, edit, changed, submitEvent } = this.state;
+      const { editable, edit } = this.state;
       const showEdit = editable && !edit;
       const showUpdateCancel = edit;
       return (
@@ -29,17 +20,19 @@ export default class CustomerInfoPage extends React.Component {
                <Frame>
                   <h2>Contacts</h2>
                   <DataGrid id="Contacts" onSelect={this.handleSelect} disabled={edit} />
-                  <Panel horizontal left>
-                     {showEdit && <Button onClick={this.handleEdit}>Edit</Button>}
-                     {showUpdateCancel && <Button submit onClick={this.handleUpdate} disabled={!changed}>Update</Button>}
-                     {showUpdateCancel && <Button secondary onClick={this.handleCancel}>Cancel</Button>}
-                  </Panel>
-                  <Form plainText={!edit} submitEvent={submitEvent} onChanged={this.handleChanged}>
-                     <CustomerInfoForm />
+                  <Form plainText={!edit}>
+                     <Panel>
+                        <Panel horizontal left>
+                           {showEdit && <Button onClick={this.toggleEdit}>Edit</Button>}
+                           {showUpdateCancel && <Button id="Submit" submit onClick={this.toggleEdit}>Update</Button>}
+                           {showUpdateCancel && <Button cancel secondary onClick={this.toggleEdit}>Cancel</Button>}
+                        </Panel>
+                        <CustomerInfoForm />
+                     </Panel>
                   </Form>
                </Frame>
             </Theme>
-         </VMContext >
+         </VMContext>
       );
    }
 }
