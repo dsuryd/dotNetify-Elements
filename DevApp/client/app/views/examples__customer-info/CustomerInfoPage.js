@@ -25,7 +25,7 @@ export default class CustomerInfoPage extends React.Component {
                         <Panel horizontal left>
                            {showEdit && <Button onClick={this.toggleEdit}>Edit</Button>}
                            {showUpdateCancel && <Button id="Submit" submit onClick={this.toggleEdit}>Update</Button>}
-                           {showUpdateCancel && <Button cancel secondary onClick={this.toggleEdit}>Cancel</Button>}
+                           {showUpdateCancel && <Button secondary onClick={this.toggleEdit}>Cancel</Button>}
                         </Panel>
                         <CustomerInfoForm />
                      </Panel>
