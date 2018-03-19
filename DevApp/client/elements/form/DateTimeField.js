@@ -72,7 +72,7 @@ export class DateTimeField extends React.Component {
       label = label || attrs.label;
       prefix = prefix || attrs.prefix;
       suffix = suffix || attrs.suffix;
-      plainText = utils.bool(plainText, attrs.plainText);
+      plainText = plainText || attrs.plainText;
 
       const { min, max } = attrs;
 

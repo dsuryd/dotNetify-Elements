@@ -10,7 +10,12 @@ export class Button extends React.Component {
    static propTypes = {
       submit: PropTypes.bool,
       cancel: PropTypes.bool,
-      disabled: PropTypes.bool
+      visible: PropTypes.bool,      
+      disabled: PropTypes.bool,
+   }
+
+   static defaultProps = {
+      visible: true
    }
 
    static componentTypes = {
@@ -30,9 +35,9 @@ export class Button extends React.Component {
 
    render() {
       const [_Button] = utils.resolveComponents(Button, this.props);
-      const { submit, cancel, disabled, onClick, ...props } = this.props;
+      const { submit, cancel, visible, disabled, onClick, ...props } = this.props;
       const _disabled = submit || cancel ? this.disabled : disabled;
 
-      return <_Button onClick={this.handleClick} disabled={_disabled} {...props} />
+      return visible ? <_Button onClick={this.handleClick} disabled={_disabled} {...props} /> : null;
    }
 }  

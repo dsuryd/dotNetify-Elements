@@ -61,6 +61,19 @@ namespace DotNetify.Elements
          return prop;
       }
 
+      /// <summary>
+      /// Includes CRUD item key to a reactive property.
+      /// </summary>
+      /// <param name="prop">Property to include.</param>
+      /// <param name="vm">View model of the property.</param>
+      /// <param name="itemKey">Item key.</param>
+      /// <returns>Property.</returns>
+      public static ReactiveProperty<TProp> WithItemKey<TProp>(this ReactiveProperty<TProp> prop, IReactiveProperties vm, string itemKey)
+      {
+         vm.AddProperty($"{prop.Name}_itemKey", itemKey);
+         return prop;
+      }
+
       #region Validations
 
       /// <summary>

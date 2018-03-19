@@ -1,14 +1,19 @@
 ﻿using Bogus;
 using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 
 namespace dotNetify_Elements
 {
+   using StringDictionary = Dictionary<string, string>;
+
    public interface ICustomerRepository
    {
       IReadOnlyList<Customer> GetAll();
       Customer Get(string id);
+      Customer Update(string id, StringDictionary person, StringDictionary phone,
+         StringDictionary otherInfo, StringDictionary driverLicense, StringDictionary notes);
    }
 
    public class CustomerRepository : ICustomerRepository
@@ -17,6 +22,27 @@ namespace dotNetify_Elements
 
       public IReadOnlyList<Customer> GetAll() => _mockData;
       public Customer Get(string id) => _mockData.FirstOrDefault(x => x.Id.ToString() == id);
+
+      public Customer Update(string id, StringDictionary person, StringDictionary phone,
+         StringDictionary otherInfo, StringDictionary driverLicense, StringDictionary notes)
+      {
+         var customer = Get(id);
+
+         Update(customer.Name, person);
+         Update(customer.Phone, phone);
+         Update(customer.OtherInfo, otherInfo);
+         Update(customer.DriverLicense, driverLicense);
+         Update(customer.Notes, notes);
+
+         return customer;
+      }
+
+      private void Update(object record, StringDictionary newValues)
+      {
+         if (newValues != null)
+            foreach (var prop in record.GetType().GetProperties().Where(prop => newValues.ContainsKey(prop.Name)))
+               prop.SetValue(record, TypeDescriptor.GetConverter(prop.PropertyType).ConvertFromString(newValues[prop.Name]));
+      }
 
       private static IReadOnlyList<Customer> GenerateMockData()
       {

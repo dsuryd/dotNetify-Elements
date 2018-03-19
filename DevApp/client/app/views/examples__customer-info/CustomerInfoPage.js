@@ -12,8 +12,7 @@ export default class CustomerInfoPage extends React.Component {
 
    render() {
       const { editable, edit } = this.state;
-      const showEdit = editable && !edit;
-      const showUpdateCancel = edit;
+      const canEdit = editable && !edit;
       return (
          <VMContext vm="CustomerInfoPage">
             <Theme>
@@ -23,9 +22,9 @@ export default class CustomerInfoPage extends React.Component {
                   <Form plainText={!edit}>
                      <Panel>
                         <Panel horizontal left>
-                           {showEdit && <Button onClick={this.toggleEdit}>Edit</Button>}
-                           {showUpdateCancel && <Button id="Submit" submit onClick={this.toggleEdit}>Update</Button>}
-                           {showUpdateCancel && <Button secondary onClick={this.toggleEdit}>Cancel</Button>}
+                           <Button visible={canEdit} onClick={this.toggleEdit}>Edit</Button>
+                           <Button id="Submit" submit visible={edit} onClick={this.toggleEdit}>Update</Button>
+                           <Button cancel secondary visible={edit} disabled={false} onClick={this.toggleEdit}>Cancel</Button>
                         </Panel>
                         <CustomerInfoForm />
                      </Panel>

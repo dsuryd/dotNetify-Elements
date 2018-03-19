@@ -1,10 +1,13 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Reactive.Linq;
 using DotNetify;
 using DotNetify.Elements;
 
 namespace dotNetify_Elements
 {
+   using StringDictionary = Dictionary<string, string>;
+
    public partial class CustomerInfoPage : BaseVM
    {
       private readonly ICustomerRepository _customerRepository;
@@ -20,24 +23,23 @@ namespace dotNetify_Elements
          public string ZipCode { get; set; }
       }
 
+      public class FormData
+      {
+         public StringDictionary Person { get; set; }
+         public StringDictionary Phone { get; set; }
+         public StringDictionary OtherInfo { get; set; }
+         public StringDictionary DriverLicense { get; set; }
+         public StringDictionary Notes { get; set; }
+      }
+
       public CustomerInfoPage(ICustomerRepository customerRepository)
       {
          _customerRepository = customerRepository;
 
-         var contacts = customerRepository.GetAll()
-            .Select(customer => new Contact
-            {
-               Id = customer.Id,
-               Name = customer.Name.FullName,
-               Address = customer.Address.StreetAddress,
-               City = customer.Address.City,
-               ZipCode = customer.Address.Zipcode,
-               Phone = customer.Phone.PrimaryNumber
-            });
-
          _selectedContact = AddProperty<string>("SelectedContact");
 
-         AddProperty("Contacts", contacts)
+         AddProperty("Contacts", customerRepository.GetAll().Select(customer => ToContact(customer)))
+            .WithItemKey(this, nameof(Contact.Id))
             .WithAttribute(this, new DataGridAttribute
             {
                RowKey = nameof(Contact.Id),
@@ -51,7 +53,8 @@ namespace dotNetify_Elements
                Rows = 5
             }.CanSelect(DataGridAttribute.Selection.Single, _selectedContact));
 
-         AddProperty<object>("Submit");
+         AddProperty<FormData>("Submit")
+            .SubscribedBy(AddProperty<bool>("SubmitSuccess"), x => x.Select(formData => Save(formData)));
       }
 
       public override void OnSubVMCreated(BaseVM subVM)
@@ -64,5 +67,25 @@ namespace dotNetify_Elements
                x => x.Select(id => _customerRepository.Get(id))
             );
       }
+
+      private bool Save(FormData formData)
+      {
+         var id = (string)_selectedContact.Value;
+         var customer = _customerRepository.Update(id, formData.Person, formData.Phone, 
+            formData.OtherInfo, formData.DriverLicense, formData.Notes);
+
+         this.UpdateList("Contacts", ToContact(customer));
+         return true;
+      }
+
+      private Contact ToContact(Customer customer) => new Contact
+      {
+         Id = customer.Id,
+         Name = customer.Name.FullName,
+         Address = customer.Address.StreetAddress,
+         City = customer.Address.City,
+         ZipCode = customer.Address.Zipcode,
+         Phone = customer.Phone.PrimaryNumber
+      };
    }
 }

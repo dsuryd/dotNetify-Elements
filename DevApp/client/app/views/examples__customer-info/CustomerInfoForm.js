@@ -9,7 +9,7 @@ const CustomerInfoForm = () => (
       <CellPanel>
          <Cell header="Person" borders="top, left, right">
             <VMContext vm="PersonForm">
-               <Form>
+               <Form id="Person">
                   <Panel childProps={{ horizontal: true }}>
                      <TextField id="FullName" plainText />
                      <DropdownList id="Prefix" />
@@ -23,7 +23,7 @@ const CustomerInfoForm = () => (
          </Cell>
          <Cell header="Phone">
             <VMContext vm="PhoneForm">
-               <Form>
+               <Form id="Phone">
                   <Panel childProps={{ horizontal: true }}>
                      <TextField id="Work" />
                      <TextField id="Home" />
@@ -37,7 +37,7 @@ const CustomerInfoForm = () => (
       <CellPanel>
          <Cell header="Other Info" borders="top, right">
             <VMContext vm="OtherInfoForm">
-               <Form>
+               <Form id="OtherInfo">
                   <Panel childProps={{ horizontal: true }}>
                      <TextField id="SSN" />
                      <DropdownList id="TaxFilingStatus" />
@@ -50,7 +50,7 @@ const CustomerInfoForm = () => (
          </Cell>
          <Cell header="Driver License" borders="top, right">
             <VMContext vm="DriverLicenseForm">
-               <Form>
+               <Form id="DriverLicense">
                   <Panel childProps={{ horizontal: true }}>
                      <TextField id="Number" />
                      <DropdownList id="State" />
@@ -60,7 +60,7 @@ const CustomerInfoForm = () => (
          </Cell>
          <Cell header="Notes" borders="top, right, bottom">
             <VMContext vm="NotesForm">
-               <Form>
+               <Form id="Notes">
                   <Panel childProps={{ horizontal: true }}>
                      <TextAreaField id="Notes" />
                   </Panel>

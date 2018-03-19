@@ -15,15 +15,13 @@ export class Form extends React.Component {
    static childContextTypes = FormContextTypes;
 
    static propTypes = {
+      id: PropTypes.string,
       onSubmit: PropTypes.func,
       onChanged: PropTypes.func,
       plainText: PropTypes.bool
    }
 
-   get formProps() { return this.context.formContext ? this.context.formContext.props : this.props };
-   get plainText() { return this.formProps.plainText; }
-   get onChanged() { return this.formProps.onChanged; }
-   get onSubmit() { return this.formProps.onSubmit; }
+   get plainText() { return this.context.formContext ? this.context.formContext.props.plainText : this.props.plainText }
 
    get enteringEditMode() {
       const result = this._plainText && !this.plainText;
@@ -53,9 +51,13 @@ export class Form extends React.Component {
    }
 
    changed(state) {
-      this.setState({ changed: true });
-      this.context.formContext && this.context.formContext.setChanged(state);
-      this.onChanged && this.onChanged(state);
+      if (!this.state.changed) {
+         this.setState({ changed: true });
+         this.props.onChanged && this.props.onChanged(state);
+      }
+
+      if (this.context.formContext && !this.context.formContext.changed)
+         this.context.formContext.setChanged(state);
    }
 
    dispatchState(state, toServer) {
@@ -92,7 +94,7 @@ export class Form extends React.Component {
    }
 
    getPreEditState() {
-      // Get the pre-edit state of only the input fields so we can restore them on Cancel.
+      // Get the pre-edit state of the input fields so we can restore them on Cancel.
       return Object.entries(this.vmContextState)
          .filter(pair => this.inputProps.includes(pair[0]))
          .reduce((aggregate, pair) => Object.assign(aggregate, { [pair[0]]: pair[1] }), {});
@@ -114,12 +116,15 @@ export class Form extends React.Component {
       if (this.subForms.length == 0)
          return this.submitOnValidated(propId);
 
-      Promise.all(this.subForms.map(form => form.submitOnValidated(propId)))
+      let subFormData = {};
+      const submit = (id, data) => Object.assign(subFormData, id ? { [id]: data } : data);
+
+      Promise.all(this.subForms.map(form => form.submitOnValidated(form.props.id, submit)))
          .then(results => results.reduce((aggregate, current) => ({
             valid: aggregate.valid && current.valid,
             messages: [...aggregate.messages, ...current.messages]
          })))
-         .then(result => result.valid && this.submit(propId));
+         .then(result => result.valid && this.submit(propId, subFormData));
    }
 
    handleCancel() {
@@ -143,15 +148,15 @@ export class Form extends React.Component {
       this._plainText = this.plainText;
    }
 
-   submitOnValidated(propId) {
+   submitOnValidated(propId, submit) {
       const { data } = this.state;
       return !data ? Promise.resolve({ valid: true, messages: [] }) :
-         this.validate().then(result => result.valid && this.submit(propId, data) ? result : result);
+         this.validate().then(result => result.valid && (submit ? submit(propId, data) : this.submit(propId, data)) ? result : result);
    }
 
    submit(propId, data) {
       let formData = Object.assign({}, this.preEditState, data);
-      if (!this.onSubmit || this.onSubmit(formData) !== false)
+      if (!this.props.onSubmit || this.props.onSubmit(formData) !== false)
          this.context.vmContext.dispatchState(propId ? ({ [propId]: formData }) : data);
 
       this.setState({ changed: false, data: null });

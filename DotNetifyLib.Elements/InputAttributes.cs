@@ -39,8 +39,8 @@ namespace DotNetify.Elements
       public string Label { get; set; }
       public string Prefix { get; set; }
       public string Suffix { get; set; }
-      public DateTimeOffset Min { get; set; }
-      public DateTimeOffset Max { get; set; }
+      public DateTimeOffset Min { get; set; } = DateTimeOffset.MinValue;
+      public DateTimeOffset Max { get; set; } = DateTimeOffset.MaxValue;
    }
 
    public class DropdownListAttribute
