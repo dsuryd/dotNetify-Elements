@@ -72,7 +72,7 @@ public class MyApp : BaseVM
 ```
 ### Screenshot
 
-![alt screenshot](https://dsuryd.tinytake.com/media/6eafdc?filename=1519496845789_24-02-2018-10-27-22.png&&type=attachment)
+![alt screenshot](https://dsuryd.tinytake.com/media/70df19?filename=1521437149444_18-03-2018-10-25-46.png&&type=attachment)
 
 ### How To Run This Repo
 
