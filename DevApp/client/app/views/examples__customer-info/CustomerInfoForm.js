@@ -2,7 +2,7 @@ import React from 'react';
 import {
    Button, Cell, CellPanel, DateField, DropdownList, Form,
    Frame, Panel, RadioGroup, TextField, TextAreaField, VMContext
-} from '../../../elements/bootstrap';
+} from 'elements/bootstrap';
 
 const CustomerInfoForm = () => (
    <CellPanel horizontal>

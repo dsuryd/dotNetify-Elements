@@ -1,6 +1,6 @@
 import React from 'react';
 import CustomerInfoForm from './CustomerInfoForm';
-import { Button, DataGrid, Form, Frame, Panel, Theme, VMContext } from '../../../elements/bootstrap';
+import { Button, DataGrid, Form, Frame, Panel, Theme, VMContext } from 'elements/bootstrap';
 
 export default class CustomerInfoPage extends React.Component {
 

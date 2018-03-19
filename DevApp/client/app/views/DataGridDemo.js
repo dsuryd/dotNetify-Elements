@@ -1,5 +1,5 @@
 import React from 'react';
-import { DataGrid, GridColumn, Frame, Panel, Theme, VMContext } from '../../elements/bootstrap';
+import { DataGrid, GridColumn, Frame, Panel, Theme, VMContext } from 'elements/bootstrap';
 
 const DateFormatter = props => new Date(props.value).toLocaleString();
 

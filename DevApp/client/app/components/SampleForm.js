@@ -3,7 +3,7 @@ import dotnetify from 'dotnetify';
 import {
    Alert, Button, Card, Checkbox, CheckboxGroup, DateField, Panel, DropdownList,
    Form, MultiselectList, TextField, NumberField, TextAreaField, PasswordField, RadioGroup, RadioToggle, VMContext
-} from '../../elements/bootstrap';
+} from 'elements/bootstrap';
 
 const SampleForm = ({ vm, title, horizontal, plainText }) => (
    <VMContext vm={vm}>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Frame, Panel, Checkbox, RadioToggle, Theme } from '../../elements/bootstrap';
+import { Frame, Panel, Checkbox, RadioToggle, Theme } from 'elements/bootstrap';
 import SampleForm from '../components/SampleForm';
 
 const layoutOptions = [
