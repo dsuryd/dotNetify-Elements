@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { PropTypes } from 'prop-types';
 import { FieldPanel } from '../layout/FieldPanel';
-import { ContextTypes } from '../VMContext';
+import Element from '../Element';
 import * as utils from '../utils';
 
 const GroupContainer = styled.section`
@@ -11,9 +11,7 @@ const GroupContainer = styled.section`
 
 const PlainTextComponent = props => React.Children.toArray(props.children).join(", ");
 
-export class CheckboxGroup extends React.Component {
-
-    static contextTypes = ContextTypes;
+export class CheckboxGroup extends Element {
 
     static propTypes = {
         id: PropTypes.string.isRequired,
@@ -30,14 +28,6 @@ export class CheckboxGroup extends React.Component {
         LabelComponent: undefined,
         InputComponent: undefined,
         PlainTextComponent
-    }
-
-    constructor(props) {
-        super(props);
-    }
-
-    get vmInput() {
-        return utils.getVMInput(this);
     }
 
     handleChange = (event) => {

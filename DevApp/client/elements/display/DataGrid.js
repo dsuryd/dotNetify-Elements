@@ -1,7 +1,7 @@
 import React from 'react';
-import { PropTypes } from 'prop-types';
 import styled from 'styled-components';
-import { ContextTypes } from '../VMContext';
+import { PropTypes } from 'prop-types';
+import Element from '../Element';
 import * as utils from '../utils';
 
 const Container = styled.div`
@@ -11,11 +11,10 @@ const Container = styled.div`
    ${props => props.theme.DataGrid.Container}
 `;
 
-export class DataGrid extends React.Component {
-
-   static contextTypes = ContextTypes;
+export class DataGrid extends Element {
 
    static propTypes = {
+      id: PropTypes.string.isRequired,
       rowHeight: PropTypes.string,
       onSelect: PropTypes.func,
       disabled: PropTypes.bool
@@ -34,10 +33,6 @@ export class DataGrid extends React.Component {
       super(props);
       this.state = { height: 400, selectedKeys: [] };
       this.attrs = {};
-   }
-
-   get vmProperty() {
-      return utils.getVMProperty(this);
    }
 
    get canSelect() {

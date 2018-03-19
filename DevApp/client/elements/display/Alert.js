@@ -1,26 +1,17 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
-import { ContextTypes } from '../VMContext';
+import Element from '../Element';
 import * as utils from '../utils';
 
-export class Alert extends React.Component {
-
-   static contextTypes = ContextTypes;
+export class Alert extends Element {
 
    static propTypes = {
+      id: PropTypes.string,
       onShow: PropTypes.func
    }
  
    static componentTypes = {
       AlertComponent: undefined
-   }
-
-   constructor(props) {
-      super(props);
-   }
-
-   get vmProperty() {
-      return utils.getVMProperty(this);
    }
 
    render() {

@@ -1,11 +1,10 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import { ContextTypes } from '../VMContext';
+import Element from '../Element';
 import * as utils from '../utils';
 
-export class Checkbox extends React.Component {
-
-    static contextTypes = ContextTypes;
+export class Checkbox extends Element {
 
     static propTypes = {
         id: PropTypes.string.isRequired,
@@ -17,14 +16,6 @@ export class Checkbox extends React.Component {
         Container: undefined,
         LabelComponent: undefined,
         InputComponent: undefined
-    }
-
-    constructor(props) {
-        super(props);
-    }
-
-    get vmInput() {
-        return utils.getVMInput(this);
     }
 
     handleChange = (event) => this.vmInput.dispatch(event.target.checked);

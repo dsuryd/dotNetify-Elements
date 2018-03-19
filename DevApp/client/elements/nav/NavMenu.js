@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { PropTypes } from 'prop-types';
-import { ContextTypes } from '../VMContext';
 import { Collapsible } from '../layout/Collapsible';
 import { Label } from '../display/Label';
 import { RouteLink } from 'dotnetify/dist/dotnetify-react.router';
+import Element from '../Element';
 import * as utils from '../utils';
 
 const Container = styled.div`
@@ -38,13 +38,7 @@ const RouteLabel = props => (
     </div>
 );
 
-export class NavMenu extends React.Component {
-
-    static contextTypes = ContextTypes;
-
-    static propTypes = {
-        id: PropTypes.string.isRequired
-    };
+export class NavMenu extends Element {
 
     static componentTypes = {
         Container,
@@ -52,14 +46,6 @@ export class NavMenu extends React.Component {
         RouteContainer,
         GroupLabelComponent: GroupLabel,
         RouteLabelComponent: RouteLabel
-    }
-
-    constructor(props) {
-        super(props);
-    }
-
-    get vmProperty() {
-        return utils.getVMProperty(this);
     }
 
     componentWillMount() {

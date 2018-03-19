@@ -1,14 +1,12 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import { FieldPanel } from '../layout/FieldPanel';
-import { ContextTypes } from '../VMContext';
+import Element from '../Element';
 import * as utils from '../utils';
 
 const PlainTextComponent = props => props.children;
 
-export class DropdownList extends React.Component {
-
-    static contextTypes = ContextTypes;
+export class DropdownList extends Element {
 
     static propTypes = {
         id: PropTypes.string.isRequired,
@@ -24,14 +22,6 @@ export class DropdownList extends React.Component {
         InputComponent: undefined,
         InputGroupComponent: undefined,
         PlainTextComponent
-    }
-
-    constructor(props) {
-        super(props);
-    }
-
-    get vmInput() {
-        return utils.getVMInput(this);
     }
 
     handleChange = (event) => {

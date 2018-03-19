@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { PropTypes } from 'prop-types';
-import { ContextTypes } from '../VMContext';
 import { FieldPanel } from '../layout/FieldPanel';
 import { Label } from '../display/Label';
+import Element from '../Element';
 import * as utils from '../utils';
 import moment from 'moment';
 
@@ -12,9 +12,7 @@ const PlainTextComponent = props => {
    return date.getFullYear() === 0 ? "" : date.toLocaleDateString();
 }
 
-export class DateTimeField extends React.Component {
-
-   static contextTypes = ContextTypes;
+export class DateTimeField extends Element {
 
    static propTypes = {
       id: PropTypes.string.isRequired,
@@ -38,10 +36,6 @@ export class DateTimeField extends React.Component {
    constructor(props) {
       super(props);
       this.state = { changed: false, validationMessages: [] };
-   }
-
-   get vmInput() {
-      return utils.getVMInput(this);
    }
 
    componentWillMount() {
@@ -109,9 +103,6 @@ export const DateField = props => (
 export const TimeField = props => (
    <DateTimeField date={false} {...props} />
 );
-
-DateField.contextTypes = ContextTypes;
-TimeField.contextTypes = ContextTypes;
 
 DateField.propTypes = Object.assign({}, DateTimeField.propTypes);
 TimeField.propTypes = Object.assign({}, DateTimeField.propTypes);

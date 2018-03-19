@@ -1,4 +1,6 @@
 import defaultTheme from '../../elements/theme';
+import Element from '../../elements/Element';
+
 import { Alert } from '../../elements/display/Alert';
 import { Button } from '../../elements/form/Button';
 import { Card } from '../../elements/layout/Card';
@@ -136,6 +138,7 @@ export {
    DateField, TimeField, DateTimeField,
    DotNetifyLogo,
    DropdownList,
+   Element,
    FieldPanel,
    Form,
    GridColumn,

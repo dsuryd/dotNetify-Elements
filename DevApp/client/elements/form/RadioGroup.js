@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { PropTypes } from 'prop-types';
 import { FieldPanel } from '../layout/FieldPanel';
-import { ContextTypes } from '../VMContext';
+import Element from '../Element';
 import * as utils from '../utils';
 
 const GroupContainer = styled.section`
@@ -11,9 +11,7 @@ const GroupContainer = styled.section`
 
 const PlainTextComponent = props => props.children;
 
-export class RadioGroup extends React.Component {
-
-   static contextTypes = ContextTypes;
+export class RadioGroup extends Element {
 
    static propTypes = {
       id: PropTypes.string.isRequired,
@@ -29,14 +27,6 @@ export class RadioGroup extends React.Component {
       LabelComponent: undefined,
       InputComponent: undefined,
       PlainTextComponent
-   }
-
-   constructor(props) {
-      super(props);
-   }
-
-   get vmInput() {
-      return utils.getVMInput(this);
    }
 
    handleChange = (event) => {
