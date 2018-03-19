@@ -1,7 +1,7 @@
 import React from 'react';
 import VMProperty from './VMProperty';
 import VMInputValidator from './VMInputValidator';
-import * as utils from './utils';
+import * as utils from '../utils';
 import { createTextMaskInputElement } from 'text-mask-core';
 import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 

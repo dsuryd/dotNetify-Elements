@@ -1,7 +1,6 @@
 import React from 'react';
 import CustomerInfoForm from './CustomerInfoForm';
 import { Button, DataGrid, Form, Frame, Panel, Theme, VMContext } from '../../../elements/bootstrap';
-import createEventEmitter from '../../../elements/event-emitter';
 
 export default class CustomerInfoPage extends React.Component {
 

@@ -1,8 +1,22 @@
 import React from 'react';
-import VMInput from './VMInput';
-import VMProperty from './VMProperty';
+import VMInput from './_internal/VMInput';
+import VMProperty from './_internal/VMProperty';
 import marked from 'marked';
 import sanitize from 'sanitize-html';
+
+export const createEventEmitter = _ => {
+   let subscribers = []
+   return {
+      emit(...args) {
+         subscribers.forEach(subscriber => subscriber(...args));
+      },
+
+      subscribe(subscriber) {
+         !subscribers.includes(subscriber) && subscribers.push(subscriber);
+         return () => subscribers = subscribers.filter(x => x !== subscriber);
+      }
+   }
+}
 
 export function getVMInput(component) {
     const isVMProp = component.context.vmContext && component.context.vmContext.getState().hasOwnProperty(component.props.id);
