@@ -32,15 +32,15 @@ export class DataGrid extends Element {
    constructor(props) {
       super(props);
       this.state = { height: 400, selectedKeys: [] };
-      this.attrs = {};
+      this.gridAttrs = {};
    }
 
    get canSelect() {
-      return ["Single", "Multiple"].includes(this.attrs.selectMode) && !this.props.disabled;
+      return ["Single", "Multiple"].includes(this.gridAttrs.selectMode) && !this.props.disabled;
    }
 
    get isMultiselect() {
-      return this.attrs.selectMode === "Multiple";
+      return this.gridAttrs.selectMode === "Multiple";
    }
 
    componentWillUnmount() {
@@ -74,11 +74,11 @@ export class DataGrid extends Element {
    }
 
    configureSelectBy = _ => {
-      return this.attrs.rowKey ? { keys: { rowKey: this.attrs.rowKey, values: this.state.selectedKeys } } : { indexes: this.state.selectedKeys };
+      return this.gridAttrs.rowKey ? { keys: { rowKey: this.gridAttrs.rowKey, values: this.state.selectedKeys } } : { indexes: this.state.selectedKeys };
    }
 
    dispatchSelection(value) {
-      this.attrs.selectedKeyProperty && this.vmProperty.dispatch(value, this.attrs.selectedKeyProperty);
+      this.gridAttrs.selectedKeyProperty && this.vmProperty.dispatch(value, this.gridAttrs.selectedKeyProperty);
       this.props.onSelect && this.props.onSelect(value);
    }
 
@@ -98,7 +98,7 @@ export class DataGrid extends Element {
       if (!row || !this.canSelect)
          return;
 
-      const selectedKey = this.attrs.rowKey ? row[this.attrs.rowKey] : idx;
+      const selectedKey = this.gridAttrs.rowKey ? row[this.gridAttrs.rowKey] : idx;
       if (!this.state.selectedKeys.includes(selectedKey)) {
          const selectedKeys = this.isMultiselect ? [selectedKey, ...this.state.selectedKeys] : [selectedKey];
          this.dispatchSelection(this.isMultiselect ? selectedKeys : selectedKey);
@@ -111,7 +111,7 @@ export class DataGrid extends Element {
    }
 
    handleRowsDeselected = rows => {
-      const deselectedKeys = rows.map(row => this.attrs.rowKey ? row.row[this.attrs.rowKey] : row.rowIdx);
+      const deselectedKeys = rows.map(row => this.gridAttrs.rowKey ? row.row[this.gridAttrs.rowKey] : row.rowIdx);
       const selectedKeys = this.state.selectedKeys.filter(key => !deselectedKeys.includes(key));
       this.dispatchSelection(this.isMultiselect ? selectedKeys : selectedKeys.shift());
       this.setState({ selectedKeys: selectedKeys });
@@ -130,7 +130,7 @@ export class DataGrid extends Element {
 
       const { rowKey, columns, rows, canSelect } = attrs;
       const height = rows ? (rows + 1) * utils.toPixel(rowHeight) + 2 : null;
-      this.attrs = attrs;
+      this.gridAttrs = attrs;
 
       return (
          <Container innerRef={elem => this.elem = elem}>

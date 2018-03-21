@@ -35,29 +35,27 @@ export class RadioGroup extends Element {
       this.vmInput.dispatch(value);
    }
    render() {
-      const [Container, GroupContainer, RadioContainer, Label, Input, PlainText] = utils.resolveComponents(RadioGroup, this.props);
-      const { id, value, attrs } = this.vmInput.props;
-      this.valueType = typeof value;
+      const [Container, GroupContainer, RadioContainer, Label, Input, PlainText] = this.resolveComponents(RadioGroup);
+      this.valueType = typeof this.value;
 
-      let { label, options, right, horizontal, plainText } = this.props;
-      label = label || attrs.label;
-      options = (options || attrs.options || []).map(opt => utils.toCamelCase(opt));
-      plainText = utils.bool(plainText, attrs.plainText);
+      const { right, horizontal } = this.nonAttrProps;
+      const { label, options, plainText } = this.attrs;
+      const radioOptions = (options || []).map(opt => utils.toCamelCase(opt));
 
-      const radio = options.map(opt => (
-         <RadioContainer key={opt.key} id={id} checked={opt.key == value}>
+      const radio = radioOptions.map(opt => (
+         <RadioContainer key={opt.key} id={this.id} checked={opt.key == this.value}>
             <Label>
-               <Input type="radio" name={id} value={opt.key} checked={opt.key == value} onChange={this.handleChange} />
+               <Input type="radio" name={this.id} value={opt.key} checked={opt.key == this.value} onChange={this.handleChange} />
                {opt.value}
             </Label>
          </RadioContainer>
       ));
 
-      const selected = options.filter(opt => opt.key == value).shift();
+      const selected = radioOptions.filter(opt => opt.key == this.value).shift();
       const plainTextValue = selected ? selected.value : "";
 
       return (
-         <Container id={id} label={label} horizontal={horizontal} right={right} plainText={plainText}>
+         <Container id={this.id} label={label} horizontal={horizontal} right={right} plainText={plainText}>
             {plainText ? <PlainText>{plainTextValue}</PlainText> : <GroupContainer>{radio}</GroupContainer>}
          </Container>
       );

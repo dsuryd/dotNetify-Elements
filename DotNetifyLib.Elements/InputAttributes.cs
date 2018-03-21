@@ -25,13 +25,13 @@ namespace DotNetify.Elements
       public string Placeholder { get; set; }
       public string Prefix { get; set; }
       public string Suffix { get; set; }
-      public int MaxLength { get; set; }
+      public int? MaxLength { get; set; }
       public Mask Mask { get; set; }
    }
 
    public class TextAreaFieldAttribute : TextFieldAttribute
    {
-      public int Rows { get; set; }
+      public int? Rows { get; set; }
    }
 
    public class DateFieldAttribute

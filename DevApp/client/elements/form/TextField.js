@@ -4,7 +4,6 @@ import { PropTypes } from 'prop-types';
 import { FieldPanel } from '../layout/FieldPanel';
 import { Label } from '../display/Label';
 import Element from '../Element';
-import * as utils from '../utils';
 
 const PlainTextComponent = props => props.type === "password" ? '' : props.children;
 
@@ -64,31 +63,24 @@ export class TextField extends Element {
    }
 
    render() {
-      const [Container, Input, InputGroup, ValidationMessage, PlainText] = utils.resolveComponents(TextField, this.props);
-      const { id, value, attrs } = this.vmInput.props;
+      const [Container, Input, InputGroup, ValidationMessage, PlainText] = this.resolveComponents(TextField);
+      const { horizontal, type, ...props } = this.nonAttrProps;
+      const { label, placeholder, prefix, suffix, maxLength, plainText } = this.attrs;
 
-      let { label, placeholder, plainText, prefix, suffix, maxLength, horizontal, type, ...props } = this.props;
-      label = label || attrs.label;
-      placeholder = placeholder || attrs.placeholder;
-      prefix = prefix || attrs.prefix;
-      suffix = suffix || attrs.suffix;
-      maxLength = maxLength || attrs.maxLength || null;
-      plainText = utils.bool(plainText, attrs.plainText);
-
-      const plainTextValue = `${prefix || ""}${value || ""}${suffix || ""}`;
+      const plainTextValue = `${prefix || ""}${this.value || ""}${suffix || ""}`;
 
       return (
-         <Container id={id} label={label} horizontal={horizontal} plainText={plainText}>
+         <Container id={this.id} label={label} horizontal={horizontal} plainText={plainText}>
             {plainText ? <PlainText type={type}>{plainTextValue}</PlainText> :
                <InputGroup prefix={prefix} suffix={suffix}>
                   <Input
                      valid={this.state.valid}
-                     id={id}
+                     id={this.id}
                      maxLength={maxLength}
                      type={type || "text"}
                      placeholder={placeholder}
 
-                     value={value || ""}
+                     value={this.value || ""}
                      onChange={this.handleChange}
                      onBlur={this.handleBlur}
                      innerRef={elem => this.vmInput.element = elem}
