@@ -54,7 +54,7 @@ export class TextField extends InputElement {
 
    handleChange = _ => {
       this.setState({ changed: true });
-      this.vmInput.value = this.vmInput.elementValue;
+      this.vmInput.value = this.vmInput.DOMValue;
    }
 
    handleBlur = _ => {
@@ -83,7 +83,7 @@ export class TextField extends InputElement {
                      value={this.value || ""}
                      onChange={this.handleChange}
                      onBlur={this.handleBlur}
-                     innerRef={elem => this.vmInput.element = elem}
+                     innerRef={elem => this.vmInput.DOM = elem}
                      {...props}
                   />
                </InputGroup>

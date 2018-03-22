@@ -13,21 +13,21 @@ export default class Element extends React.Component {
       id: PropTypes.string.isRequired
    }
 
-   get id() { return this.vmProperty.props.id; }
-   get value() { return this.vmProperty.props.value; }
+   get id() { return this.vmProperty.id; }
+   get value() { return this.vmProperty.value; }
    get vm() { return this.vmProperty.vm; }
 
    get attrs() {
       // Returns element attributes defined in the back-end.  Any same attribute given 
       // as the element's property will trump it.
-      const { attrs } = this.vmProperty.props;
+      const attrs = this.vmProperty.attrs;
       const result = Object.keys(attrs).map(key => ({ [key]: this.props.hasOwnProperty(key) ? this.props[key] : attrs[key] }));
       return result.length > 0 ? Object.assign({}, ...result) : this.props;
    }
 
    get nonAttrProps() {
       // Returns element properties that are not also back-end attributes.
-      const { attrs } = this.vmProperty.props;
+      const attrs = this.vmProperty.attrs;
       let result = attrs ? Object.entries(this.props).filter(x => !attrs.hasOwnProperty(x[0])) : [];
       return Object.assign({}, ...result.map(x => ({ [x[0]]: x[1] })));
    }
@@ -46,7 +46,9 @@ export default class Element extends React.Component {
 
       return {
          // Fallback is this component isn't associated with a back-end view model.         
-         props: { id: this.props.id, value: this.props.value, attrs: this.props.attrs || {} }
+         id: this.props.id, 
+         value: this.props.value, 
+         attrs: this.props.attrs || {},
       };
    }
 
@@ -71,7 +73,9 @@ export class InputElement extends Element {
 
       return {
          // Fallback is this component isn't associated with a back-end view model.
-         props: { id: this.props.id, value: this.props.value, attrs: this.props.attrs || {} },
+         id: this.props.id, 
+         value: this.props.value, 
+         attrs: this.props.attrs || {},
          dispatch: value => this.props.onChange ? this.props.onChange(value) : null,
          onValidated: handler => this.props.onValidated ? this.props.onValidator(handler) : null,
          initMask: _ => this.props.initMask ? this.props.initMask() : null

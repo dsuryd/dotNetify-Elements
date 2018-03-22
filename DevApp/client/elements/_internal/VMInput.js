@@ -15,13 +15,15 @@ export default class VMInput extends VMProperty {
         this.validator = this.vmContext.getValidator ? this.vmContext.getValidator(vmContext, propId) : new VMInputValidator(vmContext, propId);
     }
 
-    get elementValue() {
+    get id() { return super.id; }
+
+    get DOMValue() {
         this._textMask && this._textMask.update();
         const value = this._inputElement.value;
         return this._unmask ? this._unmask(value) : value;
     }
 
-    set element(elem) {
+    set DOM(elem) {
         this._inputElement = elem;
     }
 
@@ -41,17 +43,17 @@ export default class VMInput extends VMProperty {
 
         const value = typeof newValue != "undefined" ? newValue : this.value;
         this.validator.validate(value);
-        this.vmContext.dispatchState({ [this.propId]: value });
+        this.vmContext.dispatchState({ [this.id]: value });
     }
 
     initMask() {
-        if (this._inputElement && this.props.attrs.mask) {
+        if (this._inputElement && this.attrs.mask) {
             const maskMap = {
                 '9': /[0-9]/,
                 'A': /[a-zA-Z]/,
                 '*': /[0-9a-zA-Z]/
             }
-            let { type, ...inputMask } = utils.toCamelCase(this.props.attrs.mask);
+            let { type, ...inputMask } = utils.toCamelCase(this.attrs.mask);
             if (type === "NumberMask") {
                 if (inputMask.includeThousandsSeparator)
                     this._unmask = value => typeof value == "string" ? value.replace(inputMask.thousandsSeparatorSymbol, '') : value;

@@ -21,7 +21,7 @@ export class Form extends React.Component {
       plainText: PropTypes.bool
    }
 
-   get plainText() { return this.context.formContext ? this.context.formContext.props.plainText : this.props.plainText }
+   get plainText() { return this.context.formContext ? this.context.formContext.plainText : this.props.plainText }
 
    get enteringEditMode() {
       const result = this._plainText && !this.plainText;
@@ -31,7 +31,7 @@ export class Form extends React.Component {
 
    constructor(props) {
       super(props);
-      this.state = { changed: false };
+      this.state = { changed: false, plainText: !!this.props.plainText };
       this.validators = [];
       this.inputProps = [];
       this.subForms = [];
@@ -40,6 +40,11 @@ export class Form extends React.Component {
    componentWillMount() {
       this.resetForm();
       this.context.formContext && this.context.formContext.subForms.push(this);
+   }
+
+   componentWillUpdate(props) {
+      if (typeof props.plainText == "boolean" && props.plainText !== this.state.plainText)
+         this.setState({plainText: props.plainText});
    }
 
    componentDidUpdate() {
@@ -74,10 +79,11 @@ export class Form extends React.Component {
       let { vmContext, formContext, ...context } = this.context;
 
       formContext = formContext || {
-         props: this.props,
          subForms: this.subForms,
          changed: this.state.changed,
+         plainText: this.state.plainText,         
          setChanged: state => this.changed(state),
+         setPlainText: state => this.setState({ plainText: state }),
          submit: propId => this.handleSubmit(propId),
          cancel: _ => this.handleCancel()
       };
