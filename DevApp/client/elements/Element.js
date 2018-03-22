@@ -15,6 +15,7 @@ export default class Element extends React.Component {
 
    get id() { return this.vmProperty.props.id; }
    get value() { return this.vmProperty.props.value; }
+   get vm() { return this.vmProperty.vm; }
 
    get attrs() {
       // Returns element attributes defined in the back-end.  Any same attribute given 

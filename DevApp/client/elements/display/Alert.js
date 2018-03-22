@@ -1,7 +1,6 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import Element from '../Element';
-import * as utils from '../utils';
 
 export class Alert extends Element {
 
@@ -15,13 +14,12 @@ export class Alert extends Element {
    }
 
    render() {
-      const [_Alert] = utils.resolveComponents(Alert, this.props);
-      const { children, onShow, ...props } = this.props;
-      const { id, value } = this.vmProperty.props;
+      const [_Alert] = this.resolveComponents(Alert);
+      const { children, onShow, ...props } = this.nonAttrProps;
 
-      const show = (!id || value) ? true : false;
-      this.props.onShow && this.props.onShow(show);
+      const show = (!this.id || this.value) ? true : false;
+      onShow && onShow(show);
 
-      return show ? <_Alert id={id} {...props}>{utils.markdown(value) || children}</_Alert> : null;
+      return show ? <_Alert id={this.id} {...props}>{utils.markdown(this.value) || children}</_Alert> : null;
    }
 }  

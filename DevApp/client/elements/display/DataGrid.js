@@ -124,20 +124,19 @@ export class DataGrid extends Element {
 
    render() {
       const [Container, _DataGrid] = utils.resolveComponents(DataGrid, this.props);
-      const { rowHeight, children, ...props } = this.props;
-      const { id, value, attrs } = this.vmProperty.props;
-      const rowGetter = idx => value[idx];
+      const { rowHeight, children, ...props } = this.nonAttrProps;
+      const rowGetter = idx => this.value[idx];
 
-      const { rowKey, columns, rows, canSelect } = attrs;
+      const { rowKey, columns, rows, canSelect } = this.attrs;
       const height = rows ? (rows + 1) * utils.toPixel(rowHeight) + 2 : null;
-      this.gridAttrs = attrs;
+      this.gridAttrs = this.attrs;
 
       return (
          <Container innerRef={elem => this.elem = elem}>
-            <_DataGrid id={id}
+            <_DataGrid id={this.id}
                columns={this.mapColumns(children, columns)}
                rowGetter={rowGetter}
-               rowsCount={value.length}
+               rowsCount={this.value.length}
                rowHeight={utils.toPixel(rowHeight)}
                minHeight={height || this.state.height}
                onRowClick={this.handleRowClick}
