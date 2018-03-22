@@ -3,11 +3,11 @@ import styled from 'styled-components';
 import { PropTypes } from 'prop-types';
 import { FieldPanel } from '../layout/FieldPanel';
 import { Label } from '../display/Label';
-import Element from '../Element';
+import { InputElement } from '../Element';
 
 const PlainTextComponent = props => props.type === "password" ? '' : props.children;
 
-export class TextField extends Element {
+export class TextField extends InputElement {
 
    static propTypes = {
       id: PropTypes.string.isRequired,

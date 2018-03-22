@@ -3,8 +3,7 @@ import styled from 'styled-components';
 import { PropTypes } from 'prop-types';
 import { FieldPanel } from '../layout/FieldPanel';
 import { Label } from '../display/Label';
-import Element from '../Element';
-import * as utils from '../utils';
+import { InputElement } from '../Element';
 import moment from 'moment';
 
 const PlainTextComponent = props => {
@@ -12,7 +11,7 @@ const PlainTextComponent = props => {
    return date.getFullYear() === 0 ? "" : date.toLocaleDateString();
 }
 
-export class DateTimeField extends Element {
+export class DateTimeField extends InputElement {
 
    static propTypes = {
       id: PropTypes.string.isRequired,
@@ -59,26 +58,19 @@ export class DateTimeField extends Element {
    }
 
    render() {
-      const [Container, Input, InputGroup, ValidationMessage, PlainText] = utils.resolveComponents(DateTimeField, this.props);
-      const { id, value, attrs } = this.vmInput.props;
-
-      let { label, plainText, prefix, suffix, horizontal, ...props } = this.props;
-      label = label || attrs.label;
-      prefix = prefix || attrs.prefix;
-      suffix = suffix || attrs.suffix;
-      plainText = plainText || attrs.plainText;
-
-      const { min, max } = attrs;
+      const [Container, Input, InputGroup, ValidationMessage, PlainText] = this.resolveComponents(DateTimeField);
+      const { label, plainText, prefix, suffix, min, max } = this.attrs;
+      const { horizontal, ...props } = this.nonAttrProps;
 
       return (
-         <Container id={id} label={label} horizontal={horizontal} plainText={plainText}>
-            {plainText ? <PlainText>{value}</PlainText> :
+         <Container id={this.id} label={label} horizontal={horizontal} plainText={plainText}>
+            {plainText ? <PlainText>{this.value}</PlainText> :
                <InputGroup prefix={prefix} suffix={suffix}>
 
                   <Input
                      valid={this.state.valid}
-                     id={id}
-                     value={new Date(value)}
+                     id={this.id}
+                     value={new Date(this.value)}
                      min={new Date(min)}
                      max={new Date(max)}
                      prefix={prefix}

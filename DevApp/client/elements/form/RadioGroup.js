@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { PropTypes } from 'prop-types';
 import { FieldPanel } from '../layout/FieldPanel';
-import Element from '../Element';
+import { InputElement } from '../Element';
 import * as utils from '../utils';
 
 const GroupContainer = styled.section`
@@ -11,7 +11,7 @@ const GroupContainer = styled.section`
 
 const PlainTextComponent = props => props.children;
 
-export class RadioGroup extends Element {
+export class RadioGroup extends InputElement {
 
    static propTypes = {
       id: PropTypes.string.isRequired,

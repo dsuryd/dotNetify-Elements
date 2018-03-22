@@ -15,10 +15,6 @@ export default class VMInput extends VMProperty {
         this.validator = this.vmContext.getValidator ? this.vmContext.getValidator(vmContext, propId) : new VMInputValidator(vmContext, propId);
     }
 
-    get isRequired() {
-        return this.validator.isRequired;
-    }
-
     get elementValue() {
         this._textMask && this._textMask.update();
         const value = this._inputElement.value;
@@ -27,6 +23,10 @@ export default class VMInput extends VMProperty {
 
     set element(elem) {
         this._inputElement = elem;
+    }
+
+    get isRequired() {
+        return this.validator.isRequired;
     }
 
     addValidation(validation) {

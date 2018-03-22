@@ -1,11 +1,11 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import { FieldPanel } from '../layout/FieldPanel';
-import Element from '../Element';
+import { InputElement } from '../Element';
 
 const PlainTextComponent = props => <span style={{ minHeight: "2.4rem" }}>{React.Children.toArray(props.children).join(", ")}</span>;
 
-export class MultiselectList extends Element {
+export class MultiselectList extends InputElement {
 
    static propTypes = {
       id: PropTypes.string.isRequired,
