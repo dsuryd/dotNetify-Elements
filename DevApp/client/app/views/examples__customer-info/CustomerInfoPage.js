@@ -21,9 +21,9 @@ export default class CustomerInfoPage extends React.Component {
                   <Form plainText={!edit}>
                      <Panel>
                         <Panel horizontal left>
-                           <Button visible={canEdit} onClick={this.toggleEdit}>Edit</Button>
-                           <Button id="Submit" submit visible={edit} onClick={this.toggleEdit}>Update</Button>
-                           <Button cancel secondary visible={edit} disabled={false} onClick={this.toggleEdit}>Cancel</Button>
+                           <Button hide={!canEdit} onClick={this.toggleEdit}>Edit</Button>
+                           <Button id="Submit" submit hide={!edit} onClick={this.toggleEdit}>Update</Button>
+                           <Button cancel secondary hide={!edit} disabled={false} onClick={this.toggleEdit}>Cancel</Button>
                         </Panel>
                         <CustomerInfoForm />
                      </Panel>
