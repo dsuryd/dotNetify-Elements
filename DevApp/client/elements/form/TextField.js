@@ -35,47 +35,46 @@ export class TextField extends InputElement {
    }
 
    componentWillMount() {
-      this.vmInput.onValidated(result => this.setState({
+      this.vmProperty.onValidated(result => this.setState({
          valid: result.valid ? null : false,
          validationMessages: result.messages
       }));
 
       if (this.props.validation)
-         this.vmInput.addValidation(this.props.validation);
+         this.vmProperty.addValidation(this.props.validation);
    }
 
    componentDidMount() {
-      this.vmInput.initMask();
+      this.vmProperty.initMask();
    }
 
    componentDidUpdate() {
-      this.vmInput.initMask();
+      this.vmProperty.initMask();
    }
 
    handleChange = _ => {
       this.setState({ changed: true });
-      this.vmInput.value = this.vmInput.DOMValue;
+      this.value = this.vmProperty.domValue;
    }
 
    handleBlur = _ => {
-      this.state.changed && this.vmInput.dispatch();
+      this.state.changed && this.dispatch();
       this.setState({ changed: false });
    }
 
    render() {
       const [Container, Input, InputGroup, ValidationMessage, PlainText] = this.resolveComponents(TextField);
-      const { horizontal, type, ...props } = this.nonAttrProps;
-      const { label, placeholder, prefix, suffix, maxLength, plainText } = this.attrs;
+      const { fullId, label, placeholder, prefix, suffix, maxLength, plainText, horizontal, type, ...props } = this.attrs;
 
       const plainTextValue = `${prefix || ""}${this.value || ""}${suffix || ""}`;
 
       return (
-         <Container id={this.id} label={label} horizontal={horizontal} plainText={plainText}>
+         <Container id={fullId} label={label} horizontal={horizontal} plainText={plainText}>
             {plainText ? <PlainText type={type}>{plainTextValue}</PlainText> :
                <InputGroup prefix={prefix} suffix={suffix}>
                   <Input
                      valid={this.state.valid}
-                     id={this.id}
+                     id={fullId}
                      maxLength={maxLength}
                      type={type || "text"}
                      placeholder={placeholder}
@@ -83,7 +82,7 @@ export class TextField extends InputElement {
                      value={this.value || ""}
                      onChange={this.handleChange}
                      onBlur={this.handleBlur}
-                     innerRef={elem => this.vmInput.DOM = elem}
+                     innerRef={elem => this.vmProperty.dom = elem}
                      {...props}
                   />
                </InputGroup>

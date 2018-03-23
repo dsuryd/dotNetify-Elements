@@ -25,27 +25,23 @@ export class DropdownList extends InputElement {
 
    handleChange = (event) => {
       let value = event.target.value;
-      value = this.valueType == "number" ? parseInt(value) : value;
-      this.vmInput.dispatch(value);
+      this.dispatch(value);
    }
 
    render() {
       const [Container, Input, InputGroup, PlainText] = this.resolveComponents(DropdownList);
-      let { label, prefix, suffix, plainText, options } = this.attrs;
-      let { horizontal, ...props } = this.nonAttrProps;
+      let { fullId, label, prefix, suffix, plainText, options, horizontal, ...props } = this.attrs;
 
       const listOptions = (options || []).map(opt => <option key={opt.Key} value={opt.Key}>{opt.Value}</option>);
       const selected = options.filter(opt => opt.Key == this.value).shift();
-
-      this.valueType = typeof this.value;
       const plainTextValue = selected ? selected.Value : "";
 
       return (
-         <Container id={this.id} label={label} horizontal={horizontal} plainText={plainText}>
+         <Container id={fullId} label={label} horizontal={horizontal} plainText={plainText}>
             {plainText ? <PlainText>{plainTextValue}</PlainText> :
                <InputGroup prefix={prefix} suffix={suffix}>
                   <Input
-                     id={this.id}
+                     id={fullId}
                      type="select"
                      value={this.value}
                      prefix={prefix}

@@ -16,8 +16,7 @@ export class TextAreaField extends InputElement {
 
    render() {
       const [Input] = this.resolveComponents(TextAreaField);
-      const { ...props } = this.nonAttrProps;
-      const { rows } = this.attrs;
+      const { rows, ...props } = this.attrs;
 
       return <TextField inputComponent={Input} rows={rows} {...props} />
    }

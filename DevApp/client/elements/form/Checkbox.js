@@ -17,17 +17,17 @@ export class Checkbox extends InputElement {
       InputComponent: undefined
    }
 
-   handleChange = (event) => this.vmInput.dispatch(event.target.checked);
+   handleChange = (event) => this.dispatch(event.target.checked);
 
    render() {
       const [Container, Label, Input] = this.resolveComponents(Checkbox);
-      const { label, plainText } = this.attrs;
+      const { fullId, label, plainText } = this.attrs;
       const checked = !!this.value;
 
       return (
-         <Container id={this.id} checked={checked}>
+         <Container id={fullId} checked={checked}>
             <Label>
-               <Input type="checkbox" name={this.id} checked={checked} onChange={this.handleChange} disabled={plainText} />
+               <Input type="checkbox" name={fullId} checked={checked} onChange={this.handleChange} disabled={plainText} />
                {label}
             </Label>
          </Container>

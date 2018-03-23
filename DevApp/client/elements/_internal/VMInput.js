@@ -15,15 +15,13 @@ export default class VMInput extends VMProperty {
         this.validator = this.vmContext.getValidator ? this.vmContext.getValidator(vmContext, propId) : new VMInputValidator(vmContext, propId);
     }
 
-    get id() { return super.id; }
-
-    get DOMValue() {
+    get domValue() {
         this._textMask && this._textMask.update();
         const value = this._inputElement.value;
         return this._unmask ? this._unmask(value) : value;
     }
 
-    set DOM(elem) {
+    set dom(elem) {
         this._inputElement = elem;
     }
 
@@ -38,12 +36,14 @@ export default class VMInput extends VMProperty {
     }
 
     dispatch(newValue) {
-        if (typeof newValue != "undefined")
+        if (typeof newValue != "undefined") {
+            newValue = typeof this.value == "number" ? parseFloat(newValue) : newValue;
             this.value = newValue;
+        }
 
         const value = typeof newValue != "undefined" ? newValue : this.value;
         this.validator.validate(value);
-        this.vmContext.dispatchState({ [this.id]: value });
+        this.vmContext.dispatchState({ [this.propId]: value });
     }
 
     initMask() {

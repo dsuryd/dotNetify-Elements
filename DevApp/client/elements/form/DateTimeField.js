@@ -38,38 +38,37 @@ export class DateTimeField extends InputElement {
    }
 
    componentWillMount() {
-      this.vmInput.onValidated(result => this.setState({
+      this.vmProperty.onValidated(result => this.setState({
          valid: result.valid ? null : false,
          validationMessages: result.messages
       }));
 
       if (this.props.validation)
-         this.vmInput.addValidation(this.props.validation);
+         this.vmProperty.addValidation(this.props.validation);
    }
 
    handleChange = (value) => {
       this.setState({ changed: true });
-      this.vmInput.value = new moment(value).toISOString(true);
+      this.value = new moment(value).toISOString(true);
    }
 
    handleBlur = _ => {
-      this.state.changed && this.vmInput.dispatch();
+      this.state.changed && this.dispatch();
       this.setState({ changed: false });
    }
 
    render() {
       const [Container, Input, InputGroup, ValidationMessage, PlainText] = this.resolveComponents(DateTimeField);
-      const { label, plainText, prefix, suffix, min, max } = this.attrs;
-      const { horizontal, ...props } = this.nonAttrProps;
+      const { fullId, label, plainText, prefix, suffix, min, max, horizontal, ...props } = this.attrs;
 
       return (
-         <Container id={this.id} label={label} horizontal={horizontal} plainText={plainText}>
+         <Container id={fullId} label={label} horizontal={horizontal} plainText={plainText}>
             {plainText ? <PlainText>{this.value}</PlainText> :
                <InputGroup prefix={prefix} suffix={suffix}>
 
                   <Input
                      valid={this.state.valid}
-                     id={this.id}
+                     id={fullId}
                      value={new Date(this.value)}
                      min={new Date(min)}
                      max={new Date(max)}

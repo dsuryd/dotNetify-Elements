@@ -78,7 +78,7 @@ export class DataGrid extends Element {
    }
 
    dispatchSelection(value) {
-      this.gridAttrs.selectedKeyProperty && this.vmProperty.dispatch(value, this.gridAttrs.selectedKeyProperty);
+      this.gridAttrs.selectedKeyProperty && this.dispatchProp(this.gridAttrs.selectedKeyProperty, value);
       this.props.onSelect && this.props.onSelect(value);
    }
 
@@ -88,10 +88,9 @@ export class DataGrid extends Element {
             : sortDirection == "DESC" ? (a[sortColumn] < b[sortColumn] ? 1 : -1)
                : null;
 
-      const { value } = this.vmProperty.props;
       if (!this.unsortedValue)
-         this.unsortedValue = [...value];
-      this.vmProperty.value = sortDirection !== 'NONE' ? value.sort(comparer) : [...this.unsortedValue];
+         this.unsortedValue = [...this.value];
+      this.value = sortDirection !== 'NONE' ? this.value.sort(comparer) : [...this.unsortedValue];
    };
 
    handleRowClick = (idx, row) => {
@@ -124,16 +123,15 @@ export class DataGrid extends Element {
 
    render() {
       const [Container, _DataGrid] = utils.resolveComponents(DataGrid, this.props);
-      const { rowHeight, children, ...props } = this.nonAttrProps;
-      const rowGetter = idx => this.value[idx];
+      const { fullId, rowKey, columns, rows, canSelect, rowHeight, children, ...props } = this.attrs;
 
-      const { rowKey, columns, rows, canSelect } = this.attrs;
+      const rowGetter = idx => this.value[idx];
       const height = rows ? (rows + 1) * utils.toPixel(rowHeight) + 2 : null;
       this.gridAttrs = this.attrs;
 
       return (
          <Container innerRef={elem => this.elem = elem}>
-            <_DataGrid id={this.id}
+            <_DataGrid id={fullId}
                columns={this.mapColumns(children, columns)}
                rowGetter={rowGetter}
                rowsCount={this.value.length}

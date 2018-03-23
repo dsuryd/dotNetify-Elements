@@ -31,21 +31,17 @@ export class RadioGroup extends InputElement {
 
    handleChange = (event) => {
       let value = event.target.value;
-      value = this.valueType == "number" ? parseInt(value) : value;
-      this.vmInput.dispatch(value);
+      this.dispatch(value);
    }
    render() {
       const [Container, GroupContainer, RadioContainer, Label, Input, PlainText] = this.resolveComponents(RadioGroup);
-      this.valueType = typeof this.value;
+      const { fullId, label, options, plainText, right, horizontal } = this.attrs;
 
-      const { right, horizontal } = this.nonAttrProps;
-      const { label, options, plainText } = this.attrs;
       const radioOptions = (options || []).map(opt => utils.toCamelCase(opt));
-
       const radio = radioOptions.map(opt => (
-         <RadioContainer key={opt.key} id={this.id} checked={opt.key == this.value}>
+         <RadioContainer key={opt.key} id={fullId} checked={opt.key == this.value}>
             <Label>
-               <Input type="radio" name={this.id} value={opt.key} checked={opt.key == this.value} onChange={this.handleChange} />
+               <Input type="radio" name={fullId} value={opt.key} checked={opt.key == this.value} onChange={this.handleChange} />
                {opt.value}
             </Label>
          </RadioContainer>
@@ -55,7 +51,7 @@ export class RadioGroup extends InputElement {
       const plainTextValue = selected ? selected.value : "";
 
       return (
-         <Container id={this.id} label={label} horizontal={horizontal} right={right} plainText={plainText}>
+         <Container id={fullId} label={label} horizontal={horizontal} right={right} plainText={plainText}>
             {plainText ? <PlainText>{plainTextValue}</PlainText> : <GroupContainer>{radio}</GroupContainer>}
          </Container>
       );

@@ -11,8 +11,12 @@ export default class VMProperty {
       return this.vmContext.vm;
    }
 
-   get id() {
+   get fullId() {
       return `${this.vmContext.vmId}.${this.propId}`;
+   }
+
+   get attrs() {
+      return this.vmContext.getPropAttributes(this.propId);
    }
 
    get value() {
@@ -23,12 +27,11 @@ export default class VMProperty {
       this.vmContext.setState({ [this.propId]: value });
    }
 
-   get attrs() {
-      return this.vmContext.getPropAttributes(this.propId);
-   } 
-   
-   dispatch(value, propId) {
-      propId = propId || this.propId;
+   dispatch(value) {
+      this.vmContext.dispatchState({ [this.propId]: value });
+   }
+
+   dispatchProp(propId, value) {
       this.vmContext.dispatchState({ [propId]: value });
    }
 }

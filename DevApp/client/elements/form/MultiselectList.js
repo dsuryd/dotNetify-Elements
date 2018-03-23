@@ -26,22 +26,21 @@ export class MultiselectList extends InputElement {
       PlainTextComponent
    }
 
-   handleChange = (value) => this.vmInput.dispatch(value.map(val => val.Key));
+   handleChange = (value) => this.dispatch(value.map(val => val.Key));
 
    render() {
       const [Container, Input, InputGroup, Tag, Item, List, PlainText] = this.resolveComponents(MultiselectList);
-      const { horizontal, ...props } = this.nonAttrProps;
-      const { label, plainText, prefix, suffix, options } = this.attrs;
+      const { fullId, label, plainText, prefix, suffix, options, horizontal, ...props } = this.attrs;
 
       const selected = (options || []).filter(opt => this.value.includes(opt.Key));
       const plainTextValue = selected.map(x => x.Value);
 
       return (
-         <Container id={this.id} label={label} horizontal={horizontal} plainText={plainText}>
+         <Container id={fullId} label={label} horizontal={horizontal} plainText={plainText}>
             {plainText ? <PlainText>{plainTextValue}</PlainText> :
                <InputGroup prefix={prefix} suffix={suffix}>
                   <Input
-                     id={this.id}
+                     id={fullId}
                      value={this.value}
                      data={options}
                      valueField='Key'
