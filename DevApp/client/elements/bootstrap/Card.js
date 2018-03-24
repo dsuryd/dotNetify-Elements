@@ -20,3 +20,9 @@ export const CardBody = styled.div.attrs({
    width: inherit;
    ${props => props.theme.Card.BodyContainer}
 `;
+
+export const CardFooter = styled.div.attrs({
+   className: 'card-footer'
+})`
+   ${props => props.theme.Card.FooterContainer}
+`;

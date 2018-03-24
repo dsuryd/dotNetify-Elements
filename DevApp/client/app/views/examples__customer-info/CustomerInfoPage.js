@@ -43,11 +43,13 @@ export default class CustomerInfoPage extends React.Component {
                   </Form>
                </Frame>
             </VMContext>
-            <Modal show={showDialog} large>
+            <Modal header="New Contact" show={showDialog} large>
                <CustomerInfoForm />
-               <Panel right>
-                  <Button onClick={this.toggleDialog}>OK</Button>
-               </Panel>
+               <footer>
+                  <Panel right>
+                     <Button onClick={this.toggleDialog}>OK</Button>
+                  </Panel>
+               </footer>
             </Modal>
          </Theme>
       );

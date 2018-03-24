@@ -35,7 +35,7 @@ import { VMContext, ContextTypes } from '../../elements/VMContext';
 
 import { Alert as _Alert } from './Alert';
 import { Button as _Button } from './Button';
-import { Card as _Card, CardHeader, CardBody } from './Card';
+import { Card as _Card, CardHeader, CardBody, CardFooter } from './Card';
 import { Cell as _Cell, CellHeader, CellBody } from './Cell';
 import { CheckboxInput, CheckboxLabel, CheckboxContainer } from './Checkbox';
 import { Input, InputGroup } from './Input';
@@ -66,7 +66,8 @@ FieldPanel.componentTypes.PlainTextContainer = PlainText;
 Object.assign(Card.componentTypes, {
    Container: _Card,
    HeaderContainer: CardHeader,
-   BodyContainer: CardBody
+   BodyContainer: CardBody,
+   FooterContainer: CardFooter
 });
 
 Object.assign(Cell.componentTypes, {
@@ -101,7 +102,7 @@ Object.assign(Modal.componentTypes, {
    Container: rs.Modal,
    HeaderContainer: rs.ModalHeader,
    BodyContainer: rs.ModalBody,
-   Footercontainer: rs.ModalFooter
+   FooterContainer: rs.ModalFooter
 });
 
 Object.assign(MultiselectList.componentTypes, {

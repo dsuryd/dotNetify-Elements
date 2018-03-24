@@ -15,11 +15,16 @@ export class Modal extends React.Component {
       const { show, small, large, header, footer, children, ...props } = this.props;
       const centered = true;
       const size = small ? 'sm' : large ? 'lg' : null;
+
+      const [ sections, body ] = utils.filterChildren(children, child => child && (child.type === 'header' || child.type === 'footer'));
+      const _header = header || sections.filter(section => section.type === 'header').shift();
+      const _footer = footer || sections.filter(section => section.type === 'footer').shift();
+
       return (
          <Container isOpen={show} centered={centered} size={size}>
-            {header ? <Header>{header}</Header> : null}
-            <Body>{children}</Body>
-            {footer ? <Footer>{footer}</Footer> : null}
+            {_header ? <Header>{_header}</Header> : null}
+            <Body>{body}</Body>
+            {_footer ? <Footer>{_footer}</Footer> : null}
          </Container>
       );
    }

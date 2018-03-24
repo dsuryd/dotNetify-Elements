@@ -82,7 +82,8 @@ const defaultTheme = {
    Card: {
       Container: ``,
       HeaderContainer: ``,
-      BodyContainer: ``
+      BodyContainer: ``,
+      FooterContainer: ``
    },
    Cell: {
       Container: ``,
