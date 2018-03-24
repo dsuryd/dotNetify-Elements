@@ -19,6 +19,7 @@ import { Form } from '../../elements/form/Form';
 import { Frame } from '../../elements/layout/Frame';
 import { Label } from '../../elements/display/Label';
 import { Main, Header, Nav, Footer, Section } from '../../elements/layout/LayoutGrid';
+import { Modal } from '../../elements/layout/Modal';
 import { NavHeader } from '../../elements/layout/NavHeader';
 import { NavMenu, NavMenuTarget } from '../../elements/nav/NavMenu';
 import { NavToggle } from '../../elements/nav/NavToggle';
@@ -96,6 +97,13 @@ Object.assign(DropdownList.componentTypes, {
    InputGroupComponent: InputGroup
 });
 
+Object.assign(Modal.componentTypes, {
+   Container: rs.Modal,
+   HeaderContainer: rs.ModalHeader,
+   BodyContainer: rs.ModalBody,
+   Footercontainer: rs.ModalFooter
+});
+
 Object.assign(MultiselectList.componentTypes, {
    InputComponent: rw.Multiselect,
    InputGroupComponent: InputGroup
@@ -150,6 +158,7 @@ export {
    Nav,
    Footer,
    Section,
+   Modal,
    MultiselectList,
    NavHeader,
    NavMenu,

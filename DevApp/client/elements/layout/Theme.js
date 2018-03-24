@@ -1,7 +1,14 @@
 import React from 'react';
+import styled from 'styled-components';
 import { PropTypes } from 'prop-types';
 import { ThemeProvider } from 'styled-components';
 import defaultTheme from '../theme';
+
+const Container = styled.div`
+   display: flex;
+   flex: 1;
+   width: inherit;
+`;
 
 export class Theme extends React.Component {
    static childContextTypes = {
@@ -18,7 +25,15 @@ export class Theme extends React.Component {
    }
 
    render() {
-      const { theme, ...props } = this.props;
-      return <ThemeProvider theme={this.theme} {...props} />;
+      const { theme, children, ...props } = this.props;
+      const numChildren = React.Children.count(children);
+
+      return numChildren > 1 ? (
+         <ThemeProvider theme={this.theme} {...props}>
+            <Container>{children}</Container>
+         </ThemeProvider>
+      ) : (
+         <ThemeProvider theme={this.theme} children={children} {...props} />
+      );
    }
 }

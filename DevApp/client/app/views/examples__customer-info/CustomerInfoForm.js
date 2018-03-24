@@ -16,7 +16,7 @@ import {
 
 const CustomerInfoForm = () => (
    <CellPanel horizontal>
-      <CellPanel>
+      <CellPanel fit>
          <Cell header="Person" borders="top, left, right">
             <VMContext vm="PersonForm">
                <Form id="Person">
@@ -44,7 +44,7 @@ const CustomerInfoForm = () => (
             </VMContext>
          </Cell>
       </CellPanel>
-      <CellPanel>
+      <CellPanel fit>
          <Cell header="Other Info" borders="top, right">
             <VMContext vm="OtherInfoForm">
                <Form id="OtherInfo">
