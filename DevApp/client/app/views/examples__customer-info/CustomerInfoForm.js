@@ -1,18 +1,5 @@
 import React from 'react';
-import {
-   Button,
-   Cell,
-   CellPanel,
-   DateField,
-   DropdownList,
-   Form,
-   Frame,
-   Panel,
-   RadioGroup,
-   TextField,
-   TextAreaField,
-   VMContext
-} from 'elements/bootstrap';
+import { Button, Cell, CellPanel, DateField, DropdownList, Form, Frame, Panel, RadioGroup, TextField, TextAreaField, VMContext } from 'elements/bootstrap';
 
 const CustomerInfoForm = () => (
    <CellPanel horizontal>
@@ -31,7 +18,7 @@ const CustomerInfoForm = () => (
                </Form>
             </VMContext>
          </Cell>
-         <Cell header="Phone">
+         <Cell header="Phone" fit>
             <VMContext vm="PhoneForm">
                <Form id="Phone">
                   <Panel childProps={{ horizontal: true }}>
@@ -68,7 +55,7 @@ const CustomerInfoForm = () => (
                </Form>
             </VMContext>
          </Cell>
-         <Cell header="Notes" borders="top, right, bottom">
+         <Cell header="Notes" fit borders="top, right, bottom">
             <VMContext vm="NotesForm">
                <Form id="Notes">
                   <Panel childProps={{ horizontal: true }}>

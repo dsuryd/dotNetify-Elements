@@ -13,6 +13,7 @@ const styleBorders = borders => {
 export const Cell = styled.div.attrs({
    className: 'card'
 })`
+   flex: 1;
    border-radius: 0;
    ${props => (props.borders ? styleBorders(props.borders) : null)}
    ${props => props.theme.Cell.Container}

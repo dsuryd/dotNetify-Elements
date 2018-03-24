@@ -12,7 +12,7 @@ export class Card extends React.Component {
 
    render() {
       const [ Container, Header, Body, Footer ] = utils.resolveComponents(Card, this.props);
-      const { header, children, ...props } = this.props;
+      const { header, footer, children, ...props } = this.props;
 
       const [ sections, body ] = utils.filterChildren(children, child => child && (child.type === 'header' || child.type === 'footer'));
       const _header = header || sections.filter(section => section.type === 'header').shift();
