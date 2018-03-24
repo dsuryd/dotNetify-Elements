@@ -2,10 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 
 export const Input = styled.input.attrs({
-   className: "form-control"
-}) `
+   className: 'form-control'
+})`
    ${props => props.theme.Input}
-   ${props => props.valid === false ? props.theme.InputValidationError : ""};
+   ${props => (props.valid === false ? props.theme.InputValidationError : '')};
 `;
 
 const InputPrepend = props => (
@@ -27,5 +27,8 @@ export const InputGroup = props => {
          {prefix ? <InputPrepend>{prefix}</InputPrepend> : null}
          {children}
          {suffix ? <InputAppend>{suffix}</InputAppend> : null}
-      </div>) : children;
-}
+      </div>
+   ) : (
+      children
+   );
+};

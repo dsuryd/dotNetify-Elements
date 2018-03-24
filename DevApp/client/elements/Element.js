@@ -6,12 +6,11 @@ import VMInput from './_internal/VMInput';
 import * as utils from './utils';
 
 export default class Element extends React.Component {
-
    static contextTypes = ContextTypes;
 
    static propTypes = {
       id: PropTypes.string.isRequired
-   }
+   };
 
    get vm() {
       return this.vmProperty.vm;
@@ -42,10 +41,10 @@ export default class Element extends React.Component {
       }
 
       return {
-         // Fallback is this component isn't associated with a back-end view model.         
+         // Fallback is this component isn't associated with a back-end view model.
          fullId: this.props.id,
          value: this.props.value,
-         attrs: this.props.attrs || {},
+         attrs: this.props.attrs || {}
       };
    }
 
@@ -67,7 +66,6 @@ export default class Element extends React.Component {
 }
 
 export class InputElement extends Element {
-
    get vmProperty() {
       // Returns the object that provides data from the back-end view model, and manages input validation
       // and sending back of data to the back-end.
@@ -81,9 +79,9 @@ export class InputElement extends Element {
          fullId: this.props.id,
          value: this.props.value,
          attrs: this.props.attrs || {},
-         dispatch: value => this.props.onChange ? this.props.onChange(value) : null,
-         onValidated: handler => this.props.onValidated ? this.props.onValidator(handler) : null,
-         initMask: _ => this.props.initMask ? this.props.initMask() : null
+         dispatch: value => (this.props.onChange ? this.props.onChange(value) : null),
+         onValidated: handler => (this.props.onValidated ? this.props.onValidator(handler) : null),
+         initMask: _ => (this.props.initMask ? this.props.initMask() : null)
       };
    }
 

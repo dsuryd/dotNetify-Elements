@@ -1,7 +1,6 @@
 import React from 'react';
 
 export default class VMProperty {
-
    constructor(vmContext, propId) {
       this.vmContext = vmContext;
       this.propId = propId;

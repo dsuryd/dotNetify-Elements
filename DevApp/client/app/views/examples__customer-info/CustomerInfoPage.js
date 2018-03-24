@@ -3,7 +3,6 @@ import CustomerInfoForm from './CustomerInfoForm';
 import { Button, DataGrid, Form, Frame, Panel, Theme, VMContext } from 'elements/bootstrap';
 
 export default class CustomerInfoPage extends React.Component {
-
    state = { editable: false, edit: false };
 
    handleSelect = value => this.setState({ editable: value ? true : false });
@@ -21,9 +20,15 @@ export default class CustomerInfoPage extends React.Component {
                   <Form plainText={!edit}>
                      <Panel>
                         <Panel horizontal left>
-                           <Button hide={!canEdit} onClick={this.toggleEdit}>Edit</Button>
-                           <Button id="Submit" submit hide={!edit} onClick={this.toggleEdit}>Update</Button>
-                           <Button cancel secondary hide={!edit} disabled={false} onClick={this.toggleEdit}>Cancel</Button>
+                           <Button hide={!canEdit} onClick={this.toggleEdit}>
+                              Edit
+                           </Button>
+                           <Button id="Submit" submit hide={!edit} onClick={this.toggleEdit}>
+                              Update
+                           </Button>
+                           <Button cancel secondary hide={!edit} disabled={false} onClick={this.toggleEdit}>
+                              Cancel
+                           </Button>
                         </Panel>
                         <CustomerInfoForm />
                      </Panel>

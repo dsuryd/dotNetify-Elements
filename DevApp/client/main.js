@@ -9,7 +9,4 @@ import dotnetify from 'dotnetify';
 
 dotnetify.debug = true;
 
-ReactDOM.render(
-    <App />,
-    document.getElementById('App'));
-
+ReactDOM.render(<App />, document.getElementById('App'));

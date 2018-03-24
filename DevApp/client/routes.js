@@ -15,20 +15,25 @@ Object.assign(window, {
    CustomerInfoPage
 });
 
-// Hot module replacement.  
+// Hot module replacement.
 if (module.hot) {
-  const render = (react, elemId) => {
+   const render = (react, elemId) => {
+      ReactDOM.unmountComponentAtNode(document.getElementById(elemId));
+      ReactDOM.render(React.createElement(react), document.getElementById(elemId));
+   };
 
-     ReactDOM.unmountComponentAtNode(document.getElementById(elemId));
-     ReactDOM.render(React.createElement(react), document.getElementById(elemId));
-  }
-
-  module.hot.accept('routes', _ => render(require('./app/views/App').default, 'App'));
-  module.hot.accept('app/views/App', _ => render(require('./app/views/App').default, 'App'));
-  module.hot.accept('app/views/FormDemo', _ => render(require('./app/views/FormDemo').default, 'NavMenuTarget'));
-  module.hot.accept('app/views/FormValidationDemo', _ => render(require('./app/views/FormValidationDemo').default, 'NavMenuTarget'));
-  module.hot.accept('app/views/DataGridDemo', _ => render(require('./app/views/DataGridDemo').default, 'NavMenuTarget'));
-  module.hot.accept('app/views/examples__customer-info/CustomerInfoPage', _ => render(require('./app/views/examples__customer-info/CustomerInfoPage').default, 'NavMenuTarget'));
+   module.hot.accept('routes', _ => render(require('./app/views/App').default, 'App'));
+   module.hot.accept('app/views/App', _ => render(require('./app/views/App').default, 'App'));
+   module.hot.accept('app/views/FormDemo', _ => render(require('./app/views/FormDemo').default, 'NavMenuTarget'));
+   module.hot.accept('app/views/FormValidationDemo', _ =>
+      render(require('./app/views/FormValidationDemo').default, 'NavMenuTarget')
+   );
+   module.hot.accept('app/views/DataGridDemo', _ =>
+      render(require('./app/views/DataGridDemo').default, 'NavMenuTarget')
+   );
+   module.hot.accept('app/views/examples__customer-info/CustomerInfoPage', _ =>
+      render(require('./app/views/examples__customer-info/CustomerInfoPage').default, 'NavMenuTarget')
+   );
 }
 
 export default App;

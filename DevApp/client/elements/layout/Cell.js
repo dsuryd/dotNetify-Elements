@@ -3,19 +3,18 @@ import { PropTypes } from 'prop-types';
 import * as utils from '../utils';
 
 export class Cell extends React.Component {
-
    static propTypes = {
       borders: PropTypes.string
-  }
+   };
 
    static componentTypes = {
       Container: undefined,
       HeaderContainer: undefined,
-      BodyContainer: undefined,
-   }
+      BodyContainer: undefined
+   };
 
    render() {
-      const [Container, Header, Body] = utils.resolveComponents(Cell, this.props);
+      const [ Container, Header, Body ] = utils.resolveComponents(Cell, this.props);
       const { header, children, borders, ...props } = this.props;
       return (
          <Container borders={borders}>
@@ -24,4 +23,4 @@ export class Cell extends React.Component {
          </Container>
       );
    }
-}  
+}

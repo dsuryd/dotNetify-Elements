@@ -4,20 +4,21 @@ import { FormContextTypes } from './Form';
 import * as utils from '../utils';
 
 export class Button extends React.Component {
-
    static contextTypes = FormContextTypes;
 
    static propTypes = {
       submit: PropTypes.bool,
       cancel: PropTypes.bool,
-      hide: PropTypes.bool,      
-      disabled: PropTypes.bool,
-   }
+      hide: PropTypes.bool,
+      disabled: PropTypes.bool
+   };
    static componentTypes = {
       ButtonComponent: undefined
-   }
+   };
 
-   get disabled() { return utils.bool(this.props.disabled, (this.context.formContext && !this.context.formContext.changed)); }
+   get disabled() {
+      return utils.bool(this.props.disabled, this.context.formContext && !this.context.formContext.changed);
+   }
 
    handleClick = _ => {
       const { id, submit, cancel, onClick } = this.props;
@@ -26,13 +27,13 @@ export class Button extends React.Component {
          cancel && this.context.formContext.cancel();
       }
       onClick && onClick();
-   }
+   };
 
    render() {
-      const [_Button] = utils.resolveComponents(Button, this.props);
+      const [ _Button ] = utils.resolveComponents(Button, this.props);
       const { submit, cancel, hide, disabled, onClick, ...props } = this.props;
       const _disabled = submit || cancel ? this.disabled : disabled;
 
       return !hide ? <_Button onClick={this.handleClick} disabled={_disabled} {...props} /> : null;
    }
-}  
+}

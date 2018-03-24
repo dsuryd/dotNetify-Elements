@@ -24,13 +24,13 @@ const defaultTheme = {
       Container: ``,
       ChildContainer: ``,
       Gap: {
-         small: ".5rem",
-         large: "1rem"
+         small: '.5rem',
+         large: '1rem'
       },
       Margin: {
-         small: "1em",
-         large: "1.5rem"
-      },      
+         small: '1em',
+         large: '1.5rem'
+      }
    },
    NavMenu: {
       RouteContainer: `
@@ -93,10 +93,10 @@ const defaultTheme = {
       GroupContainer: ``,
       Container: {
          Default: ``,
-         Checked: ``,
+         Checked: ``
       },
       Label: ``,
-      Input: ``,
+      Input: ``
    },
    Radio: {
       GroupContainer: ``,
@@ -105,21 +105,21 @@ const defaultTheme = {
          Checked: ``
       },
       Label: ``,
-      Input: ``,
+      Input: ``
    },
    RadioToggle: {
       GroupContainer: ``,
       Label: {
          Default: ``,
-         Checked: ``,
+         Checked: ``
       },
-      Input: ``,
+      Input: ``
    },
    Button: ``,
    TextArea: ``,
    DataGrid: {
       Container: ``
-   },
+   }
 };
 
 export default defaultTheme;

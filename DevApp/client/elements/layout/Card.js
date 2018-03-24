@@ -3,15 +3,14 @@ import { PropTypes } from 'prop-types';
 import * as utils from '../utils';
 
 export class Card extends React.Component {
-
    static componentTypes = {
       Container: undefined,
       HeaderContainer: undefined,
-      BodyContainer: undefined,
-   }
+      BodyContainer: undefined
+   };
 
    render() {
-      const [Container, Header, Body] = utils.resolveComponents(Card, this.props);
+      const [ Container, Header, Body ] = utils.resolveComponents(Card, this.props);
       const { header, children, ...props } = this.props;
       return (
          <Container>
@@ -20,4 +19,4 @@ export class Card extends React.Component {
          </Container>
       );
    }
-}  
+}

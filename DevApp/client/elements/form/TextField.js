@@ -5,10 +5,9 @@ import { FieldPanel } from '../layout/FieldPanel';
 import { Label } from '../display/Label';
 import { InputElement } from '../Element';
 
-const PlainTextComponent = props => props.type === "password" ? '' : props.children;
+const PlainTextComponent = props => (props.type === 'password' ? '' : props.children);
 
 export class TextField extends InputElement {
-
    static propTypes = {
       id: PropTypes.string.isRequired,
       label: PropTypes.string,
@@ -18,8 +17,8 @@ export class TextField extends InputElement {
       disabled: PropTypes.bool,
       prefix: PropTypes.any,
       suffix: PropTypes.any,
-      validation: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
-   }
+      validation: PropTypes.oneOfType([ PropTypes.array, PropTypes.object ])
+   };
 
    static componentTypes = {
       Container: FieldPanel,
@@ -27,7 +26,7 @@ export class TextField extends InputElement {
       InputGroupComponent: undefined,
       ValidationMessageComponent: Label,
       PlainTextComponent
-   }
+   };
 
    constructor(props) {
       super(props);
@@ -35,13 +34,14 @@ export class TextField extends InputElement {
    }
 
    componentWillMount() {
-      this.vmProperty.onValidated(result => this.setState({
-         valid: result.valid ? null : false,
-         validationMessages: result.messages
-      }));
+      this.vmProperty.onValidated(result =>
+         this.setState({
+            valid: result.valid ? null : false,
+            validationMessages: result.messages
+         })
+      );
 
-      if (this.props.validation)
-         this.vmProperty.addValidation(this.props.validation);
+      if (this.props.validation) this.vmProperty.addValidation(this.props.validation);
    }
 
    componentDidMount() {
@@ -55,40 +55,53 @@ export class TextField extends InputElement {
    handleChange = _ => {
       this.setState({ changed: true });
       this.value = this.vmProperty.domValue;
-   }
+   };
 
    handleBlur = _ => {
       this.state.changed && this.dispatch();
       this.setState({ changed: false });
-   }
+   };
 
    render() {
-      const [Container, Input, InputGroup, ValidationMessage, PlainText] = this.resolveComponents(TextField);
-      const { fullId, label, placeholder, prefix, suffix, maxLength, plainText, horizontal, type, ...props } = this.attrs;
+      const [ Container, Input, InputGroup, ValidationMessage, PlainText ] = this.resolveComponents(TextField);
+      const {
+         fullId,
+         label,
+         placeholder,
+         prefix,
+         suffix,
+         maxLength,
+         plainText,
+         horizontal,
+         type,
+         ...props
+      } = this.attrs;
 
-      const plainTextValue = `${prefix || ""}${this.value || ""}${suffix || ""}`;
+      const plainTextValue = `${prefix || ''}${this.value || ''}${suffix || ''}`;
 
       return (
          <Container id={fullId} label={label} horizontal={horizontal} plainText={plainText}>
-            {plainText ? <PlainText type={type}>{plainTextValue}</PlainText> :
+            {plainText ? (
+               <PlainText type={type}>{plainTextValue}</PlainText>
+            ) : (
                <InputGroup prefix={prefix} suffix={suffix}>
                   <Input
                      valid={this.state.valid}
                      id={fullId}
                      maxLength={maxLength}
-                     type={type || "text"}
+                     type={type || 'text'}
                      placeholder={placeholder}
-
-                     value={this.value || ""}
+                     value={this.value || ''}
                      onChange={this.handleChange}
                      onBlur={this.handleBlur}
-                     innerRef={elem => this.vmProperty.dom = elem}
+                     innerRef={elem => (this.vmProperty.dom = elem)}
                      {...props}
                   />
                </InputGroup>
-            }
-            {this.state.validationMessages.map((message, idx) =>
-               <ValidationMessage key={"validationMsg" + idx}>{message}</ValidationMessage>)}
+            )}
+            {this.state.validationMessages.map((message, idx) => (
+               <ValidationMessage key={'validationMsg' + idx}>{message}</ValidationMessage>
+            ))}
          </Container>
       );
    }

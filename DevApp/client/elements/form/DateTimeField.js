@@ -8,11 +8,10 @@ import moment from 'moment';
 
 const PlainTextComponent = props => {
    const date = new Date(props.children);
-   return date.getFullYear() === 0 ? "" : date.toLocaleDateString();
-}
+   return date.getFullYear() === 0 ? '' : date.toLocaleDateString();
+};
 
 export class DateTimeField extends InputElement {
-
    static propTypes = {
       id: PropTypes.string.isRequired,
       label: PropTypes.string,
@@ -21,8 +20,8 @@ export class DateTimeField extends InputElement {
       disabled: PropTypes.bool,
       prefix: PropTypes.any,
       suffix: PropTypes.any,
-      validation: PropTypes.oneOfType([PropTypes.array, PropTypes.object])
-   }
+      validation: PropTypes.oneOfType([ PropTypes.array, PropTypes.object ])
+   };
 
    static componentTypes = {
       Container: FieldPanel,
@@ -30,7 +29,7 @@ export class DateTimeField extends InputElement {
       InputGroupComponent: undefined,
       ValidationMessageComponent: Label,
       PlainTextComponent
-   }
+   };
 
    constructor(props) {
       super(props);
@@ -38,34 +37,36 @@ export class DateTimeField extends InputElement {
    }
 
    componentWillMount() {
-      this.vmProperty.onValidated(result => this.setState({
-         valid: result.valid ? null : false,
-         validationMessages: result.messages
-      }));
+      this.vmProperty.onValidated(result =>
+         this.setState({
+            valid: result.valid ? null : false,
+            validationMessages: result.messages
+         })
+      );
 
-      if (this.props.validation)
-         this.vmProperty.addValidation(this.props.validation);
+      if (this.props.validation) this.vmProperty.addValidation(this.props.validation);
    }
 
-   handleChange = (value) => {
+   handleChange = value => {
       this.setState({ changed: true });
       this.value = new moment(value).toISOString(true);
-   }
+   };
 
    handleBlur = _ => {
       this.state.changed && this.dispatch();
       this.setState({ changed: false });
-   }
+   };
 
    render() {
-      const [Container, Input, InputGroup, ValidationMessage, PlainText] = this.resolveComponents(DateTimeField);
+      const [ Container, Input, InputGroup, ValidationMessage, PlainText ] = this.resolveComponents(DateTimeField);
       const { fullId, label, plainText, prefix, suffix, min, max, horizontal, ...props } = this.attrs;
 
       return (
          <Container id={fullId} label={label} horizontal={horizontal} plainText={plainText}>
-            {plainText ? <PlainText>{this.value}</PlainText> :
+            {plainText ? (
+               <PlainText>{this.value}</PlainText>
+            ) : (
                <InputGroup prefix={prefix} suffix={suffix}>
-
                   <Input
                      valid={this.state.valid}
                      id={fullId}
@@ -79,21 +80,18 @@ export class DateTimeField extends InputElement {
                      {...props}
                   />
                </InputGroup>
-            }
-            {this.state.validationMessages.map((message, idx) =>
-               <ValidationMessage key={"validationMessage" + idx}>{message}</ValidationMessage>)}
+            )}
+            {this.state.validationMessages.map((message, idx) => (
+               <ValidationMessage key={'validationMessage' + idx}>{message}</ValidationMessage>
+            ))}
          </Container>
       );
    }
 }
 
-export const DateField = props => (
-   <DateTimeField time={false} {...props} />
-);
+export const DateField = props => <DateTimeField time={false} {...props} />;
 
-export const TimeField = props => (
-   <DateTimeField date={false} {...props} />
-);
+export const TimeField = props => <DateTimeField date={false} {...props} />;
 
 DateField.propTypes = Object.assign({}, DateTimeField.propTypes);
 TimeField.propTypes = Object.assign({}, DateTimeField.propTypes);

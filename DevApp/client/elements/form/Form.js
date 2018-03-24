@@ -4,12 +4,14 @@ import { ContextTypes } from '../VMContext';
 import VMInputValidator from '../_internal/VMInputValidator';
 import * as utils from '../utils';
 
-export const FormContextTypes = Object.assign({
-   formContext: PropTypes.object
-}, ContextTypes);
+export const FormContextTypes = Object.assign(
+   {
+      formContext: PropTypes.object
+   },
+   ContextTypes
+);
 
 export class Form extends React.Component {
-
    static contextTypes = FormContextTypes;
 
    static childContextTypes = FormContextTypes;
@@ -19,9 +21,11 @@ export class Form extends React.Component {
       onSubmit: PropTypes.func,
       onChanged: PropTypes.func,
       plainText: PropTypes.bool
-   }
+   };
 
-   get plainText() { return this.context.formContext ? this.context.formContext.plainText : this.props.plainText }
+   get plainText() {
+      return this.context.formContext ? this.context.formContext.plainText : this.props.plainText;
+   }
 
    get enteringEditMode() {
       const result = this._plainText && !this.plainText;
@@ -43,13 +47,12 @@ export class Form extends React.Component {
    }
 
    componentWillUpdate(props) {
-      if (typeof props.plainText == "boolean" && props.plainText !== this.state.plainText)
-         this.setState({plainText: props.plainText});
+      if (typeof props.plainText == 'boolean' && props.plainText !== this.state.plainText)
+         this.setState({ plainText: props.plainText });
    }
 
    componentDidUpdate() {
-      if (this.enteringEditMode)
-         this.resetForm();
+      if (this.enteringEditMode) this.resetForm();
 
       // Keep the pre-edit state so we can restore them on Cancel action.
       this.preEditState = this.preEditState || this.getPreEditState();
@@ -61,16 +64,16 @@ export class Form extends React.Component {
          this.props.onChanged && this.props.onChanged(state);
       }
 
-      if (this.context.formContext && !this.context.formContext.changed)
-         this.context.formContext.setChanged(state);
+      if (this.context.formContext && !this.context.formContext.changed) this.context.formContext.setChanged(state);
    }
 
    dispatchState(state, toServer) {
       // Intercept dispatchState calls from the input fields to group them all first here,
       // and only send them on Submit button click. But use 'toServer' to override this
       // for special cases, e.g. letting field value go through to be validated server-side.
-      toServer === true ? this.context.vmContext.dispatchState(state) :
-         this.setState({ changed: true, data: Object.assign({}, this.state.data, state) });
+      toServer === true
+         ? this.context.vmContext.dispatchState(state)
+         : this.setState({ changed: true, data: Object.assign({}, this.state.data, state) });
 
       this.changed(state);
    }
@@ -81,7 +84,7 @@ export class Form extends React.Component {
       formContext = formContext || {
          subForms: this.subForms,
          changed: this.state.changed,
-         plainText: this.state.plainText,         
+         plainText: this.state.plainText,
          setChanged: state => this.changed(state),
          setPlainText: state => this.setState({ plainText: state }),
          submit: propId => this.handleSubmit(propId),
@@ -119,17 +122,18 @@ export class Form extends React.Component {
    }
 
    handleSubmit(propId) {
-      if (this.subForms.length == 0)
-         return this.submitOnValidated(propId);
+      if (this.subForms.length == 0) return this.submitOnValidated(propId);
 
       let subFormData = {};
       const submit = (id, data) => Object.assign(subFormData, id ? { [id]: data } : data);
 
       Promise.all(this.subForms.map(form => form.submitOnValidated(form.props.id, submit)))
-         .then(results => results.reduce((aggregate, current) => ({
-            valid: aggregate.valid && current.valid,
-            messages: [...aggregate.messages, ...current.messages]
-         })))
+         .then(results =>
+            results.reduce((aggregate, current) => ({
+               valid: aggregate.valid && current.valid,
+               messages: [ ...aggregate.messages, ...current.messages ]
+            }))
+         )
          .then(result => result.valid && this.submit(propId, subFormData));
    }
 
@@ -156,14 +160,17 @@ export class Form extends React.Component {
 
    submitOnValidated(propId, submit) {
       const { data } = this.state;
-      return !data ? Promise.resolve({ valid: true, messages: [] }) :
-         this.validate().then(result => result.valid && (submit ? submit(propId, data) : this.submit(propId, data)) ? result : result);
+      return !data
+         ? Promise.resolve({ valid: true, messages: [] })
+         : this.validate().then(
+              result => (result.valid && (submit ? submit(propId, data) : this.submit(propId, data)) ? result : result)
+           );
    }
 
    submit(propId, data) {
       let formData = Object.assign({}, this.preEditState, data);
       if (!this.props.onSubmit || this.props.onSubmit(formData) !== false)
-         this.context.vmContext.dispatchState(propId ? ({ [propId]: formData }) : data);
+         this.context.vmContext.dispatchState(propId ? { [propId]: formData } : data);
 
       this.setState({ changed: false, data: null });
       this.resetForm();
@@ -171,10 +178,11 @@ export class Form extends React.Component {
 
    validate() {
       // Run all the input validators and aggregate the results.
-      return Promise.all(this.validators.map(validator => validator.validate()))
-         .then(results => results.reduce((aggregate, current) => ({
+      return Promise.all(this.validators.map(validator => validator.validate())).then(results =>
+         results.reduce((aggregate, current) => ({
             valid: aggregate.valid && current.valid,
-            messages: [...aggregate.messages, ...current.messages]
-         })));
+            messages: [ ...aggregate.messages, ...current.messages ]
+         }))
+      );
    }
 }

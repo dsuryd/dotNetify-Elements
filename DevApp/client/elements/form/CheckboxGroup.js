@@ -4,21 +4,18 @@ import { PropTypes } from 'prop-types';
 import { FieldPanel } from '../layout/FieldPanel';
 import { InputElement } from '../Element';
 
-const GroupContainer = styled.section`
-    ${props => props.theme.Checkbox.GroupContainer}
-`;
+const GroupContainer = styled.section`${props => props.theme.Checkbox.GroupContainer};`;
 
-const PlainTextComponent = props => React.Children.toArray(props.children).join(", ");
+const PlainTextComponent = props => React.Children.toArray(props.children).join(', ');
 
 export class CheckboxGroup extends InputElement {
-
    static propTypes = {
       id: PropTypes.string.isRequired,
       label: PropTypes.string,
       horizontal: PropTypes.bool,
       plainText: PropTypes.bool,
       inline: PropTypes.bool
-   }
+   };
 
    static componentTypes = {
       Container: FieldPanel,
@@ -27,16 +24,20 @@ export class CheckboxGroup extends InputElement {
       LabelComponent: undefined,
       InputComponent: undefined,
       PlainTextComponent
-   }
+   };
 
-   handleChange = (event) => {
+   handleChange = event => {
       let values = this.value || [];
-      values = event.target.checked ? values.concat([event.target.value]) : values.filter(value => value != event.target.value);
+      values = event.target.checked
+         ? values.concat([ event.target.value ])
+         : values.filter(value => value != event.target.value);
       this.dispatch(values);
-   }
+   };
 
    render() {
-      const [Container, GroupContainer, CheckboxContainer, Label, Input, PlainText] = this.resolveComponents(CheckboxGroup);
+      const [ Container, GroupContainer, CheckboxContainer, Label, Input, PlainText ] = this.resolveComponents(
+         CheckboxGroup
+      );
       const { fullId, label, plainText, options, inline, horizontal } = this.attrs;
       const values = this.value || [];
 
@@ -55,7 +56,11 @@ export class CheckboxGroup extends InputElement {
 
       return (
          <Container id={fullId} label={label} horizontal={horizontal} plainText={plainText}>
-            {plainText ? <PlainText>{plainTextValue}</PlainText> : <GroupContainer id={fullId}>{checkboxes}</GroupContainer>}
+            {plainText ? (
+               <PlainText>{plainTextValue}</PlainText>
+            ) : (
+               <GroupContainer id={fullId}>{checkboxes}</GroupContainer>
+            )}
          </Container>
       );
    }

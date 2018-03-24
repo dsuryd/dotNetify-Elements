@@ -23,4 +23,4 @@ export const DotNetifyLogo = props => (
       <Icon />
       <span>dotNetify</span>
    </Container>
-)
+);
