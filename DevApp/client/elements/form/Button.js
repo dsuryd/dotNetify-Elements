@@ -31,8 +31,8 @@ export class Button extends React.Component {
 
    render() {
       const [ _Button ] = utils.resolveComponents(Button, this.props);
-      const { submit, cancel, hide, disable, onClick, ...props } = this.props;
-      const _disable = submit || cancel ? this.disable : disable;
+      const { submit, hide, disable, onClick, ...props } = this.props;
+      const _disable = submit ? this.disable : disable;
 
       return !hide ? <_Button onClick={this.handleClick} disabled={_disable} {...props} /> : null;
    }

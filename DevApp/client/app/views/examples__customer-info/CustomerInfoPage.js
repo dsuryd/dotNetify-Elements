@@ -1,6 +1,7 @@
 import React from 'react';
 import CustomerInfoForm from './CustomerInfoForm';
-import { Button, DataGrid, Form, Frame, Modal, Panel, Theme, VMContext } from 'elements/bootstrap';
+import NewCustomerDialog from './NewCustomerDialog';
+import { Button, DataGrid, Form, Frame, Panel, Theme, VMContext } from 'elements/bootstrap';
 
 export default class CustomerInfoPage extends React.Component {
    state = { editable: false, edit: false, showDialog: false };
@@ -16,10 +17,11 @@ export default class CustomerInfoPage extends React.Component {
          <Theme>
             <VMContext vm="CustomerInfoPage">
                <Frame>
-                  <h2>Contacts</h2>
+                  <h2>Customers</h2>
                   <DataGrid id="Contacts" onSelect={this.handleSelect} disable={edit} />
                   <Form plainText={!edit}>
                      <Panel>
+                        {/* Toolbar */}
                         <Panel horizontal>
                            <Panel horizontal left>
                               <Button disable={!canEdit} onClick={this.toggleEdit}>
@@ -28,29 +30,23 @@ export default class CustomerInfoPage extends React.Component {
                               <Button id="Submit" submit hide={!edit} onClick={this.toggleEdit}>
                                  Update
                               </Button>
-                              <Button cancel secondary hide={!edit} disable={false} onClick={this.toggleEdit}>
+                              <Button cancel secondary hide={!edit} onClick={this.toggleEdit}>
                                  Cancel
                               </Button>
                            </Panel>
                            <Panel horizontal right>
                               <Button onClick={this.toggleDialog} disable={edit}>
-                                 New Contact...
+                                 New Customer
                               </Button>
                            </Panel>
                         </Panel>
+                        {/* Form for editing selected customer on the grid */}
                         <CustomerInfoForm />
                      </Panel>
                   </Form>
                </Frame>
+               {showDialog ? <NewCustomerDialog onSubmit={this.toggleDialog} onCancel={this.toggleDialog} /> : null}
             </VMContext>
-            <Modal header="New Contact" show={showDialog} large>
-               <CustomerInfoForm />
-               <footer>
-                  <Panel right>
-                     <Button onClick={this.toggleDialog}>OK</Button>
-                  </Panel>
-               </footer>
-            </Modal>
          </Theme>
       );
    }

@@ -47,8 +47,7 @@ export class Form extends React.Component {
    }
 
    componentWillUpdate(props) {
-      if (typeof props.plainText == 'boolean' && props.plainText !== this.state.plainText)
-         this.setState({ plainText: props.plainText });
+      if (typeof props.plainText == 'boolean' && props.plainText !== this.state.plainText) this.setState({ plainText: props.plainText });
    }
 
    componentDidUpdate() {
@@ -71,9 +70,7 @@ export class Form extends React.Component {
       // Intercept dispatchState calls from the input fields to group them all first here,
       // and only send them on Submit button click. But use 'toServer' to override this
       // for special cases, e.g. letting field value go through to be validated server-side.
-      toServer === true
-         ? this.context.vmContext.dispatchState(state)
-         : this.setState({ changed: true, data: Object.assign({}, this.state.data, state) });
+      toServer === true ? this.context.vmContext.dispatchState(state) : this.setState({ changed: true, data: Object.assign({}, this.state.data, state) });
 
       this.changed(state);
    }
@@ -154,7 +151,7 @@ export class Form extends React.Component {
 
    resetForm() {
       this.preEditState = null;
-      this.vmContextState = this.context.vmContext.getState();
+      this.vmContextState = this.context.vmContext && this.context.vmContext.getState();
       this._plainText = this.plainText;
    }
 
@@ -162,15 +159,12 @@ export class Form extends React.Component {
       const { data } = this.state;
       return !data
          ? Promise.resolve({ valid: true, messages: [] })
-         : this.validate().then(
-              result => (result.valid && (submit ? submit(propId, data) : this.submit(propId, data)) ? result : result)
-           );
+         : this.validate().then(result => (result.valid && (submit ? submit(propId, data) : this.submit(propId, data)) ? result : result));
    }
 
    submit(propId, data) {
       let formData = Object.assign({}, this.preEditState, data);
-      if (!this.props.onSubmit || this.props.onSubmit(formData) !== false)
-         this.context.vmContext.dispatchState(propId ? { [propId]: formData } : data);
+      if (!this.props.onSubmit || this.props.onSubmit(formData) !== false) this.context.vmContext.dispatchState(propId ? { [propId]: formData } : data);
 
       this.setState({ changed: false, data: null });
       this.resetForm();

@@ -59,9 +59,9 @@ namespace dotNetify_Elements
 
       public override void OnSubVMCreated(BaseVM subVM)
       {
-         // Have the sub-form subscribes to the customer data grid's selection changed event.
+         // Have sub-forms with 'Customer' property subscribe to the customer data grid's selection changed event.
          var customerPropInfo = subVM.GetType().GetProperty(nameof(Customer));
-         if (typeof(ReactiveProperty<Customer>).IsAssignableFrom(customerPropInfo.PropertyType))
+         if (typeof(ReactiveProperty<Customer>).IsAssignableFrom(customerPropInfo?.PropertyType))
             _selectedContact.SubscribedBy(
                customerPropInfo.GetValue(subVM) as ReactiveProperty<Customer>,
                x => x.Select(id => _customerRepository.Get(id))

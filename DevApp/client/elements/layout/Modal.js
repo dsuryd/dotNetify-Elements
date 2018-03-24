@@ -3,6 +3,18 @@ import { PropTypes } from 'prop-types';
 import * as utils from '../utils';
 
 export class Modal extends React.Component {
+   static propTypes = {
+      header: PropTypes.any,
+      footer: PropTypes.any,
+      show: PropTypes.bool,
+      small: PropTypes.bool,
+      large: PropTypes.bool
+   };
+
+   static defaultProps = {
+      show: true
+   };
+
    static componentTypes = {
       Container: undefined,
       HeaderContainer: undefined,
@@ -21,7 +33,7 @@ export class Modal extends React.Component {
       const _footer = footer || sections.filter(section => section.type === 'footer').shift();
 
       return (
-         <Container isOpen={show} centered={centered} size={size}>
+         <Container isOpen={show} centered={centered} size={size} {...props}>
             {_header ? <Header>{_header}</Header> : null}
             <Body>{body}</Body>
             {_footer ? <Footer>{_footer}</Footer> : null}

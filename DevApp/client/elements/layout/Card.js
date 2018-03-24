@@ -3,6 +3,11 @@ import { PropTypes } from 'prop-types';
 import * as utils from '../utils';
 
 export class Card extends React.Component {
+   static propTypes = {
+      header: PropTypes.any,
+      footer: PropTypes.any
+   };
+
    static componentTypes = {
       Container: undefined,
       HeaderContainer: undefined,
