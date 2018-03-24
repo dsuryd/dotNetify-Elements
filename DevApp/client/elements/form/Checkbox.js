@@ -7,7 +7,8 @@ export class Checkbox extends InputElement {
    static propTypes = {
       id: PropTypes.string.isRequired,
       label: PropTypes.string,
-      plainText: PropTypes.bool
+      plainText: PropTypes.bool,
+      disable: PropTypes.bool
    };
 
    static componentTypes = {
@@ -20,19 +21,13 @@ export class Checkbox extends InputElement {
 
    render() {
       const [ Container, Label, Input ] = this.resolveComponents(Checkbox);
-      const { fullId, label, plainText } = this.attrs;
+      const { fullId, label, plainText, disable } = this.attrs;
       const checked = !!this.value;
 
       return (
          <Container id={fullId} checked={checked}>
             <Label>
-               <Input
-                  type="checkbox"
-                  name={fullId}
-                  checked={checked}
-                  onChange={this.handleChange}
-                  disabled={plainText}
-               />
+               <Input type="checkbox" name={fullId} checked={checked} onChange={this.handleChange} disabled={plainText || disable} />
                {label}
             </Label>
          </Container>

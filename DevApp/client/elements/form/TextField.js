@@ -14,9 +14,9 @@ export class TextField extends InputElement {
       placeholder: PropTypes.string,
       horizontal: PropTypes.bool,
       plainText: PropTypes.bool,
-      disabled: PropTypes.bool,
       prefix: PropTypes.any,
       suffix: PropTypes.any,
+      disable: PropTypes.bool,
       validation: PropTypes.oneOfType([ PropTypes.array, PropTypes.object ])
    };
 
@@ -64,18 +64,7 @@ export class TextField extends InputElement {
 
    render() {
       const [ Container, Input, InputGroup, ValidationMessage, PlainText ] = this.resolveComponents(TextField);
-      const {
-         fullId,
-         label,
-         placeholder,
-         prefix,
-         suffix,
-         maxLength,
-         plainText,
-         horizontal,
-         type,
-         ...props
-      } = this.attrs;
+      const { fullId, label, placeholder, prefix, suffix, maxLength, plainText, horizontal, disable, type, ...props } = this.attrs;
 
       const plainTextValue = `${prefix || ''}${this.value || ''}${suffix || ''}`;
 
@@ -92,6 +81,7 @@ export class TextField extends InputElement {
                      type={type || 'text'}
                      placeholder={placeholder}
                      value={this.value || ''}
+                     disabled={disable}
                      onChange={this.handleChange}
                      onBlur={this.handleBlur}
                      innerRef={elem => (this.vmProperty.dom = elem)}
@@ -99,9 +89,7 @@ export class TextField extends InputElement {
                   />
                </InputGroup>
             )}
-            {this.state.validationMessages.map((message, idx) => (
-               <ValidationMessage key={'validationMsg' + idx}>{message}</ValidationMessage>
-            ))}
+            {this.state.validationMessages.map((message, idx) => <ValidationMessage key={'validationMsg' + idx}>{message}</ValidationMessage>)}
          </Container>
       );
    }

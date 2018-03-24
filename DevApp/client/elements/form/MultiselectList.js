@@ -3,9 +3,7 @@ import { PropTypes } from 'prop-types';
 import { FieldPanel } from '../layout/FieldPanel';
 import { InputElement } from '../Element';
 
-const PlainTextComponent = props => (
-   <span style={{ minHeight: '2.4rem' }}>{React.Children.toArray(props.children).join(', ')}</span>
-);
+const PlainTextComponent = props => <span style={{ minHeight: '2.4rem' }}>{React.Children.toArray(props.children).join(', ')}</span>;
 
 export class MultiselectList extends InputElement {
    static propTypes = {
@@ -14,7 +12,8 @@ export class MultiselectList extends InputElement {
       horizontal: PropTypes.bool,
       plainText: PropTypes.bool,
       prefix: PropTypes.any,
-      suffix: PropTypes.any
+      suffix: PropTypes.any,
+      disable: PropTypes.bool
    };
 
    static componentTypes = {
@@ -31,7 +30,7 @@ export class MultiselectList extends InputElement {
 
    render() {
       const [ Container, Input, InputGroup, Tag, Item, List, PlainText ] = this.resolveComponents(MultiselectList);
-      const { fullId, label, plainText, prefix, suffix, options, horizontal, ...props } = this.attrs;
+      const { fullId, label, plainText, prefix, suffix, options, horizontal, disable, ...props } = this.attrs;
 
       const selected = (options || []).filter(opt => this.value.includes(opt.Key));
       const plainTextValue = selected.map(x => x.Value);
@@ -53,6 +52,7 @@ export class MultiselectList extends InputElement {
                      listComponent={List}
                      prefix={prefix}
                      suffix={suffix}
+                     disabled={disable}
                      onChange={this.handleChange}
                      {...props}
                   />

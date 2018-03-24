@@ -14,7 +14,8 @@ export class RadioGroup extends InputElement {
       id: PropTypes.string.isRequired,
       label: PropTypes.string,
       horizontal: PropTypes.bool,
-      plainText: PropTypes.bool
+      plainText: PropTypes.bool,
+      disable: PropTypes.bool
    };
 
    static componentTypes = {
@@ -32,19 +33,13 @@ export class RadioGroup extends InputElement {
    };
    render() {
       const [ Container, GroupContainer, RadioContainer, Label, Input, PlainText ] = this.resolveComponents(RadioGroup);
-      const { fullId, label, options, plainText, right, horizontal } = this.attrs;
+      const { fullId, label, options, plainText, right, horizontal, disable } = this.attrs;
 
       const radioOptions = (options || []).map(opt => utils.toCamelCase(opt));
       const radio = radioOptions.map(opt => (
          <RadioContainer key={opt.key} id={fullId} checked={opt.key == this.value}>
             <Label>
-               <Input
-                  type="radio"
-                  name={fullId}
-                  value={opt.key}
-                  checked={opt.key == this.value}
-                  onChange={this.handleChange}
-               />
+               <Input type="radio" name={fullId} value={opt.key} disabled={disable} checked={opt.key == this.value} onChange={this.handleChange} />
                {opt.value}
             </Label>
          </RadioContainer>

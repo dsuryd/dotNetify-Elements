@@ -16,7 +16,7 @@ export class DataGrid extends Element {
       id: PropTypes.string.isRequired,
       rowHeight: PropTypes.string,
       onSelect: PropTypes.func,
-      disabled: PropTypes.bool
+      disable: PropTypes.bool
    };
 
    static defaultProps = {
@@ -35,7 +35,7 @@ export class DataGrid extends Element {
    }
 
    get canSelect() {
-      return [ 'Single', 'Multiple' ].includes(this.gridAttrs.selectMode) && !this.props.disabled;
+      return [ 'Single', 'Multiple' ].includes(this.gridAttrs.selectMode) && !this.props.disable;
    }
 
    get isMultiselect() {
@@ -60,10 +60,7 @@ export class DataGrid extends Element {
          col = utils.toCamelCase(col);
          col.width = utils.toPixel(col.width);
 
-         const [ gridColumns, rest ] = utils.filterChildren(
-            children,
-            child => child.type == GridColumn && child.props.id === col.key
-         );
+         const [ gridColumns, rest ] = utils.filterChildren(children, child => child.type == GridColumn && child.props.id === col.key);
          const gridCol = gridColumns.shift();
          if (gridCol) {
             const { width, formatter, columnChildren } = gridCol.props;
@@ -76,9 +73,7 @@ export class DataGrid extends Element {
    }
 
    configureSelectBy = _ => {
-      return this.gridAttrs.rowKey
-         ? { keys: { rowKey: this.gridAttrs.rowKey, values: this.state.selectedKeys } }
-         : { indexes: this.state.selectedKeys };
+      return this.gridAttrs.rowKey ? { keys: { rowKey: this.gridAttrs.rowKey, values: this.state.selectedKeys } } : { indexes: this.state.selectedKeys };
    };
 
    dispatchSelection(value) {
@@ -88,9 +83,7 @@ export class DataGrid extends Element {
 
    handleGridSort = (sortColumn, sortDirection) => {
       const comparer = (a, b) =>
-         sortDirection == 'ASC'
-            ? a[sortColumn] > b[sortColumn] ? 1 : -1
-            : sortDirection == 'DESC' ? (a[sortColumn] < b[sortColumn] ? 1 : -1) : null;
+         sortDirection == 'ASC' ? (a[sortColumn] > b[sortColumn] ? 1 : -1) : sortDirection == 'DESC' ? (a[sortColumn] < b[sortColumn] ? 1 : -1) : null;
 
       if (!this.unsortedValue) this.unsortedValue = [ ...this.value ];
       this.value = sortDirection !== 'NONE' ? this.value.sort(comparer) : [ ...this.unsortedValue ];

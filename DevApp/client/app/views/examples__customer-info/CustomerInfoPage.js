@@ -17,20 +17,26 @@ export default class CustomerInfoPage extends React.Component {
             <VMContext vm="CustomerInfoPage">
                <Frame>
                   <h2>Contacts</h2>
-                  <DataGrid id="Contacts" onSelect={this.handleSelect} disabled={edit} />
+                  <DataGrid id="Contacts" onSelect={this.handleSelect} disable={edit} />
                   <Form plainText={!edit}>
                      <Panel>
-                        <Panel horizontal left>
-                           <Button onClick={this.toggleDialog} disabled={edit}>
-                              New...
-                           </Button>
-                           {canEdit ? <Button onClick={this.toggleEdit}>Edit</Button> : null}
-                           <Button id="Submit" submit hide={!edit} onClick={this.toggleEdit}>
-                              Update
-                           </Button>
-                           <Button cancel secondary hide={!edit} disabled={false} onClick={this.toggleEdit}>
-                              Cancel
-                           </Button>
+                        <Panel horizontal>
+                           <Panel horizontal left>
+                              <Button disable={!canEdit} onClick={this.toggleEdit}>
+                                 Edit
+                              </Button>
+                              <Button id="Submit" submit hide={!edit} onClick={this.toggleEdit}>
+                                 Update
+                              </Button>
+                              <Button cancel secondary hide={!edit} disable={false} onClick={this.toggleEdit}>
+                                 Cancel
+                              </Button>
+                           </Panel>
+                           <Panel horizontal right>
+                              <Button onClick={this.toggleDialog} disable={edit}>
+                                 New Contact...
+                              </Button>
+                           </Panel>
                         </Panel>
                         <CustomerInfoForm />
                      </Panel>

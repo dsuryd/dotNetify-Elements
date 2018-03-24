@@ -17,7 +17,7 @@ export class DateTimeField extends InputElement {
       label: PropTypes.string,
       horizontal: PropTypes.bool,
       plainText: PropTypes.bool,
-      disabled: PropTypes.bool,
+      disable: PropTypes.bool,
       prefix: PropTypes.any,
       suffix: PropTypes.any,
       validation: PropTypes.oneOfType([ PropTypes.array, PropTypes.object ])
@@ -59,7 +59,7 @@ export class DateTimeField extends InputElement {
 
    render() {
       const [ Container, Input, InputGroup, ValidationMessage, PlainText ] = this.resolveComponents(DateTimeField);
-      const { fullId, label, plainText, prefix, suffix, min, max, horizontal, ...props } = this.attrs;
+      const { fullId, label, plainText, prefix, suffix, min, max, horizontal, disable, ...props } = this.attrs;
 
       return (
          <Container id={fullId} label={label} horizontal={horizontal} plainText={plainText}>
@@ -75,15 +75,14 @@ export class DateTimeField extends InputElement {
                      max={new Date(max)}
                      prefix={prefix}
                      suffix={suffix}
+                     disabled={disable}
                      onChange={this.handleChange}
                      onBlur={this.handleBlur}
                      {...props}
                   />
                </InputGroup>
             )}
-            {this.state.validationMessages.map((message, idx) => (
-               <ValidationMessage key={'validationMessage' + idx}>{message}</ValidationMessage>
-            ))}
+            {this.state.validationMessages.map((message, idx) => <ValidationMessage key={'validationMessage' + idx}>{message}</ValidationMessage>)}
          </Container>
       );
    }

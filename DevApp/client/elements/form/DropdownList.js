@@ -12,7 +12,8 @@ export class DropdownList extends InputElement {
       horizontal: PropTypes.bool,
       plainText: PropTypes.bool,
       prefix: PropTypes.any,
-      suffix: PropTypes.any
+      suffix: PropTypes.any,
+      disable: PropTypes.bool
    };
 
    static componentTypes = {
@@ -29,7 +30,7 @@ export class DropdownList extends InputElement {
 
    render() {
       const [ Container, Input, InputGroup, PlainText ] = this.resolveComponents(DropdownList);
-      let { fullId, label, prefix, suffix, plainText, options, horizontal, ...props } = this.attrs;
+      let { fullId, label, prefix, suffix, plainText, options, horizontal, disable, ...props } = this.attrs;
 
       const listOptions = (options || []).map(opt => (
          <option key={opt.Key} value={opt.Key}>
@@ -45,14 +46,7 @@ export class DropdownList extends InputElement {
                <PlainText>{plainTextValue}</PlainText>
             ) : (
                <InputGroup prefix={prefix} suffix={suffix}>
-                  <Input
-                     id={fullId}
-                     type="select"
-                     value={this.value}
-                     prefix={prefix}
-                     suffix={suffix}
-                     onChange={this.handleChange}
-                  >
+                  <Input id={fullId} type="select" value={this.value} prefix={prefix} suffix={suffix} disabled={disable} onChange={this.handleChange}>
                      {listOptions}
                   </Input>
                </InputGroup>
