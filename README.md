@@ -12,7 +12,7 @@ Under development...
 - [x] Theming
 - [x] Input mask
 - [x] Data grid
-- [ ] Modal elements
+- [x] Modal elements
 - [ ] Markdown display
 - [ ] Charts
 
@@ -72,7 +72,7 @@ public class MyApp : BaseVM
 ```
 ### Screenshot
 
-![alt screenshot](https://dsuryd.tinytake.com/media/70df19?filename=1521437149444_18-03-2018-10-25-46.png&&type=attachment)
+![alt screenshot](https://dsuryd.tinytake.com/media/717f8e?filename=1521916176465_DotNetifyElement_Screenshot_032418.gif&&type=attachment)
 
 ### How To Run This Repo
 
