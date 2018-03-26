@@ -1,4 +1,4 @@
-﻿/* 
+﻿/*
 Copyright 2018 Dicky Suryadi
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -200,16 +200,18 @@ namespace DotNetify.Elements
          return prop.WithValidation(vm, serverValidation);
       }
 
-      #endregion
+      #endregion Validations
 
       #region Private Methods
 
       private static string ToAttributeName(this IReactiveProperty prop) => $"{prop.Name}__attr";
+
       private static string ToValidationName(this IReactiveProperty prop) => $"{prop.Name}__validation";
+
       private static string ToValidationMessageName(this IReactiveProperty prop, string id) => $"{prop.Name}__validation_{id}";
 
       /// <summary>
-      /// Get a property's attribute metadata. 
+      /// Get a property's attribute metadata.
       /// </summary>
       /// <param name="prop">Property.</param>
       /// <param name="vm">View model of the property.</param>
@@ -232,6 +234,6 @@ namespace DotNetify.Elements
          return attrs?.ContainsKey(labelKey) == true ? attrs[labelKey]?.ToString().TrimEnd(':') : string.Empty;
       }
 
-      #endregion
+      #endregion Private Methods
    }
 }

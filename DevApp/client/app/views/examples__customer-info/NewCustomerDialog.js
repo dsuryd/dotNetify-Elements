@@ -3,22 +3,21 @@ import CustomerInfoForm from './CustomerInfoForm';
 import { Button, DataGrid, Form, Frame, Modal, Panel, VMContext } from 'elements/bootstrap';
 
 export default class NewCustomerDialog extends React.Component {
-   handleSubmit = _ => this.props.onSubmit();
-   handleCancel = _ => this.props.onCancel();
+   handleClose = _ => this.props.onClose();
 
    render() {
-      const { onSubmit, onCancel } = this.props;
+      const { open, onClose } = this.props;
       return (
          <VMContext vm="NewCustomerForm">
             <Form>
-               <Modal header="New Customer" large>
+               <Modal header="New Customer" show={open} large>
                   <CustomerInfoForm />
                   <footer>
                      <Panel horizontal right>
-                        <Button cancel secondary onClick={this.handleCancel}>
+                        <Button cancel secondary onClick={this.handleClose}>
                            Cancel
                         </Button>
-                        <Button submit onClick={this.handleSubmit}>
+                        <Button id="Submit" submit onClick={this.handleClose}>
                            Submit
                         </Button>
                      </Panel>

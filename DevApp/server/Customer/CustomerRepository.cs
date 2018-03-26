@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading;
 
 namespace dotNetify_Elements
 {
@@ -10,20 +11,51 @@ namespace dotNetify_Elements
 
    public interface ICustomerRepository
    {
-      IReadOnlyList<Customer> GetAll();
-      Customer Get(string id);
-      Customer Update(string id, StringDictionary person, StringDictionary phone,
+      IEnumerable<Customer> GetAll();
+
+      Customer Get(int id);
+
+      Customer Add(StringDictionary person, StringDictionary phone,
+         StringDictionary otherInfo, StringDictionary driverLicense, StringDictionary notes);
+
+      Customer Update(int id, StringDictionary person, StringDictionary phone,
          StringDictionary otherInfo, StringDictionary driverLicense, StringDictionary notes);
    }
 
    public class CustomerRepository : ICustomerRepository
    {
-      private IReadOnlyList<Customer> _mockData = GenerateMockData();
+      private IList<Customer> _mockData = GenerateMockData();
 
-      public IReadOnlyList<Customer> GetAll() => _mockData;
-      public Customer Get(string id) => _mockData.FirstOrDefault(x => x.Id.ToString() == id);
+      public IEnumerable<Customer> GetAll() => _mockData;
 
-      public Customer Update(string id, StringDictionary person, StringDictionary phone,
+      public Customer Get(int id) => _mockData.FirstOrDefault(x => x.Id == id);
+
+      public Customer Add(StringDictionary person, StringDictionary phone,
+         StringDictionary otherInfo, StringDictionary driverLicense, StringDictionary notes)
+      {
+         var customer = new Customer
+         {
+            Id = _mockData.Max(x => x.Id) + 1,
+            Name = new NameInfo(),
+            Address = new AddressInfo(),
+            Phone = new PhoneInfo(),
+            OtherInfo = new OtherInfo(),
+            Company = new CompanyInfo(),
+            DriverLicense = new DriverLicenseInfo(),
+            Notes = string.Empty
+         };
+
+         Update(customer.Name, person);
+         Update(customer.Phone, phone);
+         Update(customer.OtherInfo, otherInfo);
+         Update(customer.DriverLicense, driverLicense);
+         Update(customer.Notes, notes);
+
+         _mockData.Add(customer);
+         return customer;
+      }
+
+      public Customer Update(int id, StringDictionary person, StringDictionary phone,
          StringDictionary otherInfo, StringDictionary driverLicense, StringDictionary notes)
       {
          var customer = Get(id);
@@ -44,12 +76,11 @@ namespace dotNetify_Elements
                prop.SetValue(record, TypeDescriptor.GetConverter(prop.PropertyType).ConvertFromString(newValues[prop.Name]));
       }
 
-      private static IReadOnlyList<Customer> GenerateMockData()
+      private static IList<Customer> GenerateMockData()
       {
-         int id = 1;
-
+         int id = 0;
          return new Faker<Customer>()
-            .CustomInstantiator(f => new Customer { Id = id++ })
+            .CustomInstantiator(f => new Customer { Id = ++id })
             .RuleFor(o => o.Name, f => new NameInfo
             {
                FirstName = f.Person.FirstName,

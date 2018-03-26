@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Bogus;
 using DotNetify;
 using DotNetify.Elements;
@@ -20,7 +21,9 @@ namespace dotNetify_Elements
 
       public SampleDataGrid()
       {
-         AddProperty("MyDataGrid", GetSampleData())
+         var rowData = GetSampleData();
+
+         AddProperty("MyDataGrid", rowData)
             .WithAttribute(this, new DataGridAttribute
             {
                RowKey = nameof(SampleRow.Id),
@@ -35,7 +38,7 @@ namespace dotNetify_Elements
             }
                .CanSelect(
                   DataGridAttribute.Selection.Single,
-                  AddProperty<string[]>("SelectedGridKey")
+                  AddProperty("SelectedGridKey", rowData.First().Id)
                 )
             );
       }

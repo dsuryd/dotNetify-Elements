@@ -1,17 +1,16 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
+using System.Reactive.Subjects;
 using System.Reactive.Linq;
 using DotNetify;
 using DotNetify.Elements;
+using System;
 
 namespace dotNetify_Elements
 {
-   using StringDictionary = Dictionary<string, string>;
-
    public partial class CustomerInfoPage : BaseVM
    {
       private readonly ICustomerRepository _customerRepository;
-      private readonly ReactiveProperty<string> _selectedContact;
+      private readonly ReactiveProperty<int> _selectedContact;
 
       public class Contact
       {
@@ -23,20 +22,11 @@ namespace dotNetify_Elements
          public string ZipCode { get; set; }
       }
 
-      public class FormData
-      {
-         public StringDictionary Person { get; set; }
-         public StringDictionary Phone { get; set; }
-         public StringDictionary OtherInfo { get; set; }
-         public StringDictionary DriverLicense { get; set; }
-         public StringDictionary Notes { get; set; }
-      }
-
       public CustomerInfoPage(ICustomerRepository customerRepository)
       {
          _customerRepository = customerRepository;
 
-         _selectedContact = AddProperty<string>("SelectedContact");
+         _selectedContact = AddProperty<int>("SelectedContact");
 
          AddProperty("Contacts", customerRepository.GetAll().Select(customer => ToContact(customer)))
             .WithItemKey(this, nameof(Contact.Id))
@@ -66,12 +56,18 @@ namespace dotNetify_Elements
                customerPropInfo.GetValue(subVM) as ReactiveProperty<Customer>,
                x => x.Select(id => _customerRepository.Get(id))
             );
+
+         if (subVM is NewCustomerForm)
+         {
+            (subVM as NewCustomerForm).CustomerRepository = _customerRepository;
+            (subVM as NewCustomerForm).NewCustomer.Subscribe(customer => UpdateContact(customer));
+         }
       }
 
       private bool Save(FormData formData)
       {
-         var id = (string)_selectedContact.Value;
-         var customer = _customerRepository.Update(id, formData.Person, formData.Phone, 
+         var id = (int)_selectedContact.Value;
+         var customer = _customerRepository.Update(id, formData.Person, formData.Phone,
             formData.OtherInfo, formData.DriverLicense, formData.Notes);
 
          this.UpdateList("Contacts", ToContact(customer));
@@ -87,5 +83,11 @@ namespace dotNetify_Elements
          ZipCode = customer.Address.Zipcode,
          Phone = customer.Phone.PrimaryNumber
       };
+
+      private void UpdateContact(Customer newCustomer)
+      {
+         this.AddList("Contacts", ToContact(newCustomer));
+         _selectedContact.OnNext(newCustomer.Id);
+      }
    }
 }

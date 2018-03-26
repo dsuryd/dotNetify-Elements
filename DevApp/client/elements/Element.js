@@ -16,6 +16,10 @@ export default class Element extends React.Component {
       return this.vmProperty.vm;
    }
 
+   get vmContext() {
+      return this.vmProperty.vmContext;
+   }
+
    get value() {
       return this.vmProperty.value;
    }

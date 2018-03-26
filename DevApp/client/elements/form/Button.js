@@ -17,7 +17,7 @@ export class Button extends React.Component {
    };
 
    get disable() {
-      return utils.bool(this.props.disable, this.context.formContext && !this.context.formContext.changed);
+      return utils.ifBoolElse(this.props.disable, this.context.formContext && !this.context.formContext.changed);
    }
 
    handleClick = _ => {

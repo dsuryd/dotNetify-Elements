@@ -45,7 +45,7 @@ export default class CustomerInfoPage extends React.Component {
                      </Panel>
                   </Form>
                </Frame>
-               {showDialog ? <NewCustomerDialog onSubmit={this.toggleDialog} onCancel={this.toggleDialog} /> : null}
+               <NewCustomerDialog open={showDialog} onClose={this.toggleDialog} />
             </VMContext>
          </Theme>
       );

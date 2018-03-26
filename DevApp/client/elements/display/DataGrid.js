@@ -14,13 +14,15 @@ const Container = styled.div`
 export class DataGrid extends Element {
    static propTypes = {
       id: PropTypes.string.isRequired,
+      height: PropTypes.string,
       rowHeight: PropTypes.string,
       onSelect: PropTypes.func,
       disable: PropTypes.bool
    };
 
    static defaultProps = {
-      rowHeight: '35px'
+      rowHeight: '35px',
+      height: '400px'
    };
 
    static componentTypes = {
@@ -30,32 +32,36 @@ export class DataGrid extends Element {
 
    constructor(props) {
       super(props);
-      this.state = { height: 400, selectedKeys: [] };
-      this.gridAttrs = {};
+      this.state = { height: utils.toPixel(this.props.height) };
    }
 
-   get canSelect() {
-      return [ 'Single', 'Multiple' ].includes(this.gridAttrs.selectMode) && !this.props.disable;
+   componentWillMount() {
+      this.canSelect = [ 'Single', 'Multiple' ].includes(this.attrs.selectMode) && !this.props.disable;
+      this.isMultiselect = this.attrs.selectMode === 'Multiple';
+      this.selectedKeyProperty = this.attrs.selectedKeyProperty;
+      this.updateSelectedKey();
    }
 
-   get isMultiselect() {
-      return this.gridAttrs.selectMode === 'Multiple';
+   componentDidMount() {
+      window.addEventListener('resize', this.updateHeight);
+      this.updateHeight();
+   }
+
+   componentWillUpdate() {
+      this.updateSelectedKey();
+   }
+
+   componentDidUpdate() {
+      this.updateHeight();
    }
 
    componentWillUnmount() {
       window.removeEventListener('resize', this.updateHeight);
    }
 
-   componentDidMount() {
-      window.addEventListener('resize', this.updateHeight);
-      setTimeout(() => this.updateHeight(), 0);
-   }
-
-   componentDidUpdate() {
-      setTimeout(() => this.updateHeight(), 0);
-   }
-
    mapColumns(children, columns) {
+      // For each column, find the GridColumn element with a matching name.  The element will provide information
+      // to customize the column, such as width and the formatter to format the column text.
       return columns.map(col => {
          col = utils.toCamelCase(col);
          col.width = utils.toPixel(col.width);
@@ -72,16 +78,43 @@ export class DataGrid extends Element {
       });
    }
 
-   configureSelectBy = _ => {
-      return this.gridAttrs.rowKey ? { keys: { rowKey: this.gridAttrs.rowKey, values: this.state.selectedKeys } } : { indexes: this.state.selectedKeys };
-   };
+   updateSelectedKey() {
+      if (this.selectedKeyProperty) {
+         const selectedKey = this.vmProperty.vmState[this.selectedKeyProperty];
+         if (!utils.deepEqual(selectedKey, this.state.selectedKey)) {
+            this.setState({ selectedKey: selectedKey });
+
+            // Make sure the selected row is visible.
+            const visibleKey = this.isMultiselect ? selectedKey.shift() : selectedKey;
+            const rowIdx = this.value.findIndex(x => x[this.attrs.rowKey] === selectedKey);
+            this.handleScrollToRow(rowIdx);
+         }
+      }
+   }
+
+   select(key) {
+      const isChanged = this.isMultiselect ? !this.state.selectedKey.includes(key) : this.state.selectedKey != key;
+      if (isChanged) {
+         const selectedKey = this.isMultiselect ? [ key, ...this.state.selectedKey ] : key;
+         this.dispatchSelection(selectedKey);
+         this.setState({ selectedKey: selectedKey });
+         if (this.selectedKeyProperty) this.vmProperty.vmState[this.selectedKeyProperty] = selectedKey;
+      }
+   }
+
+   deselect(keys) {
+      const selectedKey = this.isMultiselect ? this.state.selectedKey.filter(key => !keys.includes(key)) : null;
+      this.dispatchSelection(selectedKey);
+      this.setState({ selectedKey: selectedKey });
+      if (this.selectedKeyProperty) this.vmProperty.vmState[this.selectedKeyProperty] = selectedKey;
+   }
 
    dispatchSelection(value) {
-      this.gridAttrs.selectedKeyProperty && this.dispatchProp(this.gridAttrs.selectedKeyProperty, value);
+      this.selectedKeyProperty && this.dispatchProp(this.selectedKeyProperty, value);
       this.props.onSelect && this.props.onSelect(value);
    }
 
-   handleGridSort = (sortColumn, sortDirection) => {
+   sort = (sortColumn, sortDirection) => {
       const comparer = (a, b) =>
          sortDirection == 'ASC' ? (a[sortColumn] > b[sortColumn] ? 1 : -1) : sortDirection == 'DESC' ? (a[sortColumn] < b[sortColumn] ? 1 : -1) : null;
 
@@ -89,14 +122,28 @@ export class DataGrid extends Element {
       this.value = sortDirection !== 'NONE' ? this.value.sort(comparer) : [ ...this.unsortedValue ];
    };
 
-   handleRowClick = (idx, row) => {
-      if (!row || !this.canSelect) return;
+   updateHeight = _ => {
+      // Adjust the grid's height to the available space.
+      if (this.elem && this.state.height != this.elem.offsetHeight) {
+         this.setState({ height: this.elem.offsetHeight });
+      }
+   };
 
-      const selectedKey = this.gridAttrs.rowKey ? row[this.gridAttrs.rowKey] : idx;
-      if (!this.state.selectedKeys.includes(selectedKey)) {
-         const selectedKeys = this.isMultiselect ? [ selectedKey, ...this.state.selectedKeys ] : [ selectedKey ];
-         this.dispatchSelection(this.isMultiselect ? selectedKeys : selectedKey);
-         this.setState({ selectedKeys: selectedKeys });
+   handleSelectBy = _ => {
+      return this.attrs.rowKey
+         ? {
+              keys: {
+                 rowKey: this.attrs.rowKey,
+                 values: this.isMultiselect ? this.state.selectedKey : [ this.state.selectedKey ]
+              }
+           }
+         : { indexes: this.isMultiselect ? this.state.selectedKey : [ this.state.selectedKey ] };
+   };
+
+   handleRowClick = (idx, row) => {
+      if (row && this.canSelect) {
+         const selectedKey = this.attrs.rowKey ? row[this.attrs.rowKey] : idx;
+         this.select(selectedKey);
       }
    };
 
@@ -105,23 +152,27 @@ export class DataGrid extends Element {
    };
 
    handleRowsDeselected = rows => {
-      const deselectedKeys = rows.map(row => (this.gridAttrs.rowKey ? row.row[this.gridAttrs.rowKey] : row.rowIdx));
-      const selectedKeys = this.state.selectedKeys.filter(key => !deselectedKeys.includes(key));
-      this.dispatchSelection(this.isMultiselect ? selectedKeys : selectedKeys.shift());
-      this.setState({ selectedKeys: selectedKeys });
+      const deselectedKeys = rows.map(row => (this.attrs.rowKey ? row.row[this.attrs.rowKey] : row.rowIdx));
+      this.deselect(deselectedKeys);
    };
 
-   updateHeight = _ => {
-      if (this.elem && this.state.height != this.elem.offsetHeight) this.setState({ height: this.elem.offsetHeight });
-   };
+   handleScrollToRow(idx) {
+      if (this.gridDom) {
+         var top = this.gridDom.getRowOffsetHeight() * idx;
+         var gridCanvas = this.gridDom.getDataGridDOMNode().querySelector('.react-grid-Canvas');
+         if (top < gridCanvas.scrollTop || top > gridCanvas.scrollTop + this.state.height - 2 * utils.toPixel(this.attrs.rowHeight)) {
+            gridCanvas.scrollTop = top;
+         }
+      }
+      else setTimeout(_ => this.handleScrollToRow(idx), 0);
+   }
 
    render() {
       const [ Container, _DataGrid ] = utils.resolveComponents(DataGrid, this.props);
-      const { fullId, rowKey, columns, rows, canSelect, rowHeight, children, ...props } = this.attrs;
+      const { fullId, rowKey, columns, rows, height, rowHeight, children, ...props } = this.attrs;
 
       const rowGetter = idx => this.value[idx];
-      const height = rows ? (rows + 1) * utils.toPixel(rowHeight) + 2 : null;
-      this.gridAttrs = this.attrs;
+      const minHeight = rows ? (rows + 1) * utils.toPixel(rowHeight) + 2 : this.state.height;
 
       return (
          <Container innerRef={elem => (this.elem = elem)}>
@@ -131,15 +182,17 @@ export class DataGrid extends Element {
                rowGetter={rowGetter}
                rowsCount={this.value.length}
                rowHeight={utils.toPixel(rowHeight)}
-               minHeight={height || this.state.height}
+               minHeight={minHeight}
+               height={minHeight}
                onRowClick={this.handleRowClick}
-               onGridSort={this.handleGridSort}
+               onGridSort={this.sort}
                rowSelection={{
                   showCheckbox: this.isMultiselect,
                   onRowsSelected: this.handleRowsSelected,
                   onRowsDeselected: this.handleRowsDeselected,
-                  selectBy: this.configureSelectBy()
+                  selectBy: this.handleSelectBy()
                }}
+               ref={elem => (this.gridDom = elem)}
                {...props}
             />
          </Container>

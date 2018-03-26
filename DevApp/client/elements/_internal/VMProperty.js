@@ -10,6 +10,10 @@ export default class VMProperty {
       return this.vmContext.vm;
    }
 
+   get vmState() {
+      return this.vmContext.getState();
+   }
+
    get fullId() {
       return `${this.vmContext.vmId}.${this.propId}`;
    }

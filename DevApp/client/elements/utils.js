@@ -16,7 +16,11 @@ export const createEventEmitter = _ => {
    };
 };
 
-export function bool(arg1, arg2) {
+export function deepEqual(a, b) {
+   return JSON.stringify(a) === JSON.stringify(b);
+}
+
+export function ifBoolElse(arg1, arg2) {
    return typeof arg1 == 'boolean' ? arg1 : !!arg2;
 }
 
@@ -25,8 +29,7 @@ export function mapChildren(children, predicate, mapper) {
       if (!child) return;
 
       if (child.type && predicate(child)) return mapper(child);
-      else if (child.props && child.props.children)
-         return React.cloneElement(child, child.props, this.mapChildren(child.props.children, predicate, mapper));
+      else if (child.props && child.props.children) return React.cloneElement(child, child.props, this.mapChildren(child.props.children, predicate, mapper));
       return child;
    });
 }
@@ -50,9 +53,7 @@ export function markdown(text) {
 export function mergeProps(elem, ...newProps) {
    const propTypes = Object.keys(elem.type.propTypes || {});
    let props = newProps.reduce((aggregate, prop) => Object.assign(aggregate, prop), {});
-   let validProps = Object.keys(props)
-      .filter(key => propTypes.includes(key))
-      .reduce((aggregate, key) => Object.assign(aggregate, { [key]: props[key] }), {});
+   let validProps = Object.keys(props).filter(key => propTypes.includes(key)).reduce((aggregate, key) => Object.assign(aggregate, { [key]: props[key] }), {});
    return Object.assign({}, validProps, elem.props);
 }
 
