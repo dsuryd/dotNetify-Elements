@@ -143,23 +143,23 @@ namespace dotNetify_Elements
 
          AddProperty<string>("SubmitSuccess")
             .SubscribeTo(
-               AddProperty<FormData>("Submit").Select(data => SuccessMessage(data)));
+               AddInternalProperty<FormData>("Submit").Select(data => SuccessMessage(data)));
       }
 
       private string SuccessMessage(FormData data) =>
          // Written in Github-flavored markdown format:
-         $@"**Submitted:**  
-         MyText: **{WhitespaceIfEmpty(data.MyText)}**  
-         MyPassword: **{WhitespaceIfEmpty(data.MyPassword)}**  
-         MyNumber: **{data.MyNumber}**  
-         MyMoney: **{data.MyMoney}**  
-         MyDate: **{data.MyDate}**  
-         MyDropdown: **{data.MyDropdown}**  
-         MyMultiselect: **{WhitespaceIfEmpty(string.Join(", ", data.MyMultiselect))}**  
-         MyTextArea: **{WhitespaceIfEmpty(data.MyTextArea)}**  
-         MyRadio: **{data.MyRadio}**  
-         MyRadioToggle: **{data.MyRadioToggle}**  
-         MyCheckbox: **{data.MyCheckbox}**  
+         $@"**Submitted:**<br/>
+         MyText: **{WhitespaceIfEmpty(data.MyText)}**<br/>
+         MyPassword: **{WhitespaceIfEmpty(data.MyPassword)}**<br/>
+         MyNumber: **{data.MyNumber}**<br/>
+         MyMoney: **{data.MyMoney}**<br/>
+         MyDate: **{data.MyDate}**<br/>
+         MyDropdown: **{data.MyDropdown}**<br/>
+         MyMultiselect: **{WhitespaceIfEmpty(string.Join(", ", data.MyMultiselect))}**<br/>
+         MyTextArea: **{WhitespaceIfEmpty(data.MyTextArea)}**<br/>
+         MyRadio: **{data.MyRadio}**<br/>
+         MyRadioToggle: **{data.MyRadioToggle}**<br/>
+         MyCheckbox: **{data.MyCheckbox}**<br/>
          MyCheckboxGroup: **{WhitespaceIfEmpty(string.Join(", ", data.MyCheckboxGroup))}**";
 
       private string WhitespaceIfEmpty(string text) => !string.IsNullOrEmpty(text) ? text : " ";

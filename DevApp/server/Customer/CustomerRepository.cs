@@ -15,11 +15,9 @@ namespace dotNetify_Elements
 
       Customer Get(int id);
 
-      Customer Add(StringDictionary person, StringDictionary phone,
-         StringDictionary otherInfo, StringDictionary driverLicense, StringDictionary notes);
+      Customer Add(FormData formData);
 
-      Customer Update(int id, StringDictionary person, StringDictionary phone,
-         StringDictionary otherInfo, StringDictionary driverLicense, StringDictionary notes);
+      Customer Update(int id, FormData formData);
    }
 
    public class CustomerRepository : ICustomerRepository
@@ -30,8 +28,7 @@ namespace dotNetify_Elements
 
       public Customer Get(int id) => _mockData.FirstOrDefault(x => x.Id == id);
 
-      public Customer Add(StringDictionary person, StringDictionary phone,
-         StringDictionary otherInfo, StringDictionary driverLicense, StringDictionary notes)
+      public Customer Add(FormData formData)
       {
          var customer = new Customer
          {
@@ -45,26 +42,26 @@ namespace dotNetify_Elements
             Notes = string.Empty
          };
 
-         Update(customer.Name, person);
-         Update(customer.Phone, phone);
-         Update(customer.OtherInfo, otherInfo);
-         Update(customer.DriverLicense, driverLicense);
-         Update(customer.Notes, notes);
+         Update(customer.Name, formData.Person);
+         Update(customer.Address, formData.Address);
+         Update(customer.Phone, formData.Phone);
+         Update(customer.OtherInfo, formData.OtherInfo);
+         Update(customer.DriverLicense, formData.DriverLicense);
 
          _mockData.Add(customer);
          return customer;
       }
 
-      public Customer Update(int id, StringDictionary person, StringDictionary phone,
-         StringDictionary otherInfo, StringDictionary driverLicense, StringDictionary notes)
+      public Customer Update(int id, FormData formData)
       {
          var customer = Get(id);
 
-         Update(customer.Name, person);
-         Update(customer.Phone, phone);
-         Update(customer.OtherInfo, otherInfo);
-         Update(customer.DriverLicense, driverLicense);
-         Update(customer.Notes, notes);
+         Update(customer.Name, formData.Person);
+         Update(customer.Address, formData.Address);
+         Update(customer.Phone, formData.Phone);
+         Update(customer.OtherInfo, formData.OtherInfo);
+         Update(customer.DriverLicense, formData.DriverLicense);
+         customer.Notes = formData.Notes != null ? formData.Notes[nameof(FormData.Notes)] : customer.Notes;
 
          return customer;
       }
@@ -92,7 +89,7 @@ namespace dotNetify_Elements
                Address2 = f.Address.SecondaryAddress(),
                City = f.Address.City(),
                State = (State)Enum.Parse(typeof(State), f.Address.StateAbbr()),
-               Zipcode = f.Address.ZipCode("#####")
+               ZipCode = f.Address.ZipCode("#####")
             })
             .RuleFor(o => o.Phone, f => new PhoneInfo
             {

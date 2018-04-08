@@ -26,20 +26,6 @@ namespace DotNetify.Elements
    public static class ReactivePropertyExtensions
    {
       /// <summary>
-      /// Initiates subscription to a reactive property.
-      /// </summary>
-      /// <param name="prop">Property to subscribe to.</param>
-      /// <param name="subscriber">Subscriber.</param>
-      /// <param name="mapper">Function to map the property's data type to the subscriber's.</param>
-      /// <returns>Property.</returns>
-      public static ReactiveProperty<TSource> SubscribedBy<TSource, TTarget>(this ReactiveProperty<TSource> prop,
-         ReactiveProperty<TTarget> subscriber, Func<IObservable<TSource>, IObservable<TTarget>> mapper)
-      {
-         subscriber.SubscribeTo(mapper(prop));
-         return prop;
-      }
-
-      /// <summary>
       /// Includes attribute metadata to a reactive property.
       /// </summary>
       /// <param name="prop">Property to include.</param>

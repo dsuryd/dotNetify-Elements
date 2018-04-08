@@ -48,10 +48,10 @@ namespace dotNetify_Elements
             .WithRequiredValidation(this)
             .WithMinValidation(this, 13);
 
-         AddProperty<ValidatedFormData>("SubmitValidation")
-            .SubscribeTo(AddProperty<FormData>("Submit").Select(data => ValidateFormSubmission(data)))
-            .SubscribedBy(AddProperty<string>("SubmitSuccess"), x => x.Select(validated => validated.IsValid ? SuccessMessage(validated.FormData) : null))
-            .SubscribedBy(AddProperty<string>("SubmitError"), x => x.Select(validated => validated.IsValid ? null : validated.ErrorMessage));
+         AddInternalProperty<ValidatedFormData>("SubmitValidation")
+            .SubscribeTo(AddInternalProperty<FormData>("Submit").Select(data => ValidateFormSubmission(data)))
+            .SubscribedBy(AddProperty<string>("SubmitSuccess"), validated => validated.IsValid ? SuccessMessage(validated.FormData) : null)
+            .SubscribedBy(AddProperty<string>("SubmitError"), validated => validated.IsValid ? null : validated.ErrorMessage);
       }
 
       private ValidatedFormData ValidateFormSubmission(FormData data)
@@ -75,10 +75,10 @@ namespace dotNetify_Elements
       }
 
       private string SuccessMessage(FormData data) =>
-         $@"**Submitted:**  
-         Name: **{data.Name}**  
-         Phone: **{WhitespaceIfEmpty(data.Phone)}**  
-         Email: **{WhitespaceIfEmpty(data.Email)}**  
+         $@"**Submitted:**<br/>
+         Name: **{data.Name}**<br/>
+         Phone: **{WhitespaceIfEmpty(data.Phone)}**<br/>
+         Email: **{WhitespaceIfEmpty(data.Email)}**<br/>
          Age: **{data.Age}**";
 
       private string WhitespaceIfEmpty(string text) => !string.IsNullOrEmpty(text) ? text : " ";

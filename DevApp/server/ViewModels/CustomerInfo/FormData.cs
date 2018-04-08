@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using DotNetify;
+﻿using System.Collections.Generic;
 
 namespace dotNetify_Elements
 {
@@ -12,6 +8,7 @@ namespace dotNetify_Elements
    {
       public StringDictionary Person { get; set; }
       public StringDictionary Phone { get; set; }
+      public StringDictionary Address { get; set; }
       public StringDictionary OtherInfo { get; set; }
       public StringDictionary DriverLicense { get; set; }
       public StringDictionary Notes { get; set; }

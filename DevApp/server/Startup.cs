@@ -17,7 +17,7 @@ namespace dotNetify_Elements
          services.AddSignalR();
          services.AddDotNetify();
 
-         services.AddTransient<ICustomerRepository, CustomerRepository>();
+         services.AddScoped<ICustomerRepository, CustomerRepository>();
       }
 
       public void Configure(IApplicationBuilder app)

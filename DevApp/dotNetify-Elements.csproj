@@ -12,7 +12,6 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Bogus" Version="22.0.2" />
-    <PackageReference Include="DotNetify.SignalR" Version="2.3.0-pre" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
     <PackageReference Include="System.Reactive" Version="3.1.1" />
     <PackageReference Include="AspNet.Security.OpenIdConnect.Server" Version="2.0.0-rc1-final" />    
@@ -21,6 +20,7 @@
     <DotNetCliToolReference Include="Microsoft.DotNet.Watcher.Tools" Version="2.0.0" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\dotNetify\DotNetifyLib.SignalR\DotNetifyLib.SignalR.csproj" />
     <ProjectReference Include="..\DotNetifyLib.Elements\DotNetifyLib.Elements.csproj" />
   </ItemGroup>
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">

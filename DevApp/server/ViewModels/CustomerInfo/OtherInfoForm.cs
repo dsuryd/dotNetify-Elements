@@ -12,24 +12,24 @@ namespace dotNetify_Elements
 
       public OtherInfoForm()
       {
-         AddProperty<string>("SSN")
+         AddProperty<string>(nameof(OtherInfo.SSN))
             .WithAttribute(this, new TextFieldAttribute { Label = "SSN:", Mask = "999-99-9999" })
             .WithPatternValidation(this, Pattern.USSocialSecurityNumber)
             .SubscribeTo(Customer.Select(x => x.OtherInfo.SSN));
 
-         AddProperty<TaxFilingStatus>("TaxFilingStatus")
+         AddProperty<TaxFilingStatus>(nameof(OtherInfo.TaxFilingStatus))
             .WithAttribute(this, new DropdownListAttribute { Label = "Tax Filing Status:", Options = typeof(TaxFilingStatus).ToDescriptions() })
             .SubscribeTo(Customer.Select(x => x.OtherInfo.TaxFilingStatus));
 
-         AddProperty<DateTimeOffset>("DateOfBirth")
+         AddProperty<DateTimeOffset>(nameof(OtherInfo.DateOfBirth))
             .WithAttribute(this, new DateFieldAttribute { Label = "Date Of Birth:" })
             .SubscribeTo(Customer.Select(x => x.OtherInfo.DateOfBirth));
 
-         AddProperty<Gender>("Gender")
+         AddProperty<Gender>(nameof(OtherInfo.Gender))
             .WithAttribute(this, new RadioGroupAttribute { Label = "Gender:", Options = typeof(Gender).ToDescriptions() })
             .SubscribeTo(Customer.Select(x => x.OtherInfo.Gender));
 
-         AddProperty<MaritalStatus>("MaritalStatus")
+         AddProperty<MaritalStatus>(nameof(OtherInfo.MaritalStatus))
             .WithAttribute(this, new DropdownListAttribute { Label = "Marital Status:", Options = typeof(MaritalStatus).ToDescriptions() })
             .SubscribeTo(Customer.Select(x => x.OtherInfo.MaritalStatus));
       }

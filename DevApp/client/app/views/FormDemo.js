@@ -26,18 +26,8 @@ export default class FormDemo extends React.Component {
                   vm="SampleForm"
                   title={
                      <Panel horizontal centerAligned>
-                        <RadioToggle
-                           id="_layoutOptions"
-                           options={layoutOptions}
-                           value={this.layout}
-                           onChange={this.handleLayoutChange}
-                        />
-                        <Checkbox
-                           id="_plainText"
-                           label="Plain Text"
-                           value={this.plainText}
-                           onChange={this.handlePlainTextChange}
-                        />
+                        <RadioToggle id="_layoutOptions" options={layoutOptions} value={this.layout} onChange={this.handleLayoutChange} />
+                        <Checkbox id="_plainText" label="Plain Text" value={this.plainText} onChange={this.handlePlainTextChange} />
                      </Panel>
                   }
                   horizontal={this.state.horizontal}

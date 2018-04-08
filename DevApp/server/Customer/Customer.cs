@@ -76,7 +76,7 @@ namespace dotNetify_Elements
       [Description("Wisconsin")] WI, [Description("West Virginia")] WV, [Description("Wyoming")] WY
    }
 
-   #endregion
+   #endregion Enums
 
    public class Customer
    {
@@ -107,7 +107,7 @@ namespace dotNetify_Elements
       public string Address2 { get; set; }
       public string City { get; set; }
       public State State { get; set; }
-      public string Zipcode { get; set; }
+      public string ZipCode { get; set; }
 
       public string StreetAddress => $"{Address1} {Address2}".TrimEnd();
    }

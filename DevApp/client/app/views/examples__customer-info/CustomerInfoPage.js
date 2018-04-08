@@ -1,7 +1,8 @@
 import React from 'react';
-import CustomerInfoForm from './CustomerInfoForm';
+import BasicInfoForm from './BasicInfoForm';
+import AddressForm from './AddressForm';
 import NewCustomerDialog from './NewCustomerDialog';
-import { Button, DataGrid, Form, Frame, Panel, Theme, VMContext } from 'elements/bootstrap';
+import { Button, DataGrid, Form, Frame, Panel, Tab, TabItem, Theme, VMContext } from 'elements/bootstrap';
 
 export default class CustomerInfoPage extends React.Component {
    state = { editable: false, edit: false, showDialog: false };
@@ -24,24 +25,23 @@ export default class CustomerInfoPage extends React.Component {
                         {/* Toolbar */}
                         <Panel horizontal>
                            <Panel horizontal left>
-                              <Button disable={!canEdit} onClick={this.toggleEdit}>
-                                 Edit
-                              </Button>
-                              <Button id="Submit" submit hide={!edit} onClick={this.toggleEdit}>
-                                 Update
-                              </Button>
-                              <Button cancel secondary hide={!edit} onClick={this.toggleEdit}>
-                                 Cancel
-                              </Button>
+                              <Button label="Edit" disable={!canEdit} onClick={this.toggleEdit} />
+                              <Button label="Update" id="Submit" submit hide={!edit} onClick={this.toggleEdit} />
+                              <Button label="Cancel" cancel secondary hide={!edit} onClick={this.toggleEdit} />
                            </Panel>
                            <Panel horizontal right>
-                              <Button onClick={this.toggleDialog} disable={edit}>
-                                 New Customer
-                              </Button>
+                              <Button label="New Customer" onClick={this.toggleDialog} disable={edit} />
                            </Panel>
                         </Panel>
-                        {/* Form for editing selected customer on the grid */}
-                        <CustomerInfoForm />
+                        {/* Edit forms */}
+                        <Tab>
+                           <TabItem label="Basic Info">
+                              <BasicInfoForm />
+                           </TabItem>
+                           <TabItem label="Address">
+                              <AddressForm />
+                           </TabItem>
+                        </Tab>
                      </Panel>
                   </Form>
                </Frame>

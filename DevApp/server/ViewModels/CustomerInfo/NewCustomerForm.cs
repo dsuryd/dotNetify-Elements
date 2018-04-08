@@ -7,14 +7,16 @@ namespace dotNetify_Elements
 {
    public class NewCustomerForm : BaseVM
    {
-      internal ICustomerRepository CustomerRepository { get; set; }
+      private readonly ICustomerRepository _customerRepository;
 
       public ReactiveProperty<Customer> NewCustomer { get; } = new ReactiveProperty<Customer>();
 
-      public NewCustomerForm()
+      public NewCustomerForm(ICustomerRepository customerRepository)
       {
-         AddProperty<FormData>("Submit")
-            .SubscribedBy(NewCustomer, x => x.Select(formData => Save(formData)));
+         _customerRepository = customerRepository;
+
+         AddInternalProperty<FormData>("Submit")
+            .SubscribedBy(NewCustomer, formData => Save(formData));
       }
 
       public override void Dispose()
@@ -24,8 +26,7 @@ namespace dotNetify_Elements
 
       public Customer Save(FormData formData)
       {
-         return CustomerRepository.Add(formData.Person, formData.Phone,
-            formData.OtherInfo, formData.DriverLicense, formData.Notes);
+         return _customerRepository.Add(formData);
       }
    }
 }

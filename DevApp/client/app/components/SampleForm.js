@@ -39,12 +39,8 @@ const SampleForm = ({ vm, title, horizontal, plainText }) => (
                   <Checkbox id="MyCheckbox" />
                   <CheckboxGroup id="MyCheckboxGroup" />
                   <Panel horizontal right>
-                     <Button cancel secondary>
-                        Cancel
-                     </Button>
-                     <Button id="Submit" submit primary>
-                        Submit
-                     </Button>
+                     <Button label="Cancel" cancel secondary />
+                     <Button label="Submit" id="Submit" submit primary />
                   </Panel>
                </Panel>
             </Form>

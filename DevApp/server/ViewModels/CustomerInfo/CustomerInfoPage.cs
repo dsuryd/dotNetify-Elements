@@ -1,9 +1,8 @@
-﻿using System.Linq;
-using System.Reactive.Subjects;
+﻿using System;
+using System.Linq;
 using System.Reactive.Linq;
 using DotNetify;
 using DotNetify.Elements;
-using System;
 
 namespace dotNetify_Elements
 {
@@ -43,8 +42,8 @@ namespace dotNetify_Elements
                Rows = 5
             }.CanSelect(DataGridAttribute.Selection.Single, _selectedContact));
 
-         AddProperty<FormData>("Submit")
-            .SubscribedBy(AddProperty<bool>("SubmitSuccess"), x => x.Select(formData => Save(formData)));
+         AddInternalProperty<FormData>("Submit")
+            .SubscribedBy(AddProperty<bool>("SubmitSuccess"), formData => Save(formData));
       }
 
       public override void OnSubVMCreated(BaseVM subVM)
@@ -54,21 +53,17 @@ namespace dotNetify_Elements
          if (typeof(ReactiveProperty<Customer>).IsAssignableFrom(customerPropInfo?.PropertyType))
             _selectedContact.SubscribedBy(
                customerPropInfo.GetValue(subVM) as ReactiveProperty<Customer>,
-               x => x.Select(id => _customerRepository.Get(id))
+               id => _customerRepository.Get(id)
             );
 
          if (subVM is NewCustomerForm)
-         {
-            (subVM as NewCustomerForm).CustomerRepository = _customerRepository;
             (subVM as NewCustomerForm).NewCustomer.Subscribe(customer => UpdateContact(customer));
-         }
       }
 
       private bool Save(FormData formData)
       {
          var id = (int)_selectedContact.Value;
-         var customer = _customerRepository.Update(id, formData.Person, formData.Phone,
-            formData.OtherInfo, formData.DriverLicense, formData.Notes);
+         var customer = _customerRepository.Update(id, formData);
 
          this.UpdateList("Contacts", ToContact(customer));
          return true;
@@ -80,7 +75,7 @@ namespace dotNetify_Elements
          Name = customer.Name.FullName,
          Address = customer.Address.StreetAddress,
          City = customer.Address.City,
-         ZipCode = customer.Address.Zipcode,
+         ZipCode = customer.Address.ZipCode,
          Phone = customer.Phone.PrimaryNumber
       };
 
