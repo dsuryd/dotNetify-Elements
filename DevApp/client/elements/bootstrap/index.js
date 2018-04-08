@@ -22,7 +22,6 @@ import { Main, Header, Nav, Footer, Section } from '../../elements/layout/Layout
 import { Modal } from '../../elements/layout/Modal';
 import { NavHeader } from '../../elements/layout/NavHeader';
 import { NavMenu, NavMenuTarget } from '../../elements/nav/NavMenu';
-import { NavToggle } from '../../elements/nav/NavToggle';
 import { NumberField } from '../../elements/form/NumberField';
 import { Panel } from '../../elements/layout/Panel';
 import { PasswordField } from '../../elements/form/PasswordField';
@@ -30,6 +29,7 @@ import { RadioGroup } from '../../elements/form/RadioGroup';
 import { RadioToggle } from '../../elements/form/RadioToggle';
 import { TextField } from '../../elements/form/TextField';
 import { TextAreaField } from '../../elements/form/TextAreaField';
+import { Tab, TabItem } from '../../elements/layout/Tab';
 import { Theme } from '../../elements/layout/Theme';
 import { VMContext, ContextTypes } from '../../elements/VMContext';
 
@@ -43,6 +43,7 @@ import { PlainText } from './PlainText';
 import { Select } from './Select';
 import { RadioInput, RadioLabel, RadioContainer } from './Radio';
 import { RadioToggleInput, RadioToggleLabel, RadioToggleGroupContainer, RadioToggleContainer } from './RadioToggle';
+import { Tab as _Tab, TabItem as _TabItem } from './Tab';
 import { TextArea } from './TextArea';
 
 import 'bootstrap/dist/css/bootstrap.css';
@@ -62,6 +63,8 @@ Button.componentTypes.ButtonComponent = _Button;
 Collapsible.componentTypes.CollapsePanel = rs.Collapse;
 DataGrid.componentTypes.DataGridComponent = ReactDataGrid;
 FieldPanel.componentTypes.PlainTextContainer = PlainText;
+Tab.componentTypes.TabContainer = _Tab;
+TabItem.componentTypes.TabItemComponent = _TabItem;
 
 Object.assign(Card.componentTypes, {
    Container: _Card,
@@ -164,11 +167,12 @@ export {
    NavHeader,
    NavMenu,
    NavMenuTarget,
-   NavToggle,
    Panel,
    Frame,
    RadioGroup,
    RadioToggle,
+   Tab,
+   TabItem,
    TextField,
    NumberField,
    PasswordField,

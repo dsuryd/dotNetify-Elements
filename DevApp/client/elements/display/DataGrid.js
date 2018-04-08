@@ -36,7 +36,7 @@ export class DataGrid extends Element {
    }
 
    componentWillMount() {
-      this.canSelect = [ 'Single', 'Multiple' ].includes(this.attrs.selectMode) && !this.props.disable;
+      this.canSelect = [ 'Single', 'Multiple' ].includes(this.attrs.selectMode);
       this.isMultiselect = this.attrs.selectMode === 'Multiple';
       this.selectedKeyProperty = this.attrs.selectedKeyProperty;
       this.updateSelectedKey();
@@ -141,7 +141,7 @@ export class DataGrid extends Element {
    };
 
    handleRowClick = (idx, row) => {
-      if (row && this.canSelect) {
+      if (row && this.canSelect && !this.props.disable) {
          const selectedKey = this.attrs.rowKey ? row[this.attrs.rowKey] : idx;
          this.select(selectedKey);
       }

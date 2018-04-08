@@ -7,6 +7,7 @@ export class Button extends React.Component {
    static contextTypes = FormContextTypes;
 
    static propTypes = {
+      label: PropTypes.string,
       submit: PropTypes.bool,
       cancel: PropTypes.bool,
       hide: PropTypes.bool,
@@ -23,17 +24,24 @@ export class Button extends React.Component {
    handleClick = _ => {
       const { id, submit, cancel, disable, onClick } = this.props;
       if ((submit || cancel) && this.context.formContext) {
-         submit && this.context.formContext.submit(id);
-         cancel && this.context.formContext.cancel();
+         if (submit) this.context.formContext.submit(id).then(canSubmit => canSubmit && onClick && onClick());
+         else if (cancel) {
+            this.context.formContext.cancel();
+            onClick && onClick();
+         }
       }
-      onClick && onClick();
+      else onClick && onClick();
    };
 
    render() {
       const [ _Button ] = utils.resolveComponents(Button, this.props);
-      const { submit, hide, disable, onClick, ...props } = this.props;
+      const { label, submit, hide, disable, onClick, children, ...props } = this.props;
       const _disable = submit ? this.disable : disable;
 
-      return !hide ? <_Button onClick={this.handleClick} disabled={_disable} {...props} /> : null;
+      return !hide ? (
+         <_Button onClick={this.handleClick} disabled={_disable} {...props}>
+            {label || children}
+         </_Button>
+      ) : null;
    }
 }

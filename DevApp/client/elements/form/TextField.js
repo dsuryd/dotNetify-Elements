@@ -30,7 +30,8 @@ export class TextField extends InputElement {
 
    constructor(props) {
       super(props);
-      this.state = { changed: false, validationMessages: [] };
+      this.state = { validationMessages: [] };
+      this.changed = false;
    }
 
    componentWillMount() {
@@ -53,13 +54,13 @@ export class TextField extends InputElement {
    }
 
    handleChange = _ => {
-      this.setState({ changed: true });
+      this.changed = true;
       this.value = this.vmProperty.domValue;
    };
 
    handleBlur = _ => {
-      this.state.changed && this.dispatch();
-      this.setState({ changed: false });
+      this.changed && this.dispatch();
+      this.changed = false;
    };
 
    render() {

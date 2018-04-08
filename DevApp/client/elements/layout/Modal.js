@@ -33,7 +33,7 @@ export class Modal extends React.Component {
       const _footer = footer || sections.filter(section => section.type === 'footer').shift();
 
       return (
-         <Container isOpen={show} centered={centered} size={size} {...props}>
+         <Container isOpen={show} centered={centered} size={size} style={{ width: '768px' }} {...props}>
             {_header ? <Header>{_header}</Header> : null}
             <Body>{body}</Body>
             {_footer ? <Footer>{_footer}</Footer> : null}

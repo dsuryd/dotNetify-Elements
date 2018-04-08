@@ -119,19 +119,22 @@ export class Form extends React.Component {
    }
 
    handleSubmit(propId) {
-      if (this.subForms.length == 0) return this.submitOnValidated(propId);
+      if (this.subForms.length == 0) return this.submitOnValidated(propId).then(result => result.valid);
 
       let subFormData = {};
       const submit = (id, data) => Object.assign(subFormData, id ? { [id]: data } : data);
 
-      Promise.all(this.subForms.map(form => form.submitOnValidated(form.props.id, submit)))
+      return Promise.all(this.subForms.map(form => form.submitOnValidated(form.props.id, submit)))
          .then(results =>
             results.reduce((aggregate, current) => ({
                valid: aggregate.valid && current.valid,
                messages: [ ...aggregate.messages, ...current.messages ]
             }))
          )
-         .then(result => result.valid && this.submit(propId, subFormData));
+         .then(result => {
+            result.valid && this.submit(propId, subFormData);
+            return result.valid;
+         });
    }
 
    handleCancel() {
@@ -153,20 +156,25 @@ export class Form extends React.Component {
       this.preEditState = null;
       this.vmContextState = this.context.vmContext && this.context.vmContext.getState();
       this._plainText = this.plainText;
+      this.setState({ changed: false, data: null });
    }
 
    submitOnValidated(propId, submit) {
       const { data } = this.state;
-      return !data
-         ? Promise.resolve({ valid: true, messages: [] })
-         : this.validate().then(result => (result.valid && (submit ? submit(propId, data) : this.submit(propId, data)) ? result : result));
+      const shouldValidate = this.validators.some(validator => validator.isRequired);
+      const isDirty = !!data;
+
+      return isDirty || shouldValidate
+         ? this.validate().then(result => {
+              if (result.valid && isDirty) submit ? submit(propId, data) : this.submit(propId, data);
+              return result;
+           })
+         : Promise.resolve({ valid: true, messages: [] });
    }
 
    submit(propId, data) {
       let formData = Object.assign({}, this.preEditState, data);
       if (!this.props.onSubmit || this.props.onSubmit(formData) !== false) this.context.vmContext.dispatchState(propId ? { [propId]: formData } : data);
-
-      this.setState({ changed: false, data: null });
       this.resetForm();
    }
 

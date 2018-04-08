@@ -11,15 +11,17 @@ export default class VMInput extends VMProperty {
 
       // If this input field is inside the Form context, get the validator from the context
       // so that the Form can validate all its input fields.  Otherwise, create it here.
-      this.validator = this.vmContext.getValidator
-         ? this.vmContext.getValidator(vmContext, propId)
-         : new VMInputValidator(vmContext, propId);
+      this.validator = this.vmContext.getValidator ? this.vmContext.getValidator(vmContext, propId) : new VMInputValidator(vmContext, propId);
    }
 
    get domValue() {
       this._textMask && this._textMask.update();
       const value = this._inputElement.value;
       return this._unmask ? this._unmask(value) : value;
+   }
+
+   get dom() {
+      return this._inputElement;
    }
 
    set dom(elem) {
@@ -57,8 +59,7 @@ export default class VMInput extends VMProperty {
          let { type, ...inputMask } = utils.toCamelCase(this.attrs.mask);
          if (type === 'NumberMask') {
             if (inputMask.includeThousandsSeparator)
-               this._unmask = value =>
-                  typeof value == 'string' ? value.replace(inputMask.thousandsSeparatorSymbol, '') : value;
+               this._unmask = value => (typeof value == 'string' ? value.replace(inputMask.thousandsSeparatorSymbol, '') : value);
             inputMask = createNumberMask(inputMask);
          }
          else inputMask = inputMask.mask.split('').map(c => (maskMap.hasOwnProperty(c) ? maskMap[c] : c));

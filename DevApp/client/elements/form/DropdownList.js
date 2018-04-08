@@ -32,7 +32,8 @@ export class DropdownList extends InputElement {
       const [ Container, Input, InputGroup, PlainText ] = this.resolveComponents(DropdownList);
       let { fullId, label, prefix, suffix, plainText, options, horizontal, disable, ...props } = this.attrs;
 
-      const listOptions = (options || []).map(opt => (
+      options = options || [];
+      const listOptions = options.map(opt => (
          <option key={opt.Key} value={opt.Key}>
             {opt.Value}
          </option>

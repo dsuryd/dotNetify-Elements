@@ -9,7 +9,7 @@ export default class VMInputValidator extends VMProperty {
    }
 
    get isRequired() {
-      return this.validations.filter(v => v.type.toLowerCase() === 'required').length > 0;
+      return this.validations.filter(v => v.type && v.type.toLowerCase() === 'required').length > 0;
    }
 
    addValidation(validation) {
@@ -42,9 +42,7 @@ export default class VMInputValidator extends VMProperty {
 
          // Run every validator of the input field and aggregate the results.
          Promise.all(this.validations.map(validation => this.runValidator(validation, value))).then(results => {
-            const messages = results
-               .map(result => (result.isValid === false ? result.message : null))
-               .filter(message => message);
+            const messages = results.map(result => (result.isValid === false ? result.message : null)).filter(message => message);
 
             const result = { valid: messages.length == 0, messages: messages };
             this.handleValidated && this.handleValidated(result);
@@ -56,9 +54,7 @@ export default class VMInputValidator extends VMProperty {
    runValidator(validation, value) {
       // Not all validator runs synchronously, so turn every validator output into a promise.
       const result = this.getValidator(validation)(value);
-      return result instanceof Promise
-         ? result
-         : new Promise(resolve => resolve({ isValid: result, message: validation.message }));
+      return result instanceof Promise ? result : new Promise(resolve => resolve({ isValid: result, message: validation.message }));
    }
 
    validatePattern(validation, value) {

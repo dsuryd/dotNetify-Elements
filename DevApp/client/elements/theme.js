@@ -120,6 +120,14 @@ const defaultTheme = {
    TextArea: ``,
    DataGrid: {
       Container: ``
+   },
+   Tab: {
+      Container: ``,
+      TabItemContainer: ``,
+      TabItem: `
+         > a {
+            color: #337ab7;
+         }`
    }
 };
 
