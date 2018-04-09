@@ -53,14 +53,18 @@ export class TextField extends InputElement {
       this.vmProperty.initMask();
    }
 
+   handleBlur = _ => {
+      this.changed && this.dispatch();
+      this.changed = false;
+   };
+
    handleChange = _ => {
       this.changed = true;
       this.value = this.vmProperty.domValue;
    };
 
-   handleBlur = _ => {
-      this.changed && this.dispatch();
-      this.changed = false;
+   handleKeyPress = event => {
+      if (event.key == 'Enter') this.handleBlur();
    };
 
    render() {
@@ -83,6 +87,7 @@ export class TextField extends InputElement {
                      placeholder={placeholder}
                      value={this.value || ''}
                      disabled={disable}
+                     onKeyPress={this.handleKeyPress}
                      onChange={this.handleChange}
                      onBlur={this.handleBlur}
                      innerRef={elem => (this.vmProperty.dom = elem)}

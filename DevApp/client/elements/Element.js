@@ -1,6 +1,7 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import { ContextTypes } from './VMContext';
+import { FormContextTypes } from './form/Form';
 import VMProperty from './_internal/VMProperty';
 import VMInput from './_internal/VMInput';
 import * as utils from './utils';
@@ -70,6 +71,8 @@ export default class Element extends React.Component {
 }
 
 export class InputElement extends Element {
+   static contextTypes = FormContextTypes;
+
    get vmProperty() {
       // Returns the object that provides data from the back-end view model, and manages input validation
       // and sending back of data to the back-end.
@@ -87,6 +90,15 @@ export class InputElement extends Element {
          onValidated: handler => (this.props.onValidated ? this.props.onValidator(handler) : null),
          initMask: _ => (this.props.initMask ? this.props.initMask() : null)
       };
+   }
+
+   get changed() {
+      return this._changed;
+   }
+
+   set changed(value) {
+      if (value && !this._changed && this.context.formContext) this.context.formContext.setChanged(value);
+      this._changed = value;
    }
 
    dispatch(value) {
