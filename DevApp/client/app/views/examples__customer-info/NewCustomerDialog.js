@@ -21,16 +21,21 @@ import {
 } from 'elements/bootstrap';
 
 export default class NewCustomerDialog extends React.Component {
+   state = { activeTab: 'Person' };
+
    handleClose = _ => this.props.onClose();
+   handleSubmitError = data => this.setState({ activeTab: data.failedForms[0].formId });
+   handleActivate = tab => this.setState({ activeTab: tab });
 
    render() {
       const { open, onClose } = this.props;
+      const { activeTab } = this.state;
       return (
          <VMContext vm="NewCustomerForm">
-            <Form>
+            <Form onSubmitError={this.handleSubmitError}>
                <Modal header="New Customer" show={open} large>
-                  <Tab>
-                     <TabItem label="Person">
+                  <Tab active={activeTab} onActivate={this.handleActivate}>
+                     <TabItem name="Person" label="Person">
                         <VMContext vm="PersonForm">
                            <Form id="Person">
                               <Panel>
@@ -43,7 +48,7 @@ export default class NewCustomerDialog extends React.Component {
                            </Form>
                         </VMContext>
                      </TabItem>
-                     <TabItem label="Phone">
+                     <TabItem name="Phone" label="Phone">
                         <VMContext vm="PhoneForm">
                            <Form id="Phone">
                               <Panel>
@@ -55,7 +60,7 @@ export default class NewCustomerDialog extends React.Component {
                            </Form>
                         </VMContext>
                      </TabItem>
-                     <TabItem label="Address">
+                     <TabItem name="Address" label="Address">
                         <VMContext vm="AddressForm">
                            <Form id="Address">
                               <Panel>
@@ -68,7 +73,7 @@ export default class NewCustomerDialog extends React.Component {
                            </Form>
                         </VMContext>
                      </TabItem>
-                     <TabItem label="Other">
+                     <TabItem name="OtherInfo" label="Other">
                         <VMContext vm="OtherInfoForm">
                            <Form id="OtherInfo">
                               <Panel>

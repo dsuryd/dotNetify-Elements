@@ -19,6 +19,7 @@ export class Form extends React.Component {
    static propTypes = {
       id: PropTypes.string,
       onSubmit: PropTypes.func,
+      onSubmitError: PropTypes.func,
       onChanged: PropTypes.func,
       plainText: PropTypes.bool
    };
@@ -37,7 +38,7 @@ export class Form extends React.Component {
       super(props);
       this.state = { changed: false, plainText: !!this.props.plainText };
       this.validators = [];
-      this.inputProps = [];
+      this.inputs = [];
       this.subForms = [];
    }
 
@@ -93,7 +94,7 @@ export class Form extends React.Component {
          formContext: formContext,
          vmContext: Object.assign({}, vmContext, {
             dispatchState: (state, toServer) => this.dispatchState(state, toServer),
-            getValidator: (context, propId) => this.getValidator(vmContext, propId),
+            getValidator: vmInput => this.getValidator(vmInput),
             getPropAttributes: propId => this.getPropAttributes(vmContext, propId)
          })
       };
@@ -102,7 +103,7 @@ export class Form extends React.Component {
    getPreEditState() {
       // Get the pre-edit state of the input fields so we can restore them on Cancel.
       return Object.entries(this.vmContextState)
-         .filter(pair => this.inputProps.includes(pair[0]))
+         .filter(pair => this.inputs.some(input => input.propId === pair[0]))
          .reduce((aggregate, pair) => Object.assign(aggregate, { [pair[0]]: pair[1] }), {});
    }
 
@@ -110,27 +111,59 @@ export class Form extends React.Component {
       return Object.assign({ plainText: this.plainText }, vmContext.getPropAttributes(propId));
    }
 
-   getValidator(context, propId) {
+   getValidator(vmInput) {
       // Create a validator for an input field.
-      const validator = new VMInputValidator(context, propId);
+      const validator = new VMInputValidator(vmInput.vmContext, vmInput.propId);
       this.validators.push(validator);
-      this.inputProps.push(propId);
+      this.inputs.push(vmInput);
       return validator;
    }
 
-   handleSubmit(propId) {
-      if (this.subForms.length == 0) return this.submitOnValidated(propId).then(result => result.valid);
+   setInputFocus(inputId) {
+      const input = this.inputs.filter(input => input.propId === inputId).shift();
+      if (input && input.dom) input.dom.focus();
+   }
 
+   handleSubmit(propId) {
+      if (this.subForms.length > 0) return this.handleSubmitSubForms(propId);
+
+      return this.submitOnValidated(propId)
+         .then(result => {
+            if (!result.valid) {
+               this.props.onSubmitError && this.props.onSubmitError(result);
+               this.setInputFocus(result.failedIds[0]);
+            }
+            return result;
+         })
+         .then(result => result.valid);
+   }
+
+   handleSubmitSubForms(propId) {
       let subFormData = {};
       const submit = (id, data) => Object.assign(subFormData, id ? { [id]: data } : data);
 
       return Promise.all(this.subForms.map(form => form.submitOnValidated(form.props.id, submit)))
          .then(results =>
-            results.reduce((aggregate, current) => ({
-               valid: aggregate.valid && current.valid,
-               messages: [ ...aggregate.messages, ...current.messages ]
-            }))
+            results.reduce(
+               (aggregate, current) => ({
+                  failedForms:
+                     current.failedIds.length > 0
+                        ? [ ...aggregate.failedForms, { formId: current.formId, failedIds: current.failedIds } ]
+                        : aggregate.failedForms,
+                  valid: aggregate.valid && current.valid,
+                  messages: [ ...aggregate.messages, ...current.messages ]
+               }),
+               { valid: true, messages: [], failedForms: [] }
+            )
          )
+         .then(result => {
+            if (!result.valid) {
+               this.props.onSubmitError && this.props.onSubmitError(result);
+               const form = this.subForms.filter(form => form.props.id === result.failedForms[0].formId).shift();
+               form && form.setInputFocus(result.failedForms[0].failedIds[0]);
+            }
+            return result;
+         })
          .then(result => {
             result.valid && this.submit(propId, subFormData);
             return result.valid;
@@ -149,7 +182,13 @@ export class Form extends React.Component {
    }
 
    render() {
-      return this.props.children;
+      return this.context.formContext ? (
+         this.props.children
+      ) : (
+         <form style={{ width: '100%' }} onSubmit={e => e.preventDefault()}>
+            {this.props.children}
+         </form>
+      );
    }
 
    resetForm() {
@@ -161,15 +200,15 @@ export class Form extends React.Component {
 
    submitOnValidated(propId, submit) {
       const { data } = this.state;
-      const shouldValidate = this.validators.some(validator => validator.isRequired);
       const isDirty = !!data;
+      const shouldValidate = isDirty || this.validators.some(validator => validator.isRequired);
 
-      return isDirty || shouldValidate
+      return shouldValidate
          ? this.validate().then(result => {
               if (result.valid && isDirty) submit ? submit(propId, data) : this.submit(propId, data);
               return result;
            })
-         : Promise.resolve({ valid: true, messages: [] });
+         : Promise.resolve({ formId: this.props.id, valid: true, messages: [], failedIds: [] });
    }
 
    submit(propId, data) {
@@ -181,10 +220,15 @@ export class Form extends React.Component {
    validate() {
       // Run all the input validators and aggregate the results.
       return Promise.all(this.validators.map(validator => validator.validate())).then(results =>
-         results.reduce((aggregate, current) => ({
-            valid: aggregate.valid && current.valid,
-            messages: [ ...aggregate.messages, ...current.messages ]
-         }))
+         results.reduce(
+            (aggregate, current) => ({
+               formId: this.props.id,
+               valid: aggregate.valid && current.valid,
+               messages: [ ...aggregate.messages, ...current.messages ],
+               failedIds: !current.valid ? [ ...aggregate.failedIds, current.inputId ] : aggregate.failedIds
+            }),
+            { valid: true, messages: [], failedIds: [] }
+         )
       );
    }
 }

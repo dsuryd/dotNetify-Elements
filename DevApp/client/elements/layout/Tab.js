@@ -8,39 +8,63 @@ import { Panel } from '../layout/Panel';
 const Container = styled.div`${props => props.theme.Tab.Container};`;
 
 export class Tab extends React.Component {
+   static propTypes = {
+      active: PropTypes.string,
+      onActivate: PropTypes.func
+   };
+
    static componentTypes = {
       Container: Container,
       TabContainer: undefined,
       BodyContainer: Panel
    };
 
-   state = { active: 0 };
+   state = { active: null };
 
    componentWillMount() {
-      this.tabContents = React.Children.map(this.props.children, child => child.props.children);
+      this.tabContents = React.Children.map(this.props.children, (child, idx) => ({
+         key: this.getItemKey(child, idx),
+         content: child.props.children
+      }));
+
+      this.setActiveState();
    }
 
-   handleClick = (event, idx, body) => {
+   componentWillUpdate(props) {
+      // Only make this a controlled tab if 'onActivate' is provided. We'd like to allow the use case where
+      // the 'active' property is only used to set the initial active tab.
+      if (this.props.active !== props.active && this.props.onActivate) this.setActiveState(props.active);
+   }
+
+   getItemKey = (child, idx) => (child.props.name ? child.props.name : idx);
+   getDisplayStyle = key => ({ padding: '1rem', display: this.state.active === key ? 'initial' : 'none' });
+
+   handleClick = (event, key) => {
       event.preventDefault();
-      this.setState({ active: idx, body: body });
+      if (this.props.onActivate) this.props.onActivate(key);
+      else this.setState({ active: key });
    };
 
-   getDisplayStyle = idx => ({ padding: '1rem', display: this.state.active === idx ? 'initial' : 'none' });
+   setActiveState(key) {
+      if (typeof key !== 'undefined') this.setState({ active: key });
+      else if (this.tabContents.length > 0) this.setState({ active: this.tabContents[0].key });
+   }
 
    render() {
       const [ Container, TabContainer, BodyContainer ] = utils.resolveComponents(Tab, this.props);
       const { children, ...props } = this.props;
 
-      const tabItems = React.Children.map(children, (child, idx) =>
-         React.cloneElement(child, {
-            key: idx,
-            active: this.state.active === idx,
-            onClick: event => this.handleClick(event, idx, child.props.children)
-         })
-      );
+      const tabItems = React.Children.map(children, (child, idx) => {
+         const key = this.getItemKey(child, idx);
+         return React.cloneElement(child, {
+            key: key,
+            active: this.state.active === key,
+            onClick: event => this.handleClick(event, key)
+         });
+      });
 
-      const tabContents = this.tabContents.map((content, idx) => (
-         <div key={idx} style={this.getDisplayStyle(idx)}>
+      const tabContents = this.tabContents.map(({ key, content }) => (
+         <div key={key} style={this.getDisplayStyle(key)}>
             <BodyContainer>{content}</BodyContainer>
          </div>
       ));
@@ -57,6 +81,7 @@ export class Tab extends React.Component {
 export class TabItem extends React.Component {
    static propTypes = {
       label: PropTypes.any.isRequired,
+      name: PropTypes.string,
       active: PropTypes.bool,
       onClick: PropTypes.func
    };
@@ -68,7 +93,7 @@ export class TabItem extends React.Component {
 
    render() {
       const [ TabItemComponent, LabelContainer ] = utils.resolveComponents(TabItem, this.props);
-      const { label, onClick, active, children, ...props } = this.props;
+      const { name, label, onClick, active, children, ...props } = this.props;
 
       return (
          <TabItemComponent active={active} onClick={onClick} {...props}>

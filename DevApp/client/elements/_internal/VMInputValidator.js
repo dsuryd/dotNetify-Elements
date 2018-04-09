@@ -44,7 +44,7 @@ export default class VMInputValidator extends VMProperty {
          Promise.all(this.validations.map(validation => this.runValidator(validation, value))).then(results => {
             const messages = results.map(result => (result.isValid === false ? result.message : null)).filter(message => message);
 
-            const result = { valid: messages.length == 0, messages: messages };
+            const result = { inputId: this.propId, valid: messages.length == 0, messages: messages };
             this.handleValidated && this.handleValidated(result);
             resolve(result);
          });

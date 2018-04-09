@@ -39,7 +39,7 @@ export class Button extends React.Component {
       const _disable = submit ? this.disable : disable;
 
       return !hide ? (
-         <_Button onClick={this.handleClick} disabled={_disable} {...props}>
+         <_Button type={submit ? 'submit' : 'button'} onClick={this.handleClick} disabled={_disable} {...props}>
             {label || children}
          </_Button>
       ) : null;
