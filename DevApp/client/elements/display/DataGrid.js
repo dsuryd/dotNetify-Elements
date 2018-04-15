@@ -83,6 +83,7 @@ export class DataGrid extends Element {
          const selectedKey = this.vmProperty.vmState[this.selectedKeyProperty];
          if (!utils.deepEqual(selectedKey, this.state.selectedKey)) {
             this.setState({ selectedKey: selectedKey });
+            this.props.onSelect && this.props.onSelect(selectedKey);
 
             // Make sure the selected row is visible.
             const visibleKey = this.isMultiselect ? selectedKey.shift() : selectedKey;
