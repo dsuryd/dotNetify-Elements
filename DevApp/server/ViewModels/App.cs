@@ -10,6 +10,7 @@ namespace dotNetify_Elements
       private enum Route
       {
          Home,
+         Overview,
          FormDemo,
          FormValidationDemo,
          DataGridDemo,
@@ -22,7 +23,8 @@ namespace dotNetify_Elements
       {
          this.RegisterRoutes("/", new List<RouteTemplate>
          {
-            new RouteTemplate(nameof(Route.Home))                 { UrlPattern = "", ViewUrl = nameof(Route.FormDemo) },
+            new RouteTemplate(nameof(Route.Home))                 { UrlPattern = "", ViewUrl = nameof(Route.Overview) },
+            new RouteTemplate(nameof(Route.Overview))             { UrlPattern = "overview" },
             new RouteTemplate(nameof(Route.FormDemo))             { UrlPattern = "form" },
             new RouteTemplate(nameof(Route.FormValidationDemo))   { UrlPattern = "form/validation" },
             new RouteTemplate(nameof(Route.DataGridDemo))         { UrlPattern = "datagrid" },
@@ -32,6 +34,7 @@ namespace dotNetify_Elements
          AddProperty("NavMenu", new NavMenu(
             new NavMenuItem[]
             {
+               new NavRoute("Overview", this.GetRoute(nameof(Route.Overview))),
                new NavGroup
                {
                   Label = "Form",

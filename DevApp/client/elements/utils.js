@@ -47,7 +47,7 @@ export function filterChildren(children, predicate) {
 }
 
 export function markdown(text) {
-   return <div dangerouslySetInnerHTML={{ __html: sanitize(marked(text)) }} />;
+   return <div dangerouslySetInnerHTML={{ __html: marked(text) }} />;
 }
 
 export function mergeProps(elem, ...newProps) {

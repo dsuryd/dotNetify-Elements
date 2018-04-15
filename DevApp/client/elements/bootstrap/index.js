@@ -19,6 +19,7 @@ import { Form } from '../../elements/form/Form';
 import { Frame } from '../../elements/layout/Frame';
 import { Label } from '../../elements/display/Label';
 import { Main, Header, Nav, Footer, Section } from '../../elements/layout/LayoutGrid';
+import { Markdown } from '../../elements/display/Markdown';
 import { Modal } from '../../elements/layout/Modal';
 import { NavHeader } from '../../elements/layout/NavHeader';
 import { NavMenu, NavMenuTarget } from '../../elements/nav/NavMenu';
@@ -158,6 +159,7 @@ export {
    GridColumn,
    Label,
    Main,
+   Markdown,
    Header,
    Nav,
    Footer,
