@@ -127,6 +127,10 @@ export class DataGrid extends Element {
       // Adjust the grid's height to the available space.
       if (this.elem && this.state.height != this.elem.offsetHeight) {
          this.setState({ height: this.elem.offsetHeight });
+
+         // Hack to force refresh.
+         var gridCanvas = this.gridDom.getDataGridDOMNode().querySelector('.react-grid-Canvas');
+         gridCanvas.scrollTop = gridCanvas.scrollTop + 1;
       }
    };
 
@@ -173,7 +177,7 @@ export class DataGrid extends Element {
       const { fullId, rowKey, columns, rows, height, rowHeight, children, ...props } = this.attrs;
 
       const rowGetter = idx => this.value[idx];
-      const minHeight = rows ? (rows + 1) * utils.toPixel(rowHeight) + 2 : this.state.height;
+      let minHeight = rows ? (rows + 1) * utils.toPixel(rowHeight) + 2 : this.state.height;
 
       return (
          <Container innerRef={elem => (this.elem = elem)}>
