@@ -1,6 +1,6 @@
 import React from 'react';
 import marked from 'marked';
-import sanitize from 'sanitize-html';
+import highlight from 'highlightjs';
 
 export const createEventEmitter = _ => {
    let subscribers = [];
@@ -47,7 +47,15 @@ export function filterChildren(children, predicate) {
 }
 
 export function markdown(text) {
-   return <div dangerouslySetInnerHTML={{ __html: marked(text) }} />;
+   return (
+      <div
+         dangerouslySetInnerHTML={{
+            __html: marked(text, {
+               highlight: code => `<span class='hljs'>${highlight.highlightAuto(code).value}</span>`
+            })
+         }}
+      />
+   );
 }
 
 export function mergeProps(elem, ...newProps) {

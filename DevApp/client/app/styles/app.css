@@ -2,3 +2,7 @@ html {
    -webkit-font-smoothing: antialiased;
    font-size: 14px;
 }
+
+pre {
+   margin: 0 !important;
+}

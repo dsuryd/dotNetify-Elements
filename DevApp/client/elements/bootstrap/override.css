@@ -1,8 +1,4 @@
-p {
-   margin-bottom: 0;
-}
-
-.alert {
+[class^="Alert"] p {
    margin-bottom: 0;
 }
 
