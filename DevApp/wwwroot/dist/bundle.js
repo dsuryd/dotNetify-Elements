@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "1a8512b3670dd92d95b0"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "76afeaa3a574b0daf1bd"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -10964,7 +10964,7 @@ var Form = exports.Form = function (_React$Component) {
       value: function render() {
          return this.context.formContext ? this.props.children : _react2.default.createElement(
             'form',
-            { style: { width: '100%' }, onSubmit: function onSubmit(e) {
+            { style: { width: 'inherit' }, onSubmit: function onSubmit(e) {
                   return e.preventDefault();
                } },
             this.props.children
@@ -74103,7 +74103,9 @@ var Modal = exports.Modal = function (_React$Component) {
              header = _props.header,
              footer = _props.footer,
              children = _props.children,
-             props = _objectWithoutProperties(_props, ['show', 'small', 'large', 'header', 'footer', 'children']);
+             onSubmit = _props.onSubmit,
+             onSubmitError = _props.onSubmitError,
+             props = _objectWithoutProperties(_props, ['show', 'small', 'large', 'header', 'footer', 'children', 'onSubmit', 'onSubmitError']);
 
          var centered = true;
          var size = small ? 'sm' : large ? 'lg' : null;
@@ -74142,11 +74144,9 @@ var Modal = exports.Modal = function (_React$Component) {
             ) : null
          );
 
-         if (this.context.formContext) modalContent = _react2.default.createElement(
-            'form',
-            { style: { width: '100%' }, onSubmit: function onSubmit(e) {
-                  return e.preventDefault();
-               } },
+         if (onSubmit || onSubmitError) modalContent = _react2.default.createElement(
+            _Form.Form,
+            { onSubmit: onSubmit, onSubmitError: onSubmitError },
             modalContent
          );
 
@@ -74167,7 +74167,9 @@ Modal.propTypes = {
    footer: _propTypes.PropTypes.any,
    show: _propTypes.PropTypes.bool,
    small: _propTypes.PropTypes.bool,
-   large: _propTypes.PropTypes.bool
+   large: _propTypes.PropTypes.bool,
+   onSubmit: _propTypes.PropTypes.func,
+   onSubmitError: _propTypes.PropTypes.func
 };
 Modal.defaultProps = {
    show: true
@@ -108272,134 +108274,130 @@ var NewCustomerDialog = function (_React$Component) {
             _bootstrap.VMContext,
             { vm: 'NewCustomerForm' },
             _react2.default.createElement(
-               _bootstrap.Form,
-               { onSubmitError: this.handleSubmitError },
+               _bootstrap.Modal,
+               { header: 'New Customer', show: open, large: true, onSubmitError: this.handleSubmitError },
                _react2.default.createElement(
-                  _bootstrap.Modal,
-                  { header: 'New Customer', show: open, large: true },
+                  _bootstrap.Tab,
+                  { active: activeTab, onActivate: this.handleActivate },
                   _react2.default.createElement(
-                     _bootstrap.Tab,
-                     { active: activeTab, onActivate: this.handleActivate },
+                     _bootstrap.TabItem,
+                     { name: 'Person', label: 'Person' },
                      _react2.default.createElement(
-                        _bootstrap.TabItem,
-                        { name: 'Person', label: 'Person' },
+                        _bootstrap.VMContext,
+                        { vm: 'PersonForm' },
                         _react2.default.createElement(
-                           _bootstrap.VMContext,
-                           { vm: 'PersonForm' },
+                           _bootstrap.Form,
+                           { id: 'Person' },
                            _react2.default.createElement(
-                              _bootstrap.Form,
-                              { id: 'Person' },
-                              _react2.default.createElement(
-                                 _bootstrap.Panel,
-                                 null,
-                                 _react2.default.createElement(_bootstrap.DropdownList, { id: 'Prefix' }),
-                                 _react2.default.createElement(_bootstrap.TextField, { id: 'FirstName' }),
-                                 _react2.default.createElement(_bootstrap.TextField, { id: 'MiddleName' }),
-                                 _react2.default.createElement(_bootstrap.TextField, { id: 'LastName' }),
-                                 _react2.default.createElement(_bootstrap.DropdownList, { id: 'Suffix' })
-                              )
-                           )
-                        )
-                     ),
-                     _react2.default.createElement(
-                        _bootstrap.TabItem,
-                        { name: 'Phone', label: 'Phone' },
-                        _react2.default.createElement(
-                           _bootstrap.VMContext,
-                           { vm: 'PhoneForm' },
-                           _react2.default.createElement(
-                              _bootstrap.Form,
-                              { id: 'Phone' },
-                              _react2.default.createElement(
-                                 _bootstrap.Panel,
-                                 null,
-                                 _react2.default.createElement(_bootstrap.TextField, { id: 'Work' }),
-                                 _react2.default.createElement(_bootstrap.TextField, { id: 'Home' }),
-                                 _react2.default.createElement(_bootstrap.TextField, { id: 'Mobile' }),
-                                 _react2.default.createElement(_bootstrap.DropdownList, { id: 'Primary' })
-                              )
-                           )
-                        )
-                     ),
-                     _react2.default.createElement(
-                        _bootstrap.TabItem,
-                        { name: 'Address', label: 'Address' },
-                        _react2.default.createElement(
-                           _bootstrap.VMContext,
-                           { vm: 'AddressForm' },
-                           _react2.default.createElement(
-                              _bootstrap.Form,
-                              { id: 'Address' },
-                              _react2.default.createElement(
-                                 _bootstrap.Panel,
-                                 null,
-                                 _react2.default.createElement(_bootstrap.TextField, { id: 'Address1' }),
-                                 _react2.default.createElement(_bootstrap.TextField, { id: 'Address2' }),
-                                 _react2.default.createElement(_bootstrap.TextField, { id: 'City' }),
-                                 _react2.default.createElement(_bootstrap.DropdownList, { id: 'State' }),
-                                 _react2.default.createElement(_bootstrap.NumberField, { id: 'ZipCode' })
-                              )
-                           )
-                        )
-                     ),
-                     _react2.default.createElement(
-                        _bootstrap.TabItem,
-                        { name: 'OtherInfo', label: 'Other' },
-                        _react2.default.createElement(
-                           _bootstrap.VMContext,
-                           { vm: 'OtherInfoForm' },
-                           _react2.default.createElement(
-                              _bootstrap.Form,
-                              { id: 'OtherInfo' },
-                              _react2.default.createElement(
-                                 _bootstrap.Panel,
-                                 null,
-                                 _react2.default.createElement(_bootstrap.TextField, { id: 'SSN' }),
-                                 _react2.default.createElement(_bootstrap.DropdownList, { id: 'TaxFilingStatus' }),
-                                 _react2.default.createElement(_bootstrap.DateField, { id: 'DateOfBirth' }),
-                                 _react2.default.createElement(_bootstrap.RadioGroup, { id: 'Gender' }),
-                                 _react2.default.createElement(_bootstrap.DropdownList, { id: 'MaritalStatus' })
-                              )
-                           )
-                        ),
-                        _react2.default.createElement(
-                           _bootstrap.VMContext,
-                           { vm: 'DriverLicenseForm' },
-                           _react2.default.createElement(
-                              _bootstrap.Form,
-                              { id: 'DriverLicense' },
-                              _react2.default.createElement(
-                                 _bootstrap.Panel,
-                                 null,
-                                 _react2.default.createElement(_bootstrap.TextField, { id: 'Number' }),
-                                 _react2.default.createElement(_bootstrap.DropdownList, { id: 'State' })
-                              )
-                           )
-                        ),
-                        _react2.default.createElement(
-                           _bootstrap.VMContext,
-                           { vm: 'NotesForm' },
-                           _react2.default.createElement(
-                              _bootstrap.Form,
-                              { id: 'Notes' },
-                              _react2.default.createElement(
-                                 _bootstrap.Panel,
-                                 null,
-                                 _react2.default.createElement(_bootstrap.TextAreaField, { id: 'Notes' })
-                              )
+                              _bootstrap.Panel,
+                              null,
+                              _react2.default.createElement(_bootstrap.DropdownList, { id: 'Prefix' }),
+                              _react2.default.createElement(_bootstrap.TextField, { id: 'FirstName' }),
+                              _react2.default.createElement(_bootstrap.TextField, { id: 'MiddleName' }),
+                              _react2.default.createElement(_bootstrap.TextField, { id: 'LastName' }),
+                              _react2.default.createElement(_bootstrap.DropdownList, { id: 'Suffix' })
                            )
                         )
                      )
                   ),
                   _react2.default.createElement(
-                     'footer',
-                     null,
+                     _bootstrap.TabItem,
+                     { name: 'Phone', label: 'Phone' },
                      _react2.default.createElement(
-                        _bootstrap.Panel,
-                        { horizontal: true, right: true },
-                        _react2.default.createElement(_bootstrap.Button, { label: 'Cancel', cancel: true, secondary: true, onClick: this.handleClose }),
-                        _react2.default.createElement(_bootstrap.Button, { label: 'Submit', id: 'Submit', submit: true, onClick: this.handleClose })
+                        _bootstrap.VMContext,
+                        { vm: 'PhoneForm' },
+                        _react2.default.createElement(
+                           _bootstrap.Form,
+                           { id: 'Phone' },
+                           _react2.default.createElement(
+                              _bootstrap.Panel,
+                              null,
+                              _react2.default.createElement(_bootstrap.TextField, { id: 'Work' }),
+                              _react2.default.createElement(_bootstrap.TextField, { id: 'Home' }),
+                              _react2.default.createElement(_bootstrap.TextField, { id: 'Mobile' }),
+                              _react2.default.createElement(_bootstrap.DropdownList, { id: 'Primary' })
+                           )
+                        )
                      )
+                  ),
+                  _react2.default.createElement(
+                     _bootstrap.TabItem,
+                     { name: 'Address', label: 'Address' },
+                     _react2.default.createElement(
+                        _bootstrap.VMContext,
+                        { vm: 'AddressForm' },
+                        _react2.default.createElement(
+                           _bootstrap.Form,
+                           { id: 'Address' },
+                           _react2.default.createElement(
+                              _bootstrap.Panel,
+                              null,
+                              _react2.default.createElement(_bootstrap.TextField, { id: 'Address1' }),
+                              _react2.default.createElement(_bootstrap.TextField, { id: 'Address2' }),
+                              _react2.default.createElement(_bootstrap.TextField, { id: 'City' }),
+                              _react2.default.createElement(_bootstrap.DropdownList, { id: 'State' }),
+                              _react2.default.createElement(_bootstrap.NumberField, { id: 'ZipCode' })
+                           )
+                        )
+                     )
+                  ),
+                  _react2.default.createElement(
+                     _bootstrap.TabItem,
+                     { name: 'OtherInfo', label: 'Other' },
+                     _react2.default.createElement(
+                        _bootstrap.VMContext,
+                        { vm: 'OtherInfoForm' },
+                        _react2.default.createElement(
+                           _bootstrap.Form,
+                           { id: 'OtherInfo' },
+                           _react2.default.createElement(
+                              _bootstrap.Panel,
+                              null,
+                              _react2.default.createElement(_bootstrap.TextField, { id: 'SSN' }),
+                              _react2.default.createElement(_bootstrap.DropdownList, { id: 'TaxFilingStatus' }),
+                              _react2.default.createElement(_bootstrap.DateField, { id: 'DateOfBirth' }),
+                              _react2.default.createElement(_bootstrap.RadioGroup, { id: 'Gender' }),
+                              _react2.default.createElement(_bootstrap.DropdownList, { id: 'MaritalStatus' })
+                           )
+                        )
+                     ),
+                     _react2.default.createElement(
+                        _bootstrap.VMContext,
+                        { vm: 'DriverLicenseForm' },
+                        _react2.default.createElement(
+                           _bootstrap.Form,
+                           { id: 'DriverLicense' },
+                           _react2.default.createElement(
+                              _bootstrap.Panel,
+                              null,
+                              _react2.default.createElement(_bootstrap.TextField, { id: 'Number' }),
+                              _react2.default.createElement(_bootstrap.DropdownList, { id: 'State' })
+                           )
+                        )
+                     ),
+                     _react2.default.createElement(
+                        _bootstrap.VMContext,
+                        { vm: 'NotesForm' },
+                        _react2.default.createElement(
+                           _bootstrap.Form,
+                           { id: 'Notes' },
+                           _react2.default.createElement(
+                              _bootstrap.Panel,
+                              null,
+                              _react2.default.createElement(_bootstrap.TextAreaField, { id: 'Notes' })
+                           )
+                        )
+                     )
+                  )
+               ),
+               _react2.default.createElement(
+                  'footer',
+                  null,
+                  _react2.default.createElement(
+                     _bootstrap.Panel,
+                     { horizontal: true, right: true },
+                     _react2.default.createElement(_bootstrap.Button, { label: 'Cancel', cancel: true, secondary: true, onClick: this.handleClose }),
+                     _react2.default.createElement(_bootstrap.Button, { label: 'Submit', id: 'Submit', submit: true, onClick: this.handleClose })
                   )
                )
             )

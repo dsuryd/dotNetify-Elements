@@ -185,7 +185,7 @@ export class Form extends React.Component {
       return this.context.formContext ? (
          this.props.children
       ) : (
-         <form style={{ width: '100%' }} onSubmit={e => e.preventDefault()}>
+         <form style={{ width: 'inherit' }} onSubmit={e => e.preventDefault()}>
             {this.props.children}
          </form>
       );

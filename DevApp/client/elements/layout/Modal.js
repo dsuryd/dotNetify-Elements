@@ -1,6 +1,6 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
-import { FormContextTypes } from '../form/Form';
+import { Form, FormContextTypes } from '../form/Form';
 import * as utils from '../utils';
 
 export class Modal extends React.Component {
@@ -11,7 +11,9 @@ export class Modal extends React.Component {
       footer: PropTypes.any,
       show: PropTypes.bool,
       small: PropTypes.bool,
-      large: PropTypes.bool
+      large: PropTypes.bool,
+      onSubmit: PropTypes.func,
+      onSubmitError: PropTypes.func
    };
 
    static defaultProps = {
@@ -27,7 +29,7 @@ export class Modal extends React.Component {
 
    render() {
       const [ Container, Header, Body, Footer ] = utils.resolveComponents(Modal, this.props);
-      const { show, small, large, header, footer, children, ...props } = this.props;
+      const { show, small, large, header, footer, children, onSubmit, onSubmitError, ...props } = this.props;
       const centered = true;
       const size = small ? 'sm' : large ? 'lg' : null;
 
@@ -43,11 +45,11 @@ export class Modal extends React.Component {
          </React.Fragment>
       );
 
-      if (this.context.formContext)
+      if (onSubmit || onSubmitError)
          modalContent = (
-            <form style={{ width: '100%' }} onSubmit={e => e.preventDefault()}>
+            <Form onSubmit={onSubmit} onSubmitError={onSubmitError}>
                {modalContent}
-            </form>
+            </Form>
          );
 
       return (
