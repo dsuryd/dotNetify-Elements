@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "76afeaa3a574b0daf1bd"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "5e71594185060413931a"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -13639,6 +13639,28 @@ var Overview = function Overview(props) {
             _react2.default.createElement(_bootstrap.Markdown, { id: 'Overview' })
          )
       )
+   );
+};
+
+var HelloWorld = function HelloWorld(_) {
+   return _react2.default.createElement(
+      _bootstrap.VMContext,
+      { vm: 'HelloWorld' },
+      _react2.default.createElement(
+         'div',
+         null,
+         _react2.default.createElement(_bootstrap.Element, { id: 'Greetings' })
+      )
+   );
+};
+
+var UserInput = function UserInput(_) {
+   return _react2.default.createElement(
+      _bootstrap.VMContext,
+      { vm: 'UserInput' },
+      _react2.default.createElement(_bootstrap.TextField, { id: 'Name' }),
+      'You have typed: ',
+      _react2.default.createElement(_bootstrap.Element, { id: 'Name' })
    );
 };
 
