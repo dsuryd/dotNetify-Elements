@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Element from '../Element';
 import * as utils from '../utils';
 
-const MarkdownComponent = styled.div``;
+const ContainerComponent = styled.div``;
 
 export class Markdown extends Element {
    static propTypes = {
@@ -12,17 +12,24 @@ export class Markdown extends Element {
    };
 
    static componentTypes = {
-      MarkdownComponent: MarkdownComponent
+      ContainerComponent: ContainerComponent
    };
 
    render() {
-      const [ _Markdown ] = this.resolveComponents(Markdown);
+      const [ Container ] = this.resolveComponents(Markdown);
       const { fullId, children, ...props } = this.attrs;
 
+      const _children = React.Children.toArray(children);
+
+      let markdowns = [];
+      this.value.split('[inset]').forEach((section, idx) => {
+         markdowns.push(utils.markdown(section));
+         idx < _children.length && markdowns.push(_children[idx]);
+      });
       return (
-         <_Markdown id={fullId} {...props}>
-            {utils.markdown(this.value) || children}
-         </_Markdown>
+         <Container id={fullId} {...props}>
+            {markdowns.map((section, idx) => <React.Fragment key={idx}>{section}</React.Fragment>)}
+         </Container>
       );
    }
 }

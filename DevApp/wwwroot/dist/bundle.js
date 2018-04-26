@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "5e71594185060413931a"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "bda6ee7a8bef8fb23359"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -13622,6 +13622,10 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _styledComponents = __webpack_require__(3);
+
+var _styledComponents2 = _interopRequireDefault(_styledComponents);
+
 var _bootstrap = __webpack_require__(12);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -13636,7 +13640,15 @@ var Overview = function Overview(props) {
          _react2.default.createElement(
             _bootstrap.Frame,
             null,
-            _react2.default.createElement(_bootstrap.Markdown, { id: 'Overview' })
+            _react2.default.createElement(
+               _bootstrap.Markdown,
+               { id: 'Overview' },
+               _react2.default.createElement(
+                  Expander,
+                  null,
+                  _react2.default.createElement(UserInput, null)
+               )
+            )
          )
       )
    );
@@ -13658,9 +13670,43 @@ var UserInput = function UserInput(_) {
    return _react2.default.createElement(
       _bootstrap.VMContext,
       { vm: 'UserInput' },
-      _react2.default.createElement(_bootstrap.TextField, { id: 'Name' }),
-      'You have typed: ',
-      _react2.default.createElement(_bootstrap.Element, { id: 'Name' })
+      _react2.default.createElement(_bootstrap.TextField, { id: 'Name', label: 'Name:', placeholder: 'Enter your name' }),
+      _react2.default.createElement('br', null),
+      'You have typed:',
+      ' ',
+      _react2.default.createElement(
+         'b',
+         null,
+         _react2.default.createElement(_bootstrap.Element, { id: 'Name' })
+      )
+   );
+};
+
+var ExpanderPanel = _styledComponents2.default.div.withConfig({
+   displayName: 'Overview__ExpanderPanel'
+})(['padding:.5rem;border-radius:5px;border:1px solid #ddd;']);
+
+var ExpanderInnerPanel = _styledComponents2.default.div.withConfig({
+   displayName: 'Overview__ExpanderInnerPanel'
+})(['padding:1rem .5rem;']);
+
+var Expander = function Expander(props) {
+   return _react2.default.createElement(
+      ExpanderPanel,
+      null,
+      _react2.default.createElement(
+         _bootstrap.Collapsible,
+         { collapsed: true, label: _react2.default.createElement(
+               'b',
+               null,
+               'Show Result'
+            ) },
+         _react2.default.createElement(
+            ExpanderInnerPanel,
+            null,
+            props.children
+         )
+      )
    );
 };
 
@@ -17918,7 +17964,7 @@ Collapsible.propTypes = {
    noIcon: _propTypes.PropTypes.bool,
    right: _propTypes.PropTypes.bool,
    apart: _propTypes.PropTypes.bool,
-   label: _propTypes.PropTypes.string,
+   label: _propTypes.PropTypes.any,
    onToggled: _propTypes.PropTypes.func
 };
 Collapsible.componentTypes = {
@@ -74014,8 +74060,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var MarkdownComponent = _styledComponents2.default.div.withConfig({
-   displayName: 'Markdown__MarkdownComponent'
+var ContainerComponent = _styledComponents2.default.div.withConfig({
+   displayName: 'Markdown__ContainerComponent'
 })(['']);
 
 var Markdown = exports.Markdown = function (_Element) {
@@ -74032,17 +74078,30 @@ var Markdown = exports.Markdown = function (_Element) {
       value: function render() {
          var _resolveComponents = this.resolveComponents(Markdown),
              _resolveComponents2 = _slicedToArray(_resolveComponents, 1),
-             _Markdown = _resolveComponents2[0];
+             Container = _resolveComponents2[0];
 
          var _attrs = this.attrs,
              fullId = _attrs.fullId,
              children = _attrs.children,
              props = _objectWithoutProperties(_attrs, ['fullId', 'children']);
 
+         var _children = _react2.default.Children.toArray(children);
+
+         var markdowns = [];
+         this.value.split('[inset]').forEach(function (section, idx) {
+            markdowns.push(utils.markdown(section));
+            idx < _children.length && markdowns.push(_children[idx]);
+         });
          return _react2.default.createElement(
-            _Markdown,
+            Container,
             _extends({ id: fullId }, props),
-            utils.markdown(this.value) || children
+            markdowns.map(function (section, idx) {
+               return _react2.default.createElement(
+                  _react2.default.Fragment,
+                  { key: idx },
+                  section
+               );
+            })
          );
       }
    }]);
@@ -74054,7 +74113,7 @@ Markdown.propTypes = {
    id: _propTypes.PropTypes.string
 };
 Markdown.componentTypes = {
-   MarkdownComponent: MarkdownComponent
+   ContainerComponent: ContainerComponent
 };
 
 /***/ }),

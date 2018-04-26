@@ -48,7 +48,7 @@ export class Collapsible extends React.Component {
       noIcon: PropTypes.bool,
       right: PropTypes.bool,
       apart: PropTypes.bool,
-      label: PropTypes.string,
+      label: PropTypes.any,
       onToggled: PropTypes.func
    };
 
@@ -74,15 +74,7 @@ export class Collapsible extends React.Component {
    };
 
    render() {
-      const [
-         Container,
-         HeaderContainer,
-         Header,
-         Label,
-         AngleCollapseIcon,
-         AngleExpandIcon,
-         CollapsePanel
-      ] = utils.resolveComponents(Collapsible, this.props);
+      const [ Container, HeaderContainer, Header, Label, AngleCollapseIcon, AngleExpandIcon, CollapsePanel ] = utils.resolveComponents(Collapsible, this.props);
       const { noIcon, label, children } = this.props;
       const icon = this.state.open ? <AngleCollapseIcon /> : <AngleExpandIcon />;
 

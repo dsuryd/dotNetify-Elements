@@ -56,25 +56,26 @@ import { VMContext, Element, TextField } from 'dotnetify-elements';
 
 const MyApp = _ => (
    <VMContext vm="UserInput">
-      <TextField id="Name" />
-      You have typed: <Element id="Name" />
+      <TextField  id="Name" label="Name:" placeholder="Enter your name" />
+      <br />You have typed: <b><Element id="Name" /></b>
    </VMContext>
 );
 ```
 ```cs
 public class UserInput : BaseVM
 {
-   public class UserInput : BaseVM
+   public UserInput()
    {
-      public UserInput()
-      {
-         AddProperty<string>("Name");
-      }
+      AddProperty<string>("Name");
    }
 }
 ```
-The _TextField_ element dispatches the input text to the back-end on losing focus, but since _VMContext_ stores the state, it allows the _Element_ element to update its value as you type.
+[inset]
+<br/>
 
-Instead of the usual C# property, The view model adds a reactive property which will allow you to apply powerful reactive programming techniques, as demonstrated in later examples.
+The _TextField_ element dispatches the input text to the back-end on losing focus, but since _VMContext_ stores the state, it allows the _Element_ element to update its value as you type.  
+
+Notice that the view model uses a reactive property instead of the usual C# property.  Reactive programming allows you to write clear and concise code, which shall be demonstrated in later examples.
 
 ##### Attributes and Validations
+
