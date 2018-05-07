@@ -43,7 +43,7 @@ export class NavMenu extends Element {
       RouteLabelComponent: RouteLabel
    };
 
-   componentWillMount() {
+   componentDidMount() {
       if (this.vm) this.vm.onRouteEnter = (path, template) => (template.Target = this.props.target || 'NavMenuTarget');
    }
 

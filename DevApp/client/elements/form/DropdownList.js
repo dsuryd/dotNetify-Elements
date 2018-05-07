@@ -1,6 +1,7 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import { FieldPanel } from '../layout/FieldPanel';
+import { Label } from '../display/Label';
 import { InputElement } from '../Element';
 
 const PlainTextComponent = props => props.children;
@@ -20,8 +21,23 @@ export class DropdownList extends InputElement {
       Container: FieldPanel,
       InputComponent: undefined,
       InputGroupComponent: undefined,
+      ValidationMessageComponent: Label,
       PlainTextComponent
    };
+
+   constructor(props) {
+      super(props);
+      this.state = { validationMessages: [] };
+   }
+
+   componentDidMount() {
+      this.vmProperty.onValidated(result =>
+         this.setState({
+            valid: result.valid ? null : false,
+            validationMessages: result.messages
+         })
+      );
+   }
 
    handleChange = event => {
       let value = event.target.value;
@@ -29,7 +45,7 @@ export class DropdownList extends InputElement {
    };
 
    render() {
-      const [ Container, Input, InputGroup, PlainText ] = this.resolveComponents(DropdownList);
+      const [ Container, Input, InputGroup, ValidationMessage, PlainText ] = this.resolveComponents(DropdownList);
       let { fullId, label, prefix, suffix, plainText, options, horizontal, disable, ...props } = this.attrs;
 
       options = options || [];
@@ -47,11 +63,21 @@ export class DropdownList extends InputElement {
                <PlainText>{plainTextValue}</PlainText>
             ) : (
                <InputGroup prefix={prefix} suffix={suffix}>
-                  <Input id={fullId} type="select" value={this.value} prefix={prefix} suffix={suffix} disabled={disable} onChange={this.handleChange}>
+                  <Input
+                     id={fullId}
+                     type="select"
+                     valid={this.state.valid}
+                     value={this.value}
+                     prefix={prefix}
+                     suffix={suffix}
+                     disabled={disable}
+                     onChange={this.handleChange}
+                  >
                      {listOptions}
                   </Input>
                </InputGroup>
             )}
+            {this.state.validationMessages.map((message, idx) => <ValidationMessage key={'validationMsg' + idx}>{message}</ValidationMessage>)}
          </Container>
       );
    }

@@ -42,7 +42,7 @@ export class Form extends React.Component {
       this.subForms = [];
    }
 
-   componentWillMount() {
+   componentDidMount() {
       this.resetForm();
       this.context.formContext && this.context.formContext.subForms.push(this);
    }

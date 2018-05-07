@@ -34,18 +34,16 @@ export class TextField extends InputElement {
       this.changed = false;
    }
 
-   componentWillMount() {
-      this.vmProperty.onValidated(result =>
+   componentDidMount() {
+      this.vmProperty.onValidated(result => {
          this.setState({
             valid: result.valid ? null : false,
             validationMessages: result.messages
-         })
-      );
+         });
+      });
 
       if (this.props.validation) this.vmProperty.addValidation(this.props.validation);
-   }
 
-   componentDidMount() {
       this.vmProperty.initMask();
    }
 
@@ -65,6 +63,7 @@ export class TextField extends InputElement {
 
    handleKeyPress = event => {
       if (event.key == 'Enter') this.handleBlur();
+      if (this.attrs.type == 'number' && (event.key == '.' || event.key == ',')) event.preventDefault();
    };
 
    render() {

@@ -19,9 +19,13 @@ export class Tab extends React.Component {
       BodyContainer: Panel
    };
 
-   state = { active: null };
+   constructor(props) {
+      super(props);
+      this.state = { active: null };
+      this.tabContents = [];
+   }
 
-   componentWillMount() {
+   componentDidMount() {
       this.tabContents = React.Children.map(this.props.children, (child, idx) => ({
          key: this.getItemKey(child, idx),
          content: child.props.children

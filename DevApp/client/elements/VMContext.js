@@ -27,7 +27,7 @@ export class VMContext extends React.Component {
       return this.context && this.context.vmContext ? `${this.context.vmContext.vmId}.${this.props.vm}` : this.props.vm;
    }
 
-   componentWillMount() {
+   componentDidMount() {
       if (this.vmId) {
          this.removeOrphan(this.vmId);
          this.vm = dotnetify.react.connect(this.vmId, this);

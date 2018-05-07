@@ -36,7 +36,7 @@ export class DateTimeField extends InputElement {
       this.state = { changed: false, validationMessages: [] };
    }
 
-   componentWillMount() {
+   componentDidMount() {
       this.vmProperty.onValidated(result =>
          this.setState({
             valid: result.valid ? null : false,

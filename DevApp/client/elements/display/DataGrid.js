@@ -35,23 +35,18 @@ export class DataGrid extends Element {
       this.state = { height: utils.toPixel(this.props.height) };
    }
 
-   componentWillMount() {
+   componentDidMount() {
       this.canSelect = [ 'Single', 'Multiple' ].includes(this.attrs.selectMode);
       this.isMultiselect = this.attrs.selectMode === 'Multiple';
       this.selectedKeyProperty = this.attrs.selectedKeyProperty;
       this.updateSelectedKey();
-   }
 
-   componentDidMount() {
       window.addEventListener('resize', this.updateHeight);
       this.updateHeight();
    }
 
-   componentWillUpdate() {
-      this.updateSelectedKey();
-   }
-
    componentDidUpdate() {
+      this.updateSelectedKey();
       this.updateHeight();
    }
 
