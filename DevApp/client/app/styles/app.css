@@ -3,6 +3,10 @@ html {
    font-size: 14px;
 }
 
-pre {
-   margin: 0 !important;
+.markdown pre {
+   margin: 0;
+}
+
+.markdown h5 {
+   margin-top: 2rem;
 }

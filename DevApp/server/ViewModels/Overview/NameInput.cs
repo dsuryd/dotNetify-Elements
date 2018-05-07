@@ -2,9 +2,9 @@
 
 namespace dotNetify_Elements
 {
-   public class UserInput : BaseVM
+   public class NameInput : BaseVM
    {
-      public UserInput()
+      public NameInput()
       {
          AddProperty<string>("Name");
       }

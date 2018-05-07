@@ -78,7 +78,7 @@ namespace dotNetify_Elements
          $@"**Submitted:**<br/>
          Name: **{data.Name}**<br/>
          Phone: **{WhitespaceIfEmpty(data.Phone)}**<br/>
-         Email: **{WhitespaceIfEmpty(data.Email)}**<br/>
+         Email: {WhitespaceIfEmpty(data.Email)}<br/>
          Age: **{data.Age}**";
 
       private string WhitespaceIfEmpty(string text) => !string.IsNullOrEmpty(text) ? text : " ";

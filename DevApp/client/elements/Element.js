@@ -87,7 +87,7 @@ export class InputElement extends Element {
          value: this.props.value,
          attrs: this.props.attrs || {},
          dispatch: value => (this.props.onChange ? this.props.onChange(value) : null),
-         onValidated: handler => (this.props.onValidated ? this.props.onValidator(handler) : null),
+         onValidated: handler => (this.props.onValidated ? this.props.onValidated(handler) : null),
          initMask: _ => (this.props.initMask ? this.props.initMask() : null)
       };
    }

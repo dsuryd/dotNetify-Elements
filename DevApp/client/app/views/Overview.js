@@ -1,16 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Frame, Markdown, Theme, VMContext } from 'elements/bootstrap';
-import { Button, Collapsible, Element, TextField } from 'elements/bootstrap';
+import { Button, Collapsible, DropdownList, Element, Form, NumberField, TextField } from 'elements/bootstrap';
 
 const Overview = props => (
    <VMContext vm="Docs">
       <Theme>
          <Frame>
             <Markdown id="Overview">
-               <Expander>
-                  <UserInput />
-               </Expander>
+               <Expander content={<NameInput />} />
+               <Expander content={<NameGenderInput />} />
+               <Expander content={<PrimeInput />} />
             </Markdown>
          </Frame>
       </Theme>
@@ -25,13 +25,27 @@ const HelloWorld = _ => (
    </VMContext>
 );
 
-const UserInput = _ => (
-   <VMContext vm="UserInput">
+const NameInput = _ => (
+   <VMContext vm="NameInput">
       <TextField id="Name" label="Name:" placeholder="Enter your name" />
-      <br />You have typed:{' '}
+      <br />
+      You typed:{' '}
       <b>
          <Element id="Name" />
       </b>
+   </VMContext>
+);
+
+const NameGenderInput = _ => (
+   <VMContext vm="NameGenderInput">
+      <TextField id="Name" />
+      <DropdownList id="Gender" />
+   </VMContext>
+);
+
+const PrimeInput = _ => (
+   <VMContext vm="PrimeInput">
+      <NumberField id="Prime" />
    </VMContext>
 );
 
@@ -45,8 +59,8 @@ const ExpanderInnerPanel = styled.div`padding: 1rem .5rem;`;
 
 const Expander = props => (
    <ExpanderPanel>
-      <Collapsible collapsed={true} label={<b>Show Result</b>}>
-         <ExpanderInnerPanel>{props.children}</ExpanderInnerPanel>
+      <Collapsible collapsed={true} label={<b>See it Live!</b>}>
+         <ExpanderInnerPanel>{props.content}</ExpanderInnerPanel>
       </Collapsible>
    </ExpanderPanel>
 );

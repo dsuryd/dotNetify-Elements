@@ -27,7 +27,7 @@ export class Markdown extends Element {
          idx < _children.length && markdowns.push(_children[idx]);
       });
       return (
-         <Container id={fullId} {...props}>
+         <Container id={fullId} className="markdown" {...props}>
             {markdowns.map((section, idx) => <React.Fragment key={idx}>{section}</React.Fragment>)}
          </Container>
       );

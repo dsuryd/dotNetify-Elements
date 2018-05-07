@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "bda6ee7a8bef8fb23359"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "8c91d22af0d10fc03d52"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -7976,7 +7976,7 @@ var InputElement = exports.InputElement = function (_Element) {
                return _this3.props.onChange ? _this3.props.onChange(value) : null;
             },
             onValidated: function onValidated(handler) {
-               return _this3.props.onValidated ? _this3.props.onValidator(handler) : null;
+               return _this3.props.onValidated ? _this3.props.onValidated(handler) : null;
             },
             initMask: function initMask(_) {
                return _this3.props.initMask ? _this3.props.initMask() : null;
@@ -8051,7 +8051,7 @@ var _Form = __webpack_require__(43);
 
 var _Frame = __webpack_require__(279);
 
-var _Label = __webpack_require__(22);
+var _Label = __webpack_require__(18);
 
 var _LayoutGrid = __webpack_require__(280);
 
@@ -8489,7 +8489,7 @@ var _styledComponents = __webpack_require__(3);
 
 var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
-var _Label = __webpack_require__(22);
+var _Label = __webpack_require__(18);
 
 var _utils = __webpack_require__(8);
 
@@ -8637,267 +8637,6 @@ FieldPanel.componentTypes = {
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = !!(typeof window !== 'undefined' && window.document && window.document.createElement);
-module.exports = exports['default'];
-
-/***/ }),
-/* 19 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports.getMessages = getMessages;
-
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var messages = {
-  moveBack: 'Navigate back',
-  moveForward: 'Navigate forward',
-
-  dateButton: 'Select date',
-  timeButton: 'Select time',
-
-  openCombobox: 'open combobox',
-  openDropdown: 'open dropdown',
-
-  placeholder: '',
-  filterPlaceholder: '',
-
-  emptyList: 'There are no items in this list',
-  emptyFilter: 'The filter returned no results',
-
-  createOption: function createOption(_ref) {
-    var searchTerm = _ref.searchTerm;
-    return [' Create option', searchTerm && ' ', searchTerm && _react2.default.createElement(
-      'strong',
-      { key: '_' },
-      '"' + searchTerm + '"'
-    )];
-  },
-
-  tagsLabel: 'Selected items',
-  removeLabel: 'Remove selected item',
-  noneSelected: 'no selected items',
-  selectedItems: function selectedItems(labels) {
-    return 'Selected items: ' + labels.join(', ');
-  },
-
-  // number
-  increment: 'Increment value',
-  decrement: 'Decrement value'
-};
-
-function getMessages() {
-  var defaults = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-  var processed = {};
-  Object.keys(messages).forEach(function (message) {
-    var value = defaults[message];
-    if (value == null) value = messages[message];
-
-    processed[message] = typeof value === 'function' ? value : function () {
-      return value;
-    };
-  });
-
-  return processed;
-}
-
-/***/ }),
-/* 20 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports.disabledManager = exports.widgetEditable = exports.widgetEnabled = exports.isInDisabledFieldset = undefined;
-
-var _reactDom = __webpack_require__(7);
-
-var _matches = __webpack_require__(220);
-
-var _matches2 = _interopRequireDefault(_matches);
-
-var _reactComponentManagers = __webpack_require__(14);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var isInDisabledFieldset = exports.isInDisabledFieldset = function isInDisabledFieldset(inst) {
-  var node = void 0;
-  try {
-    node = (0, _reactDom.findDOMNode)(inst);
-  } catch (err) {/* ignore */}
-
-  return !!node && (0, _matches2.default)(node, 'fieldset[disabled] *');
-};
-
-var widgetEnabled = exports.widgetEnabled = interactionDecorator(true);
-
-var widgetEditable = exports.widgetEditable = interactionDecorator(false);
-
-function interactionDecorator(disabledOnly) {
-  function wrap(method) {
-    return function decoratedMethod() {
-      var _props = this.props,
-          disabled = _props.disabled,
-          readOnly = _props.readOnly;
-
-
-      disabled = isInDisabledFieldset(this) || disabled == true || !disabledOnly && readOnly === true;
-
-      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-        args[_key] = arguments[_key];
-      }
-
-      if (!disabled) return method.apply(this, args);
-    };
-  }
-
-  return function decorate(target, key, desc) {
-    if (desc.initializer) {
-      var init = desc.initializer;
-      desc.initializer = function () {
-        return wrap(init.call(this)).bind(this);
-      };
-    } else desc.value = wrap(desc.value);
-    return desc;
-  };
-}
-
-var disabledManager = exports.disabledManager = function disabledManager(component) {
-  var mounted = false;
-  var isInFieldSet = false;
-  var useCached = false;
-  (0, _reactComponentManagers.spyOnComponent)(component, {
-    componentDidMount: function componentDidMount() {
-      mounted = true;
-      // becasue we can't access a dom node in the first render we need to
-      // render again if the component was disabled via a fieldset
-      if (isInDisabledFieldset(this)) this.forceUpdate();
-    },
-    componentWillUpdate: function componentWillUpdate() {
-      isInFieldSet = mounted && isInDisabledFieldset(component);
-      useCached = mounted;
-    },
-    componentDidUpdate: function componentDidUpdate() {
-      useCached = false;
-    },
-    componentWillUnmount: function componentWillUnmount() {
-      component = null;
-    }
-  });
-
-  return function () {
-    return component.props.disabled === true || (useCached ? isInFieldSet : mounted && isInDisabledFieldset(component)) || component.props.disabled // return the prop if nothing is true in case it's an array
-    ;
-  };
-};
-
-/***/ }),
-/* 21 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _dateArithmetic = __webpack_require__(347);
-
-var _dateArithmetic2 = _interopRequireDefault(_dateArithmetic);
-
-var _constants = __webpack_require__(55);
-
-var _localizers = __webpack_require__(10);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var dates = _extends({}, _dateArithmetic2.default, {
-  monthsInYear: function monthsInYear(year) {
-    var date = new Date(year, 0, 1);
-    return [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(function (i) {
-      return dates.month(date, i);
-    });
-  },
-  firstVisibleDay: function firstVisibleDay(date, culture) {
-    var firstOfMonth = dates.startOf(date, 'month');
-    return dates.startOf(firstOfMonth, 'week', _localizers.date.firstOfWeek(culture));
-  },
-  lastVisibleDay: function lastVisibleDay(date, culture) {
-    var endOfMonth = dates.endOf(date, 'month');
-
-    return dates.endOf(endOfMonth, 'week', _localizers.date.firstOfWeek(culture));
-  },
-  visibleDays: function visibleDays(date, culture) {
-    var current = dates.firstVisibleDay(date, culture);
-    var last = dates.lastVisibleDay(date, culture);
-    var days = [];
-
-    while (dates.lte(current, last, 'day')) {
-      days.push(current);
-      current = dates.add(current, 1, 'day');
-    }
-
-    return days;
-  },
-  move: function move(date, min, max, unit, direction) {
-    var isMonth = unit === 'month';
-    var isUpOrDown = direction === _constants.directions.UP || direction === _constants.directions.DOWN;
-    var rangeUnit = _constants.calendarViewUnits[unit];
-    var addUnit = isMonth && isUpOrDown ? 'week' : _constants.calendarViewUnits[unit];
-    var amount = isMonth || !isUpOrDown ? 1 : 4;
-    var newDate = void 0;
-
-    if (direction === _constants.directions.UP || direction === _constants.directions.LEFT) amount *= -1;
-
-    newDate = dates.add(date, amount, addUnit);
-
-    return dates.inRange(newDate, min, max, rangeUnit) ? newDate : date;
-  },
-  merge: function merge(date, time, defaultDate) {
-    if (time == null && date == null) return null;
-
-    if (time == null) time = defaultDate || new Date();
-    if (date == null) date = defaultDate || new Date();
-
-    date = dates.startOf(date, 'day');
-    date = dates.hours(date, dates.hours(time));
-    date = dates.minutes(date, dates.minutes(time));
-    date = dates.seconds(date, dates.seconds(time));
-    return dates.milliseconds(date, dates.milliseconds(time));
-  },
-
-
-  today: function today() {
-    return dates.startOf(new Date(), 'day');
-  },
-  tomorrow: function tomorrow() {
-    return dates.add(dates.startOf(new Date(), 'day'), 1, 'day');
-  }
-});
-
-exports.default = dates;
-module.exports = exports['default'];
-
-/***/ }),
-/* 22 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
    value: true
 });
 exports.Label = undefined;
@@ -9003,6 +8742,267 @@ Label.componentTypes = {
    LabelContainer: LabelContainer,
    IconComponent: Icon
 };
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = !!(typeof window !== 'undefined' && window.document && window.document.createElement);
+module.exports = exports['default'];
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.getMessages = getMessages;
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var messages = {
+  moveBack: 'Navigate back',
+  moveForward: 'Navigate forward',
+
+  dateButton: 'Select date',
+  timeButton: 'Select time',
+
+  openCombobox: 'open combobox',
+  openDropdown: 'open dropdown',
+
+  placeholder: '',
+  filterPlaceholder: '',
+
+  emptyList: 'There are no items in this list',
+  emptyFilter: 'The filter returned no results',
+
+  createOption: function createOption(_ref) {
+    var searchTerm = _ref.searchTerm;
+    return [' Create option', searchTerm && ' ', searchTerm && _react2.default.createElement(
+      'strong',
+      { key: '_' },
+      '"' + searchTerm + '"'
+    )];
+  },
+
+  tagsLabel: 'Selected items',
+  removeLabel: 'Remove selected item',
+  noneSelected: 'no selected items',
+  selectedItems: function selectedItems(labels) {
+    return 'Selected items: ' + labels.join(', ');
+  },
+
+  // number
+  increment: 'Increment value',
+  decrement: 'Decrement value'
+};
+
+function getMessages() {
+  var defaults = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+  var processed = {};
+  Object.keys(messages).forEach(function (message) {
+    var value = defaults[message];
+    if (value == null) value = messages[message];
+
+    processed[message] = typeof value === 'function' ? value : function () {
+      return value;
+    };
+  });
+
+  return processed;
+}
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.disabledManager = exports.widgetEditable = exports.widgetEnabled = exports.isInDisabledFieldset = undefined;
+
+var _reactDom = __webpack_require__(7);
+
+var _matches = __webpack_require__(220);
+
+var _matches2 = _interopRequireDefault(_matches);
+
+var _reactComponentManagers = __webpack_require__(14);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var isInDisabledFieldset = exports.isInDisabledFieldset = function isInDisabledFieldset(inst) {
+  var node = void 0;
+  try {
+    node = (0, _reactDom.findDOMNode)(inst);
+  } catch (err) {/* ignore */}
+
+  return !!node && (0, _matches2.default)(node, 'fieldset[disabled] *');
+};
+
+var widgetEnabled = exports.widgetEnabled = interactionDecorator(true);
+
+var widgetEditable = exports.widgetEditable = interactionDecorator(false);
+
+function interactionDecorator(disabledOnly) {
+  function wrap(method) {
+    return function decoratedMethod() {
+      var _props = this.props,
+          disabled = _props.disabled,
+          readOnly = _props.readOnly;
+
+
+      disabled = isInDisabledFieldset(this) || disabled == true || !disabledOnly && readOnly === true;
+
+      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      if (!disabled) return method.apply(this, args);
+    };
+  }
+
+  return function decorate(target, key, desc) {
+    if (desc.initializer) {
+      var init = desc.initializer;
+      desc.initializer = function () {
+        return wrap(init.call(this)).bind(this);
+      };
+    } else desc.value = wrap(desc.value);
+    return desc;
+  };
+}
+
+var disabledManager = exports.disabledManager = function disabledManager(component) {
+  var mounted = false;
+  var isInFieldSet = false;
+  var useCached = false;
+  (0, _reactComponentManagers.spyOnComponent)(component, {
+    componentDidMount: function componentDidMount() {
+      mounted = true;
+      // becasue we can't access a dom node in the first render we need to
+      // render again if the component was disabled via a fieldset
+      if (isInDisabledFieldset(this)) this.forceUpdate();
+    },
+    componentWillUpdate: function componentWillUpdate() {
+      isInFieldSet = mounted && isInDisabledFieldset(component);
+      useCached = mounted;
+    },
+    componentDidUpdate: function componentDidUpdate() {
+      useCached = false;
+    },
+    componentWillUnmount: function componentWillUnmount() {
+      component = null;
+    }
+  });
+
+  return function () {
+    return component.props.disabled === true || (useCached ? isInFieldSet : mounted && isInDisabledFieldset(component)) || component.props.disabled // return the prop if nothing is true in case it's an array
+    ;
+  };
+};
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _dateArithmetic = __webpack_require__(347);
+
+var _dateArithmetic2 = _interopRequireDefault(_dateArithmetic);
+
+var _constants = __webpack_require__(55);
+
+var _localizers = __webpack_require__(10);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var dates = _extends({}, _dateArithmetic2.default, {
+  monthsInYear: function monthsInYear(year) {
+    var date = new Date(year, 0, 1);
+    return [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(function (i) {
+      return dates.month(date, i);
+    });
+  },
+  firstVisibleDay: function firstVisibleDay(date, culture) {
+    var firstOfMonth = dates.startOf(date, 'month');
+    return dates.startOf(firstOfMonth, 'week', _localizers.date.firstOfWeek(culture));
+  },
+  lastVisibleDay: function lastVisibleDay(date, culture) {
+    var endOfMonth = dates.endOf(date, 'month');
+
+    return dates.endOf(endOfMonth, 'week', _localizers.date.firstOfWeek(culture));
+  },
+  visibleDays: function visibleDays(date, culture) {
+    var current = dates.firstVisibleDay(date, culture);
+    var last = dates.lastVisibleDay(date, culture);
+    var days = [];
+
+    while (dates.lte(current, last, 'day')) {
+      days.push(current);
+      current = dates.add(current, 1, 'day');
+    }
+
+    return days;
+  },
+  move: function move(date, min, max, unit, direction) {
+    var isMonth = unit === 'month';
+    var isUpOrDown = direction === _constants.directions.UP || direction === _constants.directions.DOWN;
+    var rangeUnit = _constants.calendarViewUnits[unit];
+    var addUnit = isMonth && isUpOrDown ? 'week' : _constants.calendarViewUnits[unit];
+    var amount = isMonth || !isUpOrDown ? 1 : 4;
+    var newDate = void 0;
+
+    if (direction === _constants.directions.UP || direction === _constants.directions.LEFT) amount *= -1;
+
+    newDate = dates.add(date, amount, addUnit);
+
+    return dates.inRange(newDate, min, max, rangeUnit) ? newDate : date;
+  },
+  merge: function merge(date, time, defaultDate) {
+    if (time == null && date == null) return null;
+
+    if (time == null) time = defaultDate || new Date();
+    if (date == null) date = defaultDate || new Date();
+
+    date = dates.startOf(date, 'day');
+    date = dates.hours(date, dates.hours(time));
+    date = dates.minutes(date, dates.minutes(time));
+    date = dates.seconds(date, dates.seconds(time));
+    return dates.milliseconds(date, dates.milliseconds(time));
+  },
+
+
+  today: function today() {
+    return dates.startOf(new Date(), 'day');
+  },
+  tomorrow: function tomorrow() {
+    return dates.add(dates.startOf(new Date(), 'day'), 1, 'day');
+  }
+});
+
+exports.default = dates;
+module.exports = exports['default'];
 
 /***/ }),
 /* 23 */
@@ -9134,7 +9134,7 @@ exports.default = createFocusManager;
 
 var _reactComponentManagers = __webpack_require__(14);
 
-var _interaction = __webpack_require__(20);
+var _interaction = __webpack_require__(21);
 
 function createFocusManager(component, options) {
   var _didHandle = options.didHandle;
@@ -10147,7 +10147,7 @@ var _ListOptionGroup = __webpack_require__(336);
 
 var _ListOptionGroup2 = _interopRequireDefault(_ListOptionGroup);
 
-var _messages = __webpack_require__(19);
+var _messages = __webpack_require__(20);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -10588,8 +10588,8 @@ var VMContext = exports.VMContext = function (_React$Component) {
    }
 
    _createClass(VMContext, [{
-      key: 'componentWillMount',
-      value: function componentWillMount() {
+      key: 'componentDidMount',
+      value: function componentDidMount() {
          if (this.vmId) {
             this.removeOrphan(this.vmId);
             this.vm = _dotnetify2.default.react.connect(this.vmId, this);
@@ -10774,8 +10774,8 @@ var Form = exports.Form = function (_React$Component) {
    }
 
    _createClass(Form, [{
-      key: 'componentWillMount',
-      value: function componentWillMount() {
+      key: 'componentDidMount',
+      value: function componentDidMount() {
          this.resetForm();
          this.context.formContext && this.context.formContext.subForms.push(this);
       }
@@ -11285,7 +11285,7 @@ var _propTypes = __webpack_require__(2);
 
 var _FieldPanel = __webpack_require__(17);
 
-var _Label = __webpack_require__(22);
+var _Label = __webpack_require__(18);
 
 var _Element = __webpack_require__(11);
 
@@ -11323,6 +11323,7 @@ var TextField = exports.TextField = function (_InputElement) {
 
       _this.handleKeyPress = function (event) {
          if (event.key == 'Enter') _this.handleBlur();
+         if (_this.attrs.type == 'number' && (event.key == '.' || event.key == ',')) event.preventDefault();
       };
 
       _this.state = { validationMessages: [] };
@@ -11331,22 +11332,19 @@ var TextField = exports.TextField = function (_InputElement) {
    }
 
    _createClass(TextField, [{
-      key: 'componentWillMount',
-      value: function componentWillMount() {
+      key: 'componentDidMount',
+      value: function componentDidMount() {
          var _this2 = this;
 
          this.vmProperty.onValidated(function (result) {
-            return _this2.setState({
+            _this2.setState({
                valid: result.valid ? null : false,
                validationMessages: result.messages
             });
          });
 
          if (this.props.validation) this.vmProperty.addValidation(this.props.validation);
-      }
-   }, {
-      key: 'componentDidMount',
-      value: function componentDidMount() {
+
          this.vmProperty.initMask();
       }
    }, {
@@ -11975,7 +11973,7 @@ var _classnames = __webpack_require__(5);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
-var _dates = __webpack_require__(21);
+var _dates = __webpack_require__(22);
 
 var _dates2 = _interopRequireDefault(_dates);
 
@@ -12475,7 +12473,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.animationEnd = exports.animationDelay = exports.animationTiming = exports.animationDuration = exports.animationName = exports.transitionEnd = exports.transitionDuration = exports.transitionDelay = exports.transitionTiming = exports.transitionProperty = exports.transform = undefined;
 
-var _inDOM = __webpack_require__(18);
+var _inDOM = __webpack_require__(19);
 
 var _inDOM2 = _interopRequireDefault(_inDOM);
 
@@ -12846,7 +12844,7 @@ var _TimeList = __webpack_require__(357);
 
 var _TimeList2 = _interopRequireDefault(_TimeList);
 
-var _messages = __webpack_require__(19);
+var _messages = __webpack_require__(20);
 
 var _Props = __webpack_require__(9);
 
@@ -12868,9 +12866,9 @@ var _withRightToLeft = __webpack_require__(26);
 
 var _withRightToLeft2 = _interopRequireDefault(_withRightToLeft);
 
-var _interaction = __webpack_require__(20);
+var _interaction = __webpack_require__(21);
 
-var _dates = __webpack_require__(21);
+var _dates = __webpack_require__(22);
 
 var _dates2 = _interopRequireDefault(_dates);
 
@@ -13643,11 +13641,9 @@ var Overview = function Overview(props) {
             _react2.default.createElement(
                _bootstrap.Markdown,
                { id: 'Overview' },
-               _react2.default.createElement(
-                  Expander,
-                  null,
-                  _react2.default.createElement(UserInput, null)
-               )
+               _react2.default.createElement(Expander, { content: _react2.default.createElement(NameInput, null) }),
+               _react2.default.createElement(Expander, { content: _react2.default.createElement(NameGenderInput, null) }),
+               _react2.default.createElement(Expander, { content: _react2.default.createElement(PrimeInput, null) })
             )
          )
       )
@@ -13666,19 +13662,36 @@ var HelloWorld = function HelloWorld(_) {
    );
 };
 
-var UserInput = function UserInput(_) {
+var NameInput = function NameInput(_) {
    return _react2.default.createElement(
       _bootstrap.VMContext,
-      { vm: 'UserInput' },
+      { vm: 'NameInput' },
       _react2.default.createElement(_bootstrap.TextField, { id: 'Name', label: 'Name:', placeholder: 'Enter your name' }),
       _react2.default.createElement('br', null),
-      'You have typed:',
+      'You typed:',
       ' ',
       _react2.default.createElement(
          'b',
          null,
          _react2.default.createElement(_bootstrap.Element, { id: 'Name' })
       )
+   );
+};
+
+var NameGenderInput = function NameGenderInput(_) {
+   return _react2.default.createElement(
+      _bootstrap.VMContext,
+      { vm: 'NameGenderInput' },
+      _react2.default.createElement(_bootstrap.TextField, { id: 'Name' }),
+      _react2.default.createElement(_bootstrap.DropdownList, { id: 'Gender' })
+   );
+};
+
+var PrimeInput = function PrimeInput(_) {
+   return _react2.default.createElement(
+      _bootstrap.VMContext,
+      { vm: 'PrimeInput' },
+      _react2.default.createElement(_bootstrap.NumberField, { id: 'Prime' })
    );
 };
 
@@ -13699,12 +13712,12 @@ var Expander = function Expander(props) {
          { collapsed: true, label: _react2.default.createElement(
                'b',
                null,
-               'Show Result'
+               'See it Live!'
             ) },
          _react2.default.createElement(
             ExpanderInnerPanel,
             null,
-            props.children
+            props.content
          )
       )
    );
@@ -17833,7 +17846,7 @@ var _utils = __webpack_require__(8);
 
 var utils = _interopRequireWildcard(_utils);
 
-var _Label = __webpack_require__(22);
+var _Label = __webpack_require__(18);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -30186,7 +30199,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _inDOM = __webpack_require__(18);
+var _inDOM = __webpack_require__(19);
 
 var _inDOM2 = _interopRequireDefault(_inDOM);
 
@@ -30223,7 +30236,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _inDOM = __webpack_require__(18);
+var _inDOM = __webpack_require__(19);
 
 var _inDOM2 = _interopRequireDefault(_inDOM);
 
@@ -30254,7 +30267,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _inDOM = __webpack_require__(18);
+var _inDOM = __webpack_require__(19);
 
 var _inDOM2 = _interopRequireDefault(_inDOM);
 
@@ -31179,7 +31192,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = matches;
 
-var _inDOM = __webpack_require__(18);
+var _inDOM = __webpack_require__(19);
 
 var _inDOM2 = _interopRequireDefault(_inDOM);
 
@@ -31277,7 +31290,7 @@ var _Century = __webpack_require__(350);
 
 var _Century2 = _interopRequireDefault(_Century);
 
-var _messages = __webpack_require__(19);
+var _messages = __webpack_require__(20);
 
 var _SlideTransitionGroup = __webpack_require__(222);
 
@@ -31301,7 +31314,7 @@ var _Props = __webpack_require__(9);
 
 var Props = _interopRequireWildcard(_Props);
 
-var _dates = __webpack_require__(21);
+var _dates = __webpack_require__(22);
 
 var _dates2 = _interopRequireDefault(_dates);
 
@@ -31311,7 +31324,7 @@ var _withRightToLeft2 = _interopRequireDefault(_withRightToLeft);
 
 var _widgetHelpers = __webpack_require__(15);
 
-var _interaction = __webpack_require__(20);
+var _interaction = __webpack_require__(21);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -72926,27 +72939,20 @@ var DataGrid = exports.DataGrid = function (_Element) {
    }
 
    _createClass(DataGrid, [{
-      key: 'componentWillMount',
-      value: function componentWillMount() {
+      key: 'componentDidMount',
+      value: function componentDidMount() {
          this.canSelect = ['Single', 'Multiple'].includes(this.attrs.selectMode);
          this.isMultiselect = this.attrs.selectMode === 'Multiple';
          this.selectedKeyProperty = this.attrs.selectedKeyProperty;
          this.updateSelectedKey();
-      }
-   }, {
-      key: 'componentDidMount',
-      value: function componentDidMount() {
+
          window.addEventListener('resize', this.updateHeight);
          this.updateHeight();
       }
    }, {
-      key: 'componentWillUpdate',
-      value: function componentWillUpdate() {
-         this.updateSelectedKey();
-      }
-   }, {
       key: 'componentDidUpdate',
       value: function componentDidUpdate() {
+         this.updateSelectedKey();
          this.updateHeight();
       }
    }, {
@@ -73175,7 +73181,7 @@ var _propTypes = __webpack_require__(2);
 
 var _FieldPanel = __webpack_require__(17);
 
-var _Label = __webpack_require__(22);
+var _Label = __webpack_require__(18);
 
 var _Element = __webpack_require__(11);
 
@@ -73221,8 +73227,8 @@ var DateTimeField = exports.DateTimeField = function (_InputElement) {
    }
 
    _createClass(DateTimeField, [{
-      key: 'componentWillMount',
-      value: function componentWillMount() {
+      key: 'componentDidMount',
+      value: function componentDidMount() {
          var _this2 = this;
 
          this.vmProperty.onValidated(function (result) {
@@ -73652,6 +73658,8 @@ var _propTypes = __webpack_require__(2);
 
 var _FieldPanel = __webpack_require__(17);
 
+var _Label = __webpack_require__(18);
+
 var _Element = __webpack_require__(11);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -73671,34 +73679,44 @@ var PlainTextComponent = function PlainTextComponent(props) {
 var DropdownList = exports.DropdownList = function (_InputElement) {
    _inherits(DropdownList, _InputElement);
 
-   function DropdownList() {
-      var _ref;
-
-      var _temp, _this, _ret;
-
+   function DropdownList(props) {
       _classCallCheck(this, DropdownList);
 
-      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-         args[_key] = arguments[_key];
-      }
+      var _this = _possibleConstructorReturn(this, (DropdownList.__proto__ || Object.getPrototypeOf(DropdownList)).call(this, props));
 
-      return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = DropdownList.__proto__ || Object.getPrototypeOf(DropdownList)).call.apply(_ref, [this].concat(args))), _this), _this.handleChange = function (event) {
+      _this.handleChange = function (event) {
          var value = event.target.value;
          _this.dispatch(value);
-      }, _temp), _possibleConstructorReturn(_this, _ret);
+      };
+
+      _this.state = { validationMessages: [] };
+      return _this;
    }
 
    _createClass(DropdownList, [{
-      key: 'render',
-      value: function render() {
+      key: 'componentDidMount',
+      value: function componentDidMount() {
          var _this2 = this;
 
+         this.vmProperty.onValidated(function (result) {
+            return _this2.setState({
+               valid: result.valid ? null : false,
+               validationMessages: result.messages
+            });
+         });
+      }
+   }, {
+      key: 'render',
+      value: function render() {
+         var _this3 = this;
+
          var _resolveComponents = this.resolveComponents(DropdownList),
-             _resolveComponents2 = _slicedToArray(_resolveComponents, 4),
+             _resolveComponents2 = _slicedToArray(_resolveComponents, 5),
              Container = _resolveComponents2[0],
              Input = _resolveComponents2[1],
              InputGroup = _resolveComponents2[2],
-             PlainText = _resolveComponents2[3];
+             ValidationMessage = _resolveComponents2[3],
+             PlainText = _resolveComponents2[4];
 
          var _attrs = this.attrs,
              fullId = _attrs.fullId,
@@ -73720,7 +73738,7 @@ var DropdownList = exports.DropdownList = function (_InputElement) {
             );
          });
          var selected = options.filter(function (opt) {
-            return opt.Key == _this2.value;
+            return opt.Key == _this3.value;
          }).shift();
          var plainTextValue = selected ? selected.Value : '';
 
@@ -73736,10 +73754,26 @@ var DropdownList = exports.DropdownList = function (_InputElement) {
                { prefix: prefix, suffix: suffix },
                _react2.default.createElement(
                   Input,
-                  { id: fullId, type: 'select', value: this.value, prefix: prefix, suffix: suffix, disabled: disable, onChange: this.handleChange },
+                  {
+                     id: fullId,
+                     type: 'select',
+                     valid: this.state.valid,
+                     value: this.value,
+                     prefix: prefix,
+                     suffix: suffix,
+                     disabled: disable,
+                     onChange: this.handleChange
+                  },
                   listOptions
                )
-            )
+            ),
+            this.state.validationMessages.map(function (message, idx) {
+               return _react2.default.createElement(
+                  ValidationMessage,
+                  { key: 'validationMsg' + idx },
+                  message
+               );
+            })
          );
       }
    }]);
@@ -73760,6 +73794,7 @@ DropdownList.componentTypes = {
    Container: _FieldPanel.FieldPanel,
    InputComponent: undefined,
    InputGroupComponent: undefined,
+   ValidationMessageComponent: _Label.Label,
    PlainTextComponent: PlainTextComponent
 };
 
@@ -74094,7 +74129,7 @@ var Markdown = exports.Markdown = function (_Element) {
          });
          return _react2.default.createElement(
             Container,
-            _extends({ id: fullId }, props),
+            _extends({ id: fullId, className: 'markdown' }, props),
             markdowns.map(function (section, idx) {
                return _react2.default.createElement(
                   _react2.default.Fragment,
@@ -74322,7 +74357,7 @@ var _propTypes = __webpack_require__(2);
 
 var _Collapsible = __webpack_require__(83);
 
-var _Label = __webpack_require__(22);
+var _Label = __webpack_require__(18);
 
 var _dotnetifyReact = __webpack_require__(285);
 
@@ -74402,8 +74437,8 @@ var NavMenu = exports.NavMenu = function (_Element) {
    }
 
    _createClass(NavMenu, [{
-      key: 'componentWillMount',
-      value: function componentWillMount() {
+      key: 'componentDidMount',
+      value: function componentDidMount() {
          var _this2 = this;
 
          if (this.vm) this.vm.onRouteEnter = function (path, template) {
@@ -76566,7 +76601,7 @@ var _utils = __webpack_require__(8);
 
 var utils = _interopRequireWildcard(_utils);
 
-var _Label = __webpack_require__(22);
+var _Label = __webpack_require__(18);
 
 var _Panel = __webpack_require__(44);
 
@@ -76591,30 +76626,32 @@ var Container = _styledComponents2.default.div.withConfig({
 var Tab = exports.Tab = function (_React$Component) {
    _inherits(Tab, _React$Component);
 
-   function Tab() {
-      var _ref;
-
-      var _temp, _this, _ret;
-
+   function Tab(props) {
       _classCallCheck(this, Tab);
 
-      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-         args[_key] = arguments[_key];
-      }
+      var _this = _possibleConstructorReturn(this, (Tab.__proto__ || Object.getPrototypeOf(Tab)).call(this, props));
 
-      return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Tab.__proto__ || Object.getPrototypeOf(Tab)).call.apply(_ref, [this].concat(args))), _this), _this.state = { active: null }, _this.getItemKey = function (child, idx) {
+      _this.getItemKey = function (child, idx) {
          return child.props.name ? child.props.name : idx;
-      }, _this.getDisplayStyle = function (key) {
+      };
+
+      _this.getDisplayStyle = function (key) {
          return { padding: '1rem', display: _this.state.active === key ? 'initial' : 'none' };
-      }, _this.handleClick = function (event, key) {
+      };
+
+      _this.handleClick = function (event, key) {
          event.preventDefault();
          if (_this.props.onActivate) _this.props.onActivate(key);else _this.setState({ active: key });
-      }, _temp), _possibleConstructorReturn(_this, _ret);
+      };
+
+      _this.state = { active: null };
+      _this.tabContents = [];
+      return _this;
    }
 
    _createClass(Tab, [{
-      key: 'componentWillMount',
-      value: function componentWillMount() {
+      key: 'componentDidMount',
+      value: function componentDidMount() {
          var _this2 = this;
 
          this.tabContents = _react2.default.Children.map(this.props.children, function (child, idx) {
@@ -76664,9 +76701,9 @@ var Tab = exports.Tab = function (_React$Component) {
             });
          });
 
-         var tabContents = this.tabContents.map(function (_ref2) {
-            var key = _ref2.key,
-                content = _ref2.content;
+         var tabContents = this.tabContents.map(function (_ref) {
+            var key = _ref.key,
+                content = _ref.content;
             return _react2.default.createElement(
                'div',
                { key: key, style: _this3.getDisplayStyle(key) },
@@ -77138,7 +77175,7 @@ var Select = exports.Select = _styledComponents2.default.select.attrs({
 })(['', ' ', ';'], function (props) {
    return props.theme.Input;
 }, function (props) {
-   return props.valid === false ? props.theme.Input.ValidationError : '';
+   return props.valid === false ? props.theme.InputValidationError : '';
 });
 
 /***/ }),
@@ -86726,7 +86763,7 @@ var _DropdownListInput = __webpack_require__(337);
 
 var _DropdownListInput2 = _interopRequireDefault(_DropdownListInput);
 
-var _messages = __webpack_require__(19);
+var _messages = __webpack_require__(20);
 
 var _Props = __webpack_require__(9);
 
@@ -86760,7 +86797,7 @@ var _withRightToLeft = __webpack_require__(26);
 
 var _withRightToLeft2 = _interopRequireDefault(_withRightToLeft);
 
-var _interaction = __webpack_require__(20);
+var _interaction = __webpack_require__(21);
 
 var _widgetHelpers = __webpack_require__(15);
 
@@ -87942,7 +87979,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _inDOM = __webpack_require__(18);
+var _inDOM = __webpack_require__(19);
 
 var _inDOM2 = _interopRequireDefault(_inDOM);
 
@@ -88512,7 +88549,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _inDOM = __webpack_require__(18);
+var _inDOM = __webpack_require__(19);
 
 var _inDOM2 = _interopRequireDefault(_inDOM);
 
@@ -88613,7 +88650,7 @@ var _ComboboxInput = __webpack_require__(343);
 
 var _ComboboxInput2 = _interopRequireDefault(_ComboboxInput);
 
-var _messages = __webpack_require__(19);
+var _messages = __webpack_require__(20);
 
 var _focusManager = __webpack_require__(25);
 
@@ -88649,7 +88686,7 @@ var _Filter = __webpack_require__(52);
 
 var Filter = _interopRequireWildcard(_Filter);
 
-var _interaction = __webpack_require__(20);
+var _interaction = __webpack_require__(21);
 
 var _widgetHelpers = __webpack_require__(15);
 
@@ -89507,7 +89544,7 @@ var _CalendarView = __webpack_require__(54);
 
 var _CalendarView2 = _interopRequireDefault(_CalendarView);
 
-var _dates = __webpack_require__(21);
+var _dates = __webpack_require__(22);
 
 var _dates2 = _interopRequireDefault(_dates);
 
@@ -89918,7 +89955,7 @@ var _CalendarView = __webpack_require__(54);
 
 var _CalendarView2 = _interopRequireDefault(_CalendarView);
 
-var _dates = __webpack_require__(21);
+var _dates = __webpack_require__(22);
 
 var _dates2 = _interopRequireDefault(_dates);
 
@@ -90065,7 +90102,7 @@ var _CalendarView = __webpack_require__(54);
 
 var _CalendarView2 = _interopRequireDefault(_CalendarView);
 
-var _dates = __webpack_require__(21);
+var _dates = __webpack_require__(22);
 
 var _dates2 = _interopRequireDefault(_dates);
 
@@ -90218,7 +90255,7 @@ var _CalendarView = __webpack_require__(54);
 
 var _CalendarView2 = _interopRequireDefault(_CalendarView);
 
-var _dates = __webpack_require__(21);
+var _dates = __webpack_require__(22);
 
 var _dates2 = _interopRequireDefault(_dates);
 
@@ -91127,7 +91164,7 @@ var _List = __webpack_require__(38);
 
 var _List2 = _interopRequireDefault(_List);
 
-var _dates = __webpack_require__(21);
+var _dates = __webpack_require__(22);
 
 var _dates2 = _interopRequireDefault(_dates);
 
@@ -91500,7 +91537,7 @@ var _Button = __webpack_require__(30);
 
 var _Button2 = _interopRequireDefault(_Button);
 
-var _messages = __webpack_require__(19);
+var _messages = __webpack_require__(20);
 
 var _Props = __webpack_require__(9);
 
@@ -91510,7 +91547,7 @@ var _focusManager = __webpack_require__(25);
 
 var _focusManager2 = _interopRequireDefault(_focusManager);
 
-var _interaction = __webpack_require__(20);
+var _interaction = __webpack_require__(21);
 
 var _widgetHelpers = __webpack_require__(15);
 
@@ -91979,7 +92016,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _class, _temp;
 
-var _inDOM = __webpack_require__(18);
+var _inDOM = __webpack_require__(19);
 
 var _inDOM2 = _interopRequireDefault(_inDOM);
 
@@ -92302,7 +92339,7 @@ var _Props = __webpack_require__(9);
 
 var Props = _interopRequireWildcard(_Props);
 
-var _messages = __webpack_require__(19);
+var _messages = __webpack_require__(20);
 
 var _PropTypes = __webpack_require__(6);
 
@@ -92328,7 +92365,7 @@ var _withRightToLeft = __webpack_require__(26);
 
 var _withRightToLeft2 = _interopRequireDefault(_withRightToLeft);
 
-var _interaction = __webpack_require__(20);
+var _interaction = __webpack_require__(21);
 
 var _widgetHelpers = __webpack_require__(15);
 
@@ -93530,7 +93567,7 @@ var _SelectListItem = __webpack_require__(367);
 
 var _SelectListItem2 = _interopRequireDefault(_SelectListItem);
 
-var _messages = __webpack_require__(19);
+var _messages = __webpack_require__(20);
 
 var _ = __webpack_require__(13);
 
@@ -93562,7 +93599,7 @@ var _withRightToLeft = __webpack_require__(26);
 
 var _withRightToLeft2 = _interopRequireDefault(_withRightToLeft);
 
-var _interaction = __webpack_require__(20);
+var _interaction = __webpack_require__(21);
 
 var _widgetHelpers = __webpack_require__(15);
 
