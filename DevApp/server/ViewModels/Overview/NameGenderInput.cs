@@ -10,8 +10,7 @@ namespace dotNetify_Elements
       public NameGenderInput()
       {
          AddProperty<string>("Name")
-            .WithAttribute(this, new TextFieldAttribute { Label = "Name:", Placeholder = "Enter your name" })
-            .WithRequiredValidation(this);
+            .WithAttribute(this, new TextFieldAttribute { Label = "Name:", Placeholder = "Enter your name" });
 
          AddProperty("Gender", "")
             .WithAttribute(this, new DropdownListAttribute
@@ -23,8 +22,7 @@ namespace dotNetify_Elements
                   { "M", "Male" },
                   { "F", "Female" }
                }.ToArray()
-            })
-            .WithRequiredValidation(this);
+            });
       }
    }
 }

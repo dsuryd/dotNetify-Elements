@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "8c91d22af0d10fc03d52"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "fc6d2642849b7e44b02f"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -11194,16 +11194,7 @@ var Panel = exports.Panel = function (_React$Component) {
 
          return _react2.default.createElement(
             Container,
-            {
-               margin: _margin,
-               horizontal: horizontal,
-               left: left,
-               right: right,
-               centerAligned: centerAligned,
-               width: width,
-               height: height,
-               flex: _flex
-            },
+            { margin: _margin, horizontal: horizontal, left: left, right: right, centerAligned: centerAligned, width: width, height: height, flex: _flex },
             this.children.map(function (child, idx) {
                return _react2.default.createElement(
                   ChildContainer,
@@ -11235,7 +11226,7 @@ Panel.propTypes = {
    noGap: _propTypes.PropTypes.bool,
    smallGap: _propTypes.PropTypes.bool,
    horizontal: _propTypes.PropTypes.bool,
-   margin: _propTypes.PropTypes.bool,
+   margin: _propTypes.PropTypes.string,
    noMargin: _propTypes.PropTypes.bool,
    smallMargin: _propTypes.PropTypes.bool,
    left: _propTypes.PropTypes.bool,
@@ -13626,6 +13617,10 @@ var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
 var _bootstrap = __webpack_require__(12);
 
+var _Expander = __webpack_require__(371);
+
+var _Expander2 = _interopRequireDefault(_Expander);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Overview = function Overview(props) {
@@ -13637,13 +13632,13 @@ var Overview = function Overview(props) {
          null,
          _react2.default.createElement(
             _bootstrap.Frame,
-            null,
+            { margin: '1rem 15% 1rem 1rem' },
             _react2.default.createElement(
                _bootstrap.Markdown,
                { id: 'Overview' },
-               _react2.default.createElement(Expander, { content: _react2.default.createElement(NameInput, null) }),
-               _react2.default.createElement(Expander, { content: _react2.default.createElement(NameGenderInput, null) }),
-               _react2.default.createElement(Expander, { content: _react2.default.createElement(PrimeInput, null) })
+               _react2.default.createElement(_Expander2.default, { content: _react2.default.createElement(NameInput, null) }),
+               _react2.default.createElement(_Expander2.default, { content: _react2.default.createElement(NameGenderInput, null) }),
+               _react2.default.createElement(_Expander2.default, { content: _react2.default.createElement(PrimeInput, null) })
             )
          )
       )
@@ -13695,34 +13690,6 @@ var PrimeInput = function PrimeInput(_) {
    );
 };
 
-var ExpanderPanel = _styledComponents2.default.div.withConfig({
-   displayName: 'Overview__ExpanderPanel'
-})(['padding:.5rem;border-radius:5px;border:1px solid #ddd;']);
-
-var ExpanderInnerPanel = _styledComponents2.default.div.withConfig({
-   displayName: 'Overview__ExpanderInnerPanel'
-})(['padding:1rem .5rem;']);
-
-var Expander = function Expander(props) {
-   return _react2.default.createElement(
-      ExpanderPanel,
-      null,
-      _react2.default.createElement(
-         _bootstrap.Collapsible,
-         { collapsed: true, label: _react2.default.createElement(
-               'b',
-               null,
-               'See it Live!'
-            ) },
-         _react2.default.createElement(
-            ExpanderInnerPanel,
-            null,
-            props.content
-         )
-      )
-   );
-};
-
 exports.default = Overview;
 
 /***/ }),
@@ -13744,7 +13711,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _bootstrap = __webpack_require__(12);
 
-var _SampleForm = __webpack_require__(371);
+var _SampleForm = __webpack_require__(372);
 
 var _SampleForm2 = _interopRequireDefault(_SampleForm);
 
@@ -13972,7 +13939,7 @@ var _AddressForm = __webpack_require__(224);
 
 var _AddressForm2 = _interopRequireDefault(_AddressForm);
 
-var _NewCustomerDialog = __webpack_require__(372);
+var _NewCustomerDialog = __webpack_require__(373);
 
 var _NewCustomerDialog2 = _interopRequireDefault(_NewCustomerDialog);
 
@@ -33660,8 +33627,6 @@ var _routes = __webpack_require__(79);
 
 var _routes2 = _interopRequireDefault(_routes);
 
-__webpack_require__(373);
-
 __webpack_require__(374);
 
 __webpack_require__(375);
@@ -33669,6 +33634,8 @@ __webpack_require__(375);
 __webpack_require__(376);
 
 __webpack_require__(377);
+
+__webpack_require__(378);
 
 var _dotnetify = __webpack_require__(34);
 
@@ -108266,6 +108233,59 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _styledComponents = __webpack_require__(3);
+
+var _styledComponents2 = _interopRequireDefault(_styledComponents);
+
+var _bootstrap = __webpack_require__(12);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ExpanderPanel = _styledComponents2.default.div.withConfig({
+   displayName: 'Expander__ExpanderPanel'
+})(['padding:.5rem;border-radius:5px;border:1px solid #ccc;background:#ddd;']);
+
+var ExpanderInnerPanel = _styledComponents2.default.div.withConfig({
+   displayName: 'Expander__ExpanderInnerPanel'
+})(['padding:1rem .5rem;']);
+
+var Expander = function Expander(props) {
+   return _react2.default.createElement(
+      ExpanderPanel,
+      null,
+      _react2.default.createElement(
+         _bootstrap.Collapsible,
+         { collapsed: true, label: _react2.default.createElement(
+               'b',
+               null,
+               'See it Live!'
+            ) },
+         _react2.default.createElement(
+            ExpanderInnerPanel,
+            null,
+            props.content
+         )
+      )
+   );
+};
+
+exports.default = Expander;
+
+/***/ }),
+/* 372 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+   value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
 var _dotnetify = __webpack_require__(34);
 
 var _dotnetify2 = _interopRequireDefault(_dotnetify);
@@ -108323,7 +108343,7 @@ var SampleForm = function SampleForm(_ref) {
 exports.default = SampleForm;
 
 /***/ }),
-/* 372 */
+/* 373 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -108529,13 +108549,13 @@ var NewCustomerDialog = function (_React$Component) {
 exports.default = NewCustomerDialog;
 
 /***/ }),
-/* 373 */
+/* 374 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 374 */
+/* 375 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -110314,7 +110334,7 @@ exports.default = NewCustomerDialog;
 })();
 
 /***/ }),
-/* 375 */
+/* 376 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -110547,13 +110567,13 @@ exports.default = NewCustomerDialog;
 })();
 
 /***/ }),
-/* 376 */
+/* 377 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 377 */
+/* 378 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

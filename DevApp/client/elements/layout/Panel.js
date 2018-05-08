@@ -6,8 +6,7 @@ import * as utils from '../utils';
 const Container = styled.div`
    display: flex;
    flex: ${props => props.flex};
-   ${props => (props.centerAligned ? 'align-items: center;' : '')} justify-content: ${props =>
-         props.right ? 'flex-end' : 'flex-start'};
+   ${props => (props.centerAligned ? 'align-items: center;' : '')} justify-content: ${props => (props.right ? 'flex-end' : 'flex-start')};
    flex-direction: ${props => (props.horizontal ? 'row' : 'column')};
    margin: ${props => props.margin};
    height: ${props => props.height || (props.flex ? 'auto' : 'fit-content')};
@@ -33,7 +32,7 @@ export class Panel extends React.Component {
       noGap: PropTypes.bool,
       smallGap: PropTypes.bool,
       horizontal: PropTypes.bool,
-      margin: PropTypes.bool,
+      margin: PropTypes.string,
       noMargin: PropTypes.bool,
       smallMargin: PropTypes.bool,
       left: PropTypes.bool,
@@ -91,23 +90,7 @@ export class Panel extends React.Component {
    render() {
       const [ Container, ChildContainer ] = utils.resolveComponents(Panel, this.props);
 
-      const {
-         childProps,
-         gap,
-         noGap,
-         smallGap,
-         horizontal,
-         margin,
-         noMargin,
-         smallMargin,
-         left,
-         right,
-         centerAligned,
-         height,
-         width,
-         fit,
-         flex
-      } = this.props;
+      const { childProps, gap, noGap, smallGap, horizontal, margin, noMargin, smallMargin, left, right, centerAligned, height, width, fit, flex } = this.props;
 
       const { Gap, Margin } = this.context.theme.Panel;
       let _gap = gap || (noGap ? '0' : smallGap ? Gap.small : Gap.large);
@@ -116,16 +99,7 @@ export class Panel extends React.Component {
       _flex = _flex || fit ? '1' : null;
 
       return (
-         <Container
-            margin={_margin}
-            horizontal={horizontal}
-            left={left}
-            right={right}
-            centerAligned={centerAligned}
-            width={width}
-            height={height}
-            flex={_flex}
-         >
+         <Container margin={_margin} horizontal={horizontal} left={left} right={right} centerAligned={centerAligned} width={width} height={height} flex={_flex}>
             {this.children.map((child, idx) => {
                return (
                   <ChildContainer
@@ -135,10 +109,7 @@ export class Panel extends React.Component {
                      fit={child.props.fit}
                      padding={this.numChildren <= 1 ? 0 : this.getPadding(idx, _gap, horizontal)}
                   >
-                     {React.cloneElement(
-                        child,
-                        utils.mergeProps(child, childProps, { onShow: show => this.handleShow(idx, show) })
-                     )}
+                     {React.cloneElement(child, utils.mergeProps(child, childProps, { onShow: show => this.handleShow(idx, show) }))}
                   </ChildContainer>
                );
             })}
