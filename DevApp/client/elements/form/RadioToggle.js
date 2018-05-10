@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { FieldPanel } from '../layout/FieldPanel';
+import { Field } from '../structure/Field';
 import { RadioGroup } from './RadioGroup';
 import * as utils from '../utils';
 
@@ -8,7 +8,7 @@ export class RadioToggle extends React.Component {
    static propTypes = Object.assign({}, RadioGroup.propTypes);
 
    static componentTypes = {
-      Container: FieldPanel,
+      Container: Field,
       GroupContainer: undefined,
       ToggleContainer: undefined,
       LabelComponent: undefined,
@@ -16,10 +16,7 @@ export class RadioToggle extends React.Component {
    };
 
    render() {
-      const [ Container, GroupContainer, ToggleContainer, Label, Input ] = utils.resolveComponents(
-         RadioToggle,
-         this.props
-      );
+      const [ Container, GroupContainer, ToggleContainer, Label, Input ] = utils.resolveComponents(RadioToggle, this.props);
       return (
          <RadioGroup
             container={Container}

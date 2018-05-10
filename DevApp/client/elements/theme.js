@@ -62,7 +62,7 @@ const defaultTheme = {
       Container: ``,
       HeaderContainer: ``
    },
-   FieldPanel: {
+   Field: {
       Container: ``,
       LabelContainer: ``,
       InputContainer: ``,

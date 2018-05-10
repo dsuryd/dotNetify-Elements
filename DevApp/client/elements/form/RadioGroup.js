@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { PropTypes } from 'prop-types';
-import { FieldPanel } from '../layout/FieldPanel';
+import { Field } from '../structure/Field';
 import { InputElement } from '../Element';
 import * as utils from '../utils';
 
@@ -19,7 +19,7 @@ export class RadioGroup extends InputElement {
    };
 
    static componentTypes = {
-      Container: FieldPanel,
+      Container: Field,
       GroupContainer,
       RadioContainer: undefined,
       LabelComponent: undefined,

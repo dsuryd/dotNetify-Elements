@@ -1,18 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import {
-   DotNetifyLogo,
-   Frame,
-   Main,
-   Header,
-   Footer,
-   Nav,
-   NavHeader,
-   NavMenu,
-   NavMenuTarget,
-   Section,
-   VMContext
-} from 'elements/bootstrap';
+import { Frame, Main, Header, Footer, Nav, NavHeader, NavMenu, NavMenuTarget, Section, VMContext } from 'elements/bootstrap';
+import DotNetifyLogo from '../components/DotNetifyLogo';
 
 const App = props => (
    <VMContext vm="App">

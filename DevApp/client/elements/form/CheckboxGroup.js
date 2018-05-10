@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { PropTypes } from 'prop-types';
-import { FieldPanel } from '../layout/FieldPanel';
+import { Field } from '../structure/Field';
 import { InputElement } from '../Element';
 
 const GroupContainer = styled.section`${props => props.theme.Checkbox.GroupContainer};`;
@@ -19,7 +19,7 @@ export class CheckboxGroup extends InputElement {
    };
 
    static componentTypes = {
-      Container: FieldPanel,
+      Container: Field,
       GroupContainer,
       CheckboxContainer: undefined,
       LabelComponent: undefined,

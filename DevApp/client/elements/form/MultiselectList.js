@@ -1,6 +1,6 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
-import { FieldPanel } from '../layout/FieldPanel';
+import { Field } from '../structure/Field';
 import { InputElement } from '../Element';
 
 const PlainTextComponent = props => <span style={{ minHeight: '2.4rem' }}>{React.Children.toArray(props.children).join(', ')}</span>;
@@ -17,7 +17,7 @@ export class MultiselectList extends InputElement {
    };
 
    static componentTypes = {
-      Container: FieldPanel,
+      Container: Field,
       InputComponent: undefined,
       InputGroupComponent: undefined,
       TagComponent: undefined,

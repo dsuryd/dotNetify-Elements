@@ -9,7 +9,7 @@ const Container = styled.div`
    grid-template-columns: ${props => (props.horizontal ? '1fr 4fr' : '1fr')};
    -ms-user-select: none;
    user-select: none;
-   ${props => props.theme.FieldPanel.Container};
+   ${props => props.theme.Field.Container};
 `;
 
 const LabelContainer = styled.div`
@@ -17,23 +17,23 @@ const LabelContainer = styled.div`
    align-items: flex-start;
    padding-top: ${props => (props.horizontal ? '.4rem' : '0')};
    padding-right: 1rem;
-   ${props => props.theme.FieldPanel.LabelContainer};
+   ${props => props.theme.Field.LabelContainer};
 `;
 
 const InputContainer = styled.div`
    width: calc(100% - 1px);
    ${props => (props.right ? `display: flex; justify-content: flex-end;` : null)} ${props =>
-         props.theme.FieldPanel.InputContainer};
+         props.theme.Field.InputContainer};
 `;
 
 const ValidationMessageContainer = styled.div`
    display: flex;
    flex-direction: column;
    grid-column: ${props => (props.horizontal ? '2' : '1')};
-   ${props => props.theme.FieldPanel.ValidationMessageContainer};
+   ${props => props.theme.Field.ValidationMessageContainer};
 `;
 
-export class FieldPanel extends React.Component {
+export class Field extends React.Component {
    static propTypes = {
       id: PropTypes.string.isRequired,
       label: PropTypes.string,
@@ -58,7 +58,7 @@ export class FieldPanel extends React.Component {
          InputContainer,
          PlainTextContainer,
          ValidationMessageContainer
-      ] = utils.resolveComponents(FieldPanel, this.props);
+      ] = utils.resolveComponents(Field, this.props);
       const { id, label, plainText, horizontal, right, ...props } = this.props;
       const labelPadding = horizontal ? null : '0 0 .5rem 0';
 

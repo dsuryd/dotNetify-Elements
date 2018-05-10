@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import * as utils from '../../elements/utils';
+import * as utils from '../../../elements/utils';
 
 const styleBorders = borders => {
    borders = borders.split(',').map(x => utils.toCamelCase(x.trim()));

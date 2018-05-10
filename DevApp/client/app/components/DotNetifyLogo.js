@@ -18,9 +18,11 @@ const Icon = styled.div`
    box-shadow: white 0 0 20px 0;
 `;
 
-export const DotNetifyLogo = props => (
+const DotNetifyLogo = props => (
    <Container>
       <Icon />
       <span>dotNetify</span>
    </Container>
 );
+
+export default DotNetifyLogo;

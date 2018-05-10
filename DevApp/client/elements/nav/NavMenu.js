@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { PropTypes } from 'prop-types';
-import { Collapsible } from '../layout/Collapsible';
+import { Collapsible } from '../structure/Collapsible';
 import { Label } from '../display/Label';
 import { RouteLink } from 'dotnetify/dist/dotnetify-react.router';
 import Element from '../Element';

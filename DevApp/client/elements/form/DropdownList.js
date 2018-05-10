@@ -1,6 +1,6 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
-import { FieldPanel } from '../layout/FieldPanel';
+import { Field } from '../structure/Field';
 import { Label } from '../display/Label';
 import { InputElement } from '../Element';
 
@@ -18,7 +18,7 @@ export class DropdownList extends InputElement {
    };
 
    static componentTypes = {
-      Container: FieldPanel,
+      Container: Field,
       InputComponent: undefined,
       InputGroupComponent: undefined,
       ValidationMessageComponent: Label,
