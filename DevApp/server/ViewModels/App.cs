@@ -11,6 +11,7 @@ namespace dotNetify_Elements
       {
          Home,
          Overview,
+         TextField,
          FormDemo,
          FormValidationDemo,
          DataGridDemo,
@@ -25,10 +26,11 @@ namespace dotNetify_Elements
          {
             new RouteTemplate(nameof(Route.Home))                 { UrlPattern = "", ViewUrl = nameof(Route.Overview) },
             new RouteTemplate(nameof(Route.Overview))             { UrlPattern = "overview" },
-            new RouteTemplate(nameof(Route.FormDemo))             { UrlPattern = "form" },
-            new RouteTemplate(nameof(Route.FormValidationDemo))   { UrlPattern = "form/validation" },
-            new RouteTemplate(nameof(Route.DataGridDemo))         { UrlPattern = "datagrid" },
-            new RouteTemplate(nameof(Route.CustomerInfoPage))  { UrlPattern = "examples/customer-info" },
+            new RouteTemplate(nameof(Route.TextField))            { UrlPattern = "form/textfield" },
+            new RouteTemplate(nameof(Route.FormDemo))             { UrlPattern = "form/demo" },
+            new RouteTemplate(nameof(Route.FormValidationDemo))   { UrlPattern = "form/validationdemo" },
+            new RouteTemplate(nameof(Route.DataGridDemo))         { UrlPattern = "list/datagrid" },
+            new RouteTemplate(nameof(Route.CustomerInfoPage))     { UrlPattern = "examples/customer-info" },
          });
 
          AddProperty("NavMenu", new NavMenu(
@@ -41,11 +43,21 @@ namespace dotNetify_Elements
                   Icon = "far fa-edit",
                   Routes = new NavRoute[]
                   {
-                     new NavRoute("Form Elements",   this.GetRoute(nameof(Route.FormDemo))),
-                     new NavRoute("Validation", this.GetRoute(nameof(Route.FormValidationDemo)))
+                     new NavRoute("TextField",   this.GetRoute(nameof(Route.TextField))),
+                     new NavRoute("Form Demo",   this.GetRoute(nameof(Route.FormDemo))),
+                     new NavRoute("Validation Demo", this.GetRoute(nameof(Route.FormValidationDemo)))
                   }
                },
-               new NavRoute("Data Grid", this.GetRoute(nameof(Route.DataGridDemo)), "far fa-list-alt"),
+               new NavGroup
+               {
+                  Label = "List",
+                  Icon = "far fa-list-alt",
+                  Routes = new NavRoute[]
+                  {
+                     new NavRoute("Data Grid", this.GetRoute(nameof(Route.DataGridDemo)), "far fa-list-alt"),
+                  }
+               },
+
                new NavGroup
                {
                   Label = "Examples",
