@@ -1,4 +1,4 @@
-/* 
+/*
 Copyright 2018 Dicky Suryadi
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,11 +21,22 @@ namespace DotNetify.Elements
 {
    public class TextFieldAttribute
    {
+      // Label text of the field.
       public string Label { get; set; }
+
+      // Placeholder text to display when the field is empty.
       public string Placeholder { get; set; }
+
+      // Text to display before the field.
       public string Prefix { get; set; }
+
+      // Text to display after the field.
       public string Suffix { get; set; }
+
+      // Input max length.
       public int? MaxLength { get; set; }
+
+      // Input mask, can be number mask or text mask.
       public Mask Mask { get; set; }
    }
 

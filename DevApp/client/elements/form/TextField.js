@@ -9,15 +9,32 @@ const PlainTextComponent = props => (props.type === 'password' ? '' : props.chil
 
 export class TextField extends InputElement {
    static propTypes = {
+      // Identifies the associated view model property.
       id: PropTypes.string.isRequired,
+
+      // Label text of the field.
       label: PropTypes.string,
+
+      // Placeholder text to display when the field is empty.
       placeholder: PropTypes.string,
+
+      // Displays the label text horizontally to the left of the field.
       horizontal: PropTypes.bool,
+
+      // Replaces the input field with plain text.
       plainText: PropTypes.bool,
-      prefix: PropTypes.any,
-      suffix: PropTypes.any,
-      disable: PropTypes.bool,
-      validation: PropTypes.oneOfType([ PropTypes.array, PropTypes.object ])
+
+      // Text or component to display before the field.
+      prefix: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
+
+      // Text or component to display after the field.
+      suffix: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
+
+      // Custom validation functions.
+      validation: PropTypes.oneOfType([ PropTypes.array, PropTypes.object ]),
+
+      // Disables the field.
+      disable: PropTypes.bool
    };
 
    static componentTypes = {
