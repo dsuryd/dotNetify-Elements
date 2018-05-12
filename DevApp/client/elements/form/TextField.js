@@ -12,14 +12,20 @@ export class TextField extends InputElement {
       // Identifies the associated view model property.
       id: PropTypes.string.isRequired,
 
-      // Label text of the field.
-      label: PropTypes.string,
+      // Disables the field.
+      disable: PropTypes.bool,
 
-      // Placeholder text to display when the field is empty.
-      placeholder: PropTypes.string,
+      // Text or component for the field's label.
+      label: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
 
       // Displays the label text horizontally to the left of the field.
       horizontal: PropTypes.bool,
+
+      // Max input length.
+      maxLength: PropTypes.number,
+
+      // Placeholder text to display when the field is empty.
+      placeholder: PropTypes.string,
 
       // Replaces the input field with plain text.
       plainText: PropTypes.bool,
@@ -31,10 +37,7 @@ export class TextField extends InputElement {
       suffix: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
 
       // Custom validation functions.
-      validation: PropTypes.oneOfType([ PropTypes.array, PropTypes.object ]),
-
-      // Disables the field.
-      disable: PropTypes.bool
+      validation: PropTypes.oneOfType([ PropTypes.array, PropTypes.object ])
    };
 
    static componentTypes = {
@@ -85,7 +88,10 @@ export class TextField extends InputElement {
 
    render() {
       const [ Container, Input, InputGroup, ValidationMessage, PlainText ] = this.resolveComponents(TextField);
-      const { fullId, label, placeholder, prefix, suffix, maxLength, plainText, horizontal, disable, type, ...props } = this.attrs;
+      const { fullId, label, placeholder, prefix, suffix, maxLength, plainText, horizontal, disable, onChange, type, ...props } = this.attrs;
+
+      const handleChange = onChange ? e => onChange(e.target.value) : this.handleChange;
+      const handleBlur = onChange ? null : this.handleBlur;
 
       const plainTextValue = `${prefix || ''}${this.value || ''}${suffix || ''}`;
 
@@ -104,8 +110,8 @@ export class TextField extends InputElement {
                      value={this.value || ''}
                      disabled={disable}
                      onKeyPress={this.handleKeyPress}
-                     onChange={this.handleChange}
-                     onBlur={this.handleBlur}
+                     onChange={handleChange}
+                     onBlur={handleBlur}
                      innerRef={elem => (this.vmProperty.dom = elem)}
                      {...props}
                   />

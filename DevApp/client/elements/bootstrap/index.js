@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'react-widgets/dist/css/react-widgets.css';
 import './override.css';
 
-import { Alert, DataGrid, GridColumn, Label, Markdown } from './display';
+import { Alert, DataGrid, GridColumn, Label, Markdown, MarkdownText } from './display';
 import {
    Button,
    Checkbox,
@@ -48,6 +48,7 @@ export {
    Label,
    Main,
    Markdown,
+   MarkdownText,
    Header,
    Nav,
    Footer,

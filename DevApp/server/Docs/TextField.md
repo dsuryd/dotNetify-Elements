@@ -1,6 +1,6 @@
 ﻿## TextField
 
-This element allows user to input text.  
+The element to accept text input.  It can be configured to validate the input and show errors.
 
 ##### Examples
 
@@ -12,14 +12,20 @@ static propTypes = {
    // Identifies the associated view model property.
    id: PropTypes.string.isRequired,
 
-   // Label text of the field.
-   label: PropTypes.string,
+   // Disables the field.
+   disable: PropTypes.bool,
 
-   // Placeholder text to display when the field is empty.
-   placeholder: PropTypes.string,
+   // Text or component for the field's label.
+   label: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
 
    // Displays the label text horizontally to the left of the field.
    horizontal: PropTypes.bool,
+
+   // Max input length.
+   maxLength: PropTypes.number,
+
+   // Placeholder text to display when the field is empty.
+   placeholder: PropTypes.string,
 
    // Replaces the input field with plain text.
    plainText: PropTypes.bool,
@@ -31,10 +37,7 @@ static propTypes = {
    suffix: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
 
    // Custom validation functions.
-   validation: PropTypes.oneOfType([ PropTypes.array, PropTypes.object ]),
-   
-   // Disables the field.
-   disable: PropTypes.bool
+   validation: PropTypes.oneOfType([ PropTypes.array, PropTypes.object ])
 };
 ```
 

@@ -33,3 +33,5 @@ export class Markdown extends Element {
       );
    }
 }
+
+export const MarkdownText = props => utils.markdown(props.text);

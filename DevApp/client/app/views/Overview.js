@@ -9,14 +9,16 @@ const Overview = props => (
       <Theme>
          <Frame margin="1rem 15% 1rem 1rem">
             <Markdown id="Overview">
-               <Expander content={<NameInput />} />
-               <Expander content={<NameGenderInput />} />
-               <Expander content={<PrimeInput />} />
+               <Expander label={<SeeItLive />} content={<NameInput />} />
+               <Expander label={<SeeItLive />} content={<NameGenderInput />} />
+               <Expander label={<SeeItLive />} content={<PrimeInput />} />
             </Markdown>
          </Frame>
       </Theme>
    </VMContext>
 );
+
+const SeeItLive = _ => <b>See it Live!</b>;
 
 const HelloWorld = _ => (
    <VMContext vm="HelloWorld">

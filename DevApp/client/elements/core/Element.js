@@ -81,10 +81,11 @@ export class InputElement extends Element {
          return this._vmInput;
       }
 
+      let value = this.props.value;
       return {
          // Fallback is this component isn't associated with a back-end view model.
          fullId: this.props.id,
-         value: this.props.value,
+         value: value,
          attrs: this.props.attrs || {},
          dispatch: value => (this.props.onChange ? this.props.onChange(value) : null),
          onValidated: handler => (this.props.onValidated ? this.props.onValidated(handler) : null),

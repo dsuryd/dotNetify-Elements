@@ -13,7 +13,7 @@ const ExpanderInnerPanel = styled.div`padding: 1rem .5rem;`;
 
 const Expander = props => (
    <ExpanderPanel>
-      <Collapsible collapsed={true} label={<b>See it Live!</b>}>
+      <Collapsible collapsed={true} label={props.label}>
          <ExpanderInnerPanel>{props.content}</ExpanderInnerPanel>
       </Collapsible>
    </ExpanderPanel>

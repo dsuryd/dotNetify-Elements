@@ -2,7 +2,7 @@
 
 DotNetify-Elements provide the building blocks that will make your web application development a breeze.  Built on top of dotNetify-React, Elements are a set of customizable React components that you can readily connect to your cross-platform .NET back-end and get your data streaming with minimal effort.
 
-Elements incorporate and curate many other existing, widely-adopted open-source libraries with the goal of allowing you to leverage the React community's tried-and-true favorites in your application with greater ease and speed, forgoing the hassle of learning each of their idiosyncrasies.  
+Elements incorporate and curate many other existing, widely-adopted open-source libraries with the goal of allowing you to leverage the React community's tried-and-true favorites in your application with greater ease and speed, while forgoing the hassle of learning each of their idiosyncrasies.  
 
 ##### The Basics
 
@@ -44,7 +44,7 @@ const MyApp = _ => (
 );
 ```
 
-The _VMContext_ component takes over the work of connecting to the back-end view model, and supplies data to the Element components within its scope.  
+The _VMContext_ component takes over the work of connecting to the back-end view model, and supplies data to the Element components within its scope.  The __id__ attribute is utilized to associate the component a particular view model property for its data source. 
 
 While the _Element_ component itself may not seem to do much, it packs some internal APIs that its sub-components can use to not only receive, but also send data back to the back-end.
 
