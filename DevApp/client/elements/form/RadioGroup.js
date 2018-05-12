@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { PropTypes } from 'prop-types';
 import { Field } from '../structure/Field';
-import { InputElement } from '../Element';
+import { InputElement } from '../core/Element';
 import * as utils from '../utils';
 
 const GroupContainer = styled.section`${props => props.theme.Radio.GroupContainer};`;

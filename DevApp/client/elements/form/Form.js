@@ -1,7 +1,7 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
-import { ContextTypes } from '../VMContext';
 import VMInputValidator from '../_internal/VMInputValidator';
+import { ContextTypes } from '../core/VMContext';
 import * as utils from '../utils';
 
 export const FormContextTypes = Object.assign(

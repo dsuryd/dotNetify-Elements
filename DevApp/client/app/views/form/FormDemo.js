@@ -1,5 +1,5 @@
 import React from 'react';
-import { Frame, Panel, Checkbox, RadioToggle, Theme } from 'elements/bootstrap';
+import { Frame, Panel, Checkbox, RadioToggle, Theme } from 'elements';
 import SampleForm from '../../components/SampleForm';
 
 const layoutOptions = [ { key: 'horizontal', value: 'Horizontal' }, { key: 'vertical', value: 'Vertical' } ];

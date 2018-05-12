@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { PropTypes } from 'prop-types';
-import Element from '../Element';
+import Element from '../core/Element';
 import * as utils from '../utils';
 
 const Container = styled.div`

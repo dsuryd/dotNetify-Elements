@@ -1,10 +1,10 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import { ContextTypes } from './VMContext';
-import { FormContextTypes } from './form/Form';
-import VMProperty from './_internal/VMProperty';
-import VMInput from './_internal/VMInput';
-import * as utils from './utils';
+import { FormContextTypes } from '../form/Form';
+import VMProperty from '../_internal/VMProperty';
+import VMInput from '../_internal/VMInput';
+import * as utils from '../utils';
 
 export default class Element extends React.Component {
    static contextTypes = ContextTypes;

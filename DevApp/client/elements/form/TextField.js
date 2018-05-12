@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { PropTypes } from 'prop-types';
 import { Field } from '../structure/Field';
 import { Label } from '../display/Label';
-import { InputElement } from '../Element';
+import { InputElement } from '../core/Element';
 
 const PlainTextComponent = props => (props.type === 'password' ? '' : props.children);
 

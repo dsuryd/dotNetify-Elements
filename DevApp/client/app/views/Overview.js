@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Frame, Markdown, Theme, VMContext } from 'elements/bootstrap';
-import { Button, Collapsible, DropdownList, Element, Form, NumberField, TextField } from 'elements/bootstrap';
+import { Frame, Markdown, Theme, VMContext } from 'elements';
+import { Button, Collapsible, DropdownList, Element, Form, NumberField, TextField } from 'elements';
 import Expander from '../components/Expander';
 
 const Overview = props => (

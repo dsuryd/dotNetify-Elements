@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Collapsible } from 'elements/bootstrap';
+import { Collapsible } from 'elements';
 
 const ExpanderPanel = styled.div`
    padding: .5rem;

@@ -18,7 +18,7 @@ import {
    RadioGroup,
    RadioToggle,
    VMContext
-} from 'elements/bootstrap';
+} from 'elements';
 
 const SampleForm = ({ vm, title, horizontal, plainText }) => (
    <VMContext vm={vm}>

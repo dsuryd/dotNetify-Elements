@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Cell, CellPanel, DropdownList, Form, Frame, NumberField, Panel, RadioGroup, TextField, VMContext } from 'elements/bootstrap';
+import { Button, Cell, CellPanel, DropdownList, Form, Frame, NumberField, Panel, RadioGroup, TextField, VMContext } from 'elements';
 
 const AddressForm = () => (
    <CellPanel>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import { Field } from '../structure/Field';
-import { InputElement } from '../Element';
+import { InputElement } from '../core/Element';
 
 const PlainTextComponent = props => <span style={{ minHeight: '2.4rem' }}>{React.Children.toArray(props.children).join(', ')}</span>;
 

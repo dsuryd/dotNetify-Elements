@@ -4,7 +4,7 @@ import { PropTypes } from 'prop-types';
 import { Collapsible } from '../structure/Collapsible';
 import { Label } from '../display/Label';
 import { RouteLink } from 'dotnetify/dist/dotnetify-react.router';
-import Element from '../Element';
+import Element from '../core/Element';
 import * as utils from '../utils';
 
 const Container = styled.div`padding: .75rem 0;`;

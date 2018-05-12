@@ -2,7 +2,7 @@ import React from 'react';
 import BasicInfoForm from './BasicInfoForm';
 import AddressForm from './AddressForm';
 import NewCustomerDialog from './NewCustomerDialog';
-import { Button, DataGrid, Form, Frame, Panel, Tab, TabItem, Theme, VMContext } from 'elements/bootstrap';
+import { Button, DataGrid, Form, Frame, Panel, Tab, TabItem, Theme, VMContext } from 'elements';
 
 export default class CustomerInfoPage extends React.Component {
    state = { editable: false, edit: false, showDialog: false };

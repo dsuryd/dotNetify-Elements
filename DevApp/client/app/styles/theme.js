@@ -1,4 +1,4 @@
-import { DefaultTheme } from '../../bootstrap';
+import { defaultTheme } from 'elements/bootstrap';
 
-const Theme = Object.assign({}, DefaultTheme);
-export default Theme;
+const appTheme = Object.assign({}, defaultTheme);
+export default appTheme;

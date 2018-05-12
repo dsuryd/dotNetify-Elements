@@ -1,32 +1,48 @@
-import 'bootstrap/dist/css/bootstrap.css';
-import 'react-widgets/dist/css/react-widgets.css';
-import './override.css';
-
-import { Alert, DataGrid, GridColumn, Label, Markdown } from './display';
+import { Element, VMContext, ContextTypes } from './core';
 import {
+   defaultTheme,
+   Alert,
    Button,
+   Card,
+   Cell,
+   CellPanel,
    Checkbox,
    CheckboxGroup,
-   DateTimeField,
+   Collapsible,
+   DataGrid,
    DateField,
+   TimeField,
+   DateTimeField,
    DropdownList,
+   Field,
    Form,
+   GridColumn,
+   Label,
+   Main,
+   Markdown,
+   Header,
+   Nav,
+   Footer,
+   Section,
+   Modal,
    MultiselectList,
-   NumberField,
-   PasswordField,
-   PlainText,
+   NavHeader,
+   NavMenu,
+   NavMenuTarget,
+   Panel,
+   Frame,
    RadioGroup,
    RadioToggle,
+   Tab,
+   TabItem,
    TextField,
+   NumberField,
+   PasswordField,
    TextAreaField,
-   TimeField
-} from './form';
-import { CellPanel, Footer, Frame, Header, Main, Nav, NavHeader, Panel, Section, Theme } from './layout';
-import { NavMenu, NavMenuTarget } from './nav';
-import { Card, CardHeader, CardBody, CardFooter, Cell, CellHeader, CellBody, Collapsible, Field, Modal, Tab, TabItem } from './structure';
+   Theme
+} from './bootstrap';
 
-import defaultTheme from '../../elements/theme';
-
+export { ContextTypes, Element, VMContext };
 export {
    defaultTheme,
    Alert,

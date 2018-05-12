@@ -1,7 +1,7 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import dotnetify from 'dotnetify';
-import * as utils from './utils';
+import * as utils from '../utils';
 
 export const ContextTypes = {
    vmContext: PropTypes.object,

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, Button, Card, Frame, Panel, Form, NumberField, TextField, Theme, VMContext } from 'elements/bootstrap';
+import { Alert, Button, Card, Frame, Panel, Form, NumberField, TextField, Theme, VMContext } from 'elements';
 
 // This is an example of custom client-side validation.
 const nameLengthValidator = {
