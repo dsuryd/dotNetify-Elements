@@ -6,12 +6,15 @@ import * as utils from '../utils';
 const Container = styled.div`
    display: flex;
    flex: ${props => props.flex};
-   ${props => (props.centerAligned ? 'align-items: center;' : '')} justify-content: ${props => (props.right ? 'flex-end' : 'flex-start')};
+   ${props => (props.centerAligned ? 'align-items: center;' : '')};
+   justify-content: ${props => (props.right ? 'flex-end' : 'flex-start')};
    flex-direction: ${props => (props.horizontal ? 'row' : 'column')};
    margin: ${props => props.margin};
    height: ${props => props.height || (props.flex ? 'auto' : 'fit-content')};
    width: ${props => props.width || (props.left || props.right ? 'auto' : 'inherit')};
-   overflow: ${props => (props.flex ? 'auto' : 'unset')} ${props => props.theme.Panel.Container};
+   overflow: ${props => (props.flex ? 'auto' : 'unset')};
+   ${props => props.theme.Panel.Container};
+   ${props => props.css};
 `;
 
 const ChildContainer = styled.div`
@@ -42,6 +45,7 @@ export class Panel extends React.Component {
       flex: PropTypes.oneOfType([ PropTypes.string, PropTypes.bool ]),
       height: PropTypes.string,
       width: PropTypes.string,
+      css: PropTypes.string,
       onShow: PropTypes.func
    };
 
@@ -89,19 +93,44 @@ export class Panel extends React.Component {
 
    render() {
       const [ Container, ChildContainer ] = utils.resolveComponents(Panel, this.props);
-
-      const { childProps, gap, noGap, smallGap, horizontal, margin, noMargin, smallMargin, left, right, centerAligned, height, width, fit, flex } = this.props;
+      const {
+         childProps,
+         gap,
+         noGap,
+         smallGap,
+         horizontal,
+         margin,
+         noMargin,
+         smallMargin,
+         left,
+         right,
+         centerAligned,
+         height,
+         width,
+         fit,
+         flex,
+         css
+      } = this.props;
 
       const { Gap, Margin } = this.context.theme.Panel;
       let _gap = gap || (noGap ? '0' : smallGap ? Gap.small : Gap.large);
       let _margin = margin || (noMargin ? '0' : smallMargin ? Margin.small : Margin.large);
       let _flex = typeof flex == 'boolean' ? (flex ? '1' : null) : flex;
       _flex = _flex || fit ? '1' : null;
-
       const childFit = childProps && childProps.fit;
 
       return (
-         <Container margin={_margin} horizontal={horizontal} left={left} right={right} centerAligned={centerAligned} width={width} height={height} flex={_flex}>
+         <Container
+            margin={_margin}
+            horizontal={horizontal}
+            left={left}
+            right={right}
+            centerAligned={centerAligned}
+            width={width}
+            height={height}
+            flex={_flex}
+            css={css}
+         >
             {this.children.map((child, idx) => {
                return (
                   <ChildContainer

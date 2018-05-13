@@ -1,4 +1,4 @@
-﻿/* 
+﻿/*
 Copyright 2018 Dicky Suryadi
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,16 +25,37 @@ namespace DotNetify.Elements
 
    public class NumberMask : Mask
    {
+      // Text to display before the input.
       public string Prefix { get; set; } = "";
+
+      // Text to display after the input.
       public string Suffix { get; set; } = "";
+
+      // Separates thousands.
       public bool IncludeThousandsSeparator { get; set; } = true;
+
+      // Character to separate thousands.
       public string ThousandsSeparatorSymbol { get; set; } = ",";
+
+      // Allow fraction input.
       public bool AllowDecimal { get; set; }
+
+      // Character to represent the decimal point.
       public string DecimalSymbol { get; set; } = ".";
+
+      // Max numbers after the decimal point.
       public int DecimalLimit { get; set; } = 2;
+
+      // Max numbers for the integer portion.
       public int IntegerLimit { get; set; }
+
+      // Always includes a decimal point.
       public bool RequireDecimal { get; set; }
+
+      // Allows negative number.
       public bool AllowNegative { get; set; }
+
+      // Allows entering zeroes first.
       public bool AllowLeadingZeroes { get; set; }
    }
 
@@ -43,9 +64,8 @@ namespace DotNetify.Elements
       public static TextMask USPhoneNumber = new TextMask { Mask = "(999) 999-9999" };
 
       /// <summary>
-      /// Mask: 9 - digits, A - alphabets, * - alphanumerics.
+      /// Mask: 9 - digits, A - alphabets, U - uppercase alphabets, * - alphanumerics.
       /// </summary>
       public string Mask { get; set; }
    }
-
 }

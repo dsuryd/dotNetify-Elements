@@ -4,8 +4,10 @@
     <RootNamespace>dotNetify_Elements</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="server\Docs\Overview.md" />
+    <None Remove="server\Docs\Introduction.md" />
     <None Remove="server\Docs\TextField.md" />
+    <None Remove="server\Docs\TextField_API.md" />
+    <None Remove="server\Docs\TextField_Mask.md" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="client\components\" />
@@ -24,8 +26,10 @@
     <DotNetCliToolReference Include="Microsoft.DotNet.Watcher.Tools" Version="2.0.0" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="server\Docs\TextField_Mask.md" />
+    <EmbeddedResource Include="server\Docs\TextField_API.md" />
     <EmbeddedResource Include="server\Docs\TextField.md" />
-    <EmbeddedResource Include="server\Docs\Overview.md" />
+    <EmbeddedResource Include="server\Docs\Introduction.md" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DotNetifyLib.Elements\DotNetifyLib.Elements.csproj" />

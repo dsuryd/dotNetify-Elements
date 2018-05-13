@@ -53,6 +53,7 @@ export default class VMInput extends VMProperty {
       if (this._inputElement && this.attrs.mask) {
          const maskMap = {
             '9': /[0-9]/,
+            U: /[A-Z]/,
             A: /[a-zA-Z]/,
             '*': /[0-9a-zA-Z]/
          };

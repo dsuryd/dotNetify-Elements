@@ -7,9 +7,12 @@ html {
    margin: 0;
 }
 
-.markdown h5 {
-   margin-top: 2rem;
+.markdown h4 {
    margin-bottom: 1.5rem;
    padding-bottom: .5rem;
    border-bottom: 1px solid #ccc;
+}
+
+.markdown * + h4 {
+   margin-top: 2rem;
 }

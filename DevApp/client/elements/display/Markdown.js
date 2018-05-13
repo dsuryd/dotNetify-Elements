@@ -23,12 +23,15 @@ export class Markdown extends Element {
 
       let markdowns = [];
       this.value.split('[inset]').forEach((section, idx) => {
-         markdowns.push(utils.markdown(section));
+         markdowns.push(section);
          idx < _children.length && markdowns.push(_children[idx]);
       });
+
+      const markdown = section => (typeof section == 'string' ? <MarkdownText text={section} /> : section);
+
       return (
          <Container id={fullId} className="markdown" {...props}>
-            {markdowns.map((section, idx) => <React.Fragment key={idx}>{section}</React.Fragment>)}
+            {markdowns.map((section, idx) => <React.Fragment key={idx}>{markdown(section)}</React.Fragment>)}
          </Container>
       );
    }
