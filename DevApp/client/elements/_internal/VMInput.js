@@ -16,8 +16,7 @@ export default class VMInput extends VMProperty {
 
    get domValue() {
       this._textMask && this._textMask.update();
-      const value = this._inputElement.value;
-      return this._unmask ? this._unmask(value) : value;
+      return this._inputElement.value;
    }
 
    get dom() {
@@ -44,7 +43,9 @@ export default class VMInput extends VMProperty {
          this.value = newValue;
       }
 
-      const value = typeof newValue != 'undefined' ? newValue : this.value;
+      let value = typeof newValue != 'undefined' ? newValue : this.value;
+      value = this._unmask ? this._unmask(value) : value;
+
       this.validator.validate(value);
       this.vmContext.dispatchState({ [this.propId]: value });
    }
@@ -59,8 +60,10 @@ export default class VMInput extends VMProperty {
          };
          let { type, ...inputMask } = utils.toCamelCase(this.attrs.mask);
          if (type === 'NumberMask') {
-            if (inputMask.includeThousandsSeparator)
-               this._unmask = value => (typeof value == 'string' ? value.replace(inputMask.thousandsSeparatorSymbol, '') : value);
+            if (inputMask.includeThousandsSeparator) {
+               const regex = new RegExp(inputMask.thousandsSeparatorSymbol, 'g');
+               this._unmask = value => (typeof value == 'string' ? value.replace(regex, '') : value);
+            }
             inputMask = createNumberMask(inputMask);
          }
          else inputMask = inputMask.mask.split('').map(c => (maskMap.hasOwnProperty(c) ? maskMap[c] : c));

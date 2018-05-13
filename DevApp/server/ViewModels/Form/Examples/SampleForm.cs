@@ -49,12 +49,13 @@ namespace dotNetify_Elements
                 MaxLength = 10
              });
 
-         AddProperty<float>(nameof(FormData.MyMoney))
+         AddProperty<decimal>(nameof(FormData.MyMoney))
              .WithAttribute(this, new TextFieldAttribute
              {
                 Label = "Money:",
                 Placeholder = "Enter amount",
                 Prefix = "$",
+                MaxLength = 11,
                 Mask = new NumberMask
                 {
                    IncludeThousandsSeparator = true,

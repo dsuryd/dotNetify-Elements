@@ -5,9 +5,9 @@
 [inset]
 
 ```cs
-public class FormTextField : BaseVM
+public class TextFieldExamples : BaseVM
 {
-   public FormTextField()
+   public TextFieldExamples()
    {
       AddProperty<string>("TextField_Name")
          .WithAttribute(this, new TextFieldAttribute
@@ -31,6 +31,7 @@ public class FormTextField : BaseVM
             Label = "Payment:",
             Prefix = "US$",
             Suffix = ".00",
+            MaxLength = 11,
             Mask = new NumberMask
             {
                IncludeThousandsSeparator = true,

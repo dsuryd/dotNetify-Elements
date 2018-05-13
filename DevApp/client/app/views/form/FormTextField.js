@@ -39,7 +39,7 @@ import React from 'react';
 import { VMContext, TextField } from 'dotnetify-elements';
 
 const MyApp = _ => (
-   <VMContext vm="FormTextField">
+   <VMContext vm="TextFieldExamples">
       <TextField id="TextField_Name" ${props}/>
       <TextField id="TextField_Phone" ${props}/>
       <TextField id="TextField_Payment" ${props}/>
@@ -67,19 +67,21 @@ const MyApp = _ => (
          .join(' ');
 
       return (
-         <Panel>
-            <Panel css="min-height: 16rem">
-               <TextField id="TextField_Name" horizontal={horizontal} plainText={plainText} disable={disable} />
-               <TextField id="TextField_Phone" horizontal={horizontal} plainText={plainText} disable={disable} />
-               <TextField id="TextField_Payment" horizontal={horizontal} plainText={plainText} disable={disable} />
+         <VMContext vm="TextFieldExamples">
+            <Panel>
+               <Panel css="min-height: 16rem">
+                  <TextField id="TextField_Name" horizontal={horizontal} plainText={plainText} disable={disable} />
+                  <TextField id="TextField_Phone" horizontal={horizontal} plainText={plainText} disable={disable} />
+                  <TextField id="TextField_Payment" horizontal={horizontal} plainText={plainText} disable={disable} />
+               </Panel>
+               <Panel horizontal>
+                  <RadioToggle id="_horizontal" label="Horizontal:" options={this.flags} value={horizontal} onChange={val => this.set('horizontal', val)} />
+                  <RadioToggle id="_plainText" label="Plain Text:" options={this.flags} value={plainText} onChange={val => this.set('plainText', val)} />
+                  <RadioToggle id="_disable" label="Disable:" options={this.flags} value={disable} onChange={val => this.set('disable', val)} />
+               </Panel>
+               <MarkdownText text={this.buildCode(propsText)} />
             </Panel>
-            <Panel horizontal>
-               <RadioToggle id="_horizontal" label="Horizontal:" options={this.flags} value={horizontal} onChange={val => this.set('horizontal', val)} />
-               <RadioToggle id="_plainText" label="Plain Text:" options={this.flags} value={plainText} onChange={val => this.set('plainText', val)} />
-               <RadioToggle id="_disable" label="Disable:" options={this.flags} value={disable} onChange={val => this.set('disable', val)} />
-            </Panel>
-            <MarkdownText text={this.buildCode(propsText)} />
-         </Panel>
+         </VMContext>
       );
    }
 }
