@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Checkbox, Frame, Markdown, MarkdownText, Panel, RadioGroup, RadioToggle, Tab, TabItem, TextField, Theme, VMContext } from 'elements';
-import * as utils from 'elements/utils';
-import Expander from '../../components/Expander';
+import { Checkbox, Frame, Markdown, MarkdownText, Panel, RadioToggle, Tab, TabItem, TextField, Theme, VMContext } from 'elements';
+import FieldCustomize from '../../components/FieldCustomize';
 
 const FormTextField = props => (
    <VMContext vm="FormTextField">
@@ -89,62 +88,37 @@ const MyApp = _ => (
    }
 }
 
-const withHighlight = Component => props => <Component style={{ border: '2px double red' }} {...props} />;
-
 class TextFieldCustomize extends React.Component {
-   constructor(props) {
-      super(props);
-      this.componentTypes = TextField.componentTypes;
-      this.state = { selected: null, plainText: false };
-   }
-
-   buildCode = props => {
-      if (props.length > 0) props = props + ' ';
-      let code = `
-\`\`\`jsx
-<TextField id="MyTextField" ${props}/>
-\`\`\``;
-      return code;
-   };
-
-   customize(component, customize) {
-      return customize ? withHighlight(component) : component;
-   }
+   state = { plainText: false, validationMessages: null };
 
    setSelected = value => {
-      this.setState({
-         selected: value,
+      return {
          plainText: value === 'PlainTextComponent',
-         validationMessages: value === 'ValidationMessageComponent' ? [ 'Sample validation message' ] : null
-      });
+         validationMessages: value === 'ValidationMessageComponent' ? [ 'Validation message' ] : null
+      };
    };
 
    render() {
-      const { selected, plainText, validationMessages } = this.state;
-      const flags = [ { key: true, value: 'True' }, { key: false, value: 'False' } ];
-      const options = Object.keys(this.componentTypes).map(key => ({ key: key, value: utils.toCamelCase(key) }));
-
-      let componentProps = Object.keys(this.componentTypes).reduce((all, item) => ({ ...all, [item]: this.componentTypes[item] }), {});
-      if (selected) componentProps[utils.toCamelCase(selected)] = withHighlight(componentProps[selected]);
-
-      const propsText = selected ? `${utils.toCamelCase(selected)}=withHighlight(TextField.componentTypes.${selected})` : '';
+      const { plainText, validationMessages } = this.state;
+      const handleSelected = state => this.setState(state);
 
       return (
-         <VMContext vm="TextFieldCustomize">
-            <Panel>
-               <TextField
-                  id="MyTextField"
-                  placeholder="Type something and tab to see validation message"
-                  prefix="http://www."
-                  suffix="@acme.org"
-                  plainText={plainText}
-                  validationMessages={validationMessages}
-                  {...componentProps}
-               />
-               <RadioGroup id="_components" label="Select sub-component to highlight:" options={options} value={selected} onChange={this.setSelected} />
-               <MarkdownText text={this.buildCode(propsText)} />
-            </Panel>
-         </VMContext>
+         <FieldCustomize
+            vm="TextFieldCustomize"
+            name="TextField"
+            componentTypes={TextField.componentTypes}
+            setSelected={this.setSelected}
+            onSelected={handleSelected}
+         >
+            <TextField
+               id="MyTextField"
+               placeholder="Placeholder"
+               prefix="Prefix-"
+               suffix="-Suffix"
+               plainText={plainText}
+               validationMessages={validationMessages}
+            />
+         </FieldCustomize>
       );
    }
 }
