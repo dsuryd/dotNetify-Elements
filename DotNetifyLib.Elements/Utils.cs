@@ -21,6 +21,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace DotNetify.Elements
@@ -55,6 +56,22 @@ namespace DotNetify.Elements
          {
             return await reader.ReadToEndAsync();
          }
+      }
+
+      /// <summary>
+      /// Returns a certain string section from a markdown resource.
+      /// </summary>
+      /// <param name="resource">Markdown resource.</param>
+      /// <param name="fromHeader">Section header.</param>
+      /// <param name="stopAtHeader">Optional section title that marks the end.</param>
+      /// <returns>Markdown section.</returns>
+      public static string GetMarkdownSection(this string resource, string fromHeader, string stopAtHeader = null)
+      {
+         string startPattern = !string.IsNullOrWhiteSpace(fromHeader) ? $@"(\r\n#+ {fromHeader}.+)" : @"(.+)";
+         string stopPattern = !string.IsNullOrWhiteSpace(stopAtHeader) ? $@"\r\n#+ {stopAtHeader}" : "";
+
+         Match match = Regex.Match(resource, startPattern + stopPattern, RegexOptions.Singleline | RegexOptions.Multiline);
+         return match.Success ? match.Groups[1].Value : null;
       }
    }
 }

@@ -5,7 +5,7 @@ import { Field } from '../structure/Field';
 import { Label } from '../display/Label';
 import { InputElement } from '../core/Element';
 
-const PlainTextComponent = props => (props.type === 'password' ? '' : props.children);
+const PlainTextComponent = props => (props.type === 'password' ? '' : <span {...props} />);
 
 export class TextField extends InputElement {
    static propTypes = {
@@ -37,7 +37,7 @@ export class TextField extends InputElement {
       suffix: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
 
       // Custom validation functions.
-      validation: PropTypes.oneOfType([ PropTypes.array, PropTypes.object ])
+      validation: PropTypes.oneOfType([ PropTypes.array, PropTypes.shape({ validate: PropTypes.func, message: PropTypes.string }) ])
    };
 
    static componentTypes = {
@@ -94,6 +94,7 @@ export class TextField extends InputElement {
       const handleBlur = onChange ? null : this.handleBlur;
 
       const plainTextValue = `${prefix || ''}${this.value || ''}${suffix || ''}`;
+      const validationMessages = this.props.validationMessages || this.state.validationMessages;
 
       return (
          <Container id={fullId} label={label} horizontal={horizontal} plainText={plainText}>
@@ -117,7 +118,7 @@ export class TextField extends InputElement {
                   />
                </InputGroup>
             )}
-            {this.state.validationMessages.map((message, idx) => <ValidationMessage key={'validationMsg' + idx}>{message}</ValidationMessage>)}
+            {validationMessages.map((message, idx) => <ValidationMessage key={'validationMsg' + idx}>{message}</ValidationMessage>)}
          </Container>
       );
    }

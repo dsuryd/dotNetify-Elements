@@ -35,9 +35,9 @@ export class Label extends React.Component {
 
    render() {
       const [ LabelContainer, Icon ] = utils.resolveComponents(Label, this.props);
-      const { right, apart, name, icon, padding, children } = this.props;
+      const { right, apart, name, icon, padding, style, children } = this.props;
       return (
-         <LabelContainer right={right} apart={apart} padding={padding}>
+         <LabelContainer right={right} apart={apart} padding={padding} style={style}>
             {icon ? icon : name ? <Icon name={name} right={right} /> : null}
             {children}
          </LabelContainer>

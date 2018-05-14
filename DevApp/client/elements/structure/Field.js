@@ -22,8 +22,7 @@ const LabelContainer = styled.div`
 
 const InputContainer = styled.div`
    width: calc(100% - 1px);
-   ${props => (props.right ? `display: flex; justify-content: flex-end;` : null)} ${props =>
-         props.theme.Field.InputContainer};
+   ${props => (props.right ? `display: flex; justify-content: flex-end;` : null)} ${props => props.theme.Field.InputContainer};
 `;
 
 const ValidationMessageContainer = styled.div`
@@ -51,24 +50,14 @@ export class Field extends React.Component {
    };
 
    render() {
-      const [
-         Container,
-         LabelContainer,
-         Label,
-         InputContainer,
-         PlainTextContainer,
-         ValidationMessageContainer
-      ] = utils.resolveComponents(Field, this.props);
-      const { id, label, plainText, horizontal, right, ...props } = this.props;
+      const [ Container, LabelContainer, Label, InputContainer, PlainTextContainer, ValidationMessageContainer ] = utils.resolveComponents(Field, this.props);
+      const { id, label, plainText, horizontal, right, style, ...props } = this.props;
       const labelPadding = horizontal ? null : '0 0 .5rem 0';
 
-      const [ validationMessages, children ] = utils.filterChildren(
-         this.props.children,
-         child => child.key && child.key.startsWith('validationMsg')
-      );
+      const [ validationMessages, children ] = utils.filterChildren(this.props.children, child => child.key && child.key.startsWith('validationMsg'));
 
       return (
-         <Container horizontal={horizontal}>
+         <Container style={style} horizontal={horizontal}>
             <LabelContainer horizontal={horizontal}>
                {label ? (
                   <Label for={id} padding={labelPadding}>

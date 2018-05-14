@@ -9,13 +9,13 @@ export const Input = styled.input.attrs({
 `;
 
 const InputPrepend = props => (
-   <div className="input-group-prepend">
+   <div className="input-group-prepend" style={props.style}>
       <span className="input-group-text">{props.children}</span>
    </div>
 );
 
 const InputAppend = props => (
-   <div className="input-group-append">
+   <div className="input-group-append" style={props.style}>
       <span className="input-group-text">{props.children}</span>
    </div>
 );
@@ -23,7 +23,7 @@ const InputAppend = props => (
 export const InputGroup = props => {
    const { prefix, suffix, children } = props;
    return prefix || suffix ? (
-      <div className="input-group">
+      <div className="input-group" style={props.style}>
          {prefix ? <InputPrepend>{prefix}</InputPrepend> : null}
          {children}
          {suffix ? <InputAppend>{suffix}</InputAppend> : null}

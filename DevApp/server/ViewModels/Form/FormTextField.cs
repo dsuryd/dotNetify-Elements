@@ -1,5 +1,6 @@
 ﻿using DotNetify;
 using DotNetify.Elements;
+using System.Text.RegularExpressions;
 
 namespace dotNetify_Elements
 {
@@ -7,9 +8,11 @@ namespace dotNetify_Elements
    {
       public FormTextField()
       {
-         AddProperty("Overview", Utils.GetResource("dotNetify_Elements.server.Docs.TextField.md").Result);
-         AddProperty("Mask", Utils.GetResource("dotNetify_Elements.server.Docs.TextField_Mask.md").Result);
-         AddProperty("API", Utils.GetResource("dotNetify_Elements.server.Docs.TextField_API.md").Result);
+         var markdown = Utils.GetResource("dotNetify_Elements.server.Docs.TextField.md").Result;
+
+         AddProperty("Overview", markdown.GetMarkdownSection(null, "Text Mask"));
+         AddProperty("Mask", markdown.GetMarkdownSection("Text Mask", "Property Type"));
+         AddProperty("API", markdown.GetMarkdownSection("Property Type"));
       }
    }
 
@@ -46,7 +49,17 @@ namespace dotNetify_Elements
                   AllowDecimal = false,
                   DecimalLimit = 0
                }
-            });
+            })
+            .WithMinValidation(this, 20, "Must not be less than US$20.00");
+      }
+   }
+
+   public class TextFieldCustomize : BaseVM
+   {
+      public TextFieldCustomize()
+      {
+         AddProperty<string>("MyTextField")
+            .WithAttribute(this, new TextFieldAttribute { Label = "Label:" });
       }
    }
 }
