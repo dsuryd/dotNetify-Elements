@@ -54,3 +54,13 @@ export default class FieldCustomize extends React.Component {
       );
    }
 }
+
+export const formatPropsForDisplay = props =>
+   Object.keys(props)
+      .map(key => {
+         let value = props[key];
+         value = typeof value === 'boolean' ? (value ? '' : null) : `={${value}}`;
+         return value !== null ? `${key}${value}` : null;
+      })
+      .filter(x => x)
+      .join(' ');

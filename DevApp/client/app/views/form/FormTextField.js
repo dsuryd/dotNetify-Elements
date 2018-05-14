@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Checkbox, Frame, Markdown, MarkdownText, Panel, RadioToggle, Tab, TabItem, TextField, Theme, VMContext } from 'elements';
-import FieldCustomize from '../../components/FieldCustomize';
+import FieldCustomize, { formatPropsForDisplay } from '../../components/FieldCustomize';
 
 const FormTextField = props => (
    <VMContext vm="FormTextField">
@@ -34,7 +34,7 @@ class TextFieldExamples extends React.Component {
 
    buildCode = props => {
       if (props.length > 0) props = props + ' ';
-      let code = `
+      return `
 \`\`\`jsx
 import React from 'react';
 import { VMContext, TextField } from 'dotnetify-elements';
@@ -47,27 +47,12 @@ const MyApp = _ => (
    </VMContext>
 );
 \`\`\``;
-      return code;
-   };
-
-   set = (state, value) => {
-      value = value === 'true' ? true : value === 'false' ? false : value;
-      this.setState({ [state]: value });
    };
 
    render() {
       const { label, horizontal, plainText, disable } = this.state;
       const flags = [ { key: true, value: 'True' }, { key: false, value: 'False' } ];
-
-      let propsText = Object.keys(this.state)
-         .map(key => {
-            let value = this.state[key];
-            value = typeof value === 'boolean' ? (value ? '' : null) : `={${value}}`;
-            return value !== null ? `${key}${value}` : null;
-         })
-         .filter(x => x)
-         .join(' ');
-
+      const set = (state, value) => this.setState({ [state]: value === 'true' ? true : value === 'false' ? false : value });
       return (
          <VMContext vm="TextFieldExamples">
             <Panel>
@@ -77,11 +62,11 @@ const MyApp = _ => (
                   <TextField id="TextField_Payment" horizontal={horizontal} plainText={plainText} disable={disable} />
                </Panel>
                <Panel horizontal>
-                  <RadioToggle id="_horizontal" label="Horizontal:" options={flags} value={horizontal} onChange={val => this.set('horizontal', val)} />
-                  <RadioToggle id="_plainText" label="Plain Text:" options={flags} value={plainText} onChange={val => this.set('plainText', val)} />
-                  <RadioToggle id="_disable" label="Disable:" options={flags} value={disable} onChange={val => this.set('disable', val)} />
+                  <RadioToggle id="_horizontal" label="Horizontal:" options={flags} value={horizontal} onChange={val => set('horizontal', val)} />
+                  <RadioToggle id="_plainText" label="Plain Text:" options={flags} value={plainText} onChange={val => set('plainText', val)} />
+                  <RadioToggle id="_disable" label="Disable:" options={flags} value={disable} onChange={val => set('disable', val)} />
                </Panel>
-               <MarkdownText text={this.buildCode(propsText)} />
+               <MarkdownText text={this.buildCode(formatPropsForDisplay(this.state))} />
             </Panel>
          </VMContext>
       );
