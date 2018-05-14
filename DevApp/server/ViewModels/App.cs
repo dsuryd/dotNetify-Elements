@@ -11,6 +11,17 @@ namespace dotNetify_Elements
       {
          Home,
          Introduction,
+         Form,
+         FormCheckbox,
+         FormCheckboxGroup,
+         FormDateTimeField,
+         FormDropdownList,
+         FormMultiSelect,
+         FormNumberField,
+         FormPasswordField,
+         FormRadioGroup,
+         FormRadioToggle,
+         FormTextAreaField,
          FormTextField,
          FormDemo,
          FormValidationDemo,
@@ -26,6 +37,7 @@ namespace dotNetify_Elements
          {
             new RouteTemplate(nameof(Route.Home))                 { UrlPattern = "", ViewUrl = nameof(Route.Introduction) },
             new RouteTemplate(nameof(Route.Introduction))         { UrlPattern = "intro" },
+            new RouteTemplate(nameof(Route.FormTextAreaField))    { UrlPattern = "form/textareafield" },
             new RouteTemplate(nameof(Route.FormTextField))        { UrlPattern = "form/textfield" },
             new RouteTemplate(nameof(Route.FormDemo))             { UrlPattern = "form/demo" },
             new RouteTemplate(nameof(Route.FormValidationDemo))   { UrlPattern = "form/validationdemo" },
@@ -43,9 +55,10 @@ namespace dotNetify_Elements
                   Icon = "far fa-edit",
                   Routes = new NavRoute[]
                   {
-                     new NavRoute("TextField",   this.GetRoute(nameof(Route.FormTextField))),
-                     new NavRoute("Form Demo",   this.GetRoute(nameof(Route.FormDemo))),
-                     new NavRoute("Validation Demo", this.GetRoute(nameof(Route.FormValidationDemo)))
+                     new NavRoute("TextAreaField",    this.GetRoute(nameof(Route.FormTextAreaField))),
+                     new NavRoute("TextField",        this.GetRoute(nameof(Route.FormTextField))),
+                     new NavRoute("Form Demo",        this.GetRoute(nameof(Route.FormDemo))),
+                     new NavRoute("Validation Demo",  this.GetRoute(nameof(Route.FormValidationDemo)))
                   }
                },
                new NavGroup

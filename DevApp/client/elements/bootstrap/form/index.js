@@ -76,7 +76,8 @@ Object.assign(TextField.componentTypes, {
 });
 
 Object.assign(TextAreaField.componentTypes, {
-   InputComponent: TextArea
+   InputComponent: TextArea,
+   InputGroupComponent: InputGroup
 });
 
 export {

@@ -22,10 +22,11 @@ export class Markdown extends Element {
       const _children = React.Children.toArray(children);
 
       let markdowns = [];
-      this.value.split('[inset]').forEach((section, idx) => {
-         markdowns.push(section);
-         idx < _children.length && markdowns.push(_children[idx]);
-      });
+      if (this.value)
+         this.value.split('[inset]').forEach((section, idx) => {
+            markdowns.push(section);
+            idx < _children.length && markdowns.push(_children[idx]);
+         });
 
       const markdown = section => (typeof section == 'string' ? <MarkdownText text={section} /> : section);
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Checkbox, Frame, Markdown, MarkdownText, Panel, RadioToggle, Tab, TabItem, TextField, Theme, VMContext } from 'elements';
+import { Frame, Markdown, MarkdownText, Panel, RadioToggle, Tab, TabItem, TextField, Theme, VMContext } from 'elements';
 import FieldCustomize, { formatPropsForDisplay } from '../../components/FieldCustomize';
 
 const FormTextField = props => (
@@ -56,7 +56,7 @@ const MyApp = _ => (
       return (
          <VMContext vm="TextFieldExamples">
             <Panel>
-               <Panel css="min-height: 16rem">
+               <Panel css="min-height: 17rem">
                   <TextField id="TextField_Name" horizontal={horizontal} plainText={plainText} disable={disable} />
                   <TextField id="TextField_Phone" horizontal={horizontal} plainText={plainText} disable={disable} />
                   <TextField id="TextField_Payment" horizontal={horizontal} plainText={plainText} disable={disable} />
@@ -86,7 +86,6 @@ class TextFieldCustomize extends React.Component {
    render() {
       const { plainText, validationMessages } = this.state;
       const handleSelected = state => this.setState(state);
-
       return (
          <FieldCustomize
             vm="TextFieldCustomize"
@@ -95,14 +94,7 @@ class TextFieldCustomize extends React.Component {
             setSelected={this.setSelected}
             onSelected={handleSelected}
          >
-            <TextField
-               id="MyTextField"
-               placeholder="Placeholder"
-               prefix="Prefix-"
-               suffix="-Suffix"
-               plainText={plainText}
-               validationMessages={validationMessages}
-            />
+            <TextField id="MyField" prefix="Prefix-" suffix="-Suffix" plainText={plainText} validationMessages={validationMessages} />
          </FieldCustomize>
       );
    }

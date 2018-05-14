@@ -1,7 +1,5 @@
 ﻿The element to accept text input.  It can be configured to use input mask and validate the input.
 
-#### Examples
-
 [inset]
 
 ```cs

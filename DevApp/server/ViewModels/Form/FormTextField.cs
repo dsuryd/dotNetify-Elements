@@ -1,6 +1,5 @@
 ﻿using DotNetify;
 using DotNetify.Elements;
-using System.Text.RegularExpressions;
 
 namespace dotNetify_Elements
 {
@@ -59,7 +58,7 @@ namespace dotNetify_Elements
       public TextFieldCustomize()
       {
          AddProperty<string>("MyTextField")
-            .WithAttribute(this, new TextFieldAttribute { Label = "Label:" });
+            .WithAttribute(this, new TextFieldAttribute { Label = "Label:", Placeholder = "Placeholder" });
       }
    }
 }

@@ -5,15 +5,16 @@ import { TextField } from './TextField';
 import { InputElement } from '../core/Element';
 
 export class TextAreaField extends InputElement {
-   static propTypes = Object.assign(
-      {
-         rows: PropTypes.number
-      },
-      TextField.propTypes
-   );
+   static propTypes = {
+      ...TextField.propTypes,
+
+      // Number of rows of the input area.
+      rows: PropTypes.number
+   };
 
    static componentTypes = {
-      InputComponent: undefined
+      InputComponent: undefined,
+      ...TextField.componentTypes
    };
 
    render() {

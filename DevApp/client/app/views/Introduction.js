@@ -18,7 +18,7 @@ const Overview = props => (
    </VMContext>
 );
 
-const SeeItLive = _ => <b>See it Live!</b>;
+const SeeItLive = _ => <b>See its Live!</b>;
 
 const HelloWorld = _ => (
    <VMContext vm="HelloWorld">

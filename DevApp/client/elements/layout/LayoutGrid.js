@@ -29,6 +29,7 @@ export const Header = styled.header`
 export const Nav = styled.nav`
    grid-area: nav;
    width: ${props => props.width || '250px'};
+   overflow: auto;
    ${props => props.theme.Nav};
 `;
 
