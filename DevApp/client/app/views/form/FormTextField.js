@@ -76,24 +76,17 @@ const MyApp = _ => (
 class TextFieldCustomize extends React.Component {
    state = { plainText: false, validationMessages: null };
 
-   setSelected = value => {
-      return {
-         plainText: value === 'PlainTextComponent',
-         validationMessages: value === 'ValidationMessageComponent' ? [ 'Validation message' ] : null
-      };
-   };
-
    render() {
       const { plainText, validationMessages } = this.state;
+      const componentTypes = TextField.componentTypes;
       const handleSelected = state => this.setState(state);
+      const select = value => ({
+         plainText: value === 'PlainTextComponent',
+         validationMessages: value === 'ValidationMessageComponent' ? [ 'Validation message' ] : null
+      });
+
       return (
-         <FieldCustomize
-            vm="TextFieldCustomize"
-            name="TextField"
-            componentTypes={TextField.componentTypes}
-            setSelected={this.setSelected}
-            onSelected={handleSelected}
-         >
+         <FieldCustomize vm="TextFieldCustomize" name="TextField" componentTypes={componentTypes} select={select} onSelected={handleSelected}>
             <TextField id="MyField" prefix="Prefix-" suffix="-Suffix" plainText={plainText} validationMessages={validationMessages} />
          </FieldCustomize>
       );

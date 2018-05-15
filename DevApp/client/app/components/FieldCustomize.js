@@ -25,10 +25,10 @@ export default class FieldCustomize extends React.Component {
       return customize ? withHighlight(component) : component;
    }
 
-   setSelected = value => {
+   select = value => {
       const state = Object.assign({}, { selected: value }, this.props.setSelected(value));
       this.setState(state);
-      this.props.onSelected(state);
+      this.props.select(state);
    };
 
    render() {
@@ -46,7 +46,7 @@ export default class FieldCustomize extends React.Component {
             <Panel>
                {React.cloneElement(React.Children.only(this.props.children), { ...componentProps })}
                <Card>
-                  <RadioGroup id="_components" label="Select sub-component to highlight:" options={options} value={selected} onChange={this.setSelected} />
+                  <RadioGroup id="_components" label="Select sub-component to highlight:" options={options} value={selected} onChange={this.select} />
                </Card>
                <MarkdownText text={this.buildCode(propsText)} />
             </Panel>
