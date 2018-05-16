@@ -37,6 +37,8 @@ namespace dotNetify_Elements
          {
             new RouteTemplate(nameof(Route.Home))                 { UrlPattern = "", ViewUrl = nameof(Route.Introduction) },
             new RouteTemplate(nameof(Route.Introduction))         { UrlPattern = "intro" },
+            new RouteTemplate(nameof(Route.FormRadioGroup))      { UrlPattern = "form/radiogroup" },
+            new RouteTemplate(nameof(Route.FormRadioToggle))      { UrlPattern = "form/radiotoggle" },
             new RouteTemplate(nameof(Route.FormTextAreaField))    { UrlPattern = "form/textareafield" },
             new RouteTemplate(nameof(Route.FormTextField))        { UrlPattern = "form/textfield" },
             new RouteTemplate(nameof(Route.FormDemo))             { UrlPattern = "form/demo" },
@@ -55,6 +57,8 @@ namespace dotNetify_Elements
                   Icon = "far fa-edit",
                   Routes = new NavRoute[]
                   {
+                     new NavRoute("RadioGroup",       this.GetRoute(nameof(Route.FormRadioGroup))),
+                     new NavRoute("RadioToggle",      this.GetRoute(nameof(Route.FormRadioToggle))),
                      new NavRoute("TextAreaField",    this.GetRoute(nameof(Route.FormTextAreaField))),
                      new NavRoute("TextField",        this.GetRoute(nameof(Route.FormTextField))),
                      new NavRoute("Form Demo",        this.GetRoute(nameof(Route.FormDemo))),

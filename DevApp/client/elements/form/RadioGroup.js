@@ -7,15 +7,24 @@ import * as utils from '../utils';
 
 const GroupContainer = styled.section`${props => props.theme.Radio.GroupContainer};`;
 
-const PlainTextComponent = props => props.children;
+const PlainTextComponent = props => <span {...props} />;
 
 export class RadioGroup extends InputElement {
    static propTypes = {
+      // Identifies the associated view model property.
       id: PropTypes.string.isRequired,
-      label: PropTypes.string,
+
+      // Disables the field.
+      disable: PropTypes.bool,
+
+      // Text or component for the field's label.
+      label: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
+
+      // Displays the label text horizontally to the left of the field.
       horizontal: PropTypes.bool,
-      plainText: PropTypes.bool,
-      disable: PropTypes.bool
+
+      // Replaces the input field with plain text.
+      plainText: PropTypes.bool
    };
 
    static componentTypes = {

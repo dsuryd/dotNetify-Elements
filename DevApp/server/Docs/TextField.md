@@ -1,4 +1,4 @@
-﻿The element to accept text input.  It can be configured to use input mask and validate the input.
+﻿The element to accept text input; can be configured to apply input mask and validate the input.
 
 [inset]
 

@@ -64,7 +64,7 @@ class TextAreaFieldCustomize extends React.Component {
       });
       return (
          <RenderCustomize vm="TextAreaFieldCustomize" name="TextAreaField" componentTypes={componentTypes} select={select} onSelected={handleSelected}>
-            <TextAreaField id="MyField" prefix="Prefix-" suffix="-Suffix" plainText={plainText} validationMessages={validationMessages} />
+            <TextAreaField id="MyField" label="Label:" prefix="Prefix-" suffix="-Suffix" plainText={plainText} validationMessages={validationMessages} />
          </RenderCustomize>
       );
    }

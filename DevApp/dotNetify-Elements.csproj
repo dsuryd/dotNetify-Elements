@@ -5,6 +5,8 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove="server\Docs\Introduction.md" />
+    <None Remove="server\Docs\RadioGroup.md" />
+    <None Remove="server\Docs\RadioToggle.md" />
     <None Remove="server\Docs\TextAreaField.md" />
     <None Remove="server\Docs\TextField.md" />
   </ItemGroup>
@@ -25,6 +27,8 @@
     <DotNetCliToolReference Include="Microsoft.DotNet.Watcher.Tools" Version="2.0.0" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="server\Docs\RadioGroup.md" />
+    <EmbeddedResource Include="server\Docs\RadioToggle.md" />
     <EmbeddedResource Include="server\Docs\TextAreaField.md" />
     <EmbeddedResource Include="server\Docs\TextField.md" />
     <EmbeddedResource Include="server\Docs\Introduction.md" />

@@ -72,7 +72,7 @@ class TextFieldCustomize extends React.Component {
 
       return (
          <RenderCustomize vm="TextFieldCustomize" name="TextField" componentTypes={componentTypes} select={select} onSelected={handleSelected}>
-            <TextField id="MyField" prefix="Prefix-" suffix="-Suffix" plainText={plainText} validationMessages={validationMessages} />
+            <TextField id="MyField" label="Label:" prefix="Prefix-" suffix="-Suffix" plainText={plainText} validationMessages={validationMessages} />
          </RenderCustomize>
       );
    }

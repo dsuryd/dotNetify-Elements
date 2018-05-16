@@ -1,4 +1,4 @@
-﻿The element to accept multi-line text input; has similar capabilities with _TextField_.
+﻿The element to accept multi-line text input; can be configured to validate the input.
 
 [inset]
 
