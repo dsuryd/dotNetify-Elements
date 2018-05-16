@@ -14,9 +14,9 @@ namespace dotNetify_Elements
       }
    }
 
-   public class TextAreaFieldExamples : BaseVM
+   public class TextAreaFieldExample : BaseVM
    {
-      public TextAreaFieldExamples()
+      public TextAreaFieldExample()
       {
          AddProperty<string>("TextAreaField_Comment")
             .WithAttribute(this, new TextAreaFieldAttribute

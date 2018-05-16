@@ -15,9 +15,9 @@ namespace dotNetify_Elements
       }
    }
 
-   public class TextFieldExamples : BaseVM
+   public class TextFieldExample : BaseVM
    {
-      public TextFieldExamples()
+      public TextFieldExample()
       {
          AddProperty<string>("TextField_Name")
             .WithAttribute(this, new TextFieldAttribute

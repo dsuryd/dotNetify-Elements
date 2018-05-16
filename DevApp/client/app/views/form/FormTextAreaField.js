@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Frame, Markdown, MarkdownText, Panel, RadioToggle, Tab, TabItem, TextAreaField, Theme, VMContext } from 'elements';
-import FieldCustomize, { formatPropsForDisplay } from '../../components/FieldCustomize';
+import { Frame, Markdown, Panel, Tab, TabItem, TextAreaField, Theme, VMContext } from 'elements';
+import RenderExample from '../../components/RenderExample';
+import RenderCustomize from '../../components/RenderCustomize';
 
 const FormTextAreaField = props => (
    <VMContext vm="FormTextAreaField">
@@ -11,7 +12,7 @@ const FormTextAreaField = props => (
             <Tab>
                <TabItem label="Overview">
                   <Markdown id="Overview">
-                     <TextAreaFieldExamples />
+                     <TextAreaFieldExample />
                   </Markdown>
                </TabItem>
                <TabItem label="API">
@@ -26,42 +27,26 @@ const FormTextAreaField = props => (
    </VMContext>
 );
 
-class TextAreaFieldExamples extends React.Component {
-   state = { horizontal: false, plainText: false, disable: false };
-
-   buildCode = props => {
-      if (props.length > 0) props = props + ' ';
-      return `
+class TextAreaFieldExample extends React.Component {
+   render() {
+      const buildCode = props => `
 \`\`\`jsx
 import React from 'react';
 import { VMContext, TextAreaField } from 'dotnetify-elements';
 
 const MyApp = _ => (
-   <VMContext vm="TextAreaFieldExamples">
+   <VMContext vm="TextAreaFieldExample">
       <TextAreaField id="TextAreaField_Comment" ${props}/>
    </VMContext>
 );
 \`\`\``;
-   };
-
-   render() {
-      const { label, horizontal, plainText, disable } = this.state;
-      const flags = [ { key: true, value: 'True' }, { key: false, value: 'False' } ];
-      const set = (state, value) => this.setState({ [state]: value === 'true' ? true : value === 'false' ? false : value });
+      const setState = state => this.setState(state);
       return (
-         <VMContext vm="TextAreaFieldExamples">
-            <Panel>
-               <Panel css="min-height: 10rem">
-                  <TextAreaField id="TextAreaField_Comment" horizontal={horizontal} plainText={plainText} disable={disable} />
-               </Panel>
-               <Panel horizontal>
-                  <RadioToggle id="_horizontal" label="Horizontal:" options={flags} value={horizontal} onChange={val => set('horizontal', val)} />
-                  <RadioToggle id="_plainText" label="Plain Text:" options={flags} value={plainText} onChange={val => set('plainText', val)} />
-                  <RadioToggle id="_disable" label="Disable:" options={flags} value={disable} onChange={val => set('disable', val)} />
-               </Panel>
-               <MarkdownText text={this.buildCode(formatPropsForDisplay(this.state))} />
+         <RenderExample vm="TextAreaFieldExample" propTypes={TextAreaField.propTypes} buildCode={buildCode} onChange={setState}>
+            <Panel css="min-height: 10rem">
+               <TextAreaField id="TextAreaField_Comment" {...this.state} />
             </Panel>
-         </VMContext>
+         </RenderExample>
       );
    }
 }
@@ -78,9 +63,9 @@ class TextAreaFieldCustomize extends React.Component {
          validationMessages: value === 'ValidationMessageComponent' ? [ 'Validation message' ] : null
       });
       return (
-         <FieldCustomize vm="TextAreaFieldCustomize" name="TextAreaField" componentTypes={componentTypes} select={select} onSelected={handleSelected}>
+         <RenderCustomize vm="TextAreaFieldCustomize" name="TextAreaField" componentTypes={componentTypes} select={select} onSelected={handleSelected}>
             <TextAreaField id="MyField" prefix="Prefix-" suffix="-Suffix" plainText={plainText} validationMessages={validationMessages} />
-         </FieldCustomize>
+         </RenderCustomize>
       );
    }
 }

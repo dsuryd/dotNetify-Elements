@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Frame, Markdown, MarkdownText, Panel, RadioToggle, Tab, TabItem, TextField, Theme, VMContext } from 'elements';
-import FieldCustomize, { formatPropsForDisplay } from '../../components/FieldCustomize';
+import { Frame, Markdown, Panel, Tab, TabItem, TextField, Theme, VMContext } from 'elements';
+import RenderExample from '../../components/RenderExample';
+import RenderCustomize from '../../components/RenderCustomize';
 
 const FormTextField = props => (
    <VMContext vm="FormTextField">
@@ -11,7 +12,7 @@ const FormTextField = props => (
             <Tab>
                <TabItem label="Overview">
                   <Markdown id="Overview">
-                     <TextFieldExamples />
+                     <TextFieldExample />
                   </Markdown>
                </TabItem>
                <TabItem label="Input Mask">
@@ -29,46 +30,30 @@ const FormTextField = props => (
    </VMContext>
 );
 
-class TextFieldExamples extends React.Component {
-   state = { horizontal: false, plainText: false, disable: false };
-
-   buildCode = props => {
-      if (props.length > 0) props = props + ' ';
-      return `
+class TextFieldExample extends React.Component {
+   render() {
+      const buildCode = props => `
 \`\`\`jsx
 import React from 'react';
 import { VMContext, TextField } from 'dotnetify-elements';
 
 const MyApp = _ => (
-   <VMContext vm="TextFieldExamples">
+   <VMContext vm="TextFieldExample">
       <TextField id="TextField_Name" ${props}/>
       <TextField id="TextField_Phone" ${props}/>
       <TextField id="TextField_Payment" ${props}/>
    </VMContext>
 );
 \`\`\``;
-   };
-
-   render() {
-      const { label, horizontal, plainText, disable } = this.state;
-      const flags = [ { key: true, value: 'True' }, { key: false, value: 'False' } ];
-      const set = (state, value) => this.setState({ [state]: value === 'true' ? true : value === 'false' ? false : value });
+      const setState = state => this.setState(state);
       return (
-         <VMContext vm="TextFieldExamples">
-            <Panel>
-               <Panel css="min-height: 17rem">
-                  <TextField id="TextField_Name" horizontal={horizontal} plainText={plainText} disable={disable} />
-                  <TextField id="TextField_Phone" horizontal={horizontal} plainText={plainText} disable={disable} />
-                  <TextField id="TextField_Payment" horizontal={horizontal} plainText={plainText} disable={disable} />
-               </Panel>
-               <Panel horizontal>
-                  <RadioToggle id="_horizontal" label="Horizontal:" options={flags} value={horizontal} onChange={val => set('horizontal', val)} />
-                  <RadioToggle id="_plainText" label="Plain Text:" options={flags} value={plainText} onChange={val => set('plainText', val)} />
-                  <RadioToggle id="_disable" label="Disable:" options={flags} value={disable} onChange={val => set('disable', val)} />
-               </Panel>
-               <MarkdownText text={this.buildCode(formatPropsForDisplay(this.state))} />
+         <RenderExample vm="TextFieldExample" propTypes={TextField.propTypes} buildCode={buildCode} onChange={setState}>
+            <Panel css="min-height: 17rem">
+               <TextField id="TextField_Name" {...this.state} />
+               <TextField id="TextField_Phone" {...this.state} />
+               <TextField id="TextField_Payment" {...this.state} />
             </Panel>
-         </VMContext>
+         </RenderExample>
       );
    }
 }
@@ -86,9 +71,9 @@ class TextFieldCustomize extends React.Component {
       });
 
       return (
-         <FieldCustomize vm="TextFieldCustomize" name="TextField" componentTypes={componentTypes} select={select} onSelected={handleSelected}>
+         <RenderCustomize vm="TextFieldCustomize" name="TextField" componentTypes={componentTypes} select={select} onSelected={handleSelected}>
             <TextField id="MyField" prefix="Prefix-" suffix="-Suffix" plainText={plainText} validationMessages={validationMessages} />
-         </FieldCustomize>
+         </RenderCustomize>
       );
    }
 }
