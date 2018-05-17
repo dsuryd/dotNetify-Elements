@@ -66,7 +66,7 @@ namespace dotNetify_Elements
             { "c5", "Choice 5" },
          };
 
-         AddProperty<string>("MyMultiselectList")
+         AddProperty("MyMultiselectList", new string[] { "c1", "c3" })
             .WithAttribute(this, new DropdownListAttribute
             {
                Label = "Label:",

@@ -4,7 +4,7 @@ import { DropdownList } from './DropdownList';
 import { Field } from '../structure/Field';
 import { InputElement } from '../core/Element';
 
-const PlainTextComponent = props => <span style={{ minHeight: '2.4rem' }}>{React.Children.toArray(props.children).join(', ')}</span>;
+const PlainTextComponent = props => <span {...props}>{React.Children.toArray(props.children).join(', ')}</span>;
 
 export class MultiselectList extends InputElement {
    static propTypes = {
@@ -27,7 +27,6 @@ export class MultiselectList extends InputElement {
    static componentTypes = {
       Container: Field,
       InputComponent: undefined,
-      InputGroupComponent: undefined,
       TagComponent: undefined,
       ItemComponent: undefined,
       ListComponent: undefined,
@@ -37,8 +36,8 @@ export class MultiselectList extends InputElement {
    handleChange = value => this.dispatch(value.map(val => val.Key));
 
    render() {
-      const [ Container, Input, InputGroup, Tag, Item, List, PlainText ] = this.resolveComponents(MultiselectList);
-      const { fullId, label, plainText, prefix, suffix, options, horizontal, disable, style, ...props } = this.attrs;
+      const [ Container, Input, Tag, Item, List, PlainText ] = this.resolveComponents(MultiselectList);
+      const { fullId, label, plainText, options, horizontal, disable, style, ...props } = this.attrs;
 
 
       const values = this.value ? this.value.map( x => `${x}`) : [];
@@ -50,23 +49,19 @@ export class MultiselectList extends InputElement {
             {plainText ? (
                <PlainText>{plainTextValue}</PlainText>
             ) : (
-               <InputGroup prefix={prefix} suffix={suffix}>
-                  <Input
-                     id={fullId}
-                     value={values}
-                     data={options}
-                     valueField="Key"
-                     textField="Value"
-                     tagComponent={Tag}
-                     itemComponent={Item}
-                     listComponent={List}
-                     prefix={prefix}
-                     suffix={suffix}
-                     disabled={disable}
-                     onChange={this.handleChange}
-                     {...props}
-                  />
-               </InputGroup>
+               <Input
+                  id={fullId}
+                  value={values}
+                  data={options}
+                  valueField="Key"
+                  textField="Value"
+                  tagComponent={Tag}
+                  itemComponent={Item}
+                  listComponent={List}
+                  disabled={disable}
+                  onChange={this.handleChange}
+                  {...props}
+               />
             )}
          </Container>
       );

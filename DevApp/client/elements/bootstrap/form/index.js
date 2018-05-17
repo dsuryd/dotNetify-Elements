@@ -53,8 +53,7 @@ Object.assign(DropdownList.componentTypes, {
 });
 
 Object.assign(MultiselectList.componentTypes, {
-   InputComponent: rw.Multiselect,
-   InputGroupComponent: InputGroup
+   InputComponent: rw.Multiselect
 });
 
 Object.assign(NumberField.componentTypes, {

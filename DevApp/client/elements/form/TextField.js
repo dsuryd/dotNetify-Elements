@@ -87,7 +87,6 @@ export class TextField extends InputElement {
    };
 
    render() {
-      console.log(TextField.propTypes.validation);
       const [ Container, Input, InputGroup, ValidationMessage, PlainText ] = this.resolveComponents(TextField);
       const { fullId, label, placeholder, prefix, suffix, maxLength, plainText, horizontal, disable, onChange, type, css, style, ...props } = this.attrs;
 

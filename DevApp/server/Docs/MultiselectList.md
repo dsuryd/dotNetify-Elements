@@ -1,4 +1,4 @@
-﻿The element to accept . 
+﻿The element to accept multiple selections input from a set of options in a dropdown menu. 
 
 [inset]
 

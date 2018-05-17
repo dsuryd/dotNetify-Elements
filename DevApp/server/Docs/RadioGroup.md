@@ -1,4 +1,4 @@
-﻿The element to accept input of a single selection out of a set of options. 
+﻿The element to accept single selection input from of a set of options that are visually represented as radio buttons. 
 
 [inset]
 

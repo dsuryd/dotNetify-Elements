@@ -8,8 +8,11 @@ const withHighlight = Component => props => <Component {...props} style={{ borde
 export default class RenderCustomize extends React.Component {
    constructor(props) {
       super(props);
-      this.componentTypes = props.componentTypes;
       this.state = { selected: null };
+      this.componentTypes = {};
+      Object.keys(props.componentTypes).forEach(key => {
+         if (props.componentTypes[key]) this.componentTypes[key] = props.componentTypes[key]; 
+      });
    }
 
    buildCode = props => {

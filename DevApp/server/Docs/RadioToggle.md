@@ -1,4 +1,4 @@
-﻿The element to accept input of a single selection out of a set of options, which are visually represented as toggle buttons. 
+﻿The element to accept single selection input from a set of options that are visually represented as toggle buttons. 
 
 [inset]
 

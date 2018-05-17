@@ -63,7 +63,7 @@ class MultiselectListCustomize extends React.Component {
       });
       return (
          <RenderCustomize vm="MultiselectListCustomize" name="MultiselectList" componentTypes={componentTypes} select={select} onSelected={handleSelected}>
-            <MultiselectList id="MyMultiselectList" plainText={plainText} />
+            <MultiselectList id="MyMultiselectList" plainText={plainText} prefix="Prefix-" />
          </RenderCustomize>
       );
    }
