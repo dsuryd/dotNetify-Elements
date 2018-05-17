@@ -1,5 +1,6 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
+import { DropdownList } from './DropdownList';
 import { Field } from '../structure/Field';
 import { InputElement } from '../core/Element';
 
@@ -7,13 +8,20 @@ const PlainTextComponent = props => <span style={{ minHeight: '2.4rem' }}>{React
 
 export class MultiselectList extends InputElement {
    static propTypes = {
+      // Identifies the associated view model property.
       id: PropTypes.string.isRequired,
-      label: PropTypes.string,
+
+      // Disables the field.
+      disable: PropTypes.bool,
+
+      // Displays the label text horizontally to the left of the field.      
       horizontal: PropTypes.bool,
+
+      // Text or component for the field's label.      
+      label: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
+
+      // Replaces the input field with plain text.
       plainText: PropTypes.bool,
-      prefix: PropTypes.any,
-      suffix: PropTypes.any,
-      disable: PropTypes.bool
    };
 
    static componentTypes = {
@@ -32,7 +40,9 @@ export class MultiselectList extends InputElement {
       const [ Container, Input, InputGroup, Tag, Item, List, PlainText ] = this.resolveComponents(MultiselectList);
       const { fullId, label, plainText, prefix, suffix, options, horizontal, disable, style, ...props } = this.attrs;
 
-      const selected = (options || []).filter(opt => this.value.includes(opt.Key));
+
+      const values = this.value ? this.value.map( x => `${x}`) : [];
+      const selected = (options || []).filter(opt => values.includes(opt.Key));
       const plainTextValue = selected.map(x => x.Value);
 
       return (
@@ -43,7 +53,7 @@ export class MultiselectList extends InputElement {
                <InputGroup prefix={prefix} suffix={suffix}>
                   <Input
                      id={fullId}
-                     value={this.value}
+                     value={values}
                      data={options}
                      valueField="Key"
                      textField="Value"

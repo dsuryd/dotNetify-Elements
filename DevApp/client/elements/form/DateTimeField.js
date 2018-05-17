@@ -13,14 +13,32 @@ const PlainTextComponent = props => {
 
 export class DateTimeField extends InputElement {
    static propTypes = {
+      // Identifies the associated view model property.
       id: PropTypes.string.isRequired,
-      label: PropTypes.string,
-      horizontal: PropTypes.bool,
-      plainText: PropTypes.bool,
+
+      // Disables the field.
       disable: PropTypes.bool,
-      prefix: PropTypes.any,
-      suffix: PropTypes.any,
-      validation: PropTypes.oneOfType([ PropTypes.array, PropTypes.object ])
+
+      // Text or component for the field's label.
+      label: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
+
+      // Displays the label text horizontally to the left of the field.
+      horizontal: PropTypes.bool,
+
+      // Placeholder text to display when the field is empty.
+      placeholder: PropTypes.string,
+
+      // Replaces the input field with plain text.
+      plainText: PropTypes.bool,
+
+      // Text or component to display before the field.
+      prefix: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
+
+      // Text or component to display after the field.
+      suffix: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
+
+      // Custom validation functions.
+      validation: PropTypes.oneOfType([ PropTypes.array, PropTypes.shape({ validate: PropTypes.func, message: PropTypes.string }) ])
    };
 
    static componentTypes = {

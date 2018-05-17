@@ -8,13 +8,20 @@ const PlainTextComponent = props => props.children;
 
 export class DropdownList extends InputElement {
    static propTypes = {
+      // Identifies the associated view model property.
       id: PropTypes.string.isRequired,
-      label: PropTypes.string,
+
+      // Disables the field.
+      disable: PropTypes.bool,
+
+      // Displays the label text horizontally to the left of the field.      
       horizontal: PropTypes.bool,
+
+      // Text or component for the field's label.      
+      label: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
+
+      // Replaces the input field with plain text.
       plainText: PropTypes.bool,
-      prefix: PropTypes.any,
-      suffix: PropTypes.any,
-      disable: PropTypes.bool
    };
 
    static componentTypes = {

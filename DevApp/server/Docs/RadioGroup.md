@@ -60,7 +60,10 @@ static propTypes = {
 ```cs
 public class RadioGroupAttribute
 {
+   // Label text of the field.
    public string Label { get; set; }
+
+   // Options to select.
    public KeyValuePair<string, string>[] Options { get; set; }
 }
 ```

@@ -36,7 +36,7 @@ import { VMContext, MultiselectList } from 'dotnetify-elements';
 
 const MyApp = _ => (
    <VMContext vm="MultiselectListExample">
-      <MultiselectList id="MultiselectList_Example" ${props}/>
+      <MultiselectList id="VisitPurpose" ${props}/>
    </VMContext>
 );
 \`\`\``;
@@ -44,7 +44,7 @@ const MyApp = _ => (
       return (
          <RenderExample vm="MultiselectListExample" propTypes={MultiselectList.propTypes} buildCode={buildCode} onChange={setState}>
             <Panel style={{ minHeight: '8rem' }}>
-               <MultiselectList id="MultiselectList_Example" {...this.state} />
+               <MultiselectList id="VisitPurpose" {...this.state} />
             </Panel>
          </RenderExample>
       );
@@ -63,7 +63,7 @@ class MultiselectListCustomize extends React.Component {
       });
       return (
          <RenderCustomize vm="MultiselectListCustomize" name="MultiselectList" componentTypes={componentTypes} select={select} onSelected={handleSelected}>
-            <MultiselectList id="MyMultiselectList" label="Label:" plainText={plainText} />
+            <MultiselectList id="MyMultiselectList" plainText={plainText} />
          </RenderCustomize>
       );
    }
