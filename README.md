@@ -13,7 +13,7 @@ Under development...
 - [x] Input mask
 - [x] Data grid
 - [x] Modal elements
-- [ ] Markdown display
+- [x] Markdown display
 - [ ] Charts
 
 ### Motivation
