@@ -41,7 +41,12 @@ namespace DotNetify.Elements
 
    public class DropdownListAttribute
    {
+      // Label text of the field.
       public string Label { get; set; }
+
+      // Placeholder text to display when the field is empty.
+      public string Placeholder { get; set; }
+
       public string Prefix { get; set; }
       public string Suffix { get; set; }
       public KeyValuePair<string, string>[] Options { get; set; }
@@ -49,9 +54,19 @@ namespace DotNetify.Elements
 
    public class MultiselectListAttribute
    {
+      // Label text of the field.
       public string Label { get; set; }
+
+      // Placeholder text to display when the field is empty.
+      public string Placeholder { get; set; }
+
+      // Text to display before the field.
       public string Prefix { get; set; }
+
+      // Text to display before the field.
       public string Suffix { get; set; }
+
+      // Options to select.
       public KeyValuePair<string, string>[] Options { get; set; }
    }
 

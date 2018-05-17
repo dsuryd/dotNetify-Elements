@@ -17,7 +17,7 @@ namespace dotNetify_Elements
          FormCheckboxGroup,
          FormDateTimeField,
          FormDropdownList,
-         FormMultiSelect,
+         FormMultiselectList,
          FormNumberField,
          FormPasswordField,
          FormRadioGroup,
@@ -44,7 +44,7 @@ namespace dotNetify_Elements
             new RouteTemplate(nameof(Route.FormCheckboxGroup))    { UrlPattern = "form/checkboxgroup" },
             new RouteTemplate(nameof(Route.FormDateTimeField))    { UrlPattern = "form/datetimefield" },
             new RouteTemplate(nameof(Route.FormDropdownList))     { UrlPattern = "form/dropdownlist" },
-            new RouteTemplate(nameof(Route.FormMultiSelect))      { UrlPattern = "form/multiselect" },
+            new RouteTemplate(nameof(Route.FormMultiselectList))  { UrlPattern = "form/multiselect" },
             new RouteTemplate(nameof(Route.FormNumberField))      { UrlPattern = "form/numberfield" },
             new RouteTemplate(nameof(Route.FormPasswordField))    { UrlPattern = "form/passwordfield" },
             new RouteTemplate(nameof(Route.FormRadioGroup))       { UrlPattern = "form/radiogroup" },
@@ -67,6 +67,7 @@ namespace dotNetify_Elements
                   Icon = "far fa-edit",
                   Routes = new NavRoute[]
                   {
+                     new NavRoute("MultiselectList",  this.GetRoute(nameof(Route.FormMultiselectList))),
                      new NavRoute("NumberField",      this.GetRoute(nameof(Route.FormNumberField))),
                      new NavRoute("PasswordField",    this.GetRoute(nameof(Route.FormPasswordField))),
                      new NavRoute("RadioGroup",       this.GetRoute(nameof(Route.FormRadioGroup))),
