@@ -37,7 +37,7 @@ namespace dotNetify_Elements
          }
          .Select(kvp => KeyValuePair.Create($"{(int)kvp.Key}", kvp.Value));
 
-         AddProperty("RadioGroup_Weather", Weather.Sunny)
+         AddProperty("Weather", Weather.Sunny)
             .WithAttribute(this, new RadioGroupAttribute
             {
                Label = "Weather:",

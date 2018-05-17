@@ -7,7 +7,7 @@ public class TextFieldExamples : BaseVM
 {
    public TextFieldExamples()
    {
-      AddProperty<string>("TextField_Name")
+      AddProperty<string>("Name")
          .WithAttribute(this, new TextFieldAttribute
          {
             Label = "Name:",
@@ -15,7 +15,7 @@ public class TextFieldExamples : BaseVM
             MaxLength = 30
          });
 
-      AddProperty<string>("TextField_Phone")
+      AddProperty<string>("Phone")
          .WithAttribute(this, new TextFieldAttribute
          {
             Label = "Phone:",
@@ -23,7 +23,7 @@ public class TextFieldExamples : BaseVM
             Mask = "(999) 999-9999"
          });
 
-      AddProperty("TextField_Payment", 2500f)
+      AddProperty("Amount", 2500f)
          .WithAttribute(this, new TextFieldAttribute
          {
             Label = "Payment:",

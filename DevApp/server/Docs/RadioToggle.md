@@ -22,7 +22,7 @@ public class RadioToggleExample : BaseVM
       }
       .Select(kvp => KeyValuePair.Create($"{(int)kvp.Key}", kvp.Value));
 
-      AddProperty("RadioToggle_State", Position.Middle)
+      AddProperty("Position", Position.Middle)
          .WithAttribute(this, new RadioGroupAttribute
          {
             Label = "Position:",

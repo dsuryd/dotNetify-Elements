@@ -7,7 +7,7 @@ public class TextAreaFieldExamples : BaseVM
 {
    public TextAreaFieldExamples()
    {
-      AddProperty<string>("TextAreaField_Comment")
+      AddProperty<string>("Comment")
          .WithAttribute(this, new TextAreaFieldAttribute
          {
             Label = "Comment:",

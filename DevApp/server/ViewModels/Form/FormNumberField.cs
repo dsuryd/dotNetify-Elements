@@ -7,25 +7,25 @@ namespace dotNetify_Elements
    {
       public FormNumberField()
       {
-         var markdown = Utils.GetResource("dotNetify_Elements.server.Docs.xxx.md").Result;
+         var markdown = Utils.GetResource("dotNetify_Elements.server.Docs.NumberField.md").Result;
 
          AddProperty("Overview", markdown.GetMarkdownSection(null, "Property Type"));
          AddProperty("API", markdown.GetMarkdownSection("Property Type"));
       }
    }
 
-   public class FormNumberFieldExample : BaseVM
+   public class NumberFieldExample : BaseVM
    {
-      public FormNumberFieldExample()
+      public NumberFieldExample()
       {
       }
    }
 
-   public class FormNumberFieldCustomize : BaseVM
+   public class NumberFieldCustomize : BaseVM
    {
-      public FormNumberFieldCustomize()
+      public NumberFieldCustomize()
       {
-         AddProperty<string>("My");
+         AddProperty<string>("MyNumberField");
       }
    }
 }

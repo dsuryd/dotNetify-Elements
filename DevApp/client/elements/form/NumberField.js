@@ -3,4 +3,5 @@ import { TextField } from './TextField';
 
 export const NumberField = props => <TextField type="number" {...props} />;
 
-NumberField.propTypes = Object.assign({}, TextField.propTypes);
+NumberField.propTypes = { ...TextField.propTypes };
+NumberField.componentTypes = { ...TextField.componentTypes };

@@ -57,6 +57,16 @@ Object.assign(MultiselectList.componentTypes, {
    InputGroupComponent: InputGroup
 });
 
+Object.assign(NumberField.componentTypes, {
+   InputComponent: Input,
+   InputGroupComponent: InputGroup
+});
+
+Object.assign(PasswordField.componentTypes, {
+   InputComponent: Input,
+   InputGroupComponent: InputGroup
+});
+
 Object.assign(RadioGroup.componentTypes, {
    RadioContainer: RadioContainer,
    LabelComponent: RadioLabel,

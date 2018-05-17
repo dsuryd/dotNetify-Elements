@@ -19,7 +19,7 @@ namespace dotNetify_Elements
    {
       public TextFieldExample()
       {
-         AddProperty<string>("TextField_Name")
+         AddProperty<string>("Name")
             .WithAttribute(this, new TextFieldAttribute
             {
                Label = "Name:",
@@ -27,7 +27,7 @@ namespace dotNetify_Elements
                MaxLength = 30
             });
 
-         AddProperty<string>("TextField_Phone")
+         AddProperty<string>("Phone")
             .WithAttribute(this, new TextFieldAttribute
             {
                Label = "Phone:",
@@ -35,7 +35,7 @@ namespace dotNetify_Elements
                Mask = "(999) 999-9999"
             });
 
-         AddProperty("TextField_Payment", 2500)
+         AddProperty("Amount", 2500)
             .WithAttribute(this, new TextFieldAttribute
             {
                Label = "Payment:",

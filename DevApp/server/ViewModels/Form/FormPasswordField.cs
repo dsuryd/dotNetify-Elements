@@ -7,25 +7,37 @@ namespace dotNetify_Elements
    {
       public FormPasswordField()
       {
-         var markdown = Utils.GetResource("dotNetify_Elements.server.Docs.xxx.md").Result;
+         var markdown = Utils.GetResource("dotNetify_Elements.server.Docs.PasswordField.md").Result;
 
          AddProperty("Overview", markdown.GetMarkdownSection(null, "Property Type"));
          AddProperty("API", markdown.GetMarkdownSection("Property Type"));
       }
    }
 
-   public class FormPasswordFieldExample : BaseVM
+   public class PasswordFieldExample : BaseVM
    {
-      public FormPasswordFieldExample()
+      public PasswordFieldExample()
       {
+         AddProperty<string>("Password")
+            .WithAttribute(this, new TextFieldAttribute
+            {
+               Label = "Password:",
+               Placeholder = "Enter password"
+            })
+            .WithRequiredValidation(this);
       }
    }
 
-   public class FormPasswordFieldCustomize : BaseVM
+   public class PasswordFieldCustomize : BaseVM
    {
-      public FormPasswordFieldCustomize()
+      public PasswordFieldCustomize()
       {
-         AddProperty<string>("My");
+         AddProperty<string>("MyPasswordField")
+            .WithAttribute(this, new TextFieldAttribute
+            {
+               Label = "Password:",
+               Placeholder = "Enter password"
+            });
       }
    }
 }

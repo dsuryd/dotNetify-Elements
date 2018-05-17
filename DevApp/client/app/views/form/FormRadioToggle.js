@@ -36,15 +36,15 @@ import { VMContext, RadioToggle } from 'dotnetify-elements';
 
 const MyApp = _ => (
    <VMContext vm="RadioToggleExample">
-      <RadioToggle id="RadioToggle_State" ${props}/>
+      <RadioToggle id="Position" ${props}/>
    </VMContext>
 );
 \`\`\``;
       const setState = state => this.setState(state);
       return (
          <RenderExample vm="RadioToggleExample" propTypes={RadioToggle.propTypes} buildCode={buildCode} onChange={setState}>
-            <Panel css="min-height: 5rem">
-               <RadioToggle id="RadioToggle_State" {...this.state} />
+            <Panel css="min-height: 6rem">
+               <RadioToggle id="Position" {...this.state} />
             </Panel>
          </RenderExample>
       );

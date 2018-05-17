@@ -18,7 +18,7 @@ namespace dotNetify_Elements
    {
       public TextAreaFieldExample()
       {
-         AddProperty<string>("TextAreaField_Comment")
+         AddProperty<string>("Comment")
             .WithAttribute(this, new TextAreaFieldAttribute
             {
                Label = "Comment:",
