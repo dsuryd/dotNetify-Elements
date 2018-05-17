@@ -6,8 +6,7 @@ export const Card = styled.div.attrs({
 })`
    width: inherit;
    flex: 1;
-   ${props => props.theme.Card.Container};
-   ${props => props.css};
+   ${props => props.theme.Card.Container}
 `;
 
 export const CardHeader = styled.div.attrs({

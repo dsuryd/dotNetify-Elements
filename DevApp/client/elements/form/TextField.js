@@ -88,7 +88,7 @@ export class TextField extends InputElement {
 
    render() {
       const [ Container, Input, InputGroup, ValidationMessage, PlainText ] = this.resolveComponents(TextField);
-      const { fullId, label, placeholder, prefix, suffix, maxLength, plainText, horizontal, disable, onChange, type, ...props } = this.attrs;
+      const { fullId, label, placeholder, prefix, suffix, maxLength, plainText, horizontal, disable, onChange, type, css, style, ...props } = this.attrs;
 
       const handleChange = onChange ? e => onChange(e.target.value) : this.handleChange;
       const handleBlur = onChange ? null : this.handleBlur;
@@ -97,7 +97,7 @@ export class TextField extends InputElement {
       const validationMessages = this.props.validationMessages || this.state.validationMessages;
 
       return (
-         <Container id={fullId} label={label} horizontal={horizontal} plainText={plainText}>
+         <Container id={fullId} label={label} horizontal={horizontal} plainText={plainText} style={style}>
             {plainText ? (
                <PlainText type={type}>{plainTextValue}</PlainText>
             ) : (

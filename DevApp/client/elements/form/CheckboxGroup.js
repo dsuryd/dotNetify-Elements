@@ -35,7 +35,7 @@ export class CheckboxGroup extends InputElement {
 
    render() {
       const [ Container, GroupContainer, CheckboxContainer, Label, Input, PlainText ] = this.resolveComponents(CheckboxGroup);
-      const { fullId, label, plainText, options, inline, horizontal, disable } = this.attrs;
+      const { fullId, label, plainText, options, inline, horizontal, disable, style } = this.attrs;
       const values = this.value || [];
 
       let checkboxOptions = options || [];
@@ -52,7 +52,7 @@ export class CheckboxGroup extends InputElement {
       const plainTextValue = selected.map(x => x.Value);
 
       return (
-         <Container id={fullId} label={label} horizontal={horizontal} plainText={plainText}>
+         <Container id={fullId} label={label} horizontal={horizontal} plainText={plainText} style={style}>
             {plainText ? <PlainText>{plainTextValue}</PlainText> : <GroupContainer id={fullId}>{checkboxes}</GroupContainer>}
          </Container>
       );

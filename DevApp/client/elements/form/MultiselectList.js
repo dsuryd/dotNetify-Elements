@@ -30,13 +30,13 @@ export class MultiselectList extends InputElement {
 
    render() {
       const [ Container, Input, InputGroup, Tag, Item, List, PlainText ] = this.resolveComponents(MultiselectList);
-      const { fullId, label, plainText, prefix, suffix, options, horizontal, disable, ...props } = this.attrs;
+      const { fullId, label, plainText, prefix, suffix, options, horizontal, disable, style, ...props } = this.attrs;
 
       const selected = (options || []).filter(opt => this.value.includes(opt.Key));
       const plainTextValue = selected.map(x => x.Value);
 
       return (
-         <Container id={fullId} label={label} horizontal={horizontal} plainText={plainText}>
+         <Container id={fullId} label={label} horizontal={horizontal} plainText={plainText} style={style}>
             {plainText ? (
                <PlainText>{plainTextValue}</PlainText>
             ) : (

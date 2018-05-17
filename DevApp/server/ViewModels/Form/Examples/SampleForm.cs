@@ -41,12 +41,13 @@ namespace dotNetify_Elements
                 Placeholder = "Enter password"
              });
 
-         AddProperty<float>(nameof(FormData.MyNumber))
-             .WithAttribute(this, new TextFieldAttribute
+         AddProperty<int>(nameof(FormData.MyNumber))
+             .WithAttribute(this, new NumberFieldAttribute
              {
                 Label = "Number:",
                 Placeholder = "Enter number",
-                MaxLength = 10
+                Min = 0,
+                Max = 999
              });
 
          AddProperty<decimal>(nameof(FormData.MyMoney))

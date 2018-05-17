@@ -63,8 +63,8 @@ export default class VMInputValidator extends VMProperty {
 
    validateRange(validation, value) {
       const num = parseFloat(value);
-      const validMin = !(validation.min && num < validation.min);
-      const validMax = !(validation.max && num > validation.max);
+      const validMin = !(typeof validation.min == 'number' && num < validation.min);
+      const validMax = !(typeof validation.max == 'number' && num > validation.max);
       return validMin && validMax;
    }
 

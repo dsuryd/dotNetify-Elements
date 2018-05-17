@@ -43,7 +43,7 @@ const MyApp = _ => (
       const setState = state => this.setState(state);
       return (
          <RenderExample vm="TextAreaFieldExample" propTypes={TextAreaField.propTypes} buildCode={buildCode} onChange={setState}>
-            <Panel css="min-height: 10rem">
+            <Panel style={{ minHeight: '10rem' }}>
                <TextAreaField id="Comment" {...this.state} />
             </Panel>
          </RenderExample>
@@ -64,7 +64,7 @@ class TextAreaFieldCustomize extends React.Component {
       });
       return (
          <RenderCustomize vm="TextAreaFieldCustomize" name="TextAreaField" componentTypes={componentTypes} select={select} onSelected={handleSelected}>
-            <TextAreaField id="MyField" label="Label:" prefix="Prefix-" suffix="-Suffix" plainText={plainText} validationMessages={validationMessages} />
+            <TextAreaField id="MyField" prefix="Prefix-" suffix="-Suffix" plainText={plainText} validationMessages={validationMessages} />
          </RenderCustomize>
       );
    }

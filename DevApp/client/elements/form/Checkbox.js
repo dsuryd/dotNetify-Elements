@@ -21,11 +21,11 @@ export class Checkbox extends InputElement {
 
    render() {
       const [ Container, Label, Input ] = this.resolveComponents(Checkbox);
-      const { fullId, label, plainText, disable } = this.attrs;
+      const { fullId, label, plainText, disable, style } = this.attrs;
       const checked = !!this.value;
 
       return (
-         <Container id={fullId} checked={checked}>
+         <Container id={fullId} checked={checked} style={style}>
             <Label>
                <Input type="checkbox" name={fullId} checked={checked} onChange={this.handleChange} disabled={plainText || disable} />
                {label}

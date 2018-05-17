@@ -42,7 +42,7 @@ export class RadioGroup extends InputElement {
    };
    render() {
       const [ Container, GroupContainer, RadioContainer, Label, Input, PlainText ] = this.resolveComponents(RadioGroup);
-      const { fullId, label, options, plainText, right, horizontal, disable } = this.attrs;
+      const { fullId, label, options, plainText, right, horizontal, disable, style } = this.attrs;
 
       const radioOptions = (options || []).map(opt => utils.toCamelCase(opt));
       const radio = radioOptions.map(opt => (
@@ -58,7 +58,7 @@ export class RadioGroup extends InputElement {
       const plainTextValue = selected ? selected.value : '';
 
       return (
-         <Container id={fullId} label={label} horizontal={horizontal} right={right} plainText={plainText}>
+         <Container id={fullId} label={label} horizontal={horizontal} right={right} plainText={plainText} style={style}>
             {plainText ? <PlainText>{plainTextValue}</PlainText> : <GroupContainer>{radio}</GroupContainer>}
          </Container>
       );

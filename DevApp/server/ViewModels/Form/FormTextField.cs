@@ -33,7 +33,8 @@ namespace dotNetify_Elements
                Label = "Phone:",
                Placeholder = "Enter your phone",
                Mask = "(999) 999-9999"
-            });
+            })
+            .WithPatternValidation(this, Pattern.USPhoneNumber, "Must be a valid US phone number");
 
          AddProperty("Amount", 2500)
             .WithAttribute(this, new TextFieldAttribute
@@ -49,7 +50,7 @@ namespace dotNetify_Elements
                   DecimalLimit = 0
                }
             })
-            .WithMinValidation(this, 20, "Must not be less than US$20.00");
+            .WithMinValidation(this, 20, "Must be at least US$20.00");
       }
    }
 

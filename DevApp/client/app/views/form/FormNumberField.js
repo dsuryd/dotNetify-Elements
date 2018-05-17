@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Frame, Markdown, Panel, Tab, TabItem, Theme, VMContext } from 'elements';
+import { Frame, Markdown, NumberField, Panel, Tab, TabItem, Theme, VMContext } from 'elements';
 import RenderExample from '../../components/RenderExample';
 import RenderCustomize from '../../components/RenderCustomize';
 
@@ -32,19 +32,24 @@ class NumberFieldExample extends React.Component {
       const buildCode = props => `
 \`\`\`jsx
 import React from 'react';
-import { VMContext, NumberField } from 'dotnetify-elements';
+import { VMContext, Panel, NumberField } from 'dotnetify-elements';
 
 const MyApp = _ => (
    <VMContext vm="NumberFieldExample">
-      <NumberField id="NumberField_Example" ${props}/>
+      <Panel horizontal childProps={{style: {minWidth: '14rem', maxWidth: '20rem', whiteSpace: 'nowrap'}}>   
+         <NumberField id="HeightFeet" ${props}/>
+         <NumberField id="HeightInches" ${props}/>
+      </Panel>      
    </VMContext>
 );
 \`\`\``;
       const setState = state => this.setState(state);
+      const style = { minWidth: '14rem', maxWidth: '20rem', whiteSpace: 'nowrap' };
       return (
          <RenderExample vm="NumberFieldExample" propTypes={NumberField.propTypes} buildCode={buildCode} onChange={setState}>
-            <Panel css="min-height: 8rem">
-               <NumberField id="NumberField_Example" {...this.state} />
+            <Panel horizontal style={{ minHeight: '6rem' }} childProps={{ style: style }}>
+               <NumberField id="HeightFeet" {...this.state} />
+               <NumberField id="HeightInches" {...this.state} />
             </Panel>
          </RenderExample>
       );
@@ -55,15 +60,16 @@ class NumberFieldCustomize extends React.Component {
    state = { plainText: false, validationMessages: null };
 
    render() {
-      const { plainText } = this.state;
+      const { plainText, validationMessages } = this.state;
       const componentTypes = NumberField.componentTypes;
       const handleSelected = state => this.setState(state);
       const select = value => ({
-         plainText: value === 'PlainTextComponent'
+         plainText: value === 'PlainTextComponent',
+         validationMessages: value === 'ValidationMessageComponent' ? [ 'Validation message' ] : null
       });
       return (
          <RenderCustomize vm="NumberFieldCustomize" name="NumberField" componentTypes={componentTypes} select={select} onSelected={handleSelected}>
-            <NumberField id="MyNumberField" label="Label:" plainText={plainText} />
+            <NumberField id="MyNumberField" prefix="Prefix-" suffix="-Suffix" plainText={plainText} validationMessages={validationMessages} />
          </RenderCustomize>
       );
    }

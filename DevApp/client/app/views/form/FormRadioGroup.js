@@ -43,7 +43,7 @@ const MyApp = _ => (
       const setState = state => this.setState(state);
       return (
          <RenderExample vm="RadioGroupExample" propTypes={RadioGroup.propTypes} buildCode={buildCode} onChange={setState}>
-            <Panel css="min-height: 9rem">
+            <Panel style={{ minHeight: '9rem' }}>
                <RadioGroup id="Weather" {...this.state} />
             </Panel>
          </RenderExample>

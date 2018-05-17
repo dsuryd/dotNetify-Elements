@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Card, MarkdownText, Panel, RadioGroup, TextField, VMContext } from 'elements';
 import * as utils from 'elements/utils';
 
-const withHighlight = Component => props => <Component style={{ border: '2px double red' }} {...props} />;
+const withHighlight = Component => props => <Component {...props} style={{ border: '2px double red' }} />;
 
 export default class RenderCustomize extends React.Component {
    constructor(props) {
@@ -45,7 +45,7 @@ export default class RenderCustomize extends React.Component {
          <VMContext vm={this.props.vm}>
             <Panel>
                {React.cloneElement(React.Children.only(this.props.children), { ...componentProps })}
-               <Card css="margin-top: 1rem">
+               <Card style={{ marginTop: '1rem' }}>
                   <RadioGroup id="_components" label="Select sub-component to highlight:" options={options} value={selected} onChange={this.select} />
                </Card>
                <MarkdownText text={this.buildCode(propsText)} />

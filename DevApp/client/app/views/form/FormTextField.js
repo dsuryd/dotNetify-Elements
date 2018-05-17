@@ -48,7 +48,7 @@ const MyApp = _ => (
       const setState = state => this.setState(state);
       return (
          <RenderExample vm="TextFieldExample" propTypes={TextField.propTypes} buildCode={buildCode} onChange={setState}>
-            <Panel css="min-height: 17rem">
+            <Panel style={{ minHeight: '17rem' }}>
                <TextField id="Name" {...this.state} />
                <TextField id="Phone" {...this.state} />
                <TextField id="Amount" {...this.state} />
@@ -69,10 +69,9 @@ class TextFieldCustomize extends React.Component {
          plainText: value === 'PlainTextComponent',
          validationMessages: value === 'ValidationMessageComponent' ? [ 'Validation message' ] : null
       });
-
       return (
          <RenderCustomize vm="TextFieldCustomize" name="TextField" componentTypes={componentTypes} select={select} onSelected={handleSelected}>
-            <TextField id="MyField" label="Label:" prefix="Prefix-" suffix="-Suffix" plainText={plainText} validationMessages={validationMessages} />
+            <TextField id="MyTextField" prefix="Prefix-" suffix="-Suffix" plainText={plainText} validationMessages={validationMessages} />
          </RenderCustomize>
       );
    }

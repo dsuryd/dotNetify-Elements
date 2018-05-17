@@ -46,9 +46,9 @@ export default class RenderExample extends React.Component {
 
       return (
          <VMContext vm={vm}>
-            <Panel css="border-top: 1px solid #ccc; padding-top: 2rem">
+            <Panel style={{ borderTop: '1px solid #ccc', paddingTop: '2rem' }}>
                {children}
-               <Panel horizontal css="border-top: 1px solid #ccc; padding-top: 1rem">
+               <Panel horizontal style={{ borderTop: '1px solid #ccc', paddingTop: '1rem' }}>
                   {radioToggles}
                </Panel>
                <MarkdownText text={this.buildCode(this.state)} />

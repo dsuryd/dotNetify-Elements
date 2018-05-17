@@ -19,6 +19,72 @@ using System.Collections.Generic;
 
 namespace DotNetify.Elements
 {
+   public class CheckboxAttribute
+   {
+      public string Label { get; set; }
+   }
+
+   public class CheckboxGroupAttribute
+   {
+      public string Label { get; set; }
+      public KeyValuePair<string, string> Options { get; set; }
+   }
+
+   public class DateFieldAttribute
+   {
+      public string Label { get; set; }
+      public string Prefix { get; set; }
+      public string Suffix { get; set; }
+      public DateTimeOffset Min { get; set; } = DateTimeOffset.MinValue;
+      public DateTimeOffset Max { get; set; } = DateTimeOffset.MaxValue;
+   }
+
+   public class DropdownListAttribute
+   {
+      public string Label { get; set; }
+      public string Prefix { get; set; }
+      public string Suffix { get; set; }
+      public KeyValuePair<string, string>[] Options { get; set; }
+   }
+
+   public class MultiselectListAttribute
+   {
+      public string Label { get; set; }
+      public string Prefix { get; set; }
+      public string Suffix { get; set; }
+      public KeyValuePair<string, string>[] Options { get; set; }
+   }
+
+   public class NumberFieldAttribute
+   {
+      // Label text of the field.
+      public string Label { get; set; }
+
+      // Placeholder text to display when the field is empty.
+      public string Placeholder { get; set; }
+
+      // Text to display before the field.
+      public string Prefix { get; set; }
+
+      // Text to display after the field.
+      public string Suffix { get; set; }
+
+      // Input mask, can be number mask or text mask.
+      public Mask Mask { get; set; }
+
+      // Min value.
+      public int? Min { get; set; }
+
+      // Max value.
+      public int? Max { get; set; }
+   }
+
+   public class RadioGroupAttribute
+   {
+      public string Label { get; set; }
+      public KeyValuePair<string, string>[] Options { get; set; }
+   }
+
    public class TextFieldAttribute
    {
       // Label text of the field.
@@ -59,47 +125,5 @@ namespace DotNetify.Elements
 
       // Number of rows of the input area.
       public int? Rows { get; set; }
-   }
-
-   public class DateFieldAttribute
-   {
-      public string Label { get; set; }
-      public string Prefix { get; set; }
-      public string Suffix { get; set; }
-      public DateTimeOffset Min { get; set; } = DateTimeOffset.MinValue;
-      public DateTimeOffset Max { get; set; } = DateTimeOffset.MaxValue;
-   }
-
-   public class DropdownListAttribute
-   {
-      public string Label { get; set; }
-      public string Prefix { get; set; }
-      public string Suffix { get; set; }
-      public KeyValuePair<string, string>[] Options { get; set; }
-   }
-
-   public class MultiselectListAttribute
-   {
-      public string Label { get; set; }
-      public string Prefix { get; set; }
-      public string Suffix { get; set; }
-      public KeyValuePair<string, string>[] Options { get; set; }
-   }
-
-   public class RadioGroupAttribute
-   {
-      public string Label { get; set; }
-      public KeyValuePair<string, string>[] Options { get; set; }
-   }
-
-   public class CheckboxAttribute
-   {
-      public string Label { get; set; }
-   }
-
-   public class CheckboxGroupAttribute
-   {
-      public string Label { get; set; }
-      public KeyValuePair<string, string> Options { get; set; }
    }
 }

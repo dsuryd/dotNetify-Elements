@@ -21,7 +21,8 @@ public class TextFieldExamples : BaseVM
             Label = "Phone:",
             Placeholder = "Enter your phone",
             Mask = "(999) 999-9999"
-         });
+         })
+         .WithPatternValidation(this, Pattern.USPhoneNumber, "Must be a valid US phone number");
 
       AddProperty("Amount", 2500f)
          .WithAttribute(this, new TextFieldAttribute

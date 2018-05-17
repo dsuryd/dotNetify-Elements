@@ -14,7 +14,6 @@ const Container = styled.div`
    width: ${props => props.width || (props.left || props.right ? 'auto' : 'inherit')};
    overflow: ${props => (props.flex ? 'auto' : 'unset')};
    ${props => props.theme.Panel.Container};
-   ${props => props.css};
 `;
 
 const ChildContainer = styled.div`
@@ -45,7 +44,6 @@ export class Panel extends React.Component {
       flex: PropTypes.oneOfType([ PropTypes.string, PropTypes.bool ]),
       height: PropTypes.string,
       width: PropTypes.string,
-      css: PropTypes.string,
       onShow: PropTypes.func
    };
 
@@ -109,15 +107,15 @@ export class Panel extends React.Component {
          width,
          fit,
          flex,
-         css
+         style
       } = this.props;
 
       const { Gap, Margin } = this.context.theme.Panel;
       let _gap = gap || (noGap ? '0' : smallGap ? Gap.small : Gap.large);
       let _margin = margin || (noMargin ? '0' : smallMargin ? Margin.small : Margin.large);
       let _flex = typeof flex == 'boolean' ? (flex ? '1' : null) : flex;
-      _flex = _flex || fit ? '1' : null;
       const childFit = childProps && childProps.fit;
+      _flex = _flex || fit || childFit ? '1' : null;
 
       return (
          <Container
@@ -129,7 +127,7 @@ export class Panel extends React.Component {
             width={width}
             height={height}
             flex={_flex}
-            css={css}
+            style={style}
          >
             {this.children.map((child, idx) => {
                return (
