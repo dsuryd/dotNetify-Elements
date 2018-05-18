@@ -64,7 +64,7 @@ class DropdownListCustomize extends React.Component {
       });
       return (
          <RenderCustomize vm="DropdownListCustomize" name="DropdownList" componentTypes={componentTypes} select={select} onSelected={handleSelected}>
-            <DropdownList id="MyDropdownList" prefix="Prefix-" suffix="-Suffix" plainText={plainText} validationMessages={validationMessages}  />
+            <DropdownList id="MyDropdownList" prefix="Prefix-" suffix="-Suffix" plainText={plainText} validationMessages={validationMessages} />
          </RenderCustomize>
       );
    }

@@ -20,6 +20,7 @@ const HeaderContainer = styled.div`
 const IconContainer = styled.div`
    display: flex;
    align-items: center;
+   width: 1.25rem;
 `;
 
 const AngleCollapseIcon = props => (

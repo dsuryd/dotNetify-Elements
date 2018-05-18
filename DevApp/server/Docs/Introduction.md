@@ -1,12 +1,12 @@
 ﻿## Introduction
 
-DotNetify-Elements provide the building blocks that will make your web application development a breeze.  Built on top of dotNetify-React, Elements are a set of customizable React components that you can readily connect to your cross-platform .NET back-end and get your data streaming with minimal effort.
+DotNetify-Elements provide the building blocks that will make your web application development a breeze.  Built on top of dotNetify-React, Elements are a set of customizable React components that you can readily connect to your cross-platform .NET back-end and get your data streaming in real-time with minimal effort.
 
-Elements incorporate and curate many other existing, widely-adopted open-source libraries with the goal of allowing you to leverage the React community's tried-and-true favorites in your application with greater ease and speed, while forgoing the hassle of learning each of their idiosyncrasies.  
+_Elements_ incorporate and curate many other existing, widely-adopted open-source libraries to allow you to leverage the React community's tried-and-true favorites in your application with greater ease and speed, while forgoing the hassle of learning each of their idiosyncrasies.  Each data-driven element is designed to be plug-and-play with your C# view models through reactive programming model, and with strong support for theming and customization.
 
 #### The Basics
 
-Let's revisit the Hello World example:
+Let's revisit the Hello World example (if you're not familiar with dotNetify-React, [read it up first!](http://dotnetify.net/react)) :
 
 ```jsx
 import React from 'react';
@@ -32,7 +32,7 @@ public class HelloWorld : BaseVM
 }
 ```
 
-With Elements, the above React component can be succintly rewritten as a stateless functional component:
+With _Elements_, the above React component can be succintly rewritten as a stateless functional component:
 ```jsx
 import React from 'react';
 import { VMContext, Element } from 'dotnetify-elements';
@@ -44,7 +44,7 @@ const MyApp = _ => (
 );
 ```
 
-The _VMContext_ component takes over the work of connecting to the back-end view model, and supplies data to the Element components within its scope.  The __id__ attribute is utilized to associate the component a particular view model property for its data source. 
+The _VMContext_ component takes over the work of connecting to the back-end view model, and supplies data to the _Element_ components within its scope.  The __id__ attribute is utilized to associate the component a particular view model property for its data source. 
 
 While the _Element_ component itself may not seem to do much, it packs some internal APIs that its sub-components can use to not only receive, but also send data back to the back-end.
 
@@ -81,7 +81,7 @@ Notice that the view model uses a reactive property instead of the usual C# prop
 
 #### Attributes and Validations
 
-What's interesting about the Elements is that not only it works with property values, but that you can actually initialize their attributes from the view model.  The reactive property type provides __WithAttribute__ method to include the attributes along with the initial state:
+What's interesting about the _Elements_ is that not only it works with property values, but that you can actually initialize their attributes from the view model.  The reactive property type provides __WithAttribute__ method to include the attributes along with the initial state:
 
 ```jsx
 const MyApp = _ => (
@@ -115,7 +115,7 @@ public class NameGenderInput : BaseVM
 ```
 [inset]
 <br/>
-The namespace __DotNetify.Elements__ provides attribute types for many of the Elements.  Similarly, you can also specify validation attributes for the input Elements, i.e. required attribute, regular expression pattern, number min/max, date range, and even custom server-side validation.  The example below uses a sub-component of _TextField_, an element that only accepts whole numbers:
+The namespace __DotNetify.Elements__ provides attribute types for many of the _Elements_.  Similarly, you can also specify validation attributes for the input Elements, i.e. required attribute, regular expression pattern, number min/max, date range, and even custom server-side validation.  The example below uses a sub-component of _TextField_, an element that only accepts whole numbers:
 ```jsx
 const PrimeInput = _ => (
    <VMContext vm="PrimeInput">
@@ -152,4 +152,4 @@ public class PrimeInput : BaseVM
 [inset]
 <br/>
 
-Placing these input elements inside a _Form_ element will give you much more features: form submission handling, group validation, dirty state detection, and sub-forms management.  This topic will be explored in-depth on the other section, but for now this concludes our overview.
+Placing these input elements inside a _Form_ element will give you much more features, including the ability to perform group validation and submission, dirty checking, and more.  This topic will be explored in-depth on the other section, but for now this concludes our introduction.

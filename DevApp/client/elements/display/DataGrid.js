@@ -8,6 +8,7 @@ const Container = styled.div`
    display: flex;
    flex: 1;
    width: 100%;
+   margin-bottom: 1px;
    ${props => props.theme.DataGrid.Container};
 `;
 

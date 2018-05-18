@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -29,7 +30,8 @@ namespace dotNetify_Elements
          app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
          {
             HotModuleReplacement = true,
-            ReactHotModuleReplacement = false
+            ReactHotModuleReplacement = true,
+            HotModuleReplacementClientOptions = new Dictionary<string, string> {{ "reload", "true" }},
          });
 
          app.UseStaticFiles();
