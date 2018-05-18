@@ -113,9 +113,11 @@ export class Panel extends React.Component {
       const { Gap, Margin } = this.context.theme.Panel;
       let _gap = gap || (noGap ? '0' : smallGap ? Gap.small : Gap.large);
       let _margin = margin || (noMargin ? '0' : smallMargin ? Margin.small : Margin.large);
+
       let _flex = typeof flex == 'boolean' ? (flex ? '1' : null) : flex;
-      const childFit = childProps && childProps.fit;
-      _flex = _flex || fit || childFit ? '1' : null;
+      const childrenFlex = childProps && childProps.flex;
+      const childrenFit = childProps && childProps.fit;
+      _flex = _flex || childrenFlex || childrenFit || React.Children.toArray(this.children).some(child => child.props && child.props.fit) ? '1' : null;
 
       return (
          <Container
@@ -130,12 +132,14 @@ export class Panel extends React.Component {
             style={style}
          >
             {this.children.map((child, idx) => {
+               const childFlex = childrenFlex || child.props.flex;
+               const childFit = childrenFit || child.props.fit;
                return (
                   <ChildContainer
                      key={idx}
                      style={this.getStyle(idx)}
-                     flex={childFit || child.props.fit ? '1' : null}
-                     fit={childFit || child.props.fit}
+                     flex={childFlex || childFit ? '1' : null}
+                     fit={childFit}
                      padding={this.numChildren <= 1 ? 0 : this.getPadding(idx, _gap, horizontal)}
                   >
                      {React.cloneElement(child, utils.mergeProps(child, childProps, { onShow: show => this.handleShow(idx, show) }))}
