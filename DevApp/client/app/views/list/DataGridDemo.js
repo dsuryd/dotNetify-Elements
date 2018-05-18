@@ -6,7 +6,7 @@ const DateFormatter = props => new Date(props.value).toLocaleString();
 const DataGridDemo = props => (
    <VMContext vm="SampleDataGrid">
       <Theme>
-         <Frame fit>
+         <Frame>
             <h2>Data Grid</h2>
             <DataGrid id="MyDataGrid" fit>
                <GridColumn id="LastVisit" width="13rem" formatter={DateFormatter} />

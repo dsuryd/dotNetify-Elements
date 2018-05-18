@@ -43,7 +43,7 @@ const MyApp = _ => (
       const setState = state => this.setState(state);
       return (
          <RenderExample vm="DropdownListExample" propTypes={DropdownList.propTypes} buildCode={buildCode} onChange={setState}>
-            <Panel style={{ minHeight: '7rem' }}>
+            <Panel style={{ minHeight: '6rem' }}>
                <DropdownList id="FilingStatus" {...this.state} />
             </Panel>
          </RenderExample>

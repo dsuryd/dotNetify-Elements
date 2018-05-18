@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Frame, Markdown, Panel, Tab, TabItem, Theme, VMContext } from 'elements';
+import { DateField, DateTimeField, TimeField, Frame, Markdown, Panel, Tab, TabItem, Theme, VMContext } from 'elements';
 import RenderExample from '../../components/RenderExample';
 import RenderCustomize from '../../components/RenderCustomize';
 
@@ -43,8 +43,10 @@ const MyApp = _ => (
       const setState = state => this.setState(state);
       return (
          <RenderExample vm="DateTimeFieldExample" propTypes={DateTimeField.propTypes} buildCode={buildCode} onChange={setState}>
-            <Panel style={{ minHeight: '8rem' }}>
-               <DateTimeField id="DateTimeField_Example" {...this.state} />
+            <Panel horizontal style={{ minHeight: '8rem' }} childProps={{ flex: true }}>
+               <DateTimeField id="DateTime" {...this.state} />
+               <DateField id="Date" {...this.state} />
+               <TimeField id="Time" {...this.state} />
             </Panel>
          </RenderExample>
       );
@@ -55,7 +57,7 @@ class DateTimeFieldCustomize extends React.Component {
    state = { plainText: false, validationMessages: null };
 
    render() {
-      const { plainText } = this.state;
+      const { plainText, validationMessages } = this.state;
       const componentTypes = DateTimeField.componentTypes;
       const handleSelected = state => this.setState(state);
       const select = value => ({
