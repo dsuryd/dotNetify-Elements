@@ -42,10 +42,6 @@ public class MultiselectListExample : BaseVM
 }
 ```
 
-##### Empty Selection
-
-Set an empty selection by providing an option with an empty string value.  If specified, the _Placeholder_ text will replace the empty string. 
-
 #### Credits
 
 This element incorporates https://github.com/jquense/react-widgets ([license: MIT](https://github.com/jquense/react-widgets/blob/master/LICENSE.md))
