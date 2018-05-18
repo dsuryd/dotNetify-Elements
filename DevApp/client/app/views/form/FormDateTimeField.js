@@ -59,11 +59,12 @@ class DateTimeFieldCustomize extends React.Component {
       const componentTypes = DateTimeField.componentTypes;
       const handleSelected = state => this.setState(state);
       const select = value => ({
-         plainText: value === 'PlainTextComponent'
+         plainText: value === 'PlainTextComponent',
+         validationMessages: value === 'ValidationMessageComponent' ? [ 'Validation message' ] : null
       });
       return (
          <RenderCustomize vm="DateTimeFieldCustomize" name="DateTimeField" componentTypes={componentTypes} select={select} onSelected={handleSelected}>
-            <DateTimeField id="MyDateTimeField" label="Label:" plainText={plainText} />
+            <DateTimeField id="MyDateTimeField" prefix="Prefix-" suffix="-Suffix" plainText={plainText} validationMessages={validationMessages} />
          </RenderCustomize>
       );
    }

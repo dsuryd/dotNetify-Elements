@@ -31,15 +31,24 @@ public class MultiselectListExample : BaseVM
       .Select(kvp => KeyValuePair.Create($"{(int)kvp.Key}", kvp.Value));
 
       AddProperty<VisitPurpose[]>("VisitPurpose")
-         .WithAttribute(this, new DropdownListAttribute
+         .WithAttribute(this, new MultiselectListAttribute
          {
             Label = "Purpose of visit:",
             Placeholder = "Select all that apply",
             Options = options.ToArray()
-         });
+         })
+         .WithRequiredValidation(this);
    }
 }
 ```
+
+##### Empty Selection
+
+Set an empty selection by providing an option with an empty string value.  If specified, the _Placeholder_ text will replace the empty string. 
+
+#### Credits
+
+This element incorporates https://github.com/jquense/react-widgets ([license: MIT](https://github.com/jquense/react-widgets/blob/master/LICENSE.md))
 
 #### Property Types
 

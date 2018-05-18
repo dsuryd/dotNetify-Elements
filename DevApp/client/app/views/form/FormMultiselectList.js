@@ -43,7 +43,7 @@ const MyApp = _ => (
       const setState = state => this.setState(state);
       return (
          <RenderExample vm="MultiselectListExample" propTypes={MultiselectList.propTypes} buildCode={buildCode} onChange={setState}>
-            <Panel style={{ minHeight: '8rem' }}>
+            <Panel style={{ minHeight: '7rem' }}>
                <MultiselectList id="VisitPurpose" {...this.state} />
             </Panel>
          </RenderExample>
@@ -55,15 +55,16 @@ class MultiselectListCustomize extends React.Component {
    state = { plainText: false, validationMessages: null };
 
    render() {
-      const { plainText } = this.state;
+      const { plainText, validationMessages } = this.state;
       const componentTypes = MultiselectList.componentTypes;
       const handleSelected = state => this.setState(state);
       const select = value => ({
-         plainText: value === 'PlainTextComponent'
+         plainText: value === 'PlainTextComponent',
+         validationMessages: value === 'ValidationMessageComponent' ? [ 'Validation message' ] : null
       });
       return (
          <RenderCustomize vm="MultiselectListCustomize" name="MultiselectList" componentTypes={componentTypes} select={select} onSelected={handleSelected}>
-            <MultiselectList id="MyMultiselectList" plainText={plainText} prefix="Prefix-" />
+            <MultiselectList id="MyMultiselectList" plainText={plainText} validationMessages={validationMessages} />
          </RenderCustomize>
       );
    }

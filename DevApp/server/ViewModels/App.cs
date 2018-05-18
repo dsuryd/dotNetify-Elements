@@ -67,6 +67,7 @@ namespace dotNetify_Elements
                   Icon = "far fa-edit",
                   Routes = new NavRoute[]
                   {
+                     new NavRoute("DropdownList",     this.GetRoute(nameof(Route.FormDropdownList))),
                      new NavRoute("MultiselectList",  this.GetRoute(nameof(Route.FormMultiselectList))),
                      new NavRoute("NumberField",      this.GetRoute(nameof(Route.FormNumberField))),
                      new NavRoute("PasswordField",    this.GetRoute(nameof(Route.FormPasswordField))),

@@ -1,5 +1,7 @@
 ﻿using DotNetify;
 using DotNetify.Elements;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace dotNetify_Elements
 {
@@ -7,25 +9,70 @@ namespace dotNetify_Elements
    {
       public FormDropdownList()
       {
-         var markdown = Utils.GetResource("dotNetify_Elements.server.Docs.xxx.md").Result;
+         var markdown = Utils.GetResource("dotNetify_Elements.server.Docs.DropdownList.md").Result;
 
          AddProperty("Overview", markdown.GetMarkdownSection(null, "Property Type"));
          AddProperty("API", markdown.GetMarkdownSection("Property Type"));
       }
    }
 
-   public class FormDropdownListExample : BaseVM
+   public class DropdownListExample : BaseVM
    {
-      public FormDropdownListExample()
+      public enum TaxFilingStatus
       {
+         None,
+         Single,
+         MarriedFilingJointly,
+         MarriedFilingSeparately,
+         HeadOfHousehold,
+         QualifyingWidowWidower
+      }
+
+      public DropdownListExample()
+      {
+         var options = new Dictionary<TaxFilingStatus, string>
+         {
+            { TaxFilingStatus.None, ""},
+            { TaxFilingStatus.Single, "Single" },
+            { TaxFilingStatus.MarriedFilingJointly, "Married Filing Jointly" },
+            { TaxFilingStatus.MarriedFilingSeparately, "Married Filing Separately" },
+            { TaxFilingStatus.HeadOfHousehold, "Head of Household" },
+            { TaxFilingStatus.QualifyingWidowWidower, "Qualifying Widow(er) with Dependent Child" }
+         }
+         .Select(kvp => KeyValuePair.Create($"{(int)kvp.Key}", kvp.Value));
+
+         AddProperty<TaxFilingStatus>("FilingStatus")
+            .WithAttribute(this, new DropdownListAttribute
+            {
+               Label = "Filing status:",
+               Placeholder = "Select one...",
+               Options = options.ToArray()
+            })
+            .WithRequiredValidation(this);
       }
    }
 
-   public class FormDropdownListCustomize : BaseVM
+   public class DropdownListCustomize : BaseVM
    {
-      public FormDropdownListCustomize()
+      public DropdownListCustomize()
       {
-         AddProperty<string>("My");
+         var options = new Dictionary<string, string> 
+         {
+            { "na", "" },
+            { "c1", "Choice 1" },
+            { "c2", "Choice 2" },
+            { "c3", "Choice 3" },
+            { "c4", "Choice 4" },
+            { "c5", "Choice 5" },
+         };
+
+         AddProperty<string>("MyDropdownList")
+            .WithAttribute(this, new DropdownListAttribute
+            {
+               Label = "Label:",
+               Placeholder = "Placeholder",
+               Options = options.ToArray()
+            });
       }
    }
 }

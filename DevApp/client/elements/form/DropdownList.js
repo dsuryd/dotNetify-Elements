@@ -4,7 +4,7 @@ import { Field } from '../structure/Field';
 import { Label } from '../display/Label';
 import { InputElement } from '../core/Element';
 
-const PlainTextComponent = props => props.children;
+const PlainTextComponent = props => <span {...props} />
 
 export class DropdownList extends InputElement {
    static propTypes = {
@@ -22,6 +22,12 @@ export class DropdownList extends InputElement {
 
       // Replaces the input field with plain text.
       plainText: PropTypes.bool,
+
+      // Text or component to display before the field.
+      prefix: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
+
+      // Text or component to display after the field.
+      suffix: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),      
    };
 
    static componentTypes = {
@@ -44,6 +50,20 @@ export class DropdownList extends InputElement {
             validationMessages: result.messages
          })
       );
+
+      // If "required" validation is specified, add a custom validator to validate against an empty selection.
+      if (this.vmProperty.validator && this.vmProperty.validator.validations) {
+         const requiredValidation = this.vmProperty.validator.validations.filter(x => x.type === "Required").shift();
+         const emptySelection = this.attrs.options.filter(x => !x.Value).shift();
+
+         if (requiredValidation && emptySelection) {
+            this.vmProperty.addValidation( {
+               validate: val => val != emptySelection.Key,
+               message: requiredValidation.message,
+               category: requiredValidation.category
+            });
+         }
+      }
    }
 
    handleChange = event => {
@@ -53,16 +73,24 @@ export class DropdownList extends InputElement {
 
    render() {
       const [ Container, Input, InputGroup, ValidationMessage, PlainText ] = this.resolveComponents(DropdownList);
-      let { fullId, label, prefix, suffix, plainText, options, horizontal, disable, style, ...props } = this.attrs;
+      let { fullId, label, placeholder, prefix, suffix, plainText, options, horizontal, disable, style, ...props } = this.attrs;
 
       options = options || [];
       const listOptions = options.map(opt => (
          <option key={opt.Key} value={opt.Key}>
-            {opt.Value}
+            {opt.Value || placeholder}
          </option>
       ));
+      let value = this.value;
+      if (!this.value) {
+         let defaultOption = options.filter(x => !x.Value).shift();
+         if (!defaultOption) options.shift();
+         value = defaultOption ? defaultOption.Key : "";
+      }
+      
       const selected = options.filter(opt => opt.Key == this.value).shift();
       const plainTextValue = selected ? selected.Value : '';
+      const validationMessages = this.props.validationMessages || this.state.validationMessages;
 
       return (
          <Container id={fullId} label={label} horizontal={horizontal} plainText={plainText} style={style}>
@@ -74,7 +102,7 @@ export class DropdownList extends InputElement {
                      id={fullId}
                      type="select"
                      valid={this.state.valid}
-                     value={this.value}
+                     value={value}
                      prefix={prefix}
                      suffix={suffix}
                      disabled={disable}
@@ -84,7 +112,7 @@ export class DropdownList extends InputElement {
                   </Input>
                </InputGroup>
             )}
-            {this.state.validationMessages.map((message, idx) => <ValidationMessage key={'validationMsg' + idx}>{message}</ValidationMessage>)}
+            {validationMessages.map((message, idx) => <ValidationMessage key={'validationMsg' + idx}>{message}</ValidationMessage>)}
          </Container>
       );
    }
