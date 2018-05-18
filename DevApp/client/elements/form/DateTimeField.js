@@ -77,7 +77,7 @@ export class DateTimeField extends InputElement {
 
    render() {
       const [ Container, Input, InputGroup, ValidationMessage, PlainText ] = this.resolveComponents(DateTimeField);
-      const { fullId, label, plainText, prefix, suffix, min, max, horizontal, disable, style, ...props } = this.attrs;
+      const { fullId, label, placeholder, plainText, prefix, suffix, min, max, horizontal, disable, style, ...props } = this.attrs;
 
       let dateValue = new Date(this.value);
       dateValue = dateValue.getFullYear() === 0 ? null : dateValue;
@@ -92,6 +92,7 @@ export class DateTimeField extends InputElement {
                      valid={this.state.valid}
                      id={fullId}
                      value={dateValue}
+                     placeholder={placeholder}
                      min={new Date(min)}
                      max={new Date(max)}
                      prefix={prefix}

@@ -19,28 +19,25 @@ namespace dotNetify_Elements
    {
       public DateTimeFieldExample()
       {
-         AddProperty<DateTimeOffset>("Date")
+         AddProperty<DateTime>("Date", DateTime.Now)
             .WithAttribute(this, new DateFieldAttribute
             {
-               Label = "Date:",
-               Min = new DateTimeOffset(new DateTime(1900, 1, 1)),
-               Max = DateTimeOffset.Now
+               Label = "Date:"
             });
 
-         AddProperty<DateTimeOffset>("Time")
+         AddProperty<DateTime>("Time", DateTime.Now)
             .WithAttribute(this, new DateFieldAttribute
             {
-               Label = "Time:",
-               Min = new DateTimeOffset(new DateTime(1900, 1, 1)),
-               Max = DateTimeOffset.Now
+               Label = "Time:"
             });
 
          AddProperty<DateTimeOffset>("DateTime")
             .WithAttribute(this, new DateFieldAttribute
             {
                Label = "Date/time:",
-               Min = new DateTimeOffset(new DateTime(1900, 1, 1)),
-               Max = DateTimeOffset.Now
+               Placeholder = "Enter date...",
+               Min = DateTimeOffset.Now.AddDays(-7),
+               Max = DateTimeOffset.Now.AddDays(7)
             });
       }
    }
