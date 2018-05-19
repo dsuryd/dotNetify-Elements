@@ -13,7 +13,8 @@ public class TextFieldExamples : BaseVM
             Label = "Name:",
             Placeholder = "Enter your name",
             MaxLength = 30
-         });
+         })
+         .WithRequiredValidation(this);
 
       AddProperty<string>("Phone")
          .WithAttribute(this, new TextFieldAttribute

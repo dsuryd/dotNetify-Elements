@@ -7,7 +7,7 @@ public class NumberFieldExample : BaseVM
 {
    public NumberFieldExample()
    {
-      AddProperty<int>("HeightFeet")
+      AddProperty<int?>("HeightFeet")
          .WithAttribute(this, new NumberFieldAttribute
          {
             Label = "Height (ft):",
@@ -18,7 +18,7 @@ public class NumberFieldExample : BaseVM
          })
          .WithRangeValidation(this, 0, 8, "Must be between 0' and 8'");
 
-      AddProperty<int>("HeightInches")
+      AddProperty<int?>("HeightInches")
          .WithAttribute(this, new NumberFieldAttribute
          {
             Label = "Height (in):",

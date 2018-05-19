@@ -1,6 +1,7 @@
 import { Button as _Button } from './Button';
 import { CheckboxInput, CheckboxLabel, CheckboxContainer } from './Checkbox';
 import { Input, InputGroup } from './Input';
+import { Multiselect } from './Multiselect';
 import { PlainText } from './PlainText';
 import { RadioInput, RadioLabel, RadioContainer } from './Radio';
 import { RadioToggleInput, RadioToggleLabel, RadioToggleGroupContainer, RadioToggleContainer } from './RadioToggle';
@@ -53,7 +54,7 @@ Object.assign(DropdownList.componentTypes, {
 });
 
 Object.assign(MultiselectList.componentTypes, {
-   InputComponent: rw.Multiselect
+   InputComponent: Multiselect
 });
 
 Object.assign(NumberField.componentTypes, {

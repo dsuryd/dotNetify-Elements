@@ -67,7 +67,7 @@ export class DateTimeField extends InputElement {
 
    handleChange = value => {
       this.setState({ changed: true });
-      this.value = new moment(value).toISOString(true);
+      this.value = value ? moment(value).format() : null;
    };
 
    handleBlur = _ => {
@@ -77,10 +77,12 @@ export class DateTimeField extends InputElement {
 
    render() {
       const [ Container, Input, InputGroup, ValidationMessage, PlainText ] = this.resolveComponents(DateTimeField);
-      const { fullId, label, placeholder, plainText, prefix, suffix, min, max, horizontal, disable, style, ...props } = this.attrs;
+      const { fullId, label, placeholder, plainText, prefix, suffix, min, max, format, horizontal, disable, style, ...props } = this.attrs;
 
-      let dateValue = new Date(this.value);
-      dateValue = dateValue.getFullYear() === 0 ? null : dateValue;
+      let dateValue = this.value ? new Date(this.value) : null;
+      dateValue = dateValue && dateValue.getFullYear() === 0 ? null : dateValue;
+
+      const validationMessages = this.props.validationMessages || this.state.validationMessages;
 
       return (
          <Container id={fullId} label={label} horizontal={horizontal} plainText={plainText} style={style}>
@@ -92,6 +94,7 @@ export class DateTimeField extends InputElement {
                      valid={this.state.valid}
                      id={fullId}
                      value={dateValue}
+                     format={format}
                      placeholder={placeholder}
                      min={new Date(min)}
                      max={new Date(max)}
@@ -104,7 +107,7 @@ export class DateTimeField extends InputElement {
                   />
                </InputGroup>
             )}
-            {this.state.validationMessages.map((message, idx) => <ValidationMessage key={'validationMessage' + idx}>{message}</ValidationMessage>)}
+            {validationMessages.map((message, idx) => <ValidationMessage key={'validationMessage' + idx}>{message}</ValidationMessage>)}
          </Container>
       );
    }

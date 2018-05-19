@@ -18,7 +18,7 @@ namespace dotNetify_Elements
    {
       public NumberFieldExample()
       {
-         AddProperty<int>("HeightFeet")
+         AddProperty<int?>("HeightFeet")
           .WithAttribute(this, new NumberFieldAttribute
           {
              Label = "Height (ft):",
@@ -29,7 +29,7 @@ namespace dotNetify_Elements
           })
           .WithRangeValidation(this, 0, 8, "Must be between 0' and 8'");
 
-         AddProperty<int>("HeightInches")
+         AddProperty<int?>("HeightInches")
           .WithAttribute(this, new NumberFieldAttribute
           {
              Label = "Height (in):",

@@ -19,13 +19,14 @@ namespace dotNetify_Elements
    {
       public DateTimeFieldExample()
       {
-         AddProperty<DateTime>("Date", DateTime.Now)
+         AddProperty<DateTimeOffset?>("Date", DateTimeOffset.Now)
             .WithAttribute(this, new DateFieldAttribute
             {
                Label = "Date:"
-            });
+            })
+            .WithRequiredValidation(this);
 
-         AddProperty<DateTime>("Time", DateTime.Now)
+         AddProperty<DateTimeOffset?>("Time", DateTimeOffset.Now)
             .WithAttribute(this, new DateFieldAttribute
             {
                Label = "Time:"
