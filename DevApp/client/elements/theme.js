@@ -33,30 +33,36 @@ const defaultTheme = {
       }
    },
    NavMenu: {
+      SelectedRoute: `
+         > a > div > div {
+            padding-left: .5rem;
+            border-left: 2px solid tomato;
+         }
+      `,
       RouteContainer: `
-            border-bottom: 1px solid #e7e7e7;
-            color: #868e96; 
-            &:hover { background: #f0f0f0; }
-            > a {
-                color: #337ab7;
-                &:hover { 
-                    color: #0056b3;
-                    text-decoration: none;
-                } 
-                &:focus { 
-                    color: #337ab7; 
-                    > * { background: #e7e7e7; } 
-                }
-            }
-        `,
+         border-bottom: 1px solid #e7e7e7;
+         color: #868e96; 
+         &:hover { background: #f0f0f0; }
+         > a {
+               color: #337ab7;
+               &:hover { 
+                  color: #0056b3;
+                  text-decoration: none;
+               } 
+               &:focus { 
+                  color: #337ab7; 
+                  > * { background: #e7e7e7; } 
+               }
+         }
+      `,
       GroupContainer: `
-            border-bottom: 1px solid #e7e7e7;
-            color: #337ab7;
-            &:hover { 
-                color: #0056b3; 
-                background: #f0f0f0;
-            }
-        `
+         border-bottom: 1px solid #e7e7e7;
+         color: #337ab7;
+         &:hover { 
+               color: #0056b3; 
+               background: #f0f0f0;
+         }
+      `
    },
    Collapsible: {
       Container: ``,
@@ -77,7 +83,7 @@ const defaultTheme = {
    },
    Input: ``,
    InputValidationError: `
-        border-color: #dc3545;
+        border-color: red;
     `,
    Card: {
       Container: ``,

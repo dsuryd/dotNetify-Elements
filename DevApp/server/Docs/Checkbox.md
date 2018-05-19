@@ -1,16 +1,45 @@
-﻿The element to accept . 
+﻿The element to accept a choice input. 
 
 [inset]
 
 ```cs
+public class CheckboxExample : BaseVM
+{
+   public CheckboxExample()
+   {
+      AddProperty("Agree", true)
+         .WithAttribute(this, new CheckboxAttribute
+         {
+            Label = "I have read and agree to the Terms of Service"
+         });
+   }
+}
 ```
 
 #### Property Types
 
 ```jsx
+static propTypes = {
+   // Identifies the associated view model property.
+   id: PropTypes.string.isRequired,
+
+   // Disables the field.
+   disable: PropTypes.bool,
+
+   // Text or component for the field's label.
+   label: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
+
+   // Replaces the input field with plain text.
+   plainText: PropTypes.bool
+};
 ```
 
 #### Server-side Attributes
 
 ```cs
+public class CheckboxAttribute
+{
+   // Label text of the field.
+   public string Label { get; set; }
+}
 ```

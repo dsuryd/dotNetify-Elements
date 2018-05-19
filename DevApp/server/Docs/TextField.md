@@ -1,4 +1,4 @@
-﻿The element to accept single-line text input. 
+﻿The element to accept single-line text input, and can be configured to use input mask and apply validation.
 
 [inset]
 

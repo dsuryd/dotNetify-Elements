@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Frame, Markdown, Panel, Tab, TabItem, Theme, VMContext } from 'elements';
+import { Checkbox, Frame, Markdown, Panel, Tab, TabItem, Theme, VMContext } from 'elements';
 import RenderExample from '../../components/RenderExample';
 import RenderCustomize from '../../components/RenderCustomize';
 
@@ -36,15 +36,15 @@ import { VMContext, Checkbox } from 'dotnetify-elements';
 
 const MyApp = _ => (
    <VMContext vm="CheckboxExample">
-      <Checkbox id="Checkbox_Example" ${props}/>
+      <Checkbox id="Agree" />
    </VMContext>
 );
 \`\`\``;
       const setState = state => this.setState(state);
       return (
          <RenderExample vm="CheckboxExample" propTypes={Checkbox.propTypes} buildCode={buildCode} onChange={setState}>
-            <Panel style={{ minHeight: '8rem' }}>
-               <Checkbox id="Checkbox_Example" {...this.state} />
+            <Panel style={{ minHeight: '3rem' }}>
+               <Checkbox id="Agree" {...this.state} />
             </Panel>
          </RenderExample>
       );
@@ -63,7 +63,7 @@ class CheckboxCustomize extends React.Component {
       });
       return (
          <RenderCustomize vm="CheckboxCustomize" name="Checkbox" componentTypes={componentTypes} select={select} onSelected={handleSelected}>
-            <Checkbox id="MyCheckbox" label="Label:" plainText={plainText} />
+            <Checkbox id="MyCheckbox" plainText={plainText} />
          </RenderCustomize>
       );
    }

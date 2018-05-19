@@ -11,7 +11,7 @@ export default class RenderCustomize extends React.Component {
       this.state = { selected: null };
       this.componentTypes = {};
       Object.keys(props.componentTypes).forEach(key => {
-         if (props.componentTypes[key]) this.componentTypes[key] = props.componentTypes[key]; 
+         if (props.componentTypes[key]) this.componentTypes[key] = props.componentTypes[key];
       });
    }
 

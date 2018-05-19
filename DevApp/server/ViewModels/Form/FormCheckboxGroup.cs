@@ -18,15 +18,7 @@ namespace dotNetify_Elements
 
    public class CheckboxGroupExample : BaseVM
    {
-      public enum Choice
-      {
-         A,
-         B,
-         C,
-         D,
-         E,
-         F
-      }
+      public enum Choice { A, B, C, D, E, F }
 
       public CheckboxGroupExample()
       {
@@ -40,6 +32,13 @@ namespace dotNetify_Elements
             { Choice.F, "Microwave radiation" },
          }
          .Select(kvp => KeyValuePair.Create($"{(int)kvp.Key}", kvp.Value));
+
+         AddProperty<string>("Quizz")
+            .WithAttribute(this, new CheckboxGroupAttribute
+            {
+               Label = "Which of the following is part of the electromagnetic spectrum:",
+               Options = choices.ToArray()
+            });
       }
    }
 
@@ -47,7 +46,15 @@ namespace dotNetify_Elements
    {
       public CheckboxGroupCustomize()
       {
-         AddProperty<string>("MyCheckboxGroup");
+         var choices = new Dictionary<string, string>
+         {
+            { "c1", "Choice 1" },
+            { "c2", "Choice 2" },
+            { "c3", "Choice 3" }
+         };
+
+         AddProperty<string>("MyCheckboxGroup", "c2")
+            .WithAttribute(this, new CheckboxGroupAttribute { Label = "Label:", Options = choices.ToArray() });
       }
    }
 }

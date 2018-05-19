@@ -1,4 +1,4 @@
-﻿The element to accept date input. 
+﻿The element to accept date and/or time input. 
 
 [inset]
 

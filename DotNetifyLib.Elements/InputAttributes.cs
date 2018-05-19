@@ -21,13 +21,17 @@ namespace DotNetify.Elements
 {
    public class CheckboxAttribute
    {
+      // Label text of the field.
       public string Label { get; set; }
    }
 
    public class CheckboxGroupAttribute
    {
+      // Label text of the field.
       public string Label { get; set; }
-      public KeyValuePair<string, string> Options { get; set; }
+
+      // Checkbox options.
+      public KeyValuePair<string, string>[] Options { get; set; }
    }
 
    public class DateFieldAttribute

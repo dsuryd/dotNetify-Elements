@@ -15,7 +15,10 @@ const GroupContainer = props => (
    </Collapsible>
 );
 
-const RouteContainer = styled.div`${props => props.theme.NavMenu.RouteContainer};`;
+const RouteContainer = styled.div`
+   ${props => props.theme.NavMenu.RouteContainer};
+   ${props => (props.isSelected ? props.theme.NavMenu.SelectedRoute : '')};
+`;
 
 const GroupHeaderContainer = Collapsible.componentTypes.HeaderContainer.extend`
     padding-right: 1rem;
@@ -35,6 +38,10 @@ const RouteLabel = props => (
 );
 
 export class NavMenu extends Element {
+   static propTypes = {
+      selected: PropTypes.string
+   };
+
    static componentTypes = {
       Container,
       GroupContainer,
@@ -43,15 +50,24 @@ export class NavMenu extends Element {
       RouteLabelComponent: RouteLabel
    };
 
+   state = { selected: this.props.selected };
+
    componentDidMount() {
-      if (this.vm) this.vm.onRouteEnter = (path, template) => (template.Target = this.props.target || 'NavMenuTarget');
+      if (this.vm)
+         this.vm.onRouteEnter = (path, template) => {
+            this.setState({ selected: template.Id });
+            template.Target = this.props.target || 'NavMenuTarget';
+         };
    }
 
    buildRoute(navRoute, navGroup) {
       const [ , , RouteContainer, , RouteLabel ] = utils.resolveComponents(NavMenu, this.props);
       const indent = navGroup ? navGroup.Icon != null : false;
+      const key = navRoute.Route.TemplateId;
+      const isSelected = key === this.state.selected;
+      const select = () => alert();
       return (
-         <RouteContainer key={navRoute.Route.TemplateId}>
+         <RouteContainer key={key} isSelected={isSelected}>
             <RouteLink vm={this.vm} route={navRoute.Route}>
                <RouteLabel icon={navRoute.Icon} indent={indent}>
                   {navRoute.Label}

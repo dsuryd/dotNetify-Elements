@@ -7,25 +7,30 @@ namespace dotNetify_Elements
    {
       public FormCheckbox()
       {
-         var markdown = Utils.GetResource("dotNetify_Elements.server.Docs.xxx.md").Result;
+         var markdown = Utils.GetResource("dotNetify_Elements.server.Docs.Checkbox.md").Result;
 
          AddProperty("Overview", markdown.GetMarkdownSection(null, "Property Type"));
          AddProperty("API", markdown.GetMarkdownSection("Property Type"));
       }
    }
 
-   public class FormCheckboxExample : BaseVM
+   public class CheckboxExample : BaseVM
    {
-      public FormCheckboxExample()
+      public CheckboxExample()
       {
+         AddProperty<bool>("Agree")
+            .WithAttribute(this, new CheckboxAttribute
+            {
+               Label = "I have read and agree to the Terms of Service"
+            });
       }
    }
 
-   public class FormCheckboxCustomize : BaseVM
+   public class CheckboxCustomize : BaseVM
    {
-      public FormCheckboxCustomize()
+      public CheckboxCustomize()
       {
-         AddProperty<string>("My");
+         AddProperty<string>("MyCheckbox").WithAttribute(this, new { Label = "Checkbox" });
       }
    }
 }

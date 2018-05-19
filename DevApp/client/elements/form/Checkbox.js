@@ -5,10 +5,17 @@ import { InputElement } from '../core/Element';
 
 export class Checkbox extends InputElement {
    static propTypes = {
+      // Identifies the associated view model property.
       id: PropTypes.string.isRequired,
-      label: PropTypes.string,
-      plainText: PropTypes.bool,
-      disable: PropTypes.bool
+
+      // Disables the field.
+      disable: PropTypes.bool,
+
+      // Text or component for the field's label.
+      label: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
+
+      // Replaces the input field with plain text.
+      plainText: PropTypes.bool
    };
 
    static componentTypes = {

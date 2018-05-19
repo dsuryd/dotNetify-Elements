@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Frame, Markdown, Panel, Tab, TabItem, Theme, VMContext } from 'elements';
+import { CheckboxGroup, Frame, Markdown, Panel, Tab, TabItem, Theme, VMContext } from 'elements';
 import RenderExample from '../../components/RenderExample';
 import RenderCustomize from '../../components/RenderCustomize';
 
@@ -36,15 +36,15 @@ import { VMContext, CheckboxGroup } from 'dotnetify-elements';
 
 const MyApp = _ => (
    <VMContext vm="CheckboxGroupExample">
-      <CheckboxGroup id="CheckboxGroup_Example" ${props}/>
+      <CheckboxGroup id="Quizz" />
    </VMContext>
 );
 \`\`\``;
       const setState = state => this.setState(state);
       return (
          <RenderExample vm="CheckboxGroupExample" propTypes={CheckboxGroup.propTypes} buildCode={buildCode} onChange={setState}>
-            <Panel style={{ minHeight: '8rem' }}>
-               <CheckboxGroup id="CheckboxGroup_Example" {...this.state} />
+            <Panel style={{ minHeight: '12rem' }}>
+               <CheckboxGroup id="Quizz" {...this.state} />
             </Panel>
          </RenderExample>
       );
@@ -63,7 +63,7 @@ class CheckboxGroupCustomize extends React.Component {
       });
       return (
          <RenderCustomize vm="CheckboxGroupCustomize" name="CheckboxGroup" componentTypes={componentTypes} select={select} onSelected={handleSelected}>
-            <CheckboxGroup id="MyCheckboxGroup" label="Label:" plainText={plainText} />
+            <CheckboxGroup id="MyCheckboxGroup" plainText={plainText} />
          </RenderCustomize>
       );
    }
