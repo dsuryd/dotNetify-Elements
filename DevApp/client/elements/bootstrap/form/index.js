@@ -1,5 +1,6 @@
 import { Button as _Button } from './Button';
 import { CheckboxInput, CheckboxLabel, CheckboxContainer } from './Checkbox';
+import { DateTimePicker } from './DateTimePicker';
 import { Input, InputGroup } from './Input';
 import { Multiselect } from './Multiselect';
 import { PlainText } from './PlainText';
@@ -22,13 +23,6 @@ import { RadioToggle } from '../../../elements/form/RadioToggle';
 import { TextField } from '../../../elements/form/TextField';
 import { TextAreaField } from '../../../elements/form/TextAreaField';
 
-import * as rw from 'react-widgets';
-import momentLocalizer from 'react-widgets-moment';
-import moment from 'moment';
-
-moment.locale('en');
-momentLocalizer();
-
 Button.componentTypes.ButtonComponent = _Button;
 
 Object.assign(Checkbox.componentTypes, {
@@ -44,7 +38,7 @@ Object.assign(CheckboxGroup.componentTypes, {
 });
 
 Object.assign(DateTimeField.componentTypes, {
-   InputComponent: rw.DateTimePicker,
+   InputComponent: DateTimePicker,
    InputGroupComponent: InputGroup
 });
 

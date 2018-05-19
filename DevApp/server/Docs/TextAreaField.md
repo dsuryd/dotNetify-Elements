@@ -1,4 +1,4 @@
-﻿The element to accept multi-line text input; can be configured to validate the input.
+﻿The element to accept multi-line text input. 
 
 [inset]
 

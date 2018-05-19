@@ -1,15 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import { PropTypes } from 'prop-types';
-import { Field } from '../structure/Field';
+import { Field, validationKeyPrefix } from '../structure/Field';
 import { Label } from '../display/Label';
 import { InputElement } from '../core/Element';
 import moment from 'moment';
 
-const PlainTextComponent = props => {
-   const date = new Date(props.children);
-   return date.getFullYear() === 0 ? '' : date.toLocaleDateString();
-};
+const PlainTextComponent = props => <span {...props} />;
 
 export class DateTimeField extends InputElement {
    static propTypes = {
@@ -30,12 +27,6 @@ export class DateTimeField extends InputElement {
 
       // Replaces the input field with plain text.
       plainText: PropTypes.bool,
-
-      // Text or component to display before the field.
-      prefix: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
-
-      // Text or component to display after the field.
-      suffix: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
 
       // Custom validation functions.
       validation: PropTypes.oneOfType([ PropTypes.array, PropTypes.shape({ validate: PropTypes.func, message: PropTypes.string }) ])
@@ -77,17 +68,20 @@ export class DateTimeField extends InputElement {
 
    render() {
       const [ Container, Input, InputGroup, ValidationMessage, PlainText ] = this.resolveComponents(DateTimeField);
-      const { fullId, label, placeholder, plainText, prefix, suffix, min, max, format, horizontal, disable, style, ...props } = this.attrs;
+      const { fullId, label, placeholder, plainText, prefix, suffix, min, max, format, horizontal, disable, style, validation, ...props } = this.attrs;
 
       let dateValue = this.value ? new Date(this.value) : null;
       dateValue = dateValue && dateValue.getFullYear() === 0 ? null : dateValue;
 
+      const plainTextValue = dateValue
+         ? `${props.time === false ? moment(dateValue).format('L') : props.date === false ? moment(dateValue).format('LT') : moment(dateValue).format('LLL')}`
+         : '';
       const validationMessages = this.props.validationMessages || this.state.validationMessages;
 
       return (
          <Container id={fullId} label={label} horizontal={horizontal} plainText={plainText} style={style}>
             {plainText ? (
-               <PlainText>{this.value}</PlainText>
+               <PlainText>{plainTextValue}</PlainText>
             ) : (
                <InputGroup prefix={prefix} suffix={suffix}>
                   <Input
@@ -107,7 +101,7 @@ export class DateTimeField extends InputElement {
                   />
                </InputGroup>
             )}
-            {validationMessages.map((message, idx) => <ValidationMessage key={'validationMessage' + idx}>{message}</ValidationMessage>)}
+            {validationMessages.map((message, idx) => <ValidationMessage key={validationKeyPrefix + idx}>{message}</ValidationMessage>)}
          </Container>
       );
    }

@@ -39,9 +39,11 @@ import { VMContext, TextField } from 'dotnetify-elements';
 
 const MyApp = _ => (
    <VMContext vm="TextFieldExample">
-      <TextField id="Name" ${props}/>
-      <TextField id="Phone" ${props}/>
-      <TextField id="Amount" ${props}/>
+      <Panel>
+         <TextField id="Name" ${props}/>
+         <TextField id="Phone" ${props}/>
+         <TextField id="Amount" ${props}/>
+      </Panel>
    </VMContext>
 );
 \`\`\``;

@@ -1,4 +1,4 @@
-﻿The element to accept password input, with the text obscured so it cannot be read; can be configured to validate the input.
+﻿The element to accept password input with the text obscured.  
 
 [inset]
 

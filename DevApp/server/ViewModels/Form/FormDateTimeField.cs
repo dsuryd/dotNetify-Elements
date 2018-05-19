@@ -47,10 +47,11 @@ namespace dotNetify_Elements
    {
       public DateTimeFieldCustomize()
       {
-         AddProperty<string>("MyDateTimeField")
+         AddProperty<DateTimeOffset>("MyDateTimeField", DateTime.Now)
             .WithAttribute(this, new DateFieldAttribute
             {
-               Label = "Label:"
+               Label = "Label:",
+               Placeholder = "Placeholder"
             });
       }
    }

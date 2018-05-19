@@ -1,10 +1,10 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
-import { Field } from '../structure/Field';
+import { Field, validationKeyPrefix } from '../structure/Field';
 import { Label } from '../display/Label';
 import { InputElement } from '../core/Element';
 
-const PlainTextComponent = props => <span {...props} />
+const PlainTextComponent = props => <span {...props} />;
 
 export class DropdownList extends InputElement {
    static propTypes = {
@@ -14,10 +14,10 @@ export class DropdownList extends InputElement {
       // Disables the field.
       disable: PropTypes.bool,
 
-      // Displays the label text horizontally to the left of the field.      
+      // Displays the label text horizontally to the left of the field.
       horizontal: PropTypes.bool,
 
-      // Text or component for the field's label.      
+      // Text or component for the field's label.
       label: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
 
       // Replaces the input field with plain text.
@@ -27,7 +27,7 @@ export class DropdownList extends InputElement {
       prefix: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
 
       // Text or component to display after the field.
-      suffix: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),      
+      suffix: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ])
    };
 
    static componentTypes = {
@@ -53,11 +53,11 @@ export class DropdownList extends InputElement {
 
       // If "required" validation is specified, add a custom validator to validate against an empty selection.
       if (this.vmProperty.validator && this.vmProperty.validator.validations) {
-         const requiredValidation = this.vmProperty.validator.validations.filter(x => x.type === "Required").shift();
+         const requiredValidation = this.vmProperty.validator.validations.filter(x => x.type === 'Required').shift();
          const emptySelection = this.attrs.options.filter(x => !x.Value).shift();
 
          if (requiredValidation && emptySelection) {
-            this.vmProperty.addValidation( {
+            this.vmProperty.addValidation({
                validate: val => val != emptySelection.Key,
                message: requiredValidation.message,
                category: requiredValidation.category
@@ -85,9 +85,9 @@ export class DropdownList extends InputElement {
       if (!this.value) {
          let defaultOption = options.filter(x => !x.Value).shift();
          if (!defaultOption) options.shift();
-         value = defaultOption ? defaultOption.Key : "";
+         value = defaultOption ? defaultOption.Key : '';
       }
-      
+
       const selected = options.filter(opt => opt.Key == this.value).shift();
       const plainTextValue = selected ? selected.Value : '';
       const validationMessages = this.props.validationMessages || this.state.validationMessages;
@@ -112,7 +112,7 @@ export class DropdownList extends InputElement {
                   </Input>
                </InputGroup>
             )}
-            {validationMessages.map((message, idx) => <ValidationMessage key={'validationMsg' + idx}>{message}</ValidationMessage>)}
+            {validationMessages.map((message, idx) => <ValidationMessage key={validationKeyPrefix + idx}>{message}</ValidationMessage>)}
          </Container>
       );
    }

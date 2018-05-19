@@ -54,7 +54,7 @@ export class Field extends React.Component {
       const { id, label, plainText, horizontal, right, style, ...props } = this.props;
       const labelPadding = horizontal ? null : '0 0 .5rem 0';
 
-      const [ validationMessages, children ] = utils.filterChildren(this.props.children, child => child.key && child.key.startsWith('validationMsg'));
+      const [ validationMessages, children ] = utils.filterChildren(this.props.children, child => child.key && child.key.startsWith(validationKeyPrefix));
 
       return (
          <Container style={style} horizontal={horizontal}>
@@ -77,3 +77,5 @@ export class Field extends React.Component {
       );
    }
 }
+
+export const validationKeyPrefix = 'validationMsg';

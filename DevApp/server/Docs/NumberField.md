@@ -1,4 +1,4 @@
-﻿The element to accept whole number input; can be configured to apply input mask and validate the input. 
+﻿The element to accept whole number input.  
 
 [inset]
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
-import { Field } from '../structure/Field';
+import { Field, validationKeyPrefix } from '../structure/Field';
 import { Label } from '../display/Label';
 import { InputElement } from '../core/Element';
 
@@ -91,7 +91,7 @@ export class MultiselectList extends InputElement {
                   {...props}
                />
             )}
-            {validationMessages.map((message, idx) => <ValidationMessage key={'validationMsg' + idx}>{message}</ValidationMessage>)}
+            {validationMessages.map((message, idx) => <ValidationMessage key={validationKeyPrefix + idx}>{message}</ValidationMessage>)}
          </Container>
       );
    }

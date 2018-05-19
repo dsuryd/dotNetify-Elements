@@ -38,9 +38,6 @@ namespace DotNetify.Elements
       // Placeholder text to display when the field is empty.
       public string Placeholder { get; set; }
 
-      public string Prefix { get; set; }
-      public string Suffix { get; set; }
-
       // Min date value.
       public DateTimeOffset Min { get; set; } = DateTimeOffset.MinValue;
 

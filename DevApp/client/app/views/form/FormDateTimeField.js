@@ -36,7 +36,11 @@ import { VMContext, DateTimeField } from 'dotnetify-elements';
 
 const MyApp = _ => (
    <VMContext vm="DateTimeFieldExample">
-      <DateTimeField id="DateTimeField_Example" ${props}/>
+      <Panel horizontal>
+         <DateField id="Date" flex />
+         <TimeField id="Time" flex />
+         <DateTimeField id="DateTime" flex />
+      </Panel>
    </VMContext>
 );
 \`\`\``;
@@ -66,7 +70,7 @@ class DateTimeFieldCustomize extends React.Component {
       });
       return (
          <RenderCustomize vm="DateTimeFieldCustomize" name="DateTimeField" componentTypes={componentTypes} select={select} onSelected={handleSelected}>
-            <DateTimeField id="MyDateTimeField" prefix="Prefix-" suffix="-Suffix" plainText={plainText} validationMessages={validationMessages} />
+            <DateTimeField id="MyDateTimeField" plainText={plainText} validationMessages={validationMessages} />
          </RenderCustomize>
       );
    }
