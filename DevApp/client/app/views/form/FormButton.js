@@ -1,29 +1,27 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Frame, Markdown, Panel, Tab, TabItem, Theme, VMContext } from 'elements';
+import { Frame, Markdown, Panel, Tab, TabItem, VMContext, withTheme } from 'elements';
 import RenderExample from '../../components/RenderExample';
 import RenderCustomize from '../../components/RenderCustomize';
 
 const FormButton = props => (
    <VMContext vm="FormButton">
-      <Theme>
-         <Frame width="95%">
-            <h3>Button</h3>
-            <Tab>
-               <TabItem label="Overview">
-                  <Markdown id="Overview">
-                     <ButtonExample />
-                  </Markdown>
-               </TabItem>
-               <TabItem label="API">
-                  <Markdown id="API" />
-               </TabItem>
-               <TabItem label="Customize">
-                  <ButtonCustomize />
-               </TabItem>
-            </Tab>
-         </Frame>
-      </Theme>
+      <Frame width="95%">
+         <h3>Button</h3>
+         <Tab>
+            <TabItem label="Overview">
+               <Markdown id="Overview">
+                  <ButtonExample />
+               </Markdown>
+            </TabItem>
+            <TabItem label="API">
+               <Markdown id="API" />
+            </TabItem>
+            <TabItem label="Customize">
+               <ButtonCustomize />
+            </TabItem>
+         </Tab>
+      </Frame>
    </VMContext>
 );
 
@@ -69,4 +67,4 @@ class ButtonCustomize extends React.Component {
    }
 }
 
-export default FormButton;
+export default withTheme(FormButton);

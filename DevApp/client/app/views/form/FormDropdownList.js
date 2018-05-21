@@ -1,29 +1,27 @@
 import React from 'react';
 import styled from 'styled-components';
-import { DropdownList, Frame, Markdown, Panel, Tab, TabItem, Theme, VMContext } from 'elements';
+import { DropdownList, Frame, Markdown, Panel, Tab, TabItem, VMContext, withTheme } from 'elements';
 import RenderExample from '../../components/RenderExample';
 import RenderCustomize from '../../components/RenderCustomize';
 
 const FormDropdownList = props => (
    <VMContext vm="FormDropdownList">
-      <Theme>
-         <Frame width="95%">
-            <h3>DropdownList</h3>
-            <Tab>
-               <TabItem label="Overview">
-                  <Markdown id="Overview">
-                     <DropdownListExample />
-                  </Markdown>
-               </TabItem>
-               <TabItem label="API">
-                  <Markdown id="API" />
-               </TabItem>
-               <TabItem label="Customize">
-                  <DropdownListCustomize />
-               </TabItem>
-            </Tab>
-         </Frame>
-      </Theme>
+      <Frame width="95%">
+         <h3>DropdownList</h3>
+         <Tab>
+            <TabItem label="Overview">
+               <Markdown id="Overview">
+                  <DropdownListExample />
+               </Markdown>
+            </TabItem>
+            <TabItem label="API">
+               <Markdown id="API" />
+            </TabItem>
+            <TabItem label="Customize">
+               <DropdownListCustomize />
+            </TabItem>
+         </Tab>
+      </Frame>
    </VMContext>
 );
 
@@ -70,4 +68,4 @@ class DropdownListCustomize extends React.Component {
    }
 }
 
-export default FormDropdownList;
+export default withTheme(FormDropdownList);

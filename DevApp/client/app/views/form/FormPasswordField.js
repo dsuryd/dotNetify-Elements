@@ -1,29 +1,27 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Frame, Markdown, Panel, PasswordField, Tab, TabItem, Theme, VMContext } from 'elements';
+import { Frame, Markdown, Panel, PasswordField, Tab, TabItem, VMContext, withTheme } from 'elements';
 import RenderExample from '../../components/RenderExample';
 import RenderCustomize from '../../components/RenderCustomize';
 
 const FormPasswordField = props => (
    <VMContext vm="FormPasswordField">
-      <Theme>
-         <Frame width="95%">
-            <h3>PasswordField</h3>
-            <Tab>
-               <TabItem label="Overview">
-                  <Markdown id="Overview">
-                     <PasswordFieldExample />
-                  </Markdown>
-               </TabItem>
-               <TabItem label="API">
-                  <Markdown id="API" />
-               </TabItem>
-               <TabItem label="Customize">
-                  <PasswordFieldCustomize />
-               </TabItem>
-            </Tab>
-         </Frame>
-      </Theme>
+      <Frame width="95%">
+         <h3>PasswordField</h3>
+         <Tab>
+            <TabItem label="Overview">
+               <Markdown id="Overview">
+                  <PasswordFieldExample />
+               </Markdown>
+            </TabItem>
+            <TabItem label="API">
+               <Markdown id="API" />
+            </TabItem>
+            <TabItem label="Customize">
+               <PasswordFieldCustomize />
+            </TabItem>
+         </Tab>
+      </Frame>
    </VMContext>
 );
 
@@ -77,4 +75,4 @@ class PasswordFieldCustomize extends React.Component {
    }
 }
 
-export default FormPasswordField;
+export default withTheme(FormPasswordField);

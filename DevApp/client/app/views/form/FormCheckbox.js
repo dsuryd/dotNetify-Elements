@@ -1,29 +1,27 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Checkbox, Frame, Markdown, Panel, Tab, TabItem, Theme, VMContext } from 'elements';
+import { Checkbox, Frame, Markdown, Panel, Tab, TabItem, VMContext, withTheme } from 'elements';
 import RenderExample from '../../components/RenderExample';
 import RenderCustomize from '../../components/RenderCustomize';
 
 const FormCheckbox = props => (
    <VMContext vm="FormCheckbox">
-      <Theme>
-         <Frame width="95%">
-            <h3>Checkbox</h3>
-            <Tab>
-               <TabItem label="Overview">
-                  <Markdown id="Overview">
-                     <CheckboxExample />
-                  </Markdown>
-               </TabItem>
-               <TabItem label="API">
-                  <Markdown id="API" />
-               </TabItem>
-               <TabItem label="Customize">
-                  <CheckboxCustomize />
-               </TabItem>
-            </Tab>
-         </Frame>
-      </Theme>
+      <Frame width="95%">
+         <h3>Checkbox</h3>
+         <Tab>
+            <TabItem label="Overview">
+               <Markdown id="Overview">
+                  <CheckboxExample />
+               </Markdown>
+            </TabItem>
+            <TabItem label="API">
+               <Markdown id="API" />
+            </TabItem>
+            <TabItem label="Customize">
+               <CheckboxCustomize />
+            </TabItem>
+         </Tab>
+      </Frame>
    </VMContext>
 );
 
@@ -69,4 +67,4 @@ class CheckboxCustomize extends React.Component {
    }
 }
 
-export default FormCheckbox;
+export default withTheme(FormCheckbox);

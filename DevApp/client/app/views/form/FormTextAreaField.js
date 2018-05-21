@@ -1,29 +1,27 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Frame, Markdown, Panel, Tab, TabItem, TextAreaField, Theme, VMContext } from 'elements';
+import { Frame, Markdown, Panel, Tab, TabItem, TextAreaField, VMContext, withTheme } from 'elements';
 import RenderExample from '../../components/RenderExample';
 import RenderCustomize from '../../components/RenderCustomize';
 
 const FormTextAreaField = props => (
    <VMContext vm="FormTextAreaField">
-      <Theme>
-         <Frame width="95%">
-            <h3>TextAreaField</h3>
-            <Tab>
-               <TabItem label="Overview">
-                  <Markdown id="Overview">
-                     <TextAreaFieldExample />
-                  </Markdown>
-               </TabItem>
-               <TabItem label="API">
-                  <Markdown id="API" />
-               </TabItem>
-               <TabItem label="Customize">
-                  <TextAreaFieldCustomize />
-               </TabItem>
-            </Tab>
-         </Frame>
-      </Theme>
+      <Frame width="95%">
+         <h3>TextAreaField</h3>
+         <Tab>
+            <TabItem label="Overview">
+               <Markdown id="Overview">
+                  <TextAreaFieldExample />
+               </Markdown>
+            </TabItem>
+            <TabItem label="API">
+               <Markdown id="API" />
+            </TabItem>
+            <TabItem label="Customize">
+               <TextAreaFieldCustomize />
+            </TabItem>
+         </Tab>
+      </Frame>
    </VMContext>
 );
 
@@ -70,4 +68,4 @@ class TextAreaFieldCustomize extends React.Component {
    }
 }
 
-export default FormTextAreaField;
+export default withTheme(FormTextAreaField);

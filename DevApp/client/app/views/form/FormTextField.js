@@ -1,32 +1,30 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Frame, Markdown, Panel, Tab, TabItem, TextField, Theme, VMContext } from 'elements';
+import { Frame, Markdown, Panel, Tab, TabItem, TextField, VMContext, withTheme } from 'elements';
 import RenderExample from '../../components/RenderExample';
 import RenderCustomize from '../../components/RenderCustomize';
 
 const FormTextField = props => (
    <VMContext vm="FormTextField">
-      <Theme>
-         <Frame width="95%">
-            <h3>TextField</h3>
-            <Tab>
-               <TabItem label="Overview">
-                  <Markdown id="Overview">
-                     <TextFieldExample />
-                  </Markdown>
-               </TabItem>
-               <TabItem label="Input Mask">
-                  <Markdown id="Mask" />
-               </TabItem>
-               <TabItem label="API">
-                  <Markdown id="API" />
-               </TabItem>
-               <TabItem label="Customize">
-                  <TextFieldCustomize />
-               </TabItem>
-            </Tab>
-         </Frame>
-      </Theme>
+      <Frame width="95%">
+         <h3>TextField</h3>
+         <Tab>
+            <TabItem label="Overview">
+               <Markdown id="Overview">
+                  <TextFieldExample />
+               </Markdown>
+            </TabItem>
+            <TabItem label="Input Mask">
+               <Markdown id="Mask" />
+            </TabItem>
+            <TabItem label="API">
+               <Markdown id="API" />
+            </TabItem>
+            <TabItem label="Customize">
+               <TextFieldCustomize />
+            </TabItem>
+         </Tab>
+      </Frame>
    </VMContext>
 );
 
@@ -79,4 +77,4 @@ class TextFieldCustomize extends React.Component {
    }
 }
 
-export default FormTextField;
+export default withTheme(FormTextField);

@@ -1,10 +1,8 @@
 import React from 'react';
-import { Frame, Panel, Checkbox, RadioToggle, Theme } from 'elements';
+import { Frame, Panel, Checkbox, RadioToggle, withTheme } from 'elements';
 import SampleForm from '../../components/SampleForm';
 
-const layoutOptions = [ { key: 'horizontal', value: 'Horizontal' }, { key: 'vertical', value: 'Vertical' } ];
-
-export default class FormDemo extends React.Component {
+class FormDemo extends React.Component {
    state = { horizontal: false, plainText: false };
 
    get layout() {
@@ -18,23 +16,24 @@ export default class FormDemo extends React.Component {
    handlePlainTextChange = value => this.setState({ plainText: value });
 
    render() {
+      const layoutOptions = [ { key: 'horizontal', value: 'Horizontal' }, { key: 'vertical', value: 'Vertical' } ];
       return (
-         <Theme>
-            <Frame>
-               <h2>Form Elements</h2>
-               <SampleForm
-                  vm="SampleForm"
-                  title={
-                     <Panel horizontal centerAligned>
-                        <RadioToggle id="_layoutOptions" options={layoutOptions} value={this.layout} onChange={this.handleLayoutChange} />
-                        <Checkbox id="_plainText" label="Plain Text" value={this.plainText} onChange={this.handlePlainTextChange} />
-                     </Panel>
-                  }
-                  horizontal={this.state.horizontal}
-                  plainText={this.state.plainText}
-               />
-            </Frame>
-         </Theme>
+         <Frame>
+            <h2>Form Elements</h2>
+            <SampleForm
+               vm="SampleForm"
+               title={
+                  <Panel horizontal centerAligned>
+                     <RadioToggle id="_layoutOptions" options={layoutOptions} value={this.layout} onChange={this.handleLayoutChange} />
+                     <Checkbox id="_plainText" label="Plain Text" value={this.plainText} onChange={this.handlePlainTextChange} />
+                  </Panel>
+               }
+               horizontal={this.state.horizontal}
+               plainText={this.state.plainText}
+            />
+         </Frame>
       );
    }
 }
+
+export default withTheme(FormDemo);

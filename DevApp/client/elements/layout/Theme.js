@@ -37,3 +37,9 @@ export class Theme extends React.Component {
       );
    }
 }
+
+export const withTheme = Component => props => (
+   <Theme>
+      <Component {...props} />
+   </Theme>
+);

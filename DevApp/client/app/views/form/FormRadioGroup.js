@@ -1,29 +1,27 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Frame, Markdown, Panel, Tab, TabItem, RadioGroup, Theme, VMContext } from 'elements';
+import { Frame, Markdown, Panel, Tab, TabItem, RadioGroup, VMContext, withTheme } from 'elements';
 import RenderExample from '../../components/RenderExample';
 import RenderCustomize from '../../components/RenderCustomize';
 
 const FormRadioGroup = props => (
    <VMContext vm="FormRadioGroup">
-      <Theme>
-         <Frame width="95%">
-            <h3>RadioGroup</h3>
-            <Tab>
-               <TabItem label="Overview">
-                  <Markdown id="Overview">
-                     <RadioGroupExample />
-                  </Markdown>
-               </TabItem>
-               <TabItem label="API">
-                  <Markdown id="API" />
-               </TabItem>
-               <TabItem label="Customize">
-                  <RadioGroupCustomize />
-               </TabItem>
-            </Tab>
-         </Frame>
-      </Theme>
+      <Frame width="95%">
+         <h3>RadioGroup</h3>
+         <Tab>
+            <TabItem label="Overview">
+               <Markdown id="Overview">
+                  <RadioGroupExample />
+               </Markdown>
+            </TabItem>
+            <TabItem label="API">
+               <Markdown id="API" />
+            </TabItem>
+            <TabItem label="Customize">
+               <RadioGroupCustomize />
+            </TabItem>
+         </Tab>
+      </Frame>
    </VMContext>
 );
 
@@ -69,4 +67,4 @@ class RadioGroupCustomize extends React.Component {
    }
 }
 
-export default FormRadioGroup;
+export default withTheme(FormRadioGroup);

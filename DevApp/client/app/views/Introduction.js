@@ -1,20 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Frame, Markdown, Theme, VMContext } from 'elements';
+import { Frame, Markdown, VMContext, withTheme } from 'elements';
 import { Button, Collapsible, DropdownList, Element, Form, NumberField, TextField } from 'elements';
 import Expander from '../components/Expander';
 
 const Overview = props => (
    <VMContext vm="Introduction">
-      <Theme>
-         <Frame width="95%">
-            <Markdown id="Intro">
-               <Expander label={<SeeItLive />} content={<NameInput />} />
-               <Expander label={<SeeItLive />} content={<NameGenderInput />} />
-               <Expander label={<SeeItLive />} content={<PrimeInput />} />
-            </Markdown>
-         </Frame>
-      </Theme>
+      <Frame width="95%">
+         <Markdown id="Intro">
+            <Expander label={<SeeItLive />} content={<NameInput />} />
+            <Expander label={<SeeItLive />} content={<NameGenderInput />} />
+            <Expander label={<SeeItLive />} content={<PrimeInput />} />
+         </Markdown>
+      </Frame>
    </VMContext>
 );
 
@@ -52,4 +50,4 @@ const PrimeInput = _ => (
    </VMContext>
 );
 
-export default Overview;
+export default withTheme(Overview);

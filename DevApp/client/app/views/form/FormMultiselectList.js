@@ -1,29 +1,27 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Frame, Markdown, MultiselectList, Panel, Tab, TabItem, Theme, VMContext } from 'elements';
+import { Frame, Markdown, MultiselectList, Panel, Tab, TabItem, VMContext, withTheme } from 'elements';
 import RenderExample from '../../components/RenderExample';
 import RenderCustomize from '../../components/RenderCustomize';
 
 const FormMultiselectList = props => (
    <VMContext vm="FormMultiselectList">
-      <Theme>
-         <Frame width="95%">
-            <h3>MultiselectList</h3>
-            <Tab>
-               <TabItem label="Overview">
-                  <Markdown id="Overview">
-                     <MultiselectListExample />
-                  </Markdown>
-               </TabItem>
-               <TabItem label="API">
-                  <Markdown id="API" />
-               </TabItem>
-               <TabItem label="Customize">
-                  <MultiselectListCustomize />
-               </TabItem>
-            </Tab>
-         </Frame>
-      </Theme>
+      <Frame width="95%">
+         <h3>MultiselectList</h3>
+         <Tab>
+            <TabItem label="Overview">
+               <Markdown id="Overview">
+                  <MultiselectListExample />
+               </Markdown>
+            </TabItem>
+            <TabItem label="API">
+               <Markdown id="API" />
+            </TabItem>
+            <TabItem label="Customize">
+               <MultiselectListCustomize />
+            </TabItem>
+         </Tab>
+      </Frame>
    </VMContext>
 );
 
@@ -70,4 +68,4 @@ class MultiselectListCustomize extends React.Component {
    }
 }
 
-export default FormMultiselectList;
+export default withTheme(FormMultiselectList);

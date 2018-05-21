@@ -21,14 +21,13 @@ import {
    TextAreaField,
    TimeField
 } from './form';
-import { CellPanel, Footer, Frame, Header, Main, Nav, NavHeader, Panel, Section, Theme } from './layout';
+import { CellPanel, Footer, Frame, Header, Main, Nav, NavHeader, Panel, Section, Theme, withTheme } from './layout';
 import { NavMenu, NavMenuTarget } from './nav';
 import { Card, CardHeader, CardBody, CardFooter, Cell, CellHeader, CellBody, Collapsible, Field, Modal, Tab, TabItem } from './structure';
 
 import defaultTheme from '../../elements/theme';
 
 export {
-   defaultTheme,
    Alert,
    Button,
    Card,
@@ -68,5 +67,7 @@ export {
    NumberField,
    PasswordField,
    TextAreaField,
-   Theme
+   Theme,
+   defaultTheme,
+   withTheme
 };

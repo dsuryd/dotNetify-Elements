@@ -1,29 +1,27 @@
 import React from 'react';
 import styled from 'styled-components';
-import { DateField, DateTimeField, TimeField, Frame, Markdown, Panel, Tab, TabItem, Theme, VMContext } from 'elements';
+import { DateField, DateTimeField, TimeField, Frame, Markdown, Panel, Tab, TabItem, VMContext, withTheme } from 'elements';
 import RenderExample from '../../components/RenderExample';
 import RenderCustomize from '../../components/RenderCustomize';
 
 const FormDateTimeField = props => (
    <VMContext vm="FormDateTimeField">
-      <Theme>
-         <Frame width="95%">
-            <h3>DateTimeField</h3>
-            <Tab>
-               <TabItem label="Overview">
-                  <Markdown id="Overview">
-                     <DateTimeFieldExample />
-                  </Markdown>
-               </TabItem>
-               <TabItem label="API">
-                  <Markdown id="API" />
-               </TabItem>
-               <TabItem label="Customize">
-                  <DateTimeFieldCustomize />
-               </TabItem>
-            </Tab>
-         </Frame>
-      </Theme>
+      <Frame width="95%">
+         <h3>DateTimeField</h3>
+         <Tab>
+            <TabItem label="Overview">
+               <Markdown id="Overview">
+                  <DateTimeFieldExample />
+               </Markdown>
+            </TabItem>
+            <TabItem label="API">
+               <Markdown id="API" />
+            </TabItem>
+            <TabItem label="Customize">
+               <DateTimeFieldCustomize />
+            </TabItem>
+         </Tab>
+      </Frame>
    </VMContext>
 );
 
@@ -76,4 +74,4 @@ class DateTimeFieldCustomize extends React.Component {
    }
 }
 
-export default FormDateTimeField;
+export default withTheme(FormDateTimeField);

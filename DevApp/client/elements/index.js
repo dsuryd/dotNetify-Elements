@@ -1,6 +1,5 @@
 import { Element, VMContext, ContextTypes } from './core';
 import {
-   defaultTheme,
    Alert,
    Button,
    Card,
@@ -40,12 +39,13 @@ import {
    TabItem,
    TextField,
    TextAreaField,
-   Theme
+   Theme,
+   defaultTheme,
+   withTheme
 } from './bootstrap';
 
 export { ContextTypes, Element, VMContext };
 export {
-   defaultTheme,
    Alert,
    Button,
    Card,
@@ -85,5 +85,7 @@ export {
    TabItem,
    TextField,
    TextAreaField,
-   Theme
+   Theme,
+   defaultTheme,
+   withTheme
 };
