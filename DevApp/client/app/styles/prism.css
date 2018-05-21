@@ -1,0 +1,295 @@
+/**
+ * prism.js tomorrow night eighties for JavaScript, CoffeeScript, CSS and HTML
+ * Based on https://github.com/chriskempson/tomorrow-theme
+ * @author Rose Pritchard
+ */
+
+.prism-code {
+   display: block;
+   overflow-x: auto;
+   padding: 0.5em;
+   background: #2d2d2d;
+   color: #ccc;
+   border-radius: 4px;
+}
+
+code[class*="lang-"] {
+   color: #ccc;
+   background: none;
+   font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+   text-align: left;
+   white-space: pre;
+   word-spacing: normal;
+   word-break: normal;
+   word-wrap: normal;
+   line-height: 1.5;
+
+   -moz-tab-size: 4;
+   -o-tab-size: 4;
+   tab-size: 4;
+
+   -webkit-hyphens: none;
+   -moz-hyphens: none;
+   -ms-hyphens: none;
+   hyphens: none;
+}
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+   color: #797379;
+}
+
+.token.punctuation {
+   color: #b9b5b8;
+}
+
+.namespace {
+   opacity: .7;
+}
+
+.token.null,
+.token.operator,
+.token.boolean,
+.token.number {
+   color: #fd8b19;
+}
+.token.function {
+   color: #dcdcaa;
+}
+.token.property {
+   color: #fdcc59;
+}
+.token.class-name,
+.token.tag {
+   color: #4ec990;
+}
+.token.string {
+   color: #ce9178;
+}
+.token.selector {
+   color: #c85e7c;
+}
+.token.attr-name {
+   color: #9cdcfe;
+}
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+   color: #149b93;
+}
+
+.token.attr-value {
+   color: #ce8d69;
+}
+
+.token.keyword,
+.token.control,
+.token.directive,
+.token.unit {
+   color: #c586a1;
+}
+
+.token.statement,
+.token.regex,
+.token.atrule {
+   color: #149b93;
+}
+
+.token.placeholder,
+.token.variable {
+   color: #1290bf;
+}
+
+.token.important {
+   color: #dd464c;
+   font-weight: bold;
+}
+
+.token.entity {
+   cursor: help;
+}
+
+pre > code.highlight {
+   outline: .4em solid red;
+   outline-offset: .4em;
+}
+
+/**
+ * prism.js Coy theme for JavaScript, CoffeeScript, CSS and HTML
+ * Based on https://github.com/tshedor/workshop-wp-theme (Example: http://workshop.kansan.com/category/sessions/basics or http://workshop.timshedor.com/category/sessions/basics);
+ * @author Tim  Shedor
+ */
+
+.lang-csharp .prism-code {
+   background: #fdfdfd;
+   color: black;
+}
+
+code[class*="lang-csharp"] {
+   color: black;
+   background: none;
+   font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+   text-align: left;
+   white-space: pre;
+   word-spacing: normal;
+   word-break: normal;
+   word-wrap: normal;
+   line-height: 1.5;
+
+   -moz-tab-size: 4;
+   -o-tab-size: 4;
+   tab-size: 4;
+
+   -webkit-hyphens: none;
+   -moz-hyphens: none;
+   -ms-hyphens: none;
+   hyphens: none;
+}
+
+/* Code blocks */
+pre > .lang-csharp .prism-code {
+   position: relative;
+   margin: .5em 0;
+   overflow: visible;
+}
+
+pre > code.lang-csharp .prism-code {
+   position: relative;
+   border-left: 10px solid #358ccb;
+   box-shadow: -1px 0px 0px 0px #358ccb, 0px 0px 0px 1px #dfdfdf;
+   background-color: #fdfdfd;
+   background-image: linear-gradient(transparent 50%, rgba(69, 142, 209, 0.04) 50%);
+   background-size: 3em 3em;
+   background-origin: content-box;
+   background-attachment: local;
+}
+
+code[class*="lang-csharp"] {
+   max-height: inherit;
+   height: inherit;
+   padding: 0 1px;
+   display: block;
+   overflow: auto;
+}
+
+.lang-csharp .token.comment,
+.lang-csharp .token.block-comment,
+.lang-csharp .token.prolog,
+.lang-csharp .token.doctype,
+.lang-csharp .token.cdata {
+   color: #7d8b99;
+}
+
+.lang-csharp .token.punctuation {
+   color: #5f6364;
+}
+
+.lang-csharp .token.property,
+.lang-csharp .token.tag,
+.lang-csharp .token.boolean,
+.lang-csharp .token.number,
+.lang-csharp .token.function-name,
+.lang-csharp .token.constant,
+.lang-csharp .token.symbol,
+.lang-csharp .token.deleted {
+   color: #c92c2c;
+}
+
+.lang-csharp .token.selector,
+.lang-csharp .token.attr-name,
+.lang-csharp .token.string,
+.lang-csharp .token.char,
+.lang-csharp .token.function,
+.lang-csharp .token.builtin,
+.lang-csharp .token.inserted {
+   color: #2f9c0a;
+}
+
+.lang-csharp .token.operator,
+.lang-csharp .token.entity,
+.lang-csharp .token.url,
+.lang-csharp .token.variable {
+   color: #a67f59;
+   background: rgba(255, 255, 255, 0.5);
+}
+
+.lang-csharp .token.atrule,
+.lang-csharp .token.attr-value,
+.lang-csharp .token.keyword,
+.lang-csharp .token.class-name {
+   color: #1990b8;
+}
+
+.lang-csharp .token.regex,
+.lang-csharp .token.important {
+   color: #e90;
+}
+
+.lang-csharp .lang-csharpcss .token.string,
+.lang-csharp .style .token.string {
+   color: #a67f59;
+   background: rgba(255, 255, 255, 0.5);
+}
+
+.lang-csharp .token.important {
+   font-weight: normal;
+}
+
+.lang-csharp .token.bold {
+   font-weight: bold;
+}
+.lang-csharp .token.italic {
+   font-style: italic;
+}
+
+.lang-csharp .token.entity {
+   cursor: help;
+}
+
+.lang-csharp .namespace {
+   opacity: .7;
+}
+
+@media screen and (max-width: 767px) {
+   pre[class*="lang-csharp"]:before,
+   pre[class*="lang-csharp"]:after {
+      bottom: 14px;
+      box-shadow: none;
+   }
+}
+
+/* Plugin styles */
+.lang-csharp .token.tab:not(:empty):before,
+.lang-csharp .token.cr:before,
+.lang-csharp .token.lf:before {
+   color: #e0d7d1;
+}
+
+/* Plugin styles: Line Numbers */
+pre[class*="lang-csharp"].line-numbers {
+   padding-left: 0;
+}
+
+pre[class*="lang-csharp"].line-numbers code {
+   padding-left: 3.8em;
+}
+
+pre[class*="lang-csharp"].line-numbers .line-numbers-rows {
+   left: 0;
+}
+
+/* Plugin styles: Line Highlight */
+pre[class*="lang-csharp"][data-line] {
+   padding-top: 0;
+   padding-bottom: 0;
+   padding-left: 0;
+}
+.lang-csharp pre[data-line] code {
+   position: relative;
+   padding-left: 4em;
+}
+.lang-csharp pre .line-highlight {
+   margin-top: 0;
+}

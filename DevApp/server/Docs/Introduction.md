@@ -23,7 +23,7 @@ class MyApp extends React.Component {
    }
 }
 ```
-```cs
+```csharp
 using DotNetify;
 
 public class HelloWorld : BaseVM
@@ -63,7 +63,7 @@ const MyApp = _ => (
    </VMContext>
 );
 ```
-```cs
+```csharp
 public class NameInput : BaseVM
 {
    public NameInput()
@@ -91,7 +91,7 @@ const MyApp = _ => (
    </VMContext>
 );
 ```
-```cs
+```csharp
 public class NameGenderInput : BaseVM
 {
    public NameGenderInput()
@@ -123,7 +123,7 @@ const PrimeInput = _ => (
    </VMContext>
 );
 ```
-```cs
+```csharp
 public class PrimeInput : BaseVM
 {
    public PrimeInput()

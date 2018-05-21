@@ -2,7 +2,7 @@
 
 [inset]
 
-```cs
+```csharp
 public class DateTimeFieldExample : BaseVM
 {
    public DateTimeFieldExample()
@@ -31,6 +31,10 @@ public class DateTimeFieldExample : BaseVM
    }
 }
 ```
+
+#### Credits
+
+This element incorporates https://github.com/jquense/react-widgets ([license: MIT](https://github.com/jquense/react-widgets/blob/master/LICENSE.md))
 
 #### Property Types
 
@@ -61,7 +65,7 @@ static propTypes = {
 
 #### Server-side Attributes
 
-```cs
+```csharp
 public class DateFieldAttribute
 {
    // Label text of the field.

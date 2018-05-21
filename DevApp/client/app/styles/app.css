@@ -5,6 +5,7 @@ html {
 
 .markdown pre {
    margin: 0;
+   font-size: 1rem;
 }
 
 .markdown h4 {

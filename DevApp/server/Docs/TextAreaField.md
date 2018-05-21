@@ -2,7 +2,7 @@
 
 [inset]
 
-```cs
+```csharp
 public class TextAreaFieldExamples : BaseVM
 {
    public TextAreaFieldExamples()
@@ -33,7 +33,7 @@ static propTypes = {
 
 #### Server-side Attributes
 
-```cs
+```csharp
 public class TextAreaFieldAttribute
 {
    // Label text of the field.

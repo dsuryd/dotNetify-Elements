@@ -2,7 +2,7 @@
 
 [inset]
 
-```cs
+```csharp
 public class CheckboxGroupExample : BaseVM
 {
    public enum Choice { A, B, C, D, E, F }
@@ -53,7 +53,7 @@ static propTypes = {
 
 #### Server-side Attributes
 
-```cs
+```csharp
 public class CheckboxGroupAttribute
 {
    // Label text of the field.

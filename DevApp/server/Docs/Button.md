@@ -2,7 +2,7 @@
 
 [inset]
 
-```cs
+```csharp
 ```
 
 #### Property Types
@@ -12,5 +12,5 @@
 
 #### Server-side Attributes
 
-```cs
+```csharp
 ```

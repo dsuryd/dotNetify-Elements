@@ -2,7 +2,7 @@
 
 [inset]
 
-```cs
+```csharp
 public class NumberFieldExample : BaseVM
 {
    public NumberFieldExample()
@@ -40,7 +40,7 @@ Same as [TextField](textfield).
 
 #### Server-side Attributes
 
-```cs
+```csharp
 public class NumberFieldAttribute
 {
    // Label text of the field.

@@ -2,7 +2,7 @@
 
 [inset]
 
-```cs
+```csharp
 public class FormPasswordFieldExample : BaseVM
 {
    public FormPasswordFieldExample()

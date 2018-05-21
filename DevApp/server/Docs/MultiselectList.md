@@ -2,7 +2,7 @@
 
 [inset]
 
-```cs
+```csharp
 public class MultiselectListExample : BaseVM
 {
    public enum VisitPurpose
@@ -69,7 +69,7 @@ static propTypes = {
 
 #### Server-side Attributes
 
-```cs
+```csharp
 public class MultiselectListAttribute
 {
    // Label text of the field.

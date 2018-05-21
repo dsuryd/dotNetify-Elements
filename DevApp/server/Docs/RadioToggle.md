@@ -2,7 +2,7 @@
 
 [inset]
 
-```cs
+```csharp
 public class RadioToggleExample : BaseVM
 {
    public enum Position

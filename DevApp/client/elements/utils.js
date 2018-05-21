@@ -1,6 +1,6 @@
 import React from 'react';
 import marked from 'marked';
-import highlight from 'highlightjs';
+import Prism from 'prismjs';
 
 export const createEventEmitter = _ => {
    let subscribers = [];
@@ -51,7 +51,13 @@ export function markdown(text) {
       <div
          dangerouslySetInnerHTML={{
             __html: marked(text, {
-               highlight: code => `<span class='hljs'>${highlight.highlightAuto(code).value}</span>`
+               highlight: (code, lang) => {
+                  var language = !lang || lang === 'html' ? 'markup' : lang;
+                  if (!Prism.languages[language]) {
+                     require('prismjs/components/prism-' + language + '.js');
+                  }
+                  return `<span class='prism-code'>${Prism.highlight(code, Prism.languages[language])}</span>`;
+               }
             })
          }}
       />

@@ -2,7 +2,7 @@
 
 [inset]
 
-```cs
+```csharp
 public class RadioGroupExample : BaseVM
 {
    public enum Weather
@@ -57,7 +57,7 @@ static propTypes = {
 
 #### Server-side Attributes
 
-```cs
+```csharp
 public class RadioGroupAttribute
 {
    // Label text of the field.

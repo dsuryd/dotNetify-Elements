@@ -37,6 +37,7 @@ const defaultTheme = {
          > a > div > div {
             padding-left: .5rem;
             border-left: 2px solid tomato;
+            font-weight: 600;
          }
       `,
       RouteContainer: `

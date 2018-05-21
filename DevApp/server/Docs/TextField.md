@@ -2,7 +2,7 @@
 
 [inset]
 
-```cs
+```csharp
 public class TextFieldExamples : BaseVM
 {
    public TextFieldExamples()
@@ -55,7 +55,7 @@ Mask pattern can be of the following combinations:
 #### Number Mask
 
 Use __NumberMask__ type to format user input as currency:
-```cs
+```csharp
 public class NumberMask : Mask
 {
    // Text to display before the input.
@@ -135,7 +135,7 @@ static propTypes = {
 
 #### Server-side Attributes
 
-```cs
+```csharp
 public class TextFieldAttribute
 {
    // Label text of the field.

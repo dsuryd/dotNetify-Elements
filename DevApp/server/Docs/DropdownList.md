@@ -2,7 +2,7 @@
 
 [inset]
 
-```cs
+```csharp
 public class DropdownListExample : BaseVM
 {
    public enum TaxFilingStatus
@@ -73,7 +73,7 @@ static propTypes = {
 
 #### Server-side Attributes
 
-```cs
+```csharp
 public class DropdownListAttribute
 {
    // Label text of the field.

@@ -2,7 +2,7 @@
 
 [inset]
 
-```cs
+```csharp
 public class CheckboxExample : BaseVM
 {
    public CheckboxExample()
@@ -36,7 +36,7 @@ static propTypes = {
 
 #### Server-side Attributes
 
-```cs
+```csharp
 public class CheckboxAttribute
 {
    // Label text of the field.
