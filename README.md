@@ -1,15 +1,15 @@
 # &nbsp;![alt tag](http://dotnetify.net/content/images/greendot.png) dotNetify-Elements
 
-_The component age is here_.  Rapid development of even very complex web applications can be achieved through declarative composition of 
-small, focused, and interchangeable components.  While the focus has always been with the componentization of client-side elements, 
-it will be exciting to explore ways the back-end logic may be incorporated into the components.  
+Backend-ready React components for your cross-platform .NET web applications, based on [dotNetify-React](http://dotnetify.net/react).
 
-### Introduction
+### Documentation
 
-[Read the introduction to dotNetify-Elements](https://github.com/dsuryd/dotNetify-Elements/blob/master/DevApp/server/Docs/Introduction.md).
+[Read the introduction here](https://github.com/dsuryd/dotNetify-Elements/blob/master/DevApp/server/Docs/Introduction.md).
+
+Full documentation is available [here](https://github.com/dsuryd/dotNetify-Elements/tree/master/DevApp/server/Docs).
 
 ### Status
-ETA for version 0.1 npm release: mid-June to early July 2018
+ETA for version 0.1 npm release: mid-June to early July 2018.
 
 ### Screenshot
 
