@@ -11,6 +11,7 @@ namespace dotNetify_Elements
       {
          Home,
          Introduction,
+         CreatingForms,
          Form,
          FormButton,
          FormCheckbox,
@@ -38,7 +39,7 @@ namespace dotNetify_Elements
          {
             new RouteTemplate(nameof(Route.Home))                 { UrlPattern = "", ViewUrl = nameof(Route.Introduction) },
             new RouteTemplate(nameof(Route.Introduction))         { UrlPattern = "intro" },
-            new RouteTemplate(nameof(Route.Form))                 { UrlPattern = "form" },
+            new RouteTemplate(nameof(Route.CreatingForms))        { UrlPattern = "creatingforms" },
             new RouteTemplate(nameof(Route.FormButton))           { UrlPattern = "form/button" },
             new RouteTemplate(nameof(Route.FormCheckbox))         { UrlPattern = "form/checkbox" },
             new RouteTemplate(nameof(Route.FormCheckboxGroup))    { UrlPattern = "form/checkboxgroup" },
@@ -60,7 +61,8 @@ namespace dotNetify_Elements
          AddProperty("NavMenu", new NavMenu(
             new NavMenuItem[]
             {
-               new NavRoute("Introduction", this.GetRoute(nameof(Route.Introduction))),
+               new NavRoute("Introduction",     this.GetRoute(nameof(Route.Introduction))),
+               new NavRoute("Creating Forms",   this.GetRoute(nameof(Route.CreatingForms))),
                new NavGroup
                {
                   Label = "Form",

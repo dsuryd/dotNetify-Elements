@@ -4,12 +4,10 @@ import VMInputValidator from '../_internal/VMInputValidator';
 import { ContextTypes } from '../core/VMContext';
 import * as utils from '../utils';
 
-export const FormContextTypes = Object.assign(
-   {
-      formContext: PropTypes.object
-   },
-   ContextTypes
-);
+export const FormContextTypes = {
+   formContext: PropTypes.object,
+   ...ContextTypes
+};
 
 export class Form extends React.Component {
    static contextTypes = FormContextTypes;

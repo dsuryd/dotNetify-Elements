@@ -1,12 +1,12 @@
 ﻿## Introduction
 
-DotNetify-Elements provide the building blocks that will make your web application development a breeze.  Built on top of dotNetify-React, Elements are a set of customizable React components that you can readily connect to your cross-platform .NET back-end and get your data streaming in real-time with minimal effort.
+_DotNetify-Elements_ provide the building blocks that will make your web application development a breeze.  Built on top of _dotNetify-React_, Elements are a set of customizable React components that you can readily connect to your cross-platform .NET back-end and get your data streaming in real-time with minimal effort.
 
 _Elements_ incorporate and curate many other existing, widely-adopted open-source libraries to allow you to leverage the React community's tried-and-true favorites in your application with greater ease and speed, while forgoing the hassle of learning each of their idiosyncrasies.  Each data-driven element is designed to be plug-and-play with your C# view models through reactive programming model, and with strong support for theming and customization.
 
 #### The Basics
 
-Let's revisit the Hello World example (if you're not familiar with dotNetify-React, [read it up first!](http://dotnetify.net/react)) :
+Let's revisit the Hello World example (if you're not familiar with _dotNetify-React_, [read it up first!](http://dotnetify.net/react)) :
 
 ```jsx
 import React from 'react';

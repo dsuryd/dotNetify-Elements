@@ -52,6 +52,9 @@ namespace DotNetify.Elements
       {
          var assembly = Assembly.GetEntryAssembly();
          var resourceStream = assembly.GetManifestResourceStream(resourceName);
+         if (resourceStream == null)
+            throw new FileNotFoundException($"'{resourceName}' is not an embedded resource", resourceName);
+
          using (var reader = new StreamReader(resourceStream, Encoding.UTF8))
          {
             return await reader.ReadToEndAsync();

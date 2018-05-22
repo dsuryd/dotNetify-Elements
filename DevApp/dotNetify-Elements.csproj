@@ -4,9 +4,20 @@
     <RootNamespace>dotNetify_Elements</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="client\components\**" />
+    <Compile Remove="client\images\**" />
+    <Content Remove="client\components\**" />
+    <Content Remove="client\images\**" />
+    <EmbeddedResource Remove="client\components\**" />
+    <EmbeddedResource Remove="client\images\**" />
+    <None Remove="client\components\**" />
+    <None Remove="client\images\**" />
+  </ItemGroup>
+  <ItemGroup>
     <None Remove="server\Docs\Button.md" />
     <None Remove="server\Docs\Checkbox.md" />
     <None Remove="server\Docs\CheckboxGroup.md" />
+    <None Remove="server\Docs\CreatingForms.md" />
     <None Remove="server\Docs\DateTimeField.md" />
     <None Remove="server\Docs\DropdownList.md" />
     <None Remove="server\Docs\Form.md" />
@@ -20,8 +31,6 @@
     <None Remove="server\Docs\TextField.md" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="client\components\" />
-    <Folder Include="client\images\" />
     <Folder Include="wwwroot\" />
     <Folder Include="wwwroot\dist\" />
   </ItemGroup>
@@ -37,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="server\Docs\Button.md" />
+    <EmbeddedResource Include="server\Docs\CreatingForms.md" />
     <EmbeddedResource Include="server\Docs\PasswordField.md" />
     <EmbeddedResource Include="server\Docs\NumberField.md" />
     <EmbeddedResource Include="server\Docs\MultiselectList.md" />
