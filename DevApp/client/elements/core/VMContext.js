@@ -75,7 +75,8 @@ export class VMContext extends React.Component {
    }
 
    render() {
-      return this.state ? this.props.children : null;
+      const { children, placeholder } = this.props;
+      return this.state ? children : placeholder || null;
    }
 
    removeOrphan(vmId) {
