@@ -45,7 +45,7 @@ export default class RenderExample extends React.Component {
       ));
 
       return (
-         <VMContext vm={vm}>
+         <VMContext vm={vm} placeholder={<div style={{ minHeight: '50rem' }} />}>
             <Panel style={{ borderTop: '1px solid #ccc', paddingTop: '2rem' }}>
                {children}
                <Panel horizontal style={{ borderTop: '1px solid #ccc', paddingTop: '1rem' }}>

@@ -4,7 +4,7 @@ import { Frame, Markdown, VMContext, withTheme } from 'elements';
 import { Button, Collapsible, DropdownList, Element, Form, NumberField, TextField } from 'elements';
 import Expander from '../components/Expander';
 
-const Overview = props => (
+const Introduction = props => (
    <VMContext vm="Introduction">
       <Frame width="95%">
          <Markdown id="Intro">
@@ -50,4 +50,4 @@ const PrimeInput = _ => (
    </VMContext>
 );
 
-export default withTheme(Overview);
+export default withTheme(Introduction);
