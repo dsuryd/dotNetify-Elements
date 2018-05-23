@@ -8,12 +8,10 @@ namespace dotNetify_Elements
 {
    public class BasicForm : BaseVM
    {
-      public enum Gender { NotSpecified, Male, Female }
-
       private class FormData
       {
          public string Name { get; set; }
-         public Gender Gender { get; set; }
+         public string Email { get; set; }
       }
 
       public BasicForm()
@@ -26,27 +24,20 @@ namespace dotNetify_Elements
             })
             .WithRequiredValidation(this);
 
-         AddProperty<Gender>("Gender")
-            .WithAttribute(this, new DropdownListAttribute
-            {
-               Label = "Gender:",
-               Placeholder = "Select your gender...",
-               Options = new Dictionary<Gender, string>
-               {
-                  { Gender.NotSpecified, "" },
-                  { Gender.Male, "Male" },
-                  { Gender.Female, "Female" }
-               }
-               .Select(kvp => KeyValuePair.Create($"{(int)kvp.Key}", kvp.Value))
-               .ToArray()
-            });
+         AddProperty<string>("Email")
+            .WithAttribute(this, new TextFieldAttribute
+            { 
+               Label = "Email:", 
+               Placeholder = "Enter your email address" 
+            })
+            .WithPatternValidation(this, Pattern.Email, "Must be a valid email address.");
 
-         AddProperty<FormData>("Submit")
-            .WithAttribute(this, new { Label = "Submit" })
+         AddProperty<FormData>("Register")
+            .WithAttribute(this, new { Label = "Register" })
             .SubscribedBy(
-               AddProperty<string>("SubmitFeedback"), submittedData => Save(submittedData));
+               AddProperty<string>("SubmitResponse"), submittedData => Save(submittedData));
       }
 
-      private string Save(FormData data) => $"The name __'{data.Name}'__ of gender __'{data.Gender}'__ was received.";
+      private string Save(FormData data) => $"The name __'{data.Name}'__ with email '{data.Email}' was registered.";
    }
 }

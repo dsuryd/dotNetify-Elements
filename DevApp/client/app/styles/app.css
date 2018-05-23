@@ -17,3 +17,10 @@ html {
 .markdown * + h4 {
    margin-top: 2rem;
 }
+
+.markdown blockquote {
+   border-left: .5rem solid #ccc;
+   padding-left: 1rem;
+   margin-left: 3rem;
+   font-style: italic;
+}
