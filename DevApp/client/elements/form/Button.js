@@ -1,9 +1,10 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import { FormContextTypes } from './Form';
+import Element from '../core/Element';
 import * as utils from '../utils';
 
-export class Button extends React.Component {
+export class Button extends Element {
    static contextTypes = FormContextTypes;
 
    static propTypes = {
@@ -13,6 +14,7 @@ export class Button extends React.Component {
       hide: PropTypes.bool,
       disable: PropTypes.bool
    };
+
    static componentTypes = {
       ButtonComponent: undefined
    };
@@ -35,7 +37,7 @@ export class Button extends React.Component {
 
    render() {
       const [ _Button ] = utils.resolveComponents(Button, this.props);
-      const { label, submit, hide, disable, onClick, children, ...props } = this.props;
+      const { label, submit, hide, disable, onClick, children, ...props } = this.attrs;
       const _disable = submit ? this.disable : disable;
 
       return !hide ? (

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Frame, Markdown, VMContext, withTheme } from 'elements';
-import { Button, Collapsible, DropdownList, Element, Form, NumberField, TextField } from 'elements';
+import { Button, DropdownList, Element, NumberField, TextField } from 'elements';
 import Expander from '../components/Expander';
 
 const Introduction = props => (

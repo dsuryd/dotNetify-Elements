@@ -5,3 +5,7 @@
 .pull-right {
    float: right;
 }
+
+form {
+   margin-bottom: 0;
+}
