@@ -16,9 +16,10 @@ namespace dotNetify_Elements
             .WithAttribute(this, new DropdownListAttribute
             {
                Label = "Gender:",
+               Placeholder = "Select your gender...",
                Options = new Dictionary<string, string>
                {
-                  { "", "Select your gender" },
+                  { "", "" },
                   { "M", "Male" },
                   { "F", "Female" }
                }.ToArray()
