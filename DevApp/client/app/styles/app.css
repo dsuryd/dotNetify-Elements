@@ -5,6 +5,10 @@ html {
 
 .markdown pre {
    margin: 0;
+   font-size: .9rem;
+}
+
+.markdown pre .lang-jsx {
    font-size: 1rem;
 }
 

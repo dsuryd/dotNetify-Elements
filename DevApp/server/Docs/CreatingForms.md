@@ -151,8 +151,29 @@ public class AsyncValidation : BaseVM
 
 Adding __WithServerValidation__ allows the field to dispatch its value to be validated on the back-end without having the form submitted first. 
 
-#### Client-Side Validation and Event Handling
+#### Custom Client-Side Validation
 
+Elements like the _TextField_ and _DateField_ supports custom client-side validation through the _validation_ property, which accepts either a validator object, or an array of validators:
+
+```jsx
+const nameLengthValidator = {
+   validate: value => typeof value == 'string' && value.length >= 2,
+   message: 'Name must be at least 2 characters'
+};
+
+const ClientValidationForm = _ => (
+   <VMContext vm="BasicForm">
+      <Form>
+         <Panel horizontal>
+            <TextField id="Name" horizontal validation={nameLengthValidator} />
+            <Button id="Register" submit />
+         </Panel>
+      </Form>
+   </VMContext>
+);
+```
+
+[inset]
 
 
 

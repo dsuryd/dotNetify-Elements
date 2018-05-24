@@ -152,7 +152,7 @@ code[class*="lang-csharp"] {
 pre > .lang-csharp .prism-code {
    position: relative;
    margin: .5em 0;
-   overflow: visible;
+   overflow: auto;
 }
 
 pre > code.lang-csharp .prism-code {
@@ -201,10 +201,18 @@ code[class*="lang-csharp"] {
 .lang-csharp .token.attr-name,
 .lang-csharp .token.string,
 .lang-csharp .token.char,
-.lang-csharp .token.function,
 .lang-csharp .token.builtin,
 .lang-csharp .token.inserted {
    color: #2f9c0a;
+}
+
+.lang-csharp .token.string,
+.lang-csharp .token.char {
+   color: darkred;
+}
+
+.lang-csharp .token.function {
+   color: black;
 }
 
 .lang-csharp .token.operator,
@@ -217,7 +225,10 @@ code[class*="lang-csharp"] {
 
 .lang-csharp .token.atrule,
 .lang-csharp .token.attr-value,
-.lang-csharp .token.keyword,
+.lang-csharp .token.keyword {
+   color: blue;
+}
+
 .lang-csharp .token.class-name {
    color: #1990b8;
 }
