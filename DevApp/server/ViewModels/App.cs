@@ -45,6 +45,7 @@ namespace dotNetify_Elements
             new RouteTemplate(nameof(Route.FormCheckboxGroup))    { UrlPattern = "form/checkboxgroup" },
             new RouteTemplate(nameof(Route.FormDateTimeField))    { UrlPattern = "form/datetimefield" },
             new RouteTemplate(nameof(Route.FormDropdownList))     { UrlPattern = "form/dropdownlist" },
+            new RouteTemplate(nameof(Route.Form))                 { UrlPattern = "form" },
             new RouteTemplate(nameof(Route.FormMultiselectList))  { UrlPattern = "form/multiselect" },
             new RouteTemplate(nameof(Route.FormNumberField))      { UrlPattern = "form/numberfield" },
             new RouteTemplate(nameof(Route.FormPasswordField))    { UrlPattern = "form/passwordfield" },
@@ -62,17 +63,19 @@ namespace dotNetify_Elements
             new NavMenuItem[]
             {
                new NavRoute("Introduction",     this.GetRoute(nameof(Route.Introduction))),
-               new NavRoute("Creating Forms",   this.GetRoute(nameof(Route.CreatingForms))),
+               new NavRoute("Working with Forms",   this.GetRoute(nameof(Route.CreatingForms))),
                new NavGroup
                {
                   Label = "Form",
                   Icon = "far fa-edit",
                   Routes = new NavRoute[]
                   {
+                     new NavRoute("Button",           this.GetRoute(nameof(Route.FormButton))),
                      new NavRoute("Checkbox",         this.GetRoute(nameof(Route.FormCheckbox))),
                      new NavRoute("CheckboxGroup",    this.GetRoute(nameof(Route.FormCheckboxGroup))),
                      new NavRoute("DateTimeField",    this.GetRoute(nameof(Route.FormDateTimeField))),
                      new NavRoute("DropdownList",     this.GetRoute(nameof(Route.FormDropdownList))),
+                     new NavRoute("Form",             this.GetRoute(nameof(Route.Form))),
                      new NavRoute("MultiselectList",  this.GetRoute(nameof(Route.FormMultiselectList))),
                      new NavRoute("NumberField",      this.GetRoute(nameof(Route.FormNumberField))),
                      new NavRoute("PasswordField",    this.GetRoute(nameof(Route.FormPasswordField))),

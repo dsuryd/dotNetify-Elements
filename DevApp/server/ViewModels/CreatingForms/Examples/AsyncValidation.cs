@@ -42,7 +42,7 @@ namespace dotNetify_Elements
          AddProperty<FormData>("Register")
             .WithAttribute(this, new { Label = "Register" })
             .SubscribedBy(
-               AddProperty<string>("SubmitResponse"), submittedData => Save(submittedData))
+               AddProperty<string>("ServerResponse"), submittedData => Save(submittedData))
                   .SubscribedBy(clearForm, _ => true);        
       }
 

@@ -1,4 +1,4 @@
-﻿The element to accept . 
+﻿The element to accept action input. 
 
 [inset]
 
@@ -8,9 +8,20 @@
 #### Property Types
 
 ```jsx
-```
+static propTypes = {
+   // Associates the button with form cancel action.
+   cancel: PropTypes.bool,
 
-#### Server-side Attributes
+   // Disables the button.
+   disable: PropTypes.bool,
+   
+   // Controls the button's visibility.
+   if: PropTypes.bool,
 
-```csharp
+   // Text or component for the button's label.
+   label: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
+
+   // Associates the button with form submit action.
+   submit: PropTypes.bool
+};
 ```

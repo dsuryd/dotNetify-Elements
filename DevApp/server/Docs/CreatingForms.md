@@ -1,4 +1,4 @@
-﻿## Creating Forms
+﻿## Working with Forms
 
 Creating forms from scratch with React can be quite a chore. If you are a line-of-business application developer, you know that there are plenty of aspects that you need to get right, from providing different types of inputs with the right layout, doing different kinds of validations (some asynchronously) and having their error messages shown, to tracking dirty state to get the submit button enabled, and making sure all the required inputs are filled before user can submit. 
 
@@ -6,7 +6,9 @@ _Form Elements_ can help you avoid repetition and getting all of these done quic
 
 #### Form Submission
 
-Individual input elements will immediately dispatch the changed value to the back-end when the focus leaves the field.  To group them together and dispatch the values on activating the submit button, enclose the elements inside a _Form_ element along with a _Button_ element with the _submit_ attribute:
+Individual input elements will immediately dispatch the changed value to the back-end when the focus leaves the field.  To group them together and dispatch the values on activating the submit button, enclose the elements inside a _Form_ element.
+
+The _Form_ element will associate the _Button_ elements with _submit_ and _cancel_ attributes with submit and cancel actions, respectively.  Submit button must be associated with a view model property that will accept the submitted form data, while cancel button can be purely client-side.  
 
 ```jsx
 import React from 'react';
@@ -15,11 +17,14 @@ import { VMContext, Form, Alert, Panel, TextField, Button } from 'dotnetify-elem
 const BasicForm = _ => (
    <VMContext vm="BasicForm">
       <Form>
-         <Alert id="SubmitResponse" />
+         <Alert id="ServerResponse" />
          <Panel>
             <TextField id="Name" />
             <TextField id="Email" />
-            <Button id="Register" submit />
+            <Panel horizontal right>
+               <Button label="Cancel" cancel secondary />
+               <Button id="Register" submit />
+            </Panel>
          </Panel>
       </Form>
    </VMContext>
@@ -34,6 +39,7 @@ There are several things that happen when you use the _Form_ element:
 - It makes sure the fields are all validated upon submit.
 - It won't let you submit if there's error, and will set the focus back to the invalid field.
 - It submits all the validated field values as a single form data object.
+- On cancel, it restores all the fields to their original values.
 
 Take a look at how the back-end code receives and processes the form data:
 
@@ -67,7 +73,7 @@ public class BasicForm : BaseVM
       AddProperty<FormData>("Register")
          .WithAttribute(this, new { Label = "Register" })
          .SubscribedBy(
-            AddProperty<string>("SubmitResponse"), submittedData => Save(submittedData));
+            AddProperty<string>("ServerResponse"), submittedData => Save(submittedData));
    }
 
    private string Save(FormData data) 
@@ -79,7 +85,7 @@ public class BasicForm : BaseVM
 }
 ```
 
-The _Register_ property is associated with the Submit button, and will receive the form data when the button is activated. The property is reactively chained to the _SubmitResponse_ property, which uses the specified mapper function (calling the _Save_ method) to transform incoming form data into server response message.  
+The _Register_ property is associated with the Submit button, and will receive the form data when the button is activated. The property is reactively chained to the _ServerResponse_ property, which uses the specified mapper function (calling the _Save_ method) to transform incoming form data into server response message.  
 
 > If you aren't yet familiar with reactive programming, the concept is akin to setting up explicit data pipelines between two properties, where one property being the publisher of data, and the other its subscriber.  The subscriber in turn can also become a publisher to another property, and so on. 
 >
@@ -126,7 +132,7 @@ public class AsyncValidation : BaseVM
       AddProperty<FormData>("Register")
          .WithAttribute(this, new { Label = "Register" })
          .SubscribedBy(
-            AddProperty<string>("SubmitResponse"), submittedData => Save(submittedData))
+            AddProperty<string>("ServerResponse"), submittedData => Save(submittedData))
                .SubscribedBy(clearForm, _ => true);        
    }
 
@@ -143,9 +149,9 @@ public class AsyncValidation : BaseVM
 [inset]
 <br/>
 
-Adding __WithServerValidation__ allows the field to dispatch its value to be validated on the back-end while the rest of the form is still being filled.
+Adding __WithServerValidation__ allows the field to dispatch its value to be validated on the back-end without having the form submitted first. 
 
-#### Client-Side Customization
+#### Client-Side Validation and Event Handling
 
 
 

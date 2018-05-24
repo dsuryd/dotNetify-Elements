@@ -1,6 +1,6 @@
 ﻿## Introduction
 
-_DotNetify-Elements_ provide the building blocks that will make your web application development a breeze.  Built on top of _dotNetify-React_, Elements are a set of customizable React components that you can readily connect to your cross-platform .NET back-end and get your data streaming in real-time with minimal effort.
+_DotNetify-Elements_ provide the building blocks that will make your web application development a breeze.  Built on top of _dotNetify-React_, Elements are a set of customizable React components that you can readily connect to your cross-platform .NET back-end and get your data streaming in real-time through WebSocket with minimal effort.
 
 _Elements_ incorporate and curate many other existing, widely-adopted open-source libraries to allow you to leverage the React community's tried-and-true favorites in your application with greater ease and speed, while forgoing the hassle of learning each of their idiosyncrasies.  Each data-driven element is designed to be plug-and-play with your C# view models through reactive programming model, and with strong support for theming and customization.
 
@@ -153,4 +153,4 @@ public class PrimeInput : BaseVM
 [inset]
 <br/>
 
-Placing these input elements inside a _Form_ element will give you much more features, including the ability to perform group validation and submission, dirty checking, and more.  This topic will be explored in-depth on the other section, but for now this concludes our introduction.
+Placing these input elements inside a _Form_ element will give you much more features, including the ability to perform form-level validation, submission and error handling, dirty checking, and more.  This topic will be explored in-depth in the following section.

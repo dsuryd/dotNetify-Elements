@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Frame, Markdown, Panel, Tab, TabItem, VMContext, withTheme } from 'elements';
+import { Button, Frame, Markdown, Panel, Tab, TabItem, VMContext, withTheme } from 'elements';
 import RenderExample from '../../components/RenderExample';
 import RenderCustomize from '../../components/RenderCustomize';
 

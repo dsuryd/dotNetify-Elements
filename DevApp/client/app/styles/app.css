@@ -8,6 +8,10 @@ html {
    font-size: 1rem;
 }
 
+.markdown h2 {
+   margin-bottom: 2rem;
+}
+
 .markdown h4 {
    margin-bottom: 1.5rem;
    padding-bottom: .5rem;

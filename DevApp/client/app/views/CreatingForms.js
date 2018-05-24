@@ -20,11 +20,14 @@ const SeeItLive = _ => <b>See its Live!</b>;
 const BasicForm = props => (
    <VMContext vm={props.vm}>
       <Form>
-         <Alert id="SubmitResponse" />
+         <Alert id="ServerResponse" />
          <Panel>
             <TextField id="Name" />
             <TextField id="Email" />
-            <Button id="Register" submit />
+            <Panel horizontal right>
+               <Button label="Cancel" cancel secondary />
+               <Button id="Register" submit />
+            </Panel>
          </Panel>
       </Form>
    </VMContext>

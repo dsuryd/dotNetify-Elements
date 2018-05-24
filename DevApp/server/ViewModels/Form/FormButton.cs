@@ -7,7 +7,7 @@ namespace dotNetify_Elements
    {
       public FormButton()
       {
-         var markdown = Utils.GetResource("dotNetify_Elements.server.Docs.xxx.md").Result;
+         var markdown = Utils.GetResource("dotNetify_Elements.server.Docs.Button.md").Result;
 
          AddProperty("Overview", markdown.GetMarkdownSection(null, "Property Type"));
          AddProperty("API", markdown.GetMarkdownSection("Property Type"));
@@ -18,6 +18,7 @@ namespace dotNetify_Elements
    {
       public FormButtonExample()
       {
+         //AddProperty("Primary")
       }
    }
 

@@ -8,11 +8,20 @@ export class Button extends Element {
    static contextTypes = FormContextTypes;
 
    static propTypes = {
-      label: PropTypes.string,
-      submit: PropTypes.bool,
+      // Associates the button with form cancel action.
       cancel: PropTypes.bool,
-      hide: PropTypes.bool,
-      disable: PropTypes.bool
+
+      // Disables the button.
+      disable: PropTypes.bool,
+      
+      // Controls the button's visibility.
+      if: PropTypes.bool,
+
+      // Text or component for the button's label.
+      label: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
+
+      // Associates the button with form submit action.
+      submit: PropTypes.bool
    };
 
    static componentTypes = {
@@ -37,13 +46,14 @@ export class Button extends Element {
 
    render() {
       const [ _Button ] = utils.resolveComponents(Button, this.props);
-      const { label, submit, hide, disable, onClick, children, ...props } = this.attrs;
+      const { label, submit, disable, onClick, children, ...props } = this.attrs;
       const _disable = submit ? this.disable : disable;
 
-      return !hide ? (
+      if (this.props.if === false) return null;
+      return (
          <_Button type={submit ? 'submit' : 'button'} onClick={this.handleClick} disabled={_disable} {...props}>
             {label || children}
          </_Button>
-      ) : null;
+      );
    }
 }

@@ -10,16 +10,26 @@ export const FormContextTypes = {
 };
 
 export class Form extends React.Component {
+
    static contextTypes = FormContextTypes;
 
    static childContextTypes = FormContextTypes;
 
    static propTypes = {
+      // Identifies a nested form. This Id will become property name in the master form data.
       id: PropTypes.string,
+
+      // Replaces all input fields with plain text.
+      plainText: PropTypes.bool,
+
+      // Occurs when the form is submitted; emits the form data.
       onSubmit: PropTypes.func,
+
+      // Occurs when there's validation error on submit; emits the error.
       onSubmitError: PropTypes.func,
-      onChanged: PropTypes.func,
-      plainText: PropTypes.bool
+
+      // Occurs when a field is changed.
+      onChanged: PropTypes.func
    };
 
    get plainText() {

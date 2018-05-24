@@ -25,8 +25,8 @@ class CustomerInfoPage extends React.Component {
                      <Panel horizontal>
                         <Panel horizontal left>
                            <Button label="Edit" disable={!canEdit} onClick={this.toggleEdit} />
-                           <Button label="Update" id="Submit" submit hide={!edit} onClick={this.toggleEdit} />
-                           <Button label="Cancel" cancel secondary hide={!edit} onClick={this.toggleEdit} />
+                           <Button label="Update" id="Submit" submit if={edit} onClick={this.toggleEdit} />
+                           <Button label="Cancel" cancel secondary if={edit} onClick={this.toggleEdit} />
                         </Panel>
                         <Panel horizontal right>
                            <Button label="New Customer" onClick={this.toggleDialog} disable={edit} />

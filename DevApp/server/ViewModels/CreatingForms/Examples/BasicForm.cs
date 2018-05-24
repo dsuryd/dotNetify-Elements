@@ -35,7 +35,7 @@ namespace dotNetify_Elements
          AddProperty<FormData>("Register")
             .WithAttribute(this, new { Label = "Register" })
             .SubscribedBy(
-               AddProperty<string>("SubmitResponse"), submittedData => Save(submittedData));
+               AddProperty<string>("ServerResponse"), submittedData => Save(submittedData));
       }
 
       private string Save(FormData data) => $"The name __'{data.Name}'__ with email '{data.Email}' was registered.";

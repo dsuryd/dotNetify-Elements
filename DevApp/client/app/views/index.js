@@ -1,6 +1,7 @@
 import Introduction from './Introduction';
 import CreatingForms from './CreatingForms';
 
+import Form from './form/Form';
 import FormButton from './form/FormButton';
 import FormCheckbox from './form/FormCheckbox';
 import FormCheckboxGroup from './form/FormCheckboxGroup';
@@ -22,6 +23,7 @@ import CustomerInfoPage from './examples__customer-info/CustomerInfoPage';
 export {
    Introduction,
    CreatingForms,
+   Form,   
    FormButton,
    FormCheckbox,
    FormCheckboxGroup,
