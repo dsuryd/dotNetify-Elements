@@ -3,7 +3,7 @@ import { Button, Cell, CellPanel, DateField, DropdownList, Form, Frame, Panel, R
 
 const BasicInfoForm = () => (
    <CellPanel horizontal>
-      <CellPanel fit>
+      <CellPanel flex>
          <Cell header="Person" borders="top, left, right">
             <VMContext vm="PersonForm">
                <Form id="Person">
@@ -18,7 +18,7 @@ const BasicInfoForm = () => (
                </Form>
             </VMContext>
          </Cell>
-         <Cell header="Phone" fit>
+         <Cell header="Phone" flex>
             <VMContext vm="PhoneForm">
                <Form id="Phone">
                   <Panel childProps={{ horizontal: true }}>
@@ -31,7 +31,7 @@ const BasicInfoForm = () => (
             </VMContext>
          </Cell>
       </CellPanel>
-      <CellPanel fit>
+      <CellPanel flex>
          <Cell header="Other Info" borders="top, right">
             <VMContext vm="OtherInfoForm">
                <Form id="OtherInfo">
@@ -55,7 +55,7 @@ const BasicInfoForm = () => (
                </Form>
             </VMContext>
          </Cell>
-         <Cell header="Notes" fit borders="top, right, bottom">
+         <Cell header="Notes" flex borders="top, right, bottom">
             <VMContext vm="NotesForm">
                <Form id="Notes">
                   <Panel childProps={{ horizontal: true }}>

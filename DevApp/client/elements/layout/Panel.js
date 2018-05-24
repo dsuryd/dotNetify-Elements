@@ -6,7 +6,7 @@ import * as utils from '../utils';
 const Container = styled.div`
    display: flex;
    flex: ${props => props.flex};
-   ${props => (props.centerAligned ? 'align-items: center;' : '')};
+   ${props => (props.middle ? 'align-items: center;' : '')};
    justify-content: ${props => (props.right ? 'flex-end' : 'flex-start')};
    flex-direction: ${props => (props.horizontal ? 'row' : 'column')};
    margin: ${props => props.margin};
@@ -17,7 +17,7 @@ const Container = styled.div`
 `;
 
 const ChildContainer = styled.div`
-   ${props => (props.fit ? 'display: flex;' : '')} width: inherit;
+   ${props => (props.flex ? 'display: flex;' : '')} width: inherit;
    flex: ${props => props.flex};
    padding: ${props => props.padding};
    ${props => props.theme.Panel.ChildContainer};
@@ -38,8 +38,7 @@ export class Panel extends React.Component {
       noMargin: PropTypes.bool,
       smallMargin: PropTypes.bool,
       right: PropTypes.bool,
-      centerAligned: PropTypes.bool,
-      fit: PropTypes.bool,
+      middle: PropTypes.bool,
       flex: PropTypes.oneOfType([ PropTypes.string, PropTypes.bool ]),
       height: PropTypes.string,
       width: PropTypes.string,
@@ -100,10 +99,9 @@ export class Panel extends React.Component {
          noMargin,
          smallMargin,
          right,
-         centerAligned,
+         middle,
          height,
          width,
-         fit,
          flex,
          style
       } = this.props;
@@ -114,30 +112,27 @@ export class Panel extends React.Component {
       const _horizontal = horizontal || right; 
 
       let _flex = typeof flex == 'boolean' ? (flex ? '1' : null) : flex;
-      const childrenFlex = childProps && childProps.flex;
-      const childrenFit = childProps && childProps.fit;
-      _flex = _flex || childrenFlex || childrenFit || React.Children.toArray(this.children).some(child => child.props && child.props.fit) ? '1' : null;
+      _flex = _flex || (childProps && childProps.flex) || React.Children.toArray(this.children).some(child => child.props && child.props.flex) ? '1' : null;
 
       return (
          <Container
             margin={_margin}
             horizontal={_horizontal}
             right={right}
-            centerAligned={centerAligned}
+            middle={middle}
             width={width}
             height={height}
             flex={_flex}
             style={style}
          >
             {this.children.map((child, idx) => {
-               const childFlex = childrenFlex || child.props.flex;
-               const childFit = childrenFit || child.props.fit;
+               let childFlex = (childProps && childProps.flex) || child.props.flex;
+               childFlex =  typeof childFlex == 'boolean' ? (childFlex ? '1' : null) : childFlex;
                return (
                   <ChildContainer
                      key={idx}
                      style={this.getStyle(idx)}
-                     flex={childFlex || childFit ? '1' : null}
-                     fit={childFit}
+                     flex={childFlex}
                      padding={this.numChildren <= 1 ? 0 : this.getPadding(idx, _gap, _horizontal)}
                   >
                      {React.cloneElement(child, utils.mergeProps(child, childProps, { onShow: show => this.handleShow(idx, show) }))}

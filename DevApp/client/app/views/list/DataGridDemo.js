@@ -7,7 +7,7 @@ const DataGridDemo = props => (
    <VMContext vm="SampleDataGrid">
       <Frame>
          <h2>Data Grid</h2>
-         <DataGrid id="MyDataGrid" fit>
+         <DataGrid id="MyDataGrid" flex>
             <GridColumn id="LastVisit" width="13rem" formatter={DateFormatter} />
          </DataGrid>
       </Frame>

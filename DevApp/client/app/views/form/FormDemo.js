@@ -23,7 +23,7 @@ class FormDemo extends React.Component {
             <SampleForm
                vm="SampleForm"
                title={
-                  <Panel horizontal centerAligned>
+                  <Panel horizontal middle>
                      <RadioToggle id="_layoutOptions" options={layoutOptions} value={this.layout} onChange={this.handleLayoutChange} />
                      <Checkbox id="_plainText" label="Plain Text" value={this.plainText} onChange={this.handlePlainTextChange} />
                   </Panel>
