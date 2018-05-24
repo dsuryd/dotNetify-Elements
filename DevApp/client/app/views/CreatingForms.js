@@ -10,7 +10,7 @@ const CreatingForms = props => (
          <Markdown id="CreatingForms">
             <Expander label={<SeeItLive />} content={<BasicForm vm="BasicForm" />} />
             <Expander label={<SeeItLive />} content={<BasicForm vm="AsyncValidation" />} />
-            <Expander label={<SeeItLive />} content={<ClientValidationForm />} />
+            <Expander label={<SeeItLive />} content={<ClientValidation />} />
          </Markdown>
       </Frame>
    </VMContext>
@@ -25,7 +25,7 @@ const BasicForm = props => (
          <Panel>
             <TextField id="Name" />
             <TextField id="Email" />
-            <Panel horizontal right>
+            <Panel right>
                <Button label="Cancel" cancel secondary />
                <Button id="Register" submit />
             </Panel>
@@ -39,8 +39,8 @@ const nameLengthValidator = {
    message: 'Name must be at least 2 characters'
 };
 
-const ClientValidationForm = _ => (
-   <VMContext vm="BasicForm">
+const ClientValidation = _ => (
+   <VMContext vm="ClientValidation">
       <Form>
          <Panel horizontal>
             <TextField id="Name" horizontal validation={nameLengthValidator} />

@@ -12,8 +12,8 @@ export class TextField extends InputElement {
       // Identifies the associated view model property.
       id: PropTypes.string.isRequired,
 
-      // Disables the field.
-      disable: PropTypes.bool,
+      // Enables the field.
+      enable: PropTypes.bool,
 
       // Text or component for the field's label.
       label: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
@@ -88,11 +88,12 @@ export class TextField extends InputElement {
 
    render() {
       const [ Container, Input, InputGroup, ValidationMessage, PlainText ] = this.resolveComponents(TextField);
-      const { fullId, label, placeholder, prefix, suffix, maxLength, plainText, horizontal, disable, onChange, type, css, style, ...props } = this.attrs;
+      const { fullId, label, placeholder, prefix, suffix, maxLength, plainText, horizontal, enable, onChange, type, css, style, ...props } = this.attrs;
 
       const handleChange = onChange ? e => onChange(e.target.value) : this.handleChange;
       const handleBlur = onChange ? null : this.handleBlur;
 
+      const disabled = enable === false;
       const plainTextValue = `${prefix || ''}${this.value || ''}${suffix || ''}`;
       const validationMessages = this.props.validationMessages || this.state.validationMessages;
 
@@ -109,7 +110,7 @@ export class TextField extends InputElement {
                      type={type || 'text'}
                      placeholder={placeholder}
                      value={this.value || ''}
-                     disabled={disable}
+                     disabled={disabled}
                      onKeyPress={this.handleKeyPress}
                      onChange={handleChange}
                      onBlur={handleBlur}

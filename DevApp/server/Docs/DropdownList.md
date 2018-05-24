@@ -51,8 +51,8 @@ static propTypes = {
    // Identifies the associated view model property.
    id: PropTypes.string.isRequired,
 
-   // Disables the field.
-   disable: PropTypes.bool,
+   // Enables the field.
+   enable: PropTypes.bool,
 
    // Displays the label text horizontally to the left of the field.      
    horizontal: PropTypes.bool,

@@ -11,8 +11,8 @@ export class DropdownList extends InputElement {
       // Identifies the associated view model property.
       id: PropTypes.string.isRequired,
 
-      // Disables the field.
-      disable: PropTypes.bool,
+      // Enables the field.
+      enable: PropTypes.bool,
 
       // Displays the label text horizontally to the left of the field.
       horizontal: PropTypes.bool,
@@ -73,7 +73,7 @@ export class DropdownList extends InputElement {
 
    render() {
       const [ Container, Input, InputGroup, ValidationMessage, PlainText ] = this.resolveComponents(DropdownList);
-      let { fullId, label, placeholder, prefix, suffix, plainText, options, horizontal, disable, style, ...props } = this.attrs;
+      let { fullId, label, placeholder, prefix, suffix, plainText, options, horizontal, enable, style, ...props } = this.attrs;
 
       options = options || [];
       const listOptions = options.map(opt => (
@@ -88,6 +88,7 @@ export class DropdownList extends InputElement {
          value = defaultOption ? defaultOption.Key : '';
       }
 
+      const disabled = enable === false;
       const selected = options.filter(opt => opt.Key == this.value).shift();
       const plainTextValue = selected ? selected.Value : '';
       const validationMessages = this.props.validationMessages || this.state.validationMessages;
@@ -105,7 +106,7 @@ export class DropdownList extends InputElement {
                      value={value}
                      prefix={prefix}
                      suffix={suffix}
-                     disabled={disable}
+                     disabled={disabled}
                      onChange={this.handleChange}
                   >
                      {listOptions}

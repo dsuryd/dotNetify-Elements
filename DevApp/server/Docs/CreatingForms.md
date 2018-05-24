@@ -21,7 +21,7 @@ const BasicForm = _ => (
          <Panel>
             <TextField id="Name" />
             <TextField id="Email" />
-            <Panel horizontal right>
+            <Panel right>
                <Button label="Cancel" cancel secondary />
                <Button id="Register" submit />
             </Panel>

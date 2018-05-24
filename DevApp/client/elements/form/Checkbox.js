@@ -8,8 +8,8 @@ export class Checkbox extends InputElement {
       // Identifies the associated view model property.
       id: PropTypes.string.isRequired,
 
-      // Disables the field.
-      disable: PropTypes.bool,
+      // Enables the field.
+      enable: PropTypes.bool,
 
       // Text or component for the field's label.
       label: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
@@ -28,13 +28,14 @@ export class Checkbox extends InputElement {
 
    render() {
       const [ Container, Label, Input ] = this.resolveComponents(Checkbox);
-      const { fullId, label, plainText, disable, style } = this.attrs;
+      const { fullId, label, plainText, enable, style } = this.attrs;
       const checked = !!this.value;
+      const disabled = plainText || enable === false;
 
       return (
          <Container id={fullId} checked={checked} style={style}>
             <Label>
-               <Input type="checkbox" name={fullId} checked={checked} onChange={this.handleChange} disabled={plainText || disable} />
+               <Input type="checkbox" name={fullId} checked={checked} onChange={this.handleChange} disabled={disabled} />
                {label}
             </Label>
          </Container>

@@ -8,7 +8,7 @@ export default class RenderExample extends React.Component {
       this.boolPropTypes = Object.keys(props.propTypes).filter(x => props.propTypes[x] === PropTypes.bool);
 
       this.state = {};
-      this.boolPropTypes.forEach(x => (this.state[x] = false));
+      this.boolPropTypes.forEach(x => (this.state[x] = ['enable', 'show'].includes(x)));
    }
 
    componentWillMount() {

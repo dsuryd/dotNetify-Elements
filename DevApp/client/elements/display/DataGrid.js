@@ -18,7 +18,7 @@ export class DataGrid extends Element {
       height: PropTypes.string,
       rowHeight: PropTypes.string,
       onSelect: PropTypes.func,
-      disable: PropTypes.bool
+      enable: PropTypes.bool
    };
 
    static defaultProps = {
@@ -142,7 +142,7 @@ export class DataGrid extends Element {
    };
 
    handleRowClick = (idx, row) => {
-      if (row && this.canSelect && !this.props.disable) {
+      if (row && this.canSelect && this.props.enable !== false) {
          const selectedKey = this.attrs.rowKey ? row[this.attrs.rowKey] : idx;
          this.select(selectedKey);
       }

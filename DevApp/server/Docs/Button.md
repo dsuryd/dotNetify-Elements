@@ -12,11 +12,11 @@ static propTypes = {
    // Associates the button with form cancel action.
    cancel: PropTypes.bool,
 
-   // Disables the button.
-   disable: PropTypes.bool,
+   // Enables the button.
+   enable: PropTypes.bool,
    
-   // Controls the button's visibility.
-   if: PropTypes.bool,
+   // Shows the button.
+   show: PropTypes.bool,
 
    // Text or component for the button's label.
    label: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),

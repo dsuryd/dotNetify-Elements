@@ -18,7 +18,7 @@ const FormValidationDemo = props => (
                   <TextField id="Phone" />
                   <TextField id="Email" />
                   <NumberField id="Age" />
-                  <Panel horizontal right>
+                  <Panel right>
                      <Button label="Cancel" cancel secondary />
                      <Button label="Submit" id="Submit" submit primary />
                   </Panel>

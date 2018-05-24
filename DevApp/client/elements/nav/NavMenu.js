@@ -39,7 +39,10 @@ const RouteLabel = props => (
 
 export class NavMenu extends Element {
    static propTypes = {
-      if: PropTypes.bool,      
+      /// Shows the element.
+      show: PropTypes.bool, 
+      
+      // Selected item.
       selected: PropTypes.string,
    };
 
@@ -79,7 +82,7 @@ export class NavMenu extends Element {
    }
 
    render() {
-      if (this.props.if === false) return null;
+      if (this.props.show === false) return null;
 
       const [ Container, GroupContainer, , GroupLabel ] = this.resolveComponents(NavMenu);
 

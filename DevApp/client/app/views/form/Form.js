@@ -38,7 +38,7 @@ const MyApp = _ => (
          <Panel>
             <TextField id="Name" horizontal />
             <TextField id="Email" horizontal />
-            <Panel horizontal right>
+            <Panel right>
                <Button label="Cancel" cancel secondary />
                <Button id="Register" submit />
             </Panel>               
@@ -59,7 +59,7 @@ const MyApp = _ => (
                <Panel>
                   <TextField id="Name" horizontal />
                   <TextField id="Email" horizontal />
-                  <Panel horizontal right>
+                  <Panel right>
                      <Button label="Cancel" cancel secondary onClick={clearEmittedEvent} />
                      <Button id="Register" submit />
                   </Panel>      

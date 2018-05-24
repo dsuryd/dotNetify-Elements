@@ -10,8 +10,8 @@ export class RadioToggle extends React.Component {
       // Identifies the associated view model property.
       id: PropTypes.string.isRequired,
 
-      // Disables the field.
-      disable: PropTypes.bool,
+      // Enables the field.
+      enable: PropTypes.bool,
 
       // Text or component for the field's label.
       label: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),

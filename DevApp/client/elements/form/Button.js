@@ -11,11 +11,11 @@ export class Button extends Element {
       // Associates the button with form cancel action.
       cancel: PropTypes.bool,
 
-      // Disables the button.
-      disable: PropTypes.bool,
+      // Enables the button.
+      enable: PropTypes.bool,
       
-      // Controls the button's visibility.
-      if: PropTypes.bool,
+      // Shows the button.
+      show: PropTypes.bool,
 
       // Text or component for the button's label.
       label: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
@@ -28,12 +28,12 @@ export class Button extends Element {
       ButtonComponent: undefined
    };
 
-   get disable() {
-      return utils.ifBoolElse(this.props.disable, this.context.formContext && !this.context.formContext.changed);
+   get shouldDisableSubmit() {
+      return this.props.enable === false || (this.context.formContext && !this.context.formContext.changed);
    }
 
    handleClick = _ => {
-      const { id, submit, cancel, disable, onClick } = this.props;
+      const { id, submit, cancel, onClick } = this.props;
       if ((submit || cancel) && this.context.formContext) {
          if (submit) this.context.formContext.submit(id).then(canSubmit => canSubmit && onClick && onClick());
          else if (cancel) {
@@ -46,12 +46,12 @@ export class Button extends Element {
 
    render() {
       const [ _Button ] = utils.resolveComponents(Button, this.props);
-      const { label, submit, disable, onClick, children, ...props } = this.attrs;
-      const _disable = submit ? this.disable : disable;
+      const { label, submit, show, enable, onClick, children, ...props } = this.attrs;
+      const disabled = submit ? this.shouldDisableSubmit : this.props.enable === false;
 
-      if (this.props.if === false) return null;
+      if (show === false) return null;
       return (
-         <_Button type={submit ? 'submit' : 'button'} onClick={this.handleClick} disabled={_disable} {...props}>
+         <_Button type={submit ? 'submit' : 'button'} onClick={this.handleClick} disabled={disabled} {...props}>
             {label || children}
          </_Button>
       );

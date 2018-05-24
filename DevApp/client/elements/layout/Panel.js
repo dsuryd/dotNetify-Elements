@@ -11,7 +11,7 @@ const Container = styled.div`
    flex-direction: ${props => (props.horizontal ? 'row' : 'column')};
    margin: ${props => props.margin};
    height: ${props => props.height || (props.flex ? 'auto' : 'fit-content')};
-   width: ${props => props.width || (props.left || props.right ? 'auto' : 'inherit')};
+   width: ${props => props.width || (props.right ? 'auto' : 'inherit')};
    overflow: ${props => (props.flex ? 'auto' : 'unset')};
    ${props => props.theme.Panel.Container};
 `;
@@ -37,7 +37,6 @@ export class Panel extends React.Component {
       margin: PropTypes.string,
       noMargin: PropTypes.bool,
       smallMargin: PropTypes.bool,
-      left: PropTypes.bool,
       right: PropTypes.bool,
       centerAligned: PropTypes.bool,
       fit: PropTypes.bool,
@@ -100,7 +99,6 @@ export class Panel extends React.Component {
          margin,
          noMargin,
          smallMargin,
-         left,
          right,
          centerAligned,
          height,
@@ -111,8 +109,9 @@ export class Panel extends React.Component {
       } = this.props;
 
       const { Gap, Margin } = this.context.theme.Panel;
-      let _gap = gap || (noGap ? '0' : smallGap ? Gap.small : Gap.large);
-      let _margin = margin || (noMargin ? '0' : smallMargin ? Margin.small : Margin.large);
+      const _gap = gap || (noGap ? '0' : smallGap ? Gap.small : Gap.large);
+      const _margin = margin || (noMargin ? '0' : smallMargin ? Margin.small : Margin.large);
+      const _horizontal = horizontal || right; 
 
       let _flex = typeof flex == 'boolean' ? (flex ? '1' : null) : flex;
       const childrenFlex = childProps && childProps.flex;
@@ -122,8 +121,7 @@ export class Panel extends React.Component {
       return (
          <Container
             margin={_margin}
-            horizontal={horizontal}
-            left={left}
+            horizontal={_horizontal}
             right={right}
             centerAligned={centerAligned}
             width={width}
@@ -140,7 +138,7 @@ export class Panel extends React.Component {
                      style={this.getStyle(idx)}
                      flex={childFlex || childFit ? '1' : null}
                      fit={childFit}
-                     padding={this.numChildren <= 1 ? 0 : this.getPadding(idx, _gap, horizontal)}
+                     padding={this.numChildren <= 1 ? 0 : this.getPadding(idx, _gap, _horizontal)}
                   >
                      {React.cloneElement(child, utils.mergeProps(child, childProps, { onShow: show => this.handleShow(idx, show) }))}
                   </ChildContainer>

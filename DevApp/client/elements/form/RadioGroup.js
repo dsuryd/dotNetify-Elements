@@ -14,8 +14,8 @@ export class RadioGroup extends InputElement {
       // Identifies the associated view model property.
       id: PropTypes.string.isRequired,
 
-      // Disables the field.
-      disable: PropTypes.bool,
+      // Enables the field.
+      enable: PropTypes.bool,
 
       // Text or component for the field's label.
       label: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
@@ -42,13 +42,14 @@ export class RadioGroup extends InputElement {
    };
    render() {
       const [ Container, GroupContainer, RadioContainer, Label, Input, PlainText ] = this.resolveComponents(RadioGroup);
-      const { fullId, label, options, plainText, right, horizontal, disable, style } = this.attrs;
+      const { fullId, label, options, plainText, right, horizontal, enable, style } = this.attrs;
 
+      const disabled = enable === false;
       const radioOptions = (options || []).map(opt => utils.toCamelCase(opt));
       const radio = radioOptions.map(opt => (
          <RadioContainer key={opt.key} id={fullId} checked={opt.key == this.value}>
             <Label>
-               <Input type="radio" name={fullId} value={opt.key} disabled={disable} checked={opt.key == this.value} onChange={this.handleChange} />
+               <Input type="radio" name={fullId} value={opt.key} disabled={disabled} checked={opt.key == this.value} onChange={this.handleChange} />
                {opt.value}
             </Label>
          </RadioContainer>

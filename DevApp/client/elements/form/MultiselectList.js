@@ -11,8 +11,8 @@ export class MultiselectList extends InputElement {
       // Identifies the associated view model property.
       id: PropTypes.string.isRequired,
 
-      // Disables the field.
-      disable: PropTypes.bool,
+      // Enables the field.
+      enable: PropTypes.bool,
 
       // Displays the label text horizontally to the left of the field.
       horizontal: PropTypes.bool,
@@ -64,8 +64,9 @@ export class MultiselectList extends InputElement {
 
    render() {
       const [ Container, Input, Tag, Item, List, ValidationMessage, PlainText ] = this.resolveComponents(MultiselectList);
-      const { fullId, label, plainText, options, horizontal, disable, style, ...props } = this.attrs;
+      const { fullId, label, plainText, options, horizontal, enable, style, ...props } = this.attrs;
 
+      const disabled = enable === false;
       const values = this.value ? this.value.map(x => `${x}`) : [];
       const selected = (options || []).filter(opt => values.includes(opt.Key));
       const plainTextValue = selected.map(x => x.Value);
@@ -86,7 +87,7 @@ export class MultiselectList extends InputElement {
                   tagComponent={Tag}
                   itemComponent={Item}
                   listComponent={List}
-                  disabled={disable}
+                  disabled={disabled}
                   onChange={this.handleChange}
                   {...props}
                />

@@ -13,8 +13,8 @@ export class CheckboxGroup extends InputElement {
       // Identifies the associated view model property.
       id: PropTypes.string.isRequired,
 
-      // Disables the field.
-      disable: PropTypes.bool,
+      // Enables the field.
+      enable: PropTypes.bool,
 
       // Text or component for the field's label.
       label: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
@@ -43,14 +43,15 @@ export class CheckboxGroup extends InputElement {
 
    render() {
       const [ Container, GroupContainer, CheckboxContainer, Label, Input, PlainText ] = this.resolveComponents(CheckboxGroup);
-      const { fullId, label, plainText, options, inline, horizontal, disable, style } = this.attrs;
+      const { fullId, label, plainText, options, inline, horizontal, enable, style } = this.attrs;
+      const disabled = enable === false;
       const values = this.value || [];
 
       let checkboxOptions = options || [];
       const checkboxes = checkboxOptions.map(opt => (
          <CheckboxContainer key={opt.Key} inline={inline} checked={values.includes(opt.Key)}>
             <Label>
-               <Input type="checkbox" value={opt.Key} checked={values.includes(opt.Key)} disabled={disable} onChange={this.handleChange} />
+               <Input type="checkbox" value={opt.Key} checked={values.includes(opt.Key)} disabled={disabled} onChange={this.handleChange} />
                {opt.Value}
             </Label>
          </CheckboxContainer>

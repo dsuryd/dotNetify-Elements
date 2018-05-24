@@ -13,8 +13,8 @@ export class DateTimeField extends InputElement {
       // Identifies the associated view model property.
       id: PropTypes.string.isRequired,
 
-      // Disables the field.
-      disable: PropTypes.bool,
+      // Enables the field.
+      enable: PropTypes.bool,
 
       // Text or component for the field's label.
       label: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
@@ -68,7 +68,7 @@ export class DateTimeField extends InputElement {
 
    render() {
       const [ Container, Input, InputGroup, ValidationMessage, PlainText ] = this.resolveComponents(DateTimeField);
-      const { fullId, label, placeholder, plainText, prefix, suffix, min, max, format, horizontal, disable, style, validation, ...props } = this.attrs;
+      const { fullId, label, placeholder, plainText, prefix, suffix, min, max, format, horizontal, enable, style, validation, ...props } = this.attrs;
 
       let dateValue = this.value ? new Date(this.value) : null;
       dateValue = dateValue && dateValue.getFullYear() === 0 ? null : dateValue;
@@ -77,6 +77,7 @@ export class DateTimeField extends InputElement {
          ? `${props.time === false ? moment(dateValue).format('L') : props.date === false ? moment(dateValue).format('LT') : moment(dateValue).format('LLL')}`
          : '';
       const validationMessages = this.props.validationMessages || this.state.validationMessages;
+      const disabled = enable === false;
 
       return (
          <Container id={fullId} label={label} horizontal={horizontal} plainText={plainText} style={style}>
@@ -94,7 +95,7 @@ export class DateTimeField extends InputElement {
                      max={new Date(max)}
                      prefix={prefix}
                      suffix={suffix}
-                     disabled={disable}
+                     disabled={disabled}
                      onChange={this.handleChange}
                      onBlur={this.handleBlur}
                      {...props}
