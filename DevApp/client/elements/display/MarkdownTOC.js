@@ -4,7 +4,12 @@ import styled from 'styled-components';
 import Element from '../core/Element';
 import * as utils from '../utils';
 
-const ContainerComponent = styled.div`white-space: nowrap;`;
+const ContainerComponent = styled.div`
+   white-space: nowrap;
+   ${props => props.theme.MarkdownTOC.Container};
+`;
+
+const ItemContainerComponent = styled.p`${props => (props.isSelected ? props.theme.MarkdownTOC.Selected : '')};`;
 
 export class MarkdownTOC extends Element {
    static propTypes = {
@@ -12,13 +17,26 @@ export class MarkdownTOC extends Element {
    };
 
    static componentTypes = {
-      ContainerComponent: ContainerComponent
+      ContainerComponent,
+      ItemContainerComponent
    };
 
-   state = { headers: [] };
+   state = { headers: [], selected: null };
 
    componentWillMount() {
       this.setState({ headers: this.getHeaders() });
+   }
+
+   componentDidMount() {
+      this.detectScrolledHeader();
+   }
+
+   detectScrolledHeader() {
+      const markdown = document.getElementById(this.attrs.id).parentElement;
+      if (markdown)
+         markdown.addEventListener('scroll', e => {
+            console.log(document.documentElement.scrollTop);
+         });
    }
 
    getHeaders() {
@@ -33,22 +51,26 @@ export class MarkdownTOC extends Element {
       return headers;
    }
 
-   scrollTo(id) {
-      document.querySelector(id).scrollIntoView({
-         behavior: 'smooth'
-      });
-   }
-
    render() {
-      const [ Container ] = this.resolveComponents(MarkdownTOC);
+      const { selected } = this.state;
+      const [ Container, ItemContainer ] = this.resolveComponents(MarkdownTOC);
       const { fullId, ...props } = this.attrs;
+
+      const select = key => {
+         document.querySelector(key).scrollIntoView({ behavior: 'smooth' });
+         this.setState({ selected: key });
+      };
 
       return (
          <Container id={fullId} {...props}>
             {this.state.headers.map(header => (
-               <p key={header.link} onClick={_ => this.scrollTo(header.link)}>
+               <ItemContainer
+                  key={header.link}
+                  isSelected={selected === header.link}
+                  onClick={_ => select(header.link)}
+               >
                   <a href="javascript:void(0)">{header.title}</a>
-               </p>
+               </ItemContainer>
             ))}
          </Container>
       );

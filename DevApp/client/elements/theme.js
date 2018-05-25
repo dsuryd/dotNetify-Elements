@@ -125,9 +125,7 @@ const defaultTheme = {
    },
    Button: ``,
    TextArea: ``,
-   DataGrid: {
-      Container: ``
-   },
+   DataGrid: ``,
    Tab: {
       Container: ``,
       TabItemContainer: ``,
@@ -135,6 +133,25 @@ const defaultTheme = {
          > a {
             color: #337ab7;
          }`
+   },
+   Markdown: ``,
+   MarkdownTOC: {
+      Selected: `
+         font-weight: 600;
+      `,
+      Container: `
+         a {
+            color: #337ab7;
+            &:hover { 
+               color: #0056b3;
+               text-decoration: none;
+            } 
+            &:focus { 
+               color: #337ab7; 
+               > * { background: #e7e7e7; } 
+            }
+         }
+      `
    }
 };
 

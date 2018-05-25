@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Element from '../core/Element';
 import * as utils from '../utils';
 
-const ContainerComponent = styled.div``;
+const ContainerComponent = styled.div`${props => props.theme.Markdown};`;
 
 export class Markdown extends Element {
    static propTypes = {

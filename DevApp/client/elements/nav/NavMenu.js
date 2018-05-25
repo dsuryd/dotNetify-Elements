@@ -40,10 +40,10 @@ const RouteLabel = props => (
 export class NavMenu extends Element {
    static propTypes = {
       /// Shows the element.
-      show: PropTypes.bool, 
-      
+      show: PropTypes.bool,
+
       // Selected item.
-      selected: PropTypes.string,
+      selected: PropTypes.string
    };
 
    static componentTypes = {
@@ -69,7 +69,7 @@ export class NavMenu extends Element {
       const indent = navGroup ? navGroup.Icon != null : false;
       const key = navRoute.Route.TemplateId;
       const isSelected = key === this.state.selected;
-      const select = () => alert();
+
       return (
          <RouteContainer key={key} isSelected={isSelected}>
             <RouteLink vm={this.vm} route={navRoute.Route}>
