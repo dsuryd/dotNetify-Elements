@@ -8,7 +8,7 @@ const ContainerComponent = styled.div``;
 
 export class Markdown extends Element {
    static propTypes = {
-      id: PropTypes.string
+      id: PropTypes.string.isRequired
    };
 
    static componentTypes = {

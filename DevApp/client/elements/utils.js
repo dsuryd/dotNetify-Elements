@@ -67,6 +67,8 @@ export function markdown(text) {
 export function mergeProps(elem, ...newProps) {
    const propTypes = Object.keys(elem.type.propTypes || {});
    let props = newProps.reduce((aggregate, prop) => Object.assign(aggregate, prop), {});
+
+   // Only merge props that are part of the element's propTypes.
    let validProps = Object.keys(props)
       .filter(key => key === 'style' || propTypes.includes(key))
       .reduce((aggregate, key) => Object.assign(aggregate, { [key]: props[key] }), {});

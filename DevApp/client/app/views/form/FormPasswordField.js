@@ -41,7 +41,7 @@ const MyApp = _ => (
       const setState = state => this.setState(state);
       return (
          <RenderExample vm="PasswordFieldExample" propTypes={PasswordField.propTypes} buildCode={buildCode} onChange={setState}>
-            <Panel style={{ minHeight: '6rem' }}>
+            <Panel style={{ minHeight: '7rem' }}>
                <PasswordField id="Password" {...this.state} />
             </Panel>
          </RenderExample>

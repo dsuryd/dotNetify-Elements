@@ -41,7 +41,7 @@ const MyApp = _ => (
       const setState = state => this.setState(state);
       return (
          <RenderExample vm="TextAreaFieldExample" propTypes={TextAreaField.propTypes} buildCode={buildCode} onChange={setState}>
-            <Panel style={{ minHeight: '10rem' }}>
+            <Panel style={{ minHeight: '11rem' }}>
                <TextAreaField id="Comment" {...this.state} />
             </Panel>
          </RenderExample>

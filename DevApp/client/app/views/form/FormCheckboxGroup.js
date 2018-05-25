@@ -41,7 +41,7 @@ const MyApp = _ => (
       const setState = state => this.setState(state);
       return (
          <RenderExample vm="CheckboxGroupExample" propTypes={CheckboxGroup.propTypes} buildCode={buildCode} onChange={setState}>
-            <Panel style={{ minHeight: '12rem' }}>
+            <Panel style={{ minHeight: '13rem' }}>
                <CheckboxGroup id="Quizz" {...this.state} />
             </Panel>
          </RenderExample>

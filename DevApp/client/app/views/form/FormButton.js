@@ -26,7 +26,7 @@ const FormButton = props => (
 );
 
 class ButtonExample extends React.Component {
-   state = {color: 'primary'};
+   state = { color: 'primary' };
 
    render() {
       const buildCode = props => `
@@ -49,24 +49,24 @@ const MyApp = _ => (
 );
 \`\`\``;
       const setState = state => this.setState(state);
-      const setColor = color => this.setState({color: color, [this.state.color]: false, [color]: true});
+      const setColor = color => this.setState({ color: color, [this.state.color]: false, [color]: true });
       const handleClick = () => new Date();
       const colorOptions = [
-         {Key: 'primary', Value: 'Primary'},
-         {Key: 'secondary', Value: 'Secondary'},
-         {Key: 'positive', Value: 'Positive'},
-         {Key: 'negative', Value: 'Negative'}
+         { Key: 'primary', Value: 'Primary' },
+         { Key: 'secondary', Value: 'Secondary' },
+         { Key: 'positive', Value: 'Positive' },
+         { Key: 'negative', Value: 'Negative' }
       ];
-      const extraToggles = <RadioToggle id="_colors" label="(color:)" options={colorOptions} value={this.state.color} onChange={setColor}/>
+      const extraToggles = <RadioToggle id="_colors" label="(color:)" options={colorOptions} value={this.state.color} onChange={setColor} />;
 
-      let propTypes = {...Button.propTypes};
-      ['submit', 'cancel', 'negative', 'positive', 'primary', 'secondary'].forEach(x => delete propTypes[x]);
+      let propTypes = { ...Button.propTypes };
+      [ 'submit', 'cancel', 'negative', 'positive', 'primary', 'secondary' ].forEach(x => delete propTypes[x]);
 
       const removeLabel = <Label icon="far fa-times-circle">Remove</Label>;
 
       return (
          <RenderExample vm="ButtonExample" extraToggles={extraToggles} propTypes={propTypes} buildCode={buildCode} onChange={setState}>
-            <Panel horizontal middle>
+            <Panel horizontal middle style={{ paddingBottom: '2rem' }}>
                <Button id="Add" {...this.state} />
                <Element id="AddCounter" />
                <Button id="Remove" label={removeLabel} onClick={handleClick} {...this.state} />

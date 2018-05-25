@@ -1,17 +1,30 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Frame, Markdown, VMContext, withTheme } from 'elements';
+import { Frame, Markdown, MarkdownTOC, VMContext, withTheme } from 'elements';
 import { Alert, Button, Element, Form, Panel, NumberField, TextField } from 'elements';
 import Expander from '../components/Expander';
 
+const TOCSidebar = styled.div`
+   position: fixed;
+   border-left: 2px solid #ddd;
+   margin-left: 2rem;
+   padding-left: 1rem;
+`;
+
 const CreatingForms = props => (
    <VMContext vm="CreatingForms">
-      <Frame width="95%">
-         <Markdown id="CreatingForms">
-            <Expander label={<SeeItLive />} content={<BasicForm vm="BasicForm" />} />
-            <Expander label={<SeeItLive />} content={<BasicForm vm="AsyncValidation" />} />
-            <Expander label={<SeeItLive />} content={<ClientValidation />} />
-         </Markdown>
+      <Frame horizontal style={{ overflowX: 'hidden' }}>
+         <Panel css="width: calc(100% - 20rem)">
+            <Markdown id="CreatingForms">
+               <Expander label={<SeeItLive />} content={<BasicForm vm="BasicForm" />} />
+               <Expander label={<SeeItLive />} content={<BasicForm vm="AsyncValidation" />} />
+               <Expander label={<SeeItLive />} content={<ClientValidation />} />
+            </Markdown>
+         </Panel>
+
+         <TOCSidebar>
+            <MarkdownTOC id="CreatingForms" />
+         </TOCSidebar>
       </Frame>
    </VMContext>
 );

@@ -23,7 +23,7 @@ class CustomerInfoPage extends React.Component {
                   <Panel>
                      {/* Toolbar */}
                      <Panel horizontal>
-                        <Panel horizontal left>
+                        <Panel horizontal flex>
                            <Button label="Edit" enable={canEdit} onClick={this.toggleEdit} />
                            <Button label="Update" id="Submit" submit show={edit} onClick={this.toggleEdit} />
                            <Button label="Cancel" cancel secondary show={edit} onClick={this.toggleEdit} />

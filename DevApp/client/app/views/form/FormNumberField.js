@@ -45,7 +45,7 @@ const MyApp = _ => (
       const style = { minWidth: '14rem', maxWidth: '20rem', whiteSpace: 'nowrap' };
       return (
          <RenderExample vm="NumberFieldExample" propTypes={NumberField.propTypes} buildCode={buildCode} onChange={setState}>
-            <Panel horizontal style={{ minHeight: '6rem' }} childProps={{ style: style }}>
+            <Panel horizontal style={{ minHeight: '7rem' }} childProps={{ style: style }}>
                <NumberField id="HeightFeet" {...this.state} />
                <NumberField id="HeightInches" {...this.state} />
             </Panel>
