@@ -19,7 +19,7 @@ export default class RenderCustomize extends React.Component {
       if (props.length > 0) props = props + ' ';
       let code = `
 \`\`\`jsx
-<${this.props.name} id="MyField" ${props}/>
+<${this.props.name} id="My${this.props.name}" ${props}/>
 \`\`\``;
       return code;
    };

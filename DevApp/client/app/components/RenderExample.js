@@ -8,7 +8,8 @@ export default class RenderExample extends React.Component {
       this.boolPropTypes = Object.keys(props.propTypes).filter(x => props.propTypes[x] === PropTypes.bool);
 
       this.state = {};
-      this.boolPropTypes.forEach(x => (this.state[x] = ['enable', 'show'].includes(x)));
+      this.trueByDefaultProps = ['enable', 'show'];
+      this.boolPropTypes.forEach(x => (this.state[x] = this.trueByDefaultProps.includes(x)));
    }
 
    componentWillMount() {
@@ -25,6 +26,9 @@ export default class RenderExample extends React.Component {
       Object.keys(props)
          .map(key => {
             let value = props[key];
+            if (this.trueByDefaultProps.includes(key))
+               return value ? '' : `${key}={${value}}`;
+
             value = typeof value === 'boolean' ? (value ? '' : null) : `={${value}}`;
             return value !== null ? `${key}${value}` : null;
          })
@@ -32,7 +36,7 @@ export default class RenderExample extends React.Component {
          .join(' ');
 
    render() {
-      const { vm, children } = this.props;
+      const { vm, extraToggles, children } = this.props;
       const flags = [ { key: true, value: 'True' }, { key: false, value: 'False' } ];
       const set = (state, value) => {
          const newState = { [state]: value === 'true' ? true : value === 'false' ? false : value };
@@ -50,6 +54,7 @@ export default class RenderExample extends React.Component {
                {children}
                <Panel horizontal style={{ borderTop: '1px solid #ccc', paddingTop: '1rem' }}>
                   {radioToggles}
+                  {extraToggles}
                </Panel>
                <MarkdownText text={this.buildCode(this.state)} />
             </Panel>

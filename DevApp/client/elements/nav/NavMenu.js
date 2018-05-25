@@ -27,13 +27,13 @@ const GroupHeaderContainer = Collapsible.componentTypes.HeaderContainer.extend`
 
 const GroupLabel = props => (
    <div style={{ padding: props.padding || '.75rem 1rem' }}>
-      <Label name={props.icon}>{props.children}</Label>
+      <Label icon={props.icon}>{props.children}</Label>
    </div>
 );
 
 const RouteLabel = props => (
    <div style={{ padding: props.padding || '.75rem 1rem', paddingLeft: props.indent ? '2.5rem' : '1rem' }}>
-      <Label name={props.icon}>{props.children}</Label>
+      <Label icon={props.icon}>{props.children}</Label>
    </div>
 );
 

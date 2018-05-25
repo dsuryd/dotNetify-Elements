@@ -24,7 +24,7 @@ export class Label extends React.Component {
    static propTypes = {
       right: PropTypes.bool,
       apart: PropTypes.bool,
-      icon: PropTypes.object,
+      icon: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
       padding: PropTypes.string
    };
 
@@ -35,10 +35,11 @@ export class Label extends React.Component {
 
    render() {
       const [ LabelContainer, Icon ] = utils.resolveComponents(Label, this.props);
-      const { right, apart, name, icon, padding, style, children } = this.props;
+      const { right, apart, icon, padding, style, children } = this.props;
+      const _icon = typeof icon === "string" ? <Icon name={icon} right={right} /> : icon;
       return (
          <LabelContainer right={right} apart={apart} padding={padding} style={style}>
-            {icon ? icon : name ? <Icon name={name} right={right} /> : null}
+            {_icon}
             {children}
          </LabelContainer>
       );

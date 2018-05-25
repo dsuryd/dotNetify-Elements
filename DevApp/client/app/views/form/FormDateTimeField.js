@@ -35,9 +35,9 @@ import { VMContext, DateTimeField } from 'dotnetify-elements';
 const MyApp = _ => (
    <VMContext vm="DateTimeFieldExample">
       <Panel horizontal>
-         <DateField id="Date" flex />
-         <TimeField id="Time" flex />
-         <DateTimeField id="DateTime" flex />
+         <DateField id="Date" ${props}flex />
+         <TimeField id="Time" ${props}flex />
+         <DateTimeField id="DateTime" ${props}flex />
       </Panel>
    </VMContext>
 );

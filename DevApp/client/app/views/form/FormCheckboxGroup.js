@@ -34,7 +34,7 @@ import { VMContext, CheckboxGroup } from 'dotnetify-elements';
 
 const MyApp = _ => (
    <VMContext vm="CheckboxGroupExample">
-      <CheckboxGroup id="Quizz" />
+      <CheckboxGroup id="Quizz" ${props}/>
    </VMContext>
 );
 \`\`\``;

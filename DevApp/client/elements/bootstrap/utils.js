@@ -10,6 +10,8 @@ export function mapStyleToClass(props, prefix) {
       info,
       light,
       dark,
+      positive,
+      negative,
       small,
       large,
       ...rest
@@ -18,9 +20,9 @@ export function mapStyleToClass(props, prefix) {
       ? 'primary'
       : secondary
         ? 'secondary'
-        : success
+        : success || positive
           ? 'success'
-          : danger ? 'danger' : warning ? 'warning' : info ? 'info' : light ? 'light' : dark ? 'dark' : 'primary';
+          : danger || negative ? 'danger' : warning ? 'warning' : info ? 'info' : light ? 'light' : dark ? 'dark' : 'primary';
    const _size = small ? 'sm' : large ? 'lg' : size;
    return [ _color ? prefix + _color : '', _size ? prefix + _size : '' ].join(' ');
 }

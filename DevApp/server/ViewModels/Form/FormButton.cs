@@ -1,5 +1,6 @@
 ﻿using DotNetify;
 using DotNetify.Elements;
+using System;
 
 namespace dotNetify_Elements
 {
@@ -14,19 +15,26 @@ namespace dotNetify_Elements
       }
    }
 
-   public class FormButtonExample : BaseVM
+   public class ButtonExample : BaseVM
    {
-      public FormButtonExample()
+      private int _addCounter;
+
+      public ButtonExample()
       {
-         //AddProperty("Primary")
+         AddProperty<object>("Add")
+            .WithAttribute(this, new ButtonAttribute { Label = "Add" })
+            .SubscribedBy(AddProperty<string>("AddCounter"), _ => $"Added: {++_addCounter}");
+
+         AddProperty<DateTimeOffset>("Remove")
+            .SubscribedBy(AddProperty<string>("RemoveTimeStamp"), date => $"Removed: {date.ToString("T")}");
       }
    }
 
-   public class FormButtonCustomize : BaseVM
+   public class ButtonCustomize : BaseVM
    {
-      public FormButtonCustomize()
+      public ButtonCustomize()
       {
-         AddProperty<string>("My");
+         AddProperty<string>("MyButton");
       }
    }
 }

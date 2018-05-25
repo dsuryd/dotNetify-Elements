@@ -19,6 +19,12 @@ using System.Collections.Generic;
 
 namespace DotNetify.Elements
 {
+   public class ButtonAttribute
+   {
+      // Label text of the button.
+      public string Label { get; set; }
+   }
+
    public class CheckboxAttribute
    {
       // Label text of the field.
