@@ -45,20 +45,20 @@
     <DotNetCliToolReference Include="Microsoft.DotNet.Watcher.Tools" Version="2.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="server\Docs\Button.md" />
+    <EmbeddedResource Include="server\Docs\Form\Button.md" />
     <EmbeddedResource Include="server\Docs\CreatingForms.md" />
-    <EmbeddedResource Include="server\Docs\PasswordField.md" />
-    <EmbeddedResource Include="server\Docs\NumberField.md" />
-    <EmbeddedResource Include="server\Docs\MultiselectList.md" />
-    <EmbeddedResource Include="server\Docs\Form.md" />
-    <EmbeddedResource Include="server\Docs\DropdownList.md" />
-    <EmbeddedResource Include="server\Docs\DateTimeField.md" />
-    <EmbeddedResource Include="server\Docs\CheckboxGroup.md" />
-    <EmbeddedResource Include="server\Docs\Checkbox.md" />
-    <EmbeddedResource Include="server\Docs\RadioGroup.md" />
-    <EmbeddedResource Include="server\Docs\RadioToggle.md" />
-    <EmbeddedResource Include="server\Docs\TextAreaField.md" />
-    <EmbeddedResource Include="server\Docs\TextField.md" />
+    <EmbeddedResource Include="server\Docs\Form\PasswordField.md" />
+    <EmbeddedResource Include="server\Docs\Form\NumberField.md" />
+    <EmbeddedResource Include="server\Docs\Form\MultiselectList.md" />
+    <EmbeddedResource Include="server\Docs\Form\Form.md" />
+    <EmbeddedResource Include="server\Docs\Form\DropdownList.md" />
+    <EmbeddedResource Include="server\Docs\Form\DateTimeField.md" />
+    <EmbeddedResource Include="server\Docs\Form\CheckboxGroup.md" />
+    <EmbeddedResource Include="server\Docs\Form\Checkbox.md" />
+    <EmbeddedResource Include="server\Docs\Form\RadioGroup.md" />
+    <EmbeddedResource Include="server\Docs\Form\RadioToggle.md" />
+    <EmbeddedResource Include="server\Docs\Form\TextAreaField.md" />
+    <EmbeddedResource Include="server\Docs\Form\TextField.md" />
     <EmbeddedResource Include="server\Docs\Introduction.md" />
   </ItemGroup>
   <ItemGroup>

@@ -7,7 +7,7 @@ namespace dotNetify_Elements
    {
       public FormPasswordField()
       {
-         var markdown = Utils.GetResource("dotNetify_Elements.server.Docs.PasswordField.md").Result;
+         var markdown = Utils.GetResource("dotNetify_Elements.server.Docs.Form.PasswordField.md").Result;
 
          AddProperty("Overview", markdown.GetMarkdownSection(null, "Property Type"));
          AddProperty("API", markdown.GetMarkdownSection("Property Type"));

@@ -39,7 +39,7 @@ namespace dotNetify_Elements
          {
             new RouteTemplate(nameof(Route.Home))                 { UrlPattern = "", ViewUrl = nameof(Route.Introduction) },
             new RouteTemplate(nameof(Route.Introduction))         { UrlPattern = "intro" },
-            new RouteTemplate(nameof(Route.CreatingForms))        { UrlPattern = "creatingforms" },
+            new RouteTemplate(nameof(Route.CreatingForms))        { UrlPattern = "forms" },
             new RouteTemplate(nameof(Route.FormButton))           { UrlPattern = "form/button" },
             new RouteTemplate(nameof(Route.FormCheckbox))         { UrlPattern = "form/checkbox" },
             new RouteTemplate(nameof(Route.FormCheckboxGroup))    { UrlPattern = "form/checkboxgroup" },

@@ -9,7 +9,7 @@ namespace dotNetify_Elements
    {
       public FormCheckboxGroup()
       {
-         var markdown = Utils.GetResource("dotNetify_Elements.server.Docs.CheckboxGroup.md").Result;
+         var markdown = Utils.GetResource("dotNetify_Elements.server.Docs.Form.CheckboxGroup.md").Result;
 
          AddProperty("Overview", markdown.GetMarkdownSection(null, "Property Type"));
          AddProperty("API", markdown.GetMarkdownSection("Property Type"));

@@ -7,7 +7,7 @@ namespace dotNetify_Elements
    {
       public FormNumberField()
       {
-         var markdown = Utils.GetResource("dotNetify_Elements.server.Docs.NumberField.md").Result;
+         var markdown = Utils.GetResource("dotNetify_Elements.server.Docs.Form.NumberField.md").Result;
 
          AddProperty("Overview", markdown.GetMarkdownSection(null, "Property Type"));
          AddProperty("API", markdown.GetMarkdownSection("Property Type"));

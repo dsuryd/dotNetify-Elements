@@ -8,7 +8,7 @@ namespace dotNetify_Elements
    {
       public FormDateTimeField()
       {
-         var markdown = Utils.GetResource("dotNetify_Elements.server.Docs.DateTimeField.md").Result;
+         var markdown = Utils.GetResource("dotNetify_Elements.server.Docs.Form.DateTimeField.md").Result;
 
          AddProperty("Overview", markdown.GetMarkdownSection(null, "Property Type"));
          AddProperty("API", markdown.GetMarkdownSection("Property Type"));

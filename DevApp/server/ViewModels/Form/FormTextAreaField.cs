@@ -7,7 +7,7 @@ namespace dotNetify_Elements
    {
       public FormTextAreaField()
       {
-         var markdown = Utils.GetResource("dotNetify_Elements.server.Docs.TextAreaField.md").Result;
+         var markdown = Utils.GetResource("dotNetify_Elements.server.Docs.Form.TextAreaField.md").Result;
 
          AddProperty("Overview", markdown.GetMarkdownSection(null, "Property Type"));
          AddProperty("API", markdown.GetMarkdownSection("Property Type"));
