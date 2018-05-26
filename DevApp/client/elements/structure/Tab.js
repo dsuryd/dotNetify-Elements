@@ -40,13 +40,14 @@ export class Tab extends React.Component {
       if (this.props.active !== props.active && this.props.onActivate) this.setActiveState(props.active);
    }
 
-   getItemKey = (child, idx) => (child.props.name ? child.props.name : idx);
+   getItemKey = (child, idx) => (child.props.name ? child.props.name : `${idx}`);
    getDisplayStyle = key => ({ padding: '1rem', display: this.state.active === key ? 'initial' : 'none' });
 
-   handleClick = (event, key) => {
+   handleClick = (event, key, label) => {
       event.preventDefault();
-      if (this.props.onActivate) this.props.onActivate(key);
-      else this.setState({ active: key });
+      let canActivate = true;
+      if (this.props.onActivate) canActivate = this.props.onActivate(key, label) !== false;
+      canActivate && this.setState({ active: key });
    };
 
    setActiveState(key) {
@@ -63,7 +64,7 @@ export class Tab extends React.Component {
          return React.cloneElement(child, {
             key: key,
             active: this.state.active === key,
-            onClick: event => this.handleClick(event, key)
+            onClick: event => this.handleClick(event, key, child.props.label)
          });
       });
 

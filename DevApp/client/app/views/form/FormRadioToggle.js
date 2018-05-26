@@ -1,28 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Frame, Markdown, Panel, Tab, TabItem, RadioToggle, VMContext, withTheme } from 'elements';
-import RenderExample from '../../components/RenderExample';
-import RenderCustomize from '../../components/RenderCustomize';
+import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
 
 const FormRadioToggle = props => (
-   <VMContext vm="FormRadioToggle">
-      <Frame width="95%">
-         <h3>RadioToggle</h3>
-         <Tab>
-            <TabItem label="Overview">
-               <Markdown id="Overview">
-                  <RadioToggleExample />
-               </Markdown>
-            </TabItem>
-            <TabItem label="API">
-               <Markdown id="API" />
-            </TabItem>
-            <TabItem label="Customize">
-               <RadioToggleCustomize />
-            </TabItem>
-         </Tab>
-      </Frame>
-   </VMContext>
+   <TabsArticle vm="FormRadioToggle" id="Overview" title="RadioToggle">
+      <TabItem label="Overview" name="Overview">
+         <Markdown id="Overview">
+            <RadioToggleExample />
+         </Markdown>
+      </TabItem>
+      <TabItem label="API" name="API">
+         <Markdown id="API" />
+      </TabItem>
+      <TabItem label="Customize">
+         <RadioToggleCustomize />
+      </TabItem>
+   </TabsArticle>
 );
 
 class RadioToggleExample extends React.Component {

@@ -53,6 +53,10 @@ export default class Element extends React.Component {
       };
    }
 
+   componentWillUpdate(props) {
+      if (props.id) this._vmProperty = null;
+   }
+
    dispatch(value) {
       return this.vmProperty.dispatch(value);
    }

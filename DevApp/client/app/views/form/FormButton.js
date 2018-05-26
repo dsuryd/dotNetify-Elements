@@ -1,28 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Button, Element, Frame, Label, Markdown, Panel, RadioToggle, Tab, TabItem, VMContext, withTheme } from 'elements';
-import RenderExample from '../../components/RenderExample';
-import RenderCustomize from '../../components/RenderCustomize';
+import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
 
 const FormButton = props => (
-   <VMContext vm="FormButton">
-      <Frame width="95%">
-         <h3>Button</h3>
-         <Tab>
-            <TabItem label="Overview">
-               <Markdown id="Overview">
-                  <ButtonExample />
-               </Markdown>
-            </TabItem>
-            <TabItem label="API">
-               <Markdown id="API" />
-            </TabItem>
-            <TabItem label="Customize">
-               <ButtonCustomize />
-            </TabItem>
-         </Tab>
-      </Frame>
-   </VMContext>
+   <TabsArticle vm="FormButton" id="Overview" title="Button">
+      <TabItem label="Overview" name="Overview">
+         <Markdown id="Overview">
+            <ButtonExample />
+         </Markdown>
+      </TabItem>
+      <TabItem label="API" name="API">
+         <Markdown id="API" />
+      </TabItem>
+      <TabItem label="Customize">
+         <ButtonCustomize />
+      </TabItem>
+   </TabsArticle>
 );
 
 class ButtonExample extends React.Component {

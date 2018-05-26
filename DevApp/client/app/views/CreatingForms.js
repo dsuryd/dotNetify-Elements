@@ -1,32 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Frame, Markdown, MarkdownTOC, VMContext, withTheme } from 'elements';
+import { Markdown, MarkdownTOC, VMContext, withTheme } from 'elements';
 import { Alert, Button, Element, Form, Panel, NumberField, TextField } from 'elements';
 import Expander from '../components/Expander';
-
-const TOCSidebar = styled.div`
-   position: fixed;
-   border-left: 2px solid #ddd;
-   margin-left: 2rem;
-   padding-left: 1rem;
-`;
+import Article from '../components/Article';
 
 const CreatingForms = props => (
-   <VMContext vm="CreatingForms">
-      <Frame horizontal style={{ overflowX: 'hidden' }}>
-         <Panel css="width: calc(100% - 20rem)">
-            <Markdown id="CreatingForms">
-               <Expander label={<SeeItLive />} content={<BasicForm vm="BasicForm" />} />
-               <Expander label={<SeeItLive />} content={<BasicForm vm="AsyncValidation" />} />
-               <Expander label={<SeeItLive />} content={<ClientValidation />} />
-            </Markdown>
-         </Panel>
-
-         <TOCSidebar>
-            <MarkdownTOC id="CreatingForms" />
-         </TOCSidebar>
-      </Frame>
-   </VMContext>
+   <Article vm="CreatingForms" id="CreatingForms">
+      <Markdown id="CreatingForms">
+         <Expander label={<SeeItLive />} content={<BasicForm vm="BasicForm" />} />
+         <Expander label={<SeeItLive />} content={<BasicForm vm="AsyncValidation" />} />
+         <Expander label={<SeeItLive />} content={<ClientValidation />} />
+      </Markdown>
+   </Article>
 );
 
 const SeeItLive = _ => <b>See It Live!</b>;

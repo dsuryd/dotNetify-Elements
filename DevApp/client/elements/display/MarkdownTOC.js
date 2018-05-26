@@ -21,28 +21,44 @@ export class MarkdownTOC extends Element {
       ItemContainerComponent
    };
 
-   state = { headers: [], selected: null };
-
-   componentWillMount() {
-      this.setState({ headers: this.getHeaders() });
-   }
+   state = { selected: null };
 
    componentDidMount() {
-      this.detectScrolledHeader();
+      this.addScrollEventListener();
    }
 
-   detectScrolledHeader() {
-      const markdown = document.getElementById(this.attrs.id).parentElement;
-      if (markdown)
-         markdown.addEventListener('scroll', e => {
-            console.log(document.documentElement.scrollTop);
-         });
+   componentWillUnmount() {
+      this.removeScrollEventListener();
+   }
+
+   addScrollEventListener() {
+      // Find scroll position for all headers.
+      const headerPos = this.getHeaders()
+         .map(header => {
+            const elem = document.querySelector(header.link);
+            return elem ? { link: header.link, pos: elem.offsetTop } : null;
+         })
+         .filter(x => x);
+
+      this.handleScroll = (e => {
+         if (this.scrollingIntoView || this.removingListener) return;
+
+         // Find the closest header with current scroll position.
+         const relativePos = headerPos.map(header => ({ link: header.link, pos: Math.abs(header.pos - e.target.scrollTop) }));
+         const min = Math.min.apply(Math, relativePos.map(x => x.pos));
+         const nearest = relativePos.filter(x => x.pos === min).shift();
+         if (nearest) this.setState({ selected: nearest.link });
+      }).bind(this);
+
+      document.addEventListener('scroll', this.handleScroll, true);
    }
 
    getHeaders() {
-      let m,
-         headers = [];
-      const regex = /(#+) (.+)/gm;
+      let m;
+      let headers = [];
+      const regex = /^(#+) (.+)/gm;
+
+      // Parse the markdown document for headers.
       while ((m = regex.exec(this.value)) !== null) {
          // This is necessary to avoid infinite loops with zero-width matches
          if (m.index === regex.lastIndex) regex.lastIndex++;
@@ -51,28 +67,35 @@ export class MarkdownTOC extends Element {
       return headers;
    }
 
+   removeScrollEventListener() {
+      this.removingListener = true;
+      this.handleScroll && document.removeEventListener('scroll', this.handleScroll);
+      this.handleScroll = null;
+   }
+
    render() {
       const { selected } = this.state;
       const [ Container, ItemContainer ] = this.resolveComponents(MarkdownTOC);
-      const { fullId, ...props } = this.attrs;
+      const { id, fullId, ...props } = this.attrs;
 
-      const select = key => {
-         document.querySelector(key).scrollIntoView({ behavior: 'smooth' });
-         this.setState({ selected: key });
-      };
+      const select = key => this.setState({ selected: this.scrollIntoView(key) });
 
       return (
-         <Container id={fullId} {...props}>
-            {this.state.headers.map(header => (
-               <ItemContainer
-                  key={header.link}
-                  isSelected={selected === header.link}
-                  onClick={_ => select(header.link)}
-               >
+         <Container id={`${fullId}__toc`} {...props}>
+            {this.getHeaders().map(header => (
+               <ItemContainer key={header.link} className={`toc-h${header.level}`} isSelected={selected === header.link} onClick={_ => select(header.link)}>
                   <a href="javascript:void(0)">{header.title}</a>
                </ItemContainer>
             ))}
          </Container>
       );
+   }
+
+   scrollIntoView(key) {
+      if (this.scrollingIntoView) clearTimeout(this.scrollingIntoView);
+      this.scrollingIntoView = setTimeout(() => (this.scrollingIntoView = null), 1000);
+
+      document.querySelector(key).scrollIntoView({ behavior: 'smooth' });
+      return key;
    }
 }

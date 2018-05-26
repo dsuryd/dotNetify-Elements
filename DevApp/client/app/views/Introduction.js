@@ -1,19 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Frame, Markdown, VMContext, withTheme } from 'elements';
+import { Markdown, VMContext, withTheme } from 'elements';
 import { Button, DropdownList, Element, NumberField, TextField } from 'elements';
 import Expander from '../components/Expander';
+import Article from '../components/Article';
 
 const Introduction = props => (
-   <VMContext vm="Introduction">
-      <Frame width="95%">
-         <Markdown id="Intro">
-            <Expander label={<SeeItLive />} content={<NameInput />} />
-            <Expander label={<SeeItLive />} content={<NameGenderInput />} />
-            <Expander label={<SeeItLive />} content={<PrimeInput />} />
-         </Markdown>
-      </Frame>
-   </VMContext>
+   <Article vm="Introduction" id="Intro">
+      <Markdown id="Intro">
+         <Expander label={<SeeItLive />} content={<NameInput />} />
+         <Expander label={<SeeItLive />} content={<NameGenderInput />} />
+         <Expander label={<SeeItLive />} content={<PrimeInput />} />
+      </Markdown>
+   </Article>
 );
 
 const SeeItLive = _ => <b>See It Live!</b>;

@@ -1,28 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Frame, Markdown, Panel, Tab, TabItem, TextAreaField, VMContext, withTheme } from 'elements';
-import RenderExample from '../../components/RenderExample';
-import RenderCustomize from '../../components/RenderCustomize';
+import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
 
 const FormTextAreaField = props => (
-   <VMContext vm="FormTextAreaField">
-      <Frame width="95%">
-         <h3>TextAreaField</h3>
-         <Tab>
-            <TabItem label="Overview">
-               <Markdown id="Overview">
-                  <TextAreaFieldExample />
-               </Markdown>
-            </TabItem>
-            <TabItem label="API">
-               <Markdown id="API" />
-            </TabItem>
-            <TabItem label="Customize">
-               <TextAreaFieldCustomize />
-            </TabItem>
-         </Tab>
-      </Frame>
-   </VMContext>
+   <TabsArticle vm="FormTextAreaField" id="Overview" title="TextAreaField">
+      <TabItem label="Overview" name="Overview">
+         <Markdown id="Overview">
+            <TextAreaFieldExample />
+         </Markdown>
+      </TabItem>
+      <TabItem label="API" name="API">
+         <Markdown id="API" />
+      </TabItem>
+      <TabItem label="Customize">
+         <TextAreaFieldCustomize />
+      </TabItem>
+   </TabsArticle>
 );
 
 class TextAreaFieldExample extends React.Component {

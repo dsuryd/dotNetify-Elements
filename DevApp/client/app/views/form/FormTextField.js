@@ -1,31 +1,25 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Frame, Markdown, Panel, Tab, TabItem, TextField, VMContext, withTheme } from 'elements';
-import RenderExample from '../../components/RenderExample';
-import RenderCustomize from '../../components/RenderCustomize';
+import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
 
 const FormTextField = props => (
-   <VMContext vm="FormTextField">
-      <Frame width="95%">
-         <h3>TextField</h3>
-         <Tab>
-            <TabItem label="Overview">
-               <Markdown id="Overview">
-                  <TextFieldExample />
-               </Markdown>
-            </TabItem>
-            <TabItem label="Input Mask">
-               <Markdown id="Mask" />
-            </TabItem>
-            <TabItem label="API">
-               <Markdown id="API" />
-            </TabItem>
-            <TabItem label="Customize">
-               <TextFieldCustomize />
-            </TabItem>
-         </Tab>
-      </Frame>
-   </VMContext>
+   <TabsArticle vm="FormTextField" id="Overview" title="TextField">
+      <TabItem label="Overview" name="Overview">
+         <Markdown id="Overview">
+            <TextFieldExample />
+         </Markdown>
+      </TabItem>
+      <TabItem label="Input Mask" name="Mask">
+         <Markdown id="Mask" />
+      </TabItem>
+      <TabItem label="API" name="API">
+         <Markdown id="API" />
+      </TabItem>
+      <TabItem label="Customize">
+         <TextFieldCustomize />
+      </TabItem>
+   </TabsArticle>
 );
 
 class TextFieldExample extends React.Component {

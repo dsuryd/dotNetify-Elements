@@ -1,28 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
 import { DateField, DateTimeField, TimeField, Frame, Markdown, Panel, Tab, TabItem, VMContext, withTheme } from 'elements';
-import RenderExample from '../../components/RenderExample';
-import RenderCustomize from '../../components/RenderCustomize';
+import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
 
 const FormDateTimeField = props => (
-   <VMContext vm="FormDateTimeField">
-      <Frame width="95%">
-         <h3>DateTimeField</h3>
-         <Tab>
-            <TabItem label="Overview">
-               <Markdown id="Overview">
-                  <DateTimeFieldExample />
-               </Markdown>
-            </TabItem>
-            <TabItem label="API">
-               <Markdown id="API" />
-            </TabItem>
-            <TabItem label="Customize">
-               <DateTimeFieldCustomize />
-            </TabItem>
-         </Tab>
-      </Frame>
-   </VMContext>
+   <TabsArticle vm="FormDateTimeField" id="Overview" title="DateTimeField">
+      <TabItem label="Overview" name="Overview">
+         <Markdown id="Overview">
+            <DateTimeFieldExample />
+         </Markdown>
+      </TabItem>
+      <TabItem label="API" name="API">
+         <Markdown id="API" />
+      </TabItem>
+      <TabItem label="Customize">
+         <DateTimeFieldCustomize />
+      </TabItem>
+   </TabsArticle>
 );
 
 class DateTimeFieldExample extends React.Component {

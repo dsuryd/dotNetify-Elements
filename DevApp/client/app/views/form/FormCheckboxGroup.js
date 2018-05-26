@@ -1,28 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
 import { CheckboxGroup, Frame, Markdown, Panel, Tab, TabItem, VMContext, withTheme } from 'elements';
-import RenderExample from '../../components/RenderExample';
-import RenderCustomize from '../../components/RenderCustomize';
+import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
 
 const FormCheckboxGroup = props => (
-   <VMContext vm="FormCheckboxGroup">
-      <Frame width="95%">
-         <h3>CheckboxGroup</h3>
-         <Tab>
-            <TabItem label="Overview">
-               <Markdown id="Overview">
-                  <CheckboxGroupExample />
-               </Markdown>
-            </TabItem>
-            <TabItem label="API">
-               <Markdown id="API" />
-            </TabItem>
-            <TabItem label="Customize">
-               <CheckboxGroupCustomize />
-            </TabItem>
-         </Tab>
-      </Frame>
-   </VMContext>
+   <TabsArticle vm="FormCheckboxGroup" id="Overview" title="CheckboxGroup">
+      <TabItem label="Overview" name="Overview">
+         <Markdown id="Overview">
+            <CheckboxGroupExample />
+         </Markdown>
+      </TabItem>
+      <TabItem label="API" name="API">
+         <Markdown id="API" />
+      </TabItem>
+      <TabItem label="Customize">
+         <CheckboxGroupCustomize />
+      </TabItem>
+   </TabsArticle>
 );
 
 class CheckboxGroupExample extends React.Component {

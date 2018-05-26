@@ -17,7 +17,7 @@ export class Markdown extends Element {
 
    render() {
       const [ Container ] = this.resolveComponents(Markdown);
-      const { fullId, children, ...props } = this.attrs;
+      const { id, fullId, children, ...props } = this.attrs;
 
       const _children = React.Children.toArray(children);
 

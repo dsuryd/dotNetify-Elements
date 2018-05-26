@@ -140,6 +140,14 @@ const defaultTheme = {
          font-weight: 600;
       `,
       Container: `
+         .toc-h1, 
+         .toc-h2 {
+            font-size: 1.1rem;
+         }
+         .toc-h3, 
+         .toc-h4 {
+            font-size: .9rem;
+         }
          a {
             color: #337ab7;
             &:hover { 
