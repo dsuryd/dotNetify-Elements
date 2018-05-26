@@ -42,6 +42,7 @@ export class MarkdownTOC extends Element {
 
       this.handleScroll = (e => {
          if (this.scrollingIntoView || this.removingListener) return;
+         if (e.target.querySelector(`[id="${this.attrs.fullId}"]`) === null) return;
 
          // Find the closest header with current scroll position.
          const relativePos = headerPos.map(header => ({ link: header.link, pos: Math.abs(header.pos - e.target.scrollTop) }));
