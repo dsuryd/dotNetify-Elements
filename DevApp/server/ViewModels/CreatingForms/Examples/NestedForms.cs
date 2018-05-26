@@ -17,7 +17,7 @@ namespace dotNetify_Elements
          public StringDictionary Address { get; set; }
       }
 
-      public ReactiveProperty<bool> ClearForm { get; set; } = new ReactiveProperty<bool>();
+      public ReactiveProperty<bool> ClearAllForms { get; } = new ReactiveProperty<bool>();
 
       public MasterForm()
       {
@@ -25,15 +25,15 @@ namespace dotNetify_Elements
             .WithAttribute(this, new { Label = "Register" })
             .SubscribedBy(
                AddProperty<string>("ServerResponse"), submittedData => Save(submittedData))
-                  .SubscribedBy(ClearForm, _ => true);
+                  .SubscribedBy(ClearAllForms, _ => true);
       }
 
       public override void OnSubVMCreated(BaseVM subVM)
       {
          if (subVM is ChildForm_NameEmail)
-            (subVM as ChildForm_NameEmail).ClearForm.SubscribeTo(ClearForm);
+            (subVM as ChildForm_NameEmail).ClearForm.SubscribeTo(ClearAllForms);
          else if (subVM is ChildForm_Address)
-            (subVM as ChildForm_Address).ClearForm.SubscribeTo(ClearForm);
+            (subVM as ChildForm_Address).ClearForm.SubscribeTo(ClearAllForms);
       }
 
       private string Save(FormData formData)
@@ -49,7 +49,7 @@ namespace dotNetify_Elements
 
    public class ChildForm_NameEmail : BaseVM
    {
-      public ReactiveProperty<bool> ClearForm => new ReactiveProperty<bool>();
+      public ReactiveProperty<bool> ClearForm { get; } = new ReactiveProperty<bool>();
 
       public ChildForm_NameEmail()
       {
@@ -67,7 +67,7 @@ namespace dotNetify_Elements
 
    public class ChildForm_Address : BaseVM
    {
-      public ReactiveProperty<bool> ClearForm => new ReactiveProperty<bool>();
+      public ReactiveProperty<bool> ClearForm { get; } = new ReactiveProperty<bool>();
 
       public ChildForm_Address()
       {
@@ -82,12 +82,7 @@ namespace dotNetify_Elements
             .SubscribeTo(ClearForm.Select(_ => ""));
 
          AddProperty<State>("State")
-            .WithAttribute(this, new DropdownListAttribute
-            {
-               Label = "State:",
-               Placeholder = "Enter state",
-               Options = typeof(State).ToDescriptions()
-            })
+            .WithAttribute(this, new DropdownListAttribute { Label = "State:", Options = typeof(State).ToDescriptions() })
             .WithRequiredValidation(this)
             .SubscribeTo(ClearForm.Select(_ => State.Unknown));
       }

@@ -174,10 +174,129 @@ const ClientValidationForm = _ => (
 ```
 
 [inset]
+<br/>
 
 ### Nested Forms
 
 Complex data collection often necessitates having multiple forms grouped inside a master form so the inputs can be submitted together.  The _Form_ element supports nesting of multiple _Form_ elements, with each child form having its own view model.
 
+```jsx
+const NestedForms = _ => (
+   <VMContext vm="MasterForm">
+      <Form>
+         <Alert id="ServerResponse" />
+         <Panel horizontal>
+            <ChildForm_NameEmail flex />
+            <ChildForm_Address flex />
+         </Panel>
+         <Button id="Register" submit />
+      </Form>
+   </VMContext>
+);
 
+const ChildForm_NameEmail = _ => (
+   <VMContext vm="ChildForm_NameEmail">
+      <Form id="NameEmail">
+         <Panel flex>
+            <TextField id="Name" />
+            <TextField id="Email" />
+         </Panel>
+      </Form>
+   </VMContext>
+);
+
+const ChildForm_Address = _ => (
+   <VMContext vm="ChildForm_Address">
+      <Form id="Address">
+         <Panel flex>
+            <TextField id="Address" />
+            <TextField id="City" />
+            <DropdownList id="State" />
+         </Panel>
+      </Form>
+   </VMContext>
+);
+```
+
+```csharp
+public class MasterForm : BaseVM
+{
+   private class FormData
+   {
+      public Dictionary<string, string> NameEmail { get; set; }
+      public Dictionary<string, string> Address { get; set; }
+   }
+
+   public ReactiveProperty<bool> ClearAllForms { get; } = new ReactiveProperty<bool>();
+
+   public MasterForm()
+   {
+      AddProperty<FormData>("Register")
+         .WithAttribute(this, new { Label = "Register" })
+         .SubscribedBy(
+            AddProperty<string>("ServerResponse"), submittedData => Save(submittedData))
+               .SubscribedBy(ClearAllForms, _ => true);
+   }
+
+   public override void OnSubVMCreated(BaseVM subVM)
+   {
+      if (subVM is ChildForm_NameEmail)
+         (subVM as ChildForm_NameEmail).ClearForm.SubscribeTo(ClearAllForms);
+      else if (subVM is ChildForm_Address)
+         (subVM as ChildForm_Address).ClearForm.SubscribeTo(ClearAllForms);
+   }
+
+   private string Save(FormData formData)
+   {
+      return
+         $"Name: {formData.NameEmail["Name"]}<br/>" +
+         $"Email: {formData.NameEmail["Email"]}<br/>" +
+         $"Address: {formData.Address["Address"]}<br/>" +
+         $"City: {formData.Address["City"]}<br/>" +
+         $"State: {Enum.Parse(typeof(State), formData.Address["State"])}";
+   }
+}
+
+public class ChildForm_NameEmail : BaseVM
+{
+   public ReactiveProperty<bool> ClearForm { get; } = new ReactiveProperty<bool>();
+
+   public ChildForm_NameEmail()
+   {
+      AddProperty<string>("Name")
+         .WithAttribute(this, new TextFieldAttribute { Label = "Name:", Placeholder = "Enter name" })
+         .WithRequiredValidation(this)
+         .SubscribeTo(ClearForm.Select(_ => ""));
+
+      AddProperty<string>("Email")
+         .WithAttribute(this, new TextFieldAttribute { Label = "Email:", Placeholder = "Enter email" })
+         .WithPatternValidation(this, Pattern.Email, "Must be a valid email address.")
+         .SubscribeTo(ClearForm.Select(_ => ""));
+   }
+}
+
+public class ChildForm_Address : BaseVM
+{
+   public ReactiveProperty<bool> ClearForm { get; } = new ReactiveProperty<bool>();
+
+   public ChildForm_Address()
+   {
+      AddProperty<string>("Address")
+         .WithAttribute(this, new TextFieldAttribute { Label = "Address:", Placeholder = "Enter street address" })
+         .WithRequiredValidation(this)
+         .SubscribeTo(ClearForm.Select(_ => ""));
+
+      AddProperty<string>("City")
+         .WithAttribute(this, new TextFieldAttribute { Label = "City:", Placeholder = "Enter city" })
+         .WithRequiredValidation(this)
+         .SubscribeTo(ClearForm.Select(_ => ""));
+
+      AddProperty<State>("State")
+         .WithAttribute(this, new DropdownListAttribute { Label = "State:", Options = typeof(State).ToDescriptions() })
+         .WithRequiredValidation(this)
+         .SubscribeTo(ClearForm.Select(_ => State.Unknown));
+   }
+}
+```
 [inset]
+<br/>
