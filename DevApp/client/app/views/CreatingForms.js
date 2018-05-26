@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Markdown, MarkdownTOC, VMContext, withTheme } from 'elements';
-import { Alert, Button, Element, Form, Panel, NumberField, TextField } from 'elements';
+import { Alert, Button, DropdownList, Element, Form, Panel, NumberField, TextField } from 'elements';
 import Expander from '../components/Expander';
 import Article from '../components/Article';
 
@@ -11,6 +11,7 @@ const CreatingForms = props => (
          <Expander label={<SeeItLive />} content={<BasicForm vm="BasicForm" />} />
          <Expander label={<SeeItLive />} content={<BasicForm vm="AsyncValidation" />} />
          <Expander label={<SeeItLive />} content={<ClientValidation />} />
+         <Expander label={<SeeItLive />} content={<NestedForms />} />
       </Markdown>
    </Article>
 );
@@ -44,6 +45,42 @@ const ClientValidation = _ => (
          <Panel horizontal>
             <TextField id="Name" horizontal validation={nameLengthValidator} />
             <Button id="Register" submit />
+         </Panel>
+      </Form>
+   </VMContext>
+);
+
+const NestedForms = _ => (
+   <VMContext vm="MasterForm">
+      <Form>
+         <Alert id="ServerResponse" />
+         <Panel horizontal>
+            <ChildForm_NameEmail flex />
+            <ChildForm_Address flex />
+         </Panel>
+         <Button id="Register" submit />
+      </Form>
+   </VMContext>
+);
+
+const ChildForm_NameEmail = _ => (
+   <VMContext vm="ChildForm_NameEmail">
+      <Form id="NameEmail">
+         <Panel flex>
+            <TextField id="Name" />
+            <TextField id="Email" />
+         </Panel>
+      </Form>
+   </VMContext>
+);
+
+const ChildForm_Address = _ => (
+   <VMContext vm="ChildForm_Address">
+      <Form id="Address">
+         <Panel flex>
+            <TextField id="Address" />
+            <TextField id="City" />
+            <DropdownList id="State" />
          </Panel>
       </Form>
    </VMContext>

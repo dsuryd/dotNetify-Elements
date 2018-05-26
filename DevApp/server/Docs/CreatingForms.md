@@ -175,6 +175,9 @@ const ClientValidationForm = _ => (
 
 [inset]
 
+### Nested Forms
+
+Complex data collection often necessitates having multiple forms grouped inside a master form so the inputs can be submitted together.  The _Form_ element supports nesting of multiple _Form_ elements, with each child form having its own view model.
 
 
-
+[inset]

@@ -15,9 +15,9 @@ namespace dotNetify_Elements
 
       Customer Get(int id);
 
-      Customer Add(FormData formData);
+      Customer Add(CustomerFormData formData);
 
-      Customer Update(int id, FormData formData);
+      Customer Update(int id, CustomerFormData formData);
    }
 
    public class CustomerRepository : ICustomerRepository
@@ -28,7 +28,7 @@ namespace dotNetify_Elements
 
       public Customer Get(int id) => _mockData.FirstOrDefault(x => x.Id == id);
 
-      public Customer Add(FormData formData)
+      public Customer Add(CustomerFormData formData)
       {
          var customer = new Customer
          {
@@ -52,7 +52,7 @@ namespace dotNetify_Elements
          return customer;
       }
 
-      public Customer Update(int id, FormData formData)
+      public Customer Update(int id, CustomerFormData formData)
       {
          var customer = Get(id);
 
@@ -61,7 +61,7 @@ namespace dotNetify_Elements
          Update(customer.Phone, formData.Phone);
          Update(customer.OtherInfo, formData.OtherInfo);
          Update(customer.DriverLicense, formData.DriverLicense);
-         customer.Notes = formData.Notes != null ? formData.Notes[nameof(FormData.Notes)] : customer.Notes;
+         customer.Notes = formData.Notes != null ? formData.Notes[nameof(CustomerFormData.Notes)] : customer.Notes;
 
          return customer;
       }

@@ -42,7 +42,7 @@ namespace dotNetify_Elements
                Rows = 5
             }.CanSelect(DataGridAttribute.Selection.Single, _selectedContact));
 
-         AddInternalProperty<FormData>("Submit")
+         AddInternalProperty<CustomerFormData>("Submit")
             .SubscribedBy(AddProperty<bool>("SubmitSuccess"), formData => Save(formData));
       }
 
@@ -60,7 +60,7 @@ namespace dotNetify_Elements
             (subVM as NewCustomerForm).NewCustomer.Subscribe(customer => UpdateContact(customer));
       }
 
-      private bool Save(FormData formData)
+      private bool Save(CustomerFormData formData)
       {
          var id = (int)_selectedContact.Value;
          var customer = _customerRepository.Update(id, formData);

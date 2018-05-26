@@ -11,7 +11,7 @@ namespace dotNetify_Elements
 
       public NotesForm()
       {
-         AddProperty<string>(nameof(FormData.Notes))
+         AddProperty<string>(nameof(CustomerFormData.Notes))
             .WithAttribute(this, new TextFieldAttribute { Label = "Notes:" })
             .SubscribeTo(Customer.Select(x => x.Notes));
       }

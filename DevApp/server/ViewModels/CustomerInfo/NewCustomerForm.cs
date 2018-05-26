@@ -15,7 +15,7 @@ namespace dotNetify_Elements
       {
          _customerRepository = customerRepository;
 
-         AddInternalProperty<FormData>("Submit")
+         AddInternalProperty<CustomerFormData>("Submit")
             .SubscribedBy(NewCustomer, formData => Save(formData));
       }
 
@@ -24,7 +24,7 @@ namespace dotNetify_Elements
          base.Dispose();
       }
 
-      public Customer Save(FormData formData)
+      public Customer Save(CustomerFormData formData)
       {
          return _customerRepository.Add(formData);
       }
