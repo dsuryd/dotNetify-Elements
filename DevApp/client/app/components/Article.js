@@ -10,6 +10,7 @@ const Sidebar = styled.div`
 `;
 
 const Title = styled.div`
+   ${props => (!props.show ? 'display: none' : '')};
    ${props => props.theme.MarkdownTOC.Container};
    margin-bottom: 1rem;
    font-size: 1.1rem;
@@ -21,18 +22,14 @@ const Article = props => (
    <VMContext vm={props.vm}>
       <Frame horizontal css="overflow-x: hidden">
          <Panel css="width: calc(100% - 20rem); overflow-y: hidden">{props.children}</Panel>
-         {props.id ? (
-            <Sidebar>
-               {props.tocTitle ? (
-                  <Title>
-                     <a href="javascript:void(0)" onClick={_ => scrollIntoView(props.title)}>
-                        {props.tocTitle}
-                     </a>
-                  </Title>
-               ) : null}
-               <MarkdownTOC id={props.id} />
-            </Sidebar>
-         ) : null}
+         <Sidebar>
+            <Title show={props.tocTitle}>
+               <a href="javascript:void(0)" onClick={_ => scrollIntoView(props.title)}>
+                  {props.tocTitle}
+               </a>
+            </Title>
+            {props.id ? <MarkdownTOC id={props.id} /> : null}
+         </Sidebar>
       </Frame>
    </VMContext>
 );
@@ -41,9 +38,7 @@ export class TabsArticle extends React.Component {
    state = { id: this.props.id, tocTitle: this.props.id };
    render() {
       const { vm, title, children } = this.props;
-      const handleActivate = (key, label) => {
-         this.setState({ id: key.length > 1 ? key : null, tocTitle: key.length > 1 ? label : null });
-      };
+      const handleActivate = (key, label) => this.setState({ id: key.length > 1 ? key : null, tocTitle: key.length > 1 ? label : null });
       return (
          <Article vm={vm} id={this.state.id} title={title} tocTitle={this.state.tocTitle}>
             <h3 id={title}>{title}</h3>

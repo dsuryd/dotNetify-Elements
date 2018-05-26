@@ -93,7 +93,7 @@ public class NumberMask : Mask
 }
 ```
 
-#### Credits
+#### Source
 
 This element incorporates https://github.com/text-mask/text-mask ([license: The Unlicense](https://github.com/text-mask/text-mask/blob/master/LICENSE))
 
