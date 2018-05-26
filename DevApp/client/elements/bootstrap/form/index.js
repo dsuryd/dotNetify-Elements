@@ -1,5 +1,5 @@
 import { Button as _Button } from './Button';
-import { CheckboxInput, CheckboxLabel, CheckboxContainer } from './Checkbox';
+import { CheckboxInput, CheckboxLabel, CheckboxContainer, CheckboxPlainText } from './Checkbox';
 import { DateTimePicker } from './DateTimePicker';
 import { Input, InputGroup } from './Input';
 import { Multiselect } from './Multiselect';
@@ -28,7 +28,8 @@ Button.componentTypes.ButtonComponent = _Button;
 Object.assign(Checkbox.componentTypes, {
    Container: CheckboxContainer,
    LabelComponent: CheckboxLabel,
-   InputComponent: CheckboxInput
+   InputComponent: CheckboxInput,
+   PlainTextComponent: CheckboxPlainText
 });
 
 Object.assign(CheckboxGroup.componentTypes, {

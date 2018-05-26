@@ -18,3 +18,8 @@ export const CheckboxContainer = styled.div.attrs({
 })`
 ${props => (props.checked ? props.theme.Checkbox.Container.Checked : props.theme.Checkbox.Container.Default)}
 `;
+
+export const CheckboxPlainText = styled.b`
+   margin-left: -1.25rem;
+   ${props => (!props.checked ? 'text-decoration: line-through' : '')};
+`;
