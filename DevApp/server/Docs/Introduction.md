@@ -1,12 +1,14 @@
 ﻿## Introduction
 
-_DotNetify-Elements_ provide the building blocks that will make your web application development a breeze.  Built on top of _dotNetify-React_, Elements are a set of customizable React components that you can readily connect to your cross-platform .NET back-end and get your data streaming in real-time through WebSocket with minimal effort.
+_DotNetify-Elements_ provide the building blocks that will make your web application development a breeze.  Built on top of _dotNetify_, Elements are a set of free,  open-source React components that you can readily connect to your cross-platform .NET back-end and get your data streaming in real-time through WebSocket with minimal effort.
 
-_Elements_ incorporate and curate many other existing, widely-adopted open-source libraries to allow you to leverage the React community's tried-and-true favorites in your application with greater ease and speed, while forgoing the hassle of learning each of their idiosyncrasies.  Each data-driven element is designed to be plug-and-play with your C# view models through reactive programming model, and with strong support for theming and customization.
+_Elements_ incorporate and curate many other existing, widely-adopted open-source libraries to allow you to leverage the React community's tried-and-true favorites in your application with greater ease and speed, while forgoing the hassle of learning each of their idiosyncrasies.  
+
+Each data-driven element is designed to be plug-and-play with your C# view models through reactive programming model, and with strong support for theming and customization.
 
 #### The Basics
 
-Let's revisit the Hello World example (if you're not familiar with _dotNetify-React_, [read it up first!](http://dotnetify.net/react)) :
+Let's revisit the Hello World example (if you're not familiar with _dotNetify_, [read it up first!](http://dotnetify.net/react)) :
 
 ```jsx
 import React from 'react';
@@ -116,7 +118,8 @@ public class NameGenderInput : BaseVM
 ```
 [inset]
 <br/>
-The namespace __DotNetify.Elements__ provides attribute types for many of the _Elements_.  Similarly, you can also specify validation attributes for the input Elements, i.e. required attribute, regular expression pattern, number min/max, date range, and even custom server-side validation.  The example below uses a sub-component of _TextField_, an element that only accepts whole numbers:
+The namespace __DotNetify.Elements__ provides attribute types for various _Elements_.  Similarly, you can also specify validation attributes for the input Elements, i.e. required attribute, regular expression pattern, number min/max, date range, and even custom server-side validation.  The example below uses a sub-component of _TextField_, an element that only accepts whole numbers:
+
 ```jsx
 const PrimeInput = _ => (
    <VMContext vm="PrimeInput">
@@ -153,4 +156,17 @@ public class PrimeInput : BaseVM
 [inset]
 <br/>
 
-Placing these input elements inside a _Form_ element will give you much more features, including the ability to perform form-level validation, submission and error handling, dirty checking, and more.  This topic will be explored in-depth in the following section.
+Placing these input elements inside a _Form_ element will give you much more features, including the ability to perform form-level validation, submission and error handling, dirty checking, and more.  We will cover this topic more in the other section.
+
+Note that the attribute types are just there to help you to figure out things that can be configured, but the usage is completely optional.  They can be substituted with anonymous object:
+
+```csharp
+AddProperty<string>("Name")
+   .WithAttribute(this, new { Label = "Name:", Placeholder = "Enter your name" })
+```
+
+#### Real-Time Streaming
+
+_DotNetify-Elements_ gives you real-time data streaming capability _by default_.  Every view model is capable of pushing data to the client in real-time.  Combine this MVVM paradigm with reactive programming on both the front- and back-end, and you get a powerful framework for tackling the complexity of real-time programming.
+
+As this project continues to grow and attracts participation, we hope to add many more components for real-time visualization and interaction.  Stay in the loop by following our [Twitter account](https://twitter.com/dotnetify)!

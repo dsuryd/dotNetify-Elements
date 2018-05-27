@@ -138,6 +138,7 @@ const defaultTheme = {
    MarkdownTOC: {
       Selected: `
          font-weight: 600;
+         border-bottom: 1px dashed #ddd;
       `,
       Container: `
          .toc-h1, 

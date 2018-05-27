@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Frame, Main, Header, Footer, Nav, NavHeader, NavMenu, NavMenuTarget, Section, VMContext } from 'elements';
-import DotNetifyLogo from '../components/DotNetifyLogo';
+import { Frame, Main, Header, Footer, Nav, NavHeader, NavMenu, NavMenuTarget, Panel, Section, VMContext } from 'elements';
+import DotNetifyLogo, { LicenseNotice } from '../components/DotNetifyLogo';
 
 const App = props => (
    <VMContext vm="App">
@@ -17,7 +17,11 @@ const App = props => (
          <Section>
             <NavMenuTarget />
          </Section>
-         <Footer />
+         <Footer>
+            <LicenseNotice>
+               © 2015-2018 Dicky Suryadi. Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache license version 2.0</a>
+            </LicenseNotice>
+         </Footer>
       </Main>
    </VMContext>
 );
