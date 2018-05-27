@@ -178,7 +178,11 @@ const ClientValidationForm = _ => (
 
 ### Nested Forms
 
-Complex data collection often necessitates having multiple forms grouped inside a master form so the inputs can be submitted together.  The _Form_ element supports nesting of multiple _Form_ elements, with each child form having its own view model.
+Complex data collection often necessitates having multiple forms grouped inside a master form so the inputs can be submitted together.  The _Form_ element supports nesting of multiple _Form_ elements.  Having a view model for every child form makes them modular and reusable.  
+
+On the client-side, when _VMContext_ elements of the child forms are nested inside the _VMContext_ of the master form, the view models of the child forms will be created under the scope of the master view model, allowing it to inject lifecycle hooks to perform data initialization and/or establish messaging with them.
+
+The following example shows how two forms are nested inside a master form.  When the submit button is activated, the master form will send the aggregated input data from the child forms to the master form's view model.  The aggregated data is in the format of an object literal with properties named according to the __ID__ attribute values of the child forms.
 
 ```jsx
 const NestedForms = _ => (
@@ -217,6 +221,8 @@ const ChildForm_Address = _ => (
    </VMContext>
 );
 ```
+
+On the back-end view model, the master view model overrides __OnSubVMCreated__ method to intercept the scoped view models as they're being instantiated (see _dotNetify_'s [documentation on scoped view model APIs](http://dotnetify.net/react/DataFlow)) so it can send them a reactive event to clear their forms 
 
 ```csharp
 public class MasterForm : BaseVM
