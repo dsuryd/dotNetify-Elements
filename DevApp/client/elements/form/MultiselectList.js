@@ -64,7 +64,7 @@ export class MultiselectList extends InputElement {
 
    render() {
       const [ Container, Input, Tag, Item, List, ValidationMessage, PlainText ] = this.resolveComponents(MultiselectList);
-      const { fullId, label, plainText, options, horizontal, enable, style, ...props } = this.attrs;
+      const { fullId, label, plainText, options, horizontal, enable, style, css, ...props } = this.attrs;
 
       const disabled = enable === false;
       const values = this.value ? this.value.map(x => `${x}`) : [];
@@ -73,7 +73,7 @@ export class MultiselectList extends InputElement {
       const validationMessages = this.props.validationMessages || this.state.validationMessages;
 
       return (
-         <Container id={fullId} label={label} horizontal={horizontal} plainText={plainText} style={style}>
+         <Container id={fullId} label={label} horizontal={horizontal} plainText={plainText} style={style} css={css}>
             {plainText ? (
                <PlainText>{plainTextValue}</PlainText>
             ) : (

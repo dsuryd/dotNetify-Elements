@@ -37,7 +37,8 @@ export class Field extends React.Component {
       id: PropTypes.string.isRequired,
       label: PropTypes.string,
       horizontal: PropTypes.bool,
-      right: PropTypes.bool
+      right: PropTypes.bool,
+      css: PropTypes.string
    };
 
    static componentTypes = {
@@ -51,13 +52,13 @@ export class Field extends React.Component {
 
    render() {
       const [ Container, LabelContainer, Label, InputContainer, PlainTextContainer, ValidationMessageContainer ] = utils.resolveComponents(Field, this.props);
-      const { id, label, plainText, horizontal, right, style, ...props } = this.props;
+      const { id, label, plainText, horizontal, right, style, css, ...props } = this.props;
       const labelPadding = horizontal ? null : '0 0 .5rem 0';
 
       const [ validationMessages, children ] = utils.filterChildren(this.props.children, child => child.key && child.key.startsWith(validationKeyPrefix));
 
       return (
-         <Container style={style} horizontal={horizontal}>
+         <Container style={style} css={css} horizontal={horizontal}>
             <LabelContainer horizontal={horizontal}>
                {label ? (
                   <Label for={id} padding={labelPadding}>

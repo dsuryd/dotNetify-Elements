@@ -73,7 +73,7 @@ export class DropdownList extends InputElement {
 
    render() {
       const [ Container, Input, InputGroup, ValidationMessage, PlainText ] = this.resolveComponents(DropdownList);
-      let { fullId, label, placeholder, prefix, suffix, plainText, options, horizontal, enable, style, ...props } = this.attrs;
+      let { fullId, label, placeholder, prefix, suffix, plainText, options, horizontal, enable, style, css, ...props } = this.attrs;
 
       options = options || [];
       const listOptions = options.map(opt => (
@@ -94,7 +94,7 @@ export class DropdownList extends InputElement {
       const validationMessages = this.props.validationMessages || this.state.validationMessages;
 
       return (
-         <Container id={fullId} label={label} horizontal={horizontal} plainText={plainText} style={style}>
+         <Container id={fullId} label={label} horizontal={horizontal} plainText={plainText} style={style} css={css}>
             {plainText ? (
                <PlainText>{plainTextValue}</PlainText>
             ) : (

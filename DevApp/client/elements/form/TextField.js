@@ -98,7 +98,7 @@ export class TextField extends InputElement {
       const validationMessages = this.props.validationMessages || this.state.validationMessages;
 
       return (
-         <Container id={fullId} label={label} horizontal={horizontal} plainText={plainText} style={style}>
+         <Container id={fullId} label={label} horizontal={horizontal} plainText={plainText} style={style} css={css}>
             {plainText ? (
                <PlainText type={type}>{plainTextValue}</PlainText>
             ) : (

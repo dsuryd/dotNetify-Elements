@@ -18,7 +18,7 @@ const Container = styled.div`
 `;
 
 const ChildContainer = styled.div`
-   ${props => (props.flex ? 'display: flex; align-items: flex-start' : '')};
+   ${props => (props.flex ? 'display: flex; align-items: stretch' : '')};
    flex: ${props => props.flex};
    padding: ${props => props.padding};
    ${props => props.theme.Panel.ChildContainer};
@@ -108,7 +108,10 @@ export class Panel extends React.Component {
                let childFlex = flex || (child.props && child.props.flex);
                childFlex = typeof childFlex == 'boolean' ? (childFlex ? '1' : null) : childFlex;
 
-               if (child.type === Panel) {
+               // If child or its container has 'css' attribute, it's a derivate of Panel, don't wrap it.
+               const hasCssPropType = x => x && x.propTypes && x.propTypes.css;
+               const childContainer = child.type && child.type.componentTypes ? child.type.componentTypes.Container : null;
+               if (hasCssPropType(child.type) || hasCssPropType(childContainer)) {
                   const padding = this.numChildren <= 1 ? 0 : this.getPadding(idx, _gap, _horizontal);
                   const style = { ...this.getStyle(idx), padding: padding };
                   return React.cloneElement(child, utils.mergeProps(child, childProps, { style: style, onShow: show => this.handleShow(idx, show) }));

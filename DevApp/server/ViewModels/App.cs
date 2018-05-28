@@ -70,21 +70,20 @@ namespace dotNetify_Elements
                   Icon = "far fa-edit",
                   Routes = new NavRoute[]
                   {
-                     new NavRoute("Button",           this.GetRoute(nameof(Route.FormButton))),
-                     new NavRoute("Checkbox",         this.GetRoute(nameof(Route.FormCheckbox))),
-                     new NavRoute("CheckboxGroup",    this.GetRoute(nameof(Route.FormCheckboxGroup))),
-                     new NavRoute("DateTimeField",    this.GetRoute(nameof(Route.FormDateTimeField))),
-                     new NavRoute("DropdownList",     this.GetRoute(nameof(Route.FormDropdownList))),
-                     new NavRoute("Form",             this.GetRoute(nameof(Route.Form))),
-                     new NavRoute("MultiselectList",  this.GetRoute(nameof(Route.FormMultiselectList))),
-                     new NavRoute("NumberField",      this.GetRoute(nameof(Route.FormNumberField))),
-                     new NavRoute("PasswordField",    this.GetRoute(nameof(Route.FormPasswordField))),
-                     new NavRoute("RadioGroup",       this.GetRoute(nameof(Route.FormRadioGroup))),
-                     new NavRoute("RadioToggle",      this.GetRoute(nameof(Route.FormRadioToggle))),
-                     new NavRoute("TextAreaField",    this.GetRoute(nameof(Route.FormTextAreaField))),
-                     new NavRoute("TextField",        this.GetRoute(nameof(Route.FormTextField))),
-                     new NavRoute("Form Demo",        this.GetRoute(nameof(Route.FormDemo))),
-                     new NavRoute("Validation Demo",  this.GetRoute(nameof(Route.FormValidationDemo)))
+                     new NavRoute("Form Demo",           this.GetRoute(nameof(Route.FormDemo))),
+                     new NavRoute("Button",              this.GetRoute(nameof(Route.FormButton))),
+                     new NavRoute("Checkbox",            this.GetRoute(nameof(Route.FormCheckbox))),
+                     new NavRoute("CheckboxGroup",       this.GetRoute(nameof(Route.FormCheckboxGroup))),
+                     new NavRoute("DateTimeField",       this.GetRoute(nameof(Route.FormDateTimeField))),
+                     new NavRoute("DropdownList",        this.GetRoute(nameof(Route.FormDropdownList))),
+                     new NavRoute("Form",                this.GetRoute(nameof(Route.Form))),
+                     new NavRoute("MultiselectList",     this.GetRoute(nameof(Route.FormMultiselectList))),
+                     new NavRoute("NumberField",         this.GetRoute(nameof(Route.FormNumberField))),
+                     new NavRoute("PasswordField",       this.GetRoute(nameof(Route.FormPasswordField))),
+                     new NavRoute("RadioGroup",          this.GetRoute(nameof(Route.FormRadioGroup))),
+                     new NavRoute("RadioToggle",         this.GetRoute(nameof(Route.FormRadioToggle))),
+                     new NavRoute("TextAreaField",       this.GetRoute(nameof(Route.FormTextAreaField))),
+                     new NavRoute("TextField",           this.GetRoute(nameof(Route.FormTextField)))
                   }
                },
                new NavGroup

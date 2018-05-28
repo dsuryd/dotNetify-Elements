@@ -2,9 +2,7 @@
 
 _DotNetify-Elements_ provide a set of free, open-source React components that you can readily connect to your cross-platform .NET back-end in an MVVM fashion, and get your data streaming in real-time through WebSocket with minimal effort.
 
-_Elements_ incorporate and curate many other existing, widely-adopted open-source libraries to allow you to leverage the React community's tried-and-true favorites in your application with greater ease and speed.  
-
-The components are designed to plug-and-play with your C# view models through reactive programming model and produce great-looking web applications out-of-the-box, with strong support for theming and customization.
+_Elements_ incorporate and curate many other existing, widely-adopted open-source libraries to allow you to leverage the React community's tried-and-true favorites in your application with greater ease and speed.  The components are designed to plug-and-play with your C# view models and with reactive programming model that can bring so much simplicity to the way you code!
 
 #### The Basics
 
