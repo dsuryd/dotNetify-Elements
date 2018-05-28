@@ -30,10 +30,8 @@ namespace dotNetify_Elements
 
       public override void OnSubVMCreated(BaseVM subVM)
       {
-         if (subVM is ChildForm_NameEmail)
-            (subVM as ChildForm_NameEmail).ClearForm.SubscribeTo(ClearAllForms);
-         else if (subVM is ChildForm_Address)
-            (subVM as ChildForm_Address).ClearForm.SubscribeTo(ClearAllForms);
+         (subVM as ChildForm_NameEmail)?.ClearForm.SubscribeTo(ClearAllForms);
+         (subVM as ChildForm_Address)?.ClearForm.SubscribeTo(ClearAllForms);
       }
 
       private string Save(FormData formData)
@@ -82,7 +80,12 @@ namespace dotNetify_Elements
             .SubscribeTo(ClearForm.Select(_ => ""));
 
          AddProperty<State>("State")
-            .WithAttribute(this, new DropdownListAttribute { Label = "State:", Options = typeof(State).ToDescriptions() })
+            .WithAttribute(this, new DropdownListAttribute
+            {
+               Label = "State:",
+               Placeholder = "Enter state",
+               Options = typeof(State).ToDescriptions()
+            })
             .WithRequiredValidation(this)
             .SubscribeTo(ClearForm.Select(_ => State.Unknown));
       }

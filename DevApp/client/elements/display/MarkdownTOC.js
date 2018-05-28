@@ -94,7 +94,7 @@ export class MarkdownTOC extends Element {
 
    scrollIntoView(key) {
       if (this.scrollingIntoView) clearTimeout(this.scrollingIntoView);
-      this.scrollingIntoView = setTimeout(() => (this.scrollingIntoView = null), 1000);
+      this.scrollingIntoView = setTimeout(() => (this.scrollingIntoView = null), 3000);
 
       document.querySelector(key).scrollIntoView({ behavior: 'smooth' });
       return key;

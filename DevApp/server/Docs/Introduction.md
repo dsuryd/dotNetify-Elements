@@ -1,14 +1,14 @@
 ﻿## Introduction
 
-_DotNetify-Elements_ provide the building blocks that will make your web application development a breeze.  Built on top of _dotNetify_, Elements are a set of free,  open-source React components that you can readily connect to your cross-platform .NET back-end and get your data streaming in real-time through WebSocket with minimal effort.
+_DotNetify-Elements_ provide a set of free, open-source React components that you can readily connect to your cross-platform .NET back-end in an MVVM fashion, and get your data streaming in real-time through WebSocket with minimal effort.
 
-_Elements_ incorporate and curate many other existing, widely-adopted open-source libraries to allow you to leverage the React community's tried-and-true favorites in your application with greater ease and speed, while forgoing the hassle of learning each of their idiosyncrasies.  
+_Elements_ incorporate and curate many other existing, widely-adopted open-source libraries to allow you to leverage the React community's tried-and-true favorites in your application with greater ease and speed.  
 
-Each data-driven element is designed to be plug-and-play with your C# view models through reactive programming model, and with strong support for theming and customization.
+The components are designed to plug-and-play with your C# view models through reactive programming model and produce great-looking web applications out-of-the-box, with strong support for theming and customization.
 
 #### The Basics
 
-Let's revisit the Hello World example (if you're not familiar with _dotNetify_, [read it up first!](http://dotnetify.net/react)) :
+Let's revisit the Hello World example (if you're not familiar with _dotNetify_, [read the overview first!](http://dotnetify.net/react)) :
 
 ```jsx
 import React from 'react';
@@ -65,6 +65,8 @@ const MyApp = _ => (
    </VMContext>
 );
 ```
+[inset]
+
 ```csharp
 public class NameInput : BaseVM
 {
@@ -74,8 +76,6 @@ public class NameInput : BaseVM
    }
 }
 ```
-[inset]
-<br/>
 
 While you type, the _TextField_ element updates the state that's stored locally inside _VMContext_, which is also shared by the _Element_ element.  When it loses focus (or when the Enter key is pressed), the _TextField_ will dispatch the updated state to the back-end view model.
 
@@ -93,6 +93,7 @@ const MyApp = _ => (
    </VMContext>
 );
 ```
+[inset]
 ```csharp
 public class NameGenderInput : BaseVM
 {
@@ -116,8 +117,7 @@ public class NameGenderInput : BaseVM
    }
 }
 ```
-[inset]
-<br/>
+
 The namespace __DotNetify.Elements__ provides attribute types for various _Elements_.  Similarly, you can also specify validation attributes for the input Elements, i.e. required attribute, regular expression pattern, number min/max, date range, and even custom server-side validation.  The example below uses a sub-component of _TextField_, an element that only accepts whole numbers:
 
 ```jsx
@@ -127,6 +127,8 @@ const PrimeInput = _ => (
    </VMContext>
 );
 ```
+[inset]
+
 ```csharp
 public class PrimeInput : BaseVM
 {
@@ -153,8 +155,6 @@ public class PrimeInput : BaseVM
    }
 }
 ```
-[inset]
-<br/>
 
 Placing these input elements inside a _Form_ element will give you much more features, including the ability to perform form-level validation, submission and error handling, dirty checking, and more.  We will cover this topic more in the other section.
 

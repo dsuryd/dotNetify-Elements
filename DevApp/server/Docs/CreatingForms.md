@@ -182,7 +182,7 @@ Complex data collection often necessitates having multiple forms grouped inside 
 
 On the client-side, when _VMContext_ elements of the child forms are nested inside the _VMContext_ of the master form, the view models of the child forms will be created under the scope of the master view model, allowing it to inject lifecycle hooks to perform data initialization and/or establish messaging with them.
 
-The following example shows how two forms are nested inside a master form.  When the submit button is activated, the master form will send the aggregated input data from the child forms to the master form's view model.  The aggregated data is in the format of an object literal with properties named according to the __ID__ attribute values of the child forms.
+The following example shows how two forms are nested inside a master form.  When the submit button is activated, the master form will send the aggregated input data from the child forms to the master form's view model: 
 
 ```jsx
 const NestedForms = _ => (
@@ -221,8 +221,11 @@ const ChildForm_Address = _ => (
    </VMContext>
 );
 ```
+[inset]
 
-On the back-end view model, the master view model overrides __OnSubVMCreated__ method to intercept the scoped view models as they're being instantiated (see _dotNetify_'s [documentation on scoped view model APIs](http://dotnetify.net/react/DataFlow)) so it can send them a reactive event to clear their forms 
+ The aggregated data is in the format of an object literal with properties named according to the __id__ attribute values of the child forms.
+
+On the back-end view model, the master view model overrides __OnSubVMCreated__ method to intercept the scoped view models as they're being instantiated (see _dotNetify_'s [documentation on scoped view model APIs](http://dotnetify.net/react/DataFlow)) so it can send them a reactive event to clear their own forms.
 
 ```csharp
 public class MasterForm : BaseVM
@@ -246,10 +249,8 @@ public class MasterForm : BaseVM
 
    public override void OnSubVMCreated(BaseVM subVM)
    {
-      if (subVM is ChildForm_NameEmail)
-         (subVM as ChildForm_NameEmail).ClearForm.SubscribeTo(ClearAllForms);
-      else if (subVM is ChildForm_Address)
-         (subVM as ChildForm_Address).ClearForm.SubscribeTo(ClearAllForms);
+      (subVM as ChildForm_NameEmail)?.ClearForm.SubscribeTo(ClearAllForms);
+      (subVM as ChildForm_Address)?.ClearForm.SubscribeTo(ClearAllForms);
    }
 
    private string Save(FormData formData)
@@ -262,7 +263,8 @@ public class MasterForm : BaseVM
          $"State: {Enum.Parse(typeof(State), formData.Address["State"])}";
    }
 }
-
+```
+```csharp
 public class ChildForm_NameEmail : BaseVM
 {
    public ReactiveProperty<bool> ClearForm { get; } = new ReactiveProperty<bool>();
@@ -280,7 +282,8 @@ public class ChildForm_NameEmail : BaseVM
          .SubscribeTo(ClearForm.Select(_ => ""));
    }
 }
-
+```
+```csharp
 public class ChildForm_Address : BaseVM
 {
    public ReactiveProperty<bool> ClearForm { get; } = new ReactiveProperty<bool>();
@@ -298,11 +301,14 @@ public class ChildForm_Address : BaseVM
          .SubscribeTo(ClearForm.Select(_ => ""));
 
       AddProperty<State>("State")
-         .WithAttribute(this, new DropdownListAttribute { Label = "State:", Options = typeof(State).ToDescriptions() })
+         .WithAttribute(this, new DropdownListAttribute 
+         { 
+            Label = "State:", 
+            Placeholder = "Enter state", 
+            Options = typeof(State).ToDescriptions()
+         })
          .WithRequiredValidation(this)
          .SubscribeTo(ClearForm.Select(_ => State.Unknown));
    }
 }
 ```
-[inset]
-<br/>

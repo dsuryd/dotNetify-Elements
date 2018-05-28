@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Collapsible } from 'elements';
 
 const ExpanderPanel = styled.div`
+   margin-bottom: 1rem;
    padding: .5rem;
    border-radius: 5px;
    border: 1px solid #ccc;
