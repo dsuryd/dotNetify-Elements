@@ -36,7 +36,7 @@ export const Nav = styled.nav`
 export const Footer = styled.footer`
    grid-area: footer;
    display: flex;
-   height: 50px;
+   height: ${props => props.height || '50px'};
    ${props => props.theme.Footer};
 `;
 
