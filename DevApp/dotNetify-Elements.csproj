@@ -17,11 +17,12 @@
     <None Remove="server\Docs\Button.md" />
     <None Remove="server\Docs\Checkbox.md" />
     <None Remove="server\Docs\CheckboxGroup.md" />
-    <None Remove="server\Docs\CreatingForms.md" />
     <None Remove="server\Docs\DateTimeField.md" />
     <None Remove="server\Docs\DropdownList.md" />
     <None Remove="server\Docs\Form.md" />
     <None Remove="server\Docs\Introduction.md" />
+    <None Remove="server\Docs\Layout\LayoutGrid.md" />
+    <None Remove="server\Docs\Layout\Panel.md" />
     <None Remove="server\Docs\MultiselectList.md" />
     <None Remove="server\Docs\NumberField.md" />
     <None Remove="server\Docs\PasswordField.md" />
@@ -29,6 +30,7 @@
     <None Remove="server\Docs\RadioToggle.md" />
     <None Remove="server\Docs\TextAreaField.md" />
     <None Remove="server\Docs\TextField.md" />
+    <None Remove="server\Docs\WorkingWithForms.md" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="wwwroot\" />
@@ -43,7 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="server\Docs\Form\Button.md" />
-    <EmbeddedResource Include="server\Docs\CreatingForms.md" />
+    <EmbeddedResource Include="server\Docs\WorkingWithForms.md" />
     <EmbeddedResource Include="server\Docs\Form\PasswordField.md" />
     <EmbeddedResource Include="server\Docs\Form\NumberField.md" />
     <EmbeddedResource Include="server\Docs\Form\MultiselectList.md" />
@@ -57,6 +59,8 @@
     <EmbeddedResource Include="server\Docs\Form\TextAreaField.md" />
     <EmbeddedResource Include="server\Docs\Form\TextField.md" />
     <EmbeddedResource Include="server\Docs\Introduction.md" />
+    <EmbeddedResource Include="server\Docs\Layout\LayoutGrid.md" />
+    <EmbeddedResource Include="server\Docs\Layout\Panel.md" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DotNetifyLib.Elements\DotNetifyLib.Elements.csproj" />

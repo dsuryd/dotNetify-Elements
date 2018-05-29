@@ -20,7 +20,7 @@ const scrollIntoView = id => document.getElementById(id).scrollIntoView({ behavi
 
 const Article = props => (
    <VMContext vm={props.vm}>
-      <Frame horizontal css="overflow-x: hidden">
+      <Frame horizontal css="margin-left: 3rem; overflow-x: hidden">
          <Panel css="width: calc(100% - 20rem); overflow-y: hidden">{props.children}</Panel>
          <Sidebar>
             <Title show={props.tocTitle}>
@@ -41,7 +41,7 @@ export class TabsArticle extends React.Component {
       const handleActivate = (key, label) => this.setState({ id: key.length > 1 ? key : null, tocTitle: key.length > 1 ? label : null });
       return (
          <Article vm={vm} id={this.state.id} title={title} tocTitle={this.state.tocTitle}>
-            <h3 id={title}>{title}</h3>
+            <h2 id={title}>{title}</h2>
             <Tab onActivate={handleActivate}>{children}</Tab>
          </Article>
       );

@@ -6,8 +6,8 @@ import Expander from '../components/Expander';
 import Article from '../components/Article';
 
 const Introduction = props => (
-   <Article vm="Introduction" id="Intro">
-      <Markdown id="Intro">
+   <Article vm="Introduction" id="Content">
+      <Markdown id="Content">
          <Expander label={<SeeItLive />} content={<NameInput />} />
          <Expander label={<SeeItLive />} content={<NameGenderInput />} />
          <Expander label={<SeeItLive />} content={<PrimeInput />} />

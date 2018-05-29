@@ -3,6 +3,10 @@ html {
    font-size: .9rem;
 }
 
+div > h2 {
+   margin-bottom: 1rem;
+}
+
 .markdown pre {
    margin: 0;
    font-size: .9rem;

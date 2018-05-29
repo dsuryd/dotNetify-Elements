@@ -1,5 +1,5 @@
 import Introduction from './Introduction';
-import CreatingForms from './CreatingForms';
+import WorkingWithForms from './WorkingWithForms';
 
 import Form from './form/Form';
 import FormButton from './form/FormButton';
@@ -17,13 +17,15 @@ import FormTextField from './form/FormTextField';
 import FormDemo from './form/FormDemo';
 import FormValidationDemo from './form/FormValidationDemo';
 
+import LayoutGrid from './layout/LayoutGrid';
+
 import DataGridDemo from './list/DataGridDemo';
-import CustomerInfoPage from './examples__customer-info/CustomerInfoPage';
+import CustomerInfoPage from './examples/customer-info/CustomerInfoPage';
 
 export {
    Introduction,
-   CreatingForms,
-   Form,   
+   WorkingWithForms,
+   Form,
    FormButton,
    FormCheckbox,
    FormCheckboxGroup,
@@ -38,6 +40,7 @@ export {
    FormTextField,
    FormDemo,
    FormValidationDemo,
+   LayoutGrid,
    DataGridDemo,
    CustomerInfoPage
 };

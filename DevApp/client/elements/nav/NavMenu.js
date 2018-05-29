@@ -32,7 +32,7 @@ const GroupLabel = props => (
 );
 
 const RouteLabel = props => (
-   <div style={{ padding: props.padding || '.75rem 1rem', paddingLeft: props.indent ? '2.5rem' : '1rem' }}>
+   <div style={{ padding: props.padding || '.75rem 1rem', paddingLeft: props.navGroup ? (props.navGroup.Icon ? '2.5rem' : '2rem') : '1rem' }}>
       <Label icon={props.icon}>{props.children}</Label>
    </div>
 );
@@ -66,14 +66,13 @@ export class NavMenu extends Element {
 
    buildRoute(navRoute, navGroup) {
       const [ , , RouteContainer, , RouteLabel ] = utils.resolveComponents(NavMenu, this.props);
-      const indent = navGroup ? navGroup.Icon != null : false;
       const key = navRoute.Route.TemplateId;
       const isSelected = key === this.state.selected;
 
       return (
          <RouteContainer key={key} isSelected={isSelected}>
             <RouteLink vm={this.vm} route={navRoute.Route}>
-               <RouteLabel icon={navRoute.Icon} indent={indent}>
+               <RouteLabel icon={navRoute.Icon} navGroup={navGroup}>
                   {navRoute.Label}
                </RouteLabel>
             </RouteLink>

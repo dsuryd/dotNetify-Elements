@@ -11,7 +11,7 @@ namespace dotNetify_Elements
       {
          Home,
          Introduction,
-         CreatingForms,
+         WorkingWithForms,
          Form,
          FormButton,
          FormCheckbox,
@@ -27,6 +27,16 @@ namespace dotNetify_Elements
          FormTextField,
          FormDemo,
          FormValidationDemo,
+         LayoutGrid,
+         LayoutPanel,
+         LayoutTheme,
+         StructureCard,
+         StructureCell,
+         StructureCollapsible,
+         StructureField,
+         StructureModal,
+         StructureTab,
+
          DataGridDemo,
          CustomerInfoPage
       }
@@ -39,7 +49,7 @@ namespace dotNetify_Elements
          {
             new RouteTemplate(nameof(Route.Home))                 { UrlPattern = "", ViewUrl = nameof(Route.Introduction) },
             new RouteTemplate(nameof(Route.Introduction))         { UrlPattern = "intro" },
-            new RouteTemplate(nameof(Route.CreatingForms))        { UrlPattern = "forms" },
+            new RouteTemplate(nameof(Route.WorkingWithForms))     { UrlPattern = "forms" },
             new RouteTemplate(nameof(Route.FormButton))           { UrlPattern = "form/button" },
             new RouteTemplate(nameof(Route.FormCheckbox))         { UrlPattern = "form/checkbox" },
             new RouteTemplate(nameof(Route.FormCheckboxGroup))    { UrlPattern = "form/checkboxgroup" },
@@ -55,6 +65,8 @@ namespace dotNetify_Elements
             new RouteTemplate(nameof(Route.FormTextField))        { UrlPattern = "form/textfield" },
             new RouteTemplate(nameof(Route.FormDemo))             { UrlPattern = "form/demo" },
             new RouteTemplate(nameof(Route.FormValidationDemo))   { UrlPattern = "form/validationdemo" },
+            new RouteTemplate(nameof(Route.LayoutGrid))           { UrlPattern = "layout" },
+            new RouteTemplate(nameof(Route.LayoutPanel))          { UrlPattern = "layout/panel" },
             new RouteTemplate(nameof(Route.DataGridDemo))         { UrlPattern = "list/datagrid" },
             new RouteTemplate(nameof(Route.CustomerInfoPage))     { UrlPattern = "examples/customer-info" },
          });
@@ -63,14 +75,13 @@ namespace dotNetify_Elements
             new NavMenuItem[]
             {
                new NavRoute("Introduction",     this.GetRoute(nameof(Route.Introduction))),
-               new NavRoute("Working with Forms",   this.GetRoute(nameof(Route.CreatingForms))),
+               new NavRoute("Working with Forms",   this.GetRoute(nameof(Route.WorkingWithForms))),
                new NavGroup
                {
                   Label = "Form",
-                  Icon = "far fa-edit",
                   Routes = new NavRoute[]
                   {
-                     new NavRoute("Form Demo",           this.GetRoute(nameof(Route.FormDemo))),
+                     new NavRoute("Basic Demo",          this.GetRoute(nameof(Route.FormDemo))),
                      new NavRoute("Button",              this.GetRoute(nameof(Route.FormButton))),
                      new NavRoute("Checkbox",            this.GetRoute(nameof(Route.FormCheckbox))),
                      new NavRoute("CheckboxGroup",       this.GetRoute(nameof(Route.FormCheckboxGroup))),
@@ -84,16 +95,26 @@ namespace dotNetify_Elements
                      new NavRoute("RadioToggle",         this.GetRoute(nameof(Route.FormRadioToggle))),
                      new NavRoute("TextAreaField",       this.GetRoute(nameof(Route.FormTextAreaField))),
                      new NavRoute("TextField",           this.GetRoute(nameof(Route.FormTextField)))
-                  }
+                  },
+                  IsExpanded = false
                },
                new NavGroup
                {
-                  Label = "List",
-                  Icon = "far fa-list-alt",
+                  Label = "Layout",
                   Routes = new NavRoute[]
                   {
-                     new NavRoute("Data Grid", this.GetRoute(nameof(Route.DataGridDemo)), "far fa-list-alt"),
-                  }
+                     new NavRoute("Layout Grid",         this.GetRoute(nameof(Route.LayoutGrid))),
+                  },
+                  IsExpanded = false
+               },
+               new NavGroup
+               {
+                  Label = "Display",
+                  Routes = new NavRoute[]
+                  {
+                     new NavRoute("Data Grid",           this.GetRoute(nameof(Route.DataGridDemo))),
+                  },
+                  IsExpanded = false
                },
 
                new NavGroup
@@ -102,8 +123,9 @@ namespace dotNetify_Elements
                   Icon = "far fa-id-card",
                   Routes = new NavRoute[]
                   {
-                     new NavRoute("Customer Info Page",   this.GetRoute(nameof(Route.CustomerInfoPage))),
-                  }
+                     new NavRoute("Customer Info Page",  this.GetRoute(nameof(Route.CustomerInfoPage))),
+                  },
+                  IsExpanded = false
                },
             }));
       }
