@@ -1,5 +1,5 @@
 import React from 'react';
-import { Frame, Panel, Checkbox, RadioToggle, withTheme } from 'elements';
+import { Frame, Panel, Checkbox, RadioToggle, withTheme } from 'dotnetify-elements';
 import SampleForm from './SampleForm';
 
 class FormDemo extends React.Component {

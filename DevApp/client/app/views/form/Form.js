@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Alert, Button, Form, Frame, Markdown, MarkdownText, Panel, Tab, TabItem, TextField, VMContext, withTheme } from 'elements';
+import { Alert, Button, Form, Frame, Markdown, MarkdownText, Panel, Tab, TabItem, TextField, VMContext, withTheme } from 'dotnetify-elements';
 import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
 
 const _Form = props => (

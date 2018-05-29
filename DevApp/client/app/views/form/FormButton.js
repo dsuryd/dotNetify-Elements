@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Button, Element, Frame, Label, Markdown, Panel, RadioToggle, Tab, TabItem, VMContext, withTheme } from 'elements';
+import { Button, Element, Frame, Label, Markdown, Panel, RadioToggle, Tab, TabItem, VMContext, withTheme } from 'dotnetify-elements';
 import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
 
 const FormButton = props => (

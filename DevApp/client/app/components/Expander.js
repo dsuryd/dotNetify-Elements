@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Collapsible } from 'elements';
+import { Collapsible } from 'dotnetify-elements';
 
 const ExpanderPanel = styled.div`
    margin-bottom: 1rem;

@@ -18,7 +18,7 @@ import {
    RadioGroup,
    RadioToggle,
    VMContext
-} from 'elements';
+} from 'dotnetify-elements';
 
 const SampleForm = ({ vm, title, horizontal, plainText }) => (
    <VMContext vm={vm}>

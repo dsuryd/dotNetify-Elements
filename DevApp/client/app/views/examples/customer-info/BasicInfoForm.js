@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Cell, CellPanel, DateField, DropdownList, Form, Frame, Panel, RadioGroup, TextField, TextAreaField, VMContext } from 'elements';
+import { Button, Cell, CellPanel, DateField, DropdownList, Form, Frame, Panel, RadioGroup, TextField, TextAreaField, VMContext } from 'dotnetify-elements';
 
 const BasicInfoForm = () => (
    <CellPanel horizontal>

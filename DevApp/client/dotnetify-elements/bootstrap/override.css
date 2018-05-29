@@ -1,0 +1,11 @@
+[class^="Alert"] p {
+   margin-bottom: 0;
+}
+
+.pull-right {
+   float: right;
+}
+
+form {
+   margin-bottom: 0;
+}

@@ -18,7 +18,7 @@ import {
    TextField,
    TextAreaField,
    VMContext
-} from 'elements';
+} from 'dotnetify-elements';
 
 export default class NewCustomerDialog extends React.Component {
    state = { activeTab: 'Person' };

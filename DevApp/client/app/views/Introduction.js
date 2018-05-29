@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Markdown, VMContext, withTheme } from 'elements';
-import { Button, DropdownList, Element, NumberField, TextField } from 'elements';
+import { Markdown, VMContext, withTheme } from 'dotnetify-elements';
+import { Button, DropdownList, Element, NumberField, TextField } from 'dotnetify-elements';
 import Expander from '../components/Expander';
 import Article from '../components/Article';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Frame, Main, Header, Footer, Nav, NavHeader, NavMenu, NavMenuTarget, Panel, Section, VMContext } from 'elements';
+import { Frame, Main, Header, Footer, Nav, NavHeader, NavMenu, NavMenuTarget, Panel, Section, VMContext } from 'dotnetify-elements';
 import DotNetifyLogo, { LicenseNotice } from '../components/DotNetifyLogo';
 
 const App = props => (

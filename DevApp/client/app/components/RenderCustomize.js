@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Card, MarkdownText, Panel, RadioGroup, TextField, VMContext } from 'elements';
-import * as utils from 'elements/utils';
+import { Card, MarkdownText, Panel, RadioGroup, TextField, VMContext } from 'dotnetify-elements';
+import * as utils from 'dotnetify-elements/utils';
 
 const withHighlight = Component => props => <Component {...props} style={{ border: '2px double red' }} />;
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { DataGrid, GridColumn, Frame, Panel, VMContext, withTheme } from 'elements';
+import { DataGrid, GridColumn, Frame, Panel, VMContext, withTheme } from 'dotnetify-elements';
 
 const DateFormatter = props => new Date(props.value).toLocaleString();
 

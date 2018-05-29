@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Frame, Markdown, Panel, Tab, TabItem, TextAreaField, VMContext, withTheme } from 'elements';
+import { Frame, Markdown, Panel, Tab, TabItem, TextAreaField, VMContext, withTheme } from 'dotnetify-elements';
 import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
 
 const FormTextAreaField = props => (

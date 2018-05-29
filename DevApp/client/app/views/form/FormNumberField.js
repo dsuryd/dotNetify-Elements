@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Frame, Markdown, NumberField, Panel, Tab, TabItem, VMContext, withTheme } from 'elements';
+import { Frame, Markdown, NumberField, Panel, Tab, TabItem, VMContext, withTheme } from 'dotnetify-elements';
 import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
 
 const FormNumberField = props => (

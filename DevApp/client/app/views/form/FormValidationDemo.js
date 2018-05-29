@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, Button, Card, Frame, Panel, Form, NumberField, TextField, VMContext, withTheme } from 'elements';
+import { Alert, Button, Card, Frame, Panel, Form, NumberField, TextField, VMContext, withTheme } from 'dotnetify-elements';
 
 // This is an example of custom client-side validation.
 const nameLengthValidator = {

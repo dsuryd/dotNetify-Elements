@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Frame, Markdown, MarkdownTOC, Panel, Tab, VMContext } from 'elements';
+import { Frame, Markdown, MarkdownTOC, Panel, Tab, VMContext } from 'dotnetify-elements';
 
 const Sidebar = styled.div`
    position: fixed;

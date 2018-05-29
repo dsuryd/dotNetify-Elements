@@ -5,7 +5,7 @@ A set of elements to provide common application layout; intended for structuring
 [inset]
 
 ```jsx
-import { Footer, Header, Main, Nav, Section} from 'elements';
+import { Footer, Header, Main, Nav, Section} from 'dotnetify-elements';
 ...
 const LayoutGridDemo = _ => (
    <DemoArea>
@@ -43,7 +43,7 @@ These elements are made of [styled components](https://www.styled-components.com
 Set the _theme_ attribute on the _Main_ element with a css theme object to customize all elements.  For example, the _LayoutGridDemo_ above uses this theme:
 
 ```jsx
-import { defaultTheme } from 'elements';
+import { defaultTheme } from 'dotnetify-elements';
 
 const myTheme = {
    ...defaultTheme,

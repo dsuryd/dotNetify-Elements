@@ -2,7 +2,7 @@ import React from 'react';
 import BasicInfoForm from './BasicInfoForm';
 import AddressForm from './AddressForm';
 import NewCustomerDialog from './NewCustomerDialog';
-import { Button, DataGrid, Form, Frame, Panel, Tab, TabItem, VMContext, withTheme } from 'elements';
+import { Button, DataGrid, Form, Frame, Panel, Tab, TabItem, VMContext, withTheme } from 'dotnetify-elements';
 
 class CustomerInfoPage extends React.Component {
    state = { editable: false, edit: false, showDialog: false };

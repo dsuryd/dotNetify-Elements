@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { DropdownList, Frame, Markdown, Panel, Tab, TabItem, VMContext, withTheme } from 'elements';
+import { DropdownList, Frame, Markdown, Panel, Tab, TabItem, VMContext, withTheme } from 'dotnetify-elements';
 import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
 
 const FormDropdownList = props => (

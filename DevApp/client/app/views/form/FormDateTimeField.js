@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { DateField, DateTimeField, TimeField, Frame, Markdown, Panel, Tab, TabItem, VMContext, withTheme } from 'elements';
+import { DateField, DateTimeField, TimeField, Frame, Markdown, Panel, Tab, TabItem, VMContext, withTheme } from 'dotnetify-elements';
 import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
 
 const FormDateTimeField = props => (
