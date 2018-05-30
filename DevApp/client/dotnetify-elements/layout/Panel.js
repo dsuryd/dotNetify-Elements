@@ -132,8 +132,9 @@ export class Panel extends React.Component {
       const _margin = margin || (noMargin ? '0' : smallMargin ? Margin.small : Margin.large);
       const _horizontal = horizontal || right || wrap;
 
+      const children = React.Children.toArray(this.children);
       let _flex = typeof flex == 'boolean' ? (flex ? '1' : null) : flex;
-      _flex = _flex || (childProps && childProps.flex) || React.Children.toArray(this.children).some(child => child.props && child.props.flex) ? '1' : null;
+      _flex = _flex || (childProps && childProps.flex) || children.some(child => child.props && child.props.flex) ? '1' : null;
 
       return (
          <Container
@@ -159,7 +160,10 @@ export class Panel extends React.Component {
                if (hasCssPropType(child.type) || hasCssPropType(childContainer)) {
                   const padding = this.numChildren <= 1 ? 0 : this.getPadding(idx, _gap, _horizontal, wrap);
                   const style = { ...this.getStyle(idx), padding: padding };
-                  return React.cloneElement(child, utils.mergeProps(child, childProps, { style: style, onShow: show => this.handleShow(idx, show) }));
+                  return React.cloneElement(
+                     child,
+                     utils.mergeProps(child, childProps, { style: style, flex: childFlex, onShow: show => this.handleShow(idx, show) })
+                  );
                }
 
                return (

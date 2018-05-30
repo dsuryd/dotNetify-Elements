@@ -66,8 +66,17 @@ const MyApp = _ => (
    }
 }
 
-const ChildPropsExample = props => (
-   <Panel horizontal childProps={{ flex: true, right: true, css: 'background: #fff' }}>
+class ChildPropsExample extends React.Component {
+   state = {};
+
+   render() {
+      const buildCode = props => `
+\`\`\`jsx
+import React from 'react';
+import { Panel } from 'dotnetify-elements';
+
+const MyApp = _ => (
+   <Panel horizontal noGap childProps={{ ${Object.keys(this.state).map(key => `${key}: ${this.state[key]}`).join(', ')}}}>
       <Panel>
          <Square />
       </Panel>
@@ -76,6 +85,25 @@ const ChildPropsExample = props => (
       </Panel>
    </Panel>
 );
+\`\`\``;
+      const setState = state => this.setState(state);
+      let propTypes = { flex: PropTypes.bool, right: PropTypes.bool };
+      return (
+         <RenderExample propTypes={propTypes} buildCode={buildCode} onChange={setState}>
+            <Panel css="min-height: 8rem">
+               <Panel flex="0" horizontal noGap childProps={{ ...this.state, css: 'border: 2px dashed tomato' }}>
+                  <Panel>
+                     <Square />
+                  </Panel>
+                  <Panel>
+                     <Rectangle />
+                  </Panel>
+               </Panel>
+            </Panel>
+         </RenderExample>
+      );
+   }
+}
 
 class PanelCustomize extends React.Component {
    render() {

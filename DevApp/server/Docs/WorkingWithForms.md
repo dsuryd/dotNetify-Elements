@@ -32,7 +32,6 @@ const BasicForm = _ => (
 ```
 
 [inset]
-<br/>
 
 There are several things that happen when you use the _Form_ element:
 - It tracks the dirty state of the input fields, and use the information to control the enable state of the Submit button.
@@ -147,7 +146,6 @@ public class AsyncValidation : BaseVM
  ```
 
 [inset]
-<br/>
 
 Adding __WithServerValidation__ allows the field to dispatch its value to be validated on the back-end without having the form submitted first. 
 
@@ -174,9 +172,9 @@ const ClientValidationForm = _ => (
 ```
 
 [inset]
-<br/>
 
-### Nested Forms
+
+#### Nested Forms
 
 Complex data collection often necessitates having multiple forms grouped inside a master form so the inputs can be submitted together.  The _Form_ element supports nesting of multiple _Form_ elements.  Having a view model for every child form makes them modular and reusable.  
 

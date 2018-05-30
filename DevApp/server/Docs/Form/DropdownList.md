@@ -42,7 +42,7 @@ public class DropdownListExample : BaseVM
 }
 ```
 
-##### Empty Selection
+#### Empty Selection
 
 Add the default empty selection by providing an option with an empty string value.  If specified, the _Placeholder_ text will replace the empty string. 
 

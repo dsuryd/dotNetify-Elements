@@ -26,6 +26,7 @@ div > h2 {
    border-bottom: 1px solid #ccc;
 }
 
+.markdown * > h4,
 .markdown * + h4 {
    margin-top: 2rem;
 }
@@ -35,4 +36,9 @@ div > h2 {
    padding-left: 1rem;
    margin-left: 3rem;
    font-style: italic;
+}
+
+.markdown ol {
+   margin-left: -1.5rem;
+   font-weight: 600;
 }

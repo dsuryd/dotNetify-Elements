@@ -9,17 +9,7 @@ The element to arrange the layout of other elements.
 Apply the same set of properties to every child component by using _childProps_ property:
 
 [inset]
-<br/>
-```jsx
-<Panel horizontal childProps={{ flex: true, right: true, css: 'background: white' }}>
-   <Panel>
-      <Square />
-   </Panel>
-   <Panel>
-      <Rectangle />
-   </Panel>
-</Panel>
-```
+
 
 #### Property Types
 
