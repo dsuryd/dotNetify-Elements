@@ -39,10 +39,12 @@ const MyApp = _ => (
       const setState = state => this.setState(state);
       return (
          <RenderExample vm="DateTimeFieldExample" propTypes={DateTimeField.propTypes} buildCode={buildCode} onChange={setState}>
-            <Panel horizontal style={{ minHeight: '7rem' }}>
-               <DateField id="Date" flex {...this.state} />
-               <TimeField id="Time" flex {...this.state} />
-               <DateTimeField id="DateTime" flex {...this.state} />
+            <Panel style={{ minHeight: '7rem' }}>
+               <Panel horizontal>
+                  <DateField id="Date" {...this.state} />
+                  <TimeField id="Time" {...this.state} />
+                  <DateTimeField id="DateTime" {...this.state} />
+               </Panel>
             </Panel>
          </RenderExample>
       );

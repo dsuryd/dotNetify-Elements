@@ -109,8 +109,9 @@ export class DateTimeField extends InputElement {
 }
 
 export const DateField = props => <DateTimeField time={false} {...props} />;
+DateField.propTypes = { ...DateTimeField.propTypes };
+DateField.componentTypes = { ...DateTimeField.componentTypes };
 
 export const TimeField = props => <DateTimeField date={false} {...props} />;
-
-DateField.propTypes = Object.assign({}, DateTimeField.propTypes);
-TimeField.propTypes = Object.assign({}, DateTimeField.propTypes);
+TimeField.propTypes = { ...DateTimeField.propTypes };
+TimeField.componentTypes = { ...DateTimeField.componentTypes };
