@@ -6,22 +6,14 @@ A set of elements to provide common application layout; intended for structuring
 
 ```jsx
 import { Footer, Header, Main, Nav, Section} from 'dotnetify-elements';
-...
+
 const LayoutGridDemo = _ => (
    <DemoArea>
       <Main theme={myTheme}>
-         <Header>
-            <Watermark>Header</Watermark>
-         </Header>
-         <Nav>
-            <Watermark>Nav</Watermark>
-         </Nav>
-         <Section>
-            <Watermark>Section</Watermark>
-         </Section>
-         <Footer>
-            <Watermark>Footer</Watermark>
-         </Footer>
+         <Header />
+         <Nav />
+         <Section />
+         <Footer />
       </Main>
    </DemoArea>
 );

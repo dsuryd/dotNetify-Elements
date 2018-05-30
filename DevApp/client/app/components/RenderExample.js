@@ -5,6 +5,7 @@ import { MarkdownText, Panel, RadioToggle, VMContext } from 'dotnetify-elements'
 export default class RenderExample extends React.Component {
    constructor(props) {
       super(props);
+      console.log(props.propTypes);
       this.boolPropTypes = Object.keys(props.propTypes).filter(x => props.propTypes[x] === PropTypes.bool);
 
       this.state = {};
@@ -50,7 +51,7 @@ export default class RenderExample extends React.Component {
       const content = (
          <Panel style={{ borderTop: '1px solid #ccc', paddingTop: '2rem' }}>
             {children}
-            <Panel horizontal style={{ borderTop: '1px solid #ccc', paddingTop: '1rem' }}>
+            <Panel wrap style={{ borderTop: '1px solid #ccc', paddingTop: '1rem' }}>
                {radioToggles}
                {extraToggles}
             </Panel>

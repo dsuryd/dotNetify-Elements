@@ -29,7 +29,7 @@ const DemoArea = styled.div`
 const Watermark = styled.div`
    display: flex;
    flex: 1;
-   font-size: 2.5rem;
+   font-size: 2rem;
    font-weight: bold;
    align-items: center;
    justify-content: center;
