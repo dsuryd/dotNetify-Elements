@@ -74,8 +74,8 @@ namespace dotNetify_Elements
          AddProperty("NavMenu", new NavMenu(
             new NavMenuItem[]
             {
-               new NavRoute("Introduction",     this.GetRoute(nameof(Route.Introduction))),
-               new NavRoute("Working with Forms",   this.GetRoute(nameof(Route.WorkingWithForms))),
+               new NavRoute("Introduction",              this.GetRoute(nameof(Route.Introduction))),
+               new NavRoute("Working with Forms",        this.GetRoute(nameof(Route.WorkingWithForms))),
                new NavGroup
                {
                   Label = "Form",
@@ -104,6 +104,7 @@ namespace dotNetify_Elements
                   Routes = new NavRoute[]
                   {
                      new NavRoute("Layout Grid",         this.GetRoute(nameof(Route.LayoutGrid))),
+                     new NavRoute("Panel",               this.GetRoute(nameof(Route.LayoutPanel))),
                   },
                   IsExpanded = false
                },

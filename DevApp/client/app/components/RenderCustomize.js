@@ -44,16 +44,17 @@ export default class RenderCustomize extends React.Component {
 
       const propsText = selected ? `${utils.toCamelCase(selected)}=withHighlight(${this.props.name}.componentTypes.${selected})` : '';
 
-      return (
-         <VMContext vm={this.props.vm}>
-            <Panel>
-               {React.cloneElement(React.Children.only(this.props.children), { ...componentProps })}
-               <Card style={{ marginTop: '1rem' }}>
-                  <RadioGroup id="_components" label="Select sub-component to highlight:" options={options} value={selected} onChange={this.select} />
-               </Card>
-               <MarkdownText text={this.buildCode(propsText)} />
-            </Panel>
-         </VMContext>
+      const content = (
+         <Panel>
+            {React.cloneElement(React.Children.only(this.props.children), { ...componentProps })}
+            <Card style={{ marginTop: '1rem' }}>
+               <RadioGroup id="_components" label="Select sub-component to highlight:" options={options} value={selected} onChange={this.select} />
+            </Card>
+            <MarkdownText text={this.buildCode(propsText)} />
+         </Panel>
       );
+
+      if (this.props.vm) return <VMContext vm={this.props.vm} children={content} />;
+      else return content;
    }
 }

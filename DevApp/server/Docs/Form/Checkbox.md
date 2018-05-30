@@ -1,4 +1,6 @@
-﻿The element to accept a choice input. 
+﻿## Checkbox
+
+The element to accept a choice input. 
 
 [inset]
 

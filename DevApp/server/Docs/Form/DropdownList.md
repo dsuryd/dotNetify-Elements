@@ -1,4 +1,6 @@
-﻿The element to accept a selection input from a set of options shown in a dropdown menu. 
+﻿## DropdownList
+
+The element to accept a selection input from a set of options shown in a dropdown menu. 
 
 [inset]
 

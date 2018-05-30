@@ -4,7 +4,7 @@ import { Alert, Button, Form, Frame, Markdown, MarkdownText, Panel, Tab, TabItem
 import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
 
 const _Form = props => (
-   <TabsArticle vm="Form" id="Overview" title="Form">
+   <TabsArticle vm="Form" id="Overview">
       <TabItem label="Overview" name="Overview">
          <Markdown id="Overview">
             <FormExample />

@@ -1,4 +1,6 @@
-﻿The element to accept command input. To dispatch custom command argument, provide the _onClick_ event handler returning the argument.
+﻿## Button
+
+The element to accept command input. To dispatch custom command argument, provide the _onClick_ event handler returning the argument.
 
 [inset]
 

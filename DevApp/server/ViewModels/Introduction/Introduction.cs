@@ -5,6 +5,6 @@ namespace dotNetify_Elements
 {
    public class Introduction : BaseVM
    {
-      public string Content => Utils.GetResource("dotNetify_Elements.server.Docs.Introduction.md").Result;
+      public string Content => new Markdown("dotNetify_Elements.server.Docs.Introduction.md");
    }
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Frame, Markdown, MarkdownTOC, Panel, Tab, VMContext } from 'dotnetify-elements';
+import { Element, Frame, Markdown, MarkdownTOC, Panel, Tab, VMContext } from 'dotnetify-elements';
 
 const Sidebar = styled.div`
    position: fixed;
@@ -35,13 +35,17 @@ const Article = props => (
 );
 
 export class TabsArticle extends React.Component {
-   state = { id: this.props.id, tocTitle: this.props.id };
+   state = { id: this.props.id, tocTitle: null, title: null };
    render() {
-      const { vm, title, children } = this.props;
+      const { vm, children } = this.props;
+      const { id, title, tocTitle } = this.state;
       const handleActivate = (key, label) => this.setState({ id: key.length > 1 ? key : null, tocTitle: key.length > 1 ? label : null });
+      const handleTitle = title => this.setState({ title: title, tocTitle: this.props.id });
       return (
-         <Article vm={vm} id={this.state.id} title={title} tocTitle={this.state.tocTitle}>
-            <h2 id={title}>{title}</h2>
+         <Article vm={vm} id={id} title={title} tocTitle={tocTitle}>
+            <h2 id={this.state.title}>
+               <Element id="Title" onValue={handleTitle} />
+            </h2>
             <Tab onActivate={handleActivate}>{children}</Tab>
          </Article>
       );

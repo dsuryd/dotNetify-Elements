@@ -1,4 +1,6 @@
-﻿The element to accept a choice input from a set of options that are visually represented as toggle buttons. 
+﻿## RadioToggle
+
+The element to accept a choice input from a set of options that are visually represented as toggle buttons. 
 
 [inset]
 

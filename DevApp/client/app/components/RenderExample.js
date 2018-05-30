@@ -47,17 +47,20 @@ export default class RenderExample extends React.Component {
          <RadioToggle key={x} id={'_' + x} label={x + ':'} options={flags} value={this.state[x]} onChange={val => set(x, val)} />
       ));
 
-      return (
-         <VMContext vm={vm} placeholder={<div style={{ minHeight: '50rem' }} />}>
-            <Panel style={{ borderTop: '1px solid #ccc', paddingTop: '2rem' }}>
-               {children}
-               <Panel horizontal style={{ borderTop: '1px solid #ccc', paddingTop: '1rem' }}>
-                  {radioToggles}
-                  {extraToggles}
-               </Panel>
-               <MarkdownText text={this.buildCode(this.state)} />
+      const content = (
+         <Panel style={{ borderTop: '1px solid #ccc', paddingTop: '2rem' }}>
+            {children}
+            <Panel horizontal style={{ borderTop: '1px solid #ccc', paddingTop: '1rem' }}>
+               {radioToggles}
+               {extraToggles}
             </Panel>
-         </VMContext>
+            <MarkdownText text={this.buildCode(this.state)} />
+         </Panel>
       );
+
+      const placeholder = <div style={{ minHeight: '50rem' }} />;
+
+      if (vm) return <VMContext vm={vm} placeholder={placeholder} children={content} />;
+      else return content;
    }
 }

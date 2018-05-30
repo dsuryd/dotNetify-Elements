@@ -1,4 +1,6 @@
-﻿The element to group a set of input elements and manage their validation, error handling and data submission to the back-end.  It automatically associates _Button_ elements with _submit_ and _cancel_ attributes with the submit and cancel actions, respectively.  It also provides events for when the fields are changed, submitted, or couldn't be submitted due to validation errors. 
+﻿## Form
+
+The element to group a set of input elements and manage their validation, error handling and data submission to the back-end.  It automatically associates _Button_ elements with _submit_ and _cancel_ attributes with the submit and cancel actions, respectively.  It also provides events for when the fields are changed, submitted, or couldn't be submitted due to validation errors. 
 
 [inset]
 

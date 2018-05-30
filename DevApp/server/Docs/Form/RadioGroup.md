@@ -1,4 +1,6 @@
-﻿The element to accept a choice input from of a set of options that are visually represented as radio buttons. 
+﻿## RadioGroup
+
+The element to accept a choice input from of a set of options that are visually represented as radio buttons. 
 
 [inset]
 

@@ -1,4 +1,6 @@
-﻿The element to accept multiple choices input. 
+﻿## CheckboxGroup
+
+The element to accept multiple choices input. 
 
 [inset]
 

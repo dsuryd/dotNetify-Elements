@@ -4,7 +4,7 @@ import { DateField, DateTimeField, TimeField, Frame, Markdown, Panel, Tab, TabIt
 import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
 
 const FormDateTimeField = props => (
-   <TabsArticle vm="FormDateTimeField" id="Overview" title="DateTimeField">
+   <TabsArticle vm="FormDateTimeField" id="Overview">
       <TabItem label="Overview" name="Overview">
          <Markdown id="Overview">
             <DateTimeFieldExample />

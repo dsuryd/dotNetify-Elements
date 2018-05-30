@@ -9,10 +9,11 @@ namespace dotNetify_Elements
    {
       public FormDropdownList()
       {
-         var markdown = Utils.GetResource("dotNetify_Elements.server.Docs.Form.DropdownList.md").Result;
+         var markdown = new Markdown("dotNetify_Elements.server.Docs.Form.DropdownList.md");
 
-         AddProperty("Overview", markdown.GetMarkdownSection(null, "Property Type"));
-         AddProperty("API", markdown.GetMarkdownSection("Property Type"));
+         AddProperty("Title", markdown.Title);
+         AddProperty("Overview", markdown.GetSection("", "Property Type"));
+         AddProperty("API", markdown.GetSection("Property Type"));
       }
    }
 
@@ -56,7 +57,7 @@ namespace dotNetify_Elements
    {
       public DropdownListCustomize()
       {
-         var options = new Dictionary<string, string> 
+         var options = new Dictionary<string, string>
          {
             { "na", "" },
             { "c1", "Choice 1" },

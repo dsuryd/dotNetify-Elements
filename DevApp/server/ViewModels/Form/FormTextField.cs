@@ -7,11 +7,12 @@ namespace dotNetify_Elements
    {
       public FormTextField()
       {
-         var markdown = Utils.GetResource("dotNetify_Elements.server.Docs.Form.TextField.md").Result;
+         var markdown = new Markdown("dotNetify_Elements.server.Docs.Form.TextField.md");
 
-         AddProperty("Overview", markdown.GetMarkdownSection(null, "Text Mask"));
-         AddProperty("Mask", markdown.GetMarkdownSection("Text Mask", "Property Type"));
-         AddProperty("API", markdown.GetMarkdownSection("Property Type"));
+         AddProperty("Title", markdown.Title);
+         AddProperty("Overview", markdown.GetSection("", "Text Mask"));
+         AddProperty("Mask", markdown.GetSection("Text Mask", "Property Type"));
+         AddProperty("API", markdown.GetSection("Property Type"));
       }
    }
 

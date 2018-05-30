@@ -4,7 +4,7 @@ import { Frame, Markdown, MultiselectList, Panel, Tab, TabItem, VMContext, withT
 import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
 
 const FormMultiselectList = props => (
-   <TabsArticle vm="FormMultiselectList" id="Overview" title="MultiselectList">
+   <TabsArticle vm="FormMultiselectList" id="Overview">
       <TabItem label="Overview" name="Overview">
          <Markdown id="Overview">
             <MultiselectListExample />

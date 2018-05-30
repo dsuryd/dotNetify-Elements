@@ -4,7 +4,7 @@ import { Frame, Markdown, Panel, Tab, TabItem, RadioGroup, VMContext, withTheme 
 import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
 
 const FormRadioGroup = props => (
-   <TabsArticle vm="FormRadioGroup" id="Overview" title="RadioGroup">
+   <TabsArticle vm="FormRadioGroup" id="Overview">
       <TabItem label="Overview" name="Overview">
          <Markdown id="Overview">
             <RadioGroupExample />

@@ -4,7 +4,7 @@ import { Frame, Markdown, Panel, Tab, TabItem, TextField, VMContext, withTheme }
 import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
 
 const FormTextField = props => (
-   <TabsArticle vm="FormTextField" id="Overview" title="TextField">
+   <TabsArticle vm="FormTextField" id="Overview">
       <TabItem label="Overview" name="Overview">
          <Markdown id="Overview">
             <TextFieldExample />

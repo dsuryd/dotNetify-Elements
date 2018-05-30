@@ -4,7 +4,7 @@ import { Frame, Markdown, Panel, PasswordField, Tab, TabItem, VMContext, withThe
 import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
 
 const FormPasswordField = props => (
-   <TabsArticle vm="FormPasswordField" id="Overview" title="PasswordField">
+   <TabsArticle vm="FormPasswordField" id="Overview">
       <TabItem label="Overview" name="Overview">
          <Markdown id="Overview">
             <PasswordFieldExample />

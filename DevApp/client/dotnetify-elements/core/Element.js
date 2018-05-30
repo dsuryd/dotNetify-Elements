@@ -10,7 +10,8 @@ export default class Element extends React.Component {
    static contextTypes = ContextTypes;
 
    static propTypes = {
-      id: PropTypes.string.isRequired
+      id: PropTypes.string.isRequired,
+      onValue: PropTypes.func
    };
 
    get vm() {
@@ -35,7 +36,8 @@ export default class Element extends React.Component {
 
    get isVMProperty() {
       // Returns whether this component is associated with a back-end view model property.
-      return this.context.vmContext && this.context.vmContext.getState().hasOwnProperty(this.props.id);
+      const state = this.context.vmContext && this.context.vmContext.getState();
+      return state ? state.hasOwnProperty(this.props.id) : false;
    }
 
    get vmProperty() {
@@ -51,6 +53,10 @@ export default class Element extends React.Component {
          value: this.props.value,
          attrs: this.props.attrs || {}
       };
+   }
+
+   componentDidMount() {
+      this.props.onValue && this.props.onValue(this.vmProperty.value);
    }
 
    componentWillUpdate(props) {

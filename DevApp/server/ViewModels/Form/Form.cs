@@ -7,10 +7,11 @@ namespace dotNetify_Elements
    {
       public Form()
       {
-         var markdown = Utils.GetResource("dotNetify_Elements.server.Docs.Form.Form.md").Result;
+         var markdown = new Markdown("dotNetify_Elements.server.Docs.Form.Form.md");
 
-         AddProperty("Overview", markdown.GetMarkdownSection(null, "Property Type"));
-         AddProperty("API", markdown.GetMarkdownSection("Property Type"));
+         AddProperty("Title", markdown.Title);
+         AddProperty("Overview", markdown.GetSection("", "Property Type"));
+         AddProperty("API", markdown.GetSection("Property Type"));
       }
    }
 }

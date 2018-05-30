@@ -4,7 +4,7 @@ import { DropdownList, Frame, Markdown, Panel, Tab, TabItem, VMContext, withThem
 import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
 
 const FormDropdownList = props => (
-   <TabsArticle vm="FormDropdownList" id="Overview" title="DropdownList">
+   <TabsArticle vm="FormDropdownList" id="Overview">
       <TabItem label="Overview" name="Overview">
          <Markdown id="Overview">
             <DropdownListExample />

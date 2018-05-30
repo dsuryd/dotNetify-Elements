@@ -1,4 +1,6 @@
-﻿The element to accept password input with the text obscured.  
+﻿## PasswordField
+
+The element to accept password input with the text obscured.  
 
 [inset]
 

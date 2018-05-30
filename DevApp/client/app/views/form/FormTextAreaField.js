@@ -4,7 +4,7 @@ import { Frame, Markdown, Panel, Tab, TabItem, TextAreaField, VMContext, withThe
 import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
 
 const FormTextAreaField = props => (
-   <TabsArticle vm="FormTextAreaField" id="Overview" title="TextAreaField">
+   <TabsArticle vm="FormTextAreaField" id="Overview">
       <TabItem label="Overview" name="Overview">
          <Markdown id="Overview">
             <TextAreaFieldExample />

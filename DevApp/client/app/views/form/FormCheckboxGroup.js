@@ -4,7 +4,7 @@ import { CheckboxGroup, Frame, Markdown, Panel, Tab, TabItem, VMContext, withThe
 import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
 
 const FormCheckboxGroup = props => (
-   <TabsArticle vm="FormCheckboxGroup" id="Overview" title="CheckboxGroup">
+   <TabsArticle vm="FormCheckboxGroup" id="Overview">
       <TabItem label="Overview" name="Overview">
          <Markdown id="Overview">
             <CheckboxGroupExample />

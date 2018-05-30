@@ -4,7 +4,7 @@ import { Frame, Markdown, Panel, Tab, TabItem, RadioToggle, VMContext, withTheme
 import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
 
 const FormRadioToggle = props => (
-   <TabsArticle vm="FormRadioToggle" id="Overview" title="RadioToggle">
+   <TabsArticle vm="FormRadioToggle" id="Overview">
       <TabItem label="Overview" name="Overview">
          <Markdown id="Overview">
             <RadioToggleExample />

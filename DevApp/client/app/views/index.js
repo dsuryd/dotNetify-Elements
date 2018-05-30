@@ -18,6 +18,7 @@ import FormDemo from './form/FormDemo';
 import FormValidationDemo from './form/FormValidationDemo';
 
 import LayoutGrid from './layout/LayoutGrid';
+import LayoutPanel from './layout/LayoutPanel';
 
 import DataGridDemo from './list/DataGridDemo';
 import CustomerInfoPage from './examples/customer-info/CustomerInfoPage';
@@ -41,6 +42,7 @@ export {
    FormDemo,
    FormValidationDemo,
    LayoutGrid,
+   LayoutPanel,
    DataGridDemo,
    CustomerInfoPage
 };
