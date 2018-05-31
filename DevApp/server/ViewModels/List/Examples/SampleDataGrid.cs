@@ -24,7 +24,7 @@ namespace dotNetify_Elements
          var rowData = GetSampleData();
 
          AddProperty("MyDataGrid", rowData)
-            .WithAttribute(this, new DataGridAttribute
+            .WithAttribute(new DataGridAttribute
             {
                RowKey = nameof(SampleRow.Id),
                Columns = new DataGridColumn[] {

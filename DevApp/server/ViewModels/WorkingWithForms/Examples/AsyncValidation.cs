@@ -21,26 +21,26 @@ namespace dotNetify_Elements
          var clearForm = AddInternalProperty<bool>("ClearForm");
 
          AddProperty<string>("Name")
-            .WithAttribute(this, new TextFieldAttribute
+            .WithAttribute(new TextFieldAttribute
             {
                Label = "Name:",
                Placeholder = "Enter your name (required)"
             })
-            .WithRequiredValidation(this)
+            .WithRequiredValidation()
             .SubscribeTo(clearForm.Select(_ => ""));
 
          AddProperty<string>("Email")
-            .WithAttribute(this, new TextFieldAttribute
+            .WithAttribute(new TextFieldAttribute
             { 
                Label = "Email:", 
                Placeholder = "Enter your email address" 
             })
-            .WithPatternValidation(this, Pattern.Email, "Must be a valid email address.")
-            .WithServerValidation(this, ValidateEmailNotRegistered, "Email already registered")
+            .WithPatternValidation(Pattern.Email, "Must be a valid email address.")
+            .WithServerValidation(ValidateEmailNotRegistered, "Email already registered")
             .SubscribeTo(clearForm.Select(_ => ""));
 
          AddProperty<FormData>("Register")
-            .WithAttribute(this, new { Label = "Register" })
+            .WithAttribute(new { Label = "Register" })
             .SubscribedBy(
                AddProperty<string>("ServerResponse"), submittedData => Save(submittedData))
                   .SubscribedBy(clearForm, _ => true);        

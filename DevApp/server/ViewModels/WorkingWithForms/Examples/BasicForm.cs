@@ -17,23 +17,23 @@ namespace dotNetify_Elements
       public BasicForm()
       {
          AddProperty<string>("Name")
-            .WithAttribute(this, new TextFieldAttribute
+            .WithAttribute(new TextFieldAttribute
             {
                Label = "Name:",
                Placeholder = "Enter your name (required)"
             })
-            .WithRequiredValidation(this);
+            .WithRequiredValidation();
 
          AddProperty<string>("Email")
-            .WithAttribute(this, new TextFieldAttribute
-            { 
-               Label = "Email:", 
-               Placeholder = "Enter your email address" 
+            .WithAttribute(new TextFieldAttribute
+            {
+               Label = "Email:",
+               Placeholder = "Enter your email address"
             })
-            .WithPatternValidation(this, Pattern.Email, "Must be a valid email address.");
+            .WithPatternValidation(Pattern.Email, "Must be a valid email address.");
 
          AddProperty<FormData>("Register")
-            .WithAttribute(this, new { Label = "Register" })
+            .WithAttribute(new { Label = "Register" })
             .SubscribedBy(
                AddProperty<string>("ServerResponse"), submittedData => Save(submittedData));
       }

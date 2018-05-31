@@ -43,13 +43,13 @@ namespace dotNetify_Elements
          .Select(kvp => KeyValuePair.Create($"{(int)kvp.Key}", kvp.Value));
 
          AddProperty<TaxFilingStatus>("FilingStatus")
-            .WithAttribute(this, new DropdownListAttribute
+            .WithAttribute(new DropdownListAttribute
             {
                Label = "Filing status:",
                Placeholder = "Select one...",
                Options = options.ToArray()
             })
-            .WithRequiredValidation(this);
+            .WithRequiredValidation();
       }
    }
 
@@ -68,7 +68,7 @@ namespace dotNetify_Elements
          };
 
          AddProperty<string>("MyDropdownList")
-            .WithAttribute(this, new DropdownListAttribute
+            .WithAttribute(new DropdownListAttribute
             {
                Label = "Label:",
                Placeholder = "Placeholder",

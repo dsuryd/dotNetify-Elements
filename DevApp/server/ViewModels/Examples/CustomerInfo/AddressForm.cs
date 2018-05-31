@@ -12,19 +12,19 @@ namespace dotNetify_Elements
       public AddressForm()
       {
          AddProperty<string>(nameof(AddressInfo.Address1))
-            .WithAttribute(this, new TextFieldAttribute { Label = "Address 1:" })
+            .WithAttribute(new TextFieldAttribute { Label = "Address 1:" })
             .SubscribeTo(Customer.Select(x => x.Address.Address1));
 
          AddProperty<string>(nameof(AddressInfo.Address2))
-            .WithAttribute(this, new TextFieldAttribute { Label = "Address 2:" })
+            .WithAttribute(new TextFieldAttribute { Label = "Address 2:" })
             .SubscribeTo(Customer.Select(x => x.Address.Address2));
 
          AddProperty<string>(nameof(AddressInfo.City))
-            .WithAttribute(this, new TextFieldAttribute { Label = "City:" })
+            .WithAttribute(new TextFieldAttribute { Label = "City:" })
             .SubscribeTo(Customer.Select(x => x.Address.City));
 
          AddProperty<State>(nameof(AddressInfo.State))
-            .WithAttribute(this, new DropdownListAttribute
+            .WithAttribute(new DropdownListAttribute
             {
                Label = "State:",
                Options = typeof(State).ToDescriptions()
@@ -32,7 +32,7 @@ namespace dotNetify_Elements
             .SubscribeTo(Customer.Select(x => x.Address.State));
 
          AddProperty<string>(nameof(AddressInfo.ZipCode))
-            .WithAttribute(this, new TextFieldAttribute { Label = "Zip Code:" })
+            .WithAttribute(new TextFieldAttribute { Label = "Zip Code:" })
             .SubscribeTo(Customer.Select(x => x.Address.ZipCode));
       }
    }

@@ -31,13 +31,13 @@ public class DropdownListExample : BaseVM
       .Select(kvp => KeyValuePair.Create($"{(int)kvp.Key}", kvp.Value));
 
       AddProperty<TaxFilingStatus>("FilingStatus")
-         .WithAttribute(this, new DropdownListAttribute
+         .WithAttribute(new DropdownListAttribute
          {
             Label = "Filing status:",
             Placeholder = "Select one...",
             Options = options.ToArray()
          })
-         .WithRequiredValidation(this);
+         .WithRequiredValidation();
    }
 }
 ```

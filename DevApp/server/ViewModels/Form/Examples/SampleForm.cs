@@ -28,21 +28,21 @@ namespace dotNetify_Elements
       public SampleForm()
       {
          AddProperty(nameof(FormData.MyText), "")
-             .WithAttribute(this, new TextFieldAttribute
+             .WithAttribute(new TextFieldAttribute
              {
                 Label = "Text:",
                 Placeholder = "Enter text"
              });
 
          AddProperty(nameof(FormData.MyPassword), "")
-             .WithAttribute(this, new TextFieldAttribute
+             .WithAttribute(new TextFieldAttribute
              {
                 Label = "Password:",
                 Placeholder = "Enter password"
              });
 
          AddProperty<int>(nameof(FormData.MyNumber))
-             .WithAttribute(this, new NumberFieldAttribute
+             .WithAttribute(new NumberFieldAttribute
              {
                 Label = "Number:",
                 Placeholder = "Enter number",
@@ -51,7 +51,7 @@ namespace dotNetify_Elements
              });
 
          AddProperty<decimal>(nameof(FormData.MyMoney))
-             .WithAttribute(this, new TextFieldAttribute
+             .WithAttribute(new TextFieldAttribute
              {
                 Label = "Money:",
                 Placeholder = "Enter amount",
@@ -66,7 +66,7 @@ namespace dotNetify_Elements
              });
 
          AddProperty(nameof(FormData.MyDate), DateTimeOffset.Now)
-             .WithAttribute(this, new DateFieldAttribute
+             .WithAttribute(new DateFieldAttribute
              {
                 Label = "Date:",
                 Min = DateTimeOffset.Now.AddMonths(-1),
@@ -74,7 +74,7 @@ namespace dotNetify_Elements
              });
 
          AddProperty(nameof(FormData.MyDropdown), "D3")
-             .WithAttribute(this, new DropdownListAttribute
+             .WithAttribute(new DropdownListAttribute
              {
                 Label = "Dropdown list:",
                 Options = new Dictionary<string, string>
@@ -88,7 +88,7 @@ namespace dotNetify_Elements
              });
 
          AddProperty(nameof(FormData.MyMultiselect), new string[] { "M1", "M4" })
-             .WithAttribute(this, new DropdownListAttribute
+             .WithAttribute(new DropdownListAttribute
              {
                 Label = "Multiselect list:",
                 Options = new Dictionary<string, string>
@@ -102,10 +102,10 @@ namespace dotNetify_Elements
              });
 
          AddProperty(nameof(FormData.MyTextArea), "")
-             .WithAttribute(this, new TextAreaFieldAttribute { Label = "Text area:", Placeholder = "Enter text", Rows = 3 });
+             .WithAttribute(new TextAreaFieldAttribute { Label = "Text area:", Placeholder = "Enter text", Rows = 3 });
 
          AddProperty(nameof(FormData.MyRadio), "R1")
-             .WithAttribute(this, new RadioGroupAttribute
+             .WithAttribute(new RadioGroupAttribute
              {
                 Label = "Radio Group:",
                 Options = new Dictionary<string, string>
@@ -117,7 +117,7 @@ namespace dotNetify_Elements
              });
 
          AddProperty(nameof(FormData.MyRadioToggle), "R2")
-             .WithAttribute(this, new RadioGroupAttribute
+             .WithAttribute(new RadioGroupAttribute
              {
                 Label = "Radio Toggle:",
                 Options = new Dictionary<string, string>
@@ -129,10 +129,10 @@ namespace dotNetify_Elements
              });
 
          AddProperty(nameof(FormData.MyCheckbox), true)
-             .WithAttribute(this, new CheckboxAttribute { Label = "Check me" });
+             .WithAttribute(new CheckboxAttribute { Label = "Check me" });
 
          AddProperty(nameof(FormData.MyCheckboxGroup), new string[] { "C1", "C3" })
-             .WithAttribute(this, new RadioGroupAttribute
+             .WithAttribute(new RadioGroupAttribute
              {
                 Label = "Checkbox Group:",
                 Options = new Dictionary<string, string>

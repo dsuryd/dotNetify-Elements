@@ -54,23 +54,23 @@ public class BasicForm : BaseVM
    public BasicForm()
    {
       AddProperty<string>("Name")
-         .WithAttribute(this, new TextFieldAttribute
+         .WithAttribute(new TextFieldAttribute
          {
             Label = "Name:", 
             Placeholder = "Enter your name (required)"
          })
-         .WithRequiredValidation(this);
+         .WithRequiredValidation();
 
       AddProperty<string>("Email")
-         .WithAttribute(this, new TextFieldAttribute
+         .WithAttribute(new TextFieldAttribute
          { 
             Label = "Email:", 
             Placeholder = "Enter your email address" 
          })
-         .WithPatternValidation(this, Pattern.Email, "Must be a valid email address.");
+         .WithPatternValidation(Pattern.Email, "Must be a valid email address.");
 
       AddProperty<FormData>("Register")
-         .WithAttribute(this, new { Label = "Register" })
+         .WithAttribute(new { Label = "Register" })
          .SubscribedBy(
             AddProperty<string>("ServerResponse"), submittedData => Save(submittedData));
    }
@@ -110,26 +110,26 @@ public class AsyncValidation : BaseVM
       var clearForm = AddInternalProperty<bool>("ClearForm");
 
       AddProperty<string>("Name")
-         .WithAttribute(this, new TextFieldAttribute
+         .WithAttribute(new TextFieldAttribute
          {
             Label = "Name:",
             Placeholder = "Enter your name (required)"
          })
-         .WithRequiredValidation(this)
+         .WithRequiredValidation()
          .SubscribeTo(clearForm.Select(_ => ""));
 
       AddProperty<string>("Email")
-         .WithAttribute(this, new TextFieldAttribute
+         .WithAttribute(new TextFieldAttribute
          { 
             Label = "Email:", 
             Placeholder = "Enter your email address" 
          })
-         .WithPatternValidation(this, Pattern.Email, "Must be a valid email address.")
-         .WithServerValidation(this, ValidateEmailNotRegistered, "Email already registered")
+         .WithPatternValidation(Pattern.Email, "Must be a valid email address.")
+         .WithServerValidation(ValidateEmailNotRegistered, "Email already registered")
          .SubscribeTo(clearForm.Select(_ => ""));
 
       AddProperty<FormData>("Register")
-         .WithAttribute(this, new { Label = "Register" })
+         .WithAttribute(new { Label = "Register" })
          .SubscribedBy(
             AddProperty<string>("ServerResponse"), submittedData => Save(submittedData))
                .SubscribedBy(clearForm, _ => true);        
@@ -239,7 +239,7 @@ public class MasterForm : BaseVM
    public MasterForm()
    {
       AddProperty<FormData>("Register")
-         .WithAttribute(this, new { Label = "Register" })
+         .WithAttribute(new { Label = "Register" })
          .SubscribedBy(
             AddProperty<string>("ServerResponse"), submittedData => Save(submittedData))
                .SubscribedBy(ClearAllForms, _ => true);
@@ -270,13 +270,13 @@ public class ChildForm_NameEmail : BaseVM
    public ChildForm_NameEmail()
    {
       AddProperty<string>("Name")
-         .WithAttribute(this, new TextFieldAttribute { Label = "Name:", Placeholder = "Enter name" })
-         .WithRequiredValidation(this)
+         .WithAttribute(new TextFieldAttribute { Label = "Name:", Placeholder = "Enter name" })
+         .WithRequiredValidation()
          .SubscribeTo(ClearForm.Select(_ => ""));
 
       AddProperty<string>("Email")
-         .WithAttribute(this, new TextFieldAttribute { Label = "Email:", Placeholder = "Enter email" })
-         .WithPatternValidation(this, Pattern.Email, "Must be a valid email address.")
+         .WithAttribute(new TextFieldAttribute { Label = "Email:", Placeholder = "Enter email" })
+         .WithPatternValidation(Pattern.Email, "Must be a valid email address.")
          .SubscribeTo(ClearForm.Select(_ => ""));
    }
 }
@@ -289,23 +289,23 @@ public class ChildForm_Address : BaseVM
    public ChildForm_Address()
    {
       AddProperty<string>("Address")
-         .WithAttribute(this, new TextFieldAttribute { Label = "Address:", Placeholder = "Enter street address" })
-         .WithRequiredValidation(this)
+         .WithAttribute(new TextFieldAttribute { Label = "Address:", Placeholder = "Enter street address" })
+         .WithRequiredValidation()
          .SubscribeTo(ClearForm.Select(_ => ""));
 
       AddProperty<string>("City")
-         .WithAttribute(this, new TextFieldAttribute { Label = "City:", Placeholder = "Enter city" })
-         .WithRequiredValidation(this)
+         .WithAttribute(new TextFieldAttribute { Label = "City:", Placeholder = "Enter city" })
+         .WithRequiredValidation()
          .SubscribeTo(ClearForm.Select(_ => ""));
 
       AddProperty<State>("State")
-         .WithAttribute(this, new DropdownListAttribute 
+         .WithAttribute(new DropdownListAttribute 
          { 
             Label = "State:", 
             Placeholder = "Enter state", 
             Options = typeof(State).ToDescriptions()
          })
-         .WithRequiredValidation(this)
+         .WithRequiredValidation()
          .SubscribeTo(ClearForm.Select(_ => State.Unknown));
    }
 }

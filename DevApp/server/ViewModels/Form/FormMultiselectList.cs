@@ -45,13 +45,13 @@ namespace dotNetify_Elements
          .Select(kvp => KeyValuePair.Create($"{(int)kvp.Key}", kvp.Value));
 
          AddProperty<VisitPurpose[]>("VisitPurpose")
-            .WithAttribute(this, new MultiselectListAttribute
+            .WithAttribute(new MultiselectListAttribute
             {
                Label = "Purpose of visit:",
                Placeholder = "Select all that apply",
                Options = options.ToArray()
             })
-            .WithRequiredValidation(this);
+            .WithRequiredValidation();
       }
    }
 
@@ -69,7 +69,7 @@ namespace dotNetify_Elements
          };
 
          AddProperty("MyMultiselectList", new string[] { "c1", "c3" })
-            .WithAttribute(this, new MultiselectListAttribute
+            .WithAttribute(new MultiselectListAttribute
             {
                Label = "Label:",
                Placeholder = "Placeholder",

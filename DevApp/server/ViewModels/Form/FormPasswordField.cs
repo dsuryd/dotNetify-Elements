@@ -20,12 +20,12 @@ namespace dotNetify_Elements
       public PasswordFieldExample()
       {
          AddProperty<string>("Password")
-            .WithAttribute(this, new TextFieldAttribute
+            .WithAttribute(new TextFieldAttribute
             {
                Label = "Password:",
                Placeholder = "Enter password"
             })
-            .WithRequiredValidation(this);
+            .WithRequiredValidation();
       }
    }
 
@@ -34,7 +34,7 @@ namespace dotNetify_Elements
       public PasswordFieldCustomize()
       {
          AddProperty<string>("MyPasswordField")
-            .WithAttribute(this, new TextFieldAttribute
+            .WithAttribute(new TextFieldAttribute
             {
                Label = "Password:",
                Placeholder = "Enter password"

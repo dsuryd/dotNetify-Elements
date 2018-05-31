@@ -26,27 +26,27 @@ namespace dotNetify_Elements
       public SampleValidationForm()
       {
          AddProperty<string>(nameof(FormData.Name))
-            .WithAttribute(this, new { Label = "Name:", Placeholder = "Enter name *", MaxLength = 30 })
-            .WithRequiredValidation(this);
+            .WithAttribute(new { Label = "Name:", Placeholder = "Enter name *", MaxLength = 30 })
+            .WithRequiredValidation();
 
          AddProperty<string>(nameof(FormData.Phone))
-            .WithAttribute(this, new TextFieldAttribute
+            .WithAttribute(new TextFieldAttribute
             {
                Label = "Phone:",
                Placeholder = "Enter phone number",
                Mask = "(999) 999-9999"
             })
-            .WithPatternValidation(this, Pattern.USPhoneNumber);
+            .WithPatternValidation(Pattern.USPhoneNumber);
 
          AddProperty<string>(nameof(FormData.Email))
-            .WithAttribute(this, new { Label = "Email:", Placeholder = "Enter email address" })
-            .WithPatternValidation(this, Pattern.Email)
-            .WithServerValidation(this, email => IsUnique(email), "Email address is already registered");
+            .WithAttribute(new { Label = "Email:", Placeholder = "Enter email address" })
+            .WithPatternValidation(Pattern.Email)
+            .WithServerValidation(email => IsUnique(email), "Email address is already registered");
 
          AddProperty<string>(nameof(FormData.Age))
-            .WithAttribute(this, new { Label = "Age:", Placeholder = "Enter age *", MaxLength = 3 })
-            .WithRequiredValidation(this)
-            .WithMinValidation(this, 13);
+            .WithAttribute(new { Label = "Age:", Placeholder = "Enter age *", MaxLength = 3 })
+            .WithRequiredValidation()
+            .WithMinValidation(13);
 
          AddInternalProperty<ValidatedFormData>("SubmitValidation")
             .SubscribeTo(AddInternalProperty<FormData>("Submit").Select(data => ValidateFormSubmission(data)))

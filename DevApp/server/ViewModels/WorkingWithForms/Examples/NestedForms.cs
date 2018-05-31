@@ -22,7 +22,7 @@ namespace dotNetify_Elements
       public MasterForm()
       {
          AddProperty<FormData>("Register")
-            .WithAttribute(this, new { Label = "Register" })
+            .WithAttribute(new { Label = "Register" })
             .SubscribedBy(
                AddProperty<string>("ServerResponse"), submittedData => Save(submittedData))
                   .SubscribedBy(ClearAllForms, _ => true);
@@ -52,13 +52,13 @@ namespace dotNetify_Elements
       public ChildForm_NameEmail()
       {
          AddProperty<string>("Name")
-            .WithAttribute(this, new TextFieldAttribute { Label = "Name:", Placeholder = "Enter name" })
-            .WithRequiredValidation(this)
+            .WithAttribute(new TextFieldAttribute { Label = "Name:", Placeholder = "Enter name" })
+            .WithRequiredValidation()
             .SubscribeTo(ClearForm.Select(_ => ""));
 
          AddProperty<string>("Email")
-            .WithAttribute(this, new TextFieldAttribute { Label = "Email:", Placeholder = "Enter email" })
-            .WithPatternValidation(this, Pattern.Email, "Must be a valid email address.")
+            .WithAttribute(new TextFieldAttribute { Label = "Email:", Placeholder = "Enter email" })
+            .WithPatternValidation(Pattern.Email, "Must be a valid email address.")
             .SubscribeTo(ClearForm.Select(_ => ""));
       }
    }
@@ -70,23 +70,23 @@ namespace dotNetify_Elements
       public ChildForm_Address()
       {
          AddProperty<string>("Address")
-            .WithAttribute(this, new TextFieldAttribute { Label = "Address:", Placeholder = "Enter street address" })
-            .WithRequiredValidation(this)
+            .WithAttribute(new TextFieldAttribute { Label = "Address:", Placeholder = "Enter street address" })
+            .WithRequiredValidation()
             .SubscribeTo(ClearForm.Select(_ => ""));
 
          AddProperty<string>("City")
-            .WithAttribute(this, new TextFieldAttribute { Label = "City:", Placeholder = "Enter city" })
-            .WithRequiredValidation(this)
+            .WithAttribute(new TextFieldAttribute { Label = "City:", Placeholder = "Enter city" })
+            .WithRequiredValidation()
             .SubscribeTo(ClearForm.Select(_ => ""));
 
          AddProperty<State>("State")
-            .WithAttribute(this, new DropdownListAttribute
+            .WithAttribute(new DropdownListAttribute
             {
                Label = "State:",
                Placeholder = "Enter state",
                Options = typeof(State).ToDescriptions()
             })
-            .WithRequiredValidation(this)
+            .WithRequiredValidation()
             .SubscribeTo(ClearForm.Select(_ => State.Unknown));
       }
    }

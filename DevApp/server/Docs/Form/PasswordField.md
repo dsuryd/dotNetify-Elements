@@ -10,12 +10,12 @@ public class FormPasswordFieldExample : BaseVM
    public FormPasswordFieldExample()
    {
       AddProperty<string>("Password")
-         .WithAttribute(this, new TextFieldAttribute
+         .WithAttribute(new TextFieldAttribute
          {
             Label = "Password:",
             Placeholder = "Enter password"
          })
-         .WithRequiredValidation(this);
+         .WithRequiredValidation();
    }
 }
 ```

@@ -23,7 +23,7 @@ public class CheckboxGroupExample : BaseVM
       .Select(kvp => KeyValuePair.Create($"{(int)kvp.Key}", kvp.Value));
 
       AddProperty<string>("Quizz")
-         .WithAttribute(this, new CheckboxGroupAttribute
+         .WithAttribute(new CheckboxGroupAttribute
          {
             Label = "Which of the following is part of the electromagnetic spectrum:",
             Options = choices.ToArray()

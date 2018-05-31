@@ -28,8 +28,8 @@ namespace dotNetify_Elements
          _selectedContact = AddProperty<int>("SelectedContact");
 
          AddProperty("Contacts", customerRepository.GetAll().Select(customer => ToContact(customer)))
-            .WithItemKey(this, nameof(Contact.Id))
-            .WithAttribute(this, new DataGridAttribute
+            .WithItemKey(nameof(Contact.Id))
+            .WithAttribute(new DataGridAttribute
             {
                RowKey = nameof(Contact.Id),
                Columns = new DataGridColumn[] {

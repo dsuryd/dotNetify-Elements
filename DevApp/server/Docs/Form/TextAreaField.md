@@ -10,14 +10,14 @@ public class TextAreaFieldExamples : BaseVM
    public TextAreaFieldExamples()
    {
       AddProperty<string>("Comment")
-         .WithAttribute(this, new TextAreaFieldAttribute
+         .WithAttribute(new TextAreaFieldAttribute
          {
             Label = "Comment:",
             Placeholder = "Leave a comment",
             MaxLength = 200,
             Rows = 4
          }).
-         WithRequiredValidation(this, "You must leave a comment");
+         WithRequiredValidation("You must leave a comment");
    }
 }
 ```

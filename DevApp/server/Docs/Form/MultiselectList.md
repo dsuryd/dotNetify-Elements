@@ -33,13 +33,13 @@ public class MultiselectListExample : BaseVM
       .Select(kvp => KeyValuePair.Create($"{(int)kvp.Key}", kvp.Value));
 
       AddProperty<VisitPurpose[]>("VisitPurpose")
-         .WithAttribute(this, new MultiselectListAttribute
+         .WithAttribute(new MultiselectListAttribute
          {
             Label = "Purpose of visit:",
             Placeholder = "Select all that apply",
             Options = options.ToArray()
          })
-         .WithRequiredValidation(this);
+         .WithRequiredValidation();
    }
 }
 ```

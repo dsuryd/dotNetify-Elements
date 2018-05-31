@@ -37,7 +37,7 @@ namespace dotNetify_Elements
          .Select(kvp => KeyValuePair.Create($"{(int)kvp.Key}", kvp.Value));
 
          AddProperty("Position", Position.Middle)
-            .WithAttribute(this, new RadioGroupAttribute
+            .WithAttribute(new RadioGroupAttribute
             {
                Label = "Position:",
                Options = options.ToArray()
@@ -58,7 +58,7 @@ namespace dotNetify_Elements
          .Select(kvp => KeyValuePair.Create($"{kvp.Key}", kvp.Value));
 
          AddProperty("MyRadioToggle", 1)
-            .WithAttribute(this, new RadioGroupAttribute
+            .WithAttribute(new RadioGroupAttribute
             {
                Options = options.ToArray()
             });

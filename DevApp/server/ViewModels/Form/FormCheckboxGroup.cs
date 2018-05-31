@@ -35,7 +35,7 @@ namespace dotNetify_Elements
          .Select(kvp => KeyValuePair.Create($"{(int)kvp.Key}", kvp.Value));
 
          AddProperty<string>("Quizz")
-            .WithAttribute(this, new CheckboxGroupAttribute
+            .WithAttribute(new CheckboxGroupAttribute
             {
                Label = "Which of the following is part of the electromagnetic spectrum:",
                Options = choices.ToArray()
@@ -55,7 +55,7 @@ namespace dotNetify_Elements
          };
 
          AddProperty<string>("MyCheckboxGroup", "c2")
-            .WithAttribute(this, new CheckboxGroupAttribute { Label = "Label:", Options = choices.ToArray() });
+            .WithAttribute(new CheckboxGroupAttribute { Label = "Label:", Options = choices.ToArray() });
       }
    }
 }

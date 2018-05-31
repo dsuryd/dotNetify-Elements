@@ -10,20 +10,20 @@ public class DateTimeFieldExample : BaseVM
    public DateTimeFieldExample()
    {
       AddProperty<DateTimeOffset?>("Date", DateTimeOffset.Now)
-         .WithAttribute(this, new DateFieldAttribute
+         .WithAttribute(new DateFieldAttribute
          {
             Label = "Date:"
          })
-         .WithRequiredValidation(this);
+         .WithRequiredValidation();
 
       AddProperty<DateTimeOffset?>("Time", DateTimeOffset.Now)
-         .WithAttribute(this, new DateFieldAttribute
+         .WithAttribute(new DateFieldAttribute
          {
             Label = "Time:"
          });
 
       AddProperty<DateTimeOffset>("DateTime")
-         .WithAttribute(this, new DateFieldAttribute
+         .WithAttribute(new DateFieldAttribute
          {
             Label = "Date/time:",
             Placeholder = "Enter date...",

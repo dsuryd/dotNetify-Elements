@@ -32,8 +32,9 @@ namespace DotNetify.Elements
       /// <param name="vm">View model of the property.</param>
       /// <param name="attr">Object that contains the attribute data.</param>
       /// <returns>Property.</returns>
-      public static ReactiveProperty<TProp> WithAttribute<TProp, TAttr>(this ReactiveProperty<TProp> prop, IReactiveProperties vm, TAttr attr)
+      public static ReactiveProperty<TProp> WithAttribute<TProp, TAttr>(this ReactiveProperty<TProp> prop, TAttr attr)
       {
+         var vm = prop.ViewModel ?? throw new NullReferenceException($"Property '{prop.Name}' has no view model!");
          var attrDictionary = prop.GetAttributes(vm) ?? new AttributeDictionary();
 
          // Convert the attribute object to key-value dictionary.
@@ -54,8 +55,9 @@ namespace DotNetify.Elements
       /// <param name="vm">View model of the property.</param>
       /// <param name="itemKey">Item key.</param>
       /// <returns>Property.</returns>
-      public static ReactiveProperty<TProp> WithItemKey<TProp>(this ReactiveProperty<TProp> prop, IReactiveProperties vm, string itemKey)
+      public static ReactiveProperty<TProp> WithItemKey<TProp>(this ReactiveProperty<TProp> prop, string itemKey)
       {
+         var vm = prop.ViewModel ?? throw new NullReferenceException($"Property '{prop.Name}' has no view model!");
          vm.AddProperty($"{prop.Name}_itemKey", itemKey);
          return prop;
       }
@@ -69,8 +71,9 @@ namespace DotNetify.Elements
       /// <param name="vm">View model of the property.</param>
       /// <param name="validation">Object that contains the validation data.</param>
       /// <returns>Property.</returns>
-      public static ReactiveProperty<TProp> WithValidation<TProp>(this ReactiveProperty<TProp> prop, IReactiveProperties vm, Validation validation)
+      public static ReactiveProperty<TProp> WithValidation<TProp>(this ReactiveProperty<TProp> prop, Validation validation)
       {
+         var vm = prop.ViewModel ?? throw new NullReferenceException($"Property '{prop.Name}' has no view model!");
          var validationProp = vm.RuntimeProperties.FirstOrDefault(x => x.Name == prop.ToValidationName());
 
          List<Validation> validationEntries = null;
@@ -95,10 +98,11 @@ namespace DotNetify.Elements
       /// <param name="category">Validation category.</param>
       /// <returns>Property.</returns>
       public static ReactiveProperty<TProp> WithPatternValidation<TProp>(this ReactiveProperty<TProp> prop,
-         IReactiveProperties vm, string regexPattern, string message = null, Validation.Categories category = Validation.Categories.Error)
+         string regexPattern, string message = null, Validation.Categories category = Validation.Categories.Error)
       {
+         var vm = prop.ViewModel ?? throw new NullReferenceException($"Property '{prop.Name}' has no view model!");
          message = message ?? $"{prop.GetLabelAttribute(vm)} must match the pattern '{regexPattern}'";
-         return prop.WithValidation(vm, new PatternValidation(regexPattern, message, category));
+         return prop.WithValidation(new PatternValidation(regexPattern, message, category));
       }
 
       /// <summary>
@@ -112,10 +116,11 @@ namespace DotNetify.Elements
       /// <param name="category">Validation category.</param>
       /// <returns>Property.</returns>
       public static ReactiveProperty<TProp> WithRangeValidation<TProp, T>(this ReactiveProperty<TProp> prop,
-         IReactiveProperties vm, T min, T max, string message = null, Validation.Categories category = Validation.Categories.Error) where T : struct
+         T min, T max, string message = null, Validation.Categories category = Validation.Categories.Error) where T : struct
       {
+         var vm = prop.ViewModel ?? throw new NullReferenceException($"Property '{prop.Name}' has no view model!");
          message = message ?? $"{prop.GetLabelAttribute(vm)} must be between {min} and {max}";
-         return prop.WithValidation(vm, new RangeValidation<T>(min, max, message, category));
+         return prop.WithValidation(new RangeValidation<T>(min, max, message, category));
       }
 
       /// <summary>
@@ -128,10 +133,11 @@ namespace DotNetify.Elements
       /// <param name="category">Validation category.</param>
       /// <returns>Property.</returns>
       public static ReactiveProperty<TProp> WithMinValidation<TProp, T>(this ReactiveProperty<TProp> prop,
-         IReactiveProperties vm, T min, string message = null, Validation.Categories category = Validation.Categories.Error) where T : struct
+         T min, string message = null, Validation.Categories category = Validation.Categories.Error) where T : struct
       {
+         var vm = prop.ViewModel ?? throw new NullReferenceException($"Property '{prop.Name}' has no view model!");
          message = message ?? $"{prop.GetLabelAttribute(vm)} must be at least {min}";
-         return prop.WithValidation(vm, new RangeValidation<T>(min, null, message, category));
+         return prop.WithValidation(new RangeValidation<T>(min, null, message, category));
       }
 
       /// <summary>
@@ -144,10 +150,11 @@ namespace DotNetify.Elements
       /// <param name="category">Validation category.</param>
       /// <returns>Property.</returns>
       public static ReactiveProperty<TProp> WithMaxValidation<TProp, T>(this ReactiveProperty<TProp> prop,
-         IReactiveProperties vm, T max, string message = null, Validation.Categories category = Validation.Categories.Error) where T : struct
+         T max, string message = null, Validation.Categories category = Validation.Categories.Error) where T : struct
       {
+         var vm = prop.ViewModel ?? throw new NullReferenceException($"Property '{prop.Name}' has no view model!");
          message = message ?? $"{prop.GetLabelAttribute(vm)} must be at most {max}";
-         return prop.WithValidation(vm, new RangeValidation<T>(null, max, message, category));
+         return prop.WithValidation(new RangeValidation<T>(null, max, message, category));
       }
 
       /// <summary>
@@ -157,11 +164,11 @@ namespace DotNetify.Elements
       /// <param name="vm">View model of the property.</param>
       /// <param name="message">Validation message.</param>
       /// <returns>Property.</returns>
-      public static ReactiveProperty<TProp> WithRequiredValidation<TProp>(this ReactiveProperty<TProp> prop,
-         IReactiveProperties vm, string message = null)
+      public static ReactiveProperty<TProp> WithRequiredValidation<TProp>(this ReactiveProperty<TProp> prop, string message = null)
       {
+         var vm = prop.ViewModel ?? throw new NullReferenceException($"Property '{prop.Name}' has no view model!");
          message = message ?? $"{prop.GetLabelAttribute(vm)} is required";
-         return prop.WithValidation(vm, new RequiredValidation(message));
+         return prop.WithValidation(new RequiredValidation(message));
       }
 
       /// <summary>
@@ -175,15 +182,16 @@ namespace DotNetify.Elements
       /// <param name="category">Validation category.</param>
       /// <returns>Property.</returns>
       public static ReactiveProperty<TProp> WithServerValidation<TProp>(this ReactiveProperty<TProp> prop,
-         IReactiveProperties vm, Func<TProp, bool> validate, string message, Validation.Categories category = Validation.Categories.Error)
+         Func<TProp, bool> validate, string message, Validation.Categories category = Validation.Categories.Error)
       {
+         var vm = prop.ViewModel ?? throw new NullReferenceException($"Property '{prop.Name}' has no view model!");
          var serverValidation = new ServerValidation(message);
          var validationMsgProp = typeof(BaseVM).IsAssignableFrom(vm.GetType()) ?
             (vm as BaseVM).AddProperty<bool>(ToValidationMessageName(prop, serverValidation.Id))
             : vm.AddProperty<bool>(ToValidationMessageName(prop, serverValidation.Id));
 
          validationMsgProp.SubscribeTo(prop.Select(val => validate(val)));
-         return prop.WithValidation(vm, serverValidation);
+         return prop.WithValidation(serverValidation);
       }
 
       #endregion Validations

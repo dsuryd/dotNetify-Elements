@@ -12,11 +12,11 @@ namespace dotNetify_Elements
       public DriverLicenseForm()
       {
          AddProperty<string>(nameof(DriverLicenseInfo.Number))
-            .WithAttribute(this, new TextFieldAttribute { Label = "Number:" })
+            .WithAttribute(new TextFieldAttribute { Label = "Number:" })
             .SubscribeTo(Customer.Select(x => x.DriverLicense.Number));
 
          AddProperty<State>(nameof(DriverLicenseInfo.State))
-            .WithAttribute(this, new DropdownListAttribute { Label = "State:", Options = typeof(State).ToDescriptions() })
+            .WithAttribute(new DropdownListAttribute { Label = "State:", Options = typeof(State).ToDescriptions() })
             .SubscribeTo(Customer.Select(x => x.DriverLicense.State));
       }
    }

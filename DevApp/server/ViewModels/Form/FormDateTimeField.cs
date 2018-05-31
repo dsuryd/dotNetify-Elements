@@ -21,20 +21,20 @@ namespace dotNetify_Elements
       public DateTimeFieldExample()
       {
          AddProperty<DateTimeOffset?>("Date", DateTimeOffset.Now)
-            .WithAttribute(this, new DateFieldAttribute
+            .WithAttribute(new DateFieldAttribute
             {
                Label = "Date:"
             })
-            .WithRequiredValidation(this);
+            .WithRequiredValidation();
 
          AddProperty<DateTimeOffset?>("Time", DateTimeOffset.Now)
-            .WithAttribute(this, new DateFieldAttribute
+            .WithAttribute(new DateFieldAttribute
             {
                Label = "Time:"
             });
 
          AddProperty<DateTimeOffset>("DateTime")
-            .WithAttribute(this, new DateFieldAttribute
+            .WithAttribute(new DateFieldAttribute
             {
                Label = "Date/time:",
                Placeholder = "Enter date...",
@@ -49,7 +49,7 @@ namespace dotNetify_Elements
       public DateTimeFieldCustomize()
       {
          AddProperty<DateTimeOffset>("MyDateTimeField", DateTime.Now)
-            .WithAttribute(this, new DateFieldAttribute
+            .WithAttribute(new DateFieldAttribute
             {
                Label = "Label:",
                Placeholder = "Placeholder"

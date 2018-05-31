@@ -23,7 +23,7 @@ namespace dotNetify_Elements
       public ButtonExample()
       {
          AddProperty<object>("Add")
-            .WithAttribute(this, new ButtonAttribute { Label = "Add" })
+            .WithAttribute(new ButtonAttribute { Label = "Add" })
             .SubscribedBy(AddProperty<string>("AddCounter"), _ => $"Added: {++_addCounter}");
 
          AddProperty<DateTimeOffset>("Remove")

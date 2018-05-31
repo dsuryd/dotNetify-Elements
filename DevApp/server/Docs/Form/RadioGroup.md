@@ -27,7 +27,7 @@ public class RadioGroupExample : BaseVM
       .Select(kvp => KeyValuePair.Create($"{(int)kvp.Key}", kvp.Value));
 
       AddProperty("Weather", Weather.Sunny)
-         .WithAttribute(this, new RadioGroupAttribute
+         .WithAttribute(new RadioGroupAttribute
          {
             Label = "Weather:",
             Options = options.ToArray()

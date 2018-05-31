@@ -39,7 +39,7 @@ namespace dotNetify_Elements
          .Select(kvp => KeyValuePair.Create($"{(int)kvp.Key}", kvp.Value));
 
          AddProperty("Weather", Weather.Sunny)
-            .WithAttribute(this, new RadioGroupAttribute
+            .WithAttribute(new RadioGroupAttribute
             {
                Label = "Weather:",
                Options = options.ToArray()
@@ -60,7 +60,7 @@ namespace dotNetify_Elements
          .Select(kvp => KeyValuePair.Create($"{kvp.Key}", kvp.Value));
 
          AddProperty("MyRadioGroup", 1)
-            .WithAttribute(this, new RadioGroupAttribute
+            .WithAttribute(new RadioGroupAttribute
             {
                Options = options.ToArray()
             });

@@ -10,7 +10,7 @@ public class CheckboxExample : BaseVM
    public CheckboxExample()
    {
       AddProperty("Agree", true)
-         .WithAttribute(this, new CheckboxAttribute
+         .WithAttribute(new CheckboxAttribute
          {
             Label = "I have read and agree to the Terms of Service"
          });

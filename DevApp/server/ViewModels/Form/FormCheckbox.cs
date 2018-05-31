@@ -20,7 +20,7 @@ namespace dotNetify_Elements
       public CheckboxExample()
       {
          AddProperty<bool>("Agree")
-            .WithAttribute(this, new CheckboxAttribute
+            .WithAttribute(new CheckboxAttribute
             {
                Label = "I have read and agree to the Terms of Service"
             });
@@ -31,7 +31,7 @@ namespace dotNetify_Elements
    {
       public CheckboxCustomize()
       {
-         AddProperty<string>("MyCheckbox").WithAttribute(this, new { Label = "Checkbox" });
+         AddProperty<string>("MyCheckbox").WithAttribute(new { Label = "Checkbox" });
       }
    }
 }

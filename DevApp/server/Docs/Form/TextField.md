@@ -10,25 +10,25 @@ public class TextFieldExamples : BaseVM
    public TextFieldExamples()
    {
       AddProperty<string>("Name")
-         .WithAttribute(this, new TextFieldAttribute
+         .WithAttribute(new TextFieldAttribute
          {
             Label = "Name:",
             Placeholder = "Enter your name",
             MaxLength = 30
          })
-         .WithRequiredValidation(this);
+         .WithRequiredValidation();
 
       AddProperty<string>("Phone")
-         .WithAttribute(this, new TextFieldAttribute
+         .WithAttribute(new TextFieldAttribute
          {
             Label = "Phone:",
             Placeholder = "Enter your phone",
             Mask = "(999) 999-9999"
          })
-         .WithPatternValidation(this, Pattern.USPhoneNumber, "Must be a valid US phone number");
+         .WithPatternValidation(Pattern.USPhoneNumber, "Must be a valid US phone number");
 
       AddProperty("Amount", 2500f)
-         .WithAttribute(this, new TextFieldAttribute
+         .WithAttribute(new TextFieldAttribute
          {
             Label = "Payment:",
             Prefix = "US$",
@@ -41,7 +41,7 @@ public class TextFieldExamples : BaseVM
                DecimalLimit = 0
             }
          })
-         .WithMinValidation(this, 20, "Must not be less than US$20.00");
+         .WithMinValidation(20, "Must not be less than US$20.00");
    }
 }
 ```

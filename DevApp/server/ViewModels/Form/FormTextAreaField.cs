@@ -20,14 +20,14 @@ namespace dotNetify_Elements
       public TextAreaFieldExample()
       {
          AddProperty<string>("Comment")
-            .WithAttribute(this, new TextAreaFieldAttribute
+            .WithAttribute(new TextAreaFieldAttribute
             {
                Label = "Comment:",
                Placeholder = "Leave a comment",
                MaxLength = 200,
                Rows = 4
             }).
-            WithRequiredValidation(this, "You must leave a comment");
+            WithRequiredValidation("You must leave a comment");
       }
    }
 
@@ -36,7 +36,7 @@ namespace dotNetify_Elements
       public TextAreaFieldCustomize()
       {
          AddProperty<string>("MyField")
-            .WithAttribute(this, new TextAreaFieldAttribute { Label = "Label:", Placeholder = "Placeholder" });
+            .WithAttribute(new TextAreaFieldAttribute { Label = "Label:", Placeholder = "Placeholder" });
       }
    }
 }

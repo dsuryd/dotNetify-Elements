@@ -100,10 +100,10 @@ public class NameGenderInput : BaseVM
    public NameGenderInput()
    {
       AddProperty<string>("Name")
-         .WithAttribute(this, new TextFieldAttribute { Label = "Name:", Placeholder = "Enter your name" });
+         .WithAttribute(new TextFieldAttribute { Label = "Name:", Placeholder = "Enter your name" });
 
       AddProperty("Gender", "")
-         .WithAttribute(this, new DropdownListAttribute
+         .WithAttribute(new DropdownListAttribute
          {
             Label = "Gender:",
             Placeholder = "Select your gender...",
@@ -135,15 +135,15 @@ public class PrimeInput : BaseVM
    public PrimeInput()
    {
       AddProperty<int?>("Prime")
-         .WithAttribute(this, new TextFieldAttribute
+         .WithAttribute(new TextFieldAttribute
          {
             Label = "Number:",
             Placeholder = "Enter a prime number between 2 and 100"
          })
-         .WithRequiredValidation(this)
-         .WithMinValidation(this, 2)
-         .WithMaxValidation(this, 100)
-         .WithServerValidation(this, ValidatePrimeNumber, "Not a prime number");
+         .WithRequiredValidation()
+         .WithMinValidation(2)
+         .WithMaxValidation(100)
+         .WithServerValidation(ValidatePrimeNumber, "Not a prime number");
    }
 
    private bool ValidatePrimeNumber(int? number)
@@ -162,7 +162,7 @@ Note that the attribute types are just there to help you to figure out things th
 
 ```csharp
 AddProperty<string>("Name")
-   .WithAttribute(this, new { Label = "Name:", Placeholder = "Enter your name" })
+   .WithAttribute(new { Label = "Name:", Placeholder = "Enter your name" })
 ```
 
 #### Real-Time Streaming

@@ -10,10 +10,10 @@ namespace dotNetify_Elements
       public NameGenderInput()
       {
          AddProperty<string>("Name")
-            .WithAttribute(this, new TextFieldAttribute { Label = "Name:", Placeholder = "Enter your name" });
+            .WithAttribute(new TextFieldAttribute { Label = "Name:", Placeholder = "Enter your name" });
 
          AddProperty("Gender", "")
-            .WithAttribute(this, new DropdownListAttribute
+            .WithAttribute(new DropdownListAttribute
             {
                Label = "Gender:",
                Placeholder = "Select your gender...",
