@@ -13,7 +13,7 @@ ETA for version 0.1 npm release: mid-June to early July 2018.
 
 ### Screenshot
 
-![alt screenshot](https://dsuryd.tinytake.com/media/79753f?filename=1527963078733_DotNetifyElement_Screenshot.gif)
+![alt screenshot]( )
 
 ### How To Run This Repo
 
