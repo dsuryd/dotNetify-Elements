@@ -36,7 +36,12 @@ namespace dotNetify_Elements
          StructureField,
          StructureModal,
          StructureTab,
+         DisplayAlert,
+         DisplayLabel,
+         DisplayDataGrid,
+         DisplayMarkdown,
 
+         /* Examples */
          DataGridDemo,
          CustomerInfoPage
       }
@@ -67,6 +72,16 @@ namespace dotNetify_Elements
             new RouteTemplate(nameof(Route.FormValidationDemo))   { UrlPattern = "form/validationdemo" },
             new RouteTemplate(nameof(Route.LayoutGrid))           { UrlPattern = "layout" },
             new RouteTemplate(nameof(Route.LayoutPanel))          { UrlPattern = "layout/panel" },
+            new RouteTemplate(nameof(Route.StructureCard))        { UrlPattern = "structure/card" },
+            new RouteTemplate(nameof(Route.StructureCell))        { UrlPattern = "structure/cell" },
+            new RouteTemplate(nameof(Route.StructureCollapsible)) { UrlPattern = "structure/collapsible" },
+            new RouteTemplate(nameof(Route.StructureField))       { UrlPattern = "structure/field" },
+            new RouteTemplate(nameof(Route.StructureModal))       { UrlPattern = "structure/modal" },
+            new RouteTemplate(nameof(Route.StructureTab))         { UrlPattern = "structure/tab" },
+            new RouteTemplate(nameof(Route.DisplayAlert))         { UrlPattern = "display/alert" },
+            new RouteTemplate(nameof(Route.DisplayDataGrid))      { UrlPattern = "display/datagrid" },
+            new RouteTemplate(nameof(Route.DisplayLabel))         { UrlPattern = "display/label" },
+            new RouteTemplate(nameof(Route.DisplayMarkdown))      { UrlPattern = "display/markdown" },
             new RouteTemplate(nameof(Route.DataGridDemo))         { UrlPattern = "list/datagrid" },
             new RouteTemplate(nameof(Route.CustomerInfoPage))     { UrlPattern = "examples/customer-info" },
          });
@@ -110,10 +125,27 @@ namespace dotNetify_Elements
                },
                new NavGroup
                {
+                  Label = "Structure",
+                  Routes = new NavRoute[]
+                  {
+                     new NavRoute("Card",                this.GetRoute(nameof(Route.StructureCard))),
+                     new NavRoute("Cell",                this.GetRoute(nameof(Route.StructureCell))),
+                     new NavRoute("Collapsible",         this.GetRoute(nameof(Route.StructureCollapsible))),
+                     new NavRoute("Field",               this.GetRoute(nameof(Route.StructureField))),
+                     new NavRoute("Modal",               this.GetRoute(nameof(Route.StructureModal))),
+                     new NavRoute("Tab",                 this.GetRoute(nameof(Route.StructureTab))),
+                  },
+                  IsExpanded = false
+               },
+               new NavGroup
+               {
                   Label = "Display",
                   Routes = new NavRoute[]
                   {
-                     new NavRoute("Data Grid",           this.GetRoute(nameof(Route.DataGridDemo))),
+                     new NavRoute("Alert",               this.GetRoute(nameof(Route.DisplayAlert))),
+                     new NavRoute("DataGrid",            this.GetRoute(nameof(Route.DataGridDemo))),
+                     new NavRoute("Label",               this.GetRoute(nameof(Route.DisplayLabel))),
+                     new NavRoute("Markdown",            this.GetRoute(nameof(Route.DisplayMarkdown))),
                   },
                   IsExpanded = false
                },

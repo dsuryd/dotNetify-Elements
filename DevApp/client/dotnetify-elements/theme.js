@@ -39,7 +39,9 @@ const displayTheme = {
 };
 
 const formTheme = {
-   Button: ``,
+   Button: `
+      margin-left: 3px;
+   `,
    Checkbox: {
       GroupContainer: ``,
       Container: {

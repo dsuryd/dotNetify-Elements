@@ -4,6 +4,7 @@
     <RootNamespace>dotNetify_Elements</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Folder Include="server\Docs\Structure\" />
     <Folder Include="wwwroot\" />
     <Folder Include="wwwroot\dist\" />
   </ItemGroup>
