@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Markdown, Panel, TabItem, defaultTheme, withTheme } from 'dotnetify-elements';
+import { Button, Frame, Markdown, Panel, TabItem, defaultTheme, withTheme } from 'dotnetify-elements';
 import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
 import { Rectangle, Square } from './demo-helper';
 
@@ -40,13 +40,8 @@ const MyApp = _ => (
       const setState = state => this.setState(state);
       let propTypes = { ...Panel.propTypes, wrap: null };
       return (
-         <RenderExample
-            propTypes={propTypes}
-            defaultProps={Panel.defaultProps}
-            buildCode={buildCode}
-            onChange={setState}
-         >
-            <Panel height="16rem">
+         <RenderExample propTypes={propTypes} defaultProps={Panel.defaultProps} buildCode={buildCode} onChange={setState}>
+            <Panel height="15rem">
                <Panel css="border: 2px dashed #ccc">
                   <Panel css="border: 2px dashed tomato" {...this.state}>
                      <Square />
@@ -60,15 +55,32 @@ const MyApp = _ => (
 }
 
 const FlexLayoutExample = props => (
-   <Panel>
-      <Panel horizontal noGap css="border: 2px dashed #ccc">
-         <Panel flex css="border: 2px dashed red">
-            <Square />
+   <Panel css="border: 2px dashed #ccc">
+      <Frame>
+         <Panel horizontal>
+            <Panel horizontal flex css="border: 2px dashed red">
+               <Square />
+               <Square />
+               <Square />
+            </Panel>
+            <Panel flex css="border: 2px dashed green">
+               <Rectangle />
+               <Rectangle />
+            </Panel>
          </Panel>
-         <Panel flex css="border: 2px dashed red">
-            <Rectangle />
+         <Panel horizontal>
+            <Panel flex="0 1 20%" right css="border: 2px dashed blue">
+               <Square />
+            </Panel>
+            <Panel flex middle css="border: 2px dashed orange">
+               <Square />
+               <Rectangle />
+            </Panel>
+            <Panel flex="0 1 30%" css="border: 2px dashed purple">
+               <Square />
+            </Panel>
          </Panel>
-      </Panel>
+      </Frame>
    </Panel>
 );
 
@@ -79,18 +91,15 @@ class ChildPropsExample extends React.Component {
       const buildCode = props => `
 \`\`\`jsx
 import React from 'react';
-import { Panel } from 'dotnetify-elements';
-import { Square, Rectangle } from './demo-helper';
+import { Panel, Button } from 'dotnetify-elements';
 
 const MyApp = _ => (
-   <Panel horizontal noGap childProps={{ ${Object.keys(this.state)
-      .map(key => `${key}: ${this.state[key]}`)
-      .join(', ')}}}>
+   <Panel horizontal childProps={{ css: 'border: 2px dashed red', ${Object.keys(this.state).map(key => `${key}: ${this.state[key]}`).join(', ')}}}>
       <Panel>
-         <Square />
+         <Button label="Button 1" primary />
       </Panel>
       <Panel>
-         <Rectangle />
+         <Button label="Button 2" secondary />
       </Panel>
    </Panel>
 );
@@ -99,13 +108,13 @@ const MyApp = _ => (
       let propTypes = { flex: PropTypes.bool, right: PropTypes.bool };
       return (
          <RenderExample propTypes={propTypes} buildCode={buildCode} onChange={setState}>
-            <Panel css="min-height: 8rem">
-               <Panel flex="0" horizontal noGap childProps={{ ...this.state, css: 'border: 2px dashed tomato' }}>
+            <Panel css="min-height: 5rem">
+               <Panel flex="0" horizontal childProps={{ ...this.state, css: 'border: 2px dashed red' }}>
                   <Panel>
-                     <Square />
+                     <Button label="Button 1" primary />
                   </Panel>
                   <Panel>
-                     <Rectangle />
+                     <Button label="Button 2" secondary />
                   </Panel>
                </Panel>
             </Panel>

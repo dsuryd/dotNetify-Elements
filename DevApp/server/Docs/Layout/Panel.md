@@ -1,22 +1,58 @@
 ﻿## Panel
 
-The element to arrange the layout of other elements.
+The element to arrange the layout of other elements.  It automatically inserts fixed gap between child components, and provide properties for various layout configuration.
 
 [inset]
 
 #### Frame
 
-Frame element is a Panel with 
+_Frame_ elements are Panels with _noMargin_ property set to false. The margin size can be set globally on the theme object.
 
 #### Flex Layout
 
-Panel elements are flex containers.  This means that you can use css flexbox to control the layout of any component that are put inside it.  When the _flex_ property is specified, it makes the Panel resize to fit the remaining space.  The property also doubles as css flex shorthand to provide more control the Panel's layout when it's nested inside another Panel.
+Panel elements are flex containers.  This means that you can use [css flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/) to control the layout of any component that are put inside it.  When the _flex_ property is specified, it makes the Panel resize to fit the remaining space.  The property also doubles as css flex shorthand to provide more control the Panel's layout when it's nested inside another Panel.
+
+Using the combination of _flex_ and other properties such as _horizontal_ and _css_ (to apply styles using css syntax), you can make all sorts of layout with nested Panel elements:
 
 [inset]
+<br>
+```jsx
+const FlexLayoutExample = props => (
+   <Panel css="border: 2px dashed #ccc">
+      <Frame>
+         <Panel horizontal>
+            <Panel horizontal flex css="border: 2px dashed red">
+               <Square />
+               <Square />
+               <Square />
+            </Panel>
+            <Panel flex css="border: 2px dashed green">
+               <Rectangle />
+               <Rectangle />
+            </Panel>
+         </Panel>
+         <Panel horizontal>
+            <Panel flex="0 1 20%" right css="border: 2px dashed blue">
+               <Square />
+            </Panel>
+            <Panel flex middle css="border: 2px dashed orange">
+               <Square />
+               <Rectangle />
+            </Panel>
+            <Panel flex="0 1 30%" css="border: 2px dashed purple">
+               <Square />
+            </Panel>
+         </Panel>
+      </Frame>
+   </Panel>
+);
+```
+> **Caution:** While the examples here make liberal use of the _css_ property, in real projects, it reduces code maintainability. It's highly recommended the usage is kept to a minimum - only for edge cases - and favor creating reusable styled components instead.
+
 
 #### Child Properties
 
-Apply the same set of properties to every child component by using _childProps_ property:
+If you need to apply the same set of properties to every child component, set the _childProps_ property of the parent Panel:
 
 [inset]
 

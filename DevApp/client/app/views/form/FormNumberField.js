@@ -28,7 +28,7 @@ import { VMContext, Panel, NumberField } from 'dotnetify-elements';
 
 const MyApp = _ => (
    <VMContext vm="NumberFieldExample">
-      <Panel horizontal childProps={{style: {minWidth: '14rem', maxWidth: '20rem', whiteSpace: 'nowrap'}}>   
+      <Panel horizontal childProps={{css: "min-width: 14rem; max-width: 20rem; white-space: nowrap"}}>   
          <NumberField id="HeightFeet" ${props}/>
          <NumberField id="HeightInches" ${props}/>
       </Panel>      
@@ -36,10 +36,10 @@ const MyApp = _ => (
 );
 \`\`\``;
       const setState = state => this.setState(state);
-      const style = { minWidth: '14rem', maxWidth: '20rem', whiteSpace: 'nowrap' };
+      const css = 'min-width: 14rem; max-width: 20rem; white-space: nowrap';
       return (
          <RenderExample vm="NumberFieldExample" propTypes={NumberField.propTypes} buildCode={buildCode} onChange={setState}>
-            <Panel horizontal style={{ minHeight: '7rem' }} childProps={{ style: style }}>
+            <Panel horizontal style={{ minHeight: '7rem' }} childProps={{ css: css }}>
                <NumberField id="HeightFeet" {...this.state} />
                <NumberField id="HeightInches" {...this.state} />
             </Panel>

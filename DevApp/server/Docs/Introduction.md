@@ -169,6 +169,8 @@ AddProperty<string>("Name")
 
 _DotNetify-Elements_ gives you real-time data streaming capability _by default_.  Every view model is capable of pushing data to the client in real-time.  Combine this MVVM paradigm with reactive programming on both the front- and back-end, and you get a powerful framework for tackling the complexity of real-time programming.
 
+The following example again uses the simple _Element_, but this time we program the back-end view model to keep pushing an updated time value every second.  The element is enclosed in a component made with [styled-components](https://www.styled-components.com/), a popular React library that _Elements_ also uses extensively.
+
 ```jsx
 import React from 'react';
 import styled from 'styled-components';
@@ -196,6 +198,7 @@ public class RealtimeClock : BaseVM
 {
    public RealtimeClock()
    {
+      // Use System.Reactive.Linq to create a reactive object that emits a value every second.
       var rxTimer = Observable.Interval(TimeSpan.FromSeconds(1)).StartWith(0);
 
       AddProperty<string>("Clock")

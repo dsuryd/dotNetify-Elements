@@ -10,6 +10,7 @@ const Container = styled.div`
    -ms-user-select: none;
    user-select: none;
    ${props => props.theme.Field.Container};
+   ${props => props.css};
 `;
 
 const LabelContainer = styled.div`

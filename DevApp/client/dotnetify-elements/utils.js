@@ -70,7 +70,7 @@ export function mergeProps(elem, ...newProps) {
 
    // Only merge props that are part of the element's propTypes.
    let validProps = Object.keys(props)
-      .filter(key => key === 'style' || propTypes.includes(key))
+      .filter(key => key === 'style' || key === 'css' || propTypes.includes(key))
       .reduce((aggregate, key) => Object.assign(aggregate, { [key]: props[key] }), {});
    return Object.assign({}, validProps, elem.props);
 }
