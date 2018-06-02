@@ -1,21 +1,28 @@
 ﻿## Layout Grid
 
-A set of elements to provide common application layout; intended for structuring the root App component.
+A set of elements to provide common application layout; intended for the root App component.
 
 [inset]
 
 ```jsx
 import { Footer, Header, Main, Nav, Section} from 'dotnetify-elements';
+import { DemoLabel, demoTheme } from './demo-helper';
 
 const LayoutGridDemo = _ => (
-   <DemoArea>
-      <Main theme={myTheme}>
-         <Header />
-         <Nav />
-         <Section />
-         <Footer />
-      </Main>
-   </DemoArea>
+   <Main theme={demoTheme}>
+      <Header>
+         <DemoLabel>Header</DemoLabel>
+      </Header>
+      <Nav>
+         <DemoLabel>Nav</DemoLabel>
+      </Nav>
+      <Section>
+         <DemoLabel>Section</DemoLabel>
+      </Section>
+      <Footer>
+         <DemoLabel>Footer</DemoLabel>
+      </Footer>
+   </Main>
 );
 ```
 #### Elements
@@ -37,7 +44,7 @@ Set the _theme_ attribute on the _Main_ element with a css theme object to custo
 ```jsx
 import { defaultTheme } from 'dotnetify-elements';
 
-const myTheme = {
+const demoTheme = {
    ...defaultTheme,
    Main: `border: 2px dashed tomato`,
    Header: `background: #666`,

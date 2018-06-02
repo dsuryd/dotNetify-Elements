@@ -3,12 +3,14 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Markdown, Panel, TabItem, defaultTheme, withTheme } from 'dotnetify-elements';
 import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
+import { Rectangle, Square } from './demo-helper';
 
 const LayoutPanel = props => (
    <TabsArticle vm="LayoutPanel" id="Overview">
       <TabItem label="Overview" name="Overview">
          <Markdown id="Overview">
             <PanelExample />
+            <FlexLayoutExample />
             <ChildPropsExample />
          </Markdown>
       </TabItem>
@@ -18,27 +20,13 @@ const LayoutPanel = props => (
    </TabsArticle>
 );
 
-const Rectangle = styled.div`
-   width: 20rem;
-   height: 3rem;
-   border: 1px solid #aaa;
-   background: #ccc;
-   display: flex;
-`;
-
-const Square = styled.div`
-   width: 6rem;
-   height: 6rem;
-   border: 1px solid #aaa;
-   background: #ccc;
-`;
-
 class PanelExample extends React.Component {
    render() {
       const buildCode = props => `
 \`\`\`jsx
 import React from 'react';
 import { Panel } from 'dotnetify-elements';
+import { Square, Rectangle } from './demo-helper';
 
 const MyApp = _ => (
    <Panel css="border: 2px dashed gray">
@@ -66,6 +54,19 @@ const MyApp = _ => (
    }
 }
 
+const FlexLayoutExample = props => (
+   <Panel>
+      <Panel horizontal noGap css="border: 2px dashed #ccc">
+         <Panel flex css="border: 2px dashed red">
+            <Square />
+         </Panel>
+         <Panel flex css="border: 2px dashed red">
+            <Rectangle />
+         </Panel>
+      </Panel>
+   </Panel>
+);
+
 class ChildPropsExample extends React.Component {
    state = {};
 
@@ -74,9 +75,12 @@ class ChildPropsExample extends React.Component {
 \`\`\`jsx
 import React from 'react';
 import { Panel } from 'dotnetify-elements';
+import { Square, Rectangle } from './demo-helper';
 
 const MyApp = _ => (
-   <Panel horizontal noGap childProps={{ ${Object.keys(this.state).map(key => `${key}: ${this.state[key]}`).join(', ')}}}>
+   <Panel horizontal noGap childProps={{ ${Object.keys(this.state)
+      .map(key => `${key}: ${this.state[key]}`)
+      .join(', ')}}}>
       <Panel>
          <Square />
       </Panel>

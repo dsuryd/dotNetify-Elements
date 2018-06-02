@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Footer, Header, Main, Markdown, Nav, Panel, Section, defaultTheme, withTheme } from 'dotnetify-elements';
+import { Footer, Header, Main, Markdown, Nav, Panel, Section, withTheme } from 'dotnetify-elements';
 import { Article, RenderCustomize, RenderExample } from '../../components';
+import { DemoArea, DemoLabel, demoTheme } from './demo-helper';
 
 const LayoutGrid = props => (
    <Article vm="LayoutGrid" id="Content">
@@ -11,31 +12,6 @@ const LayoutGrid = props => (
    </Article>
 );
 
-const myTheme = {
-   ...defaultTheme,
-   Main: `border: 2px dashed tomato`,
-   Header: `background: #666`,
-   Nav: `background: #eee; width: 100px;`,
-   Section: `background: #ddd`,
-   Footer: `background: #fff`
-};
-
-const DemoArea = styled.div`
-   width: 640px;
-   height: 480px;
-   margin: 0 auto;
-`;
-
-const Watermark = styled.div`
-   display: flex;
-   flex: 1;
-   font-size: 2rem;
-   font-weight: bold;
-   align-items: center;
-   justify-content: center;
-   color: #bbb;
-`;
-
 const LayoutGridExample = props => (
    <Panel css="padding: 3rem 0; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc">
       <LayoutGridDemo />
@@ -44,18 +20,18 @@ const LayoutGridExample = props => (
 
 const LayoutGridDemo = _ => (
    <DemoArea>
-      <Main theme={myTheme}>
+      <Main theme={demoTheme}>
          <Header>
-            <Watermark>Header</Watermark>
+            <DemoLabel>Header</DemoLabel>
          </Header>
          <Nav>
-            <Watermark>Nav</Watermark>
+            <DemoLabel>Nav</DemoLabel>
          </Nav>
          <Section>
-            <Watermark>Section</Watermark>
+            <DemoLabel>Section</DemoLabel>
          </Section>
          <Footer>
-            <Watermark>Footer</Watermark>
+            <DemoLabel>Footer</DemoLabel>
          </Footer>
       </Main>
    </DemoArea>

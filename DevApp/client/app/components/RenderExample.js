@@ -5,11 +5,14 @@ import { MarkdownText, Panel, RadioToggle, VMContext } from 'dotnetify-elements'
 export default class RenderExample extends React.Component {
    constructor(props) {
       super(props);
-      console.log(props.propTypes);
       this.boolPropTypes = Object.keys(props.propTypes).filter(x => props.propTypes[x] === PropTypes.bool);
 
       this.state = {};
-      this.trueByDefaultProps = [ 'enable', 'show' ];
+      this.trueByDefaultProps = [
+         'enable',
+         'show',
+         ...(props.defaultProps ? Object.keys(props.defaultProps).filter(x => props.defaultProps[x]) : [])
+      ];
       this.boolPropTypes.forEach(x => (this.state[x] = this.trueByDefaultProps.includes(x)));
    }
 
@@ -45,7 +48,14 @@ export default class RenderExample extends React.Component {
       };
 
       const radioToggles = this.boolPropTypes.map(x => (
-         <RadioToggle key={x} id={'_' + x} label={x + ':'} options={flags} value={this.state[x]} onChange={val => set(x, val)} />
+         <RadioToggle
+            key={x}
+            id={'_' + x}
+            label={x + ':'}
+            options={flags}
+            value={this.state[x]}
+            onChange={val => set(x, val)}
+         />
       ));
 
       const content = (
