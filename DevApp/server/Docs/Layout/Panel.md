@@ -4,6 +4,10 @@ The element to arrange the layout of other elements.
 
 [inset]
 
+#### Frame
+
+Frame element is a Panel with 
+
 #### Flex Layout
 
 Panel elements are flex containers.  This means that you can use css flexbox to control the layout of any component that are put inside it.  When the _flex_ property is specified, it makes the Panel resize to fit the remaining space.  The property also doubles as css flex shorthand to provide more control the Panel's layout when it's nested inside another Panel.

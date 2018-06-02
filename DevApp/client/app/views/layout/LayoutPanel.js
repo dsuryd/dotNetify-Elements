@@ -40,7 +40,12 @@ const MyApp = _ => (
       const setState = state => this.setState(state);
       let propTypes = { ...Panel.propTypes, wrap: null };
       return (
-         <RenderExample propTypes={propTypes} buildCode={buildCode} onChange={setState}>
+         <RenderExample
+            propTypes={propTypes}
+            defaultProps={Panel.defaultProps}
+            buildCode={buildCode}
+            onChange={setState}
+         >
             <Panel height="16rem">
                <Panel css="border: 2px dashed #ccc">
                   <Panel css="border: 2px dashed tomato" {...this.state}>
