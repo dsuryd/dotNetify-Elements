@@ -4,13 +4,18 @@ The element to arrange the layout of other elements.  It automatically inserts f
 
 [inset]
 
-#### Frame
+#### Derivative Panels
 
-_Frame_ elements are Panels with _noMargin_ property set to false. The margin size can be set globally on the theme object.
+Derivative panels are essentially Panel elements with different default property values, with plain names to clearly express their purpose.
+
+- _Frame_: Panels with _noMargin_ property set to false. 
+- _CellPanel_:  Panels _noGap_ property set to true.
+
+The margin and gap sizes can be configured with the global theme.
 
 #### Flex Layout
 
-Panel elements are flex containers.  This means that you can use [css flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/) to control the layout of any component that are put inside it.  When the _flex_ property is specified, it makes the Panel resize to fit the remaining space.  The property also doubles as css flex shorthand to provide more control the Panel's layout when it's nested inside another Panel.
+Panel elements are flex containers.  This means that you can use [css flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/) to control the layout of any component that are put inside it.  When the _flex_ property is specified, it makes the Panel resizes to fit the remaining space.  The property also doubles as css flex shorthand to provide more control the Panel's layout when it's nested inside another Panel.
 
 Using the combination of _flex_ and other properties such as _horizontal_ and _css_ (to apply styles using css syntax), you can make all sorts of layout with nested Panel elements:
 
@@ -47,7 +52,7 @@ const FlexLayoutExample = props => (
    </Panel>
 );
 ```
-> **Caution:** While the examples here make liberal use of the _css_ property, in real projects, it reduces code maintainability. It's highly recommended the usage is kept to a minimum - only for edge cases - and favor creating reusable styled components instead.
+> **Caution:** While the examples here make liberal use of the _css_ property, in real projects, it'd make your code less maintainable. It's highly recommended the usage is kept to a minimum - only for edge cases - and create reusable styled components instead.
 
 
 #### Child Properties
