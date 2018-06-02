@@ -11,6 +11,7 @@ const Container = styled.div`
    justify-content: ${props => (props.right ? 'flex-end' : 'flex-start')};
    flex-direction: ${props => (props.horizontal ? 'row' : 'column')};
    margin: ${props => props.margin};
+   padding: ${props => props.padding};
    height: ${props => props.height || (props.flex ? 'auto' : 'fit-content')};
    width: ${props => props.width || (props.right ? 'auto' : 'inherit')};
    overflow: ${props => (props.flex ? 'auto' : 'unset')};
@@ -21,6 +22,7 @@ const Container = styled.div`
 const ChildContainer = styled.div`
    ${props => (props.flex ? 'display: flex; align-items: stretch' : '')};
    flex: ${props => props.flex};
+   margin: ${props => props.margin};
    padding: ${props => props.padding};
    ${props => props.theme.Panel.ChildContainer};
 `;
@@ -99,7 +101,7 @@ export class Panel extends React.Component {
       this.state = { showChildren: new Array(this.numChildren).fill(true) };
    }
 
-   getPadding(idx, gap, horizontal, wrap) {
+   getMargin(idx, gap, horizontal, wrap) {
       if (wrap) {
          let padding = `0 ${gap} 0 0`;
          return padding;
@@ -134,7 +136,7 @@ export class Panel extends React.Component {
 
       const children = React.Children.toArray(this.children);
       let _flex = typeof flex == 'boolean' ? (flex ? '1' : null) : flex;
-      _flex = _flex || (childProps && childProps.flex) || children.some(child => child.props && child.props.flex) ? '1' : null;
+      if (!_flex) _flex = (childProps && childProps.flex) || children.some(child => child.props && child.props.flex) ? '1' : null;
 
       return (
          <Container
@@ -158,8 +160,9 @@ export class Panel extends React.Component {
                const hasCssPropType = x => x && x.propTypes && x.propTypes.css;
                const childContainer = child.type && child.type.componentTypes ? child.type.componentTypes.Container : null;
                if (hasCssPropType(child.type) || hasCssPropType(childContainer)) {
-                  const padding = this.numChildren <= 1 ? 0 : this.getPadding(idx, _gap, _horizontal, wrap);
-                  const style = { ...this.getStyle(idx), padding: padding };
+                  let style = this.getStyle(idx);
+                  const margin = this.numChildren <= 1 ? null : this.getMargin(idx, _gap, _horizontal, wrap);
+                  if (margin) style = { ...style, margin: margin };
                   return React.cloneElement(
                      child,
                      utils.mergeProps(child, childProps, { style: style, flex: childFlex, onShow: show => this.handleShow(idx, show) })
@@ -171,7 +174,7 @@ export class Panel extends React.Component {
                      key={idx}
                      style={this.getStyle(idx)}
                      flex={childFlex}
-                     padding={this.numChildren <= 1 ? 0 : this.getPadding(idx, _gap, _horizontal)}
+                     margin={this.numChildren <= 1 ? 0 : this.getMargin(idx, _gap, _horizontal)}
                   >
                      {child.props ? React.cloneElement(child, utils.mergeProps(child, _childProps, { onShow: show => this.handleShow(idx, show) })) : child}
                   </ChildContainer>
