@@ -1,22 +1,97 @@
-const defaultTheme = {
+const displayTheme = {
+   DataGrid: `
+      .react-grid-HeaderCell {
+         font-weight: 500;
+      }
+   `,
+   Label: {
+      Container: ``,
+      IconComponent: ``
+   },
+   Markdown: ``,
+   MarkdownTOC: {
+      Selected: `
+         font-weight: 600;
+         border-bottom: 1px dashed #ddd;
+      `,
+      Container: `
+         .toc-h1, 
+         .toc-h2 {
+            font-size: 1.1rem;
+         }
+         .toc-h3, 
+         .toc-h4 {
+            font-size: .9rem;
+         }
+         a {
+            color: #337ab7;
+            &:hover { 
+               color: #0056b3;
+               text-decoration: none;
+            } 
+            &:focus { 
+               color: #337ab7; 
+               > * { background: #e7e7e7; } 
+            }
+         }
+      `
+   }
+};
+
+const formTheme = {
+   Button: ``,
+   Checkbox: {
+      GroupContainer: ``,
+      Container: {
+         Default: ``,
+         Checked: ``
+      },
+      Label: ``,
+      Input: ``
+   },
+   Input: ``,
+   InputValidationError: `
+        border-color: red;
+    `,
+   Radio: {
+      GroupContainer: ``,
+      Container: {
+         Default: ``,
+         Checked: ``
+      },
+      Label: ``,
+      Input: ``
+   },
+   RadioToggle: {
+      GroupContainer: ``,
+      Label: {
+         Default: ``,
+         Checked: ``
+      },
+      Input: ``
+   },
+   TextArea: ``
+};
+
+const layoutTheme = {
    Main: ``,
+   Header: `
+      background: #f8f8f8;
+      border-bottom: 1px solid #e7e7e7;
+      box-shadow: 0 0 5px 0 rgba(0,0,0,.2);
+      z-index: 999;
+   `,
+   Footer: `
+      background: #f8f8f8;
+      border-top: 1px solid #e7e7e7;        
+      z-index: 997;
+   `,
    Nav: `
         background: #f8f8f8;
         border-right: 1px solid #e7e7e7;
         z-index: 998;
     `,
    NavHeader: ``,
-   Header: `
-        background: #f8f8f8;
-        border-bottom: 1px solid #e7e7e7;
-        box-shadow: 0 0 5px 0 rgba(0,0,0,.2);
-        z-index: 999;
-    `,
-   Footer: `
-        background: #f8f8f8;
-        border-top: 1px solid #e7e7e7;        
-        z-index: 997;
-    `,
    Section: `
         background: #f4f4f4;
     `,
@@ -31,7 +106,10 @@ const defaultTheme = {
          small: '1em',
          large: '1.5rem'
       }
-   },
+   }
+};
+
+const navTheme = {
    NavMenu: {
       SelectedRoute: `
          > a > div > div {
@@ -64,28 +142,10 @@ const defaultTheme = {
                background: #f0f0f0;
          }
       `
-   },
-   Collapsible: {
-      Container: ``,
-      HeaderContainer: ``
-   },
-   Field: {
-      Container: ``,
-      LabelContainer: ``,
-      InputContainer: ``,
-      ValidationMessageContainer: `
-            color: red;
-        `,
-      PlainTextContainer: `font-weight: bold;`
-   },
-   Label: {
-      Container: ``,
-      IconComponent: ``
-   },
-   Input: ``,
-   InputValidationError: `
-        border-color: red;
-    `,
+   }
+};
+
+const structureTheme = {
    Card: {
       Container: ``,
       HeaderContainer: ``,
@@ -97,35 +157,27 @@ const defaultTheme = {
       HeaderContainer: ``,
       BodyContainer: ``
    },
-   Checkbox: {
-      GroupContainer: ``,
-      Container: {
-         Default: ``,
-         Checked: ``
-      },
-      Label: ``,
-      Input: ``
+   Collapsible: {
+      Container: ``,
+      HeaderContainer: ``
    },
-   Radio: {
-      GroupContainer: ``,
-      Container: {
-         Default: ``,
-         Checked: ``
-      },
-      Label: ``,
-      Input: ``
+   Field: {
+      Container: ``,
+      LabelContainer: `
+         font-weight: 500;
+      `,
+      InputContainer: `
+         input, select, textarea {
+            font-weight: 500;
+            ::-webkit-input-placeholder {
+               font-weight: 400;
+            }
+         },`,
+      ValidationMessageContainer: `
+            color: red;
+        `,
+      PlainTextContainer: `font-weight: 500;`
    },
-   RadioToggle: {
-      GroupContainer: ``,
-      Label: {
-         Default: ``,
-         Checked: ``
-      },
-      Input: ``
-   },
-   Button: ``,
-   TextArea: ``,
-   DataGrid: ``,
    Tab: {
       Container: ``,
       TabItemContainer: ``,
@@ -133,35 +185,15 @@ const defaultTheme = {
          > a {
             color: #337ab7;
          }`
-   },
-   Markdown: ``,
-   MarkdownTOC: {
-      Selected: `
-         font-weight: 600;
-         border-bottom: 1px dashed #ddd;
-      `,
-      Container: `
-         .toc-h1, 
-         .toc-h2 {
-            font-size: 1.1rem;
-         }
-         .toc-h3, 
-         .toc-h4 {
-            font-size: .9rem;
-         }
-         a {
-            color: #337ab7;
-            &:hover { 
-               color: #0056b3;
-               text-decoration: none;
-            } 
-            &:focus { 
-               color: #337ab7; 
-               > * { background: #e7e7e7; } 
-            }
-         }
-      `
    }
+};
+
+const defaultTheme = {
+   ...displayTheme,
+   ...formTheme,
+   ...layoutTheme,
+   ...navTheme,
+   ...structureTheme
 };
 
 export default defaultTheme;
