@@ -11,6 +11,7 @@ const Introduction = props => (
          <Expander label={<SeeItLive />} content={<NameInput />} />
          <Expander label={<SeeItLive />} content={<NameGenderInput />} />
          <Expander label={<SeeItLive />} content={<PrimeInput />} />
+         <Expander label={<SeeItLive />} content={<RealtimeClock />} connectOnExpand />
       </Markdown>
    </Article>
 );
@@ -46,6 +47,21 @@ const NameGenderInput = _ => (
 const PrimeInput = _ => (
    <VMContext vm="PrimeInput">
       <NumberField id="Prime" />
+   </VMContext>
+);
+
+const DigitalStyle = styled.div`
+   font-family: 'Orbitron';
+   font-size: 4rem;
+   display: flex;
+   justify-content: center;
+`;
+
+const RealtimeClock = _ => (
+   <VMContext vm="RealtimeClock">
+      <DigitalStyle>
+         <Element id="Clock" />
+      </DigitalStyle>
    </VMContext>
 );
 

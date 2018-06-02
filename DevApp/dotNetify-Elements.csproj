@@ -4,35 +4,6 @@
     <RootNamespace>dotNetify_Elements</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Remove="client\components\**" />
-    <Compile Remove="client\images\**" />
-    <Content Remove="client\components\**" />
-    <Content Remove="client\images\**" />
-    <EmbeddedResource Remove="client\components\**" />
-    <EmbeddedResource Remove="client\images\**" />
-    <None Remove="client\components\**" />
-    <None Remove="client\images\**" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove="server\Docs\Button.md" />
-    <None Remove="server\Docs\Checkbox.md" />
-    <None Remove="server\Docs\CheckboxGroup.md" />
-    <None Remove="server\Docs\DateTimeField.md" />
-    <None Remove="server\Docs\DropdownList.md" />
-    <None Remove="server\Docs\Form.md" />
-    <None Remove="server\Docs\Introduction.md" />
-    <None Remove="server\Docs\Layout\LayoutGrid.md" />
-    <None Remove="server\Docs\Layout\Panel.md" />
-    <None Remove="server\Docs\MultiselectList.md" />
-    <None Remove="server\Docs\NumberField.md" />
-    <None Remove="server\Docs\PasswordField.md" />
-    <None Remove="server\Docs\RadioGroup.md" />
-    <None Remove="server\Docs\RadioToggle.md" />
-    <None Remove="server\Docs\TextAreaField.md" />
-    <None Remove="server\Docs\TextField.md" />
-    <None Remove="server\Docs\WorkingWithForms.md" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="wwwroot\" />
     <Folder Include="wwwroot\dist\" />
   </ItemGroup>

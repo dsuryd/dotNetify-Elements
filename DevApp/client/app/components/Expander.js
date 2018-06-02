@@ -12,12 +12,19 @@ const ExpanderPanel = styled.div`
 
 const ExpanderInnerPanel = styled.div`padding: 1rem .5rem;`;
 
-const Expander = props => (
-   <ExpanderPanel>
-      <Collapsible collapsed={true} label={props.label}>
-         <ExpanderInnerPanel>{props.content}</ExpanderInnerPanel>
-      </Collapsible>
-   </ExpanderPanel>
-);
+class Expander extends React.Component {
+   state = { expand: false };
+   render() {
+      const { label, content, connectOnExpand } = this.props;
+      const handleToggled = toggled => this.setState({ expand: toggled });
+      return (
+         <ExpanderPanel>
+            <Collapsible collapsed={true} label={label} onToggled={handleToggled}>
+               {!connectOnExpand || this.state.expand ? <ExpanderInnerPanel>{content}</ExpanderInnerPanel> : null}
+            </Collapsible>
+         </ExpanderPanel>
+      );
+   }
+}
 
 export default Expander;

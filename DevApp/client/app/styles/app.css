@@ -1,6 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Orbitron');
+
 html {
    -webkit-font-smoothing: antialiased;
    font-size: .9rem;
+   font-family: 'Orbitron' !important;
 }
 
 div > h2 {

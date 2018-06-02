@@ -169,4 +169,40 @@ AddProperty<string>("Name")
 
 _DotNetify-Elements_ gives you real-time data streaming capability _by default_.  Every view model is capable of pushing data to the client in real-time.  Combine this MVVM paradigm with reactive programming on both the front- and back-end, and you get a powerful framework for tackling the complexity of real-time programming.
 
+```jsx
+import React from 'react';
+import styled from 'styled-components';
+import { Element, VMContext } from 'dotnetify-elements';
+
+const DigitalStyle = styled.div`
+   font-family: 'Orbitron';
+   font-size: 4rem;
+   display: flex;
+   justify-content: center;
+`;
+
+const RealtimeClock = _ => (
+   <VMContext vm="RealtimeClock">
+      <DigitalStyle>
+         <Element id="Clock" />
+      </DigitalStyle>
+   </VMContext>
+);
+```
+[inset]
+
+```csharp
+public class RealtimeClock : BaseVM
+{
+   public RealtimeClock()
+   {
+      var rxTimer = Observable.Interval(TimeSpan.FromSeconds(1)).StartWith(0);
+
+      AddProperty<string>("Clock")
+         .SubscribeTo(rxTimer.Select(_ => DateTime.Now.ToString("hh:mm:ss tt")))
+         .SubscribedBy(AddInternalProperty<bool>("Update"), _ => { PushUpdates(); return true; });
+   }
+}
+```
+
 As this project continues to grow and attracts participation, we hope to add many more components for real-time visualization and interaction.  Stay in the loop by following our [Twitter account](https://twitter.com/dotnetify)!
