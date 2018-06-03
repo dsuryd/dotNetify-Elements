@@ -30,7 +30,7 @@ import { Square, Rectangle } from './demo-helper';
 
 const MyApp = _ => (
    <Panel css="border: 2px dashed gray">
-      <Panel css="border: 2px dashed tomato" ${props}>
+      <Panel css="border: 2px dashed red" ${props}>
          <Square />      
          <Rectangle />
       </Panel>
@@ -43,7 +43,7 @@ const MyApp = _ => (
          <RenderExample propTypes={propTypes} defaultProps={Panel.defaultProps} buildCode={buildCode} onChange={setState}>
             <Panel height="15rem">
                <Panel css="border: 2px dashed #ccc">
-                  <Panel css="border: 2px dashed tomato" {...this.state}>
+                  <Panel css="border: 2px dashed red" {...this.state}>
                      <Square />
                      <Rectangle />
                   </Panel>

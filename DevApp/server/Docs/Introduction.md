@@ -194,6 +194,10 @@ const RealtimeClock = _ => (
 [inset]
 
 ```csharp
+using DotNetify;
+using System;
+using System.Reactive.Linq;
+
 public class RealtimeClock : BaseVM
 {
    public RealtimeClock()

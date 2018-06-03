@@ -4,7 +4,18 @@
     <RootNamespace>dotNetify_Elements</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="server\Docs\Structure\" />
+    <None Remove="server\Docs\Display\Alert.md" />
+    <None Remove="server\Docs\Display\DataGrid.md" />
+    <None Remove="server\Docs\Display\Label.md" />
+    <None Remove="server\Docs\Display\Markdown.md" />
+    <None Remove="server\Docs\Structure\Card.md" />
+    <None Remove="server\Docs\Structure\Cell.md" />
+    <None Remove="server\Docs\Structure\Collapsible.md" />
+    <None Remove="server\Docs\Structure\Field.md" />
+    <None Remove="server\Docs\Structure\Modal.md" />
+    <None Remove="server\Docs\Structure\Tab.md" />
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="wwwroot\" />
     <Folder Include="wwwroot\dist\" />
   </ItemGroup>
@@ -16,7 +27,17 @@
     <PackageReference Include="AspNet.Security.OpenIdConnect.Server" Version="2.0.0-rc1-final" />    
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="server\Docs\Display\Alert.md" />
+    <EmbeddedResource Include="server\Docs\Display\DataGrid.md" />
+    <EmbeddedResource Include="server\Docs\Display\Label.md" />
+    <EmbeddedResource Include="server\Docs\Display\Markdown.md" />
     <EmbeddedResource Include="server\Docs\Form\Button.md" />
+    <EmbeddedResource Include="server\Docs\Structure\Card.md" />
+    <EmbeddedResource Include="server\Docs\Structure\Cell.md" />
+    <EmbeddedResource Include="server\Docs\Structure\Collapsible.md" />
+    <EmbeddedResource Include="server\Docs\Structure\Field.md" />
+    <EmbeddedResource Include="server\Docs\Structure\Modal.md" />
+    <EmbeddedResource Include="server\Docs\Structure\Tab.md" />
     <EmbeddedResource Include="server\Docs\WorkingWithForms.md" />
     <EmbeddedResource Include="server\Docs\Form\PasswordField.md" />
     <EmbeddedResource Include="server\Docs\Form\NumberField.md" />

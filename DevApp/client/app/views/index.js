@@ -20,7 +20,17 @@ import FormValidationDemo from './form/FormValidationDemo';
 import LayoutGrid from './layout/LayoutGrid';
 import LayoutPanel from './layout/LayoutPanel';
 
-import DataGridDemo from './list/DataGridDemo';
+import StructureCard from './structure/StructureCard';
+import StructureCell from './structure/StructureCell';
+import StructureCollapsible from './structure/StructureCollapsible';
+import StructureField from './structure/StructureField';
+import StructureModal from './structure/StructureModal';
+import StructureTab from './structure/StructureTab';
+
+import DisplayAlert from './display/DisplayAlert';
+import DisplayLabel from './display/DisplayLabel';
+import DisplayMarkdown from './display/DisplayMarkdown';
+import DisplayDataGrid from './display/DisplayDataGrid';
 import CustomerInfoPage from './examples/customer-info/CustomerInfoPage';
 
 export {
@@ -43,6 +53,15 @@ export {
    FormValidationDemo,
    LayoutGrid,
    LayoutPanel,
-   DataGridDemo,
+   StructureCard,
+   StructureCell,
+   StructureCollapsible,
+   StructureField,
+   StructureModal,
+   StructureTab,
+   DisplayAlert,
+   DisplayDataGrid,
+   DisplayLabel,
+   DisplayMarkdown,
    CustomerInfoPage
 };

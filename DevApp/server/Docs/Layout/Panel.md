@@ -1,6 +1,6 @@
 ﻿## Panel
 
-The element to arrange the layout of other elements.  It automatically inserts fixed gap between child components, and provide properties for various layout configuration.
+The element to arrange the layout of other elements.  It automatically inserts fixed gap between child components, and provide properties for various layout configuration, including _css_ property for inline styling using css syntax.
 
 [inset]
 
@@ -52,8 +52,6 @@ const FlexLayoutExample = props => (
    </Panel>
 );
 ```
-> **Caution:** While the examples here make liberal use of the _css_ property, in real projects, it'd make your code less maintainable. It's highly recommended the usage is kept to a minimum - only for edge cases - and create reusable styled components instead.
-
 
 #### Child Properties
 

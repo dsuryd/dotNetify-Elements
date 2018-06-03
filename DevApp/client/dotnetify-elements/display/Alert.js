@@ -17,12 +17,12 @@ export class Alert extends Element {
       const [ _Alert ] = this.resolveComponents(Alert);
       const { fullId, children, onShow, ...props } = this.attrs;
 
-      const show = !fullId || this.value ? true : false;
+      const show = !fullId || !!this.value;
       onShow && onShow(show);
 
       return show ? (
          <_Alert id={fullId} {...props}>
-            {utils.markdown(this.value) || children}
+            {this.value ? utils.markdown(this.value) : children}
          </_Alert>
       ) : null;
    }

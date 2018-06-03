@@ -82,7 +82,7 @@ namespace dotNetify_Elements
             new RouteTemplate(nameof(Route.DisplayDataGrid))      { UrlPattern = "display/datagrid" },
             new RouteTemplate(nameof(Route.DisplayLabel))         { UrlPattern = "display/label" },
             new RouteTemplate(nameof(Route.DisplayMarkdown))      { UrlPattern = "display/markdown" },
-            new RouteTemplate(nameof(Route.DataGridDemo))         { UrlPattern = "list/datagrid" },
+            new RouteTemplate(nameof(Route.DisplayDataGrid))      { UrlPattern = "list/datagrid" },
             new RouteTemplate(nameof(Route.CustomerInfoPage))     { UrlPattern = "examples/customer-info" },
          });
 
@@ -143,7 +143,7 @@ namespace dotNetify_Elements
                   Routes = new NavRoute[]
                   {
                      new NavRoute("Alert",               this.GetRoute(nameof(Route.DisplayAlert))),
-                     new NavRoute("DataGrid",            this.GetRoute(nameof(Route.DataGridDemo))),
+                     new NavRoute("DataGrid",            this.GetRoute(nameof(Route.DisplayDataGrid))),
                      new NavRoute("Label",               this.GetRoute(nameof(Route.DisplayLabel))),
                      new NavRoute("Markdown",            this.GetRoute(nameof(Route.DisplayMarkdown))),
                   },

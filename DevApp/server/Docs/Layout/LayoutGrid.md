@@ -6,21 +6,21 @@ A set of elements to provide common application layout; intended for the root Ap
 
 ```jsx
 import { Footer, Header, Main, Nav, Section} from 'dotnetify-elements';
-import { DemoLabel, demoTheme } from './demo-helper';
+import { demoTheme } from './demo-helper';
 
 const LayoutGridDemo = _ => (
    <Main theme={demoTheme}>
       <Header>
-         <DemoLabel>Header</DemoLabel>
+         /* Header content */
       </Header>
       <Nav>
-         <DemoLabel>Nav</DemoLabel>
+         /* Nav menu */
       </Nav>
       <Section>
-         <DemoLabel>Section</DemoLabel>
+         /* Section content */
       </Section>
       <Footer>
-         <DemoLabel>Footer</DemoLabel>
+         /* Footer content */
       </Footer>
    </Main>
 );
