@@ -17,7 +17,7 @@ ETA for version 0.1 npm release: mid-June to early July 2018.
 
 ### How To Run This Repo
 
-Get [.NET Core 2.1.0-rc1 SDK](https://www.microsoft.com/net/download/dotnet-core/sdk-2.1.300-rc1).  
+Get [.NET Core 2.1 SDK](https://www.microsoft.com/net/download/dotnet-core/sdk-2.1.300).  
 On a VS Code terminal:
 
 ```
