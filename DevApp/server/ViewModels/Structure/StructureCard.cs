@@ -20,7 +20,7 @@ namespace dotNetify_Elements
       public CardExample()
       {
          AddProperty("Title", "Registration is open");
-         AddProperty("Content", "Join us December 3 - 6, 2018 in MGM Grand, NV.  See registration page for details.");
+         AddProperty("Content", "Join us for the annual 4th of July in Downtown! See registration page for details.");
          AddProperty<object>("Register").WithAttribute(new ButtonAttribute { Label = "Register Today" });
 
          AddProperty("SpecialsTitle", "Lunch Specials");

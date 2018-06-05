@@ -4,6 +4,21 @@ The element to display other elements in a card-like container. It can include h
 
 [inset]
 
+```csharp
+public class CardExample : BaseVM
+{
+   public CardExample()
+   {
+      AddProperty("Title", "Registration is open");
+      AddProperty("Content", "Join us for July 4 celebration at Downtown.  See registration page for details.");
+      AddProperty<object>("Register").WithAttribute(new ButtonAttribute { Label = "Register Today" });
+
+      AddProperty("SpecialsTitle", "Lunch Specials");
+      AddProperty("Specials", "Supreme Pizza + Large Drink - $8.99");
+   }
+}
+```
+
 #### Property Types
 
 ```jsx

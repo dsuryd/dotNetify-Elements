@@ -21,43 +21,43 @@ const StructureCard = props => (
    </TabsArticle>
 );
 
-const BigLetters = styled.div`font-size: 1.8rem;`;
+const TitleElement = props => (
+   <div style={{ fontSize: '1.8rem' }}>
+      <Element {...props} />
+   </div>
+);
 
 class CardExample extends React.Component {
    render() {
       const buildCode = props => `
 \`\`\`jsx
 import React from 'react';
-import { VMContext, DateTimeField } from 'dotnetify-elements';
+import { Element, VMContext } from 'dotnetify-elements';
 import pizzaImage from '../../images/card-img-example.jpg';
 
-const BigLetters = styled.div\`font-size: 1.8rem;\`;
+const TitleElement = props => (
+   <div style={{ fontSize: '1.8rem' }}>
+      <Element {...props} />
+   </div>
+);
 
 const MyApp = _ => (
    <VMContext vm="CardExample">
       <Panel horizontal>
-         <Card css="width: 25rem">
-            <header>
-               <BigLetters>
-                  <Element id="Title" />
-               </BigLetters>
-            </header>
-            <Element id="Content" />
-            <footer>
-               <Panel right>
-                  <Button id="Register" />
-               </Panel>
-            </footer>
-         </Card>
-         <Card>
-            <img src={pizzaImage} />
-            <BigLetters>
-               <Element id="SpecialsTitle" />
-            </BigLetters>
-            <div>
-               <Element id="Specials" />
-            </div>
-         </Card>
+      <Card css="width: 350px">
+         <header>
+            <TitleElement id="Title" />
+         </header>
+         <Element id="Content" />
+         <footer>
+            <Button id="Register" />
+         </footer>
+      </Card>
+      <Card>
+         <img src={pizzaImage} />
+         <TitleElement id="SpecialsTitle" />
+         <Element id="Specials" />
+      </Card>
       </Panel>
    </VMContext>
 );
@@ -66,27 +66,19 @@ const MyApp = _ => (
       return (
          <RenderExample vm="CardExample" propTypes={Card.propTypes} buildCode={buildCode} onChange={setState}>
             <Panel horizontal gap="5rem" css="margin-bottom: 2rem">
-               <Card css="width: 25rem">
+               <Card css="width: 350px">
                   <header>
-                     <BigLetters>
-                        <Element id="Title" />
-                     </BigLetters>
+                     <TitleElement id="Title" />
                   </header>
                   <Element id="Content" />
                   <footer>
-                     <Panel right>
-                        <Button id="Register" />
-                     </Panel>
+                     <Button id="Register" />
                   </footer>
                </Card>
                <Card>
                   <img src={pizzaImage} />
-                  <BigLetters>
-                     <Element id="SpecialsTitle" />
-                  </BigLetters>
-                  <div>
-                     <Element id="Specials" />
-                  </div>
+                  <TitleElement id="SpecialsTitle" />
+                  <Element id="Specials" />
                </Card>
             </Panel>
          </RenderExample>
@@ -103,7 +95,12 @@ class CardCustomize extends React.Component {
       const select = value => ({});
       return (
          <RenderCustomize name="Card" componentTypes={componentTypes} select={select} onSelected={handleSelected}>
-            <Card />
+            <Card css="width: 400px">
+               <img src={pizzaImage} style={{ width: '400px', height: '100px' }} />
+               <header>Header</header>
+               <div>Body</div>
+               <footer>Footer</footer>
+            </Card>
          </RenderCustomize>
       );
    }
