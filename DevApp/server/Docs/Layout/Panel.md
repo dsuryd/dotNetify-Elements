@@ -52,6 +52,7 @@ const FlexLayoutExample = props => (
    </Panel>
 );
 ```
+> __Caution:__ The examples may use the _css_ property quite liberally, but in real-world projects, it will do well for maintainability and reusability if you favor creating new components that encapsulate the styles.
 
 #### Child Properties
 

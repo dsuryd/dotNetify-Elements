@@ -1,4 +1,4 @@
-import { Card as _Card, CardHeader, CardBody, CardFooter } from './Card';
+import { Card as _Card, CardImage, CardHeader, CardBody, CardFooter } from './Card';
 import { Cell as _Cell, CellHeader, CellBody } from './Cell';
 import { Tab as _Tab, TabItem as _TabItem } from './Tab';
 import { PlainText } from '../form/PlainText';
@@ -19,6 +19,7 @@ TabItem.componentTypes.TabItemComponent = _TabItem;
 
 Object.assign(Card.componentTypes, {
    Container: _Card,
+   ImageContainer: CardImage,
    HeaderContainer: CardHeader,
    BodyContainer: CardBody,
    FooterContainer: CardFooter

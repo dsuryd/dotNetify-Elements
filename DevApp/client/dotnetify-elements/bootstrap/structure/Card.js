@@ -7,6 +7,16 @@ export const Card = styled.div.attrs({
    width: inherit;
    flex: 1;
    ${props => props.theme.Card.Container}
+   ${props => props.css};
+`;
+
+export const CardImage = styled.div.attrs({
+   className: 'card-img-top'
+})`
+   img { 
+      width: 100%; 
+   }
+   ${props => props.theme.Card.ImageContainer}
 `;
 
 export const CardHeader = styled.div.attrs({

@@ -150,6 +150,7 @@ const navTheme = {
 const structureTheme = {
    Card: {
       Container: ``,
+      ImageContainer: ``,
       HeaderContainer: ``,
       BodyContainer: ``,
       FooterContainer: ``
