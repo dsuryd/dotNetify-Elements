@@ -59,5 +59,24 @@ namespace DotNetify.Elements
             return await reader.ReadToEndAsync();
          }
       }
+
+      /// <summary>
+      /// Returns an embedded resource as bytes.
+      /// </summary>
+      /// <param name="resourceName">Resource name.</param>
+      /// <returns>The embedded resource.</returns>
+      public static byte[] GetResourceAsBytes(string resourceName)
+      {
+         var assembly = Assembly.GetEntryAssembly();
+         var resourceStream = assembly.GetManifestResourceStream(resourceName);
+         if (resourceStream == null)
+            throw new FileNotFoundException($"'{resourceName}' is not an embedded resource", resourceName);
+
+         using (var memstream = new MemoryStream())
+         {
+            resourceStream.CopyTo(memstream);
+            return memstream.ToArray();
+         }
+      }
    }
 }

@@ -9,6 +9,7 @@
     <None Remove="server\Docs\Display\Label.md" />
     <None Remove="server\Docs\Display\Markdown.md" />
     <None Remove="server\Docs\Structure\Card.md" />
+    <None Remove="server\Docs\Structure\card_image_example.jpg" />
     <None Remove="server\Docs\Structure\Cell.md" />
     <None Remove="server\Docs\Structure\Collapsible.md" />
     <None Remove="server\Docs\Structure\Field.md" />
@@ -33,6 +34,7 @@
     <EmbeddedResource Include="server\Docs\Display\Markdown.md" />
     <EmbeddedResource Include="server\Docs\Form\Button.md" />
     <EmbeddedResource Include="server\Docs\Structure\Card.md" />
+    <EmbeddedResource Include="server\Docs\Structure\card_image_example.jpg" />
     <EmbeddedResource Include="server\Docs\Structure\Cell.md" />
     <EmbeddedResource Include="server\Docs\Structure\Collapsible.md" />
     <EmbeddedResource Include="server\Docs\Structure\Field.md" />

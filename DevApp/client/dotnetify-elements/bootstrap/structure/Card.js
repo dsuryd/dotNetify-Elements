@@ -4,14 +4,14 @@ import styled from 'styled-components';
 export const Card = styled.div.attrs({
    className: 'card'
 })`
-   width: inherit;
    flex: 1;
+   width: ${props => (props.width ? props.width : 'inherit')};
    ${props => props.theme.Card.Container}
    ${props => props.css};
 `;
 
 export const CardImage = styled.div.attrs({
-   className: 'card-img-top'
+   className: props => (props.bottom ? 'card-img-bottom' : 'card-img-top')
 })`
    img { 
       width: 100%; 

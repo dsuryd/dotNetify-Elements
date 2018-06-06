@@ -1,5 +1,7 @@
 ﻿using DotNetify;
 using DotNetify.Elements;
+using System;
+using System.Text;
 
 namespace dotNetify_Elements
 {
@@ -19,12 +21,20 @@ namespace dotNetify_Elements
    {
       public CardExample()
       {
-         AddProperty("Title", "Registration is open");
-         AddProperty("Content", "Join us for the annual 4th of July in Downtown! See registration page for details.");
+         AddProperty("Title", "### Registration is open");
+         AddProperty("Content", "Join us December 3 - 6, 2018 in MGM Grand, NV<br/>See registration page for details.");
          AddProperty<object>("Register").WithAttribute(new ButtonAttribute { Label = "Register Today" });
+      }
+   }
 
-         AddProperty("SpecialsTitle", "Lunch Specials");
-         AddProperty("Specials", "Supreme Pizza + Large Drink - $8.99");
+   public class CardImageExample : BaseVM
+   {
+      public CardImageExample()
+      {
+         var image = Utils.GetResourceAsBytes("dotNetify_Elements.server.Docs.Structure.card_image_example.jpg");
+
+         AddProperty("Picture", $"data:image/jpeg;base64,{Convert.ToBase64String(image)}");
+         AddProperty("Content", "### Our Favourite Menu\r\nFish Chip Cheese - __$22__");
       }
    }
 }
