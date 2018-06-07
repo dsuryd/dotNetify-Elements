@@ -14,7 +14,13 @@ export class VMContext extends React.Component {
    static childContextTypes = ContextTypes;
 
    static propTypes = {
+      // View model name to connect to.
       vm: PropTypes.string,
+
+      // Connection options.
+      options: PropTypes.object,
+
+      // Occurs when view model state changes.
       onStateChange: PropTypes.func
    };
 
@@ -30,7 +36,7 @@ export class VMContext extends React.Component {
    componentDidMount() {
       if (this.vmId) {
          this.removeOrphan(this.vmId);
-         this.vm = dotnetify.react.connect(this.vmId, this);
+         this.vm = dotnetify.react.connect(this.vmId, this, this.props.options);
       }
    }
 
@@ -40,7 +46,7 @@ export class VMContext extends React.Component {
    }
 
    componentWillUpdate(props, state) {
-      // If something inside this view model context wishes to be notified on changed, then run the check here.
+      // If something inside this view model context wishes to be notified on state change, then run the check here.
       // Right now this only supports handing notification at most once, just to keep it simple.
       if (this.onceHandlers.length > 0) {
          const changedProps = this.onceHandlers.filter(o => !o.propId || (state.hasOwnProperty(o.propId) && state[o.propId] !== o.value));

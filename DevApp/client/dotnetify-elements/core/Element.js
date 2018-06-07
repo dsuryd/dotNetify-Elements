@@ -10,8 +10,11 @@ export default class Element extends React.Component {
    static contextTypes = ContextTypes;
 
    static propTypes = {
+      // Identifies the associated view model property.
       id: PropTypes.string.isRequired,
-      onValue: PropTypes.func
+
+      // Occurs when the property value changes.
+      onChange: PropTypes.func
    };
 
    get vm() {
@@ -56,7 +59,7 @@ export default class Element extends React.Component {
    }
 
    componentDidMount() {
-      this.props.onValue && this.props.onValue(this.vmProperty.value);
+      this.props.onChange && this.props.onChange(this.vmProperty.value);
    }
 
    componentWillUpdate(props) {
