@@ -41,7 +41,7 @@ public class CardImageExample : BaseVM
 {
    public CardImageExample()
    {
-      var image = /* load the image bytes */
+      byte[] image = /* load the image bytes */
       AddProperty("Picture", $"data:image/jpeg;base64,{Convert.ToBase64String(image)}");
       AddProperty("Content", "### Our Favourite Menu\r\nFish Chip Cheese - __$22__");
    }

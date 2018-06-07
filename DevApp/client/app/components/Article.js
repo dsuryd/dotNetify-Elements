@@ -44,7 +44,7 @@ export class TabsArticle extends React.Component {
       return (
          <Article vm={vm} id={id} title={title} tocTitle={tocTitle}>
             <h2 id={this.state.title}>
-               <Element id="Title" onValue={handleTitle} />
+               <Element id="Title" onChange={handleTitle} />
             </h2>
             <Tab onActivate={handleActivate}>{children}</Tab>
          </Article>
