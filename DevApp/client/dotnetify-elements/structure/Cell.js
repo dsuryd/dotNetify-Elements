@@ -4,6 +4,7 @@ import * as utils from '../utils';
 
 export class Cell extends React.Component {
    static propTypes = {
+      // Which sides of border to show (comma-delimited): top, left, right, bottom.
       borders: PropTypes.string
    };
 

@@ -21,8 +21,6 @@ const StructureCard = props => (
    </TabsArticle>
 );
 
-const BigFont = styled.div`font-size: 1.8rem;`;
-
 class CardExample extends React.Component {
    render() {
       const buildCode = props => `
