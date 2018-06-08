@@ -36,7 +36,7 @@ export class VMContext extends React.Component {
    componentDidMount() {
       if (this.vmId) {
          this.removeOrphan(this.vmId);
-         this.vm = dotnetify.react.connect(this.vmId, this, this.props.options);
+         this.vm = this.connect(this.vmId);
       }
    }
 
@@ -45,16 +45,15 @@ export class VMContext extends React.Component {
       this.onceHandlers = [];
    }
 
-   componentWillUpdate(props, state) {
-      // If something inside this view model context wishes to be notified on state change, then run the check here.
-      // Right now this only supports handing notification at most once, just to keep it simple.
-      if (this.onceHandlers.length > 0) {
-         const changedProps = this.onceHandlers.filter(o => !o.propId || (state.hasOwnProperty(o.propId) && state[o.propId] !== o.value));
-         this.onceHandlers = this.onceHandlers.filter(o => !changedProps.includes(o));
-         changedProps.forEach(o => o.handler(state[o.propId]));
-      }
-
-      this.props.onStateChange && this.props.onStateChange(state);
+   connect(vmId) {
+      const options = {
+         setState: state => {
+            this.setState(state);
+            this.notifyStateChange(state);
+         },
+         ...this.props.options
+      };
+      return dotnetify.react.connect(vmId, this, options);
    }
 
    getChildContext() {
@@ -78,6 +77,18 @@ export class VMContext extends React.Component {
                )
          }
       };
+   }
+
+   notifyStateChange(state) {
+      // If something inside this view model context wishes to be notified on state change, then run the check here.
+      // Right now this only supports handing notification at most once, just to keep it simple.
+      if (this.onceHandlers.length > 0) {
+         const changedProps = this.onceHandlers.filter(o => !o.propId || (state.hasOwnProperty(o.propId) && state[o.propId] !== o.value));
+         this.onceHandlers = this.onceHandlers.filter(o => !changedProps.includes(o));
+         changedProps.forEach(o => o.handler(state[o.propId]));
+      }
+
+      this.props.onStateChange && this.props.onStateChange(state);
    }
 
    render() {

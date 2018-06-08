@@ -13,6 +13,9 @@ export default class Element extends React.Component {
       // Identifies the associated view model property.
       id: PropTypes.string.isRequired,
 
+      // Prevent element from being rendered.
+      hidden: PropTypes.bool,
+
       // Occurs when the property value changes.
       onChange: PropTypes.func
    };
@@ -79,7 +82,7 @@ export default class Element extends React.Component {
    }
 
    render() {
-      return this.vmProperty.value;
+      return !this.props.hidden ? this.vmProperty.value : null;
    }
 }
 

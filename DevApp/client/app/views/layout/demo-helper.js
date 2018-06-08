@@ -12,7 +12,6 @@ export const demoTheme = {
 };
 
 export const DemoArea = styled.div`
-   width: 640px;
    height: 480px;
    margin: 0 auto;
 `;

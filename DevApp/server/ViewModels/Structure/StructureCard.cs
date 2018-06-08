@@ -21,8 +21,10 @@ namespace dotNetify_Elements
    {
       public CardExample()
       {
-         AddProperty("Title", "### Registration is open");
-         AddProperty("Content", "Join us December 3 - 6, 2018 in MGM Grand, NV<br/>See registration page for details.");
+         AddProperty("Title", "##### Registration Card");
+         AddProperty<string>("Email")
+            .WithAttribute(new { Label = "Email:", Placeholder = "Enter your email address" })
+            .WithPatternValidation(Pattern.Email, "Must be a valid email address.");
          AddProperty<object>("Register").WithAttribute(new ButtonAttribute { Label = "Register Today" });
       }
    }

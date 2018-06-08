@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Cell, CellPanel, Markdown, Panel, TabItem, defaultTheme, withTheme } from 'dotnetify-elements';
+import { Button, Cell, CellPanel, Markdown, Panel, TabItem, Theme, VMContext, defaultTheme, withTheme } from 'dotnetify-elements';
 import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
 
 const StructureCell = props => (
@@ -9,6 +9,7 @@ const StructureCell = props => (
       <TabItem label="Overview" name="Overview">
          <Markdown id="Overview">
             <CellExample />
+            <CellGroupExample />
          </Markdown>
       </TabItem>
       <TabItem label="API" name="API">
@@ -25,19 +26,15 @@ class CellExample extends React.Component {
       const buildCode = props => `
 \`\`\`jsx
 import React from 'react';
-import { Button, Card, Markdown, Panel, VMContext } from 'dotnetify-elements';
+import { Button, Cell, VMContext } from 'dotnetify-elements';
 
 const MyApp = _ => (
    <VMContext vm="CardExample">
-      <Card width="400px">
-         <header>
-            <Markdown id="Title" />
-         </header>
-         <Markdown id="Content" />
-         <footer>
-            <Panel right><Button id="Register" /></Panel>
-         </footer>
-      </Card>
+      <Cell>
+         <header><b>Oops - Error 404</b></header>
+         The page could not be found.<p />
+         <Button label="Go to Homepage" />
+      </Cell>
    </VMContext>
 );
 \`\`\``;
@@ -45,18 +42,46 @@ const MyApp = _ => (
       return (
          <RenderExample propTypes={Cell.propTypes} buildCode={buildCode} onChange={setState}>
             <Panel css="margin-bottom: 2rem">
-               <CellPanel horizontal>
-                  <CellPanel flex>
-                     <Cell borders="top, left">Cell 1</Cell>
-                     <Cell borders="right, bottom">Cell 3</Cell>
-                  </CellPanel>
-                  <CellPanel flex>
-                     <Cell>Cell 2</Cell>
-                     <Cell>Cell 4</Cell>
-                  </CellPanel>
-               </CellPanel>
+               <Cell>
+                  <header>
+                     <b>Oops - Error 404</b>
+                  </header>
+                  The page could not be found.<p />
+                  <Button label="Go to Homepage" />
+               </Cell>
             </Panel>
          </RenderExample>
+      );
+   }
+}
+
+class CellGroupExample extends React.Component {
+   state = { Customers: [] };
+   tableTheme = {
+      ...defaultTheme,
+      Cell: {
+         HeaderContainer: 'font-weight: 500',
+         BodyContainer: 'padding: .5rem'
+      }
+   };
+   render() {
+      return (
+         <Theme theme={this.tableTheme}>
+            <VMContext vm="CellGroupExample" onStateChange={state => this.setState(state)}>
+               <CellPanel horizontal childProps={{ flex: true }}>
+                  <Cell header="Name" />
+                  <Cell header="Address" />
+                  <Cell header="City" />
+               </CellPanel>
+               {this.state.Customers.map(customer => (
+                  <CellPanel key={customer.Id} horizontal childProps={{ flex: true }}>
+                     <Cell>{customer.Name.FullName}</Cell>
+                     <Cell>{customer.Address.Address1}</Cell>
+                     <Cell>{customer.Address.City}</Cell>
+                  </CellPanel>
+               ))}
+            </VMContext>
+         </Theme>
       );
    }
 }
@@ -70,7 +95,10 @@ class CellCustomize extends React.Component {
       const select = value => ({});
       return (
          <RenderCustomize name="Cell" componentTypes={componentTypes} select={select} onSelected={handleSelected}>
-            <Cell />
+            <Cell>
+               <header>Header</header>
+               Body
+            </Cell>
          </RenderCustomize>
       );
    }

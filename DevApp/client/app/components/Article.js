@@ -16,12 +16,31 @@ const Title = styled.div`
    font-size: 1.1rem;
 `;
 
+const frameCss = `
+   margin-left: 5rem; 
+   overflow-x: hidden;
+   @media (max-width: 768px) {
+      margin-left: 1rem;
+      > *:last-child {
+         display: none;
+      }
+    }   
+`;
+
+const panelCss = `
+   width: calc(100% - 30rem); 
+   overflow-y: hidden;
+   @media (max-width: 768px) {
+      width: 100%;
+    }    
+`;
+
 const scrollIntoView = id => document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
 
 const Article = props => (
    <VMContext vm={props.vm}>
-      <Frame horizontal css="margin-left: 3rem; overflow-x: hidden">
-         <Panel css="width: calc(100% - 20rem); overflow-y: hidden">{props.children}</Panel>
+      <Frame horizontal css={frameCss} gap="3rem">
+         <Panel css={panelCss}>{props.children}</Panel>
          <Sidebar>
             <Title show={props.tocTitle}>
                <a href="javascript:void(0)" onClick={_ => scrollIntoView(props.title)}>

@@ -11,22 +11,26 @@ const styleBorders = borders => {
 };
 
 export const Cell = styled.div.attrs({
-   className: 'card'
+   className: 'card cell'
 })`
    flex: 1;
    border-radius: 0;
    ${props => (props.borders ? styleBorders(props.borders) : null)}
-   ${props => props.theme.Cell.Container}
+   ${props => props.theme.Cell.Container};
+   ${props => props.css};
 `;
 
 export const CellHeader = styled.div.attrs({
-   className: 'card-header'
+   className: 'card-header cell-header'
 })`
-   ${props => props.theme.Cell.HeaderContainer}
+   border-radius: 0 !important;
+   ${props => props.theme.Cell.HeaderContainer};
+   ${props => props.css};
 `;
 
 export const CellBody = styled.div.attrs({
-   className: 'card-body'
+   className: 'card-body cell-body'
 })`
-   ${props => props.theme.Cell.BodyContainer}
+   border-radius: 0;
+   ${props => props.theme.Cell.BodyContainer};
 `;

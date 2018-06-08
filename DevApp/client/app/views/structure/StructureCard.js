@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Button, Card, Element, Image, Markdown, Panel, TabItem, VMContext, defaultTheme, withTheme } from 'dotnetify-elements';
+import { Button, Card, Element, Image, Markdown, Panel, TabItem, TextField, VMContext, defaultTheme, withTheme } from 'dotnetify-elements';
 import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
 
 const StructureCard = props => (
@@ -26,15 +26,15 @@ class CardExample extends React.Component {
       const buildCode = props => `
 \`\`\`jsx
 import React from 'react';
-import { Button, Card, Markdown, Panel, VMContext } from 'dotnetify-elements';
+import { Button, Card, Markdown, Panel, TextField, VMContext } from 'dotnetify-elements';
 
 const MyApp = _ => (
    <VMContext vm="CardExample">
-      <Card width="400px">
+      <Card>
          <header>
             <Markdown id="Title" />
          </header>
-         <Markdown id="Content" />
+         <TextField horizontal id="Email" />
          <footer>
             <Panel right><Button id="Register" /></Panel>
          </footer>
@@ -46,11 +46,11 @@ const MyApp = _ => (
       return (
          <RenderExample vm="CardExample" propTypes={Card.propTypes} buildCode={buildCode} onChange={setState}>
             <Panel css="margin-bottom: 2rem">
-               <Card width="400px">
+               <Card>
                   <header>
                      <Markdown id="Title" />
                   </header>
-                  <Markdown id="Content" />
+                  <TextField horizontal id="Email" />
                   <footer>
                      <Panel right>
                         <Button id="Register" />
