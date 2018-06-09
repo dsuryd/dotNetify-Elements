@@ -26,7 +26,7 @@ class ButtonExample extends React.Component {
       const buildCode = props => `
 \`\`\`jsx
 import React from 'react';
-import { VMContext, Button } from 'dotnetify-elements';
+import { Button, Element, VMContext } from 'dotnetify-elements';
 
 const RemoveLabel = <Label icon="far fa-times-circle">Remove</Label>;
 const handleClick = () => new Date();

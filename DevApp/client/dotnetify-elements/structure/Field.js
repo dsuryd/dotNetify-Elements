@@ -9,6 +9,7 @@ const Container = styled.div`
    grid-template-columns: ${props => (props.horizontal ? '1fr 4fr' : '1fr')};
    -ms-user-select: none;
    user-select: none;
+   ${props => (props.width ? 'width: ' + props.width : '')};
    ${props => props.theme.Field.Container};
    ${props => props.css};
 `;
@@ -17,13 +18,16 @@ const LabelContainer = styled.div`
    display: flex;
    align-items: flex-start;
    padding-top: ${props => (props.horizontal ? '.4rem' : '0')};
+   padding-left: 3px;
    padding-right: 1rem;
    ${props => props.theme.Field.LabelContainer};
 `;
 
 const InputContainer = styled.div`
    width: calc(100% - 1px);
-   ${props => (props.right ? `display: flex; justify-content: flex-end;` : null)} ${props => props.theme.Field.InputContainer};
+   padding: 0 3px;
+   ${props => (props.right ? `display: flex; justify-content: flex-end;` : null)};
+   ${props => props.theme.Field.InputContainer};
 `;
 
 const ValidationMessageContainer = styled.div`
@@ -35,11 +39,23 @@ const ValidationMessageContainer = styled.div`
 
 export class Field extends React.Component {
    static propTypes = {
-      id: PropTypes.string.isRequired,
-      label: PropTypes.string,
+      // Id to associate the label with the input element.
+      id: PropTypes.string,
+
+      // Style in css format.
+      css: PropTypes.string,
+
+      // Displays the label text horizontally to the left of the input.
       horizontal: PropTypes.bool,
+
+      // Text or component for the field's label.
+      label: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
+
+      // Right-align the input element.
       right: PropTypes.bool,
-      css: PropTypes.string
+
+      // Sets custom width.
+      width: PropTypes.string
    };
 
    static componentTypes = {
@@ -53,13 +69,13 @@ export class Field extends React.Component {
 
    render() {
       const [ Container, LabelContainer, Label, InputContainer, PlainTextContainer, ValidationMessageContainer ] = utils.resolveComponents(Field, this.props);
-      const { id, label, plainText, horizontal, right, style, css, ...props } = this.props;
+      const { id, label, plainText, horizontal, right, width, style, css, ...props } = this.props;
       const labelPadding = horizontal ? null : '0 0 .5rem 0';
 
       const [ validationMessages, children ] = utils.filterChildren(this.props.children, child => child.key && child.key.startsWith(validationKeyPrefix));
 
       return (
-         <Container style={style} css={css} horizontal={horizontal}>
+         <Container width={width} style={style} css={css} horizontal={horizontal}>
             <LabelContainer horizontal={horizontal}>
                {label ? (
                   <Label for={id} padding={labelPadding}>
