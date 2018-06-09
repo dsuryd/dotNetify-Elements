@@ -54,12 +54,12 @@ export class NavMenu extends Element {
       RouteLabelComponent: RouteLabel
    };
 
-   state = { selected: this.props.selected };
+   state = { selected: this.props.selected, selectedPath: [] };
 
    componentDidMount() {
       if (this.vm)
          this.vm.onRouteEnter = (path, template) => {
-            this.setState({ selected: template.Id });
+            this.setState({ selected: template.Id, selectedPath: this.getSelectedPath(template.Id) });
             template.Target = this.props.target || 'NavMenuTarget';
          };
    }
@@ -68,7 +68,6 @@ export class NavMenu extends Element {
       const [ , , RouteContainer, , RouteLabel ] = utils.resolveComponents(NavMenu, this.props);
       const key = navRoute.Route.TemplateId;
       const isSelected = key === this.state.selected;
-
       return (
          <RouteContainer key={key} isSelected={isSelected}>
             <RouteLink vm={this.vm} route={navRoute.Route}>
@@ -80,6 +79,27 @@ export class NavMenu extends Element {
       );
    }
 
+   getSelectedPath(key) {
+      // Use depth-first search to get the path to the selected route item.
+      // All nav items matching the path will be expanded.
+      let path = [];
+      let stack = this.value ? [ ...this.value ] : [];
+      while (stack.length > 0) {
+         const item = stack.pop();
+         path.push(item.Label);
+         let stackRoutes = item.Routes ? [ ...item.Routes ] : [];
+         while (stackRoutes.length > 0) {
+            const routeItem = stackRoutes.pop();
+            path.push(routeItem.Label);
+            stack.push(routeItem);
+            if (routeItem.Route.TemplateId === key) return path;
+            path.pop();
+         }
+         path.pop();
+      }
+      return [];
+   }
+
    render() {
       if (this.props.show === false) return null;
 
@@ -88,8 +108,9 @@ export class NavMenu extends Element {
       const value = this.value || [];
       const navMenu = value.map((navItem, idx) => {
          const groupLabel = props => <GroupLabel icon={navItem.Icon} {...props} />;
+         const collapsed = this.state.selectedPath.some(path => path === navItem.Label) ? false : !navItem.IsExpanded;
          return navItem.Routes ? (
-            <GroupContainer key={idx} label={navItem.Label} labelComponent={groupLabel} collapsed={!navItem.IsExpanded}>
+            <GroupContainer key={idx} label={navItem.Label} labelComponent={groupLabel} collapsed={collapsed}>
                {navItem.Routes.map(navRoute => this.buildRoute(navRoute, navItem))}
             </GroupContainer>
          ) : (
