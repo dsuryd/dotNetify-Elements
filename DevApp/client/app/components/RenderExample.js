@@ -16,7 +16,7 @@ export default class RenderExample extends React.Component {
       this.boolPropTypes.forEach(x => (this.state[x] = this.trueByDefaultProps.includes(x)));
    }
 
-   componentWillMount() {
+   componentDidMount() {
       this.props.onChange(this.state);
    }
 

@@ -26,14 +26,13 @@ class CellExample extends React.Component {
       const buildCode = props => `
 \`\`\`jsx
 import React from 'react';
-import { Button, Cell, VMContext } from 'dotnetify-elements';
+import { Cell, VMContext } from 'dotnetify-elements';
 
 const MyApp = _ => (
    <VMContext vm="CardExample">
       <Cell>
-         <header><b>Oops - Error 404</b></header>
-         The page could not be found.<p />
-         <Button label="Go to Homepage" />
+         <header><b>Oops - Error 208</b></header>
+         I'm a teapot.
       </Cell>
    </VMContext>
 );
@@ -44,10 +43,9 @@ const MyApp = _ => (
             <Panel css="margin-bottom: 2rem">
                <Cell>
                   <header>
-                     <b>Oops - Error 404</b>
+                     <b>Oops - Error 208</b>
                   </header>
-                  The page could not be found.<p />
-                  <Button label="Go to Homepage" />
+                  I'm a teapot.
                </Cell>
             </Panel>
          </RenderExample>

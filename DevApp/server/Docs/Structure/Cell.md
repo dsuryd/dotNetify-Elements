@@ -4,7 +4,7 @@ The elements to display other elements in a container similar to a table cell.  
 
 [inset]
 
-#### Cell Group
+#### Cell Grouping
 
 Cell elements are intended to be grouped together on a __CellPanel__ to form a grid layout:
 

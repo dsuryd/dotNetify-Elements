@@ -4,7 +4,10 @@ import styled from 'styled-components';
 import * as utils from '../utils';
 import { Label } from '../display/Label';
 
-const Container = styled.div`${props => props.theme.Collapsible.Container};`;
+const Container = styled.div`
+   ${props => props.theme.Collapsible.Container};
+   ${props => props.css};
+`;
 
 const HeaderContainer = styled.div`
    display: flex;
@@ -45,11 +48,16 @@ const AngleExpandIcon = props => (
 
 export class Collapsible extends React.Component {
    static propTypes = {
+      // Sets initial visual state to collapsed.
       collapsed: PropTypes.bool,
+
+      // Text or component for the button's label.
+      label: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+
+      // Don't show toggle icon.
       noIcon: PropTypes.bool,
-      right: PropTypes.bool,
-      apart: PropTypes.bool,
-      label: PropTypes.any,
+
+      // Occurs then visual state is toggled.
       onToggled: PropTypes.func
    };
 
@@ -65,7 +73,16 @@ export class Collapsible extends React.Component {
 
    constructor(props) {
       super(props);
+      this.collapsed = props.collapsed;
       this.state = { open: !props.collapsed };
+   }
+
+   shouldComponentUpdate(props) {
+      if (props.collapsed !== this.collapsed) {
+         this.collapsed = props.collapsed;
+         this.setState({ open: !props.collapsed });
+      }
+      return true;
    }
 
    handleClick = _ => {
@@ -76,11 +93,11 @@ export class Collapsible extends React.Component {
 
    render() {
       const [ Container, HeaderContainer, Header, Label, AngleCollapseIcon, AngleExpandIcon, CollapsePanel ] = utils.resolveComponents(Collapsible, this.props);
-      const { noIcon, label, children } = this.props;
+      const { noIcon, label, children, style, css } = this.props;
       const icon = this.state.open ? <AngleCollapseIcon /> : <AngleExpandIcon />;
 
       return (
-         <Container>
+         <Container style={style} css={css}>
             <HeaderContainer onClick={this.handleClick}>
                <Header right apart icon={noIcon ? null : icon}>
                   <Label isOpen={this.state.open}>{this.props.label}</Label>
