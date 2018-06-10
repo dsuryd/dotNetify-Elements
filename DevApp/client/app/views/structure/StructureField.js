@@ -72,17 +72,19 @@ class FieldCustomize extends React.Component {
    state = {};
 
    render() {
-      const { plainText, validationMessages } = this.state;
+      const { plainText, validationMessage } = this.state;
       const componentTypes = Field.componentTypes;
       const handleSelected = state => this.setState(state);
       const select = value => ({
-         plainText: value === 'PlainTextComponent',
-         validationMessages: value === 'ValidationMessageComponent' ? [ 'Validation message' ] : null
+         plainText: value === 'PlainTextContainer',
+         validationMessage: value === 'ValidationMessageContainer'
       });
+
       return (
          <RenderCustomize name="Field" componentTypes={componentTypes} select={select} onSelected={handleSelected}>
-            <Field label="Label:" {...this.state} plainText={plainText} validationMessages={validationMessages}>
-               <input type="text" placeholder="Enter text..." />
+            <Field label="Label:" plainText={plainText}>
+               {plainText ? 'Plain text' : <input type="text" placeholder="Enter text..." />}
+               {validationMessage ? <div key="validationMsg">Validation message</div> : null}
             </Field>
          </RenderCustomize>
       );

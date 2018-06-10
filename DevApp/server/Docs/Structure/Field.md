@@ -18,6 +18,9 @@ static propTypes = {
    // Text or component for the field's label.
    label: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
 
+   // Use plain text container.
+   plainText: PropTypes.bool,
+
    // Right-align the input element.
    right: PropTypes.bool,
 

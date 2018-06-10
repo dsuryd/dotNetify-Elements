@@ -37,7 +37,7 @@ export function mapChildren(children, predicate, mapper) {
 export function filterChildren(children, predicate) {
    let result = [];
    const rest = React.Children.map(children, child => {
-      if (child.type && predicate(child)) {
+      if (child && child.type && predicate(child)) {
          result.push(child);
          return null;
       }

@@ -18,14 +18,12 @@ const LabelContainer = styled.div`
    display: flex;
    align-items: flex-start;
    padding-top: ${props => (props.horizontal ? '.4rem' : '0')};
-   padding-left: 3px;
    padding-right: 1rem;
    ${props => props.theme.Field.LabelContainer};
 `;
 
 const InputContainer = styled.div`
    width: calc(100% - 1px);
-   padding: 0 3px;
    ${props => (props.right ? `display: flex; justify-content: flex-end;` : null)};
    ${props => props.theme.Field.InputContainer};
 `;
@@ -50,6 +48,9 @@ export class Field extends React.Component {
 
       // Text or component for the field's label.
       label: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
+
+      // Use plain text container.
+      plainText: PropTypes.bool,
 
       // Right-align the input element.
       right: PropTypes.bool,
