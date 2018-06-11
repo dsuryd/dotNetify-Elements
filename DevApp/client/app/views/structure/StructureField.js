@@ -34,14 +34,14 @@ import { WiredInput, WiredRadio, WiredRadioGroup } from 'wired-elements';
 const MyApp = _ => (
    <VMContext vm="CardExample">
       <Panel css="font-family: 'Gloria Hallelujah'">
-         <Field label="My Input:" ${props}>
-            <wired-input type="text" placeholder="Enter text..." />
+         <Field label="What's your name?" ${props}>
+            <wired-input type="text" placeholder="Type your name..." />
          </Field>
-         <Field label="My Radio Group:" ${props}>
+         <Field label="How do you like to be contacted?" ${props}>
             <wired-radio-group selected="two">
-               <wired-radio name="one" text="Radio One" />
-               <wired-radio name="two" text="Radio Two" />
-               <wired-radio name="three" text="Radio Three" />
+               <wired-radio name="call" text="Call me" />
+               <wired-radio name="email" text="Email me" />
+               <wired-radio name="text" text="Text me" />
             </wired-radio-group>
          </Field>
       </Panel>
@@ -51,15 +51,15 @@ const MyApp = _ => (
       const setState = state => this.setState(state);
       return (
          <RenderExample propTypes={Field.propTypes} buildCode={buildCode} onChange={setState}>
-            <Panel css="min-height: 11rem; font-family: 'Gloria Hallelujah'">
-               <Field label="My Input:" {...this.state}>
-                  <wired-input type="text" placeholder="Enter text..." />
+            <Panel css="min-height: 10rem; font-family: 'Gloria Hallelujah'">
+               <Field label="What's your name?" {...this.state}>
+                  <wired-input type="text" placeholder="Type your name..." />
                </Field>
-               <Field label="My Radio Group:" {...this.state}>
+               <Field label="How do you like to be contacted?" {...this.state}>
                   <wired-radio-group selected="two">
-                     <wired-radio name="one" text="Radio One" />
-                     <wired-radio name="two" text="Radio Two" />
-                     <wired-radio name="three" text="Radio Three" />
+                     <wired-radio name="call" text="Call me" />
+                     <wired-radio name="email" text="Email me" />
+                     <wired-radio name="text" text="Text me" />
                   </wired-radio-group>
                </Field>
             </Panel>

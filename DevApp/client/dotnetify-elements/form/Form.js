@@ -10,7 +10,6 @@ export const FormContextTypes = {
 };
 
 export class Form extends React.Component {
-
    static contextTypes = FormContextTypes;
 
    static childContextTypes = FormContextTypes;
@@ -22,7 +21,7 @@ export class Form extends React.Component {
       // Replaces all input fields with plain text.
       plainText: PropTypes.bool,
 
-      // Occurs when the form is submitted; emits the form data.
+      // Occurs when the form is submitted; emits the form data. To prevent server dispatch, return false.
       onSubmit: PropTypes.func,
 
       // Occurs when there's validation error on submit; emits the error.

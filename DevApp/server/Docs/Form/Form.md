@@ -41,6 +41,13 @@ public class BasicForm : BaseVM
 }
 ```
 
+#### Events
+
+The client-side code can intercept form submission prior to it being dispatched by handling the _onSubmit_ event.
+Form data is given in the argument.  To cancel the server dispatch, have the handler returning false.
+
+Another event, _onSubmitError_, occurs when validation error is received on submit. 
+
 #### Property Types
 
 ```jsx
@@ -51,7 +58,7 @@ static propTypes = {
    // Replaces all input fields with plain text.
    plainText: PropTypes.bool,
 
-   // Occurs when the form is submitted; emits the form data.
+   // Occurs when the form is submitted; emits the form data. To prevent server dispatch, return false.
    onSubmit: PropTypes.func,
 
    // Occurs when there's validation error on submit; emits the error.

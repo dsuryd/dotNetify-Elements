@@ -7,12 +7,25 @@ export class Modal extends React.Component {
    static contextTypes = FormContextTypes;
 
    static propTypes = {
-      header: PropTypes.any,
-      footer: PropTypes.any,
+      // Text or component for the card's header.
+      header: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
+
+      // Text or component for the card's footer.
+      footer: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
+
+      // Shows the modal.
       show: PropTypes.bool,
+
+      // Sets dimension to small.
       small: PropTypes.bool,
+
+      // Sets dimension to large.
       large: PropTypes.bool,
+
+      // Occurs when the form inside the modal is submitted; emits the form data.
       onSubmit: PropTypes.func,
+
+      // Occurs when there's validation error on submit; emits the error.
       onSubmitError: PropTypes.func
    };
 
@@ -29,7 +42,7 @@ export class Modal extends React.Component {
 
    render() {
       const [ Container, Header, Body, Footer ] = utils.resolveComponents(Modal, this.props);
-      const { show, small, large, header, footer, children, onSubmit, onSubmitError, ...props } = this.props;
+      const { show, small, large, header, footer, form, children, onSubmit, onSubmitError, ...props } = this.props;
       const centered = true;
       const size = small ? 'sm' : large ? 'lg' : null;
 
@@ -45,7 +58,7 @@ export class Modal extends React.Component {
          </React.Fragment>
       );
 
-      if (onSubmit || onSubmitError)
+      if (form || onSubmit || onSubmitError)
          modalContent = (
             <Form onSubmit={onSubmit} onSubmitError={onSubmitError}>
                {modalContent}

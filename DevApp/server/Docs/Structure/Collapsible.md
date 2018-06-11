@@ -4,6 +4,10 @@ The element to display other elements in a collapsible container.
 
 [inset]
 
+#### Source
+
+This element incorporates https://github.com/reactstrap/reactstrap ([license: MIT](https://github.com/reactstrap/reactstrap/blob/master/LICENSE))
+
 #### Property Types
 
 ```jsx
