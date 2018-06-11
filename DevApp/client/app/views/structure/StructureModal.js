@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Button, Modal, Markdown, Panel, TabItem, TextField, defaultTheme, withTheme } from 'dotnetify-elements';
+import { Button, Modal, Markdown, Panel, TabItem, TextField, VMContext, defaultTheme, withTheme } from 'dotnetify-elements';
 import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
 
 const StructureModal = props => (
@@ -14,20 +14,25 @@ const StructureModal = props => (
       <TabItem label="API" name="API">
          <Markdown id="API" />
       </TabItem>
+      <TabItem label="Customize">
+         <ModalCustomize />
+      </TabItem>
    </TabsArticle>
 );
 
 const MyDialog = props => (
-   <Modal {...props.options} show={props.show} onSubmit={props.onSubmit}>
-      <header>Registration Dialog</header>
-      <TextField horizontal id="Email" />
-      <footer>
-         <Panel right>
-            <Button label="Cancel" secondary onClick={props.onClose} />
-            <Button id="Register" submit onClick={props.onClose} />
-         </Panel>
-      </footer>
-   </Modal>
+   <VMContext vm="ModalExample">
+      <Modal {...props.options} show={props.show} onSubmit={props.onSubmit}>
+         <header>Registration Dialog</header>
+         <TextField horizontal id="Email" />
+         <footer>
+            <Panel right>
+               <Button label="Cancel" secondary onClick={props.onClose} />
+               <Button id="Register" submit onClick={props.onClose} />
+            </Panel>
+         </footer>
+      </Modal>
+   </VMContext>
 );
 
 class ModalExample extends React.Component {
@@ -44,7 +49,7 @@ import React from 'react';
 import { Button, Modal, Panel, TextField, VMContext } from 'dotnetify-elements';
 
 const MyDialog = props => (
-   <Modal ${props}show={props.show} onSubmit={props.onSubmit}>
+   <Modal form ${props}show={props.show} onSubmit={props.onSubmit}>
       <header>Registration Dialog</header>
       <TextField horizontal id="Email" />
       <footer>
@@ -75,9 +80,9 @@ class MyApp extends React.Component {
 \`\`\``;
       const { modalData, ...options } = this.state;
       const setState = state => this.setState(state);
-      const { show, ...propTypes } = Modal.propTypes;
+      const { show, form, ...propTypes } = Modal.propTypes;
       return (
-         <RenderExample vm="ModalExample" propTypes={propTypes} buildCode={buildCode} onChange={setState}>
+         <RenderExample propTypes={propTypes} buildCode={buildCode} onChange={setState}>
             <Button label="Show Modal" onClick={this.showDialog} />
             {modalData ? (
                <div>
@@ -86,6 +91,26 @@ class MyApp extends React.Component {
             ) : null}
             <MyDialog show={this.state.show} options={options} onClose={this.closeDialog} onSubmit={this.handleSubmit} />
          </RenderExample>
+      );
+   }
+}
+
+class ModalCustomize extends React.Component {
+   state = {};
+
+   render() {
+      const { plainText, validationMessage } = this.state;
+      const componentTypes = Modal.componentTypes;
+      const handleSelected = state => this.setState(state);
+      const select = value => ({
+         plainText: value === 'PlainTextContainer',
+         validationMessage: value === 'ValidationMessageContainer'
+      });
+
+      return (
+         <RenderCustomize name="Modal" componentTypes={componentTypes} select={select} onSelected={handleSelected}>
+            <Modal show={false} />
+         </RenderCustomize>
       );
    }
 }

@@ -61,6 +61,6 @@ export default class RenderExample extends React.Component {
       const placeholder = <div style={{ minHeight: '50rem' }} />;
 
       if (vm) return <VMContext vm={vm} placeholder={placeholder} children={content} />;
-      else return content;
+      return content;
    }
 }

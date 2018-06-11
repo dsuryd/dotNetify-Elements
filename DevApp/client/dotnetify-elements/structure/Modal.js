@@ -13,6 +13,9 @@ export class Modal extends React.Component {
       // Text or component for the card's footer.
       footer: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
 
+      // Sets to modal form.
+      form: PropTypes.bool,
+
       // Shows the modal.
       show: PropTypes.bool,
 
@@ -21,6 +24,9 @@ export class Modal extends React.Component {
 
       // Sets dimension to large.
       large: PropTypes.bool,
+
+      // Sets custom width.
+      width: PropTypes.number,
 
       // Occurs when the form inside the modal is submitted; emits the form data.
       onSubmit: PropTypes.func,
@@ -42,7 +48,7 @@ export class Modal extends React.Component {
 
    render() {
       const [ Container, Header, Body, Footer ] = utils.resolveComponents(Modal, this.props);
-      const { show, small, large, header, footer, form, children, onSubmit, onSubmitError, ...props } = this.props;
+      const { show, small, large, width, header, footer, form, children, onSubmit, onSubmitError, ...props } = this.props;
       const centered = true;
       const size = small ? 'sm' : large ? 'lg' : null;
 
@@ -66,7 +72,7 @@ export class Modal extends React.Component {
          );
 
       return (
-         <Container isOpen={show} centered={centered} size={size} style={{ width: '768px' }} {...props}>
+         <Container isOpen={show} centered={centered} size={size} style={{ maxWidth: width }} {...props}>
             {modalContent}
          </Container>
       );
