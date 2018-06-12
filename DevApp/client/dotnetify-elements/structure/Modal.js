@@ -16,8 +16,8 @@ export class Modal extends React.Component {
       // Sets to modal form.
       form: PropTypes.bool,
 
-      // Shows the modal.
-      show: PropTypes.bool,
+      // Opens the modal.
+      open: PropTypes.bool,
 
       // Sets dimension to small.
       small: PropTypes.bool,
@@ -36,7 +36,7 @@ export class Modal extends React.Component {
    };
 
    static defaultProps = {
-      show: true
+      open: true
    };
 
    static componentTypes = {
@@ -48,7 +48,7 @@ export class Modal extends React.Component {
 
    render() {
       const [ Container, Header, Body, Footer ] = utils.resolveComponents(Modal, this.props);
-      const { show, small, large, width, header, footer, form, children, onSubmit, onSubmitError, ...props } = this.props;
+      const { open, small, large, width, header, footer, form, children, onSubmit, onSubmitError, ...props } = this.props;
       const centered = true;
       const size = small ? 'sm' : large ? 'lg' : null;
 
@@ -72,7 +72,7 @@ export class Modal extends React.Component {
          );
 
       return (
-         <Container isOpen={show} centered={centered} size={size} style={{ maxWidth: width }} {...props}>
+         <Container isOpen={open} centered={centered} size={size} style={{ maxWidth: width }} {...props}>
             {modalContent}
          </Container>
       );

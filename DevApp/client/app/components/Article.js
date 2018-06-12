@@ -47,7 +47,7 @@ const Article = props => (
                   {props.tocTitle}
                </a>
             </Title>
-            {props.id ? <MarkdownTOC id={props.id} /> : null}
+            {props.id && <MarkdownTOC id={props.id} />}
          </Sidebar>
       </Frame>
    </VMContext>

@@ -20,10 +20,12 @@ export class Alert extends Element {
       const show = !fullId || !!this.value;
       onShow && onShow(show);
 
-      return show ? (
-         <_Alert id={fullId} {...props}>
-            {this.value ? utils.markdown(this.value) : children}
-         </_Alert>
-      ) : null;
+      return (
+         show && (
+            <_Alert id={fullId} {...props}>
+               {this.value ? utils.markdown(this.value) : children}
+            </_Alert>
+         )
+      );
    }
 }

@@ -32,7 +32,7 @@ export default class NewCustomerDialog extends React.Component {
       const { activeTab } = this.state;
       return (
          <VMContext vm="NewCustomerForm">
-            <Modal header="New Customer" show={open} large onSubmitError={this.handleSubmitError}>
+            <Modal header="New Customer" open={open} large onSubmitError={this.handleSubmitError}>
                <Tab active={activeTab} onActivate={this.handleActivate}>
                   <TabItem name="Person" label="Person">
                      <VMContext vm="PersonForm">

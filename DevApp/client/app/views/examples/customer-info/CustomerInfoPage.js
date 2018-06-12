@@ -5,14 +5,14 @@ import NewCustomerDialog from './NewCustomerDialog';
 import { Button, DataGrid, Form, Frame, Panel, Tab, TabItem, VMContext, withTheme } from 'dotnetify-elements';
 
 class CustomerInfoPage extends React.Component {
-   state = { editable: false, edit: false, showDialog: false };
+   state = { editable: false, edit: false, openDialog: false };
 
    handleSelect = value => this.setState({ editable: value ? true : false });
    toggleEdit = _ => this.setState({ edit: !this.state.edit });
-   toggleDialog = _ => this.setState({ showDialog: !this.state.showDialog });
+   toggleDialog = _ => this.setState({ openDialog: !this.state.openDialog });
 
    render() {
-      const { editable, edit, showDialog } = this.state;
+      const { editable, edit, openDialog } = this.state;
       const canEdit = editable && !edit;
       return (
          <VMContext vm="CustomerInfoPage">
@@ -44,7 +44,7 @@ class CustomerInfoPage extends React.Component {
                   </Panel>
                </Form>
             </Frame>
-            <NewCustomerDialog open={showDialog} onClose={this.toggleDialog} />
+            <NewCustomerDialog open={openDialog} onClose={this.toggleDialog} />
          </VMContext>
       );
    }

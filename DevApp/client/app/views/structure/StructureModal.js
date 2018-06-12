@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Button, Modal, Markdown, Panel, TabItem, TextField, VMContext, defaultTheme, withTheme } from 'dotnetify-elements';
+import { Alert, Button, Modal, Markdown, Panel, TabItem, TextField, VMContext, defaultTheme, withTheme } from 'dotnetify-elements';
 import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
 
 const StructureModal = props => (
@@ -22,7 +22,7 @@ const StructureModal = props => (
 
 const MyDialog = props => (
    <VMContext vm="ModalExample">
-      <Modal {...props.options} show={props.show} onSubmit={props.onSubmit}>
+      <Modal {...props.options} open={props.open} onSubmit={props.onSubmit}>
          <header>Registration Dialog</header>
          <TextField horizontal id="Email" />
          <footer>
@@ -36,60 +36,63 @@ const MyDialog = props => (
 );
 
 class ModalExample extends React.Component {
-   state = { show: false, modalData: null };
-
-   showDialog = () => this.setState({ show: true });
-   closeDialog = () => this.setState({ show: false });
-   handleSubmit = data => this.setState({ modalData: data });
+   state = { show: false, openDialog: false, formData: null };
 
    render() {
       const buildCode = props => `
 \`\`\`jsx
 import React from 'react';
-import { Button, Modal, Panel, TextField, VMContext } from 'dotnetify-elements';
+import { Alert, Button, Modal, Panel, TextField, VMContext } from 'dotnetify-elements';
 
 const MyDialog = props => (
-   <Modal form ${props}show={props.show} onSubmit={props.onSubmit}>
-      <header>Registration Dialog</header>
-      <TextField horizontal id="Email" />
-      <footer>
-         <Panel right>
-            <Button label="Cancel" secondary onClick={props.onClose} />
-            <Button id="Register" submit onClick={props.onClose} />
-         </Panel>
-      </footer>
-   </Modal>
+   <VMContext vm="ModalExample">
+      <Modal ${props}open={props.open} onSubmit={props.onSubmit}>
+         <header>Registration Dialog</header>
+         <TextField horizontal id="Email" />
+         <footer>
+            <Panel right>
+               <Button label="Cancel" secondary onClick={props.onClose} />
+               <Button id="Register" submit onClick={props.onClose} />
+            </Panel>
+         </footer>
+      </Modal>
+   </VMContext>
 );
 
 class MyApp extends React.Component {
-   state = {show: false, modalData: null};
-   showDialog = () => this.setState({ show: true });
-   closeDialog = () => this.setState({ show: false });
-   handleSubmit = data => this.setState({ modalData: data });   
+   state = {show: false, open: false, formData: null};
    render() {
-      const { show, modalData } = this.state;
+      const { show, open, formData } = this.state;
+      const handleClick = _ => this.setState({ show: true, open: true, formData: null });
+      const handleClose = _ => this.setState({ open: false });
+      const handleSubmit = data => {
+         /* Give time for the closing animation before hiding the component */
+         setTimeout(_ => this.setState({ formData: data, show: false }), 250);      
+      };
       return (
-         <VMContext vm="ModalExample">
-            <Button label="Show Modal" onClick={this.showDialog} />
-            {modalData ? <div><b>{modalData.Email}</b> has been registered!</div> : null}            
-            <MyDialog show={show} onClose={this.closeDialog} onSubmit={this.handleSubmit} />
-         </VMContext>
+         <Panel horizontal>
+            <Button label="Show Modal" onClick={handleClick} />
+            {formData && <Alert>{formData.Email + ' has been registered!'}</Alert>}
+            {show && <MyDialog options={options} open={open} onClose={handleClose} onSubmit={handleSubmit} />}
+         </Panel>
       );
    }
 }
 \`\`\``;
-      const { modalData, ...options } = this.state;
+      const { show, openDialog, formData, ...options } = this.state;
       const setState = state => this.setState(state);
-      const { show, form, ...propTypes } = Modal.propTypes;
+      const { open, form, ...propTypes } = Modal.propTypes;
+
+      const handleClick = _ => this.setState({ show: true, formData: null, openDialog: true });
+      const handleClose = _ => this.setState({ openDialog: false });
+      const handleSubmit = data => setTimeout(_ => this.setState({ formData: data, show: false }), 250);
       return (
          <RenderExample propTypes={propTypes} buildCode={buildCode} onChange={setState}>
-            <Button label="Show Modal" onClick={this.showDialog} />
-            {modalData ? (
-               <div>
-                  <b>{modalData.Email}</b> has been registered!
-               </div>
-            ) : null}
-            <MyDialog show={this.state.show} options={options} onClose={this.closeDialog} onSubmit={this.handleSubmit} />
+            <Panel css="min-height: 3.5rem">
+               <Button label="Show Modal" onClick={handleClick} />
+               {formData && <Alert>{formData.Email + ' has been registered!'}</Alert>}
+               {show && <MyDialog options={options} open={openDialog} onClose={handleClose} onSubmit={handleSubmit} />}
+            </Panel>
          </RenderExample>
       );
    }
@@ -109,7 +112,7 @@ class ModalCustomize extends React.Component {
 
       return (
          <RenderCustomize name="Modal" componentTypes={componentTypes} select={select} onSelected={handleSelected}>
-            <Modal show={false} />
+            <Modal open={false} />
          </RenderCustomize>
       );
    }
