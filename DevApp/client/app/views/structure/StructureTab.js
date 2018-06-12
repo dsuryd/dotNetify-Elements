@@ -1,13 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Markdown, Tab, TabItem, defaultTheme, withTheme } from 'dotnetify-elements';
+import { Frame, Image, Markdown, Panel, Tab, TabItem, defaultTheme, withTheme } from 'dotnetify-elements';
 import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
 
 const StructureTab = props => (
    <TabsArticle vm="StructureTab" id="Overview">
       <TabItem label="Overview" name="Overview">
-         <Markdown id="Overview" />
+         <Markdown id="Overview">
+            <TabExample />
+         </Markdown>
       </TabItem>
       <TabItem label="API" name="API">
          <Markdown id="API" />
@@ -17,6 +19,68 @@ const StructureTab = props => (
       </TabItem>
    </TabsArticle>
 );
+
+class TabExample extends React.Component {
+   render() {
+      const buildCode = props => `
+\`\`\`jsx
+import React from 'react';
+import { Frame, Panel, Tab, TabItem, VMContext } from 'dotnetify-elements';
+
+const MyApp = _ => (
+   <VMContext vm="TabExample">
+      <Panel css="padding: 2rem; background: white">
+         <Tab active="2">
+            <TabItem label="Home">
+               <Frame>
+                  <Markdown id="Home" />
+               </Frame>
+            </TabItem>
+            <TabItem label="Menu">
+               <Frame>
+                  <Markdown id="Menu">
+                     <Image id="MenuPicture" />
+                  </Markdown>
+               </Frame>
+            </TabItem>
+            <TabItem label="About">
+               <Frame>
+                  <Markdown id="About" />
+               </Frame>
+            </TabItem>
+         </Tab>
+      </Panel>
+   </VMContext>   
+);
+\`\`\``;
+      const setState = state => this.setState(state);
+      return (
+         <RenderExample vm="TabExample" propTypes={Tab.propTypes} buildCode={buildCode} onChange={setState}>
+            <Panel css="min-height: 10rem; padding: 2rem; background: white">
+               <Tab active="2">
+                  <TabItem label="Home">
+                     <Frame>
+                        <Markdown id="Home" />
+                     </Frame>
+                  </TabItem>
+                  <TabItem label="Menu">
+                     <Frame>
+                        <Markdown id="Menu">
+                           <Image id="MenuPicture" />
+                        </Markdown>
+                     </Frame>
+                  </TabItem>
+                  <TabItem label="About">
+                     <Frame>
+                        <Markdown id="About" />
+                     </Frame>
+                  </TabItem>
+               </Tab>
+            </Panel>
+         </RenderExample>
+      );
+   }
+}
 
 class TabCustomize extends React.Component {
    state = {};
@@ -28,8 +92,8 @@ class TabCustomize extends React.Component {
       return (
          <RenderCustomize name="Tab" componentTypes={componentTypes} select={select} onSelected={handleSelected}>
             <Tab>
-               <TabItem label="TabItem 1" />
-               <TabItem label="TabItem 2" />
+               <TabItem label="Tab 1 Label">Tab 1 Body</TabItem>
+               <TabItem label="Tab 2 Label">Tab 2 Body</TabItem>
             </Tab>
          </RenderCustomize>
       );

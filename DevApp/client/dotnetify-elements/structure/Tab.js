@@ -9,7 +9,10 @@ const Container = styled.div`${props => props.theme.Tab.Container};`;
 
 export class Tab extends React.Component {
    static propTypes = {
+      // Sets the active tab.
       active: PropTypes.string,
+
+      // Occurs when a tab is activated.
       onActivate: PropTypes.func
    };
 
@@ -31,7 +34,7 @@ export class Tab extends React.Component {
          content: child.props.children
       }));
 
-      this.setActiveState();
+      this.setActiveState(this.props.active);
    }
 
    componentWillUpdate(props) {
@@ -41,7 +44,7 @@ export class Tab extends React.Component {
    }
 
    getItemKey = (child, idx) => (child.props.name ? child.props.name : `${idx}`);
-   getDisplayStyle = key => ({ padding: '1rem', display: this.state.active === key ? 'initial' : 'none' });
+   getDisplayStyle = key => ({ padding: '1rem', display: this.state.active == key ? 'initial' : 'none' });
 
    handleClick = (event, key, label) => {
       event.preventDefault();
@@ -61,9 +64,10 @@ export class Tab extends React.Component {
 
       const tabItems = React.Children.map(children, (child, idx) => {
          const key = this.getItemKey(child, idx);
+
          return React.cloneElement(child, {
             key: key,
-            active: this.state.active === key,
+            active: this.state.active == key,
             onClick: event => this.handleClick(event, key, child.props.label)
          });
       });
@@ -85,9 +89,16 @@ export class Tab extends React.Component {
 
 export class TabItem extends React.Component {
    static propTypes = {
-      label: PropTypes.any.isRequired,
+      // Text or component for the tab item's label.
+      label: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]).isRequired,
+
+      // Tab item name.
       name: PropTypes.string,
+
+      // Sets the tab item appearance to active.
       active: PropTypes.bool,
+
+      // Occurs when the tab item is clicked.
       onClick: PropTypes.func
    };
 

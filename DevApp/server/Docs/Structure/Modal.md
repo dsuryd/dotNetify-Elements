@@ -1,6 +1,6 @@
 ﻿## Modal
 
-The element to display other elements in a modal box.  It can include a header and a footer, either as property values, or nested along with the content and marked with HTML tags `<header>` and `<footer>`.  
+The element to display other elements in a modal container.  It can include a header and a footer, either as property values, or nested along with the content and marked with HTML tags `<header>` and `<footer>`.  
 
 Turn it into a modal form by adding _onSubmit_ or _onSubmitError_ event handler.
 
