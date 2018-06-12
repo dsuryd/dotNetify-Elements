@@ -34,11 +34,8 @@ static propTypes = {
    // Text or component for the card's footer.
    footer: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
 
-   // Sets to modal form.
-   form: PropTypes.bool,
-
-   // Shows the modal.
-   show: PropTypes.bool,
+   // Opens the modal.
+   open: PropTypes.bool,
 
    // Sets dimension to small.
    small: PropTypes.bool,

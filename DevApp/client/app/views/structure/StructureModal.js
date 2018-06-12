@@ -89,7 +89,7 @@ class MyApp extends React.Component {
       return (
          <RenderExample propTypes={propTypes} buildCode={buildCode} onChange={setState}>
             <Panel css="min-height: 3.5rem">
-               <Button label="Show Modal" onClick={handleClick} />
+               <Button label="Register..." onClick={handleClick} />
                {formData && <Alert>{formData.Email + ' has been registered!'}</Alert>}
                {show && <MyDialog options={options} open={openDialog} onClose={handleClose} onSubmit={handleSubmit} />}
             </Panel>
@@ -99,21 +99,32 @@ class MyApp extends React.Component {
 }
 
 class ModalCustomize extends React.Component {
-   state = {};
+   state = { open: false };
 
    render() {
-      const { plainText, validationMessage } = this.state;
+      const { open } = this.state;
       const componentTypes = Modal.componentTypes;
+      const handleClick = _ => this.setState({ open: true });
+      const handleClose = _ => this.setState({ open: false });
       const handleSelected = state => this.setState(state);
-      const select = value => ({
-         plainText: value === 'PlainTextContainer',
-         validationMessage: value === 'ValidationMessageContainer'
-      });
+      const select = (value, componentProps) => console.log(value, componentProps);
 
       return (
-         <RenderCustomize name="Modal" componentTypes={componentTypes} select={select} onSelected={handleSelected}>
-            <Modal open={false} />
-         </RenderCustomize>
+         <Panel>
+            <Button label="Show Modal" onClick={handleClick} />
+
+            <Modal open={open} large>
+               <header>Header</header>
+               <RenderCustomize name="Modal" componentTypes={componentTypes} select={select} onSelected={handleSelected}>
+                  <Modal open={false} />
+               </RenderCustomize>
+               <footer>
+                  <Panel right>
+                     <Button label="OK" secondary onClick={handleClose} />
+                  </Panel>
+               </footer>
+            </Modal>
+         </Panel>
       );
    }
 }

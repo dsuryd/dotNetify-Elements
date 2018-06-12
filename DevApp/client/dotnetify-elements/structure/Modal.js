@@ -58,9 +58,9 @@ export class Modal extends React.Component {
 
       let modalContent = (
          <React.Fragment>
-            {_header ? <Header>{_header}</Header> : null}
+            {_header && <Header>{_header}</Header>}
             <Body>{body}</Body>
-            {_footer ? <Footer>{_footer}</Footer> : null}
+            {_footer && <Footer>{_footer}</Footer>}
          </React.Fragment>
       );
 

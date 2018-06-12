@@ -28,10 +28,16 @@ export default class RenderCustomize extends React.Component {
       return customize ? withHighlight(component) : component;
    }
 
+   getComponentProps = selected => {
+      let componentProps = Object.keys(this.componentTypes).reduce((all, item) => ({ ...all, [item]: this.componentTypes[item] }), {});
+      if (selected) componentProps[utils.toCamelCase(selected)] = withHighlight(componentProps[selected]);
+      return componentProps;
+   };
+
    select = value => {
       const state = Object.assign({}, { selected: value }, this.props.select(value));
       this.setState(state);
-      this.props.onSelected(state);
+      this.props.onSelected(state, this.getComponentProps(value));
    };
 
    render() {
@@ -39,16 +45,20 @@ export default class RenderCustomize extends React.Component {
       const flags = [ { key: true, value: 'True' }, { key: false, value: 'False' } ];
       const options = Object.keys(this.componentTypes).map(key => ({ key: key, value: utils.toCamelCase(key) }));
 
-      let componentProps = Object.keys(this.componentTypes).reduce((all, item) => ({ ...all, [item]: this.componentTypes[item] }), {});
-      if (selected) componentProps[utils.toCamelCase(selected)] = withHighlight(componentProps[selected]);
-
+      let componentProps = this.getComponentProps(selected);
       const propsText = selected ? `${utils.toCamelCase(selected)}=withHighlight(${this.props.name}.componentTypes.${selected})` : '';
 
       const content = (
          <Panel>
             {React.cloneElement(React.Children.only(this.props.children), { ...componentProps })}
             <Card style={{ marginTop: '1rem' }}>
-               <RadioGroup id="_components" label="Select sub-component to highlight:" options={options} value={selected} onChange={this.select} />
+               <RadioGroup
+                  id="_components"
+                  label="Select sub-component to highlight:"
+                  options={options}
+                  value={selected}
+                  onChange={this.select}
+               />
             </Card>
             <MarkdownText text={this.buildCode(propsText)} />
          </Panel>
