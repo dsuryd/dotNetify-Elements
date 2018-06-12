@@ -29,6 +29,7 @@ const frameCss = `
 
 const panelCss = `
    width: calc(100% - 30rem); 
+   min-width: 65%;
    overflow-y: hidden;
    @media (max-width: 768px) {
       width: 100%;

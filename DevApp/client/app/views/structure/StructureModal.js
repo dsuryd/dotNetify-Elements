@@ -89,7 +89,7 @@ class MyApp extends React.Component {
       return (
          <RenderExample propTypes={propTypes} buildCode={buildCode} onChange={setState}>
             <Panel css="min-height: 3.5rem">
-               <Button label="Register..." onClick={handleClick} />
+               <Button label="Open Dialog" onClick={handleClick} />
                {formData && <Alert>{formData.Email + ' has been registered!'}</Alert>}
                {show && <MyDialog options={options} open={openDialog} onClose={handleClose} onSubmit={handleSubmit} />}
             </Panel>
@@ -113,17 +113,18 @@ class ModalCustomize extends React.Component {
          <Panel>
             <Button label="Show Modal" onClick={handleClick} />
 
-            <Modal open={open} large>
-               <header>Header</header>
-               <RenderCustomize name="Modal" componentTypes={componentTypes} select={select} onSelected={handleSelected}>
-                  <Modal open={false} />
-               </RenderCustomize>
-               <footer>
-                  <Panel right>
-                     <Button label="OK" secondary onClick={handleClose} />
-                  </Panel>
-               </footer>
-            </Modal>
+            <RenderCustomize name="Modal" componentTypes={componentTypes} select={select} onSelected={handleSelected}>
+               <Modal open={open}>
+                  <header>Header</header>
+                  Body
+                  <footer>
+                     <Panel flex apart>
+                        Footer
+                        <Button label="Close" secondary onClick={handleClose} />
+                     </Panel>
+                  </footer>
+               </Modal>
+            </RenderCustomize>
          </Panel>
       );
    }

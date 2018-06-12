@@ -8,7 +8,7 @@ const Container = styled.div`
    flex: ${props => props.flex};
    ${props => (props.middle ? 'align-items: center' : '')};
    flex-wrap: ${props => (props.flexWrap ? 'wrap' : 'nowrap')};
-   justify-content: ${props => (props.right ? 'flex-end' : 'flex-start')};
+   justify-content: ${props => (props.apart ? 'space-between' : props.right ? 'flex-end' : 'flex-start')};
    flex-direction: ${props => (props.horizontal ? 'row' : 'column')};
    margin: ${props => props.margin};
    padding: ${props => props.padding};
@@ -33,6 +33,9 @@ export class Panel extends React.Component {
    };
 
    static propTypes = {
+      // Displays child components horizontally and apart from each other.
+      apart: PropTypes.bool,
+
       // Properties to apply to all child components.
       childProps: PropTypes.object,
 
@@ -127,12 +130,30 @@ export class Panel extends React.Component {
 
    render() {
       const [ Container, ChildContainer ] = utils.resolveComponents(Panel, this.props);
-      const { childProps, gap, noGap, smallGap, horizontal, margin, noMargin, smallMargin, right, middle, height, width, wrap, flex, css, style } = this.props;
+      const {
+         childProps,
+         apart,
+         gap,
+         noGap,
+         smallGap,
+         horizontal,
+         margin,
+         noMargin,
+         smallMargin,
+         right,
+         middle,
+         height,
+         width,
+         wrap,
+         flex,
+         css,
+         style
+      } = this.props;
 
       const { Gap, Margin } = this.context.theme.Panel;
       const _gap = gap || (noGap ? '0' : smallGap ? Gap.small : Gap.large);
       const _margin = margin || (noMargin ? '0' : smallMargin ? Margin.small : Margin.large);
-      const _horizontal = horizontal || right || wrap;
+      const _horizontal = horizontal || right || wrap || apart;
 
       const children = React.Children.toArray(this.children);
       let _flex = typeof flex == 'boolean' ? (flex ? '1' : null) : flex;
@@ -142,6 +163,7 @@ export class Panel extends React.Component {
          <Container
             margin={_margin}
             horizontal={_horizontal}
+            apart={apart}
             right={right}
             middle={middle}
             width={width}

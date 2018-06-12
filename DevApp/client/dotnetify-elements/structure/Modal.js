@@ -13,9 +13,6 @@ export class Modal extends React.Component {
       // Text or component for the card's footer.
       footer: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
 
-      // Sets to modal form.
-      form: PropTypes.bool,
-
       // Opens the modal.
       open: PropTypes.bool,
 
@@ -58,9 +55,9 @@ export class Modal extends React.Component {
 
       let modalContent = (
          <React.Fragment>
-            {_header && <Header>{_header}</Header>}
+            {_header && <Header>{_header.props.children}</Header>}
             <Body>{body}</Body>
-            {_footer && <Footer>{_footer}</Footer>}
+            {_footer && <Footer>{_footer.props.children}</Footer>}
          </React.Fragment>
       );
 
@@ -72,7 +69,7 @@ export class Modal extends React.Component {
          );
 
       return (
-         <Container isOpen={open} centered={centered} size={size} style={{ maxWidth: width }} {...props}>
+         <Container isOpen={open} centered={centered} size={size} style={{ maxWidth: width }}>
             {modalContent}
          </Container>
       );

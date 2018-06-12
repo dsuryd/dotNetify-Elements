@@ -52,13 +52,7 @@ export default class RenderCustomize extends React.Component {
          <Panel>
             {React.cloneElement(React.Children.only(this.props.children), { ...componentProps })}
             <Card style={{ marginTop: '1rem' }}>
-               <RadioGroup
-                  id="_components"
-                  label="Select sub-component to highlight:"
-                  options={options}
-                  value={selected}
-                  onChange={this.select}
-               />
+               <RadioGroup id="_components" label="Select sub-component to highlight:" options={options} value={selected} onChange={this.select} />
             </Card>
             <MarkdownText text={this.buildCode(propsText)} />
          </Panel>

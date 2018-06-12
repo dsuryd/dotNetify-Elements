@@ -66,6 +66,9 @@ If you need to apply the same set of properties to every child component, set th
 
 ```jsx
 static propTypes = {
+   // Displays child components horizontally and apart from each other.
+   apart: PropTypes.bool,
+
    // Properties to apply to all child components.
    childProps: PropTypes.object,
 
