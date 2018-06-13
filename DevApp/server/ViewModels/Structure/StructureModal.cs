@@ -1,5 +1,6 @@
 ﻿using DotNetify;
 using DotNetify.Elements;
+using System.Reactive.Linq;
 
 namespace dotNetify_Elements
 {
@@ -21,9 +22,9 @@ namespace dotNetify_Elements
       {
          AddProperty<string>("Email")
             .WithAttribute(new { Label = "Email:", Placeholder = "Enter your email address" })
-            .WithPatternValidation(Pattern.Email, "Must be a valid email address.");
-
-         AddProperty<object>("Register").WithAttribute(new ButtonAttribute { Label = "Register" });
+            .WithRequiredValidation()
+            .WithPatternValidation(Pattern.Email, "Must be a valid email address.")
+            .SubscribeTo(AddInternalProperty<object>("Submit").Select(_ => ""));
       }
    }
 }

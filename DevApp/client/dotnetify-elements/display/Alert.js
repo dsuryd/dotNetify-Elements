@@ -17,7 +17,7 @@ export class Alert extends Element {
       const [ _Alert ] = this.resolveComponents(Alert);
       const { fullId, children, onShow, ...props } = this.attrs;
 
-      const show = !fullId || !!this.value;
+      const show = (!fullId && !!children) || !!this.value;
       onShow && onShow(show);
 
       return (

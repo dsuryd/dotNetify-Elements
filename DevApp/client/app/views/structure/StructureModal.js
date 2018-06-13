@@ -27,8 +27,8 @@ const MyDialog = props => (
          <TextField horizontal id="Email" />
          <footer>
             <Panel right>
-               <Button label="Cancel" secondary onClick={props.onClose} />
-               <Button id="Register" submit onClick={props.onClose} />
+               <Button label="Cancel" cancel secondary onClick={props.onClose} />
+               <Button id="Submit" label="Register" submit onClick={props.onClose} />
             </Panel>
          </footer>
       </Modal>
@@ -36,7 +36,7 @@ const MyDialog = props => (
 );
 
 class ModalExample extends React.Component {
-   state = { show: false, openDialog: false, formData: null };
+   state = { openDialog: false, formData: null };
 
    render() {
       const buildCode = props => `
@@ -51,8 +51,8 @@ const MyDialog = props => (
          <TextField horizontal id="Email" />
          <footer>
             <Panel right>
-               <Button label="Cancel" secondary onClick={props.onClose} />
-               <Button id="Register" submit onClick={props.onClose} />
+               <Button label="Cancel" cancel secondary onClick={props.onClose} />
+               <Button id="Submit" label="Register" submit onClick={props.onClose} />
             </Panel>
          </footer>
       </Modal>
@@ -60,38 +60,35 @@ const MyDialog = props => (
 );
 
 class MyApp extends React.Component {
-   state = {show: false, open: false, formData: null};
+   state = { open: false, formData: null };
    render() {
-      const { show, open, formData } = this.state;
-      const handleClick = _ => this.setState({ show: true, open: true, formData: null });
+      const { open, formData } = this.state;
+      const handleClick = _ => this.setState({ open: true, formData: null });
       const handleClose = _ => this.setState({ open: false });
-      const handleSubmit = data => {
-         /* Give time for the closing animation before hiding the component */
-         setTimeout(_ => this.setState({ formData: data, show: false }), 250);      
-      };
+      const handleSubmit = data => this.setState({ formData: data.Email + ' has been registered!' });
       return (
          <Panel horizontal>
             <Button label="Show Modal" onClick={handleClick} />
-            {formData && <Alert>{formData.Email + ' has been registered!'}</Alert>}
-            {show && <MyDialog options={options} open={open} onClose={handleClose} onSubmit={handleSubmit} />}
+            <Alert>{formData}</Alert>
+            <MyDialog open={open} onClose={handleClose} onSubmit={handleSubmit} />
          </Panel>
       );
    }
 }
 \`\`\``;
-      const { show, openDialog, formData, ...options } = this.state;
+      const { openDialog, formData, ...options } = this.state;
       const setState = state => this.setState(state);
       const { open, form, ...propTypes } = Modal.propTypes;
 
-      const handleClick = _ => this.setState({ show: true, formData: null, openDialog: true });
+      const handleClick = _ => this.setState({ formData: null, openDialog: true });
       const handleClose = _ => this.setState({ openDialog: false });
-      const handleSubmit = data => setTimeout(_ => this.setState({ formData: data, show: false }), 250);
+      const handleSubmit = data => this.setState({ formData: data.Email + ' has been registered!' });
       return (
          <RenderExample propTypes={propTypes} buildCode={buildCode} onChange={setState}>
             <Panel css="min-height: 3.5rem">
                <Button label="Open Dialog" onClick={handleClick} />
-               {formData && <Alert>{formData.Email + ' has been registered!'}</Alert>}
-               {show && <MyDialog options={options} open={openDialog} onClose={handleClose} onSubmit={handleSubmit} />}
+               <Alert>{formData}</Alert>
+               <MyDialog options={options} open={openDialog} onClose={handleClose} onSubmit={handleSubmit} />
             </Panel>
          </RenderExample>
       );
@@ -107,7 +104,7 @@ class ModalCustomize extends React.Component {
       const handleClick = _ => this.setState({ open: true });
       const handleClose = _ => this.setState({ open: false });
       const handleSelected = state => this.setState(state);
-      const select = (value, componentProps) => console.log(value, componentProps);
+      const select = value => {};
 
       return (
          <Panel>
