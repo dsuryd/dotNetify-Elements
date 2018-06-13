@@ -2,7 +2,7 @@
 
 The element to display other elements in a modal container.  It can include a header and a footer, either as property values, or nested along with the content and marked with HTML tags `<header>` and `<footer>`.  
 
-Model elements can be used to accept user inputs simply by including form elements with a submit button, and handling _onSubmit_ or _onSubmitError_ form events.
+Model elements can be used to accept user inputs simply by including form elements with a submit button, and handling _onSubmit_ or _onSubmitError_ events.
 
 [inset]
 
@@ -19,6 +19,10 @@ public class ModalExample : BaseVM
    }
 }
 ```
+
+#### Modal Form Events
+
+The __onSubmit__ and __onSubmitError__ events are similar to the Form element events.  They are used to intercept form submission and validation error, respectively.  See [Form Element](../form/form) for details on the event arguments.
 
 #### Source
 

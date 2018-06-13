@@ -63,6 +63,8 @@ For example:
 }
 ```
 
+The __onChanged__ event occurs when the form becomes dirty.
+
 #### Property Types
 
 ```jsx
