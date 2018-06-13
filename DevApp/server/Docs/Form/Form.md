@@ -41,12 +41,27 @@ public class BasicForm : BaseVM
 }
 ```
 
-#### Events
+#### Form Events
 
-The client-side code can intercept form submission prior to it being dispatched by handling the _onSubmit_ event.
-Form data is given in the argument.  To cancel the server dispatch, have the handler returning false.
+The client-side code can intercept form submission prior to it being dispatched by handling the __onSubmit__ event.  Form data is given in the argument.  The handler can cancel the server dispatch by returning false.
 
-Another event, _onSubmitError_, occurs when validation error is received on submit. 
+Another event, __onSubmitError__, occurs when validation error is received on submit. The argument contains an array of failed element Ids (_failedIds_) and an array of error messages (_messages_).  If there are nested forms, the failed elements Ids will be grouped inside an array of failed forms (_failedForms_). 
+
+For example:
+
+```jsx
+/* Single form */
+{ 
+   failedIds: ["Email"], 
+   messages:["Email is required"] 
+}
+
+/* Nested forms */
+{ 
+   failedForms: [{ formId: "Person", failedIds: ["FirstName", "LastName"] }], 
+   messages: ["First Name is required", "Last Name is required"]
+}
+```
 
 #### Property Types
 

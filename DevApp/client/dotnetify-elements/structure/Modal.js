@@ -45,7 +45,7 @@ export class Modal extends React.Component {
 
    render() {
       const [ Container, Header, Body, Footer ] = utils.resolveComponents(Modal, this.props);
-      const { open, small, large, width, header, footer, form, children, onSubmit, onSubmitError, ...props } = this.props;
+      const { open, small, large, width, header, footer, children, onSubmit, onSubmitError, ...props } = this.props;
       const centered = true;
       const size = small ? 'sm' : large ? 'lg' : null;
 
@@ -55,13 +55,13 @@ export class Modal extends React.Component {
 
       let modalContent = (
          <React.Fragment>
-            {_header && <Header>{_header.props.children}</Header>}
+            {_header && <Header>{_header.props ? _header.props.children : _header}</Header>}
             <Body>{body}</Body>
-            {_footer && <Footer>{_footer.props.children}</Footer>}
+            {_footer && <Footer>{_footer.props ? _footer.props.children : _footer}</Footer>}
          </React.Fragment>
       );
 
-      if (form || onSubmit || onSubmitError)
+      if (onSubmit || onSubmitError)
          modalContent = (
             <Form onSubmit={onSubmit} onSubmitError={onSubmitError}>
                {modalContent}
