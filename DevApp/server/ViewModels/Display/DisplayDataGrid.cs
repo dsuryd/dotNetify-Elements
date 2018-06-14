@@ -15,5 +15,7 @@ namespace dotNetify_Elements
       }
 
       public class DataGridExample : SampleDataGrid { }
+
+      public class DataGridCustomize : SampleDataGrid { }
    }
 }

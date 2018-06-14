@@ -21,8 +21,6 @@ const DisplayImage = props => (
 );
 
 class ImageExample extends React.Component {
-   state = { color: 'success' };
-
    render() {
       const buildCode = props => `
 \`\`\`jsx
