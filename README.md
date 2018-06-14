@@ -26,5 +26,3 @@ npm i
 dotnet build
 dotnet watch run
 ```
-
-(Current dev project only runs on Chrome; compatibility w/ other browsers will be added later)
