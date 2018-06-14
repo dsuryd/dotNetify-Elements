@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Field, Markdown, Panel, TabItem, defaultTheme, withTheme } from 'dotnetify-elements';
 import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
-import { WiredInput, WiredRadio, WiredRadioGroup } from 'wired-elements';
+import Checkbox from '@material-ui/core/Checkbox';
+import TextField from '@material-ui/core/TextField';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 const StructureField = props => (
    <TabsArticle vm="StructureField" id="Overview">
@@ -28,21 +30,21 @@ class FieldExample extends React.Component {
 import React from 'react';
 import { Field, Panel, VMContext } from 'dotnetify-elements';
 
-/* Use wiredjs: a set of web components with handrawn, sketchy look. */
-import { WiredInput, WiredRadio, WiredRadioGroup } from 'wired-elements';
+/* Use React Material-UI library. */
+import Checkbox from '@material-ui/core/Checkbox';
+import TextField from '@material-ui/core/TextField';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 const MyApp = _ => (
    <VMContext vm="CardExample">
-      <Panel css="font-family: 'Gloria Hallelujah'">
-         <Field label="What's your name?" ${props}>
-            <wired-input type="text" placeholder="Type your name..." />
+      <Panel>
+         <Field label="What's your name?" {...this.state}>
+            <TextField label="Name" />
          </Field>
-         <Field label="How do you like to be contacted?" ${props}>
-            <wired-radio-group selected="two">
-               <wired-radio name="call" text="Call me" />
-               <wired-radio name="email" text="Email me" />
-               <wired-radio name="text" text="Text me" />
-            </wired-radio-group>
+         <Field label="How did you hear about us?" {...this.state}>
+            <FormControlLabel value="internet" control={<Checkbox />} label="Internet" />
+            <FormControlLabel value="newspaper" control={<Checkbox />} label="Newspaper" />
+            <FormControlLabel value="friends" control={<Checkbox />} label="Friends" />
          </Field>
       </Panel>
    </VMContext>
@@ -51,16 +53,14 @@ const MyApp = _ => (
       const setState = state => this.setState(state);
       return (
          <RenderExample propTypes={Field.propTypes} buildCode={buildCode} onChange={setState}>
-            <Panel css="min-height: 10rem; font-family: 'Gloria Hallelujah'">
+            <Panel css="min-height: 10rem">
                <Field label="What's your name?" {...this.state}>
-                  <wired-input type="text" placeholder="Type your name..." />
+                  <TextField label="Name" />
                </Field>
-               <Field label="How do you like to be contacted?" {...this.state}>
-                  <wired-radio-group selected="two">
-                     <wired-radio name="call" text="Call me" />
-                     <wired-radio name="email" text="Email me" />
-                     <wired-radio name="text" text="Text me" />
-                  </wired-radio-group>
+               <Field label="How did you hear about us?" {...this.state}>
+                  <FormControlLabel value="internet" control={<Checkbox />} label="Internet" />
+                  <FormControlLabel value="newspaper" control={<Checkbox />} label="Newspaper" />
+                  <FormControlLabel value="friends" control={<Checkbox />} label="Friends" />
                </Field>
             </Panel>
          </RenderExample>

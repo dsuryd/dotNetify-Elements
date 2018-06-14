@@ -44,7 +44,7 @@ export class Tab extends React.Component {
    }
 
    getItemKey = (child, idx) => (child.props.name ? child.props.name : `${idx}`);
-   getDisplayStyle = key => ({ padding: '1rem', display: this.state.active == key ? 'initial' : 'none' });
+   getDisplayStyle = key => ({ padding: '1rem', display: this.state.active == key ? 'block' : 'none' });
 
    handleClick = (event, key, label) => {
       event.preventDefault();
