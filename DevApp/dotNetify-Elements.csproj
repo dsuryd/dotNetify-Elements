@@ -6,6 +6,7 @@
   <ItemGroup>
     <None Remove="server\Docs\Display\Alert.md" />
     <None Remove="server\Docs\Display\DataGrid.md" />
+    <None Remove="server\Docs\Display\Image.md" />
     <None Remove="server\Docs\Display\Label.md" />
     <None Remove="server\Docs\Display\Markdown.md" />
     <None Remove="server\Docs\Structure\Card.md" />
@@ -30,6 +31,7 @@
   <ItemGroup>
     <EmbeddedResource Include="server\Docs\Display\Alert.md" />
     <EmbeddedResource Include="server\Docs\Display\DataGrid.md" />
+    <EmbeddedResource Include="server\Docs\Display\Image.md" />
     <EmbeddedResource Include="server\Docs\Display\Label.md" />
     <EmbeddedResource Include="server\Docs\Display\Markdown.md" />
     <EmbeddedResource Include="server\Docs\Form\Button.md" />

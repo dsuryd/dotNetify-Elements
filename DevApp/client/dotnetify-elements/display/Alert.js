@@ -5,7 +5,22 @@ import * as utils from '../utils';
 
 export class Alert extends Element {
    static propTypes = {
+      // Identifies the associated view model property.
       id: PropTypes.string,
+
+      // Danger color.
+      danger: PropTypes.bool,
+
+      // Info color.
+      info: PropTypes.bool,
+
+      // Success color.
+      success: PropTypes.bool,
+
+      // Warning color.
+      warning: PropTypes.bool,
+
+      // Occurs when the element becomes visible.
       onShow: PropTypes.func
    };
 
@@ -23,7 +38,8 @@ export class Alert extends Element {
       return (
          show && (
             <_Alert id={fullId} {...props}>
-               {this.value ? utils.markdown(this.value) : children}
+               {this.value && utils.markdown(this.value)}
+               {children}
             </_Alert>
          )
       );

@@ -28,9 +28,10 @@ import StructureModal from './structure/StructureModal';
 import StructureTab from './structure/StructureTab';
 
 import DisplayAlert from './display/DisplayAlert';
+import DisplayDataGrid from './display/DisplayDataGrid';
+import DisplayImage from './display/DisplayImage';
 import DisplayLabel from './display/DisplayLabel';
 import DisplayMarkdown from './display/DisplayMarkdown';
-import DisplayDataGrid from './display/DisplayDataGrid';
 import CustomerInfoPage from './examples/customer-info/CustomerInfoPage';
 
 export {
@@ -61,6 +62,7 @@ export {
    StructureTab,
    DisplayAlert,
    DisplayDataGrid,
+   DisplayImage,
    DisplayLabel,
    DisplayMarkdown,
    CustomerInfoPage
