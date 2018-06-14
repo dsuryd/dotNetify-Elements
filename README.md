@@ -26,3 +26,5 @@ npm i
 dotnet build
 dotnet watch run
 ```
+  
+_Logo design by [area55git](https://github.com/area55git)._
