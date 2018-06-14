@@ -1,4 +1,4 @@
-# &nbsp;![alt tag](http://dotnetify.net/content/images/greendot.png) dotNetify-Elements
+<p align="center"><img src="https://s33.postimg.cc/nssom6eov/Logo_do_Netify.png"></p>
 
 Backend-ready React components for your cross-platform .NET web applications, based on [dotNetify-React](http://dotnetify.net/react).
 
