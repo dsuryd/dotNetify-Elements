@@ -1,21 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
+import logo from './logo.png';
 
-const Container = styled.div`
+const Logo = styled.img`
    font-size: x-large;
    display: flex;
    align-items: center;
    padding-left: 1rem;
-`;
-
-const Icon = styled.div`
-   margin-top: 6px;
-   margin-right: 6px;
-   width: 20px;
-   height: 20px;
-   border-radius: 50%;
-   background: #92d050;
-   box-shadow: white 0 0 20px 0;
+   width: 200px;
 `;
 
 export const LicenseNotice = styled.div`
@@ -39,11 +31,6 @@ export const LicenseNotice = styled.div`
    }
 `;
 
-const DotNetifyLogo = props => (
-   <Container>
-      <Icon />
-      <span>dotNetify</span>
-   </Container>
-);
+const DotNetifyLogo = _ => <Logo src={logo} />;
 
 export default DotNetifyLogo;
