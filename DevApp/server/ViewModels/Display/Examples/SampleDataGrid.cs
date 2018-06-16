@@ -29,13 +29,14 @@ namespace dotNetify_Elements
                {
                   RowKey = nameof(Contact.Id),
                   Columns = new DataGridColumn[] {
-                     new DataGridColumn(nameof(Contact.Id), "Id") { Width = 3, Resizeable = false, Sortable = false },
+                     new DataGridColumn(nameof(Contact.Id), "Id") { Width = 3, Resizable = false, Sortable = false },
                      new DataGridColumn(nameof(Contact.FirstName), "First Name"),
                      new DataGridColumn(nameof(Contact.LastName), "Last Name"),
                      new DataGridColumn(nameof(Contact.EmailAddress), "Email"),
                      new DataGridColumn(nameof(Contact.Phone), "Phone"),
                      new DataGridColumn(nameof(Contact.LastVisit), "Last Visit")
-                  }
+                  },
+                  Rows = 10
                }
                .CanSelect(
                   DataGridAttribute.Selection.Single,

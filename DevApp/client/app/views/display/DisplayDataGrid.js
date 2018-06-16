@@ -53,6 +53,17 @@ const MyApp = _ => (
    }
 }
 
+class WrappedDataGrid extends React.Component {
+   constructor(props) {
+      super(props);
+   }
+
+   render() {
+      const { ...props } = this.props;
+      return <DataGrid.componentTypes.DataGridComponent {...props} />;
+   }
+}
+
 class DataGridCustomize extends React.Component {
    state = {};
 
@@ -62,7 +73,7 @@ class DataGridCustomize extends React.Component {
       const select = value => ({});
       return (
          <RenderCustomize vm="DataGridCustomize" name="DataGrid" componentTypes={componentTypes} select={select} onSelected={handleSelected}>
-            <DataGrid id="MyDataGrid" flex>
+            <DataGrid id="MyDataGrid" flex dataGridComponent={WrappedDataGrid}>
                <GridColumn id="LastVisit" width="13rem" formatter={DateFormatter} />
             </DataGrid>
          </RenderCustomize>

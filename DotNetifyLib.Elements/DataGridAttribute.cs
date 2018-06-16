@@ -1,4 +1,4 @@
-﻿/* 
+﻿/*
 Copyright 2018 Dicky Suryadi
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -64,13 +64,13 @@ namespace DotNetify.Elements
       public string Name { get; set; }
 
       // Allows resize.
-      public bool Resizeable { get; set; } = true;
+      public bool Resizable { get; set; } = true;
 
       // Allows sort.
       public bool Sortable { get; set; } = true;
 
       // Sets custom width.
-      public int? Width { get; set; }      
+      public int? Width { get; set; }
 
       public DataGridColumn(string key, string name)
       {
