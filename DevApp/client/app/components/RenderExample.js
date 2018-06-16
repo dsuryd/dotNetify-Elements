@@ -48,7 +48,7 @@ export default class RenderExample extends React.Component {
       ));
 
       const content = (
-         <Panel css="border-top: 1px solid #ccc; padding-top: 2rem; padding-left: 3px">
+         <Panel css="border-top: 1px solid #ccc; padding-top: 3rem; padding-left: 3px">
             {children}
             <Panel wrap css="border-top: 1px solid #ccc; padding-top: 1rem">
                {radioToggles}

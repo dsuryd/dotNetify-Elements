@@ -54,7 +54,7 @@ const MyApp = _ => (
 
       return (
          <RenderExample vm="AlertExample" extraToggles={extraToggles} propTypes={propTypes} buildCode={buildCode} onChange={setState}>
-            <Alert id="Feedback" {...this.state}>
+            <Alert id="Feedback" css="margin-bottom: 3rem" {...this.state}>
                <Panel right>
                   <Button label="Continue" />
                </Panel>

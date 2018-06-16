@@ -50,7 +50,7 @@ const MyApp = _ => (
       const setState = state => this.setState(state);
       return (
          <RenderExample vm="TabExample" propTypes={Tab.propTypes} buildCode={buildCode} onChange={setState}>
-            <Panel css="min-height: 10rem; padding: 2rem; background: white">
+            <Panel css="padding: 2rem; margin-bottom: 2rem; background: white">
                <Tab active="2">
                   <TabItem label="Home">
                      <Markdown id="Home" />

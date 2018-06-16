@@ -1,4 +1,5 @@
 const displayTheme = {
+   Alert: ``,
    DataGrid: `
       .react-grid-HeaderCell {
          font-weight: 500;

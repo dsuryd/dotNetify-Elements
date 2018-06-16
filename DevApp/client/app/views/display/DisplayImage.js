@@ -37,7 +37,7 @@ const MyApp = _ => (
       let propTypes = { ...Image.propTypes };
       return (
          <RenderExample vm="ImageExample" propTypes={propTypes} buildCode={buildCode} onChange={setState}>
-            <Panel css="margin-bottom: 1rem">
+            <Panel css="margin-bottom: 2rem">
                <Image id="Picture" {...this.state} />
             </Panel>
          </RenderExample>

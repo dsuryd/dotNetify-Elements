@@ -43,7 +43,7 @@ const MyApp = _ => (
       let propTypes = { ...DataGrid.propTypes };
       return (
          <RenderExample vm="DataGridExample" propTypes={propTypes} buildCode={buildCode} onChange={setState}>
-            <Panel css="margin-bottom: 1rem">
+            <Panel css="margin-bottom: 2rem">
                <DataGrid id="Contacts" flex {...this.state}>
                   <GridColumn id="LastVisit" width="13rem" formatter={DateFormatter} />
                </DataGrid>
@@ -61,13 +61,7 @@ class DataGridCustomize extends React.Component {
       const handleSelected = state => this.setState(state);
       const select = value => ({});
       return (
-         <RenderCustomize
-            vm="DataGridCustomize"
-            name="DataGrid"
-            componentTypes={componentTypes}
-            select={select}
-            onSelected={handleSelected}
-         >
+         <RenderCustomize vm="DataGridCustomize" name="DataGrid" componentTypes={componentTypes} select={select} onSelected={handleSelected}>
             <DataGrid id="MyDataGrid" flex>
                <GridColumn id="LastVisit" width="13rem" formatter={DateFormatter} />
             </DataGrid>

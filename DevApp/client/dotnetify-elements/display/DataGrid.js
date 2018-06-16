@@ -35,6 +35,8 @@ export class DataGrid extends Element {
       super(props);
       this.state = { height: utils.toPixel(this.props.height) };
       this.minHeight = this.props.rowHeight * 2;
+      this.canSelect = false;
+      this.isMultiselect = false;
    }
 
    componentDidMount() {
@@ -63,7 +65,7 @@ export class DataGrid extends Element {
       // to customize the column, such as width and the formatter to format the column text.
       return columns.map(col => {
          col = utils.toCamelCase(col);
-         col.width = utils.toPixel(col.width);
+         col.width = col.width ? utils.toPixel(col.width) : null;
 
          const [ gridColumns, rest ] = utils.filterChildren(children, child => child.type == GridColumn && child.props.id === col.key);
          const gridCol = gridColumns.shift();
@@ -116,9 +118,7 @@ export class DataGrid extends Element {
 
    sort = (sortColumn, sortDirection) => {
       const comparer = (a, b) =>
-         sortDirection == 'ASC'
-            ? a[sortColumn] > b[sortColumn] ? 1 : -1
-            : sortDirection == 'DESC' ? (a[sortColumn] < b[sortColumn] ? 1 : -1) : null;
+         sortDirection == 'ASC' ? (a[sortColumn] > b[sortColumn] ? 1 : -1) : sortDirection == 'DESC' ? (a[sortColumn] < b[sortColumn] ? 1 : -1) : null;
 
       if (!this.unsortedValue) this.unsortedValue = [ ...this.value ];
       this.value = sortDirection !== 'NONE' ? this.value.sort(comparer) : [ ...this.unsortedValue ];

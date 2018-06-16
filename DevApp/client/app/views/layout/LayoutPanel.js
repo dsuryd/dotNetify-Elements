@@ -41,7 +41,7 @@ const MyApp = _ => (
       let propTypes = { ...Panel.propTypes, wrap: null };
       return (
          <RenderExample propTypes={propTypes} defaultProps={Panel.defaultProps} buildCode={buildCode} onChange={setState}>
-            <Panel height="15rem">
+            <Panel height="14rem">
                <Panel css="border: 2px dashed #ccc">
                   <Panel css="border: 2px dashed red" {...this.state}>
                      <Square />

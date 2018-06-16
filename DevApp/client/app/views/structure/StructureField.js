@@ -53,7 +53,7 @@ const MyApp = _ => (
       const setState = state => this.setState(state);
       return (
          <RenderExample propTypes={Field.propTypes} buildCode={buildCode} onChange={setState}>
-            <Panel css="min-height: 10rem">
+            <Panel css="min-height: 12.5rem">
                <Field label="What's your name?" {...this.state}>
                   <TextField label="Name" />
                </Field>
