@@ -32,21 +32,15 @@ const MyApp = _ => (
       <Panel css="padding: 2rem; background: white">
          <Tab active="2">
             <TabItem label="Home">
-               <Frame>
-                  <Markdown id="Home" />
-               </Frame>
+               <Markdown id="Home" />
             </TabItem>
             <TabItem label="Menu">
-               <Frame>
-                  <Markdown id="Menu">
-                     <Image id="MenuPicture" />
-                  </Markdown>
-               </Frame>
+               <Markdown id="Menu">
+                  <Image id="MenuPicture" />
+               </Markdown>
             </TabItem>
             <TabItem label="About">
-               <Frame>
-                  <Markdown id="About" />
-               </Frame>
+               <Markdown id="About" />
             </TabItem>
          </Tab>
       </Panel>
@@ -59,21 +53,15 @@ const MyApp = _ => (
             <Panel css="min-height: 10rem; padding: 2rem; background: white">
                <Tab active="2">
                   <TabItem label="Home">
-                     <Frame>
-                        <Markdown id="Home" />
-                     </Frame>
+                     <Markdown id="Home" />
                   </TabItem>
                   <TabItem label="Menu">
-                     <Frame>
-                        <Markdown id="Menu">
-                           <Image id="MenuPicture" />
-                        </Markdown>
-                     </Frame>
+                     <Markdown id="Menu">
+                        <Image id="MenuPicture" />
+                     </Markdown>
                   </TabItem>
                   <TabItem label="About">
-                     <Frame>
-                        <Markdown id="About" />
-                     </Frame>
+                     <Markdown id="About" />
                   </TabItem>
                </Tab>
             </Panel>

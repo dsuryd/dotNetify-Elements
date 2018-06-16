@@ -26,10 +26,19 @@ namespace DotNetify.Elements
          Multiple
       }
 
+      // Key to the column that contains the primary data key.
       public string RowKey { get; set; }
+
+      // Data columns.
       public DataGridColumn[] Columns { get; set; }
-      public int Rows { get; set; }
+
+      // Number of visible rows.
+      public int? Rows { get; set; }
+
+      // View model property that keeps the key to the selected row. Don't use directly, call CanSelect instead.
       public string SelectedKeyProperty { get; protected set; }
+
+      // Whether it is single-select or mult-select. Don't use directly, call CanSelect instead.
       public string SelectMode { get; protected set; }
 
       /// <summary>
@@ -48,11 +57,20 @@ namespace DotNetify.Elements
 
    public class DataGridColumn
    {
+      // Unique key to identify the column.
       public string Key { get; set; }
+
+      // Display name.
       public string Name { get; set; }
-      public bool Resizeable { get; set; }
-      public int? Width { get; set; }
-      public bool Sortable { get; set; }
+
+      // Allows resize.
+      public bool Resizeable { get; set; } = true;
+
+      // Allows sort.
+      public bool Sortable { get; set; } = true;
+
+      // Sets custom width.
+      public int? Width { get; set; }      
 
       public DataGridColumn(string key, string name)
       {

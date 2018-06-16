@@ -3,7 +3,7 @@ import { PropTypes } from 'prop-types';
 import styled from 'styled-components';
 import * as utils from '../utils';
 import { Label } from '../display/Label';
-import { Panel } from '../layout/Panel';
+import { Frame } from '../layout/Frame';
 
 const Container = styled.div`${props => props.theme.Tab.Container};`;
 
@@ -19,7 +19,7 @@ export class Tab extends React.Component {
    static componentTypes = {
       Container: Container,
       TabContainer: undefined,
-      BodyContainer: Panel
+      BodyContainer: Frame
    };
 
    constructor(props) {
@@ -44,7 +44,7 @@ export class Tab extends React.Component {
    }
 
    getItemKey = (child, idx) => (child.props.name ? child.props.name : `${idx}`);
-   getDisplayStyle = key => ({ padding: '1rem', display: this.state.active == key ? 'block' : 'none' });
+   getDisplayStyle = key => ({ display: this.state.active == key ? 'block' : 'none' });
 
    handleClick = (event, key, label) => {
       event.preventDefault();
@@ -60,7 +60,7 @@ export class Tab extends React.Component {
 
    render() {
       const [ Container, TabContainer, BodyContainer ] = utils.resolveComponents(Tab, this.props);
-      const { children, ...props } = this.props;
+      const { children, style, css, ...props } = this.props;
 
       const tabItems = React.Children.map(children, (child, idx) => {
          const key = this.getItemKey(child, idx);
@@ -74,7 +74,9 @@ export class Tab extends React.Component {
 
       const tabContents = this.tabContents.map(({ key, content }) => (
          <div key={key} style={this.getDisplayStyle(key)}>
-            <BodyContainer>{content}</BodyContainer>
+            <BodyContainer style={style} css={css}>
+               {content}
+            </BodyContainer>
          </div>
       ));
 

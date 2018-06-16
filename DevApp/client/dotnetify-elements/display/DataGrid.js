@@ -34,6 +34,7 @@ export class DataGrid extends Element {
    constructor(props) {
       super(props);
       this.state = { height: utils.toPixel(this.props.height) };
+      this.minHeight = this.props.rowHeight * 2;
    }
 
    componentDidMount() {
@@ -46,7 +47,7 @@ export class DataGrid extends Element {
       this.updateHeight();
    }
 
-   componentDidUpdate() {
+   componentDidUpdate(props, state) {
       this.updateSelectedKey();
       this.updateHeight();
    }
@@ -56,16 +57,15 @@ export class DataGrid extends Element {
    }
 
    mapColumns(children, columns) {
+      if (!columns) return [];
+
       // For each column, find the GridColumn element with a matching name.  The element will provide information
       // to customize the column, such as width and the formatter to format the column text.
       return columns.map(col => {
          col = utils.toCamelCase(col);
          col.width = utils.toPixel(col.width);
 
-         const [ gridColumns, rest ] = utils.filterChildren(
-            children,
-            child => child.type == GridColumn && child.props.id === col.key
-         );
+         const [ gridColumns, rest ] = utils.filterChildren(children, child => child.type == GridColumn && child.props.id === col.key);
          const gridCol = gridColumns.shift();
          if (gridCol) {
             const { width, formatter, columnChildren } = gridCol.props;
@@ -127,7 +127,7 @@ export class DataGrid extends Element {
    updateHeight = _ => {
       // Adjust the grid's height to the available space.
       if (this.elem && this.state.height != this.elem.offsetHeight) {
-         this.setState({ height: this.elem.offsetHeight });
+         if (this.elem.offsetHeight > this.minHeight) this.setState({ height: this.elem.offsetHeight });
 
          // Hack to force refresh.
          var gridCanvas = this.gridDom.getDataGridDOMNode().querySelector('.react-grid-Canvas');
@@ -166,10 +166,7 @@ export class DataGrid extends Element {
       if (this.gridDom) {
          var top = this.gridDom.getRowOffsetHeight() * idx;
          var gridCanvas = this.gridDom.getDataGridDOMNode().querySelector('.react-grid-Canvas');
-         if (
-            top < gridCanvas.scrollTop ||
-            top > gridCanvas.scrollTop + this.state.height - 2 * utils.toPixel(this.attrs.rowHeight)
-         ) {
+         if (top < gridCanvas.scrollTop || top > gridCanvas.scrollTop + this.state.height - 2 * utils.toPixel(this.attrs.rowHeight)) {
             gridCanvas.scrollTop = top;
          }
       }

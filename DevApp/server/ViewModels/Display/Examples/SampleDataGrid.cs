@@ -9,7 +9,7 @@ namespace dotNetify_Elements
 {
    public class SampleDataGrid : BaseVM
    {
-      public class SampleRow
+      public class Contact
       {
          public int Id { get; set; }
          public string FirstName { get; set; }
@@ -23,37 +23,38 @@ namespace dotNetify_Elements
       {
          var rowData = GetSampleData();
 
-         AddProperty("MyDataGrid", rowData)
-            .WithAttribute(new DataGridAttribute
-            {
-               RowKey = nameof(SampleRow.Id),
-               Columns = new DataGridColumn[] {
-                  new DataGridColumn(nameof(SampleRow.Id), "Id") { Width = 3 },
-                  new DataGridColumn(nameof(SampleRow.FirstName), "First Name") { Sortable = true },
-                  new DataGridColumn(nameof(SampleRow.LastName), "Last Name") { Sortable = true },
-                  new DataGridColumn(nameof(SampleRow.EmailAddress), "Email")  { Sortable = true },
-                  new DataGridColumn(nameof(SampleRow.Phone), "Phone")  { Sortable = true },
-                  new DataGridColumn(nameof(SampleRow.LastVisit), "Last Visit")  { Sortable = true }
-                }
-            }
+         AddProperty("Contacts", rowData)
+            .WithAttribute(
+               new DataGridAttribute
+               {
+                  RowKey = nameof(Contact.Id),
+                  Columns = new DataGridColumn[] {
+                     new DataGridColumn(nameof(Contact.Id), "Id") { Width = 3, Resizeable = false, Sortable = false },
+                     new DataGridColumn(nameof(Contact.FirstName), "First Name"),
+                     new DataGridColumn(nameof(Contact.LastName), "Last Name"),
+                     new DataGridColumn(nameof(Contact.EmailAddress), "Email"),
+                     new DataGridColumn(nameof(Contact.Phone), "Phone"),
+                     new DataGridColumn(nameof(Contact.LastVisit), "Last Visit")
+                  }
+               }
                .CanSelect(
                   DataGridAttribute.Selection.Single,
-                  AddProperty("SelectedGridKey", rowData.First().Id)
-                )
+                  AddProperty("SelectedContactId", rowData.First().Id)
+               )
             );
       }
 
-      private static List<SampleRow> GetSampleData()
+      protected List<Contact> GetSampleData()
       {
          int id = 1;
-         return new Faker<SampleRow>()
-            .CustomInstantiator(f => new SampleRow { Id = id++ })
+         return new Faker<Contact>()
+            .CustomInstantiator(f => new Contact { Id = id++ })
             .RuleFor(o => o.FirstName, f => f.Name.FirstName())
             .RuleFor(o => o.LastName, f => f.Name.LastName())
             .RuleFor(o => o.EmailAddress, (f, u) => f.Internet.Email(u.FirstName, u.LastName))
             .RuleFor(o => o.Phone, f => f.Person.Phone)
             .RuleFor(o => o.LastVisit, f => f.Date.Recent(100))
-            .Generate(100);
+            .Generate(20);
       }
    }
 }

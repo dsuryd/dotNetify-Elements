@@ -65,7 +65,9 @@ export class TabsArticle extends React.Component {
             <h2 id={this.state.title}>
                <Element id="Title" onChange={handleTitle} />
             </h2>
-            <Tab onActivate={handleActivate}>{children}</Tab>
+            <Tab css="margin: 1rem .5rem" onActivate={handleActivate}>
+               {children}
+            </Tab>
          </Article>
       );
    }
