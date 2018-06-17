@@ -1,6 +1,7 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import styled from 'styled-components';
+import Element from '../core/Element';
 import * as utils from '../utils';
 
 const LabelContainer = styled.div`
@@ -9,8 +10,8 @@ const LabelContainer = styled.div`
    flex-direction: ${props => (props.right ? 'row-reverse' : 'row')};
    justify-content: ${props => (props.apart ? 'space-between' : 'flex-start')};
    width: ${props => (props.apart ? '100%' : 'inherit')};
-   padding: ${props => props.padding || '0'};
    ${props => props.theme.Label.Container};
+   ${props => props.css};
 `;
 
 const Icon = styled.span.attrs({
@@ -20,12 +21,11 @@ const Icon = styled.span.attrs({
     ${props => props.theme.Label.IconComponent}    
 `;
 
-export class Label extends React.Component {
+export class Label extends Element {
    static propTypes = {
       right: PropTypes.bool,
       apart: PropTypes.bool,
-      icon: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-      padding: PropTypes.string
+      icon: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ])
    };
 
    static componentTypes = {
@@ -35,11 +35,12 @@ export class Label extends React.Component {
 
    render() {
       const [ LabelContainer, Icon ] = utils.resolveComponents(Label, this.props);
-      const { right, apart, icon, padding, style, children } = this.props;
-      const _icon = typeof icon === "string" ? <Icon name={icon} right={right} /> : icon;
+      const { right, apart, icon, style, css, children } = this.props;
+      const _icon = typeof icon === 'string' ? <Icon name={icon} right={right} /> : icon;
       return (
-         <LabelContainer right={right} apart={apart} padding={padding} style={style}>
+         <LabelContainer right={right} apart={apart} style={style} css={css}>
             {_icon}
+            {this.value}
             {children}
          </LabelContainer>
       );

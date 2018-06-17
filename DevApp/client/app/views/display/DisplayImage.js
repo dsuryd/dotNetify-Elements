@@ -28,7 +28,7 @@ import React from 'react';
 import { Image, VMContext } from 'dotnetify-elements';
 
 const MyApp = _ => (
-   <VMContext vm="ButtonExample">
+   <VMContext vm="ImageExample">
       <Image id="Picture"${props} />
    </VMContext>
 );

@@ -33,7 +33,10 @@ const DateFormatter = props => new Date(props.value).toLocaleString();
 
 const MyApp = _ => (
    <VMContext vm="DataGridExample">
-      <DataGrid id="MyDataGrid" flex ${props}>
+      <Alert success>
+         Selected contact email: <Element id="SelectedEmail" />
+      </Alert>
+      <DataGrid id="Contacts" flex ${props}>
          <GridColumn key="LastVisit" width="13rem" formatter={DateFormatter} />
       </DataGrid>
    </VMContext>

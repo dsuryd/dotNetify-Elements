@@ -1,5 +1,7 @@
 ﻿using DotNetify;
 using DotNetify.Elements;
+using System;
+using System.Reactive.Linq;
 
 namespace dotNetify_Elements
 {
@@ -12,6 +14,22 @@ namespace dotNetify_Elements
          AddProperty("Title", markdown.Title);
          AddProperty("Overview", markdown.GetSection("", "Property Type"));
          AddProperty("API", markdown.GetSection("Property Type"));
+      }
+   }
+
+   public class LabelExample : BaseVM
+   {
+      public LabelExample()
+      {
+         var timer = Observable.Interval(TimeSpan.FromSeconds(1)).StartWith(0);
+
+         AddProperty<string>("Clock")
+            .SubscribeTo(timer.Select(_ => DateTime.Now.ToString("hh:mm:ss tt")))
+            .SubscribedBy(AddInternalProperty<bool>("Update"), _ =>
+            {
+               PushUpdates();
+               return true;
+            });
       }
    }
 }
