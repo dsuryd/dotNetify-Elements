@@ -1,17 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { DataGrid, GridColumn, Frame, Markdown, Panel, TabItem, VMContext, defaultTheme, withTheme } from 'dotnetify-elements';
+import { Alert, DataGrid, Element, GridColumn, Frame, Markdown, Panel, TabItem, VMContext, defaultTheme, withTheme } from 'dotnetify-elements';
 import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
 
 const DisplayDataGrid = props => (
    <TabsArticle vm="DisplayDataGrid" id="Overview">
-      <TabItem label="Overview" name="Overview">
+      <TabItem label="Overview" key="Overview">
          <Markdown id="Overview">
             <DataGridExample />
          </Markdown>
       </TabItem>
-      <TabItem label="API" name="API">
+      <TabItem label="API" key="API">
          <Markdown id="API" />
       </TabItem>
       <TabItem label="Customize">
@@ -34,7 +34,7 @@ const DateFormatter = props => new Date(props.value).toLocaleString();
 const MyApp = _ => (
    <VMContext vm="DataGridExample">
       <DataGrid id="MyDataGrid" flex ${props}>
-         <GridColumn id="LastVisit" width="13rem" formatter={DateFormatter} />
+         <GridColumn key="LastVisit" width="13rem" formatter={DateFormatter} />
       </DataGrid>
    </VMContext>
 );
@@ -44,8 +44,11 @@ const MyApp = _ => (
       return (
          <RenderExample vm="DataGridExample" propTypes={propTypes} buildCode={buildCode} onChange={setState}>
             <Panel css="margin-bottom: 2rem">
+               <Alert success>
+                  Selected contact email: <Element id="SelectedEmail" />
+               </Alert>
                <DataGrid id="Contacts" flex {...this.state}>
-                  <GridColumn id="LastVisit" width="13rem" formatter={DateFormatter} />
+                  <GridColumn key="LastVisit" width="13rem" formatter={DateFormatter} />
                </DataGrid>
             </Panel>
          </RenderExample>
@@ -53,14 +56,20 @@ const MyApp = _ => (
    }
 }
 
-class WrappedDataGrid extends React.Component {
+class WrappedGrid extends DataGrid {
    constructor(props) {
       super(props);
    }
 
    render() {
-      const { ...props } = this.props;
-      return <DataGrid.componentTypes.DataGridComponent {...props} />;
+      let { dataGridComponent, ...props } = this.props;
+      return dataGridComponent ? (
+         <div style={{ width: '100%', border: '2px double red' }}>
+            <DataGrid {...props} />
+         </div>
+      ) : (
+         <DataGrid {...props} />
+      );
    }
 }
 
@@ -73,9 +82,7 @@ class DataGridCustomize extends React.Component {
       const select = value => ({});
       return (
          <RenderCustomize vm="DataGridCustomize" name="DataGrid" componentTypes={componentTypes} select={select} onSelected={handleSelected}>
-            <DataGrid id="MyDataGrid" flex dataGridComponent={WrappedDataGrid}>
-               <GridColumn id="LastVisit" width="13rem" formatter={DateFormatter} />
-            </DataGrid>
+            <WrappedGrid id="MyDataGrid" flex />
          </RenderCustomize>
       );
    }

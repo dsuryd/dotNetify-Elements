@@ -43,7 +43,7 @@ export class Tab extends React.Component {
       if (this.props.active !== props.active && this.props.onActivate) this.setActiveState(props.active);
    }
 
-   getItemKey = (child, idx) => (child.props.name ? child.props.name : `${idx}`);
+   getItemKey = (child, idx) => (child.key ? child.key : `${idx}`);
    getDisplayStyle = key => ({ display: this.state.active == key ? 'block' : 'none' });
 
    handleClick = (event, key, label) => {
@@ -94,9 +94,6 @@ export class TabItem extends React.Component {
       // Text or component for the tab item's label.
       label: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]).isRequired,
 
-      // Tab item name.
-      name: PropTypes.string,
-
       // Sets the tab item appearance to active.
       active: PropTypes.bool,
 
@@ -111,7 +108,7 @@ export class TabItem extends React.Component {
 
    render() {
       const [ TabItemComponent, LabelContainer ] = utils.resolveComponents(TabItem, this.props);
-      const { name, label, onClick, active, children, ...props } = this.props;
+      const { key, label, onClick, active, children, ...props } = this.props;
 
       return (
          <TabItemComponent active={active} onClick={onClick} {...props}>

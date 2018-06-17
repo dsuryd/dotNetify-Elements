@@ -34,7 +34,7 @@ export default class NewCustomerDialog extends React.Component {
          <VMContext vm="NewCustomerForm">
             <Modal header="New Customer" open={open} large onSubmitError={this.handleSubmitError}>
                <Tab active={activeTab} onActivate={this.handleActivate}>
-                  <TabItem name="Person" label="Person">
+                  <TabItem key="Person" label="Person">
                      <VMContext vm="PersonForm">
                         <Form id="Person">
                            <Panel>
@@ -47,7 +47,7 @@ export default class NewCustomerDialog extends React.Component {
                         </Form>
                      </VMContext>
                   </TabItem>
-                  <TabItem name="Phone" label="Phone">
+                  <TabItem key="Phone" label="Phone">
                      <VMContext vm="PhoneForm">
                         <Form id="Phone">
                            <Panel>
@@ -59,7 +59,7 @@ export default class NewCustomerDialog extends React.Component {
                         </Form>
                      </VMContext>
                   </TabItem>
-                  <TabItem name="Address" label="Address">
+                  <TabItem key="Address" label="Address">
                      <VMContext vm="AddressForm">
                         <Form id="Address">
                            <Panel>
@@ -72,7 +72,7 @@ export default class NewCustomerDialog extends React.Component {
                         </Form>
                      </VMContext>
                   </TabItem>
-                  <TabItem name="OtherInfo" label="Other">
+                  <TabItem key="OtherInfo" label="Other">
                      <VMContext vm="OtherInfoForm">
                         <Form id="OtherInfo">
                            <Panel>

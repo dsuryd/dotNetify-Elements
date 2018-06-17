@@ -21,7 +21,7 @@ namespace dotNetify_Elements
       public ImageExample()
       {
          var image = Utils.GetResourceAsBytes("dotNetify_Elements.server.Docs.Structure.card_image_example.jpg");
-         AddProperty("Picture", $"data:image/jpeg;base64,{Convert.ToBase64String(image)}");
+         AddProperty("Picture", image.ToBase64Image(Utils.Image.Jpeg));
       }
    }
 }

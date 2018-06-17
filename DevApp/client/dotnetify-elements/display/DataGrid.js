@@ -14,11 +14,20 @@ const Container = styled.div`
 
 export class DataGrid extends Element {
    static propTypes = {
+      // Identifies the associated view model property.
       id: PropTypes.string.isRequired,
+
+      // Enables selection.
+      enable: PropTypes.bool,
+
+      // Sets custom height.
       height: PropTypes.string,
+
+      // Sets custom row height.
       rowHeight: PropTypes.string,
-      onSelect: PropTypes.func,
-      enable: PropTypes.bool
+
+      // Occurs when an item is selected.
+      onSelect: PropTypes.func
    };
 
    static defaultProps = {
@@ -82,11 +91,17 @@ export class DataGrid extends Element {
 
       // For each column, find the GridColumn element with a matching name.  The element will provide information
       // to customize the column, such as width and the formatter to format the column text.
-      return columns.map(col => {
-         col = utils.toCamelCase(col);
-         col.width = col.width ? utils.toPixel(col.width) : null;
+      return columns.map(c => {
+         c = utils.toCamelCase(c);
+         let col = {
+            key: c.key,
+            name: c.label,
+            resizable: c.resizable,
+            sortable: c.sortable,
+            width: c.width ? utils.toPixel(c.width) : null
+         };
 
-         const [ gridColumns, rest ] = utils.filterChildren(children, child => child.type == GridColumn && child.props.id === col.key);
+         const [ gridColumns, rest ] = utils.filterChildren(children, child => child.type == GridColumn && child.key === c.key);
          const gridCol = gridColumns.shift();
          if (gridCol) {
             const { width, formatter, columnChildren } = gridCol.props;
@@ -122,8 +137,10 @@ export class DataGrid extends Element {
          this.setState({ height: this.elem.offsetHeight });
 
          // Hack to force refresh.
-         var gridCanvas = this.gridDom.getDataGridDOMNode().querySelector('.react-grid-Canvas');
-         gridCanvas.scrollTop = gridCanvas.scrollTop + 1;
+         if (this.gridDom && this.gridDom.getDataGridDOMNode) {
+            var gridCanvas = this.gridDom.getDataGridDOMNode().querySelector('.react-grid-Canvas');
+            gridCanvas.scrollTop = gridCanvas.scrollTop + 1;
+         }
       }
    };
 
@@ -170,7 +187,7 @@ export class DataGrid extends Element {
    };
 
    handleScrollToRow(idx) {
-      if (this.gridDom) {
+      if (this.gridDom && this.gridDom.getDataGridDOMNode) {
          var top = this.gridDom.getRowOffsetHeight() * idx;
          var gridCanvas = this.gridDom.getDataGridDOMNode().querySelector('.react-grid-Canvas');
          if (top < gridCanvas.scrollTop || top > gridCanvas.scrollTop + this.state.height - 2 * utils.toPixel(this.attrs.rowHeight)) {
@@ -191,7 +208,6 @@ export class DataGrid extends Element {
       return (
          <Container style={style} css={css} innerRef={elem => (this.elem = elem)}>
             <_DataGrid
-               style={{ border: '3px solid red' }}
                id={fullId}
                columns={this.mapColumns(children, columns)}
                rowGetter={rowGetter}
@@ -217,10 +233,11 @@ export class DataGrid extends Element {
 
 export class GridColumn extends React.Component {
    static propTypes = {
-      id: PropTypes.string.isRequired,
-      width: PropTypes.string,
+      // Content formatter.
       formatter: PropTypes.func,
-      children: PropTypes.node
+
+      // Sets custom width.
+      width: PropTypes.string
    };
 
    render() {

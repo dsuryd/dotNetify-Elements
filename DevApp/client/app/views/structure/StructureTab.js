@@ -6,12 +6,12 @@ import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
 
 const StructureTab = props => (
    <TabsArticle vm="StructureTab" id="Overview">
-      <TabItem label="Overview" name="Overview">
+      <TabItem label="Overview" key="Overview">
          <Markdown id="Overview">
             <TabExample />
          </Markdown>
       </TabItem>
-      <TabItem label="API" name="API">
+      <TabItem label="API" key="API">
          <Markdown id="API" />
       </TabItem>
       <TabItem label="Customize">
@@ -30,16 +30,16 @@ import { Frame, Panel, Tab, TabItem, VMContext } from 'dotnetify-elements';
 const MyApp = _ => (
    <VMContext vm="TabExample">
       <Panel css="padding: 2rem; background: white">
-         <Tab active="2">
-            <TabItem label="Home">
+         <Tab active="home">
+            <TabItem key="home" label="Home">
                <Markdown id="Home" />
             </TabItem>
-            <TabItem label="Menu">
+            <TabItem key="menu" label="Menu">
                <Markdown id="Menu">
                   <Image id="MenuPicture" />
                </Markdown>
             </TabItem>
-            <TabItem label="About">
+            <TabItem key="about" label="About">
                <Markdown id="About" />
             </TabItem>
          </Tab>
@@ -51,16 +51,16 @@ const MyApp = _ => (
       return (
          <RenderExample vm="TabExample" propTypes={Tab.propTypes} buildCode={buildCode} onChange={setState}>
             <Panel css="padding: 2rem; margin-bottom: 2rem; background: white">
-               <Tab active="2">
-                  <TabItem label="Home">
+               <Tab active="home">
+                  <TabItem key="home" label="Home">
                      <Markdown id="Home" />
                   </TabItem>
-                  <TabItem label="Menu">
+                  <TabItem key="menu" label="Menu">
                      <Markdown id="Menu">
                         <Image id="MenuPicture" />
                      </Markdown>
                   </TabItem>
-                  <TabItem label="About">
+                  <TabItem key="about" label="About">
                      <Markdown id="About" />
                   </TabItem>
                </Tab>

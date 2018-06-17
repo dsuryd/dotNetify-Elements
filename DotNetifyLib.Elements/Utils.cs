@@ -28,6 +28,11 @@ namespace DotNetify.Elements
    public static class Utils
    {
       /// <summary>
+      /// Image format that most major browsers support.
+      /// </summary>
+      public enum Image { Bmp, Gif, Ico, Jpeg, Png, Svg };
+
+      /// <summary>
       /// Returns description attribute values of enum values.
       /// </summary>
       /// <param name="enumType">Enum type.</param>
@@ -77,6 +82,17 @@ namespace DotNetify.Elements
             resourceStream.CopyTo(memstream);
             return memstream.ToArray();
          }
+      }
+
+      /// <summary>
+      /// Returns the Base-64 string representation of an image for use with an HTML img tag.
+      /// </summary>
+      /// <param name="imageData">Image data bytes.</param>
+      /// <param name="imageFormat">Image format.</param>
+      /// <returns>Base-64 image string.</returns>
+      public static string ToBase64Image(this byte[] imageData, Image imageFormat)
+      {
+         return $"data:image/{imageFormat.ToString().ToLower()};base64,{Convert.ToBase64String(imageData)}";
       }
    }
 }

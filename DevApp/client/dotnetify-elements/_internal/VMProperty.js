@@ -35,6 +35,7 @@ export default class VMProperty {
    }
 
    dispatchProp(propId, value) {
+      if (this.vmContext.getState(propId) !== undefined) this.vmContext.setState({ [propId]: value });
       this.vmContext.dispatchState({ [propId]: value });
    }
 }

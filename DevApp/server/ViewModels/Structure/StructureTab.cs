@@ -28,7 +28,7 @@ namespace dotNetify_Elements
             "grown on - site in the organic garden.\r\n  \r\n_We’re taking it back to basics, and it sure does taste good_.");
 
          AddProperty("Menu", "### Menu\r\n[inset]");
-         AddProperty("MenuPicture", $"data:image/jpeg;base64,{Convert.ToBase64String(image)}");
+         AddProperty("MenuPicture", image.ToBase64Image(Utils.Image.Jpeg));
 
          AddProperty("About", "### About\r\n" +
             "We open early in the morning with fresh baked goods and breakfast sandwiches. Throughout the afternoon and evening, we offer " +

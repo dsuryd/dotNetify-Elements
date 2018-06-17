@@ -60,8 +60,8 @@ namespace DotNetify.Elements
       // Unique key to identify the column.
       public string Key { get; set; }
 
-      // Display name.
-      public string Name { get; set; }
+      // Column label.
+      public string Label { get; set; }
 
       // Allows resize.
       public bool Resizable { get; set; } = true;
@@ -72,10 +72,10 @@ namespace DotNetify.Elements
       // Sets custom width.
       public int? Width { get; set; }
 
-      public DataGridColumn(string key, string name)
+      public DataGridColumn(string key, string label)
       {
          Key = key;
-         Name = name;
+         Label = label;
       }
    }
 }

@@ -5,12 +5,12 @@ import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
 
 const FormButton = props => (
    <TabsArticle vm="FormButton" id="Overview">
-      <TabItem label="Overview" name="Overview">
+      <TabItem label="Overview" key="Overview">
          <Markdown id="Overview">
             <ButtonExample />
          </Markdown>
       </TabItem>
-      <TabItem label="API" name="API">
+      <TabItem label="API" key="API">
          <Markdown id="API" />
       </TabItem>
       <TabItem label="Customize">

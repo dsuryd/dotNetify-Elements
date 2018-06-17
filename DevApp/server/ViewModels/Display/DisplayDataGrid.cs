@@ -1,5 +1,7 @@
-﻿using DotNetify;
+﻿using Bogus;
+using DotNetify;
 using DotNetify.Elements;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -16,7 +18,57 @@ namespace dotNetify_Elements
          AddProperty("API", markdown.GetSection("Property Type"));
       }
 
-      public class DataGridExample : SampleDataGrid { }
+      public class DataGridExample : BaseVM
+      {
+         public class Contact
+         {
+            public int Id { get; set; }
+            public string FirstName { get; set; }
+            public string LastName { get; set; }
+            public string EmailAddress { get; set; }
+            public string Phone { get; set; }
+            public DateTimeOffset LastVisit { get; set; }
+         }
+
+         public DataGridExample()
+         {
+            var rowData = GetSampleData(20);
+
+            AddProperty("Contacts", rowData)
+               .WithAttribute(
+                  new DataGridAttribute
+                  {
+                     RowKey = nameof(Contact.Id),
+                     Columns = new DataGridColumn[] {
+                     new DataGridColumn(nameof(Contact.Id), "Id") { Width = 3, Resizable = false, Sortable = false },
+                     new DataGridColumn(nameof(Contact.FirstName), "First Name"),
+                     new DataGridColumn(nameof(Contact.LastName), "Last Name"),
+                     new DataGridColumn(nameof(Contact.Phone), "Phone"),
+                     new DataGridColumn(nameof(Contact.LastVisit), "Last Visit")
+                     },
+                     Rows = 10
+                  }
+                  .CanSelect(
+                     DataGridAttribute.Selection.Single,
+                     AddProperty("SelectedId", rowData.First().Id)
+                        .SubscribedBy(AddProperty<string>("SelectedEmail"), id => rowData.First(row => row.Id == id).EmailAddress)
+                  )
+               );
+         }
+
+         protected List<Contact> GetSampleData(int numSamples)
+         {
+            int id = 1;
+            return new Faker<Contact>()
+               .CustomInstantiator(f => new Contact { Id = id++ })
+               .RuleFor(o => o.FirstName, f => f.Name.FirstName())
+               .RuleFor(o => o.LastName, f => f.Name.LastName())
+               .RuleFor(o => o.Phone, f => f.Person.Phone)
+               .RuleFor(o => o.EmailAddress, (f, u) => f.Internet.Email(u.FirstName, u.LastName))
+               .RuleFor(o => o.LastVisit, f => f.Date.Recent(100))
+               .Generate(numSamples);
+         }
+      }
 
       public class DataGridCustomize : BaseVM
       {

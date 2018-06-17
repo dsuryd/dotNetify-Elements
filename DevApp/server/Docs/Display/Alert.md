@@ -1,6 +1,6 @@
 ﻿## Alert
 
-The element to display text or other elements in an alert box. It supports markdown notations.
+The element to display text or other elements in an alert box.  The text can use the github-flavored markdown syntax.
 
 [inset]
 

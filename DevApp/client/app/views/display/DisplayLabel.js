@@ -6,10 +6,10 @@ import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
 
 const DisplayLabel = props => (
    <TabsArticle vm="DisplayLabel" id="Overview">
-      <TabItem label="Overview" name="Overview">
+      <TabItem label="Overview" key="Overview">
          <Markdown id="Overview" />
       </TabItem>
-      <TabItem label="API" name="API">
+      <TabItem label="API" key="API">
          <Markdown id="API" />
       </TabItem>
       <TabItem label="Customize">
