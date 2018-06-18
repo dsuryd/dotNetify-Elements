@@ -2,6 +2,8 @@
 
 The element to arrange the layout of other elements.  It automatically inserts fixed gap between child components, and provide properties for various layout configuration, including _css_ property for inline styling using css syntax.
 
+> __Note:__  overuse of  _css_ property can lead to maintainability problem; consider creating styled components instead. 
+
 [inset]
 
 #### Derivative Panels
@@ -21,7 +23,8 @@ Panel elements are flex containers.  This means that you can use [css flexbox](h
 Using the combination of _flex_ and other properties such as _horizontal_ and _css_ (to apply styles using css syntax), you can make all sorts of layout with nested Panel elements:
 
 [inset]
-<br>
+<br/>
+
 ```jsx
 const FlexLayoutExample = props => (
    <Panel css="border: 2px dashed #ccc">
@@ -53,7 +56,6 @@ const FlexLayoutExample = props => (
    </Panel>
 );
 ```
-> __Caution:__ The examples may use the _css_ property quite liberally, but in real-world projects, it will do well for maintainability and reusability if you favor creating new components that encapsulate the styles.
 
 #### Child Properties
 

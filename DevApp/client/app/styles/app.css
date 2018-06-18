@@ -8,12 +8,16 @@ div > h2 {
    margin-bottom: 1rem;
 }
 
+.markdown span.prism-code {
+   margin-bottom: 2rem;
+}
+
 .markdown pre {
    margin: 0;
    font-size: .9rem;
 }
 
-.markdown pre .lang-jsx {
+.markdown pre .language-jsx {
    font-size: 1rem;
 }
 
@@ -29,7 +33,7 @@ div > h2 {
 
 .markdown * > h4,
 .markdown * + h4 {
-   margin-top: 2rem;
+   margin-top: 3rem;
 }
 
 .markdown blockquote {

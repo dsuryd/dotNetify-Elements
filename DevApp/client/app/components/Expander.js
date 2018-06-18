@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Collapsible } from 'dotnetify-elements';
 
 const ExpanderPanel = styled.div`
-   margin-bottom: 1rem;
+   margin-bottom: 2rem;
    padding: .5rem;
    border-radius: 5px;
    border: 1px solid #ccc;
