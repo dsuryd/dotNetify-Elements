@@ -1,11 +1,56 @@
 ﻿## Label
 
-The element to display a label text.  It can include an icon to the side of the text.
+The element to display a label text.  It can include an icon to the side of the text.  
 
 [inset]
 
 ```csharp
+   public class LabelExample : BaseVM
+   {
+      public LabelExample()
+      {
+         var timer = Observable.Interval(TimeSpan.FromSeconds(1)).StartWith(0);
 
+         AddProperty<string>("Clock")
+            .SubscribeTo(timer.Select(_ => DateTime.Now.ToString("hh:mm:ss tt")))
+            .SubscribedBy(AddInternalProperty<bool>("Update"), _ =>
+            {
+               PushUpdates();
+               return true;
+            });
+
+         AddProperty("NotificationLabel", "Notifications");
+         AddProperty("NotificationCount", 3);
+      }
+   }
 ```
 
+#### Getting Icons
+
+Icons are not included with the _Elements_ library; if you want to use them, you will have to install them yourself.  The good news is, there are plenty of options out there.
+
+The icons that you see here came from [Font Awesome](https://fontawesome.com/get-started).  Follow the guides on their website; once installed you can simply set the desired icon's class name (for example: `<Label icon="far fa-user" />`) to the _Label_'s icon attribute.
+
 #### Property Types
+
+```jsx
+static propTypes = {
+   // Displays the text and icon apart from each other.
+   apart: PropTypes.bool,
+
+   // Bold text.
+   bold: PropTypes.bool,
+
+   // Icon to the left.
+   icon: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
+
+   // Italic text.
+   italic: PropTypes.bool,
+
+   // Displays the text and icon from the right.
+   right: PropTypes.bool,
+
+   // Icon to the right.
+   rightIcon: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ])
+};
+```

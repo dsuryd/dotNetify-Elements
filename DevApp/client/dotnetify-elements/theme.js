@@ -7,6 +7,7 @@ const displayTheme = {
    `,
    Label: {
       Container: ``,
+      IconContainer: ``,
       IconComponent: ``
    },
    Markdown: ``,

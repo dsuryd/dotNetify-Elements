@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Label, Markdown, Panel, TabItem, defaultTheme, withTheme } from 'dotnetify-elements';
+import { Element, Label, Markdown, Panel, TabItem, defaultTheme, withTheme } from 'dotnetify-elements';
 import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
+import { Badge, BigIcon } from './demo-helper';
 
 const DisplayLabel = props => (
    <TabsArticle vm="DisplayLabel" id="Overview">
@@ -25,11 +26,21 @@ class LabelExample extends React.Component {
       const buildCode = props => `
 \`\`\`jsx
 import React from 'react';
-import { Label, VMContext } from 'dotnetify-elements';
+import { Element, Label, Panel, VMContext } from 'dotnetify-elements';
+import { Badge, BigIcon } from './demo-helper';
 
 const MyApp = _ => (
    <VMContext vm="LabelExample">
-      <Label id="Clock"${props} />
+      <Panel>
+         <Label id="Clock" icon="far fa-clock" ${props}/>
+         <Label id="NotificationLabel" rightIcon={<Badge id="NotificationCount" />} ${props}/>
+         <Label icon={<BigIcon />} css="padding: 1rem; background: white; width: 25rem" ${props}>
+            <div>
+               <b>Attention</b><br />
+               You have <Element id="NotificationCount" /> notifications in your inbox.
+            </div>
+         </Label>
+      </Panel>
    </VMContext>
 );
 \`\`\``;
@@ -38,7 +49,15 @@ const MyApp = _ => (
       return (
          <RenderExample vm="LabelExample" propTypes={propTypes} buildCode={buildCode} onChange={setState}>
             <Panel css="margin-bottom: 2rem">
-               <Label icon="far fa-clock" css="background: white" id="Clock" {...this.state} />
+               <Label id="Clock" icon="far fa-clock" {...this.state} />
+               <Label id="NotificationLabel" rightIcon={<Badge id="NotificationCount" />} {...this.state} />
+               <Label icon={<BigIcon name="far fa-bell" />} css="padding: 1rem; background: white; width: 25rem" {...this.state}>
+                  <div>
+                     <b>Attention</b>
+                     <br />
+                     You have <Element id="NotificationCount" /> notifications in your inbox.
+                  </div>
+               </Label>
             </Panel>
          </RenderExample>
       );
@@ -55,7 +74,9 @@ class LabelCustomize extends React.Component {
       const select = value => ({});
       return (
          <RenderCustomize name="Label" componentTypes={componentTypes} select={select} onSelected={handleSelected}>
-            <Label icon="far fa-times-circle">Label text</Label>
+            <Label icon="far fa-times-circle" rightIcon="far fa-bell">
+               Label text
+            </Label>
          </RenderCustomize>
       );
    }

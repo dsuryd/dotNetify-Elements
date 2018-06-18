@@ -10,38 +10,62 @@ const LabelContainer = styled.div`
    flex-direction: ${props => (props.right ? 'row-reverse' : 'row')};
    justify-content: ${props => (props.apart ? 'space-between' : 'flex-start')};
    width: ${props => (props.apart ? '100%' : 'inherit')};
+   ${props => props.bold && 'font-weight: 500'};
+   ${props => props.italic && 'font-style: italic'};
    ${props => props.theme.Label.Container};
    ${props => props.css};
 `;
 
-const Icon = styled.span.attrs({
+const IconContainer = styled.span`
+   margin: ${props => (props.right ? '0 0 0 .5rem ' : '0 .5rem 0 0')};
+   ${props => props.theme.Label.IconContainer};
+`;
+
+const IconComponent = styled.span.attrs({
    className: props => props.name
 })`
-    margin: ${props => (props.right ? '0 0 0 .5rem' : '0 .5rem 0 0')};
     ${props => props.theme.Label.IconComponent}    
 `;
 
 export class Label extends Element {
    static propTypes = {
-      right: PropTypes.bool,
+      // Displays the text and icon apart from each other.
       apart: PropTypes.bool,
-      icon: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ])
+
+      // Bold text.
+      bold: PropTypes.bool,
+
+      // Icon to the left.
+      icon: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
+
+      // Italic text.
+      italic: PropTypes.bool,
+
+      // Displays the text and icon from the right.
+      right: PropTypes.bool,
+
+      // Icon to the right.
+      rightIcon: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ])
    };
 
    static componentTypes = {
       LabelContainer,
-      IconComponent: Icon
+      IconContainer,
+      IconComponent
    };
 
    render() {
-      const [ LabelContainer, Icon ] = utils.resolveComponents(Label, this.props);
-      const { right, apart, icon, style, css, children } = this.props;
-      const _icon = typeof icon === 'string' ? <Icon name={icon} right={right} /> : icon;
+      const [ LabelContainer, IconContainer, Icon ] = utils.resolveComponents(Label, this.props);
+      const { right, apart, icon, rightIcon, bold, italic, style, css, children } = this.attrs;
+      const _icon = typeof icon === 'string' ? <Icon name={icon} /> : icon;
+      const _rightIcon = typeof rightIcon === 'string' ? <Icon name={rightIcon} /> : rightIcon;
+
       return (
-         <LabelContainer right={right} apart={apart} style={style} css={css}>
-            {_icon}
+         <LabelContainer right={right} apart={apart} bold={bold} italic={italic} style={style} css={css}>
+            {_icon && <IconContainer right={right}>{_icon}</IconContainer>}
             {this.value}
             {children}
+            {_rightIcon && <IconContainer right={!right}>{_rightIcon}</IconContainer>}
          </LabelContainer>
       );
    }

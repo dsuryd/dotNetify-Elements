@@ -30,6 +30,9 @@ namespace dotNetify_Elements
                PushUpdates();
                return true;
             });
+
+         AddProperty("NotificationLabel", "Notifications");
+         AddProperty("NotificationCount", 3);
       }
    }
 }
