@@ -1,15 +1,17 @@
 'use strict';
 
 const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
+   mode: 'development',
    entry: {
       main: './client/main.js'
    },
    output: {
-      filename: './wwwroot/dist/bundle.js',
-      publicPath: 'dist/'
+      filename: 'bundle.js',
+      path: __dirname + '/wwwroot/dist',
+      publicPath: '/dist/'
    },
    resolve: {
       modules: [ 'client', 'node_modules' ],
@@ -19,13 +21,10 @@ module.exports = {
       rules: [
          { test: /\.jsx?$/, use: 'babel-loader', exclude: /node_modules/ },
          { test: /\.tsx?$/, use: 'awesome-typescript-loader?silent=true' },
-         { test: /\.css$/, use: ExtractTextPlugin.extract({ use: 'css-loader?minimize' }) },
-         { test: /\.(png|jpg|jpeg|gif|svg)$/, use: 'url-loader?limit=25000&publicPath=/dist/' },
+         { test: /\.css$/, use: [ MiniCssExtractPlugin.loader, 'css-loader?minimize' ] },
+         { test: /\.(png|jpg|jpeg|gif|svg)$/, use: 'url-loader?limit=25000' },
          { test: /\.(eot|svg|ttf|woff(2)?)(\?v=\d+\.\d+\.\d+)?/, loader: 'url-loader' }
       ]
    },
-   plugins: [
-      //new webpack.optimize.UglifyJsPlugin(),
-      new ExtractTextPlugin('./wwwroot/dist/app.css')
-   ]
+   plugins: [ new MiniCssExtractPlugin({ filename: './app.css' }) ]
 };
