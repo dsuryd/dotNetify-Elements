@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Alert, Button, Form, Frame, Markdown, MarkdownText, Panel, Tab, TabItem, TextField, VMContext, withTheme } from 'dotnetify-elements';
+import { Alert, Button, Form, Frame, Markdown, Panel, Tab, TabItem, TextField, VMContext, withTheme } from 'dotnetify-elements';
 import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
 
 const _Form = props => (
@@ -57,7 +57,7 @@ const MyApp = _ => (
                      <Button label="Cancel" cancel secondary onClick={clearEmittedEvent} />
                      <Button id="Register" submit />
                   </Panel>
-                  <MarkdownText text={'```' + this.state.emittedEvent + '```'} />
+                  <Markdown>{'```' + this.state.emittedEvent + '```'}</Markdown>
                </Panel>
             </Form>
          </RenderExample>

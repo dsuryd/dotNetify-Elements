@@ -4,11 +4,17 @@ import styled from 'styled-components';
 import Element from '../core/Element';
 import * as utils from '../utils';
 
-const ContainerComponent = styled.div`${props => props.theme.Markdown};`;
+const ContainerComponent = styled.div`
+   ${props => props.theme.Markdown};
+   ${props => props.css};
+`;
+
+const MarkdownText = props => utils.markdown(props.text);
 
 export class Markdown extends Element {
    static propTypes = {
-      id: PropTypes.string.isRequired
+      // Identifies the associated view model property.
+      id: PropTypes.string
    };
 
    static componentTypes = {
@@ -17,25 +23,28 @@ export class Markdown extends Element {
 
    render() {
       const [ Container ] = this.resolveComponents(Markdown);
-      const { id, fullId, children, ...props } = this.attrs;
+      const { id, fullId, children, style, css, ...props } = this.attrs;
 
       const _children = React.Children.toArray(children);
 
-      let markdowns = [];
-      if (this.value)
+      const renderText = section => (typeof section == 'string' ? <MarkdownText text={section} /> : section);
+
+      let markdown = null;
+      if (this.value) {
+         let markdowns = [];
          this.value.split('[inset]').forEach((section, idx) => {
             markdowns.push(section);
             idx < _children.length && markdowns.push(_children[idx]);
          });
 
-      const markdown = section => (typeof section == 'string' ? <MarkdownText text={section} /> : section);
+         markdown = markdowns.map((section, idx) => <React.Fragment key={idx}>{renderText(section)}</React.Fragment>);
+      }
+      else if (_children.length > 0) markdown = renderText(_children[0]);
 
       return (
-         <Container id={fullId} className="markdown" {...props}>
-            {markdowns.map((section, idx) => <React.Fragment key={idx}>{markdown(section)}</React.Fragment>)}
+         <Container id={fullId} style={style} css={css} className="markdown" {...props}>
+            {markdown}
          </Container>
       );
    }
 }
-
-export const MarkdownText = props => utils.markdown(props.text);

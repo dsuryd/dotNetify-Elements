@@ -35,6 +35,9 @@ The icons that you see here came from [Font Awesome](https://fontawesome.com/get
 
 ```jsx
 static propTypes = {
+   // Identifies the associated view model property.
+   id: PropTypes.string,
+
    // Displays the text and icon apart from each other.
    apart: PropTypes.bool,
 

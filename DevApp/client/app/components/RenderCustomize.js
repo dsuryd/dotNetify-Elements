@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Card, MarkdownText, Panel, RadioGroup, TextField, VMContext } from 'dotnetify-elements';
+import { Card, Markdown, Panel, RadioGroup, TextField, VMContext } from 'dotnetify-elements';
 import * as utils from 'dotnetify-elements/utils';
 
 const withHighlight = Component => props => <Component {...props} style={{ border: '2px double red' }} />;
@@ -54,7 +54,7 @@ export default class RenderCustomize extends React.Component {
             <Card style={{ marginTop: '1rem' }}>
                <RadioGroup id="_components" label="Select sub-component to highlight:" options={options} value={selected} onChange={this.select} />
             </Card>
-            <MarkdownText text={this.buildCode(propsText)} />
+            <Markdown text={this.buildCode(propsText)} />
          </Panel>
       );
 

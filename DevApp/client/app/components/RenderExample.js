@@ -1,6 +1,6 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
-import { MarkdownText, Panel, RadioToggle, VMContext } from 'dotnetify-elements';
+import { Markdown, Panel, RadioToggle, VMContext } from 'dotnetify-elements';
 
 export default class RenderExample extends React.Component {
    constructor(props) {
@@ -8,11 +8,7 @@ export default class RenderExample extends React.Component {
       this.boolPropTypes = Object.keys(props.propTypes).filter(x => props.propTypes[x] === PropTypes.bool);
 
       this.state = {};
-      this.trueByDefaultProps = [
-         'enable',
-         'show',
-         ...(props.defaultProps ? Object.keys(props.defaultProps).filter(x => props.defaultProps[x]) : [])
-      ];
+      this.trueByDefaultProps = [ 'enable', 'show', ...(props.defaultProps ? Object.keys(props.defaultProps).filter(x => props.defaultProps[x]) : []) ];
       this.boolPropTypes.forEach(x => (this.state[x] = this.trueByDefaultProps.includes(x)));
    }
 
@@ -48,15 +44,7 @@ export default class RenderExample extends React.Component {
       };
 
       const radioToggles = this.boolPropTypes.map(x => (
-         <RadioToggle
-            css="padding-bottom: 1rem"
-            key={x}
-            id={'_' + x}
-            label={x + ':'}
-            options={flags}
-            value={this.state[x]}
-            onChange={val => set(x, val)}
-         />
+         <RadioToggle css="padding-bottom: 1rem" key={x} id={'_' + x} label={x + ':'} options={flags} value={this.state[x]} onChange={val => set(x, val)} />
       ));
 
       const content = (
@@ -66,7 +54,7 @@ export default class RenderExample extends React.Component {
                {radioToggles}
                {extraToggles}
             </Panel>
-            <MarkdownText text={this.buildCode(this.state)} />
+            <Markdown>{this.buildCode(this.state)}</Markdown>
          </Panel>
       );
 

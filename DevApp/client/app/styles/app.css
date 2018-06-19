@@ -31,7 +31,6 @@ div > h2 {
    border-bottom: 1px solid #ccc;
 }
 
-.markdown * > h4,
 .markdown * + h4 {
    margin-top: 3rem;
 }

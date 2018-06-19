@@ -24,11 +24,13 @@ namespace DotNetify.Elements
 
       public static implicit operator string(Markdown markdown) => markdown._content;
 
-      /// <summary>
-      /// Returns the markdown title text.
-      /// </summary>
+      // Returns the markdown title text.
       public string Title => GetTitle();
 
+      /// <summary>
+      /// Constructor.
+      /// </summary>
+      /// <param name="embeddedResource">Embedded resource containing markdown text.</param>
       public Markdown(string embeddedResource)
       {
          _content = Utils.GetResource(embeddedResource).Result;

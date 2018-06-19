@@ -7,6 +7,7 @@ import * as utils from '../utils';
 const LabelContainer = styled.div`
    display: flex;
    align-items: center;
+   padding-bottom: .25rem;
    flex-direction: ${props => (props.right ? 'row-reverse' : 'row')};
    justify-content: ${props => (props.apart ? 'space-between' : 'flex-start')};
    width: ${props => (props.apart ? '100%' : 'inherit')};
@@ -29,6 +30,9 @@ const IconComponent = styled.span.attrs({
 
 export class Label extends Element {
    static propTypes = {
+      // Identifies the associated view model property.
+      id: PropTypes.string,
+
       // Displays the text and icon apart from each other.
       apart: PropTypes.bool,
 
