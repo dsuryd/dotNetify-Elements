@@ -64,7 +64,7 @@ class MarkdownCustomize extends React.Component {
       const select = value => ({});
       return (
          <RenderCustomize name="Markdown" componentTypes={componentTypes} select={select} onSelected={handleSelected}>
-            <Markdown>Content</Markdown>
+            <Markdown>{'##### Markdown Header\r\nContent'}</Markdown>
          </RenderCustomize>
       );
    }

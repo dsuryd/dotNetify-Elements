@@ -151,8 +151,6 @@ code[class*="language-csharp"] {
 /* Code blocks */
 pre > .language-csharp .prism-code {
    position: relative;
-   margin-top: .5rem;
-   margin-bottom: 2rem;
    overflow: auto;
 }
 
