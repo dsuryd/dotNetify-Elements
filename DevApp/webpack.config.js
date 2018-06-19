@@ -6,10 +6,10 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 module.exports = {
    mode: 'development',
    entry: {
-      main: './client/main.js'
+      app: './client/main.js'
    },
    output: {
-      filename: 'bundle.js',
+      filename: '[name].js',
       path: __dirname + '/wwwroot/dist',
       publicPath: '/dist/'
    },
@@ -26,5 +26,5 @@ module.exports = {
          { test: /\.(eot|svg|ttf|woff(2)?)(\?v=\d+\.\d+\.\d+)?/, loader: 'url-loader' }
       ]
    },
-   plugins: [ new MiniCssExtractPlugin({ filename: './app.css' }) ]
+   plugins: [ new MiniCssExtractPlugin() ]
 };
