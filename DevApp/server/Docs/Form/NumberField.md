@@ -40,7 +40,7 @@ public class NumberFieldExample : BaseVM
 Same as [TextField](textfield).
 
 
-#### Server-side Attributes
+#### Server-side Attribute
 
 ```csharp
 public class NumberFieldAttribute

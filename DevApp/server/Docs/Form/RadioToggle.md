@@ -55,6 +55,6 @@ static propTypes = {
 };
 ```
 
-#### Server-side Attributes
+#### Server-side Attribute
 
 Same as [RadioGroup](radiogroup).

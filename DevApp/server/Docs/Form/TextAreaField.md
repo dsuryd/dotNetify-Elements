@@ -33,7 +33,7 @@ static propTypes = {
 };
 ```
 
-#### Server-side Attributes
+#### Server-side Attribute
 
 ```csharp
 public class TextAreaFieldAttribute

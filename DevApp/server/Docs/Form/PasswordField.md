@@ -24,6 +24,6 @@ public class FormPasswordFieldExample : BaseVM
 
 Same as [TextField](textfield).
 
-#### Server-side Attributes
+#### Server-side Attribute
 
 Same as [TextFieldAttribute](textfield).
