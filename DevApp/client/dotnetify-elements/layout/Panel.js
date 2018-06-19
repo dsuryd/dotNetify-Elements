@@ -155,9 +155,10 @@ export class Panel extends React.Component {
       const _margin = margin || (noMargin ? '0' : smallMargin ? Margin.small : Margin.large);
       const _horizontal = horizontal || right || wrap || apart;
 
+      const flexAuto = '1 1 auto';
       const children = React.Children.toArray(this.children);
-      let _flex = typeof flex == 'boolean' ? (flex ? '1' : null) : flex;
-      if (!_flex) _flex = (childProps && childProps.flex) || children.some(child => child.props && child.props.flex) ? '1' : null;
+      let _flex = typeof flex == 'boolean' ? (flex ? flexAuto : null) : flex;
+      if (!_flex) _flex = (childProps && childProps.flex) || children.some(child => child.props && child.props.flex) ? flexAuto : null;
 
       return (
          <Container
@@ -176,7 +177,7 @@ export class Panel extends React.Component {
             {this.children.map((child, idx) => {
                const { flex, ..._childProps } = childProps || {};
                let childFlex = flex || (child.props && child.props.flex);
-               childFlex = typeof childFlex == 'boolean' ? (childFlex ? '1' : null) : childFlex;
+               childFlex = typeof childFlex == 'boolean' ? (childFlex ? flexAuto : null) : childFlex;
 
                // If child or its container has 'css' attribute, it's a derivate of Panel, don't wrap it.
                const hasCssPropType = x => x && x.propTypes && x.propTypes.css;
@@ -198,7 +199,11 @@ export class Panel extends React.Component {
                      flex={childFlex}
                      margin={this.numChildren <= 1 ? 0 : this.getMargin(idx, _gap, _horizontal)}
                   >
-                     {child.props ? React.cloneElement(child, utils.mergeProps(child, _childProps, { onShow: show => this.handleShow(idx, show) })) : child}
+                     {child.props ? (
+                        React.cloneElement(child, utils.mergeProps(child, _childProps, { onShow: show => this.handleShow(idx, show) }))
+                     ) : (
+                        child
+                     )}
                   </ChildContainer>
                );
             })}

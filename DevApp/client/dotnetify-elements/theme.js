@@ -181,7 +181,8 @@ const structureTheme = {
       ValidationMessageContainer: `
             color: red;
         `,
-      PlainTextContainer: `font-weight: 500;`
+      PlainTextContainer: ``,
+      PlainTextComponent: `font-weight: 500;`
    },
    Tab: {
       Container: ``,

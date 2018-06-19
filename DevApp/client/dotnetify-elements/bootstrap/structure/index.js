@@ -13,7 +13,7 @@ import { Tab, TabItem } from '../../structure/Tab';
 import * as rs from 'reactstrap';
 
 Collapsible.componentTypes.CollapsePanel = rs.Collapse;
-Field.componentTypes.PlainTextContainer = PlainText;
+Field.componentTypes.PlainTextComponent = PlainText;
 Tab.componentTypes.TabContainer = _Tab;
 TabItem.componentTypes.TabItemComponent = _TabItem;
 

@@ -5,5 +5,5 @@ export const PlainText = styled.p.attrs({
    className: 'form-control-plaintext'
 })`
    min-height: 2.4rem;
-   ${props => props.theme.Field.PlainTextContainer}
+   ${props => props.theme.Field.PlainTextComponent}
 `;

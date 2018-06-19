@@ -76,7 +76,7 @@ class FieldCustomize extends React.Component {
       const componentTypes = Field.componentTypes;
       const handleSelected = state => this.setState(state);
       const select = value => ({
-         plainText: value === 'PlainTextContainer',
+         plainText: value === 'PlainTextComponent',
          validationMessage: value === 'ValidationMessageContainer'
       });
 
