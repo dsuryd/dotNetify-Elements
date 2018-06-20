@@ -26,18 +26,7 @@ const displayTheme = {
          .toc-h3, 
          .toc-h4 {
             font-size: .9rem;
-         }
-         a {
-            color: #00bc8c;
-            &:hover { 
-               color: #0056b3;
-               text-decoration: none;
-            } 
-            &:focus { 
-               color: #00bc8c; 
-               > * { background: #e7e7e7; } 
-            }
-         }
+         } 
       `
    }
 };
@@ -80,7 +69,9 @@ const formTheme = {
 };
 
 const layoutTheme = {
-   Main: `a { color: #00bc8c   }`,
+   Main: `
+      ${defaultTheme.Main}
+   `,
    Header: `
       background: #303030;
       border-bottom: 1px solid #111;
@@ -126,27 +117,18 @@ const navTheme = {
          }
       `,
       RouteContainer: `
-         border-bottom: 1px solid #111;
+         border-bottom: 1px solid #444;
          color: #868e96; 
-         &:hover { background: #f0f0f0; }
-         > a {
-               color: #00bc8c;
-               &:hover { 
-                  color: #0056b3;
-                  text-decoration: none;
-               } 
-               &:focus { 
-                  color: #00bc8c; 
-                  > * { background: #e7e7e7; } 
-               }
+         &:hover {
+            background: #1a1a1a; 
          }
       `,
       GroupContainer: `
-         border-bottom: 1px solid #e7e7e7;
-         color: #00bc8c;
+         border-bottom: 1px solid #444;
+         color: #337ab7;
          &:hover { 
-               color: #0056b3; 
-               background: #f0f0f0;
+            color: #0056b3; 
+            background: #1a1a1a;
          }
       `
    }
@@ -154,9 +136,9 @@ const navTheme = {
 
 const structureTheme = {
    Card: {
-      Container: ``,
+      Container: `background: #303030;`,
       ImageContainer: ``,
-      HeaderContainer: ``,
+      HeaderContainer: `background: #444;`,
       BodyContainer: ``,
       FooterContainer: ``
    },
@@ -188,12 +170,18 @@ const structureTheme = {
       PlainTextComponent: `font-weight: 500;`
    },
    Tab: {
-      Container: ``,
+      Container: `
+         ul {
+            border-bottom-color: #444;
+         }
+         a.nav-link.active {
+            color: #fff;
+            background: #222;
+            border-color: #444;
+         }
+      `,
       TabItemContainer: ``,
-      TabItem: `
-         > a {
-            color: #00bc8c;
-         }`
+      TabItem: ``
    }
 };
 

@@ -32,6 +32,9 @@ import DisplayDataGrid from './display/DisplayDataGrid';
 import DisplayImage from './display/DisplayImage';
 import DisplayLabel from './display/DisplayLabel';
 import DisplayMarkdown from './display/DisplayMarkdown';
+
+import NavigationNavMenu from './navigation/NavigationNavMenu';
+
 import CustomerInfoPage from './examples/customer-info/CustomerInfoPage';
 
 export {
@@ -65,5 +68,6 @@ export {
    DisplayImage,
    DisplayLabel,
    DisplayMarkdown,
+   NavigationNavMenu,
    CustomerInfoPage
 };

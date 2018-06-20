@@ -41,6 +41,7 @@ namespace dotNetify_Elements
          DisplayLabel,
          DisplayDataGrid,
          DisplayMarkdown,
+         NavigationNavMenu,
 
          /* Examples */
          DataGridDemo,
@@ -85,6 +86,7 @@ namespace dotNetify_Elements
             new RouteTemplate(nameof(Route.DisplayLabel))         { UrlPattern = "display/label" },
             new RouteTemplate(nameof(Route.DisplayMarkdown))      { UrlPattern = "display/markdown" },
             new RouteTemplate(nameof(Route.DisplayDataGrid))      { UrlPattern = "list/datagrid" },
+            new RouteTemplate(nameof(Route.NavigationNavMenu))    { UrlPattern = "navigation/navmenu" },
             new RouteTemplate(nameof(Route.CustomerInfoPage))     { UrlPattern = "examples/customer-info" },
          });
 
@@ -149,6 +151,15 @@ namespace dotNetify_Elements
                      new NavRoute("Image",               this.GetRoute(nameof(Route.DisplayImage))),
                      new NavRoute("Label",               this.GetRoute(nameof(Route.DisplayLabel))),
                      new NavRoute("Markdown",            this.GetRoute(nameof(Route.DisplayMarkdown))),
+                  },
+                  IsExpanded = false
+               },
+               new NavGroup
+               {
+                  Label = "Navigation",
+                  Routes = new NavRoute[]
+                  {
+                     new NavRoute("NavMenu",             this.GetRoute(nameof(Route.NavigationNavMenu))),
                   },
                   IsExpanded = false
                },

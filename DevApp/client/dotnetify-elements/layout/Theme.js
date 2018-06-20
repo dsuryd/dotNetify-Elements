@@ -15,9 +15,12 @@ export class Theme extends React.Component {
       theme: PropTypes.object
    };
 
+   static currentTheme = null;
+
    constructor(props) {
       super(props);
       this.theme = this.props.theme || defaultTheme;
+      Theme.currentTheme = this.theme;
    }
 
    getChildContext() {
@@ -38,8 +41,8 @@ export class Theme extends React.Component {
    }
 }
 
-export const withTheme = Component => props => (
-   <Theme>
+export const withTheme = (Component, theme) => props => (
+   <Theme theme={theme || Theme.currentTheme}>
       <Component {...props} />
    </Theme>
 );
