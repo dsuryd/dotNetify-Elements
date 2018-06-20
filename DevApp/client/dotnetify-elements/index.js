@@ -42,7 +42,6 @@ import {
    TextField,
    TextAreaField,
    Theme,
-   defaultTheme,
    withTheme
 } from './bootstrap';
 
@@ -90,6 +89,5 @@ export {
    TextField,
    TextAreaField,
    Theme,
-   defaultTheme,
    withTheme
 };

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { PropTypes } from 'prop-types';
 import { ThemeProvider } from 'styled-components';
-import defaultTheme from '../theme';
+import defaultTheme from '../theme-light';
 
 const Container = styled.div`
    display: flex;

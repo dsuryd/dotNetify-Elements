@@ -24,18 +24,7 @@ const displayTheme = {
          .toc-h3, 
          .toc-h4 {
             font-size: .9rem;
-         }
-         a {
-            color: #337ab7;
-            &:hover { 
-               color: #0056b3;
-               text-decoration: none;
-            } 
-            &:focus { 
-               color: #337ab7; 
-               > * { background: #e7e7e7; } 
-            }
-         }
+         } 
       `
    }
 };
@@ -78,7 +67,18 @@ const formTheme = {
 };
 
 const layoutTheme = {
-   Main: ``,
+   Main: `
+      a {
+         color: #337ab7;
+         &:hover { 
+            color: #0056b3;
+            text-decoration: none;
+         } 
+         &:focus { 
+            color: #337ab7; 
+         }
+      }     
+   `,
    Header: `
       background: #f8f8f8;
       border-bottom: 1px solid #e7e7e7;
@@ -126,24 +126,13 @@ const navTheme = {
          border-bottom: 1px solid #e7e7e7;
          color: #868e96; 
          &:hover { background: #f0f0f0; }
-         > a {
-               color: #337ab7;
-               &:hover { 
-                  color: #0056b3;
-                  text-decoration: none;
-               } 
-               &:focus { 
-                  color: #337ab7; 
-                  > * { background: #e7e7e7; } 
-               }
-         }
       `,
       GroupContainer: `
          border-bottom: 1px solid #e7e7e7;
          color: #337ab7;
          &:hover { 
-               color: #0056b3; 
-               background: #f0f0f0;
+            color: #0056b3; 
+            background: #f0f0f0;
          }
       `
    }
@@ -187,14 +176,12 @@ const structureTheme = {
    Tab: {
       Container: ``,
       TabItemContainer: ``,
-      TabItem: `
-         > a {
-            color: #337ab7;
-         }`
+      TabItem: ``
    }
 };
 
-const defaultTheme = {
+const lightTheme = {
+   name: 'light',
    ...displayTheme,
    ...formTheme,
    ...layoutTheme,
@@ -202,4 +189,4 @@ const defaultTheme = {
    ...structureTheme
 };
 
-export default defaultTheme;
+export default lightTheme;

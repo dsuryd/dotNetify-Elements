@@ -1,4 +1,4 @@
-import { defaultTheme } from 'elements/bootstrap';
+import theme from 'dotnetify-elements/theme-light';
 
-const appTheme = Object.assign({}, defaultTheme);
+const appTheme = Object.assign({}, theme);
 export default appTheme;

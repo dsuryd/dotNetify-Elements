@@ -14,7 +14,6 @@ import {
    MultiselectList,
    NumberField,
    PasswordField,
-   PlainText,
    RadioGroup,
    RadioToggle,
    TextField,
@@ -23,9 +22,7 @@ import {
 } from './form';
 import { CellPanel, Footer, Frame, Header, Main, Nav, NavHeader, Panel, Section, Theme, withTheme } from './layout';
 import { NavMenu, NavMenuTarget } from './nav';
-import { Card, CardHeader, CardBody, CardFooter, Cell, CellHeader, CellBody, Collapsible, Field, Modal, Tab, TabItem } from './structure';
-
-import defaultTheme from '../theme';
+import { Card, Cell, Collapsible, Field, Modal, Tab, TabItem } from './structure';
 
 export {
    Alert,
@@ -69,6 +66,5 @@ export {
    PasswordField,
    TextAreaField,
    Theme,
-   defaultTheme,
    withTheme
 };
