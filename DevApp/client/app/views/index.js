@@ -1,5 +1,8 @@
 import Introduction from './Introduction';
 import WorkingWithForms from './WorkingWithForms';
+import LayoutSystem from './LayoutSystem';
+import Customization from './Customization';
+import GetStarted from './GetStarted';
 
 import Form from './form/Form';
 import FormButton from './form/FormButton';
@@ -40,6 +43,9 @@ import CustomerInfoPage from './examples/customer-info/CustomerInfoPage';
 export {
    Introduction,
    WorkingWithForms,
+   LayoutSystem,
+   Customization,
+   GetStarted,
    Form,
    FormButton,
    FormCheckbox,

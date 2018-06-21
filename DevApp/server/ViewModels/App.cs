@@ -12,6 +12,9 @@ namespace dotNetify_Elements
          Home,
          Introduction,
          WorkingWithForms,
+         LayoutSystem,
+         Customization,
+         GetStarted,
          Form,
          FormButton,
          FormCheckbox,
@@ -57,6 +60,9 @@ namespace dotNetify_Elements
             new RouteTemplate(nameof(Route.Home))                 { UrlPattern = "", ViewUrl = nameof(Route.Introduction) },
             new RouteTemplate(nameof(Route.Introduction))         { UrlPattern = "intro" },
             new RouteTemplate(nameof(Route.WorkingWithForms))     { UrlPattern = "forms" },
+            new RouteTemplate(nameof(Route.LayoutSystem))         { UrlPattern = "layout" },
+            new RouteTemplate(nameof(Route.Customization))        { UrlPattern = "customize" },
+            new RouteTemplate(nameof(Route.GetStarted))           { UrlPattern = "getstarted" },
             new RouteTemplate(nameof(Route.FormButton))           { UrlPattern = "form/button" },
             new RouteTemplate(nameof(Route.FormCheckbox))         { UrlPattern = "form/checkbox" },
             new RouteTemplate(nameof(Route.FormCheckboxGroup))    { UrlPattern = "form/checkboxgroup" },
@@ -72,7 +78,7 @@ namespace dotNetify_Elements
             new RouteTemplate(nameof(Route.FormTextField))        { UrlPattern = "form/textfield" },
             new RouteTemplate(nameof(Route.FormDemo))             { UrlPattern = "form/demo" },
             new RouteTemplate(nameof(Route.FormValidationDemo))   { UrlPattern = "form/validationdemo" },
-            new RouteTemplate(nameof(Route.LayoutGrid))           { UrlPattern = "layout" },
+            new RouteTemplate(nameof(Route.LayoutGrid))           { UrlPattern = "layout/grid" },
             new RouteTemplate(nameof(Route.LayoutPanel))          { UrlPattern = "layout/panel" },
             new RouteTemplate(nameof(Route.StructureCard))        { UrlPattern = "structure/card" },
             new RouteTemplate(nameof(Route.StructureCell))        { UrlPattern = "structure/cell" },
@@ -95,6 +101,9 @@ namespace dotNetify_Elements
             {
                new NavRoute("Introduction",              this.GetRoute(nameof(Route.Introduction))),
                new NavRoute("Working with Forms",        this.GetRoute(nameof(Route.WorkingWithForms))),
+               new NavRoute("Layout System",             this.GetRoute(nameof(Route.LayoutSystem))),
+               new NavRoute("Customization",             this.GetRoute(nameof(Route.Customization))),
+               new NavRoute("Get Started",               this.GetRoute(nameof(Route.GetStarted))),
                new NavGroup
                {
                   Label = "Form",

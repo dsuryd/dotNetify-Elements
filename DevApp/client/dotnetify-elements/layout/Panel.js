@@ -150,6 +150,11 @@ export class Panel extends React.Component {
          style
       } = this.props;
 
+      if (!this.context.theme) {
+         console.error('ERROR: You must enclose Panel with <Theme> component or withTheme().');
+         throw 'error';
+      }
+
       const { Gap, Margin } = this.context.theme.Panel;
       const _gap = gap || (noGap ? '0' : smallGap ? Gap.small : Gap.large);
       const _margin = margin || (noMargin ? '0' : smallMargin ? Margin.small : Margin.large);

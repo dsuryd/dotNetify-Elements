@@ -91,7 +91,7 @@ const layoutTheme = {
       z-index: 997;
    `,
    Nav: `
-        background: #f8f8f8;
+        background: #f4f4f4;
         border-right: 1px solid #e7e7e7;
         z-index: 998;
     `,
@@ -125,9 +125,11 @@ const navTheme = {
       RouteContainer: `
          border-bottom: 1px solid #e7e7e7;
          color: #868e96; 
+         background: #f4f4f4;
          &:hover { background: #f0f0f0; }
       `,
       GroupContainer: `
+         background: #f8f8f8;
          border-bottom: 1px solid #e7e7e7;
          color: #337ab7;
          &:hover { 
