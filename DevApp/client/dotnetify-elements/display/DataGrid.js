@@ -66,14 +66,12 @@ export class DataGrid extends Element {
 
       if (this.redraw) {
          this.redraw = null;
-         try {
-            window.dispatchEvent(new Event('resize'));
-         } catch (ex) {
-            // IE 11.
+         if (utils.isIE11()) {
             let event = document.createEvent('Event');
             event.initEvent('resize', false, true);
             window.dispatchEvent(event);
          }
+         else window.dispatchEvent(new Event('resize'));
       }
    }
 
@@ -132,9 +130,7 @@ export class DataGrid extends Element {
 
    sort = (sortColumn, sortDirection) => {
       const comparer = (a, b) =>
-         sortDirection == 'ASC'
-            ? a[sortColumn] > b[sortColumn] ? 1 : -1
-            : sortDirection == 'DESC' ? (a[sortColumn] < b[sortColumn] ? 1 : -1) : null;
+         sortDirection == 'ASC' ? (a[sortColumn] > b[sortColumn] ? 1 : -1) : sortDirection == 'DESC' ? (a[sortColumn] < b[sortColumn] ? 1 : -1) : null;
 
       if (!this.unsortedValue) this.unsortedValue = [ ...this.value ];
       this.value = sortDirection !== 'NONE' ? this.value.sort(comparer) : [ ...this.unsortedValue ];

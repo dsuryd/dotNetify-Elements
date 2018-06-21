@@ -20,20 +20,6 @@ export function deepEqual(a, b) {
    return JSON.stringify(a) === JSON.stringify(b);
 }
 
-export function ifBoolElse(arg1, arg2) {
-   return typeof arg1 == 'boolean' ? arg1 : !!arg2;
-}
-
-export function mapChildren(children, predicate, mapper) {
-   return React.Children.map(children, child => {
-      if (!child) return;
-
-      if (child.type && predicate(child)) return mapper(child);
-      else if (child.props && child.props.children) return React.cloneElement(child, child.props, this.mapChildren(child.props.children, predicate, mapper));
-      return child;
-   });
-}
-
 export function filterChildren(children, predicate) {
    let result = [];
    const rest = React.Children.map(children, child => {
@@ -44,6 +30,24 @@ export function filterChildren(children, predicate) {
       else return child;
    });
    return [ result, rest ];
+}
+
+export function ifBoolElse(arg1, arg2) {
+   return typeof arg1 == 'boolean' ? arg1 : !!arg2;
+}
+
+export function isIE11() {
+   return window.navigator.userAgent.indexOf('Trident/') > 0;
+}
+
+export function mapChildren(children, predicate, mapper) {
+   return React.Children.map(children, child => {
+      if (!child) return;
+
+      if (child.type && predicate(child)) return mapper(child);
+      else if (child.props && child.props.children) return React.cloneElement(child, child.props, this.mapChildren(child.props.children, predicate, mapper));
+      return child;
+   });
 }
 
 export function markdown(text) {

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Alert, Button, Markdown, Panel, RadioToggle, TabItem, defaultTheme, withTheme } from 'dotnetify-elements';
+import { Alert, Button, Markdown, Panel, RadioToggle, TabItem, withTheme } from 'dotnetify-elements';
 import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
 
 const DisplayAlert = props => (

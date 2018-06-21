@@ -10,11 +10,12 @@ Cell elements are intended to be grouped together on a __CellPanel__ to form a g
 
 [inset]
 <br/>
+
 ```jsx
 class CellGroupExample extends React.Component {
    state = { Customers: [] };
    tableTheme = {
-      ...defaultTheme,
+      ...appTheme,
       Cell: {
          HeaderContainer: 'font-weight: 500',
          BodyContainer: 'padding: .5rem'

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Element, NavMenu, Markdown, Panel, TabItem, defaultTheme, withTheme } from 'dotnetify-elements';
+import { Card, Element, NavMenu, Markdown, Panel, TabItem, withTheme } from 'dotnetify-elements';
 import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
 
 const NavigationNavMenu = props => (
@@ -25,11 +25,13 @@ class NavMenuExample extends React.Component {
       const buildCode = props => `
 \`\`\`jsx
 import React from 'react';
-import { Element, NavMenu, Panel, VMContext } from 'dotnetify-elements';
-import { Badge, BigIcon } from './demo-helper';
+import { Card, NavMenu, VMContext } from 'dotnetify-elements';
 
 const MyApp = _ => (
    <VMContext vm="NavMenuExample">
+      <Card>
+         <NavMenu id="NavMenu" selected="examples/customer-info" ${props}/>
+      </Card>   
    </VMContext>
 );
 \`\`\``;
@@ -37,7 +39,11 @@ const MyApp = _ => (
       let propTypes = { ...NavMenu.propTypes };
       return (
          <RenderExample vm="NavMenuExample" propTypes={propTypes} buildCode={buildCode} onChange={setState}>
-            <Panel css="margin-bottom: 2rem" />
+            <Panel css="margin-bottom: 2rem">
+               <Card>
+                  <NavMenu id="NavMenu" selected="examples/customer-info" {...this.state} />
+               </Card>
+            </Panel>
          </RenderExample>
       );
    }
@@ -50,8 +56,8 @@ class NavMenuCustomize extends React.Component {
       const handleSelected = state => this.setState(state);
       const select = value => ({});
       return (
-         <RenderCustomize name="NavMenu" componentTypes={componentTypes} select={select} onSelected={handleSelected}>
-            <div />
+         <RenderCustomize name="NavMenu" vm="NavMenuCustomize" componentTypes={componentTypes} select={select} onSelected={handleSelected}>
+            <NavMenu id="MyNavMenu" />
          </RenderCustomize>
       );
    }

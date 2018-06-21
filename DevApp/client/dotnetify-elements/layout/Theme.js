@@ -20,7 +20,7 @@ export class Theme extends React.Component {
    constructor(props) {
       super(props);
       this.theme = this.props.theme || defaultTheme;
-      Theme.currentTheme = this.theme;
+      if (!Theme.currentTheme) Theme.currentTheme = Theme.currentTheme || this.theme;
    }
 
    getChildContext() {

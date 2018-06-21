@@ -25,24 +25,21 @@ const GroupHeaderContainer = Collapsible.componentTypes.HeaderContainer.extend`
     ${props => props.theme.NavMenu.GroupContainer}      
 `;
 
-const GroupLabel = props => (
-   <div style={{ padding: props.padding || '.75rem 1rem' }}>
-      <Label icon={props.icon}>{props.children}</Label>
+const GroupLabel = ({ padding, icon, children, style }) => (
+   <div style={{ padding: padding || '.75rem 1rem', ...style }}>
+      <Label icon={icon}>{children}</Label>
    </div>
 );
 
-const RouteLabel = props => (
-   <div style={{ padding: props.padding || '.75rem 1rem', paddingLeft: props.navGroup ? (props.navGroup.Icon ? '2.5rem' : '2rem') : '1rem' }}>
-      <Label icon={props.icon}>{props.children}</Label>
+const RouteLabel = ({ padding, navGroup, icon, children, style }) => (
+   <div style={{ padding: padding || '.75rem 1rem', paddingLeft: navGroup ? (navGroup.Icon ? '2.5rem' : '2rem') : '1rem', ...style }}>
+      <Label icon={icon}>{children}</Label>
    </div>
 );
 
 export class NavMenu extends Element {
    static propTypes = {
-      /// Shows the element.
-      show: PropTypes.bool,
-
-      // Selected item.
+      // Default selected item.
       selected: PropTypes.string
    };
 
@@ -66,7 +63,7 @@ export class NavMenu extends Element {
 
    buildRoute(navRoute, navGroup) {
       const [ , , RouteContainer, , RouteLabel ] = utils.resolveComponents(NavMenu, this.props);
-      const key = navRoute.Route.TemplateId;
+      const key = navRoute.Route.TemplateId || `${navRoute.Route.Redirect || ''}${navRoute.Route.Path}`;
       const isSelected = key === this.state.selected;
       return (
          <RouteContainer key={key} isSelected={isSelected}>
@@ -101,8 +98,6 @@ export class NavMenu extends Element {
    }
 
    render() {
-      if (this.props.show === false) return null;
-
       const [ Container, GroupContainer, , GroupLabel ] = this.resolveComponents(NavMenu);
 
       const value = this.value || [];
