@@ -13,6 +13,7 @@ const LayoutGrid = styled.main`
    -ms-grid-rows: auto 1fr auto;
    grid-template-areas: "header header" "nav    section" "nav    footer";
    ${props => props.theme.Main};
+   ${props => props.css};
 `;
 
 export const Main = props => (
@@ -29,6 +30,7 @@ export const Header = styled.header`
    align-items: center;
    height: ${props => props.height || '55px'};
    ${props => props.theme.Header};
+   ${props => props.css};
 `;
 
 export const Nav = styled.nav`
@@ -39,6 +41,7 @@ export const Nav = styled.nav`
    width: ${props => props.width || '250px'};
    overflow: auto;
    ${props => props.theme.Nav};
+   ${props => props.css};
 `;
 
 export const Footer = styled.footer`
@@ -48,6 +51,7 @@ export const Footer = styled.footer`
    display: flex;
    height: ${props => props.height || '50px'};
    ${props => props.theme.Footer};
+   ${props => props.css};
 `;
 
 export const Section = styled.section`
@@ -57,4 +61,5 @@ export const Section = styled.section`
    overflow: auto;
    display: flex;
    ${props => props.theme.Section};
+   ${props => props.css};
 `;

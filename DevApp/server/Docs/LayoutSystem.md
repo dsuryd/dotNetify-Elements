@@ -8,14 +8,24 @@ Use the layout grid elements to set up your main application structure, with the
 
 #### Panel Element
 
-A Panel element is a container, similar to the `<div>` tag, but equipped with the ability to arrange the layout of the child elements.  
+The Panel element serves as a container, much like the `<div>` tag, but with the ability to control the position of its content.  
 
-By default a Panel will vertically stack the child elements with a fixed gap between them:
-
-[inset]
-
-Use the various Panel's attributes to change the layout of items.  For example, adding the _horizontal_ attribute will stack the items horizontally:
+By default a Panel will vertically stack the child elements with a fixed gap in-between:
 
 [inset]
 
-Panels use css flexbox under the hood, which allows you to make it fill the available space and easily control the content's alignments.  Nest the panels, and you can create all sorts of layout:
+Use any combination of the [Panel's properties](layout/panel) to customize the layout.  For example, adding the _horizontal_ property will stack the items horizontally:
+
+[inset]
+
+Panels use css flexbox under the hood, and when the _flex_ property is added, the element will fill the available space.  You can create all sorts of layout with nested panels, for example:
+
+[inset]
+
+And if that's not enough, you can always use the _css_ property to further customize not only the Panel itself, but all HTML tags within it:
+
+[inset]
+
+#### Responsive Design
+
+[inset]
