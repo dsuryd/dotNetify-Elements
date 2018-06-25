@@ -29,6 +29,9 @@ export const Header = styled.header`
    display: flex;
    align-items: center;
    height: ${props => props.height || '55px'};
+   > * {
+      height: inherit;
+   }
    ${props => props.theme.Header};
    ${props => props.css};
 `;
@@ -60,6 +63,10 @@ export const Section = styled.section`
    -ms-grid-row: 2;
    overflow: auto;
    display: flex;
+   flex-direction: column;
+   > * {
+      height: inherit;
+   }
    ${props => props.theme.Section};
    ${props => props.css};
 `;

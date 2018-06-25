@@ -123,5 +123,4 @@ export const NavMenuTarget = styled.div.attrs({
     display: flex;
     flex: 1;       
     width: 100%;
-    height: inherit;
 `;
