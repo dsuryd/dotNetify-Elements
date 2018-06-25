@@ -22,6 +22,7 @@ import FormValidationDemo from './form/FormValidationDemo';
 
 import LayoutGrid from './layout/LayoutGrid';
 import LayoutPanel from './layout/LayoutPanel';
+import LayoutDemo from './layout/LayoutDemo';
 
 import StructureCard from './structure/StructureCard';
 import StructureCell from './structure/StructureCell';
@@ -61,6 +62,7 @@ export {
    FormTextField,
    FormDemo,
    FormValidationDemo,
+   LayoutDemo,
    LayoutGrid,
    LayoutPanel,
    StructureCard,

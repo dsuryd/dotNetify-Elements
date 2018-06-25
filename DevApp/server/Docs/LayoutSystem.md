@@ -25,7 +25,3 @@ Panels use css flexbox under the hood, and when the _flex_ property is added, th
 And if that's not enough, you can always use the _css_ property to further customize not only the Panel itself, but all HTML tags within it:
 
 [inset]
-
-#### Responsive Design
-
-[inset]

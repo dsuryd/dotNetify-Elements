@@ -16,6 +16,7 @@ namespace dotNetify_Elements
          Customization,
          GetStarted,
          Form,
+         FormDemo,
          FormButton,
          FormCheckbox,
          FormCheckboxGroup,
@@ -28,8 +29,8 @@ namespace dotNetify_Elements
          FormRadioToggle,
          FormTextAreaField,
          FormTextField,
-         FormDemo,
          FormValidationDemo,
+         LayoutDemo,
          LayoutGrid,
          LayoutPanel,
          LayoutTheme,
@@ -78,6 +79,7 @@ namespace dotNetify_Elements
             new RouteTemplate(nameof(Route.FormTextField))        { UrlPattern = "form/textfield" },
             new RouteTemplate(nameof(Route.FormDemo))             { UrlPattern = "form/demo" },
             new RouteTemplate(nameof(Route.FormValidationDemo))   { UrlPattern = "form/validationdemo" },
+            new RouteTemplate(nameof(Route.LayoutDemo))           { UrlPattern = "layout/demo" },
             new RouteTemplate(nameof(Route.LayoutGrid))           { UrlPattern = "layout/grid" },
             new RouteTemplate(nameof(Route.LayoutPanel))          { UrlPattern = "layout/panel" },
             new RouteTemplate(nameof(Route.StructureCard))        { UrlPattern = "structure/card" },
@@ -109,7 +111,7 @@ namespace dotNetify_Elements
                   Label = "Form",
                   Routes = new NavRoute[]
                   {
-                     new NavRoute("Basic Demo",          this.GetRoute(nameof(Route.FormDemo))),
+                     new NavRoute("Demo",                this.GetRoute(nameof(Route.FormDemo))),
                      new NavRoute("Button",              this.GetRoute(nameof(Route.FormButton))),
                      new NavRoute("Checkbox",            this.GetRoute(nameof(Route.FormCheckbox))),
                      new NavRoute("CheckboxGroup",       this.GetRoute(nameof(Route.FormCheckboxGroup))),
@@ -131,6 +133,7 @@ namespace dotNetify_Elements
                   Label = "Layout",
                   Routes = new NavRoute[]
                   {
+                     new NavRoute("Demo",                this.GetRoute(nameof(Route.LayoutDemo))),
                      new NavRoute("Layout Grid",         this.GetRoute(nameof(Route.LayoutGrid))),
                      new NavRoute("Panel",               this.GetRoute(nameof(Route.LayoutPanel))),
                   },

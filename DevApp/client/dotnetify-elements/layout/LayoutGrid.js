@@ -16,9 +16,9 @@ const LayoutGrid = styled.main`
    ${props => props.css};
 `;
 
-export const Main = props => (
-   <Theme theme={props.theme}>
-      <LayoutGrid>{props.children}</LayoutGrid>
+export const Main = ({ theme, ...props }) => (
+   <Theme theme={theme}>
+      <LayoutGrid {...props} />
    </Theme>
 );
 
