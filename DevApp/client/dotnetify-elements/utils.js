@@ -1,6 +1,8 @@
 import React from 'react';
 import marked from 'marked';
 import Prism from 'prismjs';
+import 'prismjs/components/prism-csharp.js';
+import 'prismjs/components/prism-jsx.js';
 
 export const createEventEmitter = _ => {
    let subscribers = [];
@@ -45,7 +47,8 @@ export function mapChildren(children, predicate, mapper) {
       if (!child) return;
 
       if (child.type && predicate(child)) return mapper(child);
-      else if (child.props && child.props.children) return React.cloneElement(child, child.props, this.mapChildren(child.props.children, predicate, mapper));
+      else if (child.props && child.props.children)
+         return React.cloneElement(child, child.props, this.mapChildren(child.props.children, predicate, mapper));
       return child;
    });
 }
@@ -57,9 +60,8 @@ export function markdown(text) {
             __html: marked(text, {
                highlight: (code, lang) => {
                   var language = !lang || lang === 'html' ? 'markup' : lang;
-                  if (!Prism.languages[language]) {
-                     require('prismjs/components/prism-' + language + '.js');
-                  }
+                  if (!Prism.languages[language]) language = 'markup';
+
                   return `<span class='prism-code'>${Prism.highlight(code, Prism.languages[language])}</span>`;
                }
             })

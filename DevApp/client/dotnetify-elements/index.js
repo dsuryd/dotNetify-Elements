@@ -1,3 +1,4 @@
+import dotnetify from 'dotnetify';
 import { Element, VMContext, ContextTypes } from './core';
 import defaultTheme from './theme-light';
 import {
@@ -46,8 +47,13 @@ import {
    withTheme
 } from './bootstrap';
 
-export { ContextTypes, Element, VMContext };
-export {
+let dotNetifyElements = {
+   /* Core */
+   dotnetify,
+   ContextTypes,
+   Element,
+   VMContext,
+   /* Bootstrap */
    Alert,
    Button,
    Card,
@@ -93,3 +99,6 @@ export {
    withTheme,
    defaultTheme
 };
+
+if (window) window.dotNetifyElements = dotNetifyElements;
+export default dotNetifyElements;

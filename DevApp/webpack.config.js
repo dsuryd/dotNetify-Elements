@@ -1,12 +1,12 @@
 'use strict';
 
-const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
    mode: 'development',
    entry: {
-      app: './client/main.js'
+      app: './client/main.js',
+      'dotnetify-elements': './client/dotnetify-elements/index.js'
    },
    output: {
       filename: '[name].js',
@@ -25,6 +25,12 @@ module.exports = {
          { test: /\.(png|jpg|jpeg|gif|svg)$/, use: 'url-loader?limit=25000' },
          { test: /\.(eot|svg|ttf|woff(2)?)(\?v=\d+\.\d+\.\d+)?/, loader: 'url-loader' }
       ]
+   },
+   externals: {
+      react: 'React',
+      'react-dom': 'ReactDOM',
+      'styled-components': 'styled',
+      'dotnetify-elements': 'dotNetifyElements'
    },
    plugins: [ new MiniCssExtractPlugin() ]
 };
