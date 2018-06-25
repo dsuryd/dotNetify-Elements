@@ -4,6 +4,9 @@
     <RootNamespace>dotNetify_Elements</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="server\Docs\Layout\LayoutDemo.md" />
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="wwwroot\" />
     <Folder Include="wwwroot\dist\" />
   </ItemGroup>
@@ -24,6 +27,7 @@
     <EmbeddedResource Include="server\Docs\Form\Button.md" />
     <EmbeddedResource Include="server\Docs\GetStarted.md" />
     <EmbeddedResource Include="server\Docs\LayoutSystem.md" />
+    <EmbeddedResource Include="server\Docs\Layout\LayoutDemo.md" />
     <EmbeddedResource Include="server\Docs\Navigation\NavMenu.md" />
     <EmbeddedResource Include="server\Docs\Structure\Card.md" />
     <EmbeddedResource Include="server\Docs\Structure\card_image_example.jpg" />

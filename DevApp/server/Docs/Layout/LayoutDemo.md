@@ -1,20 +1,8 @@
+﻿
+```jsx
 import React from 'react';
 import styled from 'styled-components';
-import { Main, Header, Section } from 'dotnetify-elements';
-import { Button, Card, CellPanel, Frame, Markdown, Panel, Tab, TabItem, VMContext, withTheme } from 'dotnetify-elements';
-
-const DemoArea = styled.div`
-   margin-top: 1.5rem;
-   margin-left: 3rem;
-   width: calc(100% - 20rem);
-`;
-
-const mainCss = `
-   margin-top: 1rem;
-   margin-bottom: 3rem;
-   background: white;
-   box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12)
-`;
+import { Button, Card, Frame, Header, Main, Panel, Section, withTheme } from 'dotnetify-elements';
 
 const headerCss = `
    height: 130px;
@@ -35,28 +23,10 @@ const aboutCss = `
    border-radius: .25rem;
 `;
 
-const thumbnailImg =
-   'data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22200%22%20height%3D%22250%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20200%20250%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_1642fdc4ccb%20text%20%7B%20fill%3A%23eceeef%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A13pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_1642fdc4ccb%22%3E%3Crect%20width%3D%22200%22%20height%3D%22250%22%20fill%3D%22%2355595c%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2256.203125%22%20y%3D%22131%22%3EThumbnail%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E';
-
-const LayoutDemo = _ => (
-   <VMContext vm="LayoutDemo">
-      <DemoArea>
-         <h2>Layout Demo</h2>
-         <br />
-         <Tab>
-            <TabItem label="Demo">
-               <SampleAppLayout />
-            </TabItem>
-            <TabItem label="Source">
-               <Markdown id="Content" />
-            </TabItem>
-         </Tab>
-      </DemoArea>
-   </VMContext>
-);
+const thumbnailImg = 'data:image/svg+xml;charset=UTF-8,/* image data */';
 
 const SampleAppLayout = _ => (
-   <Main css={mainCss}>
+   <Main>
       <Header css={headerCss}>
          <Frame noGap>
             <Panel flex horizontal middle>
@@ -166,4 +136,5 @@ const SampleAppLayout = _ => (
    </Main>
 );
 
-export default withTheme(LayoutDemo);
+export default withTheme(SampleAppLayout);
+```

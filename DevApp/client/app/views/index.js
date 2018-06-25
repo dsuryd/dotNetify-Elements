@@ -18,7 +18,6 @@ import FormRadioToggle from './form/FormRadioToggle';
 import FormTextAreaField from './form/FormTextAreaField';
 import FormTextField from './form/FormTextField';
 import FormDemo from './form/FormDemo';
-import FormValidationDemo from './form/FormValidationDemo';
 
 import LayoutGrid from './layout/LayoutGrid';
 import LayoutPanel from './layout/LayoutPanel';
@@ -61,7 +60,6 @@ export {
    FormTextAreaField,
    FormTextField,
    FormDemo,
-   FormValidationDemo,
    LayoutDemo,
    LayoutGrid,
    LayoutPanel,
