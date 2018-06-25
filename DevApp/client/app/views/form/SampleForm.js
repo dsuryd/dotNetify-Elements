@@ -1,5 +1,4 @@
 import React from 'react';
-import dotnetify from 'dotnetify';
 import {
    Alert,
    Button,

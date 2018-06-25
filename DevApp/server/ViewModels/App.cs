@@ -109,7 +109,7 @@ namespace dotNetify_Elements
                   Label = "Form",
                   Routes = new NavRoute[]
                   {
-                     new NavRoute("Form Demo",           this.GetRoute(nameof(Route.FormDemo))),
+                     new NavRoute("Basic Demo",          this.GetRoute(nameof(Route.FormDemo))),
                      new NavRoute("Button",              this.GetRoute(nameof(Route.FormButton))),
                      new NavRoute("Checkbox",            this.GetRoute(nameof(Route.FormCheckbox))),
                      new NavRoute("CheckboxGroup",       this.GetRoute(nameof(Route.FormCheckboxGroup))),
@@ -131,7 +131,7 @@ namespace dotNetify_Elements
                   Label = "Layout",
                   Routes = new NavRoute[]
                   {
-                     new NavRoute("Layout Demo",         this.GetRoute(nameof(Route.LayoutDemo))),
+                     new NavRoute("Basic Demo",          this.GetRoute(nameof(Route.LayoutDemo))),
                      new NavRoute("Layout Grid",         this.GetRoute(nameof(Route.LayoutGrid))),
                      new NavRoute("Panel",               this.GetRoute(nameof(Route.LayoutPanel))),
                   },

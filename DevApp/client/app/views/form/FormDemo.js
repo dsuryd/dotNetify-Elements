@@ -18,8 +18,8 @@ class FormDemo extends React.Component {
    render() {
       const layoutOptions = [ { key: 'horizontal', value: 'Horizontal' }, { key: 'vertical', value: 'Vertical' } ];
       return (
-         <Frame css="margin-left: 3rem; width: calc(100% - 20rem)">
-            <h2>Form Demo</h2>
+         <Frame css="margin-left: 3rem; width: calc(100% - 6rem)">
+            <h2>Basic Form Demo</h2>
             <SampleForm
                vm="SampleForm"
                title={

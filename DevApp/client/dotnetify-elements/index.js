@@ -1,4 +1,5 @@
 import { Element, VMContext, ContextTypes } from './core';
+import defaultTheme from './theme-light';
 import {
    Alert,
    Button,
@@ -89,5 +90,6 @@ export {
    TextField,
    TextAreaField,
    Theme,
-   withTheme
+   withTheme,
+   defaultTheme
 };

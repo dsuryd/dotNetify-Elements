@@ -1,27 +1,31 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Main, Header, Section } from 'dotnetify-elements';
-import { Button, Card, CellPanel, Frame, Markdown, Panel, Tab, TabItem, VMContext, withTheme } from 'dotnetify-elements';
+import { Main, Header, Section, CellPanel, Frame, Panel } from 'dotnetify-elements';
+import { Button, Card, Markdown, Tab, TabItem, VMContext, withTheme, defaultTheme } from 'dotnetify-elements';
 
 const DemoArea = styled.div`
    margin-top: 1.5rem;
    margin-left: 3rem;
-   width: calc(100% - 20rem);
+   width: calc(100% - 6rem);
 `;
 
-const mainCss = `
-   margin-top: 1rem;
-   margin-bottom: 3rem;
-   background: white;
-   box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12)
-`;
-
-const headerCss = `
-   height: 130px;
-   border: none;
-   box-shadow: none;
-   background: none;
-`;
+const sampleTheme = {
+   ...defaultTheme,
+   name: 'sample',
+   Main: `
+      margin-top: 1rem;
+      margin-bottom: 3rem;
+      background: white;
+      box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12)
+   `,
+   Header: `
+      height: 130px;
+      border: none;
+      box-shadow: none;
+      background: none;
+   `,
+   Section: `background: none`
+};
 
 const jumbotronCss = `
    color: #fff;
@@ -41,7 +45,7 @@ const thumbnailImg =
 const LayoutDemo = _ => (
    <VMContext vm="LayoutDemo">
       <DemoArea>
-         <h2>Layout Demo</h2>
+         <h2>Basic Layout Demo</h2>
          <br />
          <Tab>
             <TabItem label="Demo">
@@ -56,8 +60,8 @@ const LayoutDemo = _ => (
 );
 
 const SampleAppLayout = _ => (
-   <Main css={mainCss}>
-      <Header css={headerCss}>
+   <Main theme={sampleTheme}>
+      <Header>
          <Frame noGap>
             <Panel flex horizontal middle>
                <Panel flex>
@@ -83,13 +87,14 @@ const SampleAppLayout = _ => (
             </Panel>
          </Frame>
       </Header>
-      <Section css="background: none">
+      <Section>
          <Frame>
             <Card css={jumbotronCss}>
                <CellPanel horizontal>
                   <Panel flex>
                      <h1>Title of a featured post</h1>
-                     Multiple lines of text informing new readers quickly and efficiently about what's most interesting in this post's contents.
+                     Multiple lines of text informing new readers quickly and efficiently about what's most interesting in this post's
+                     contents.
                      <a href="#">Continue reading...</a>
                   </Panel>
                   <Panel flex />
@@ -119,32 +124,33 @@ const SampleAppLayout = _ => (
                   <h2>Sample Blog Post</h2>
                   July 4th, 2018
                   <p>
-                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                     minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+                     aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                   </p>
                   <p>
-                     Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-                     non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                     Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+                     occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                   </p>
                   <h3>Heading</h3>
                   <p>
-                     At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et
-                     quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est
-                     laborum et dolorum fuga.
+                     At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque
+                     corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui
+                     officia deserunt mollitia animi, id est laborum et dolorum fuga.
                   </p>
                   <h5>Subheading</h5>
                   <p>
-                     Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo
-                     minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut
-                     officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae.
+                     Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio
+                     cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor
+                     repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates
+                     repudiandae sint et molestiae non recusandae.
                   </p>
                </Panel>
                <Panel>
                   <Panel css={aboutCss}>
                      <h5>About</h5>
                      <p>
-                        Etiam porta sem malesuada magna mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed
-                        consectetur.
+                        Etiam porta sem malesuada magna mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia
+                        bibendum nulla sed consectetur.
                      </p>
                   </Panel>
                   <Panel>

@@ -1,7 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
 import { Footer, Header, Main, Markdown, Nav, Panel, Section, withTheme } from 'dotnetify-elements';
-import { Article, RenderCustomize, RenderExample } from '../../components';
+import { Article } from '../../components';
 import { DemoArea, DemoLabel, demoTheme } from './demo-helper';
 
 const LayoutGrid = props => (

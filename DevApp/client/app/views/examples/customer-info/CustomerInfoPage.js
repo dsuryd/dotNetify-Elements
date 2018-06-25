@@ -16,7 +16,7 @@ class CustomerInfoPage extends React.Component {
       const canEdit = editable && !edit;
       return (
          <VMContext vm="CustomerInfoPage">
-            <Frame css="margin-left: 3rem; width: calc(100% - 20rem)">
+            <Frame css="margin-left: 3rem; width: calc(100% - 6rem)">
                <h2>Customers</h2>
                <DataGrid id="Contacts" onSelect={this.handleSelect} enable={!edit} />
                <Form plainText={!edit}>
