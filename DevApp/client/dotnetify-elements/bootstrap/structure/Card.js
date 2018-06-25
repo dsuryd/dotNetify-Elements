@@ -5,16 +5,17 @@ export const Card = styled.div.attrs({
    className: 'card'
 })`
    flex: 1;
+   ${props => (props.horizontal ? 'flex-direction: row;' : '')}
    width: ${props => (props.width ? props.width : 'inherit')};
-   ${props => props.theme.Card.Container}
+   ${props => props.theme.Card.Container};
    ${props => props.css};
 `;
 
 export const CardImage = styled.div.attrs({
-   className: props => (props.bottom ? 'card-img-bottom' : 'card-img-top')
+   className: props => (props.bottom ? 'card-img-bottom' : props.left ? 'card-img-left' : props.right ? 'card-img-right' : 'card-img-top')
 })`
    img { 
-      width: 100%; 
+      ${props => (props.left || props.right ? 'height: auto' : 'width: 100%')}; 
    }
    ${props => props.theme.Card.ImageContainer}
 `;

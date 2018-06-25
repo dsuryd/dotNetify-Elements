@@ -44,7 +44,7 @@ const MyApp = _ => (
 \`\`\``;
       const setState = state => this.setState(state);
       return (
-         <RenderExample vm="CardExample" propTypes={Card.propTypes} buildCode={buildCode} onChange={setState}>
+         <RenderExample vm="CardExample" propTypes={{}} buildCode={buildCode} onChange={setState}>
             <Panel css="margin-bottom: 2rem">
                <Card>
                   <header>
@@ -63,16 +63,37 @@ const MyApp = _ => (
    }
 }
 
-const CardImageExample = _ => (
-   <VMContext vm="CardImageExample">
-      <Panel css="margin-bottom: 2rem">
-         <Card width="360px">
-            <Image id="Picture" />
-            <Markdown id="Content" />
-         </Card>
-      </Panel>
+class CardImageExample extends React.Component {
+   state = { horizontal: false };
+   render() {
+      const buildCode = props => `
+\`\`\`jsx
+import React from 'react';
+import { Card, Image, Markdown, VMContext } from 'dotnetify-elements';
+
+const MyApp = _ => (
+   <VMContext vm="CardExample">
+      <Card ${props != 'horizontal ' ? 'width="360px" ' : ''}${props}>
+         <Image id="Picture" />
+         <Markdown id="Content" />
+      </Card>
    </VMContext>
 );
+\`\`\``;
+      const setState = state => this.setState(state);
+      const props = !this.state.horizontal ? { width: '360px' } : null;
+      return (
+         <RenderExample vm="CardImageExample" propTypes={Card.propTypes} buildCode={buildCode} onChange={setState}>
+            <Panel css="margin-bottom: 2rem">
+               <Card {...props} {...this.state}>
+                  <Image id="Picture" />
+                  <Markdown id="Content" />
+               </Card>
+            </Panel>
+         </RenderExample>
+      );
+   }
+}
 
 class CardCustomize extends React.Component {
    state = {};

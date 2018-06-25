@@ -20,23 +20,9 @@ public class CardExample : BaseVM
 
 #### Images
 
-An image can be added to the card by placing HTML tag `<img>` or the _Image_ element.
+An image can be added to the card by placing HTML tag `<img>` or the _Image_ element.  The placement of the tag determines whether the image is placed before or after the text.
 
 [inset]
-
-```jsx
-import React from 'react';
-import { Card, Image, Markdown, VMContext } from 'dotnetify-elements';
-
-const CardImageExample = _ => (
-   <VMContext vm="CardImageExample">
-      <Card width="360px">
-         <Image id="Picture" />
-         <Markdown id="Content" />
-      </Card>
-   </VMContext>
-);
-```
 
 ```csharp
 public class CardImageExample : BaseVM
@@ -59,6 +45,9 @@ static propTypes = {
 
    // Text or component for the card's footer.
    footer: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
+
+   // Place any image to the side.
+   horizontal: PropTypes.bool,
 
    // Sets custom width.
    width: PropTypes.string
