@@ -4,7 +4,7 @@
 <i>DotNetify-Elements</i> is a set of React components that you can readily connect to your cross-platform .NET back-end in an MVVM fashion and get them communicating in real-time through WebSocket.
 </p>
 
-_Elements_ incorporates and curates many other existing, widely-adopted open-source libraries to allow you to leverage the React community's tried-and-true favorites in your application with greater ease and speed.  The components are designed to plug-and-play with your C# view models, and use reactive programming paradigm to deliver simplicity to the way you code.
+_Elements_ incorporates and curates many other existing, widely-adopted open-source libraries to allow you to leverage the React community's tried-and-true favorites in your application with greater ease and speed.  The components are designed to plug-and-play with your C# view models, and use reactive programming paradigm to produce simple and maintainable code.
 
 #### The Basics
 

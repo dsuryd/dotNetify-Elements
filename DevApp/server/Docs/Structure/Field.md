@@ -9,9 +9,6 @@ static propTypes = {
    // Id to associate the label with the input element.
    id: PropTypes.string,
 
-   // Style in css format.
-   css: PropTypes.string,
-
    // Displays the label text horizontally to the left of the input.
    horizontal: PropTypes.bool,
 

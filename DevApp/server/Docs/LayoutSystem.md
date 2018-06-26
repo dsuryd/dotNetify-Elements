@@ -1,6 +1,6 @@
 ﻿## Layout System
 
-Positioning elements on the page can be very time-consuming, and while css is very powerful, to apply it effectively comes with a high learning curve that not every developer can afford to take time to master.  That's why _dotNetify-Elements_ comes with simple layout elements to help you do the task quickly, while still leaving room for customization.
+Positioning elements on the page can be very time-consuming, and while Cascading Style Sheet (CSS) is pretty powerful, to apply it effectively comes with a high learning curve that not every developer can afford to take time to master.  That's why _dotNetify-Elements_ comes with simple layout elements to help you do the task quickly, while still leaving room for customization.
 
 #### Layout Grid
 
@@ -34,7 +34,7 @@ Use any combination of the Panel's properties to customize the layout.  For exam
 
 [inset]
 
-Panels use css flexbox under the hood, and when the _flex_ property is added, the element will fill the available space. There are other flex-related properties that can be used to control the item alignment, for example:
+Panels use CSS flexbox under the hood, and when the _flex_ property is added, the element will fill the available space. There are other flex-related properties that can be used to control the item alignment, for example:
 
 [inset]
 
@@ -45,7 +45,7 @@ And if that's not enough, you can always use the _css_ property to further custo
 
 Here are a few of the Panel's properties; for a complete list and other derived elements, see [Panel](layout/panel):
 - __apart__: display items horizontally with evenly distributed gap in-between.
-- __flex__ : fill the available space; accepts either a boolean, or a css flex value.
+- __flex__ : fill the available space; accepts either a boolean, or a CSS flex value.
 - __gap__: override default gap between items.
 - __horizontal__: display items horizontally.
 - __right__: shows items horizontally and right-aligned.

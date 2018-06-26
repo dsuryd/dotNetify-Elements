@@ -35,11 +35,11 @@ const LayoutGridDemo = _ => (
 
 #### Customization
 
-These elements are made of [styled components](https://www.styled-components.com/) which can use normal css syntax.  There are two ways you can customize them:
+These elements are made of [styled components](https://www.styled-components.com/) which can use normal CSS syntax.  There are two ways you can customize them:
 
 1. Theming
 
-Set the _theme_ attribute on the _Main_ element with a css theme object to customize all elements.  For example, the _LayoutGridDemo_ above uses this theme:
+Set the _theme_ attribute on the _Main_ element with a CSS theme object to customize all elements.  For example, the _LayoutGridDemo_ above uses this theme:
 
 ```jsx
 import { defaultTheme } from 'dotnetify-elements';

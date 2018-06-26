@@ -28,7 +28,7 @@ export class Button extends InputElement {
 
       // Secondary color.
       secondary: PropTypes.bool,
-      
+
       // Shows the button.
       show: PropTypes.bool,
 
@@ -62,20 +62,28 @@ export class Button extends InputElement {
       }
       else {
          const data = onClick();
-         if (id && typeof data !== "undefined") this.dispatch(data);
+         if (id && typeof data !== 'undefined') this.dispatch(data);
       }
    };
 
    render() {
       const [ _Button ] = utils.resolveComponents(Button, this.props);
-      const { label, submit, show, enable, onClick, children, ...props } = this.attrs;
+      const { label, submit, show, enable, onClick, children, style, css, ...props } = this.attrs;
       const disabled = submit ? this.shouldDisableSubmit : this.props.enable === false;
 
-      const handleKeyPress = event => event.charCode == 13 ? this.handleClick() : null;
+      const handleKeyPress = event => (event.charCode == 13 ? this.handleClick() : null);
 
       if (show === false) return null;
       return (
-         <_Button type={submit ? 'submit' : 'button'} disabled={disabled} onClick={this.handleClick} onKeyPress={handleKeyPress} {...props}>
+         <_Button
+            type={submit ? 'submit' : 'button'}
+            style={style}
+            css={css}
+            disabled={disabled}
+            onClick={this.handleClick}
+            onKeyPress={handleKeyPress}
+            {...props}
+         >
             {label || children}
          </_Button>
       );

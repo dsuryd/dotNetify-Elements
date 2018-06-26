@@ -1,6 +1,6 @@
 ﻿## Panel
 
-The element to arrange the layout of other elements.  It automatically inserts fixed gap between child components, and provide properties for various layout configuration, including _css_ property for inline styling using css syntax.
+The element to arrange the layout of other elements.  It automatically inserts fixed gap between child components, and provide properties for various layout configuration, including _css_ property for inline styling using CSS syntax.
 
 > __Note:__  overuse of  _css_ property can lead to maintainability problem; consider creating styled components instead. 
 
@@ -18,9 +18,9 @@ The margin and gap sizes can be configured with the global theme.
 
 #### Flex Layout
 
-Panel elements are flex containers.  This means that you can use [css flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/) to control the layout of any component that are put inside it.  When the _flex_ property is specified, it makes the Panel resizes to fit the remaining space.  The property also doubles as css flex shorthand to provide more control the Panel's layout when it's nested inside another Panel.
+Panel elements are flex containers.  This means that you can use [CSS flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/) to control the layout of any component that are put inside it.  When the _flex_ property is specified, it makes the Panel resizes to fit the remaining space.  The property also doubles as CSS flex shorthand to provide more control the Panel's layout when it's nested inside another Panel.
 
-Using the combination of _flex_ and other properties such as _horizontal_ and _css_ (to apply styles using css syntax), you can make all sorts of layout with nested Panel elements:
+Using the combination of _flex_ and other properties such as _horizontal_ and _css_ (to apply styles using CSS syntax), you can make all sorts of layout with nested Panel elements:
 
 [inset]
 <br/>
@@ -74,10 +74,7 @@ static propTypes = {
    // Properties to apply to all child components.
    childProps: PropTypes.object,
 
-   // Sets the container component's css styles.
-   css: PropTypes.string,
-
-   // Sets css flex property; if true, same as 'flex: 1'.
+   // Sets CSS flex property; if true, same as 'flex: 1'.
    flex: PropTypes.oneOfType([ PropTypes.string, PropTypes.bool ]),
 
    // Sets custom gap between child components.

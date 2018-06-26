@@ -12,6 +12,7 @@ const StyledDateTimePicker = styled(rw.DateTimePicker)`
 > .rw-widget-picker {
    ${props => props.theme.Input}
    ${props => (props.valid === false ? props.theme.InputValidationError : '')};
+   ${props => props.css};
 }
 `;
 

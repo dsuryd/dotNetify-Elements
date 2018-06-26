@@ -16,7 +16,8 @@ export const CheckboxLabel = styled.label.attrs({
 export const CheckboxContainer = styled.div.attrs({
    className: 'form-check'
 })`
-${props => (props.checked ? props.theme.Checkbox.Container.Checked : props.theme.Checkbox.Container.Default)}
+   ${props => (props.checked ? props.theme.Checkbox.Container.Checked : props.theme.Checkbox.Container.Default)};
+   ${props => props.css};
 `;
 
 export const CheckboxPlainText = styled.b`
