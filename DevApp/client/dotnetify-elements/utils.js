@@ -95,6 +95,14 @@ export function toCamelCase(obj) {
    return obj;
 }
 
+export function toggleNavDrawer(open) {
+   const nav = document.getElementsByTagName('nav');
+   if (nav.length > 0) {
+      if (!open) nav[0].classList.remove('open');
+      else nav[0].classList.add('open');
+   }
+}
+
 export function toPixel(unit) {
    if (typeof unit == 'string' && unit.endsWith('px')) return parseInt(unit);
    // Assume unit is rem.

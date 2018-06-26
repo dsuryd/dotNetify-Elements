@@ -19,8 +19,9 @@ const Title = styled.div`
 const frameCss = `
    margin-left: 5rem; 
    margin-right: 0;
-   @media (max-width: 768px) {
+   @media (max-width: 1170px) {
       margin-left: 1rem;
+      margin-right: 1rem;
       > *:last-child {
          display: none;
       }
@@ -30,7 +31,7 @@ const frameCss = `
 const panelCss = `
    width: calc(100% - 30rem); 
    min-width: 65%;
-   @media (max-width: 768px) {
+   @media (max-width: 1170px) {
       width: 100%;
     }    
 `;

@@ -88,7 +88,6 @@ const layoutTheme = {
         border-right: 1px solid #111;
         z-index: 998;
     `,
-   NavHeader: ``,
    Section: `
         color: #fff;
         background: #222;

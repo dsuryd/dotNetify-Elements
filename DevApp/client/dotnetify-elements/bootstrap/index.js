@@ -20,8 +20,8 @@ import {
    TextAreaField,
    TimeField
 } from './form';
-import { CellPanel, Footer, Frame, Header, Main, Nav, NavHeader, Panel, Section, Theme, withTheme } from './layout';
-import { NavMenu, NavMenuTarget } from './nav';
+import { CellPanel, Footer, Frame, Header, Main, Nav, Panel, Section, Theme, withTheme } from './layout';
+import { NavDrawerButton, NavMenu, NavMenuTarget } from './nav';
 import { Card, Cell, Collapsible, Field, Modal, Tab, TabItem } from './structure';
 
 export {
@@ -52,7 +52,7 @@ export {
    Section,
    Modal,
    MultiselectList,
-   NavHeader,
+   NavDrawerButton,
    NavMenu,
    NavMenuTarget,
    Panel,

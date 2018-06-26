@@ -95,7 +95,6 @@ const layoutTheme = {
         border-right: 1px solid #e7e7e7;
         z-index: 998;
     `,
-   NavHeader: ``,
    Section: `
         background: #f4f4f4;
     `,
@@ -114,6 +113,9 @@ const layoutTheme = {
 };
 
 const navTheme = {
+   NavDrawerButton: `
+      color: #999;
+   `,
    NavMenu: {
       SelectedRoute: `
          > a > div > div {

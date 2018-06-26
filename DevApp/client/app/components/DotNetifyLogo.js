@@ -31,6 +31,16 @@ export const LicenseNotice = styled.div`
    }
 `;
 
-const DotNetifyLogo = _ => <Logo src={logo} />;
+const NavHeader = styled.div`
+   height: 55px;
+   display: flex;
+   align-items: center;
+`;
+
+const DotNetifyLogo = _ => (
+   <NavHeader>
+      <Logo src={logo} />
+   </NavHeader>
+);
 
 export default DotNetifyLogo;

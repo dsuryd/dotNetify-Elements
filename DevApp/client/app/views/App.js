@@ -1,5 +1,5 @@
 import React from 'react';
-import { Main, Header, Footer, Nav, NavHeader, NavMenu, NavMenuTarget, Section, VMContext } from 'dotnetify-elements';
+import { Main, Header, Footer, Nav, NavDrawerButton, NavMenu, NavMenuTarget, Section, VMContext } from 'dotnetify-elements';
 import DotNetifyLogo, { LicenseNotice } from '../components/DotNetifyLogo';
 import appTheme from '../styles/theme';
 
@@ -7,9 +7,8 @@ const App = props => (
    <VMContext vm="App">
       <Main theme={appTheme}>
          <Header>
-            <NavHeader>
-               <DotNetifyLogo />
-            </NavHeader>
+            <DotNetifyLogo />
+            <NavDrawerButton css="margin-left: 1rem" />
          </Header>
          <Nav>
             <NavMenu id="NavMenu" />

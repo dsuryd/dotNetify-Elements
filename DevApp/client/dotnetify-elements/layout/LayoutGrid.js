@@ -43,6 +43,12 @@ export const Nav = styled.nav`
    -ms-grid-row-span: 2;
    width: ${props => props.width || '250px'};
    overflow: auto;
+   visibility: visible;
+   transition: all 250ms;
+   @media (max-width: 768px) {
+      margin-left: -${props => props.width || '250px'};
+      visibility: hidden;
+   }
    ${props => props.theme.Nav};
    ${props => props.css};
 `;

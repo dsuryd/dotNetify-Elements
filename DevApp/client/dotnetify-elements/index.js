@@ -1,6 +1,6 @@
 import dotnetify from 'dotnetify';
-import { Element, VMContext, ContextTypes } from './core';
 import defaultTheme from './theme-light';
+import { Element, VMContext, ContextTypes } from './core';
 import {
    Alert,
    Button,
@@ -30,7 +30,7 @@ import {
    Modal,
    MultiselectList,
    Nav,
-   NavHeader,
+   NavDrawerButton,
    NavMenu,
    NavMenuTarget,
    NumberField,
@@ -82,7 +82,7 @@ let dotNetifyElements = {
    Modal,
    MultiselectList,
    Nav,
-   NavHeader,
+   NavDrawerButton,
    NavMenu,
    NavMenuTarget,
    NumberField,

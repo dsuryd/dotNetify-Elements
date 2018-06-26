@@ -58,6 +58,7 @@ export class NavMenu extends Element {
          this.vm.onRouteEnter = (path, template) => {
             this.setState({ selected: template.Id, selectedPath: this.getSelectedPath(template.Id) });
             template.Target = this.props.target || 'NavMenuTarget';
+            utils.toggleNavDrawer(false);
          };
    }
 

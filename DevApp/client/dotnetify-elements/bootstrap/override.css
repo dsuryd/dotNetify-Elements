@@ -9,3 +9,10 @@
 form {
    margin-bottom: 0;
 }
+
+@media (max-width: 768px) {
+   nav.open {
+      margin-left: 0;
+      visibility: visible;
+   }
+}
