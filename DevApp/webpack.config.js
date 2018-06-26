@@ -30,7 +30,7 @@ module.exports = {
       //react: 'React',
       //'react-dom': 'ReactDOM',
       //'styled-components': 'styled',
-      'dotnetify-elements': 'dotNetifyElements'
+      //'dotnetify-elements': 'dotNetifyElements'
    },
    plugins: [ new MiniCssExtractPlugin() ]
 };

@@ -101,4 +101,4 @@ let dotNetifyElements = {
 };
 
 if (window) window.dotNetifyElements = dotNetifyElements;
-export default dotNetifyElements;
+module.exports = dotNetifyElements;
