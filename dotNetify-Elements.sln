@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dotNetify-Elements", "DevAp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetifyLib.Elements", "DotNetifyLib.Elements\DotNetifyLib.Elements.csproj", "{3C0A79D8-2224-4A16-98CA-0348DA5F9FD5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewModels", "ViewModels\ViewModels.csproj", "{8599E066-8CDA-4BEF-9E65-D347E1E3C372}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{3C0A79D8-2224-4A16-98CA-0348DA5F9FD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C0A79D8-2224-4A16-98CA-0348DA5F9FD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C0A79D8-2224-4A16-98CA-0348DA5F9FD5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8599E066-8CDA-4BEF-9E65-D347E1E3C372}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8599E066-8CDA-4BEF-9E65-D347E1E3C372}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8599E066-8CDA-4BEF-9E65-D347E1E3C372}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8599E066-8CDA-4BEF-9E65-D347E1E3C372}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

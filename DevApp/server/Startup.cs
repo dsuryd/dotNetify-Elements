@@ -25,13 +25,17 @@ namespace dotNetify_Elements
       {
          app.UseWebSockets();
          app.UseSignalR(routes => routes.MapDotNetifyHub());
-         app.UseDotNetify(config => config.UseDeveloperLogging());
+         app.UseDotNetify(config =>
+         {
+            config.RegisterAssembly("dotNetify-Elements.ViewModels");
+            config.UseDeveloperLogging();
+         });
 
          app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
          {
             HotModuleReplacement = true,
             ReactHotModuleReplacement = true,
-            HotModuleReplacementClientOptions = new Dictionary<string, string> {{ "reload", "true" }},
+            HotModuleReplacementClientOptions = new Dictionary<string, string> { { "reload", "true" } },
          });
 
          app.UseStaticFiles();

@@ -14,6 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
  */
 
+using System.Reflection;
 using System.Text.RegularExpressions;
 
 namespace DotNetify.Elements
@@ -33,7 +34,8 @@ namespace DotNetify.Elements
       /// <param name="embeddedResource">Embedded resource containing markdown text.</param>
       public Markdown(string embeddedResource)
       {
-         _content = Utils.GetResource(embeddedResource).Result;
+         var assembly = Assembly.GetCallingAssembly();
+         _content = Utils.GetResource(embeddedResource, assembly).Result;
       }
 
       /// <summary>

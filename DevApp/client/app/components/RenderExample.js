@@ -5,7 +5,7 @@ import { Markdown, Panel, RadioToggle, VMContext } from 'dotnetify-elements';
 export default class RenderExample extends React.Component {
    constructor(props) {
       super(props);
-      this.boolPropTypes = Object.keys(props.propTypes).filter(x => props.propTypes[x] === PropTypes.bool);
+      this.boolPropTypes = Object.keys(props.propTypes).filter(x => props.propTypes[x] == PropTypes.bool);
 
       this.state = {};
       this.trueByDefaultProps = [ 'enable', 'show', ...(props.defaultProps ? Object.keys(props.defaultProps).filter(x => props.defaultProps[x]) : []) ];

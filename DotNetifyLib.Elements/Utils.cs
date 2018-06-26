@@ -51,10 +51,11 @@ namespace DotNetify.Elements
       /// Returns an embedded resource.
       /// </summary>
       /// <param name="resourceName">Resource name.</param>
+      /// <param name="assembly">Assembly where the resource is located.</param>
       /// <returns>The embedded resource.</returns>
-      public static async Task<string> GetResource(string resourceName)
+      public static async Task<string> GetResource(string resourceName, Assembly assembly = null)
       {
-         var assembly = Assembly.GetEntryAssembly();
+         assembly = assembly ?? Assembly.GetCallingAssembly();
          var resourceStream = assembly.GetManifestResourceStream(resourceName);
          if (resourceStream == null)
             throw new FileNotFoundException($"'{resourceName}' is not an embedded resource", resourceName);
@@ -70,9 +71,9 @@ namespace DotNetify.Elements
       /// </summary>
       /// <param name="resourceName">Resource name.</param>
       /// <returns>The embedded resource.</returns>
-      public static byte[] GetResourceAsBytes(string resourceName)
+      public static byte[] GetResourceAsBytes(string resourceName, Assembly assembly = null)
       {
-         var assembly = Assembly.GetEntryAssembly();
+         assembly = assembly ?? Assembly.GetCallingAssembly();
          var resourceStream = assembly.GetManifestResourceStream(resourceName);
          if (resourceStream == null)
             throw new FileNotFoundException($"'{resourceName}' is not an embedded resource", resourceName);

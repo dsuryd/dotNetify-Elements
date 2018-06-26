@@ -4,57 +4,18 @@
     <RootNamespace>dotNetify_Elements</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="server\Docs\Layout\LayoutDemo.md" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="wwwroot\" />
     <Folder Include="wwwroot\dist\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Bogus" Version="22.0.2" />
     <PackageReference Include="DotNetify.SignalR" Version="3.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.0" />
     <PackageReference Include="System.Reactive" Version="3.1.1" />
     <PackageReference Include="AspNet.Security.OpenIdConnect.Server" Version="2.0.0-rc1-final" />    
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="server\Docs\Customization.md" />
-    <EmbeddedResource Include="server\Docs\Display\Alert.md" />
-    <EmbeddedResource Include="server\Docs\Display\DataGrid.md" />
-    <EmbeddedResource Include="server\Docs\Display\Image.md" />
-    <EmbeddedResource Include="server\Docs\Display\Label.md" />
-    <EmbeddedResource Include="server\Docs\Display\Markdown.md" />
-    <EmbeddedResource Include="server\Docs\Form\Button.md" />
-    <EmbeddedResource Include="server\Docs\GetStarted.md" />
-    <EmbeddedResource Include="server\Docs\LayoutSystem.md" />
-    <EmbeddedResource Include="server\Docs\Layout\LayoutDemo.md" />
-    <EmbeddedResource Include="server\Docs\Navigation\NavMenu.md" />
-    <EmbeddedResource Include="server\Docs\Structure\Card.md" />
-    <EmbeddedResource Include="server\Docs\Structure\card_image_example.jpg" />
-    <EmbeddedResource Include="server\Docs\Structure\Cell.md" />
-    <EmbeddedResource Include="server\Docs\Structure\Collapsible.md" />
-    <EmbeddedResource Include="server\Docs\Structure\Field.md" />
-    <EmbeddedResource Include="server\Docs\Structure\Modal.md" />
-    <EmbeddedResource Include="server\Docs\Structure\Tab.md" />
-    <EmbeddedResource Include="server\Docs\WorkingWithForms.md" />
-    <EmbeddedResource Include="server\Docs\Form\PasswordField.md" />
-    <EmbeddedResource Include="server\Docs\Form\NumberField.md" />
-    <EmbeddedResource Include="server\Docs\Form\MultiselectList.md" />
-    <EmbeddedResource Include="server\Docs\Form\Form.md" />
-    <EmbeddedResource Include="server\Docs\Form\DropdownList.md" />
-    <EmbeddedResource Include="server\Docs\Form\DateTimeField.md" />
-    <EmbeddedResource Include="server\Docs\Form\CheckboxGroup.md" />
-    <EmbeddedResource Include="server\Docs\Form\Checkbox.md" />
-    <EmbeddedResource Include="server\Docs\Form\RadioGroup.md" />
-    <EmbeddedResource Include="server\Docs\Form\RadioToggle.md" />
-    <EmbeddedResource Include="server\Docs\Form\TextAreaField.md" />
-    <EmbeddedResource Include="server\Docs\Form\TextField.md" />
-    <EmbeddedResource Include="server\Docs\Introduction.md" />
-    <EmbeddedResource Include="server\Docs\Layout\LayoutGrid.md" />
-    <EmbeddedResource Include="server\Docs\Layout\Panel.md" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\DotNetifyLib.Elements\DotNetifyLib.Elements.csproj" />
+    <ProjectReference Include="..\ViewModels\ViewModels.csproj" />
   </ItemGroup>
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
     <!-- Ensure Node.js is installed -->
