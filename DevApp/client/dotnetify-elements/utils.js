@@ -47,8 +47,7 @@ export function mapChildren(children, predicate, mapper) {
       if (!child) return;
 
       if (child.type && predicate(child)) return mapper(child);
-      else if (child.props && child.props.children)
-         return React.cloneElement(child, child.props, this.mapChildren(child.props.children, predicate, mapper));
+      else if (child.props && child.props.children) return React.cloneElement(child, child.props, this.mapChildren(child.props.children, predicate, mapper));
       return child;
    });
 }
@@ -98,8 +97,8 @@ export function toCamelCase(obj) {
 export function toggleNavDrawer(open) {
    const nav = document.getElementsByTagName('nav');
    if (nav.length > 0) {
-      if (!open) nav[0].classList.remove('open');
-      else nav[0].classList.add('open');
+      if (open === false) nav[0].classList.remove('open');
+      else nav[0].classList.toggle('open');
    }
 }
 

@@ -20,8 +20,8 @@ const frameCss = `
    margin-left: 5rem; 
    margin-right: 0;
    @media (max-width: 1170px) {
-      margin-left: 1rem;
-      margin-right: 1rem;
+      margin-left: 2rem;
+      width: calc(100% - 2rem);
       > *:last-child {
          display: none;
       }
@@ -32,7 +32,7 @@ const panelCss = `
    width: calc(100% - 30rem); 
    min-width: 65%;
    @media (max-width: 1170px) {
-      width: 100%;
+      width: calc(100% - 2rem);
     }    
 `;
 

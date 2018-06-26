@@ -25,7 +25,7 @@ const HamburgerIcon = styled.div`
 `;
 
 export const NavDrawerButton = props => {
-   const handleClick = _ => utils.toggleNavDrawer(true);
+   const handleClick = _ => utils.toggleNavDrawer();
    return (
       <IconContainer onClick={handleClick} {...props}>
          <HamburgerIcon />

@@ -4,6 +4,11 @@ html {
    font-family: 'Orbitron' !important;
 }
 
+p {
+   font-size: 1.1rem;
+   line-height: 1.8rem;
+}
+
 div > h2 {
    margin-bottom: 1rem;
 }

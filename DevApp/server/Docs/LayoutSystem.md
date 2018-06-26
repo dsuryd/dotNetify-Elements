@@ -22,7 +22,7 @@ const MyApp = _ => (
 
 You can provide custom theme to the _Main_ element.  See [LayoutGrid](layout/grid) for details.
 
-#### A System of Panels
+#### Panels
 
 The Panel element serves as a container, much like the `<div>` tag, but with the ability to control the position of its content.  
 
@@ -51,4 +51,4 @@ Here are a few of the Panel's properties; for a complete list and other derived 
 - __right__: shows items horizontally and right-aligned.
 - __wrap__: wrap items to multi-lines on overflow.
 
-You could create all sorts of layout with nested Panels, as you can see on [Layout Demo](layout/demo).
+You could create all sorts of layout by nesting the Panels, as demonstrated on [Layout Demo](layout/demo).
