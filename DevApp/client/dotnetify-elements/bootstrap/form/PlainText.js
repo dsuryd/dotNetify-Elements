@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export const PlainText = styled.p.attrs({
+export const PlainText = styled.div.attrs({
    className: 'form-control-plaintext'
 })`
    min-height: 2.4rem;
