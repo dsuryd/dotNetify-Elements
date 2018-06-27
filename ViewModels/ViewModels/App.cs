@@ -55,7 +55,7 @@ namespace dotNetify_Elements
 
       public App()
       {
-         this.RegisterRoutes("/", new List<RouteTemplate>
+         this.RegisterRoutes("elements", new List<RouteTemplate>
          {
             new RouteTemplate(nameof(Route.Home))                 { UrlPattern = "", ViewUrl = nameof(Route.Introduction) },
             new RouteTemplate(nameof(Route.Introduction))         { UrlPattern = "intro" },
