@@ -5,9 +5,9 @@ Backend-ready React components for your cross-platform .NET web applications, ba
 
 ### Documentation
 
-[Read the introduction here](https://github.com/dsuryd/dotNetify-Elements/blob/master/DevApp/server/Docs/Introduction.md).
+This github project contains all the the library's source code, documentations ((https://github.com/dsuryd/dotNetify-Elements/tree/master/DevApp/server/Docs), and live demo's source code.
 
-Other documentation is available [here](https://github.com/dsuryd/dotNetify-Elements/tree/master/DevApp/server/Docs).
+See this project live at (http://dotnetify.net/elements)[http://dotnetify.net/elements].  
 
 ### Status
 ETA for version 0.1 npm release: mid-July 2018.
