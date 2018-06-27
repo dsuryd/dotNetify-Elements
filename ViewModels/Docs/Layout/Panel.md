@@ -74,6 +74,9 @@ static propTypes = {
    // Properties to apply to all child components.
    childProps: PropTypes.object,
 
+   // Sets the container component's css styles.
+   css: PropTypes.string,
+
    // Sets CSS flex property; if true, same as 'flex: 1'.
    flex: PropTypes.oneOfType([ PropTypes.string, PropTypes.bool ]),
 

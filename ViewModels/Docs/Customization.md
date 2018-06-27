@@ -11,6 +11,7 @@ Some elements provide a few properties to provide common customization points, s
 In addition to React's inline styling (the standard _style_ property), almost every element supports style override in CSS format through its _css_ property.  Because the actual stylesheet is generated, the CSS can include nesting to modify the inner HTML tags.
 
 [inset]
+<br/>
 
 An element's _css_ property is great for one-off styling, but if you need to apply the same styles repeatedly, it's recommended to create stateless styled components instead.
 
