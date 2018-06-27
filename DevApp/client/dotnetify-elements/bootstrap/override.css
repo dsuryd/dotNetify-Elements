@@ -1,3 +1,7 @@
+body {
+   -webkit-overflow-scrolling: touch;
+}
+
 [class^="Alert"] p {
    margin-bottom: 0;
 }
