@@ -51,7 +51,9 @@ const MyApp = _ => (
          { Key: 'positive', Value: 'Positive' },
          { Key: 'negative', Value: 'Negative' }
       ];
-      const extraToggles = <RadioToggle id="_colors" label="(color:)" options={colorOptions} value={this.state.color} onChange={setColor} />;
+      const extraToggles = (
+         <RadioToggle css="padding-bottom: 1rem" id="_colors" label="(color:)" options={colorOptions} value={this.state.color} onChange={setColor} />
+      );
 
       let propTypes = { ...Button.propTypes };
       [ 'submit', 'cancel', 'negative', 'positive', 'primary', 'secondary' ].forEach(x => delete propTypes[x]);
