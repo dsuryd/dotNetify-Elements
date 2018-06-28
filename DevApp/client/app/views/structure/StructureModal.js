@@ -78,7 +78,7 @@ class MyApp extends React.Component {
 \`\`\``;
       const { openDialog, formData, ...options } = this.state;
       const setState = state => this.setState(state);
-      const { open, form, ...propTypes } = Modal.propTypes;
+      const propTypes = { small: null, large: null };
 
       const handleClick = _ => this.setState({ formData: null, openDialog: true });
       const handleClose = _ => this.setState({ openDialog: false });

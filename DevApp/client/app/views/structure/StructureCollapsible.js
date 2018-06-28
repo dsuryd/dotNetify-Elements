@@ -39,8 +39,9 @@ const MyApp = _ => (
 );
 \`\`\``;
       const setState = state => this.setState(state);
+      const propTypes = { collapsed: null, noIcon: null };
       return (
-         <RenderExample propTypes={Collapsible.propTypes} buildCode={buildCode} onChange={setState}>
+         <RenderExample propTypes={propTypes} buildCode={buildCode} onChange={setState}>
             <Panel css="padding-bottom: 2rem">
                <Collapsible label={<b>Lorem Ipsum</b>} {...this.state}>
                   <br />

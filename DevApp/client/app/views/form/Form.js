@@ -46,8 +46,9 @@ const MyApp = _ => (
       const handleChanged = arg => this.setState({ emittedEvent: `onChanged: ${JSON.stringify(arg)}` });
       const handleSubmit = arg => this.setState({ emittedEvent: `onSubmit: ${JSON.stringify(arg)}` });
       const handleSubmitError = arg => this.setState({ emittedEvent: `onSubmitError: ${JSON.stringify(arg)}` });
+      const propTypes = { plainText: null };
       return (
-         <RenderExample vm="BasicForm" propTypes={Form.propTypes} buildCode={buildCode} onChange={setState}>
+         <RenderExample vm="BasicForm" propTypes={propTypes} buildCode={buildCode} onChange={setState}>
             <Form {...this.state} onChanged={handleChanged} onSubmit={handleSubmit} onSubmitError={handleSubmitError}>
                <Alert id="ServerResponse" />
                <Panel>

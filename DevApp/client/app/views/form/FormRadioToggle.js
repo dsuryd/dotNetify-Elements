@@ -33,8 +33,9 @@ const MyApp = _ => (
 );
 \`\`\``;
       const setState = state => this.setState(state);
+      const propTypes = { enable: null, horizontal: null, plainText: null };
       return (
-         <RenderExample vm="RadioToggleExample" propTypes={RadioToggle.propTypes} buildCode={buildCode} onChange={setState}>
+         <RenderExample vm="RadioToggleExample" propTypes={propTypes} buildCode={buildCode} onChange={setState}>
             <Panel style={{ minHeight: '7rem' }}>
                <RadioToggle id="Position" {...this.state} />
             </Panel>

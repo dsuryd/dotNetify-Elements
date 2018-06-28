@@ -38,7 +38,17 @@ const MyApp = _ => (
 );
 \`\`\``;
       const setState = state => this.setState(state);
-      let propTypes = { ...Panel.propTypes, wrap: null };
+      const propTypes = {
+         apart: null,
+         horizontal: null,
+         middle: null,
+         noGap: null,
+         noMargin: null,
+         right: null,
+         smallGap: null,
+         smallMargin: null,
+         wrap: null
+      };
       return (
          <RenderExample propTypes={propTypes} defaultProps={Panel.defaultProps} buildCode={buildCode} onChange={setState}>
             <Panel height="14rem">

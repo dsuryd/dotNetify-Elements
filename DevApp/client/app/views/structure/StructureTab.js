@@ -48,8 +48,9 @@ const MyApp = _ => (
 );
 \`\`\``;
       const setState = state => this.setState(state);
+      const propTypes = {};
       return (
-         <RenderExample vm="TabExample" propTypes={Tab.propTypes} buildCode={buildCode} onChange={setState}>
+         <RenderExample vm="TabExample" propTypes={propTypes} buildCode={buildCode} onChange={setState}>
             <Panel css="padding: 2rem; margin-bottom: 2rem; background: white">
                <Tab active="home">
                   <TabItem key="home" label="Home">

@@ -42,7 +42,7 @@ export const Nav = styled.nav`
    -ms-grid-row: 2;
    -ms-grid-row-span: 2;
    width: ${props => props.width || '250px'};
-   overflow: scroll;
+   overflow: auto;
    visibility: visible;
    transition: all 250ms;
    @media (max-width: 768px) {
@@ -67,7 +67,7 @@ export const Section = styled.section`
    grid-area: section;
    -ms-grid-column: 2;
    -ms-grid-row: 2;
-   overflow: scroll;
+   overflow: auto;
    display: flex;
    flex-direction: column;
    > * {

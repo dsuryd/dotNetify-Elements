@@ -1,5 +1,4 @@
 import React from 'react';
-import checkPropTypes from 'check-prop-types';
 import marked from 'marked';
 import Prism from 'prismjs';
 import 'prismjs/components/prism-csharp.js';
@@ -39,10 +38,6 @@ export function ifBoolElse(arg1, arg2) {
    return typeof arg1 == 'boolean' ? arg1 : !!arg2;
 }
 
-export function isBoolPropType(propName, propType) {
-   return !checkPropTypes({ [propName]: propType }, { [propName]: true }, 'prop', propName);
-}
-
 export function isIE11() {
    return window.navigator.userAgent.indexOf('Trident/') > 0;
 }
@@ -52,8 +47,7 @@ export function mapChildren(children, predicate, mapper) {
       if (!child) return;
 
       if (child.type && predicate(child)) return mapper(child);
-      else if (child.props && child.props.children)
-         return React.cloneElement(child, child.props, this.mapChildren(child.props.children, predicate, mapper));
+      else if (child.props && child.props.children) return React.cloneElement(child, child.props, this.mapChildren(child.props.children, predicate, mapper));
       return child;
    });
 }

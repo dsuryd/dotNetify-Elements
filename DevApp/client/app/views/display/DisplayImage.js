@@ -34,7 +34,7 @@ const MyApp = _ => (
 );
 \`\`\``;
       const setState = state => this.setState(state);
-      let propTypes = { ...Image.propTypes };
+      let propTypes = {};
       return (
          <RenderExample vm="ImageExample" propTypes={propTypes} buildCode={buildCode} onChange={setState}>
             <Panel css="margin-bottom: 2rem">

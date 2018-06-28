@@ -33,8 +33,9 @@ const MyApp = _ => (
 );
 \`\`\``;
       const setState = state => this.setState(state);
+      const propTypes = { enable: null, plainText: null };
       return (
-         <RenderExample vm="CheckboxExample" propTypes={Checkbox.propTypes} buildCode={buildCode} onChange={setState}>
+         <RenderExample vm="CheckboxExample" propTypes={propTypes} buildCode={buildCode} onChange={setState}>
             <Panel style={{ minHeight: '4rem' }}>
                <Checkbox id="Agree" {...this.state} />
             </Panel>

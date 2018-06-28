@@ -33,8 +33,9 @@ const MyApp = _ => (
 );
 \`\`\``;
       const setState = state => this.setState(state);
+      const propTypes = { enable: null, horizontal: null, plainText: null };
       return (
-         <RenderExample vm="PasswordFieldExample" propTypes={PasswordField.propTypes} buildCode={buildCode} onChange={setState}>
+         <RenderExample vm="PasswordFieldExample" propTypes={propTypes} buildCode={buildCode} onChange={setState}>
             <Panel style={{ minHeight: '7rem' }}>
                <PasswordField id="Password" {...this.state} />
             </Panel>

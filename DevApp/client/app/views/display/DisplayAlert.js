@@ -49,9 +49,7 @@ const MyApp = _ => (
       ];
       const extraToggles = <RadioToggle id="_colors" label="(color:)" options={colorOptions} value={this.state.color} onChange={setColor} />;
 
-      let propTypes = { ...Alert.propTypes };
-      [ 'submit', 'cancel', 'success', 'info', 'warning', 'danger' ].forEach(x => delete propTypes[x]);
-
+      const propTypes = {};
       return (
          <RenderExample vm="AlertExample" extraToggles={extraToggles} propTypes={propTypes} buildCode={buildCode} onChange={setState}>
             <Alert id="Feedback" css="margin-bottom: 3rem" {...this.state}>

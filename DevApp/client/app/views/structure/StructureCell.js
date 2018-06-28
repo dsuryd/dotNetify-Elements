@@ -40,7 +40,7 @@ const MyApp = _ => (
 \`\`\``;
       const setState = state => this.setState(state);
       return (
-         <RenderExample propTypes={Cell.propTypes} buildCode={buildCode} onChange={setState}>
+         <RenderExample propTypes={{}} buildCode={buildCode} onChange={setState}>
             <Panel css="margin-bottom: 2rem">
                <Cell>
                   <header>

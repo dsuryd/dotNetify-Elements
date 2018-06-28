@@ -37,8 +37,9 @@ const MyApp = _ => (
 );
 \`\`\``;
       const setState = state => this.setState(state);
+      const propTypes = { enable: null, horizontal: null, plainText: null };
       return (
-         <RenderExample vm="DateTimeFieldExample" propTypes={DateTimeField.propTypes} buildCode={buildCode} onChange={setState}>
+         <RenderExample vm="DateTimeFieldExample" propTypes={propTypes} buildCode={buildCode} onChange={setState}>
             <Panel style={{ minHeight: '7rem' }}>
                <Panel horizontal>
                   <DateField id="Date" {...this.state} />

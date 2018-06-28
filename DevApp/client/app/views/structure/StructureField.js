@@ -51,8 +51,9 @@ const MyApp = _ => (
 );
 \`\`\``;
       const setState = state => this.setState(state);
+      const propTypes = { horizontal: null, plainText: null, right: null };
       return (
-         <RenderExample propTypes={Field.propTypes} buildCode={buildCode} onChange={setState}>
+         <RenderExample propTypes={propTypes} buildCode={buildCode} onChange={setState}>
             <Panel css="min-height: 12.5rem">
                <Field label="What's your name?" {...this.state}>
                   <TextField label="Name" />

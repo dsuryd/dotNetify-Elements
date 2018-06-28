@@ -43,7 +43,7 @@ const MyApp = _ => (
 );
 \`\`\``;
       const setState = state => this.setState(state);
-      let propTypes = { ...DataGrid.propTypes };
+      let propTypes = { enable: null };
       return (
          <RenderExample vm="DataGridExample" propTypes={propTypes} buildCode={buildCode} onChange={setState}>
             <Panel css="margin-bottom: 2rem">

@@ -14,13 +14,13 @@ public class NavMenuExample : BaseVM, IRoutable
       AddProperty("NavMenu", new NavMenu(
          new NavMenuItem[]
          {
-            new NavRoute("Introduction",  this.Redirect("", "intro")),
+            new NavRoute("Introduction",  this.Redirect("", "elements/intro")),
             new NavGroup
             {
                Label = "Form",
                Routes = new NavRoute[]
                {
-                  new NavRoute("Basic Demo",  this.Redirect("", "form/demo"))
+                  new NavRoute("Basic Demo",  this.Redirect("", "elements/form/demo"))
                },
                IsExpanded = false
             },
@@ -29,7 +29,7 @@ public class NavMenuExample : BaseVM, IRoutable
                Label = "Examples",
                Routes = new NavRoute[]
                {
-                  new NavRoute("Customer Info",  this.Redirect("", "examples/customer-info"), "far fa-list-alt")
+                  new NavRoute("Customer Info",  this.Redirect("", "elements/examples/customer-info"), "far fa-list-alt")
                }
             }
          }));

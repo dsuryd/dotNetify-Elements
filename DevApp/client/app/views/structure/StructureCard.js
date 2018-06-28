@@ -81,9 +81,10 @@ const MyApp = _ => (
 );
 \`\`\``;
       const setState = state => this.setState(state);
+      const propTypes = { horizontal: null };
       const props = !this.state.horizontal ? { width: '360px' } : null;
       return (
-         <RenderExample vm="CardImageExample" propTypes={Card.propTypes} buildCode={buildCode} onChange={setState}>
+         <RenderExample vm="CardImageExample" propTypes={propTypes} buildCode={buildCode} onChange={setState}>
             <Panel css="margin-bottom: 2rem">
                <Card {...props} {...this.state}>
                   <Image id="Picture" />

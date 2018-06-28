@@ -36,9 +36,10 @@ const MyApp = _ => (
 );
 \`\`\``;
       const setState = state => this.setState(state);
+      const propTypes = { enable: null, horizontal: null, plainText: null };
       const css = 'min-width: 14rem; max-width: 20rem; white-space: nowrap';
       return (
-         <RenderExample vm="NumberFieldExample" propTypes={NumberField.propTypes} buildCode={buildCode} onChange={setState}>
+         <RenderExample vm="NumberFieldExample" propTypes={propTypes} buildCode={buildCode} onChange={setState}>
             <Panel horizontal css="min-height: 7rem; align-items: flex-start" childProps={{ css: css }}>
                <NumberField id="HeightFeet" {...this.state} />
                <NumberField id="HeightInches" {...this.state} />

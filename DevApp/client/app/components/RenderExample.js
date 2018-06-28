@@ -5,14 +5,10 @@ import { isBoolPropType } from 'dotnetify-elements/utils';
 export default class RenderExample extends React.Component {
    constructor(props) {
       super(props);
-      this.boolPropTypes = Object.keys(props.propTypes).filter(x => isBoolPropType(x, props.propTypes[x]));
+      this.boolPropTypes = Object.keys(props.propTypes);
 
       this.state = {};
-      this.trueByDefaultProps = [
-         'enable',
-         'show',
-         ...(props.defaultProps ? Object.keys(props.defaultProps).filter(x => props.defaultProps[x]) : [])
-      ];
+      this.trueByDefaultProps = [ 'enable', 'show', ...(props.defaultProps ? Object.keys(props.defaultProps).filter(x => props.defaultProps[x]) : []) ];
       this.boolPropTypes.forEach(x => (this.state[x] = this.trueByDefaultProps.includes(x)));
    }
 
@@ -48,15 +44,7 @@ export default class RenderExample extends React.Component {
       };
 
       const radioToggles = this.boolPropTypes.map(x => (
-         <RadioToggle
-            css="padding-bottom: 1rem"
-            key={x}
-            id={'_' + x}
-            label={x + ':'}
-            options={flags}
-            value={this.state[x]}
-            onChange={val => set(x, val)}
-         />
+         <RadioToggle css="padding-bottom: 1rem" key={x} id={'_' + x} label={x + ':'} options={flags} value={this.state[x]} onChange={val => set(x, val)} />
       ));
 
       const content = (
