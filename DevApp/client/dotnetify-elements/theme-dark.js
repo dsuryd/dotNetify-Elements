@@ -185,13 +185,13 @@ const structureTheme = {
 };
 
 const darkTheme = {
-   name: 'dark',
    ...defaultTheme,
    ...displayTheme,
    ...formTheme,
    ...layoutTheme,
    ...navTheme,
-   ...structureTheme
+   ...structureTheme,
+   name: 'dark'
 };
 
 export default darkTheme;

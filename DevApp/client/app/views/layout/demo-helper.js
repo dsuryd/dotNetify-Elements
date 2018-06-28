@@ -1,6 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { defaultTheme } from 'dotnetify-elements';
+import * as utils from 'dotnetify-elements/utils';
+
+export const themeToggleEvent = utils.createEventEmitter();
 
 export const demoTheme = {
    ...defaultTheme,

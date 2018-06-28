@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { PropTypes } from 'prop-types';
 import { ThemeProvider } from 'styled-components';
 import defaultTheme from '../theme-light';
+import * as utils from '../utils';
 
 const Container = styled.div`
    display: flex;
@@ -16,11 +17,20 @@ export class Theme extends React.Component {
    };
 
    static currentTheme = null;
+   static onChange = utils.createEventEmitter();
 
    constructor(props) {
       super(props);
-      this.theme = this.props.theme || defaultTheme;
-      if (!Theme.currentTheme) Theme.currentTheme = Theme.currentTheme || this.theme;
+   }
+
+   get theme() {
+      const theme = this.props.theme || defaultTheme;
+      if (Theme.currentTheme !== theme) {
+         Theme.currentTheme = theme;
+         Theme.onChange.emit(theme);
+      }
+
+      return Theme.currentTheme;
    }
 
    getChildContext() {
@@ -41,8 +51,21 @@ export class Theme extends React.Component {
    }
 }
 
-export const withTheme = (Component, theme) => props => (
-   <Theme theme={theme || Theme.currentTheme}>
-      <Component {...props} />
-   </Theme>
-);
+export const withTheme = (Component, theme) =>
+   class extends React.Component {
+      constructor(props) {
+         super(props);
+         this.state = { theme: props.theme || Theme.currentTheme };
+         if (!props.theme) this.unsubscribe = Theme.onChange.subscribe(theme => this.setState({ theme: theme }));
+      }
+      componentWillUnmount() {
+         if (this.unsubscribe) this.unsubscribe();
+      }
+      render() {
+         return (
+            <Theme theme={this.state.theme}>
+               <Component {...this.props} />
+            </Theme>
+         );
+      }
+   };
