@@ -26,6 +26,8 @@ export class Theme extends React.Component {
    get theme() {
       const theme = this.props.theme || defaultTheme;
       if (Theme.currentTheme !== theme) {
+         if (Theme.currentTheme) document.documentElement.classList.remove(`theme-${Theme.currentTheme.name}`);
+         document.documentElement.classList.add(`theme-${theme.name}`);
          Theme.currentTheme = theme;
          Theme.onChange.emit(theme);
       }

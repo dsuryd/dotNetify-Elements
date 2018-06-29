@@ -1,9 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import { Button, Cell, CellPanel, Markdown, Panel, TabItem, Theme, VMContext, withTheme } from 'dotnetify-elements';
+import { Cell, CellPanel, Markdown, Panel, TabItem, Theme, VMContext, withTheme } from 'dotnetify-elements';
 import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
-import appTheme from '../../styles/theme';
 
 const StructureCell = props => (
    <TabsArticle vm="StructureCell" id="Overview">
@@ -57,10 +54,11 @@ const MyApp = _ => (
 class CellGroupExample extends React.Component {
    state = { Customers: [] };
    tableTheme = {
-      ...appTheme,
+      ...Theme.currentTheme,
       Cell: {
-         HeaderContainer: 'font-weight: 500',
-         BodyContainer: 'padding: .5rem'
+         ...Theme.currentTheme.Cell,
+         HeaderContainer: Theme.currentTheme.Cell.HeaderContainer + 'font-weight: 500',
+         BodyContainer: Theme.currentTheme.Cell.BodyContainer + 'padding: .5rem'
       }
    };
    render() {

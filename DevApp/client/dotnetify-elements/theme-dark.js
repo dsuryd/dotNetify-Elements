@@ -3,8 +3,31 @@ import defaultTheme from './theme-light';
 const displayTheme = {
    Alert: ``,
    DataGrid: `
+      .react-grid-Main {
+         outline: none;
+      }
+      .react-grid-Grid {
+         border-color: black;
+         * {
+            border-color: black !important;
+         }
+      }
       .react-grid-HeaderCell {
          font-weight: 500;
+      }
+      .react-grid-HeaderCell {
+         background: #444;
+      }
+      .react-grid-Cell {
+         background: #303030;
+      }
+      .react-grid-Row:hover {
+         .react-grid-Cell { 
+            background: #1a1a1a; 
+         }
+      }
+      .react-grid-Row.row-selected .react-grid-Cell {
+         background: #1a1a1a;
       }
    `,
    Label: {
@@ -71,6 +94,16 @@ const formTheme = {
 const layoutTheme = {
    Main: `
       ${defaultTheme.Main}
+      a {
+         color: #848c94;
+         &:hover { 
+            color: #c0c4c8;
+            text-decoration: none;
+         } 
+         &:focus { 
+            color: #c0c4c8; 
+         }
+      }     
    `,
    Header: `
       background: #303030;
@@ -124,9 +157,9 @@ const navTheme = {
       `,
       GroupContainer: `
          border-bottom: 1px solid #444;
-         color: #337ab7;
+         color: #848c94;
          &:hover { 
-            color: #0056b3; 
+            color: #c0c4c8; 
             background: #1a1a1a;
          }
       `
@@ -139,11 +172,11 @@ const structureTheme = {
       ImageContainer: ``,
       HeaderContainer: `background: #444;`,
       BodyContainer: ``,
-      FooterContainer: ``
+      FooterContainer: `background: #444;`
    },
    Cell: {
-      Container: ``,
-      HeaderContainer: ``,
+      Container: `background: #303030;`,
+      HeaderContainer: `background: #444;`,
       BodyContainer: ``
    },
    Collapsible: {
@@ -153,7 +186,7 @@ const structureTheme = {
    Field: {
       Container: ``,
       LabelContainer: `
-         font-weight: 500;
+         font-weight: 400;
       `,
       InputContainer: `
          input, select, textarea {
@@ -166,7 +199,10 @@ const structureTheme = {
             color: red;
         `,
       PlainTextContainer: ``,
-      PlainTextComponent: `font-weight: 500;`
+      PlainTextComponent: `
+         color: #fff; 
+         font-weight: 400;
+      `
    },
    Tab: {
       Container: `

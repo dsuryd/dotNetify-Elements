@@ -19,6 +19,7 @@ const Title = styled.div`
 const frameCss = `
    margin-left: 5rem; 
    margin-right: 0;
+   max-width: 1268px;
    @media (max-width: 1170px) {
       margin-left: 2rem;
       width: calc(100% - 2rem);

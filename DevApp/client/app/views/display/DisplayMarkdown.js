@@ -31,7 +31,7 @@ import { Markdown, VMContext } from 'dotnetify-elements';
 
 const MyApp = _ => (
    <VMContext vm="MarkdownExample">
-      <Markdown id="Content" css="padding: 1rem; background: white"${props} />
+      <Markdown id="Content" css="padding: 1rem; background: #fff"${props} />
    </VMContext>
 );
 \`\`\``;
@@ -40,7 +40,7 @@ const MyApp = _ => (
       return (
          <RenderExample vm="MarkdownExample" propTypes={propTypes} buildCode={buildCode} onChange={setState}>
             <Panel css="margin-bottom: 2rem">
-               <Markdown id="Content" css="padding: 1rem; background: white" {...this.state} />
+               <Markdown id="Content" css="padding: 1rem; color: #000; background: #fff" {...this.state} />
             </Panel>
          </RenderExample>
       );

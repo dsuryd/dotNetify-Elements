@@ -8,6 +8,7 @@ const ExpanderPanel = styled.div`
    border-radius: 5px;
    border: 1px solid #ccc;
    background: #ddd;
+   ${props => (props.theme.name === 'dark' ? 'background: #303030;' : '')};
 `;
 
 const ExpanderInnerPanel = styled.div`padding: 1rem .5rem;`;

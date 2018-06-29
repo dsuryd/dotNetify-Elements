@@ -127,6 +127,15 @@ pre > code.highlight {
    color: black;
 }
 
+.theme-dark .language-csharp .prism-code {
+   filter: invert(100%);
+}
+
+.theme-dark pre > code.language-csharp .prism-code {
+   border-left: 10px solid #ca7334;
+   box-shadow: none;
+}
+
 code[class*="language-csharp"] {
    color: black;
    background: none;

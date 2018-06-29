@@ -51,7 +51,7 @@ const MyApp = _ => (
             <Panel css="margin-bottom: 2rem">
                <Label id="Clock" icon="far fa-clock" {...this.state} />
                <Label id="NotificationLabel" rightIcon={<Badge id="NotificationCount" />} {...this.state} />
-               <Label icon={<BigIcon name="far fa-bell" />} css="padding: 1rem; background: white; width: 25rem" {...this.state}>
+               <Label icon={<BigIcon name="far fa-bell" />} css="padding: 1rem; color: black; background: white; width: 25rem" {...this.state}>
                   <div>
                      <b>Attention</b>
                      <br />

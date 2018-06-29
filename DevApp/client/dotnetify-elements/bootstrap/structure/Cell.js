@@ -25,7 +25,6 @@ export const CellHeader = styled.div.attrs({
 })`
    border-radius: 0 !important;
    ${props => props.theme.Cell.HeaderContainer};
-   ${props => props.css};
 `;
 
 export const CellBody = styled.div.attrs({
