@@ -31,16 +31,16 @@ export class Card extends React.Component {
       const { header, footer, horizontal, children, width, style, css, ...props } = this.props;
 
       const reservedTypes = [ 'header', 'footer', 'img', 'Image' ];
-      const [ sections, body ] = utils.filterChildren(children, child => child && reservedTypes.some(x => x === child.type || x === child.type.name));
+      const [ sections, body ] = utils.filterChildren(children, child => child && reservedTypes.some(x => x === child.type || x === child.type.typeName));
 
-      const img = sections.filter(section => section.type === 'img' || section.type.name === 'Image').shift();
+      const img = sections.filter(section => section.type === 'img' || section.type.typeName === 'Image').shift();
       const _header = header || sections.filter(section => section.type === 'header').shift();
       const _footer = footer || sections.filter(section => section.type === 'footer').shift();
 
       // Determine whether the image should be at the bottom.
       const childrenArray = React.Children.toArray(children);
       const lastChild = childrenArray.length > 1 ? childrenArray[childrenArray.length - 1] : null;
-      const isBottomImg = lastChild && lastChild.type && (lastChild.type === 'img' || lastChild.type.name === 'Image');
+      const isBottomImg = lastChild && lastChild.type && (lastChild.type === 'img' || lastChild.type.typeName === 'Image');
       const leftImg = !isBottomImg && horizontal;
       const rightImg = isBottomImg && horizontal;
       const topImg = !isBottomImg && !horizontal;

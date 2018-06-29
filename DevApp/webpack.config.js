@@ -3,7 +3,7 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-   mode: 'development',
+   mode: 'production',
    entry: {
       app: './client/main.js',
       'dotnetify-elements': './client/dotnetify-elements/index.js'
