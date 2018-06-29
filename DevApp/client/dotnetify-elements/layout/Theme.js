@@ -12,6 +12,11 @@ const Container = styled.div`
 `;
 
 export class Theme extends React.Component {
+   static propTypes = {
+      // Object consisting of pairs of element names and their CSS styles.
+      theme: PropTypes.object
+   };
+
    static childContextTypes = {
       theme: PropTypes.object
    };

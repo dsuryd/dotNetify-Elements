@@ -11,7 +11,7 @@ class App extends React.Component {
       this.state = { theme: lightTheme };
 
       themeToggleEvent.subscribe(arg => {
-         this.setState({ theme: this.state.theme.name === 'light' ? darkTheme : lightTheme });
+         this.setState({ theme: arg || this.state.theme.name === 'light' ? darkTheme : lightTheme });
       });
    }
 

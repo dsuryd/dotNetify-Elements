@@ -31,6 +31,7 @@
     <EmbeddedResource Include="Docs\LayoutSystem.md" />
     <EmbeddedResource Include="Docs\Layout\LayoutDemo.md" />
     <EmbeddedResource Include="Docs\Layout\LayoutGrid.md" />
+    <EmbeddedResource Include="Docs\Layout\Theme.md" />
     <EmbeddedResource Include="Docs\Layout\Panel.md" />
     <EmbeddedResource Include="Docs\Navigation\NavMenu.md" />
     <EmbeddedResource Include="Docs\Structure\Card.md" />

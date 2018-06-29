@@ -106,12 +106,7 @@ export class GlobalThemeExample extends React.Component {
 
    render() {
       let themeJson = JSON.stringify(this.context.theme, null, 4).replace(/\\n/g, '\r\n');
-      return (
-         <Panel>
-            <Button positive label="Toggle Theme" onClick={_ => themeToggleEvent.emit()} />
-            <Markdown>{'```json\r\n' + themeJson + '\r\n```'}</Markdown>
-         </Panel>
-      );
+      return <Button positive label="Toggle Theme" onClick={_ => themeToggleEvent.emit()} />;
    }
 }
 

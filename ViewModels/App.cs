@@ -80,6 +80,7 @@ namespace dotNetify_Elements
             new RouteTemplate(nameof(Route.LayoutDemo))           { UrlPattern = "layout/demo" },
             new RouteTemplate(nameof(Route.LayoutGrid))           { UrlPattern = "layout/grid" },
             new RouteTemplate(nameof(Route.LayoutPanel))          { UrlPattern = "layout/panel" },
+            new RouteTemplate(nameof(Route.LayoutTheme))          { UrlPattern = "layout/theme" },
             new RouteTemplate(nameof(Route.StructureCard))        { UrlPattern = "structure/card" },
             new RouteTemplate(nameof(Route.StructureCell))        { UrlPattern = "structure/cell" },
             new RouteTemplate(nameof(Route.StructureCollapsible)) { UrlPattern = "structure/collapsible" },
@@ -134,6 +135,7 @@ namespace dotNetify_Elements
                      new NavRoute("Basic Demo",          this.GetRoute(nameof(Route.LayoutDemo))),
                      new NavRoute("Layout Grid",         this.GetRoute(nameof(Route.LayoutGrid))),
                      new NavRoute("Panel",               this.GetRoute(nameof(Route.LayoutPanel))),
+                     new NavRoute("Theme",               this.GetRoute(nameof(Route.LayoutTheme))),
                   },
                   IsExpanded = false
                },

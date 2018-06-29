@@ -17,13 +17,26 @@ An element's _css_ property is great for one-off styling, but if you need to app
 
 #### Global Theme
 
-To customize all element instances, _Elements_ provides a theme object, where you can define CSS styles for every element, including its sub-components.  This object should be passed to the _Main_ element at the application root, and to each routeable component using the higher-order-component _withTheme()_.
-
-Here is the content of the current theme:
+To customize all element instances, _Elements_ provides a theme object, where you can define CSS styles for every element, including its sub-components. The light and dark built-in themes are available:
 
 [inset]
+<br/>
 
-You can derive a custom theme from the default theme, and only specify how it should differ by overriding the desired object properties.  For example:
+See [Theme](layout/theme) for complete content of these theme objects.  You can derive a custom theme starting from one of these, and specify how it should differ by overriding the desired object properties.  For example:
+
+```jsx
+import React from 'react';
+import { Theme } from 'dotnetify-elements';
+
+const myTheme = {
+      ...Theme.currentTheme,
+      Card: {
+         HeaderContainer: 'font-weight: 500',
+         FooterContainer: Theme.currentTheme.Card.FooterContainer + 'padding: .5rem'
+};
+
+const MyApp = props => <Main theme={myTheme}> /* ... */ </Main>;
+```
 
 [inset]
 

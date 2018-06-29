@@ -19,9 +19,10 @@ import FormTextAreaField from './form/FormTextAreaField';
 import FormTextField from './form/FormTextField';
 import FormDemo from './form/FormDemo';
 
+import LayoutDemo from './layout/LayoutDemo';
 import LayoutGrid from './layout/LayoutGrid';
 import LayoutPanel from './layout/LayoutPanel';
-import LayoutDemo from './layout/LayoutDemo';
+import LayoutTheme from './layout/LayoutTheme';
 
 import StructureCard from './structure/StructureCard';
 import StructureCell from './structure/StructureCell';
@@ -63,6 +64,7 @@ export {
    LayoutDemo,
    LayoutGrid,
    LayoutPanel,
+   LayoutTheme,
    StructureCard,
    StructureCell,
    StructureCollapsible,
