@@ -5,9 +5,10 @@
     <RootNamespace>dotNetify_Elements</RootNamespace>
     <AssemblyName>dotNetify-Elements.ViewModels</AssemblyName>
   </PropertyGroup>
-   
+
   <ItemGroup>
     <EmbeddedResource Include="Docs\Customization.md" />
+    <EmbeddedResource Include="Docs\Display\Chart.md" />
     <EmbeddedResource Include="Docs\Display\Alert.md" />
     <EmbeddedResource Include="Docs\Display\DataGrid.md" />
     <EmbeddedResource Include="Docs\Display\Image.md" />

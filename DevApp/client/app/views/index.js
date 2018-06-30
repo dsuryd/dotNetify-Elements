@@ -32,6 +32,7 @@ import StructureModal from './structure/StructureModal';
 import StructureTab from './structure/StructureTab';
 
 import DisplayAlert from './display/DisplayAlert';
+import DisplayChart from './display/DisplayChart';
 import DisplayDataGrid from './display/DisplayDataGrid';
 import DisplayImage from './display/DisplayImage';
 import DisplayLabel from './display/DisplayLabel';
@@ -72,6 +73,7 @@ export {
    StructureModal,
    StructureTab,
    DisplayAlert,
+   DisplayChart,
    DisplayDataGrid,
    DisplayImage,
    DisplayLabel,

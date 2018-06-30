@@ -40,9 +40,10 @@ namespace dotNetify_Elements
          StructureModal,
          StructureTab,
          DisplayAlert,
+         DisplayChart,
+         DisplayDataGrid,
          DisplayImage,
          DisplayLabel,
-         DisplayDataGrid,
          DisplayMarkdown,
          NavigationNavMenu,
 
@@ -88,6 +89,7 @@ namespace dotNetify_Elements
             new RouteTemplate(nameof(Route.StructureModal))       { UrlPattern = "structure/modal" },
             new RouteTemplate(nameof(Route.StructureTab))         { UrlPattern = "structure/tab" },
             new RouteTemplate(nameof(Route.DisplayAlert))         { UrlPattern = "display/alert" },
+            new RouteTemplate(nameof(Route.DisplayChart))         { UrlPattern = "display/chart" },
             new RouteTemplate(nameof(Route.DisplayDataGrid))      { UrlPattern = "display/datagrid" },
             new RouteTemplate(nameof(Route.DisplayImage))         { UrlPattern = "display/image" },
             new RouteTemplate(nameof(Route.DisplayLabel))         { UrlPattern = "display/label" },
@@ -159,6 +161,7 @@ namespace dotNetify_Elements
                   Routes = new NavRoute[]
                   {
                      new NavRoute("Alert",               this.GetRoute(nameof(Route.DisplayAlert))),
+                     new NavRoute("Chart",               this.GetRoute(nameof(Route.DisplayChart))),
                      new NavRoute("DataGrid",            this.GetRoute(nameof(Route.DisplayDataGrid))),
                      new NavRoute("Image",               this.GetRoute(nameof(Route.DisplayImage))),
                      new NavRoute("Label",               this.GetRoute(nameof(Route.DisplayLabel))),

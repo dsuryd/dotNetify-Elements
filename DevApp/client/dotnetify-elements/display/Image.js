@@ -2,7 +2,6 @@ import React from 'react';
 import { PropTypes } from 'prop-types';
 import styled from 'styled-components';
 import Element from '../core/Element';
-import * as utils from '../utils';
 
 const ImageComponent = styled.img``;
 
@@ -26,6 +25,6 @@ export class Image extends Element {
       const { fullId, src, ...props } = this.attrs;
       const _src = this.value || src;
 
-      return _src && <_Image src={_src} {...props} />;
+      return _src && <_Image id={fullId} src={_src} {...props} />;
    }
 }
