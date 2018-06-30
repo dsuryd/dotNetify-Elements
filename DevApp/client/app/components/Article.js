@@ -17,7 +17,7 @@ const Title = styled.div`
 `;
 
 const frameCss = `
-   margin-left: 15%; 
+   margin-left: 10%; 
    margin-right: 0;
    max-width: 1268px;
    @media (max-width: 1170px) {
@@ -41,7 +41,7 @@ const scrollIntoView = id => document.getElementById(id).scrollIntoView({ behavi
 
 const Article = props => (
    <VMContext vm={props.vm}>
-      <Frame horizontal css={frameCss} gap="3rem">
+      <Frame horizontal css={frameCss} gap="10%">
          <Panel css={panelCss}>{props.children}</Panel>
          <Sidebar>
             <Title show={props.tocTitle}>
