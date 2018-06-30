@@ -74,7 +74,7 @@ const HelloCard = _ => (
 
    return (
       <Panel horizontal css="overflow: hidden">
-         <Panel flex css="padding-top: 1rem; p { font-weight: 500 }">
+         <Panel flex css="padding-top: 1rem">
             <p>Original:</p>
             <Card>
                <header>
@@ -84,7 +84,7 @@ const HelloCard = _ => (
                <footer />
             </Card>
             <br />
-            <p>CSS Override:</p>
+            <p>Override:</p>
             <Card css={helloCss}>
                <header>
                   <div class="title">Hello</div>
@@ -104,7 +104,18 @@ const GlobalThemeExample = _ => <Button positive label="Toggle Theme" onClick={_
 
 const SubComponentExample = _ => (
    <VMContext vm="SubComponentExample">
-      <TextField id="Name" inputComponent={MuiTextField} />
+      <Card css="background: transparent">
+         <Panel horizontal>
+            <Panel flex>
+               <div>Original:</div>
+               <TextField id="Name" horizontal />
+            </Panel>
+            <Panel flex>
+               <div>Override:</div>
+               <TextField id="Name" horizontal inputComponent={MuiTextField} />
+            </Panel>
+         </Panel>
+      </Card>
    </VMContext>
 );
 

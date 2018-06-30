@@ -65,7 +65,7 @@ class MyApp extends React.Component {
       const { open, formData } = this.state;
       const handleClick = _ => this.setState({ open: true, formData: null });
       const handleClose = _ => this.setState({ open: false });
-      const handleSubmit = data => this.setState({ formData: data.Email + ' has been registered!' });
+      const handleSubmit = x => this.setState({ formData: x.Email + ' has been registered!' });
       return (
          <Panel horizontal>
             <Button label="Show Modal" onClick={handleClick} />

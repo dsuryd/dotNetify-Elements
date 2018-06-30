@@ -15,7 +15,7 @@ In addition to React's inline styling (the standard _style_ property), almost ev
 
 An element's _css_ property is great for one-off styling, but if you need to apply the same styles repeatedly, it's recommended to create stateless styled components instead.
 
-#### Global Theme
+#### Theming
 
 To customize all element instances, _Elements_ provides a theme object, where you can define CSS styles for every element, including its sub-components. The light and dark built-in themes are available:
 
@@ -54,14 +54,46 @@ import MuiTextField from '@material-ui/core/TextField';
 
 const SubComponentExample = _ => (
    <VMContext vm="SubComponentExample">
-      <TextField id="Name" inputComponent={MuiTextField} />
+      <TextField id="Name" horizontal inputComponent={MuiTextField} />
    </VMContext>
 );
 ```
 
-It so happens that both the Boostrap and Material UI components have the same properties and are interchangeable.  But in many cases, you will probably need to do a bit of work of inspecting the source code and then write custom property mapping logic.
+It so happens that both the Boostrap and Material UI components have the same properties and are interchangeable.  But in other cases, you may need to do a bit of work writing a proper adapter.
 
 #### Build Your Own
 
+Ultimately you may need something that doesn't exist in this library.  Perhaps there's a good React component out there that you would like to wrap.  The way to do it is by creating a new component that extends the _Element_ class.  
 
+For example, here is a custom element to render an image, with the source URL, width, and height coming from a view model:
+
+```jsx
+import React from 'react';
+import { PropTypes } from 'prop-types';
+import Element from '../core/Element';
+
+export class MyImage extends Element {
+   static propTypes = {
+      id: PropTypes.string.isRequired
+   };
+
+   render() {
+      const { fullId, width, height, ...props } = this.attrs;
+      const src = this.value;
+      return src && <img id={fullId} src={src} width={width} height={height} {...props} />;
+   }
+}
+```
+```csharp
+// Example of use:
+AddProperty("MyImageProp")
+   .WithAttribute(new { src = "my-image.jpg", width = "100px", height = "100px" });
+```
+
+Things to note:
+- __this.attrs__: gets the view model property attributes given by the __WithAttribute__ extension method. 
+- __this.value__: gets the view model property value; when set, can be used to store changed value on the client-side.
+- __fullId__: a property from _this.attrs_ that contains a unique DOM ID, if you ever need one.
+
+You can also dispatch the value back to the view model by using __this.dispatch()__. 
 

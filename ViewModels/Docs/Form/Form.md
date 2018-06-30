@@ -39,7 +39,10 @@ public class BasicForm : BaseVM
             AddProperty<string>("ServerResponse"), submittedData => Save(submittedData));
    }
 
-   private string Save(FormData data) => $"The name __'{data.Name}'__ with email '{data.Email}' was registered.";
+   private string Save(FormData data) 
+   {
+      return $"The name __'{data.Name}'__ with email '{data.Email}' was registered.";
+   }
 }
 ```
 

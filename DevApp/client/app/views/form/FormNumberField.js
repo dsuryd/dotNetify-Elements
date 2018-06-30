@@ -26,9 +26,11 @@ class NumberFieldExample extends React.Component {
 import React from 'react';
 import { VMContext, Panel, NumberField } from 'dotnetify-elements';
 
+const fieldCss = 'min-width: 14rem; max-width: 20rem; white-space: nowrap';
+
 const MyApp = _ => (
    <VMContext vm="NumberFieldExample">
-      <Panel horizontal childProps={{css: "min-width: 14rem; max-width: 20rem; white-space: nowrap"}}>   
+      <Panel horizontal childProps={{css: fieldCss}}>   
          <NumberField id="HeightFeet" ${props}/>
          <NumberField id="HeightInches" ${props}/>
       </Panel>      
