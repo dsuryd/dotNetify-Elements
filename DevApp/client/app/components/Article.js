@@ -4,7 +4,7 @@ import { Element, Frame, Markdown, MarkdownTOC, Panel, Tab, VMContext } from 'do
 
 const Sidebar = styled.div`
    position: fixed;
-   border-left: 2px solid orange;
+   border-left: 1px solid orange;
    margin-left: 2rem;
    padding-left: 1rem;
 `;

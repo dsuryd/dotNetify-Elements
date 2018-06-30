@@ -76,9 +76,9 @@ export class TextField extends InputElement {
       this.changed = false;
    };
 
-   handleChange = _ => {
+   handleChange = value => {
       this.changed = true;
-      this.value = this.vmProperty.domValue;
+      this.value = typeof this.vmProperty.domValue != 'undefined' ? this.vmProperty.domValue : value;
    };
 
    handleKeyPress = event => {
@@ -90,7 +90,7 @@ export class TextField extends InputElement {
       const [ Container, Input, InputGroup, ValidationMessage, PlainText ] = this.resolveComponents(TextField);
       const { fullId, label, placeholder, prefix, suffix, maxLength, plainText, horizontal, enable, onChange, type, css, style, ...props } = this.attrs;
 
-      const handleChange = onChange ? e => onChange(e.target.value) : this.handleChange;
+      let handleChange = onChange ? e => onChange(e.target.value) : e => this.handleChange(e.target.value);
       const handleBlur = onChange ? null : this.handleBlur;
 
       const disabled = enable === false;

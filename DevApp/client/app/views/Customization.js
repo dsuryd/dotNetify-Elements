@@ -1,14 +1,15 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { Button, Card, Markdown, Panel, VMContext, withTheme } from 'dotnetify-elements';
+import { Button, Card, Markdown, Panel, TextField, VMContext, withTheme } from 'dotnetify-elements';
 import Article from '../components/Article';
 import { themeToggleEvent } from './layout/demo-helper';
+import MuiTextField from '@material-ui/core/TextField';
 
 const Customization = props => (
    <Article vm="Customization" id="Content">
       <Markdown id="Content">
          <CssOverrideExample />
          <GlobalThemeExample />
+         <SubComponentExample />
       </Markdown>
    </Article>
 );
@@ -74,7 +75,7 @@ const HelloCard = _ => (
    return (
       <Panel horizontal css="overflow: hidden">
          <Panel flex css="padding-top: 1rem; p { font-weight: 500 }">
-            <p>Before:</p>
+            <p>Original:</p>
             <Card>
                <header>
                   <div class="title">Hello</div>
@@ -83,7 +84,7 @@ const HelloCard = _ => (
                <footer />
             </Card>
             <br />
-            <p>After:</p>
+            <p>CSS Override:</p>
             <Card css={helloCss}>
                <header>
                   <div class="title">Hello</div>
@@ -99,15 +100,12 @@ const HelloCard = _ => (
    );
 };
 
-export class GlobalThemeExample extends React.Component {
-   static contextTypes = {
-      theme: PropTypes.object
-   };
+const GlobalThemeExample = _ => <Button positive label="Toggle Theme" onClick={_ => themeToggleEvent.emit()} />;
 
-   render() {
-      let themeJson = JSON.stringify(this.context.theme, null, 4).replace(/\\n/g, '\r\n');
-      return <Button positive label="Toggle Theme" onClick={_ => themeToggleEvent.emit()} />;
-   }
-}
+const SubComponentExample = _ => (
+   <VMContext vm="SubComponentExample">
+      <TextField id="Name" inputComponent={MuiTextField} />
+   </VMContext>
+);
 
 export default withTheme(Customization);

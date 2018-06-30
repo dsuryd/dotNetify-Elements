@@ -38,13 +38,28 @@ const myTheme = {
 const MyApp = props => <Main theme={myTheme}> /* ... */ </Main>;
 ```
 
-[inset]
-
 #### Sub-Component Override
 
 Every element is designed to be composed of multiple parts, or sub-components.  Each sub-component can be replaced, either at an instance level, or for all the element types.  The goal of this design is so that we can, for whatever reason, substitute a third-party library that an element uses with another one, without breaking the element's APIs.
 
+For example, let's change the _TextField_ element from its current Bootstrap style to Material UI.  By looking at the element's API documentation, we know that it exposes the _inputComponent_ property to replace the component that accepts user input.  Change that to the Material UI's TextField component, it becomes:
+
 [inset]
+<br/>
+
+```jsx
+import React from 'react';
+import { TextField, VMContext } from 'dotnetify-elements';
+import MuiTextField from '@material-ui/core/TextField';
+
+const SubComponentExample = _ => (
+   <VMContext vm="SubComponentExample">
+      <TextField id="Name" inputComponent={MuiTextField} />
+   </VMContext>
+);
+```
+
+It so happens that both the Boostrap and Material UI components have the same properties and are interchangeable.  But in many cases, you will probably need to do a bit of work of inspecting the source code and then write custom property mapping logic.
 
 #### Build Your Own
 
