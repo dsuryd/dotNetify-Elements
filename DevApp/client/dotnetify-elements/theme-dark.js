@@ -204,6 +204,27 @@ const structureTheme = {
          font-weight: 400;
       `
    },
+   Modal: {
+      Container: `
+         .modal-content { 
+            background: transparent; 
+         }
+      `,
+      HeaderContainer: `
+         color: #fff;
+         background: #303030; 
+         border-bottom-color: #444;
+      `,
+      BodyContainer: `
+      color: #fff;
+      background: #303030;       
+      `,
+      FooterContainer: `
+      color: #fff;
+      background: #303030; 
+      border-top-color: #444;      
+      `
+   },
    Tab: {
       Container: `
          ul {

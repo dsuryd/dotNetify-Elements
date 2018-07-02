@@ -177,6 +177,12 @@ const structureTheme = {
       PlainTextContainer: ``,
       PlainTextComponent: `font-weight: 500;`
    },
+   Modal: {
+      Container: ``,
+      HeaderContainer: ``,
+      BodyContainer: ``,
+      FooterContainer: ``
+   },
    Tab: {
       Container: ``,
       TabItemContainer: ``,

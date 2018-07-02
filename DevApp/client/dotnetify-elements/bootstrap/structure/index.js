@@ -1,3 +1,4 @@
+import styled from 'styled-components';
 import { Card as _Card, CardImage, CardHeader, CardBody, CardFooter } from './Card';
 import { Cell as _Cell, CellHeader, CellBody } from './Cell';
 import { Tab as _Tab, TabItem as _TabItem } from './Tab';
@@ -32,10 +33,10 @@ Object.assign(Cell.componentTypes, {
 });
 
 Object.assign(Modal.componentTypes, {
-   Container: rs.Modal,
-   HeaderContainer: rs.ModalHeader,
-   BodyContainer: rs.ModalBody,
-   FooterContainer: rs.ModalFooter
+   Container: styled(rs.Modal)`${props => props.theme.Modal.Container}`,
+   HeaderContainer: styled(rs.ModalHeader)`${props => props.theme.Modal.HeaderContainer}`,
+   BodyContainer: styled(rs.ModalBody)`${props => props.theme.Modal.BodyContainer}`,
+   FooterContainer: styled(rs.ModalFooter)`${props => props.theme.Modal.FooterContainer}`
 });
 
 export { Card, CardHeader, CardBody, CardFooter, Cell, CellHeader, CellBody, Collapsible, Field, Modal, Tab, TabItem };
