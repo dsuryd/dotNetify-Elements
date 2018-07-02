@@ -1,5 +1,6 @@
 import React from 'react';
-import { LineChart, Markdown, Panel, TabItem, withTheme } from 'dotnetify-elements';
+import { BarChart, LineChart, PieChart } from 'dotnetify-elements';
+import { Markdown, Panel, TabItem, withTheme } from 'dotnetify-elements';
 import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
 
 const DisplayChart = props => (
@@ -18,6 +19,16 @@ const DisplayChart = props => (
    </TabsArticle>
 );
 
+const waveformConfig = {
+   datasets: [
+      {
+         backgroundColor: 'rgba(217,237,245,0.2)',
+         borderColor: '#9acfea',
+         borderWidth: 2
+      }
+   ]
+};
+
 class ChartExample extends React.Component {
    render() {
       const buildCode = props => `
@@ -35,7 +46,9 @@ const MyApp = _ => (
       return (
          <RenderExample vm="ChartExample" propTypes={propTypes} buildCode={buildCode} onChange={setState}>
             <Panel css="margin-bottom: 2rem">
-               <LineChart id="LineData" {...this.state} />
+               <LineChart id="Waveform" config={waveformConfig} {...this.state} />
+               <BarChart id="MonthlySales" />
+               <PieChart id="MarketSegment" />
             </Panel>
          </RenderExample>
       );

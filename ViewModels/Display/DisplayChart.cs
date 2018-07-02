@@ -1,6 +1,7 @@
 ﻿using DotNetify;
 using DotNetify.Elements;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
 
@@ -24,16 +25,11 @@ namespace dotNetify_Elements
       {
          var random = new Random();
          var timer = Observable.Interval(TimeSpan.FromSeconds(1)).StartWith(0);
-         var initialValues = Enumerable.Range(1, 10).Select(x => random.Next(1, 10));
 
-         AddProperty<int>("LineData")
-            .SubscribeTo(timer.Select(_ => random.Next(1, 10)))
-            .SubscribedBy(AddInternalProperty<bool>("Update"), _ =>
-            {
-               PushUpdates();
-               return true;
-            })
-            .StartWith(initialValues);
+         var initialValues = Enumerable.Range(1, 30).Select(x => new string[] { $"{x}", $"{Math.Sin(x / Math.PI)}" }).ToArray();
+
+         AddProperty("Waveform", initialValues)
+            .WithAttribute(new ChartAttribute { XAxisLabel = "in/sec", YAxisLabel = "Time (second)" });
       }
    }
 
@@ -42,10 +38,9 @@ namespace dotNetify_Elements
       public ChartCustomize()
       {
          var random = new Random();
-         var initialValues = Enumerable.Range(1, 10).Select(x => random.Next(1, 10));
+         var data = Enumerable.Range(1, 10).Select(x => new KeyValuePair<string, float>($"{x}", random.Next(1, 10))).ToArray();
 
-         AddProperty<int>("LineData")
-            .StartWith(initialValues);
+         AddProperty("LineData", data);
       }
    }
 }

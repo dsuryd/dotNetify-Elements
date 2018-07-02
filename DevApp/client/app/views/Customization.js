@@ -21,13 +21,10 @@ const helloCss = `
    .card-header {
       border-radius: 20px 20px 0 0;
       background: #ef3d33;
-      header {
+      > * {
          color: white;
          text-align: center;
-         .title {
-            font-size: 28px;
-            font-weight: bold;
-         }
+         h5 { font: bold 28px arial; }
       }
    } 
    .card-footer {
@@ -44,15 +41,12 @@ const helloCss = \`
    height: 200px;
    border-radius: 20px;
    .card-header {
-      border-radius: 20px 20px 0 0;
       background: #ef3d33;
-      header {
+      border-radius: 20px 20px 0 0;
+      > * {
          color: white;
          text-align: center;
-         .title {
-            font-size: 28px;
-            font-weight: bold;
-         }
+         h5 { font: bold 28px arial; }
       }
    } 
    .card-footer {
@@ -60,11 +54,10 @@ const helloCss = \`
       border-radius: 0 0 20px 20px;
    }
 \`;
-
 const HelloCard = _ => (
    <Card css={helloCss}>
       <header>
-         <title>Hello</title>
+         <h5>Hello</h5>
          <div>My name is</div>
       </header>
       <footer />
@@ -78,7 +71,7 @@ const HelloCard = _ => (
             <p>Original:</p>
             <Card>
                <header>
-                  <div class="title">Hello</div>
+                  <h5>Hello</h5>
                   <div>My name is</div>
                </header>
                <footer />
@@ -87,7 +80,7 @@ const HelloCard = _ => (
             <p>Override:</p>
             <Card css={helloCss}>
                <header>
-                  <div class="title">Hello</div>
+                  <h5>Hello</h5>
                   <div>My name is</div>
                </header>
                <footer />

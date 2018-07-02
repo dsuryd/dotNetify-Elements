@@ -3,6 +3,7 @@ import defaultTheme from './theme-light';
 import { Element, VMContext, ContextTypes } from './core';
 import {
    Alert,
+   BarChart,
    Button,
    Card,
    Cell,
@@ -37,6 +38,7 @@ import {
    NumberField,
    Panel,
    PasswordField,
+   PieChart,
    RadioGroup,
    RadioToggle,
    Section,
@@ -56,6 +58,7 @@ let dotNetifyElements = {
    VMContext,
    /* Bootstrap */
    Alert,
+   BarChart,
    Button,
    Card,
    Cell,
@@ -90,6 +93,7 @@ let dotNetifyElements = {
    NumberField,
    Panel,
    PasswordField,
+   PieChart,
    RadioGroup,
    RadioToggle,
    Section,

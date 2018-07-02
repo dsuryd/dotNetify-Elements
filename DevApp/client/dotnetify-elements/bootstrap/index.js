@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'react-widgets/dist/css/react-widgets.css';
 import './override.css';
 
-import { Alert, DataGrid, GridColumn, Image, Label, LineChart, Markdown, MarkdownTOC } from './display';
+import { Alert, BarChart, DataGrid, GridColumn, Image, Label, LineChart, Markdown, MarkdownTOC, PieChart } from './display';
 import {
    Button,
    Checkbox,
@@ -26,6 +26,7 @@ import { Card, Cell, Collapsible, Field, Modal, Tab, TabItem } from './structure
 
 export {
    Alert,
+   BarChart,
    Button,
    Card,
    Cell,
@@ -57,6 +58,7 @@ export {
    NavMenu,
    NavMenuTarget,
    Panel,
+   PieChart,
    Frame,
    RadioGroup,
    RadioToggle,
