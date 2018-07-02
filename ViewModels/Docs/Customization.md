@@ -4,7 +4,11 @@ _Elements_ is designed to help developers build great-looking applications witho
 
 #### Element Properties
 
-Some elements provide a few properties to provide common customization points, such as width and height.  The _Panel_ element, for example, provide properties to customize the gap size between child items and the CSS flex alignments.  Check the API documentation for a particular element to find out which properties it supports.
+Some elements provide a few properties to provide common customization points, such as width and height.  The _Panel_ element, for example, provide properties to customize the gap size between child items and the CSS flex alignments.
+
+[inset]
+
+Check the API documentation for a particular element to find out which properties it supports.
 
 #### CSS Override
 
@@ -13,16 +17,16 @@ In addition to React's inline styling (the standard _style_ property), almost ev
 [inset]
 <br/>
 
-An element's _css_ property is great for one-off styling, but if you need to apply the same styles repeatedly, it's recommended to create stateless styled components instead.
+An element's _css_ property is great for one-off styling, but if you need to apply the same styles repeatedly, it's recommended to create reusable styled components instead.
 
 #### Theming
 
-To customize all element instances, _Elements_ provides a theme object, where you can define CSS styles for every element, including its sub-components. The light and dark built-in themes are available:
+To customize all element instances, _Elements_ provides a theme object, where you can define CSS styles for every element, including its sub-components. There are two built-in themes, the light and dark themes, which you can try out here:
 
 [inset]
 <br/>
 
-See [Theme](layout/theme) for complete content of these theme objects.  You can derive a custom theme starting from one of these, and specify how it should differ by overriding the desired object properties.  For example:
+for the complete content of these theme objects, see [Theme](layout/theme).  You can derive a custom theme starting from them, and specify how it should differ by overriding the desired object properties.  For example:
 
 ```jsx
 import React from 'react';

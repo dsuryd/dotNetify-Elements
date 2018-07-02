@@ -1,11 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Main, Header, Section } from 'dotnetify-elements';
-import { Button, Card, CellPanel, Frame, Markdown, Panel, VMContext, withTheme } from 'dotnetify-elements';
-import Expander from '../components/Expander';
+import { Markdown, Panel, withTheme } from 'dotnetify-elements';
 import Article from '../components/Article';
 
-const LayoutSystem = props => (
+const LayoutSystem = _ => (
    <Article vm="LayoutSystem" id="Content">
       <Markdown id="Content">
          <DefaultPanelLayout />

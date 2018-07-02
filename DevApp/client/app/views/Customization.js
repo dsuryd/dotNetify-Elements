@@ -1,12 +1,14 @@
 import React from 'react';
+import styled from 'styled-components';
 import { Button, Card, Markdown, Panel, TextField, VMContext, withTheme } from 'dotnetify-elements';
-import Article from '../components/Article';
+import { Article, RenderExample } from '../components';
 import { themeToggleEvent } from './layout/demo-helper';
 import MuiTextField from '@material-ui/core/TextField';
 
 const Customization = props => (
    <Article vm="Customization" id="Content">
       <Markdown id="Content">
+         <ElementPropertiesExample />
          <CssOverrideExample />
          <GlobalThemeExample />
          <SubComponentExample />
@@ -32,6 +34,51 @@ const helloCss = `
       border-radius: 0 0 20px 20px;
    }
 `;
+
+const Item = styled.div`
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   width: 50px;
+   height: 50px;
+   color: white;
+   font-size: x-large;
+   background: #999;
+`;
+
+const ElementPropertiesExample = _ => {
+   const sourceCode = `
+\`\`\`jsx
+const ElementPropDemo = _ => (
+   <Panel horizontal margin="1rem">
+      <Panel flex="1 1 40%">
+         <Item>1</Item>
+      </Panel>
+      <Panel horizontal flex="1 1 60%" gap="2rem">
+         <Item>2</Item>
+         <Item>3</Item>
+      </Panel>
+   </Panel>
+);
+\`\`\``;
+
+   return (
+      <Panel>
+         <Panel css="margin-top: 2rem; border: 2px dashed #ccc">
+            <Panel horizontal margin="1rem">
+               <Panel flex="1 1 40%">
+                  <Item>1</Item>
+               </Panel>
+               <Panel horizontal flex="1 1 60%" gap="2rem">
+                  <Item>2</Item>
+                  <Item>3</Item>
+               </Panel>
+            </Panel>
+         </Panel>
+         <Markdown>{sourceCode}</Markdown>
+      </Panel>
+   );
+};
 
 const CssOverrideExample = _ => {
    const sourceCode = `
