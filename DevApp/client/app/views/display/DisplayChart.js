@@ -19,14 +19,49 @@ const DisplayChart = props => (
    </TabsArticle>
 );
 
-const waveformConfig = {
-   datasets: [
-      {
-         backgroundColor: 'rgba(217,237,245,0.2)',
-         borderColor: '#9acfea',
-         borderWidth: 2
-      }
-   ]
+const lineConfig = {
+   data: {
+      datasets: [
+         {
+            backgroundColor: 'rgba(217,237,245,0.2)',
+            borderColor: '#9acfea',
+            borderWidth: 2
+         }
+      ]
+   }
+};
+
+const barConfig = {
+   data: {
+      datasets: [
+         {
+            backgroundColor: [
+               'rgba(255, 99, 132, 0.8)',
+               'rgba(54, 162, 235, 0.8)',
+               'rgba(255, 206, 86, 0.8)',
+               'rgba(75, 192, 192, 0.8)',
+               'rgba(153, 102, 255, 0.8)',
+               'rgba(255, 159, 64, 0.8)',
+               'rgba(255, 99, 132, 0.8)',
+               'rgba(54, 162, 235, 0.8)',
+               'rgba(255, 206, 86, 0.8)',
+               'rgba(75, 192, 192, 0.8)',
+               'rgba(153, 102, 255, 0.8)',
+               'rgba(255, 159, 64, 0.8)'
+            ]
+         }
+      ]
+   }
+};
+
+const pieConfig = {
+   data: {
+      datasets: [
+         {
+            backgroundColor: [ 'rgba(255, 99, 132, 0.8)', 'rgba(54, 162, 235, 0.8)', 'rgba(255, 206, 86, 0.8)' ]
+         }
+      ]
+   }
 };
 
 class ChartExample extends React.Component {
@@ -46,9 +81,17 @@ const MyApp = _ => (
       return (
          <RenderExample vm="ChartExample" propTypes={propTypes} buildCode={buildCode} onChange={setState}>
             <Panel css="margin-bottom: 2rem">
-               <LineChart id="Waveform" config={waveformConfig} {...this.state} />
-               <BarChart id="MonthlySales" />
-               <PieChart id="MarketSegment" />
+               <Panel horizontal>
+                  <Panel flex="1 1 60%">
+                     <LineChart id="Waveform" config={lineConfig} />
+                  </Panel>
+                  <Panel flex="1 1 40%">
+                     <PieChart id="Utilization" config={pieConfig} height={200} />
+                  </Panel>
+               </Panel>
+               <Panel>
+                  <BarChart id="MonthlySales" height={50} config={barConfig} />
+               </Panel>
             </Panel>
          </RenderExample>
       );

@@ -24,12 +24,34 @@ namespace dotNetify_Elements
       public ChartExample()
       {
          var random = new Random();
-         var timer = Observable.Interval(TimeSpan.FromSeconds(1)).StartWith(0);
+         var timer = Observable.Interval(TimeSpan.FromSeconds(1));
 
-         var initialValues = Enumerable.Range(1, 30).Select(x => new string[] { $"{x}", $"{Math.Sin(x / Math.PI)}" }).ToArray();
+         var initialWaveform = Enumerable.Range(1, 30).Select(x => new string[] { $"{x}", $"{Math.Sin(x / Math.PI)}" }).ToArray();
 
-         AddProperty("Waveform", initialValues)
-            .WithAttribute(new ChartAttribute { XAxisLabel = "in/sec", YAxisLabel = "Time (second)" });
+         AddProperty("Waveform", initialWaveform)
+            .WithAttribute(new ChartAttribute { XAxisLabel = "Time (second)", YAxisLabel = "in/sec", MaxDataSize = 30 });
+
+         timer.Subscribe(x => 
+         {
+            x += 31;
+            this.AddList("Waveform", new string[] { $"{x}", $"{Math.Sin(x / Math.PI)}" });
+            PushUpdates();
+         });
+
+         AddProperty("MonthlySales", Enumerable.Range(1, 12).Select(x => random.Next(500, 1000)).ToArray())
+            .WithAttribute(new ChartAttribute 
+            { 
+               YAxisLabel = "Revenue (US$)",
+               Labels = new string[] { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" } 
+            })
+            .SubscribeTo(timer.Select(_ => Enumerable.Range(1, 12).Select(x => random.Next(500, 1000)).ToArray()));
+
+         AddProperty("Utilization", Enumerable.Range(1, 3).Select(x => random.NextDouble() * 100).ToArray())
+            .WithAttribute(new ChartAttribute 
+            { 
+               Labels = new string[] { "CPU", "Memory", "Disk" } 
+            })
+            .SubscribeTo(timer.Select(_ => Enumerable.Range(1, 3).Select(x => random.NextDouble() * 100).ToArray()));         
       }
    }
 

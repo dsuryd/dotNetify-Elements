@@ -20,8 +20,16 @@ namespace DotNetify.Elements
 {
    public class ChartAttribute
    {
+      // Data labels.
       public string[] Labels { get; set; }
+
+      // X-axis label.
       public string XAxisLabel { get; set; }
+
+      // Y-axis label.
       public string YAxisLabel { get; set; }
+
+      // Maximum number of data to display.  Overflow will be trimmed from start of array.
+      public int MaxDataSize { get; set;}
    }
 }
