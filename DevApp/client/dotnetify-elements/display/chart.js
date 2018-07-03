@@ -1,3 +1,28 @@
+import merge from 'deepmerge';
+
+const emptyTarget = value => (Array.isArray(value) ? [] : {});
+const clone = (value, options) => merge(emptyTarget(value), value, options);
+
+// Combine array into one: https://github.com/KyleAMathews/deepmerge
+function combineMerge(target, source, options) {
+   const destination = target.slice();
+
+   source.forEach(function(e, i) {
+      if (typeof destination[i] === 'undefined') {
+         const cloneRequested = options.clone !== false;
+         const shouldClone = cloneRequested && options.isMergeableObject(e);
+         destination[i] = shouldClone ? clone(e, options) : e;
+      }
+      else if (options.isMergeableObject(e)) {
+         destination[i] = merge(target[i], e, options);
+      }
+      else if (target.indexOf(e) === -1) {
+         destination.push(e);
+      }
+   });
+   return destination;
+}
+
 export function toChartJsData(config, props, value) {
    let { labels, maxDataSize } = props;
 
@@ -19,16 +44,15 @@ export function toChartJsData(config, props, value) {
       data = data.slice(-maxDataSize);
    }
 
-   let configData =
-      config && config.data
-         ? config.data
-         : {
-              labels: [],
-              datasets: [ { data: [] } ]
-           };
-
-   configData.labels = labels;
-   configData.datasets[0].data = data;
+   config = config || {};
+   let configData = merge(
+      {
+         labels: labels,
+         datasets: [ { data: data } ]
+      },
+      config.data || {},
+      { arrayMerge: combineMerge }
+   );
 
    return configData;
 }
@@ -36,28 +60,40 @@ export function toChartJsData(config, props, value) {
 export function toChartJsOptions(config, props) {
    let { xAxisLabel, yAxisLabel } = props;
 
-   let configOptions =
-      config && config.options
-         ? config.options
-         : {
-              legend: false,
-              scales: {}
-           };
-
+   config = config || {};
+   let configOptions = merge(
+      {
+         legend: { display: false },
+         scales: {}
+      },
+      config.options || {},
+      { arrayMerge: combineMerge }
+   );
+   console.log(configOptions);
    if (yAxisLabel) {
-      if (!configOptions.scales.yAxes) {
-         configOptions.scales.yAxes = [ { scaleLabel: { display: false } } ];
-      }
-      configOptions.scales.yAxes[0].scaleLabel.display = true;
-      configOptions.scales.yAxes[0].scaleLabel.labelString = yAxisLabel;
+      configOptions.scales = merge(configOptions.scales, {
+         yAxes: [
+            {
+               scaleLabel: {
+                  display: true,
+                  labelString: yAxisLabel
+               }
+            }
+         ]
+      });
    }
 
    if (xAxisLabel) {
-      if (!configOptions.scales.xAxes) {
-         configOptions.scales.xAxes = [ { scaleLabel: { display: false } } ];
-      }
-      configOptions.scales.xAxes[0].scaleLabel.display = true;
-      configOptions.scales.xAxes[0].scaleLabel.labelString = xAxisLabel;
+      configOptions.scales = merge(configOptions.scales, {
+         xAxes: [
+            {
+               scaleLabel: {
+                  display: true,
+                  labelString: xAxisLabel
+               }
+            }
+         ]
+      });
    }
 
    return configOptions;

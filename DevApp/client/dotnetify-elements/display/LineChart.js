@@ -2,9 +2,11 @@ import React from 'react';
 import { PropTypes } from 'prop-types';
 import styled from 'styled-components';
 import Element from '../core/Element';
+import * as utils from '../utils';
 import { toChartJsData, toChartJsOptions } from './chart';
 
 const ChartContainer = styled.div`
+   ${props => (props.width ? 'width: ' + props.width : '')};
    ${props => props.theme.LineChart};
    ${props => props.css};
 `;
@@ -32,8 +34,8 @@ export class LineChart extends Element {
       const options = toChartJsOptions(config, props);
 
       return (
-         <Container id={fullId} width={width} height={height} style={style} css={css}>
-            <Chart data={data} options={options} {...props} />
+         <Container id={fullId} width={width} style={style} css={css}>
+            <Chart data={data} options={options} height={utils.toPixel(height)} {...props} />
          </Container>
       );
    }

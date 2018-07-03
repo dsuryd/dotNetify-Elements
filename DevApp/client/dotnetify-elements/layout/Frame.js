@@ -5,3 +5,4 @@ export const Frame = props => <Panel noMargin={false} {...props} />;
 
 Frame.propTypes = { ...Frame.propTypes };
 Frame.componentTypes = { ...Frame.componentTypes };
+Frame._isPanel = true;

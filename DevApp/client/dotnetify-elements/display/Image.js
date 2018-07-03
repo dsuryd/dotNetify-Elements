@@ -18,7 +18,7 @@ export class Image extends Element {
       ImageComponent: ImageComponent
    };
 
-   static typeName = 'Image';
+   static _typeName = 'Image';
 
    render() {
       const [ _Image ] = this.resolveComponents(Image);

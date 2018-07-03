@@ -1,13 +1,15 @@
 import React from 'react';
 import { BarChart, LineChart, PieChart } from 'dotnetify-elements';
-import { Markdown, Panel, TabItem, withTheme } from 'dotnetify-elements';
+import { Markdown, Panel, TabItem, VMContext, withTheme } from 'dotnetify-elements';
 import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
 
 const DisplayChart = props => (
    <TabsArticle vm="DisplayChart" id="Overview">
       <TabItem label="Overview" key="Overview">
          <Markdown id="Overview">
-            <ChartExample />
+            <LineChartExample />
+            <BarChartExample />
+            <PieChartExample />
          </Markdown>
       </TabItem>
       <TabItem label="API" key="API">
@@ -56,44 +58,99 @@ const barConfig = {
 
 const pieConfig = {
    data: {
-      datasets: [
-         {
-            backgroundColor: [ 'rgba(255, 99, 132, 0.8)', 'rgba(54, 162, 235, 0.8)', 'rgba(255, 206, 86, 0.8)' ]
-         }
-      ]
+      datasets: [ { backgroundColor: [ 'rgba(255, 99, 132, 0.8)', 'rgba(54, 162, 235, 0.8)', 'rgba(255, 206, 86, 0.8)' ] } ]
+   },
+   options: {
+      legend: { display: true, position: 'right' }
    }
 };
 
-class ChartExample extends React.Component {
+class LineChartExample extends React.Component {
    render() {
       const buildCode = props => `
 \`\`\`jsx
 import React from 'react';
 import { LineChart, VMContext } from 'dotnetify-elements';
 
+const lineConfig = {
+   data: { 
+      datasets: [ { 
+         backgroundColor: 'rgba(217,237,245,0.2)', 
+         borderColor: '#9acfea', 
+         borderWidth: 2 
+      } ] 
+   }
+};
 const MyApp = _ => (
    <VMContext vm="ChartExample">
+      <LineChart id="Waveform" config={lineConfig} />
    </VMContext>
 );
 \`\`\``;
-      const setState = state => this.setState(state);
-      let propTypes = {};
       return (
-         <RenderExample vm="ChartExample" propTypes={propTypes} buildCode={buildCode} onChange={setState}>
+         <VMContext vm="LineChartExample">
             <Panel css="margin-bottom: 2rem">
-               <Panel horizontal>
-                  <Panel flex="1 1 60%">
-                     <LineChart id="Waveform" config={lineConfig} />
-                  </Panel>
-                  <Panel flex="1 1 40%">
-                     <PieChart id="Utilization" config={pieConfig} height={200} />
-                  </Panel>
-               </Panel>
-               <Panel>
-                  <BarChart id="MonthlySales" height={50} config={barConfig} />
-               </Panel>
+               <LineChart id="Waveform" config={lineConfig} />
             </Panel>
-         </RenderExample>
+            <Markdown>{buildCode()}</Markdown>
+         </VMContext>
+      );
+   }
+}
+
+class BarChartExample extends React.Component {
+   render() {
+      const buildCode = props => `
+\`\`\`jsx
+import React from 'react';
+import { BarChart, VMContext } from 'dotnetify-elements';
+
+const barConfig = { 
+   data: { 
+      datasets: [ { backgroundColor: [ /* colors */ ] } ] 
+   } 
+};
+const MyApp = _ => (
+   <VMContext vm="ChartExample">
+      <BarChart id="MonthlySales" config={barConfig} />
+   </VMContext>
+);
+\`\`\``;
+      return (
+         <VMContext vm="BarChartExample">
+            <Panel css="margin-bottom: 2rem">
+               <BarChart id="MonthlySales" config={barConfig} />
+            </Panel>
+            <Markdown>{buildCode()}</Markdown>
+         </VMContext>
+      );
+   }
+}
+
+class PieChartExample extends React.Component {
+   render() {
+      const buildCode = props => `
+\`\`\`jsx
+import React from 'react';
+import { PieChart, VMContext } from 'dotnetify-elements';
+
+const pieConfig = {
+   data: { datasets: [ { backgroundColor: [ /* colors */ ] } ] },
+   options: { legend: { display: true, position: 'right' } }
+};
+const MyApp = _ => (
+   <VMContext vm="ChartExample">
+      <PieChart id="Utilization" config={pieConfig} />
+   </VMContext>
+);
+\`\`\``;
+      return (
+         <VMContext vm="PieChartExample">
+            <Panel css="margin-bottom: 2rem">
+               <PieChart id="Utilization" config={pieConfig} />
+            </Panel>
+            <Markdown>{buildCode()}</Markdown>
+         </VMContext>
       );
    }
 }
@@ -106,7 +163,7 @@ class ChartCustomize extends React.Component {
       const handleSelected = state => this.setState(state);
       const select = value => ({});
       return (
-         <RenderCustomize name="Chart" componentTypes={componentTypes} select={select} onSelected={handleSelected}>
+         <RenderCustomize vm="ChartCustomize" name="Chart" componentTypes={componentTypes} select={select} onSelected={handleSelected}>
             <LineChart id="Chart" />
          </RenderCustomize>
       );

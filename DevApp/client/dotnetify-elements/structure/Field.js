@@ -50,9 +50,6 @@ export class Field extends React.Component {
       // Id to associate the label with the input element.
       id: PropTypes.string,
 
-      // Style in css format.
-      css: PropTypes.string,
-
       // Displays the label text horizontally to the left of the input.
       horizontal: PropTypes.bool,
 
@@ -79,23 +76,17 @@ export class Field extends React.Component {
       ValidationMessageContainer
    };
 
+   static _isPanel = true;
+
    render() {
-      const [
-         Container,
-         LabelContainer,
-         Label,
-         InputContainer,
-         PlainTextContainer,
-         PlainText,
-         ValidationMessageContainer
-      ] = utils.resolveComponents(Field, this.props);
+      const [ Container, LabelContainer, Label, InputContainer, PlainTextContainer, PlainText, ValidationMessageContainer ] = utils.resolveComponents(
+         Field,
+         this.props
+      );
       const { id, label, plainText, horizontal, right, width, style, css, ...props } = this.props;
       const labelPadding = horizontal ? null : '0 0 .5rem 0';
 
-      const [ validationMessages, children ] = utils.filterChildren(
-         this.props.children,
-         child => child.key && child.key.startsWith(validationKeyPrefix)
-      );
+      const [ validationMessages, children ] = utils.filterChildren(this.props.children, child => child.key && child.key.startsWith(validationKeyPrefix));
 
       return (
          <Container width={width} style={style} css={css} horizontal={horizontal}>

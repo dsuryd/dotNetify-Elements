@@ -5,3 +5,4 @@ export const CellPanel = props => <Panel noGap={true} {...props} />;
 
 CellPanel.propTypes = { ...Panel.propTypes };
 CellPanel.componentTypes = { ...Panel.componentTypes };
+CellPanel._isPanel = true;

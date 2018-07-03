@@ -39,9 +39,6 @@ export class Panel extends React.Component {
       // Properties to apply to all child components.
       childProps: PropTypes.object,
 
-      // Sets the container component's css styles.
-      css: PropTypes.string,
-
       // Sets css flex property; if true, same as 'flex: 1'.
       flex: PropTypes.oneOfType([ PropTypes.string, PropTypes.bool ]),
 
@@ -90,6 +87,8 @@ export class Panel extends React.Component {
       Container,
       ChildContainer
    };
+
+   static _isPanel = true;
 
    get children() {
       return React.Children.toArray(this.props.children).filter(x => x);
@@ -184,10 +183,10 @@ export class Panel extends React.Component {
                let childFlex = flex || (child.props && child.props.flex);
                childFlex = typeof childFlex == 'boolean' ? (childFlex ? flexAuto : null) : childFlex;
 
-               // If child or its container has 'css' attribute, it's a derivate of Panel, don't wrap it.
-               const hasCssPropType = x => x && x.propTypes && x.propTypes.css;
+               // If child or its container is a derivate of Panel, don't wrap it.
+               const isPanel = x => x && x._isPanel;
                const childContainer = child.type && child.type.componentTypes ? child.type.componentTypes.Container : null;
-               if (hasCssPropType(child.type) || hasCssPropType(childContainer)) {
+               if (isPanel(child.type) || isPanel(childContainer)) {
                   let style = this.getStyle(idx);
                   const margin = this.numChildren <= 1 ? null : this.getMargin(idx, _gap, _horizontal, wrap);
                   if (margin) style = { ...style, margin: margin };

@@ -104,6 +104,7 @@ export function toggleNavDrawer(open) {
 }
 
 export function toPixel(unit) {
+   if (!unit) return null;
    if (typeof unit == 'string' && unit.endsWith('px')) return parseInt(unit);
    // Assume unit is rem.
    const fontSize = window.getComputedStyle(document.body, null)['font-size'];
