@@ -75,10 +75,8 @@ namespace dotNetify_Elements
 
          AddProperty("Utilization_itemKey", "Key");
 
-         AddProperty<object>("Refresh").Subscribe(_ =>
-         {
-            this.UpdateList("Utilization", new { Key = "mem", Value = random.NextDouble() });
-         });
+         AddProperty<object>("Refresh")
+            .Subscribe(_ => this.UpdateList("Utilization", new { Key = "mem", Value = random.NextDouble() }));
       }
    }
 
