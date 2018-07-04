@@ -1,5 +1,23 @@
+const chartAreaColors = [
+   'rgba(255, 99, 132, 0.8)',
+   'rgba(54, 162, 235, 0.8)',
+   'rgba(255, 206, 86, 0.8)',
+   'rgba(75, 192, 192, 0.8)',
+   'rgba(153, 102, 255, 0.8)',
+   'rgba(255, 159, 64, 0.8)',
+   'rgba(255, 99, 132, 0.8)',
+   'rgba(54, 162, 235, 0.8)',
+   'rgba(255, 206, 86, 0.8)',
+   'rgba(75, 192, 192, 0.8)',
+   'rgba(153, 102, 255, 0.8)',
+   'rgba(255, 159, 64, 0.8)'
+];
+
 const displayTheme = {
    Alert: ``,
+   BarChart: {
+      AreaColor: chartAreaColors
+   },
    DataGrid: `
       .react-grid-HeaderCell {
          font-weight: 500;
@@ -9,6 +27,11 @@ const displayTheme = {
       Container: ``,
       IconContainer: ``,
       IconComponent: ``
+   },
+   LineChart: {
+      AreaColor: 'rgba(217, 237, 245, 0.2)',
+      LineColor: '#9acfea',
+      LineWidth: 2
    },
    Markdown: ``,
    MarkdownTOC: {
@@ -26,6 +49,9 @@ const displayTheme = {
             font-size: .9rem;
          } 
       `
+   },
+   PieChart: {
+      AreaColor: chartAreaColors
    }
 };
 

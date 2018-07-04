@@ -150,7 +150,7 @@ export class Panel extends React.Component {
       } = this.props;
 
       if (!this.context.theme) {
-         console.error('ERROR: You must enclose Panel with <Theme> component or withTheme().');
+         console.error('ERROR: Panel must be nested inside a Theme component.');
          throw 'error';
       }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { BarChart, LineChart, PieChart } from 'dotnetify-elements';
-import { Markdown, Panel, TabItem, VMContext, withTheme } from 'dotnetify-elements';
+import { Button, Markdown, Panel, TabItem, VMContext, withTheme } from 'dotnetify-elements';
 import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
 
 const DisplayChart = props => (
@@ -21,50 +21,6 @@ const DisplayChart = props => (
    </TabsArticle>
 );
 
-const lineConfig = {
-   data: {
-      datasets: [
-         {
-            backgroundColor: 'rgba(217,237,245,0.2)',
-            borderColor: '#9acfea',
-            borderWidth: 2
-         }
-      ]
-   }
-};
-
-const barConfig = {
-   data: {
-      datasets: [
-         {
-            backgroundColor: [
-               'rgba(255, 99, 132, 0.8)',
-               'rgba(54, 162, 235, 0.8)',
-               'rgba(255, 206, 86, 0.8)',
-               'rgba(75, 192, 192, 0.8)',
-               'rgba(153, 102, 255, 0.8)',
-               'rgba(255, 159, 64, 0.8)',
-               'rgba(255, 99, 132, 0.8)',
-               'rgba(54, 162, 235, 0.8)',
-               'rgba(255, 206, 86, 0.8)',
-               'rgba(75, 192, 192, 0.8)',
-               'rgba(153, 102, 255, 0.8)',
-               'rgba(255, 159, 64, 0.8)'
-            ]
-         }
-      ]
-   }
-};
-
-const pieConfig = {
-   data: {
-      datasets: [ { backgroundColor: [ 'rgba(255, 99, 132, 0.8)', 'rgba(54, 162, 235, 0.8)', 'rgba(255, 206, 86, 0.8)' ] } ]
-   },
-   options: {
-      legend: { display: true, position: 'right' }
-   }
-};
-
 class LineChartExample extends React.Component {
    render() {
       const buildCode = props => `
@@ -72,15 +28,6 @@ class LineChartExample extends React.Component {
 import React from 'react';
 import { LineChart, VMContext } from 'dotnetify-elements';
 
-const lineConfig = {
-   data: { 
-      datasets: [ { 
-         backgroundColor: 'rgba(217,237,245,0.2)', 
-         borderColor: '#9acfea', 
-         borderWidth: 2 
-      } ] 
-   }
-};
 const MyApp = _ => (
    <VMContext vm="ChartExample">
       <LineChart id="Waveform" config={lineConfig} />
@@ -90,7 +37,7 @@ const MyApp = _ => (
       return (
          <VMContext vm="LineChartExample">
             <Panel css="margin-bottom: 2rem">
-               <LineChart id="Waveform" config={lineConfig} />
+               <LineChart id="Waveform" />
             </Panel>
             <Markdown>{buildCode()}</Markdown>
          </VMContext>
@@ -105,21 +52,16 @@ class BarChartExample extends React.Component {
 import React from 'react';
 import { BarChart, VMContext } from 'dotnetify-elements';
 
-const barConfig = { 
-   data: { 
-      datasets: [ { backgroundColor: [ /* colors */ ] } ] 
-   } 
-};
 const MyApp = _ => (
    <VMContext vm="ChartExample">
-      <BarChart id="MonthlySales" config={barConfig} />
+      <BarChart id="MonthlySales" />
    </VMContext>
 );
 \`\`\``;
       return (
          <VMContext vm="BarChartExample">
             <Panel css="margin-bottom: 2rem">
-               <BarChart id="MonthlySales" config={barConfig} />
+               <BarChart id="MonthlySales" />
             </Panel>
             <Markdown>{buildCode()}</Markdown>
          </VMContext>
@@ -134,20 +76,18 @@ class PieChartExample extends React.Component {
 import React from 'react';
 import { PieChart, VMContext } from 'dotnetify-elements';
 
-const pieConfig = {
-   data: { datasets: [ { backgroundColor: [ /* colors */ ] } ] },
-   options: { legend: { display: true, position: 'right' } }
-};
 const MyApp = _ => (
    <VMContext vm="ChartExample">
-      <PieChart id="Utilization" config={pieConfig} />
+      <PieChart id="Utilization" />
+      <Button id="Refresh" label="Refresh" />
    </VMContext>
 );
 \`\`\``;
       return (
          <VMContext vm="PieChartExample">
             <Panel css="margin-bottom: 2rem">
-               <PieChart id="Utilization" config={pieConfig} />
+               <PieChart id="Utilization" />
+               <Button id="Refresh" label="Refresh" />
             </Panel>
             <Markdown>{buildCode()}</Markdown>
          </VMContext>
@@ -164,7 +104,7 @@ class ChartCustomize extends React.Component {
       const select = value => ({});
       return (
          <RenderCustomize vm="ChartCustomize" name="Chart" componentTypes={componentTypes} select={select} onSelected={handleSelected}>
-            <LineChart id="Chart" />
+            <LineChart id="Chart" height="5rem" />
          </RenderCustomize>
       );
    }

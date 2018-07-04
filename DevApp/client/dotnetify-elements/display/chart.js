@@ -23,16 +23,16 @@ function combineMerge(target, source, options) {
    return destination;
 }
 
-export function toChartJsData(config, props, value) {
+function toChartJsData(config, props, value) {
    let { labels, maxDataSize } = props;
 
    let data;
    if (value[0].length == 2) {
-      labels = value.map(x => x[0]);
+      if (!labels) labels = value.map(x => x[0]);
       data = value.map(x => x[1]);
    }
    else if (value[0].Key) {
-      labels = value.map(x => x.Key);
+      if (!labels) labels = value.map(x => x.Key);
       data = value.map(x => x.Value);
    }
    else {
@@ -57,7 +57,7 @@ export function toChartJsData(config, props, value) {
    return configData;
 }
 
-export function toChartJsOptions(config, props) {
+function toChartJsOptions(config, props) {
    let { xAxisLabel, yAxisLabel } = props;
 
    config = config || {};
@@ -69,7 +69,7 @@ export function toChartJsOptions(config, props) {
       config.options || {},
       { arrayMerge: combineMerge }
    );
-   console.log(configOptions);
+
    if (yAxisLabel) {
       configOptions.scales = merge(configOptions.scales, {
          yAxes: [
@@ -97,4 +97,8 @@ export function toChartJsOptions(config, props) {
    }
 
    return configOptions;
+}
+
+export function toChartJsConfig(config, props, value) {
+   return { data: toChartJsData(config, props, value), options: toChartJsOptions(config, props) };
 }

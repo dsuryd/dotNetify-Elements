@@ -23,12 +23,11 @@ namespace dotNetify_Elements
    {
       public LineChartExample()
       {
-         var random = new Random();
          var timer = Observable.Interval(TimeSpan.FromSeconds(1));
 
-         var initialWaveform = Enumerable.Range(1, 30).Select(x => new string[] { $"{x}", $"{Math.Sin(x / Math.PI)}" }).ToArray();
+         var data = Enumerable.Range(1, 30).Select(x => new string[] { $"{x}", $"{Math.Sin(x / Math.PI)}" }).ToArray();
 
-         AddProperty("Waveform", initialWaveform)
+         AddProperty("Waveform", data)
             .WithAttribute(new ChartAttribute { XAxisLabel = "Time (second)", YAxisLabel = "in/sec", MaxDataSize = 30 });
 
          timer.Subscribe(x =>
@@ -45,15 +44,14 @@ namespace dotNetify_Elements
       public BarChartExample()
       {
          var random = new Random();
-         var timer = Observable.Interval(TimeSpan.FromSeconds(1));
+         int[] data = Enumerable.Range(1, 12).Select(x => random.Next(500, 1000)).ToArray();
 
-         AddProperty("MonthlySales", Enumerable.Range(1, 12).Select(x => random.Next(500, 1000)).ToArray())
+         AddProperty("MonthlySales", data)
             .WithAttribute(new ChartAttribute
             {
                YAxisLabel = "Revenue (US$)",
                Labels = new string[] { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" }
-            })
-            .SubscribeTo(timer.Select(_ => Enumerable.Range(1, 12).Select(x => random.Next(500, 1000)).ToArray()));
+            });
       }
    }
 
@@ -62,14 +60,27 @@ namespace dotNetify_Elements
       public PieChartExample()
       {
          var random = new Random();
-         var timer = Observable.Interval(TimeSpan.FromSeconds(1));
+         var data = new Dictionary<string, double>
+         {
+            { "cpu", 0.2 },
+            { "mem", 0.4 },
+            { "dsk", 0.3 }
+         }.ToArray();
 
-         AddProperty("Utilization", Enumerable.Range(1, 3).Select(x => random.NextDouble() * 100).ToArray())
+         AddProperty("Utilization", data)
             .WithAttribute(new ChartAttribute
             {
                Labels = new string[] { "CPU", "Memory", "Disk" }
-            })
-            .SubscribeTo(timer.Select(_ => Enumerable.Range(1, 3).Select(x => random.NextDouble() * 100).ToArray()));
+            });
+
+         AddProperty("Utilization_itemKey", "Key");
+
+         AddProperty<object>("Refresh")
+            .SubscribedBy(AddInternalProperty<bool>("Update"), _ =>
+            {
+               this.UpdateList("Utilization", new { Key = "mem", Value = random.NextDouble() });
+               return true;
+            });
       }
    }
 
@@ -78,9 +89,9 @@ namespace dotNetify_Elements
       public ChartCustomize()
       {
          var random = new Random();
-         var initialWaveform = Enumerable.Range(1, 30).Select(x => new string[] { $"{x}", $"{Math.Sin(x / Math.PI)}" }).ToArray();
+         var data = Enumerable.Range(1, 30).Select(x => new string[] { $"{x}", $"{Math.Sin(x / Math.PI)}" }).ToArray();
 
-         AddProperty("Chart", initialWaveform);
+         AddProperty("Chart", data);
       }
    }
 }
