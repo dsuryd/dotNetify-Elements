@@ -8,9 +8,10 @@ module.exports = {
       'dotnetify-elements': './client/dotnetify-elements/index.js'
    },
    output: {
-      filename: '[name].js',
       path: __dirname + '/dist',
-      publicPath: '/dist/'
+      filename: '[name].js',
+      library: 'dotNetifyElements',
+      libraryTarget: 'umd'
    },
    resolve: {
       modules: [ 'client', 'node_modules' ],
@@ -26,9 +27,9 @@ module.exports = {
       ]
    },
    externals: {
-      react: 'React',
-      'react-dom': 'ReactDOM',
-      'styled-components': 'styled',
+      react: 'react',
+      'react-dom': 'react-dom',
+      'styled-components': 'styled-components',
       dotnetify: 'dotnetify'
    },
    plugins: [ new MiniCssExtractPlugin() ]
