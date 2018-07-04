@@ -49,7 +49,7 @@ public class BarChartExample : BaseVM
 {
    public BarChartExample()
    {
-      int[] data = /* get data array */
+      int[] data = [ /* data array */ ];
 
       AddProperty("MonthlySales", data)
          .WithAttribute(new ChartAttribute 
@@ -86,11 +86,11 @@ public class PieChartExample : BaseVM
       AddProperty("Utilization_itemKey", "Key");
 
       AddProperty<object>("Refresh")
-         .SubscribedBy(AddInternalProperty<bool>("Update"), _ =>
-         {
-            this.UpdateList("Utilization", new { Key = "mem", Value = random.NextDouble() });
-            return true;
-         });
+         .Subscribe(_ => this.UpdateList("Utilization", new 
+         { 
+            Key = "mem", 
+            Value = random.NextDouble() 
+         }));
    }
 }
 ```

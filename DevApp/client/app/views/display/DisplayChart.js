@@ -30,7 +30,7 @@ import { LineChart, VMContext } from 'dotnetify-elements';
 
 const MyApp = _ => (
    <VMContext vm="ChartExample">
-      <LineChart id="Waveform" config={lineConfig} />
+      <LineChart id="Waveform" />
    </VMContext>
 );
 \`\`\``;
