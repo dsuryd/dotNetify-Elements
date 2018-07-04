@@ -73,8 +73,8 @@ For example, here is a custom element to render an image, with the source URL, w
 
 ```jsx
 import React from 'react';
-import { PropTypes } from 'prop-types';
-import Element from '../core/Element';
+import PropTypes from 'prop-types';
+import { Element } from 'dotnetify-elements';
 
 export class MyImage extends Element {
    static propTypes = {
@@ -95,9 +95,9 @@ AddProperty("MyImageProp")
 ```
 
 Things to note:
-- __this.attrs__: gets the view model property attributes given by the __WithAttribute__ extension method. 
+- __this.attrs__: gets the view model property attributes given by the _WithAttribute_ extension method. If the component is declared with properties of the same name, they will override the server-side attributes.
 - __this.value__: gets the view model property value; when set, can be used to store changed value on the client-side.
 - __fullId__: a property from _this.attrs_ that contains a unique DOM ID, if you ever need one.
 
-You can also dispatch the value back to the view model by using __this.dispatch()__. 
+To dispatch the value back to the view model, use __this.dispatch()__. 
 
