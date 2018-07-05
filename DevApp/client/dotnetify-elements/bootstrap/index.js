@@ -1,4 +1,3 @@
-import 'bootstrap/dist/css/bootstrap.css';
 import 'react-widgets/dist/css/react-widgets.css';
 import './override.css';
 
