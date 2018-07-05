@@ -27,11 +27,11 @@ module.exports = {
       ]
    },
    externals: {
+      dotnetify: 'dotnetify',
+      'dotnetify-elements': 'dotNetifyElements',
       react: 'React',
       'react-dom': 'ReactDOM',
-      'styled-components': 'styled',
-      dotnetify: 'dotnetify',
-      'dotnetify-elements': 'dotNetifyElements'
+      'styled-components': 'styled'
    },
    plugins: [ new MiniCssExtractPlugin() ]
 };

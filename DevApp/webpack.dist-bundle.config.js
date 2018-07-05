@@ -9,7 +9,7 @@ module.exports = {
    },
    output: {
       path: __dirname + '/dist',
-      filename: '[name].js',
+      filename: 'lib/[name].bundle.js',
       library: 'dotNetifyElements',
       libraryTarget: 'umd'
    },
@@ -26,24 +26,6 @@ module.exports = {
          { test: /\.(eot|svg|ttf|woff(2)?)(\?v=\d+\.\d+\.\d+)?/, loader: 'url-loader' }
       ]
    },
-   externals: [
-      'bootstrap',
-      'chart.js',
-      'dotnetify',
-      'marked',
-      'moment',
-      'prismjs',
-      'prop-types',
-      'react',
-      'react-chartjs-2',
-      'react-data-grid',
-      'react-dom',
-      'react-widgets',
-      'react-widgets-moment',
-      'reactstrap',
-      'styled-components',
-      'text-mask-addons',
-      'text-mask-core'
-   ],
+   externals: [ 'dotnetify', 'react', 'react-dom', 'styled-components' ],
    plugins: [ new MiniCssExtractPlugin() ]
 };

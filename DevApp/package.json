@@ -5,7 +5,7 @@
    "scripts": {
       "build": "webpack",
       "prod": "webpack --mode production",
-      "dist": "webpack --config ./webpack.dist.config.js"
+      "dist": "webpack --config ./webpack.dist.config.js && webpack --config ./webpack.dist-bundle.config.js "
    },
    "babel": {
       "presets": [
@@ -19,24 +19,23 @@
       ]
    },
    "dependencies": {
-      "bootstrap": "4.1.1",
-      "chart.js": "2.7.2",
-      "dotnetify": "3.0.1",
-      "marked": "0.4.0",
-      "moment": "2.22.2",
-      "prismjs": "1.15.0",
-      "prop-types": "15.6.1",
-      "react": "16.3.2",
-      "react-chartjs-2": "2.7.2",
-      "react-data-grid": "4.0.7",
-      "react-dom": "16.3.2",
-      "react-icons": "2.2.7",
-      "react-widgets": "4.3.2",
-      "react-widgets-moment": "4.0.6",
-      "reactstrap": "6.1.0",
-      "styled-components": "3.3.2",
-      "text-mask-addons": "3.7.2",
-      "text-mask-core": "5.1.1"
+      "bootstrap": "~4.1.1",
+      "chart.js": "~2.7.2",
+      "dotnetify": "^3.0.1",
+      "marked": "~0.4.0",
+      "moment": "~2.22.2",
+      "prismjs": "~1.15.0",
+      "prop-types": "~15.6.1",
+      "react": "~16.3.2",
+      "react-chartjs-2": "~2.7.2",
+      "react-data-grid": "~4.0.7",
+      "react-dom": "~16.3.2",
+      "react-widgets": "~4.3.2",
+      "react-widgets-moment": "~4.0.6",
+      "reactstrap": "~6.1.0",
+      "styled-components": "~3.3.2",
+      "text-mask-addons": "~3.7.2",
+      "text-mask-core": "~5.1.1"
    },
    "devDependencies": {
       "@material-ui/core": "1.2.2",

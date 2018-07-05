@@ -30,7 +30,7 @@ import { Card, NavMenu, VMContext } from 'dotnetify-elements';
 const MyApp = _ => (
    <VMContext vm="NavMenuExample">
       <Card>
-         <NavMenu id="NavMenu" selected="examples/customer-info" ${props}/>
+         <NavMenu id="NavMenu" selected="elements/examples/customer-info" ${props}/>
       </Card>   
    </VMContext>
 );
@@ -41,7 +41,7 @@ const MyApp = _ => (
          <RenderExample vm="NavMenuExample" propTypes={propTypes} buildCode={buildCode} onChange={setState}>
             <Panel css="margin-bottom: 2rem">
                <Card>
-                  <NavMenu id="NavMenu" selected="examples/customer-info" {...this.state} />
+                  <NavMenu id="NavMenu" selected="elements/examples/customer-info" {...this.state} />
                </Card>
             </Panel>
          </RenderExample>
