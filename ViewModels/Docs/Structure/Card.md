@@ -20,7 +20,9 @@ public class CardExample : BaseVM
 
 #### Images
 
-An image can be added to the card by placing HTML tag `<img>` or the _Image_ element.  The placement of the tag determines whether the image is placed before or after the text.
+An image can be added to the card by placing HTML tag `<img>`, the _Image_ element or the _CardImage_ container element.  
+
+The placement of the tag determines whether the image is placed before or after the text.  Use the _horizontal_ property to position the image and the text horizontally.
 
 [inset]
 
