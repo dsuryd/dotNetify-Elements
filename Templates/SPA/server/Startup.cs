@@ -17,6 +17,9 @@ namespace spa_template
          services.AddMemoryCache();
          services.AddSignalR();
          services.AddDotNetify();
+
+         services.AddTransient<ILiveDataService, MockLiveDataService>();
+         services.AddScoped<ICustomerRepository, CustomerRepository>();
       }
 
       public void Configure(IApplicationBuilder app)

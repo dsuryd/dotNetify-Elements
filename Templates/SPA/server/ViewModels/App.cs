@@ -17,7 +17,7 @@ namespace spa_template
 
       public App()
       {
-         this.RegisterRoutes("elements", new List<RouteTemplate>
+         this.RegisterRoutes("", new List<RouteTemplate>
          {
             new RouteTemplate(nameof(Route.Home))        { UrlPattern = "", ViewUrl = nameof(Route.Dashboard) },
             new RouteTemplate(nameof(Route.Dashboard))   { UrlPattern = "admin" },
