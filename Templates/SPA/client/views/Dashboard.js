@@ -11,10 +11,15 @@ const BigIcon = styled.i.attrs({
    background: #1c8adb;
 `;
 
+const infoBoxCss = `
+   min-width: 300px; 
+   padding-bottom: 1rem;
+`;
+
 const Dashboard = _ => (
    <VMContext vm="Dashboard">
       <Frame>
-         <Panel horizontal wrap>
+         <Panel horizontal wrap childProps={{ css: infoBoxCss }}>
             <Panel flex>
                <Card horizontal>
                   <CardImage>
