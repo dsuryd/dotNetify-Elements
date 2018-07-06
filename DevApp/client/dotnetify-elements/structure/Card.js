@@ -1,6 +1,6 @@
 import React from 'react';
+import styled from 'styled-components';
 import { PropTypes } from 'prop-types';
-import { CellPanel } from '../layout/CellPanel';
 import * as utils from '../utils';
 
 export class Card extends React.Component {
@@ -30,17 +30,18 @@ export class Card extends React.Component {
       const [ Container, Image, Header, Body, Footer ] = utils.resolveComponents(Card, this.props);
       const { header, footer, horizontal, children, width, style, css, ...props } = this.props;
 
-      const reservedTypes = [ 'header', 'footer', 'img', 'Image' ];
+      const reservedTypes = [ 'header', 'footer', 'img', 'Image', 'CardImage' ];
       const [ sections, body ] = utils.filterChildren(children, child => child && reservedTypes.some(x => x === child.type || x === child.type._typeName));
 
-      const img = sections.filter(section => section.type === 'img' || section.type._typeName === 'Image').shift();
+      const isImage = comp => [ 'img', 'Image', 'CardImage' ].some(x => x === comp.type || x === comp.type._typeName);
+      const img = sections.filter(section => isImage(section)).shift();
       const _header = header || sections.filter(section => section.type === 'header').shift();
       const _footer = footer || sections.filter(section => section.type === 'footer').shift();
 
       // Determine whether the image should be at the bottom.
       const childrenArray = React.Children.toArray(children);
       const lastChild = childrenArray.length > 1 ? childrenArray[childrenArray.length - 1] : null;
-      const isBottomImg = lastChild && lastChild.type && (lastChild.type === 'img' || lastChild.type._typeName === 'Image');
+      const isBottomImg = lastChild && lastChild.type && isImage(lastChild);
       const leftImg = !isBottomImg && horizontal;
       const rightImg = isBottomImg && horizontal;
       const topImg = !isBottomImg && !horizontal;
@@ -66,5 +67,14 @@ export class Card extends React.Component {
             {img && bottomImg ? <Image bottom>{img}</Image> : null}
          </Container>
       );
+   }
+}
+
+const CardImageContainer = styled.div`${props => props.css};`;
+
+export class CardImage extends React.Component {
+   static _typeName = 'CardImage';
+   render() {
+      return <CardImageContainer {...this.props} />;
    }
 }

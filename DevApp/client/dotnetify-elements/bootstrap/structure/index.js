@@ -1,10 +1,10 @@
 import styled from 'styled-components';
-import { Card as _Card, CardImage, CardHeader, CardBody, CardFooter } from './Card';
+import { Card as _Card, CardImage as _CardImage, CardHeader, CardBody, CardFooter } from './Card';
 import { Cell as _Cell, CellHeader, CellBody } from './Cell';
 import { Tab as _Tab, TabItem as _TabItem } from './Tab';
 import { PlainText } from '../form/PlainText';
 
-import { Card } from '../../structure/Card';
+import { Card, CardImage } from '../../structure/Card';
 import { Cell } from '../../structure/Cell';
 import { Collapsible } from '../../structure/Collapsible';
 import { Field } from '../../structure/Field';
@@ -20,7 +20,7 @@ TabItem.componentTypes.TabItemComponent = _TabItem;
 
 Object.assign(Card.componentTypes, {
    Container: _Card,
-   ImageContainer: CardImage,
+   ImageContainer: _CardImage,
    HeaderContainer: CardHeader,
    BodyContainer: CardBody,
    FooterContainer: CardFooter
@@ -39,4 +39,4 @@ Object.assign(Modal.componentTypes, {
    FooterContainer: styled(rs.ModalFooter)`${props => props.theme.Modal.FooterContainer}`
 });
 
-export { Card, CardHeader, CardBody, CardFooter, Cell, CellHeader, CellBody, Collapsible, Field, Modal, Tab, TabItem };
+export { Card, CardImage, Cell, Collapsible, Field, Modal, Tab, TabItem };

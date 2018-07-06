@@ -21,13 +21,14 @@ import {
 } from './form';
 import { CellPanel, Footer, Frame, Header, Main, Nav, Panel, Section, Theme, withTheme } from './layout';
 import { NavDrawerButton, NavMenu, NavMenuTarget } from './nav';
-import { Card, Cell, Collapsible, Field, Modal, Tab, TabItem } from './structure';
+import { Card, CardImage, Cell, Collapsible, Field, Modal, Tab, TabItem } from './structure';
 
 export {
    Alert,
    BarChart,
    Button,
    Card,
+   CardImage,
    Cell,
    CellPanel,
    Checkbox,
