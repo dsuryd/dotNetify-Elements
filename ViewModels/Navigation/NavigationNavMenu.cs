@@ -40,7 +40,7 @@ namespace dotNetify_Elements
                      Label = "Examples",
                      Routes = new NavRoute[]
                      {
-                        new NavRoute("Customer Info",  this.Redirect("", "elements/examples/customer-info"), "far fa-list-alt")
+                        new NavRoute("Customer Info",  this.Redirect("", "elements/examples/customer-info"), "material-icons web")
                      }
                   }
             }));
