@@ -5,9 +5,5 @@
    "csharpfixformat.style.braces.onSameLine": false,
    "editor.tabSize": 3,
    "editor.detectIndentation": false,
-   "editor.formatOnSave": true,
-   "prettier.useTabs": false,
-   "prettier.arrowParens": false,
-   "prettier.breakBeforeElse": true,
-   "prettier.tabWidth": 3
+   "editor.formatOnSave": true
 }
