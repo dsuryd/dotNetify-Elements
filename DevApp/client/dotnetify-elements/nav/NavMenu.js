@@ -58,6 +58,10 @@ export class NavMenu extends Element {
          this.vm.onRouteEnter = (path, template) => {
             this.setState({ selected: template.Id, selectedPath: this.getSelectedPath(template.Id) });
             template.Target = this.props.target || 'NavMenuTarget';
+            if (template.Target == 'NavMenuTarget' && !document.getElementById('NavMenuTarget')) {
+               console.error('ERROR: NavMenu requires NavMenuTarget placement.');
+               throw 'error';
+            }
             utils.toggleNavDrawer(false);
          };
    }
