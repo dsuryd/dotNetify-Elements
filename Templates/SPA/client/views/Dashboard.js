@@ -1,60 +1,56 @@
 import React from 'react';
-import styled from 'styled-components';
-import { Card, CardImage, Element, Frame, Panel, VMContext, withTheme } from 'dotnetify-elements';
+import { Card, Frame, Panel, VMContext, withTheme } from 'dotnetify-elements';
+import { BarChart, LineChart, PieChart } from 'dotnetify-elements';
+import InfoCard from '../components/InfoCard';
+import ActivitiesCard from '../components/ActivitiesCard';
 
-const BigIcon = styled.i.attrs({
-   className: 'material-icons'
-})`
-   font-size: 3rem;
-   color: white;
-   padding: 2rem;
-   background: #1c8adb;
-`;
-
-const infoBoxCss = `
-   min-width: 300px; 
+const infoPanelCss = `
+   flex: 1 1 20%;
    padding-bottom: 1rem;
+   @media (max-width: 1500px) { flex: 1 1 40%; }    
+   @media (max-width: 880px) { flex: 1 1 100%; }       
 `;
 
 const Dashboard = _ => (
    <VMContext vm="Dashboard">
-      <Frame>
-         <Panel horizontal wrap childProps={{ css: infoBoxCss }}>
-            <Panel flex>
-               <Card horizontal>
-                  <CardImage>
-                     <BigIcon>face</BigIcon>
-                  </CardImage>
-                  <h3>Download</h3>
-                  <Element id="Download" />
-               </Card>
+      <Frame noGap>
+         <Panel horizontal wrap childProps={{ css: infoPanelCss }}>
+            <Panel>
+               <InfoCard id="Download" color="#1c8adb" />
             </Panel>
-            <Panel flex>
-               <Card horizontal>
-                  <CardImage>
-                     <BigIcon>face</BigIcon>
-                  </CardImage>
-                  <h3>Upload</h3>
-                  <Element id="Upload" />
-               </Card>
+            <Panel>
+               <InfoCard id="Upload" color="#5cb85c" />
             </Panel>
-            <Panel flex>
-               <Card horizontal>
-                  <CardImage>
-                     <BigIcon>face</BigIcon>
-                  </CardImage>
-                  <h3>Latency</h3>
-                  <Element id="Latency" />
-               </Card>
+            <Panel>
+               <InfoCard id="Latency" color="#f0ad4e" />
             </Panel>
-            <Panel flex>
-               <Card horizontal>
-                  <CardImage>
-                     <BigIcon>face</BigIcon>
-                  </CardImage>
-                  <h3>Users</h3>
-                  <Element id="Users" />
-               </Card>
+            <Panel>
+               <InfoCard id="Users" color="#d9534f" />
+            </Panel>
+         </Panel>
+         <Panel>
+            <Card>
+               <Panel horizontal>
+                  <Panel flex="1 1 70%">
+                     <h4>Network Traffic</h4>
+                     <LineChart id="Traffic" height="5" />
+                  </Panel>
+                  <Panel flex="1 1 30%">
+                     <h4>Utilization</h4>
+                     <PieChart id="Utilization" />
+                  </Panel>
+               </Panel>
+            </Card>
+            <Panel horizontal>
+               <Panel flex="1 1 40%">
+                  <ActivitiesCard id="RecentActivities" />
+               </Panel>
+               <Panel flex="1 1 60%">
+                  <Card>
+                     <h4>Server Usage</h4>
+                     <BarChart id="ServerUsage" height="4" />
+                  </Card>
+               </Panel>
             </Panel>
          </Panel>
       </Frame>

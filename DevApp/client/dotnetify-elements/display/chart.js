@@ -38,6 +38,7 @@ function toChartJsData(config, props, value) {
    else {
       data = value.map(x => x);
    }
+   labels = labels || data.map(_ => '');
 
    if (maxDataSize > 0) {
       labels = labels.slice(-maxDataSize);
