@@ -182,7 +182,7 @@ namespace dotNetify_Elements
                new NavGroup
                {
                   Label = "Examples",
-                  Icon = "far fa-id-card",
+                  Icon = "material-icons web",
                   Routes = new NavRoute[]
                   {
                      new NavRoute("Customer Info Page",  this.GetRoute(nameof(Route.CustomerInfoPage))),
