@@ -18,6 +18,7 @@ namespace dotNetify_Elements
          services.AddSignalR();
          services.AddDotNetify();
 
+         services.AddTransient<ILiveDataService, LiveDataService>();
          services.AddScoped<ICustomerRepository, CustomerRepository>();
       }
 

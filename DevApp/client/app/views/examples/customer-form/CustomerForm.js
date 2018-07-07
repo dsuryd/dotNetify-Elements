@@ -4,7 +4,7 @@ import AddressForm from './AddressForm';
 import NewCustomerDialog from './NewCustomerDialog';
 import { Button, DataGrid, Form, Frame, Panel, Tab, TabItem, VMContext, withTheme } from 'dotnetify-elements';
 
-class CustomerInfoPage extends React.Component {
+class CustomerForm extends React.Component {
    state = { editable: false, edit: false, openDialog: false };
 
    handleSelect = value => this.setState({ editable: value ? true : false });
@@ -15,7 +15,7 @@ class CustomerInfoPage extends React.Component {
       const { editable, edit, openDialog } = this.state;
       const canEdit = editable && !edit;
       return (
-         <VMContext vm="CustomerInfoPage">
+         <VMContext vm="CustomerForm">
             <Frame css="margin-left: 3rem; width: calc(100% - 6rem)">
                <h2>Customers</h2>
                <DataGrid id="Contacts" onSelect={this.handleSelect} enable={!edit} />
@@ -50,4 +50,4 @@ class CustomerInfoPage extends React.Component {
    }
 }
 
-export default withTheme(CustomerInfoPage);
+export default withTheme(CustomerForm);

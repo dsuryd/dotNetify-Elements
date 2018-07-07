@@ -40,7 +40,8 @@ import DisplayMarkdown from './display/DisplayMarkdown';
 
 import NavigationNavMenu from './navigation/NavigationNavMenu';
 
-import CustomerInfoPage from './examples/customer-info/CustomerInfoPage';
+import ExampleCustomerForm from './examples/customer-form/CustomerForm';
+import ExampleDashboard from './examples/dashboard/Dashboard';
 
 export {
    Introduction,
@@ -79,5 +80,6 @@ export {
    DisplayLabel,
    DisplayMarkdown,
    NavigationNavMenu,
-   CustomerInfoPage
+   ExampleCustomerForm,
+   ExampleDashboard
 };

@@ -48,8 +48,8 @@ namespace dotNetify_Elements
          NavigationNavMenu,
 
          /* Examples */
-         DataGridDemo,
-         CustomerInfoPage
+         ExampleCustomerForm,
+         ExampleDashboard
       }
 
       public RoutingState RoutingState { get; set; }
@@ -96,7 +96,8 @@ namespace dotNetify_Elements
             new RouteTemplate(nameof(Route.DisplayMarkdown))      { UrlPattern = "display/markdown" },
             new RouteTemplate(nameof(Route.DisplayDataGrid))      { UrlPattern = "list/datagrid" },
             new RouteTemplate(nameof(Route.NavigationNavMenu))    { UrlPattern = "navigation/navmenu" },
-            new RouteTemplate(nameof(Route.CustomerInfoPage))     { UrlPattern = "examples/customer-info" },
+            new RouteTemplate(nameof(Route.ExampleCustomerForm))  { UrlPattern = "examples/customerform" },
+            new RouteTemplate(nameof(Route.ExampleDashboard))     { UrlPattern = "examples/dashboard" },
          });
 
          AddProperty("NavMenu", new NavMenu(
@@ -185,7 +186,8 @@ namespace dotNetify_Elements
                   Icon = "material-icons web",
                   Routes = new NavRoute[]
                   {
-                     new NavRoute("Customer Info Page",  this.GetRoute(nameof(Route.CustomerInfoPage))),
+                     new NavRoute("Customer Form",       this.GetRoute(nameof(Route.ExampleCustomerForm))),
+                     new NavRoute("Real-time Dashboard", this.GetRoute(nameof(Route.ExampleDashboard))),
                   },
                   IsExpanded = false
                },

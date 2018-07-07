@@ -6,7 +6,7 @@ using DotNetify.Elements;
 
 namespace dotNetify_Elements
 {
-   public partial class CustomerInfoPage : BaseVM
+   public partial class CustomerForm : BaseVM
    {
       private readonly ICustomerRepository _customerRepository;
       private readonly ReactiveProperty<int> _selectedContact;
@@ -21,7 +21,7 @@ namespace dotNetify_Elements
          public string ZipCode { get; set; }
       }
 
-      public CustomerInfoPage(ICustomerRepository customerRepository)
+      public CustomerForm(ICustomerRepository customerRepository)
       {
          _customerRepository = customerRepository;
 
