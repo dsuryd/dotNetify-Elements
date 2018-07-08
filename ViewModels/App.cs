@@ -108,6 +108,19 @@ namespace dotNetify_Elements
                new NavRoute("Layout System",             this.GetRoute(nameof(Route.LayoutSystem))),
                new NavRoute("Customization",             this.GetRoute(nameof(Route.Customization))),
                new NavRoute("Get Started",               this.GetRoute(nameof(Route.GetStarted))),
+
+               new NavGroup
+               {
+                  Label = "Examples",
+                  Icon = "material-icons web",
+                  Routes = new NavRoute[]
+                  {
+                     new NavRoute("Customer Form",       this.GetRoute(nameof(Route.ExampleCustomerForm))),
+                     new NavRoute("Real-time Dashboard", this.GetRoute(nameof(Route.ExampleDashboard))),
+                  },
+                  IsExpanded = false
+               },
+
                new NavGroup
                {
                   Label = "Form",
@@ -176,18 +189,6 @@ namespace dotNetify_Elements
                   Routes = new NavRoute[]
                   {
                      new NavRoute("NavMenu",             this.GetRoute(nameof(Route.NavigationNavMenu))),
-                  },
-                  IsExpanded = false
-               },
-
-               new NavGroup
-               {
-                  Label = "Examples",
-                  Icon = "material-icons web",
-                  Routes = new NavRoute[]
-                  {
-                     new NavRoute("Customer Form",       this.GetRoute(nameof(Route.ExampleCustomerForm))),
-                     new NavRoute("Real-time Dashboard", this.GetRoute(nameof(Route.ExampleDashboard))),
                   },
                   IsExpanded = false
                },

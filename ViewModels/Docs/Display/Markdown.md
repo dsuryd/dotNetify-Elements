@@ -52,21 +52,6 @@ const MyApp = _ => (
 ```
 [inset]
 
-```csharp
-public class InsetExample : BaseVM
-{
-   public InsetExample()
-   {
-      AddProperty("Content",
-$@"
-Text before the square.
-/[inset/]
-Text after the square.
-");
-   }
-}
-```
-
 #### Section Splitting
 
 If you need to break out a big markdown file into sections that you can assign to multiple view model properties, you can use the __Markdown__ object to filter the text based on the section headings.  

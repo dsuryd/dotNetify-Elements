@@ -47,12 +47,7 @@ Check out [Marked.js documentation](https://marked.js.org/#/README.md#README.md)
    {
       public InsetExample()
       {
-         AddProperty("Content",
-$@"
-Text before the square.
-[inset]
-Text after the square.
-");
+         AddProperty("Content", "Markdown text before the square.[inset]Markdown text after the square.");
       }
    }
 }
