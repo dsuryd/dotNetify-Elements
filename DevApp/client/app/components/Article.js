@@ -27,6 +27,10 @@ const frameCss = `
          display: none;
       }
     }   
+    @media (max-width: 414px) {
+      margin-left: 1rem;
+      width: calc(100% - 1rem);
+    }      
 `;
 
 const panelCss = `
