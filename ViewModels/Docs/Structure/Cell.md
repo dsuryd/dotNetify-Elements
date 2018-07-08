@@ -6,14 +6,14 @@ The elements to display other elements in a container similar to a table cell.  
 
 #### Cell Grouping
 
-Cell elements are intended to be grouped together on a _CellPanel_ to form a grid layout:
+Cell elements are intended to be grouped together on a _Panel_ element to form a grid layout.  When a Panel directly encloses Cell elements, it will set itself with no gap by default.
 
 [inset]
 <br/>
 
 ```jsx
 import React from 'react';
-import { Cell, CellPanel, VMContext } from 'dotnetify-elements';
+import { Cell, Panel, VMContext } from 'dotnetify-elements';
 
 const tableCss = `
    .cell-header { 
@@ -29,17 +29,17 @@ class CellGroupExample extends React.Component {
    render() {
       return (
          <VMContext vm="CellGroupExample" onStateChange={state => this.setState(state)}>
-            <CellPanel horizontal childProps={{ flex: true }} css={tableCss}>
+            <Panel horizontal childProps={{ flex: true }} css={tableCss}>
                <Cell header="Name" />
                <Cell header="Address" />
                <Cell header="City" />
-            </CellPanel>
+            </Panel>
             {this.state.Customers.map(customer => (
-               <CellPanel key={customer.Id} horizontal childProps={{ flex: true }} css={tableCss}>
+               <Panel key={customer.Id} horizontal childProps={{ flex: true }} css={tableCss}>
                   <Cell>{customer.Name.FullName}</Cell>
                   <Cell>{customer.Address.Address1}</Cell>
                   <Cell>{customer.Address.City}</Cell>
-               </CellPanel>
+               </Panel>
             ))}
          </VMContext>
       );

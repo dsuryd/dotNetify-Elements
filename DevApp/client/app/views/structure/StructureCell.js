@@ -1,5 +1,5 @@
 import React from 'react';
-import { Cell, CellPanel, Markdown, Panel, TabItem, VMContext, withTheme } from 'dotnetify-elements';
+import { Cell, Markdown, Panel, TabItem, VMContext, withTheme } from 'dotnetify-elements';
 import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
 
 const StructureCell = props => (
@@ -61,17 +61,17 @@ class CellGroupExample extends React.Component {
    render() {
       return (
          <VMContext vm="CellGroupExample" onStateChange={state => this.setState(state)}>
-            <CellPanel horizontal childProps={{ flex: true }} css={tableCss}>
+            <Panel horizontal childProps={{ flex: true }} css={tableCss}>
                <Cell header="Name" />
                <Cell header="Address" />
                <Cell header="City" />
-            </CellPanel>
+            </Panel>
             {this.state.Customers.map(customer => (
-               <CellPanel key={customer.Id} horizontal childProps={{ flex: true }} css={tableCss}>
+               <Panel key={customer.Id} horizontal childProps={{ flex: true }} css={tableCss}>
                   <Cell>{customer.Name.FullName}</Cell>
                   <Cell>{customer.Address.Address1}</Cell>
                   <Cell>{customer.Address.City}</Cell>
-               </CellPanel>
+               </Panel>
             ))}
          </VMContext>
       );

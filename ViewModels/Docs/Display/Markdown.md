@@ -49,9 +49,23 @@ const MyApp = _ => (
       </Markdown>
    </VMContext>
 );
-
 ```
 [inset]
+
+```csharp
+public class InsetExample : BaseVM
+{
+   public InsetExample()
+   {
+      AddProperty("Content",
+$@"
+Text before the square.
+/[inset/]
+Text after the square.
+");
+   }
+}
+```
 
 #### Section Splitting
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Main, Header, Section, CellPanel, Frame, Panel } from 'dotnetify-elements';
+import { Main, Header, Section, Frame, Panel } from 'dotnetify-elements';
 import { Button, Card, Markdown, Tab, TabItem, VMContext, withTheme, defaultTheme } from 'dotnetify-elements';
 
 const DemoArea = styled.div`
@@ -91,7 +91,7 @@ const SampleAppLayout = _ => (
       <Section>
          <Frame>
             <Card css={jumbotronCss}>
-               <CellPanel horizontal>
+               <Panel horizontal noGap>
                   <Panel flex>
                      <h1>Title of a featured post</h1>
                      Multiple lines of text informing new readers quickly and efficiently about what's most interesting in this post's
@@ -99,7 +99,7 @@ const SampleAppLayout = _ => (
                      <a href="#">Continue reading...</a>
                   </Panel>
                   <Panel flex />
-               </CellPanel>
+               </Panel>
             </Card>
             <Panel horizontal childProps={{ flex: true }}>
                <Card horizontal>

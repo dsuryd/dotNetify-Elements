@@ -19,7 +19,7 @@ import {
    TextAreaField,
    TimeField
 } from './form';
-import { CellPanel, Footer, Frame, Header, Main, Nav, Panel, Section, Theme, withTheme } from './layout';
+import { Footer, Frame, Header, Main, Nav, Panel, Section, Theme, withTheme } from './layout';
 import { NavDrawerButton, NavMenu, NavMenuTarget } from './nav';
 import { Card, CardImage, Cell, Collapsible, Field, Modal, Tab, TabItem } from './structure';
 
@@ -30,7 +30,6 @@ export {
    Card,
    CardImage,
    Cell,
-   CellPanel,
    Checkbox,
    CheckboxGroup,
    Collapsible,

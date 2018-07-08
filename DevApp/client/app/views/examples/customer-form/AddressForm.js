@@ -1,8 +1,8 @@
 import React from 'react';
-import { Button, Cell, CellPanel, DropdownList, Form, Frame, NumberField, Panel, RadioGroup, TextField, VMContext } from 'dotnetify-elements';
+import { Button, Cell, DropdownList, Form, Frame, NumberField, Panel, RadioGroup, TextField, VMContext } from 'dotnetify-elements';
 
 const AddressForm = () => (
-   <CellPanel>
+   <Panel>
       <Cell header="Primary Address">
          <VMContext vm="AddressForm">
             <Form id="Address">
@@ -16,7 +16,7 @@ const AddressForm = () => (
             </Form>
          </VMContext>
       </Cell>
-   </CellPanel>
+   </Panel>
 );
 
 export default AddressForm;

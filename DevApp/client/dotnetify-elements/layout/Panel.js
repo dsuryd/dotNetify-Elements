@@ -152,8 +152,11 @@ export class Panel extends React.Component {
          throw 'error';
       }
 
+      const children = React.Children.toArray(this.children);
+      const hasCell = children.some(x => x.type && x.type._typeName === 'Cell');
+
       const { Gap, Margin } = this.context.theme.Panel;
-      const _gap = gap || (noGap ? '0rem' : smallGap ? Gap.small : Gap.large);
+      const _gap = gap || (noGap || hasCell ? '0rem' : smallGap ? Gap.small : Gap.large);
       let _margin = margin || (noMargin ? '0rem' : smallMargin ? Margin.small : Margin.large);
       let _width = width;
 
@@ -167,7 +170,6 @@ export class Panel extends React.Component {
       const _horizontal = horizontal || right || wrap || apart;
 
       const flexAuto = utils.flexAuto;
-      const children = React.Children.toArray(this.children);
       let _flex = typeof flex == 'boolean' ? (flex ? flexAuto : null) : flex;
       if (!_flex) _flex = (childProps && childProps.flex) || children.some(child => child.props && child.props.flex) ? flexAuto : null;
 

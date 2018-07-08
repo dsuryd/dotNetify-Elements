@@ -23,6 +23,8 @@ export class Cell extends React.Component {
       BodyContainer: undefined
    };
 
+   static _typeName = 'Cell';
+
    render() {
       const [ Container, Header, Body ] = utils.resolveComponents(Cell, this.props);
       const { header, padding, children, borders, width, style, css, ...props } = this.props;

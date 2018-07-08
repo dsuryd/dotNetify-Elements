@@ -1,14 +1,9 @@
 import React from 'react';
-import BasicInfoForm from './BasicInfoForm';
-import AddressForm from './AddressForm';
 import {
    Button,
-   Cell,
-   CellPanel,
    DateField,
    DropdownList,
    Form,
-   Frame,
    Modal,
    NumberField,
    Panel,
@@ -28,7 +23,7 @@ export default class NewCustomerDialog extends React.Component {
    handleActivate = tab => this.setState({ activeTab: tab });
 
    render() {
-      const { open, onClose } = this.props;
+      const { open } = this.props;
       const { activeTab } = this.state;
       return (
          <VMContext vm="NewCustomerForm">

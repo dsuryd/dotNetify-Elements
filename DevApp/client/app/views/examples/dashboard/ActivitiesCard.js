@@ -1,7 +1,7 @@
 import React from 'react';
-import { Card, Cell, CellPanel, Element } from 'dotnetify-elements';
+import { Card, Cell, Element, Panel } from 'dotnetify-elements';
 
-const cellPanelCss = `
+const panelCss = `
    .cell { border: none; }
    .cell-body { padding: .5rem 0 }
 `;
@@ -13,10 +13,10 @@ export default class ActivitiesCard extends Element {
          <Card horizontal>
             <h4>Activities</h4>
             {activities.map((person, idx) => (
-               <CellPanel key={idx} horizontal childProps={{ flex: true }} css={cellPanelCss}>
+               <Panel key={idx} horizontal childProps={{ flex: true }} css={panelCss}>
                   <Cell>{person.PersonName}</Cell>
                   <Cell>{person.Status}</Cell>
-               </CellPanel>
+               </Panel>
             ))}
          </Card>
       );

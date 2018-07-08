@@ -6,14 +6,9 @@ The element to arrange the layout of other elements.  It automatically inserts f
 
 [inset]
 
-#### Derivative Panels
+#### Frame
 
-Derivative panels are essentially Panel elements with different default property values, with plain names to clearly express their purpose.
-
-- __Frame__: Panels with _noMargin_ property set to false; convenient for setting up a container that frames its content.
-
-- __CellPanel__:  Panels _noGap_ property set to true; intended to be used to group _Cell_ elements to make a table or grid appearance.
-
+Frame is derived from the Panel element, but with _noMargin_ property set to false.  It is intended to set up a container that frames its content.
 The margin and gap sizes can be configured with the global theme.
 
 #### Flex Layout

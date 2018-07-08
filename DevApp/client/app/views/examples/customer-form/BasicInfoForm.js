@@ -1,9 +1,9 @@
 import React from 'react';
-import { Button, Cell, CellPanel, DateField, DropdownList, Form, Frame, Panel, RadioGroup, TextField, TextAreaField, VMContext } from 'dotnetify-elements';
+import { Cell, DateField, DropdownList, Form, Panel, RadioGroup, TextField, TextAreaField, VMContext } from 'dotnetify-elements';
 
 const BasicInfoForm = () => (
-   <CellPanel horizontal>
-      <CellPanel flex>
+   <Panel horizontal noGap>
+      <Panel flex>
          <Cell header="Person" borders="top, left, right">
             <VMContext vm="PersonForm">
                <Form id="Person">
@@ -30,8 +30,8 @@ const BasicInfoForm = () => (
                </Form>
             </VMContext>
          </Cell>
-      </CellPanel>
-      <CellPanel flex>
+      </Panel>
+      <Panel flex>
          <Cell header="Other Info" borders="top, right">
             <VMContext vm="OtherInfoForm">
                <Form id="OtherInfo">
@@ -64,8 +64,8 @@ const BasicInfoForm = () => (
                </Form>
             </VMContext>
          </Cell>
-      </CellPanel>
-   </CellPanel>
+      </Panel>
+   </Panel>
 );
 
 export default BasicInfoForm;
