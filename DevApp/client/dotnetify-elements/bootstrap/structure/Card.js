@@ -1,10 +1,10 @@
-import React from 'react';
 import styled from 'styled-components';
+import * as utils from '../../utils';
 
 export const Card = styled.div.attrs({
    className: 'card'
 })`
-   flex: 1;
+   flex: ${utils.flexAuto};
    ${props => (props.horizontal ? 'flex-direction: row;' : '')}
    width: ${props => (props.width ? props.width : 'inherit')};
    ${props => props.theme.Card.Container};

@@ -6,7 +6,7 @@ import * as utils from '../utils';
 
 const Container = styled.div`
    display: flex;
-   flex: 1;
+   flex: ${utils.flexAuto};
    width: 100%;
    margin-bottom: 1px;
    ${props => props.theme.DataGrid};
@@ -130,7 +130,9 @@ export class DataGrid extends Element {
 
    sort = (sortColumn, sortDirection) => {
       const comparer = (a, b) =>
-         sortDirection == 'ASC' ? (a[sortColumn] > b[sortColumn] ? 1 : -1) : sortDirection == 'DESC' ? (a[sortColumn] < b[sortColumn] ? 1 : -1) : null;
+         sortDirection == 'ASC'
+            ? a[sortColumn] > b[sortColumn] ? 1 : -1
+            : sortDirection == 'DESC' ? (a[sortColumn] < b[sortColumn] ? 1 : -1) : null;
 
       if (!this.unsortedValue) this.unsortedValue = [ ...this.value ];
       this.value = sortDirection !== 'NONE' ? this.value.sort(comparer) : [ ...this.unsortedValue ];

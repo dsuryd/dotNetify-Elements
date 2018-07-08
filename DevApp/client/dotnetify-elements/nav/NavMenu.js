@@ -126,6 +126,6 @@ export const NavMenuTarget = styled.div.attrs({
    id: 'NavMenuTarget'
 })`
     display: flex;
-    flex: 1;       
+    flex: ${utils.flexAuto};       
     width: 100%;
 `;

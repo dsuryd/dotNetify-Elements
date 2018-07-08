@@ -21,7 +21,7 @@ export const DemoArea = styled.div`
 
 export const DemoLabel = styled.div`
    display: flex;
-   flex: 1;
+   flex: ${utils.flexAuto};
    font-size: 2rem;
    font-weight: bold;
    align-items: center;

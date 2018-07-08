@@ -7,7 +7,7 @@ import * as utils from '../utils';
 
 const Container = styled.div`
    display: flex;
-   flex: 1;
+   flex: ${utils.flexAuto};
    width: inherit;
 `;
 

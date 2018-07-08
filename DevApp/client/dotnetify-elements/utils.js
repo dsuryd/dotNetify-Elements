@@ -35,6 +35,8 @@ export function filterChildren(children, predicate) {
    return [ result, rest ];
 }
 
+export const flexAuto = isIE11() ? '1 1 auto' : '1';
+
 export function ifBoolElse(arg1, arg2) {
    return typeof arg1 == 'boolean' ? arg1 : !!arg2;
 }
@@ -48,7 +50,8 @@ export function mapChildren(children, predicate, mapper) {
       if (!child) return;
 
       if (child.type && predicate(child)) return mapper(child);
-      else if (child.props && child.props.children) return React.cloneElement(child, child.props, this.mapChildren(child.props.children, predicate, mapper));
+      else if (child.props && child.props.children)
+         return React.cloneElement(child, child.props, this.mapChildren(child.props.children, predicate, mapper));
       return child;
    });
 }
