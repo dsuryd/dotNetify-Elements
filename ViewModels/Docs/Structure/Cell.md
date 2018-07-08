@@ -6,39 +6,42 @@ The elements to display other elements in a container similar to a table cell.  
 
 #### Cell Grouping
 
-Cell elements are intended to be grouped together on a __CellPanel__ to form a grid layout:
+Cell elements are intended to be grouped together on a _CellPanel_ to form a grid layout:
 
 [inset]
 <br/>
 
 ```jsx
+import React from 'react';
+import { Cell, CellPanel, VMContext } from 'dotnetify-elements';
+
+const tableCss = `
+   .cell-header { 
+      font-weight: 600; 
+      padding: .5rem 1rem; 
+      border-bottom: none 
+   }
+   .cell-body { padding: .5rem 1rem; }
+`;
+
 class CellGroupExample extends React.Component {
    state = { Customers: [] };
-   tableTheme = {
-      ...appTheme,
-      Cell: {
-         HeaderContainer: 'font-weight: 500',
-         BodyContainer: 'padding: .5rem'
-      }
-   };
    render() {
       return (
-         <Theme theme={this.tableTheme}>
-            <VMContext vm="CellGroupExample" onStateChange={state => this.setState(state)}>
-               <CellPanel horizontal childProps={{ flex: true }}>
-                  <Cell header="Name" />
-                  <Cell header="Address" />
-                  <Cell header="City" />
+         <VMContext vm="CellGroupExample" onStateChange={state => this.setState(state)}>
+            <CellPanel horizontal childProps={{ flex: true }} css={tableCss}>
+               <Cell header="Name" />
+               <Cell header="Address" />
+               <Cell header="City" />
+            </CellPanel>
+            {this.state.Customers.map(customer => (
+               <CellPanel key={customer.Id} horizontal childProps={{ flex: true }} css={tableCss}>
+                  <Cell>{customer.Name.FullName}</Cell>
+                  <Cell>{customer.Address.Address1}</Cell>
+                  <Cell>{customer.Address.City}</Cell>
                </CellPanel>
-               {this.state.Customers.map(customer => (
-                  <CellPanel key={customer.Id} horizontal childProps={{ flex: true }}>
-                     <Cell>{customer.Name.FullName}</Cell>
-                     <Cell>{customer.Address.Address1}</Cell>
-                     <Cell>{customer.Address.City}</Cell>
-                  </CellPanel>
-               ))}
-            </VMContext>
-         </Theme>
+            ))}
+         </VMContext>
       );
    }
 }
@@ -64,6 +67,9 @@ static propTypes = {
 
    // Text or component for the card's header.
    header: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
+
+   // Sets custom padding.
+   padding: PropTypes.string,
 
    // Sets custom width.
    width: PropTypes.string

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Cell, CellPanel, Markdown, Panel, TabItem, Theme, VMContext, withTheme } from 'dotnetify-elements';
+import { Cell, CellPanel, Markdown, Panel, TabItem, VMContext, withTheme } from 'dotnetify-elements';
 import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
 
 const StructureCell = props => (
@@ -51,34 +51,29 @@ const MyApp = _ => (
    }
 }
 
+const tableCss = `
+   .cell-header { font-weight: 600; padding: .5rem 1rem; border-bottom: none }
+   .cell-body { padding: .5rem 1rem; }
+`;
+
 class CellGroupExample extends React.Component {
    state = { Customers: [] };
-   tableTheme = {
-      ...Theme.currentTheme,
-      Cell: {
-         ...Theme.currentTheme.Cell,
-         HeaderContainer: Theme.currentTheme.Cell.HeaderContainer + 'font-weight: 500',
-         BodyContainer: Theme.currentTheme.Cell.BodyContainer + 'padding: .5rem'
-      }
-   };
    render() {
       return (
-         <Theme theme={this.tableTheme}>
-            <VMContext vm="CellGroupExample" onStateChange={state => this.setState(state)}>
-               <CellPanel horizontal childProps={{ flex: true }}>
-                  <Cell header="Name" />
-                  <Cell header="Address" />
-                  <Cell header="City" />
+         <VMContext vm="CellGroupExample" onStateChange={state => this.setState(state)}>
+            <CellPanel horizontal childProps={{ flex: true }} css={tableCss}>
+               <Cell header="Name" />
+               <Cell header="Address" />
+               <Cell header="City" />
+            </CellPanel>
+            {this.state.Customers.map(customer => (
+               <CellPanel key={customer.Id} horizontal childProps={{ flex: true }} css={tableCss}>
+                  <Cell>{customer.Name.FullName}</Cell>
+                  <Cell>{customer.Address.Address1}</Cell>
+                  <Cell>{customer.Address.City}</Cell>
                </CellPanel>
-               {this.state.Customers.map(customer => (
-                  <CellPanel key={customer.Id} horizontal childProps={{ flex: true }}>
-                     <Cell>{customer.Name.FullName}</Cell>
-                     <Cell>{customer.Address.Address1}</Cell>
-                     <Cell>{customer.Address.City}</Cell>
-                  </CellPanel>
-               ))}
-            </VMContext>
-         </Theme>
+            ))}
+         </VMContext>
       );
    }
 }

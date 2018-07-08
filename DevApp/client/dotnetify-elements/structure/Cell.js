@@ -10,6 +10,9 @@ export class Cell extends React.Component {
       // Text or component for the card's header.
       header: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
 
+      // Sets custom padding.
+      padding: PropTypes.string,
+
       // Sets custom width.
       width: PropTypes.string
    };
@@ -22,7 +25,7 @@ export class Cell extends React.Component {
 
    render() {
       const [ Container, Header, Body ] = utils.resolveComponents(Cell, this.props);
-      const { header, children, borders, width, style, css, ...props } = this.props;
+      const { header, padding, children, borders, width, style, css, ...props } = this.props;
 
       const reservedTypes = [ 'header' ];
       const [ sections, body ] = utils.filterChildren(children, child => child && reservedTypes.some(x => x === child.type));
@@ -32,7 +35,7 @@ export class Cell extends React.Component {
       return (
          <Container borders={borders} width={width} style={style} css={css}>
             {_header ? <Header css={headerCss}>{_header}</Header> : null}
-            {body ? <Body>{body}</Body> : null}
+            {body ? <Body padding={padding}>{body}</Body> : null}
          </Container>
       );
    }

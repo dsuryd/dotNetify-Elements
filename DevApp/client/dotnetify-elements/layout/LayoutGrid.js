@@ -32,6 +32,7 @@ export const Header = styled.header`
    > * {
       height: inherit;
    }
+   z-index: 999;
    ${props => props.theme.Header};
    ${props => props.css};
 `;
@@ -45,6 +46,7 @@ export const Nav = styled.nav`
    overflow: auto;
    visibility: visible;
    transition: all 250ms;
+   z-index: 998;
    @media (max-width: 768px) {
       margin-left: -${props => props.width || '250px'};
       visibility: hidden;

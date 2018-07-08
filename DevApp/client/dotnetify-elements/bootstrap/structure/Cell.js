@@ -31,5 +31,6 @@ export const CellBody = styled.div.attrs({
    className: 'card-body cell-body'
 })`
    border-radius: 0;
+   ${props => (props.padding ? `padding: ${props.padding};` : ``)}
    ${props => props.theme.Cell.BodyContainer};
 `;
