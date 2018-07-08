@@ -20,8 +20,8 @@ class App extends React.Component {
          <VMContext vm="App">
             <Main theme={this.state.theme}>
                <Header>
+                  <NavDrawerButton show css="margin-left: 1rem" />
                   <DotNetifyLogo />
-                  <NavDrawerButton css="margin-left: 1rem" />
                </Header>
                <Nav>
                   <NavMenu id="NavMenu" />
@@ -31,7 +31,8 @@ class App extends React.Component {
                </Section>
                <Footer>
                   <LicenseNotice>
-                     © 2015-2018 Dicky Suryadi. Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache license version 2.0</a>
+                     © 2015-2018 Dicky Suryadi. Licensed under the{' '}
+                     <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache license version 2.0</a>
                   </LicenseNotice>
                </Footer>
             </Main>

@@ -8,7 +8,11 @@ export default class RenderExample extends React.Component {
       this.boolPropTypes = Object.keys(props.propTypes);
 
       this.state = {};
-      this.trueByDefaultProps = [ 'enable', 'show', ...(props.defaultProps ? Object.keys(props.defaultProps).filter(x => props.defaultProps[x]) : []) ];
+      this.trueByDefaultProps = [
+         'enable',
+         'show',
+         ...(props.defaultProps ? Object.keys(props.defaultProps).filter(x => props.defaultProps[x]) : [])
+      ];
       this.boolPropTypes.forEach(x => (this.state[x] = this.trueByDefaultProps.includes(x)));
    }
 
@@ -44,15 +48,25 @@ export default class RenderExample extends React.Component {
       };
 
       const radioToggles = this.boolPropTypes.map(x => (
-         <RadioToggle css="padding-bottom: 1rem" key={x} id={'_' + x} label={x + ':'} options={flags} value={this.state[x]} onChange={val => set(x, val)} />
+         <RadioToggle
+            css="padding-bottom: 1rem"
+            key={x}
+            id={'_' + x}
+            label={x + ':'}
+            options={flags}
+            value={this.state[x]}
+            onChange={val => set(x, val)}
+         />
       ));
 
       const content = (
          <Panel css="border-top: 1px solid #ccc; padding-top: 3rem; padding-left: 3px">
             {children}
-            <Panel wrap css="border-top: 1px solid #ccc; padding-top: 1rem">
-               {radioToggles}
-               {extraToggles}
+            <Panel css="border-top: 1px solid #ccc; padding-top: 1rem">
+               <Panel wrap>
+                  {radioToggles}
+                  {extraToggles}
+               </Panel>
             </Panel>
             <Markdown>{this.buildCode(this.state)}</Markdown>
          </Panel>

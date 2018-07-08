@@ -6,14 +6,13 @@ import ActivitiesCard from './ActivitiesCard';
 
 const infoPanelCss = `
    flex: 1 1 20%;
-   padding-bottom: 1rem;
    @media (max-width: 1500px) { flex: 1 1 40%; }    
    @media (max-width: 880px) { flex: 1 1 100%; }       
 `;
 
 const Dashboard = _ => (
    <VMContext vm="Dashboard">
-      <Frame noGap>
+      <Frame css="margin-left: 3rem; max-width: calc(100% - 6rem);">
          <Panel horizontal wrap childProps={{ css: infoPanelCss }}>
             <Panel>
                <InfoCard id="Download" color="#1c8adb" />

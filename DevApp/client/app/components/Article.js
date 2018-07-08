@@ -30,10 +30,10 @@ const frameCss = `
 `;
 
 const panelCss = `
-   width: calc(100% - 30rem); 
+   max-width: calc(100% - 30rem); 
    min-width: 65%;
    @media (max-width: 1170px) {
-      width: calc(100% - 2rem);
+      max-width: calc(100% - 2rem);
     }    
 `;
 
@@ -42,7 +42,7 @@ const scrollIntoView = id => document.getElementById(id).scrollIntoView({ behavi
 const Article = props => (
    <VMContext vm={props.vm}>
       <Frame horizontal css={frameCss} gap="10%">
-         <Panel css={panelCss}>{props.children}</Panel>
+         <Panel css={panelCss} children={props.children} />
          <Sidebar>
             <Title show={props.tocTitle}>
                <a href="javascript:void(0)" onClick={_ => scrollIntoView(props.title)}>

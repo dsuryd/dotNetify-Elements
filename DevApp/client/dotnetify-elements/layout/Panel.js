@@ -104,12 +104,10 @@ export class Panel extends React.Component {
    }
 
    getMargin(idx, gap, horizontal, wrap) {
-      if (wrap) {
-         let padding = `0 ${gap} 0 0`;
-         return padding;
-      }
-      let padding = horizontal ? `0 0 0 ${gap}` : `${gap} 0 0 0`;
-      return idx > 0 ? padding : 0;
+      if (wrap) return `calc(${gap}/2)`;
+
+      let margin = horizontal ? `0 0 0 ${gap}` : `${gap} 0 0 0`;
+      return idx > 0 ? margin : 0;
    }
 
    getStyle = idx => {
@@ -155,11 +153,20 @@ export class Panel extends React.Component {
       }
 
       const { Gap, Margin } = this.context.theme.Panel;
-      const _gap = gap || (noGap ? '0' : smallGap ? Gap.small : Gap.large);
-      const _margin = margin || (noMargin ? '0' : smallMargin ? Margin.small : Margin.large);
+      const _gap = gap || (noGap ? '0rem' : smallGap ? Gap.small : Gap.large);
+      let _margin = margin || (noMargin ? '0rem' : smallMargin ? Margin.small : Margin.large);
+      let _width = width;
+
+      // If wrap is enabled, use negative margin on the outer container to counter the full margin
+      // on the child items. Must increase the width too.
+      if (wrap) {
+         _margin = `calc(${_margin} + ${_gap}/2 * -1)`;
+         _width = `calc(100% + ${_gap})`;
+      }
+
       const _horizontal = horizontal || right || wrap || apart;
 
-      const flexAuto = utils.isIE11() ? '1 1 auto' : '1';
+      const flexAuto = utils.flexAuto;
       const children = React.Children.toArray(this.children);
       let _flex = typeof flex == 'boolean' ? (flex ? flexAuto : null) : flex;
       if (!_flex) _flex = (childProps && childProps.flex) || children.some(child => child.props && child.props.flex) ? flexAuto : null;
@@ -171,7 +178,7 @@ export class Panel extends React.Component {
             apart={apart}
             right={right}
             middle={middle}
-            width={width}
+            width={_width}
             height={height}
             flexWrap={wrap}
             flex={_flex}
@@ -203,7 +210,11 @@ export class Panel extends React.Component {
                      flex={childFlex}
                      margin={this.numChildren <= 1 ? 0 : this.getMargin(idx, _gap, _horizontal)}
                   >
-                     {child.props ? React.cloneElement(child, utils.mergeProps(child, _childProps, { onShow: show => this.handleShow(idx, show) })) : child}
+                     {child.props ? (
+                        React.cloneElement(child, utils.mergeProps(child, _childProps, { onShow: show => this.handleShow(idx, show) }))
+                     ) : (
+                        child
+                     )}
                   </ChildContainer>
                );
             })}
