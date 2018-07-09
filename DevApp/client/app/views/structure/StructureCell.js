@@ -1,6 +1,8 @@
 import React from 'react';
+import styled from 'styled-components';
 import { Cell, Markdown, Panel, TabItem, VMContext, withTheme } from 'dotnetify-elements';
 import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
+import { BigIcon } from '../display/demo-helper';
 
 const StructureCell = props => (
    <TabsArticle vm="StructureCell" id="Overview">
@@ -19,30 +21,41 @@ const StructureCell = props => (
    </TabsArticle>
 );
 
+const MaterialIcon = styled.i.attrs({
+   className: 'material-icons'
+})`
+   font-size: 3rem;
+   margin-right: 1rem;
+`;
+
 class CellExample extends React.Component {
    render() {
       const buildCode = props => `
 \`\`\`jsx
 import React from 'react';
 import { Cell, VMContext } from 'dotnetify-elements';
+import { BigIcon } from './demo-helper';
 
 const MyApp = _ => (
    <VMContext vm="CardExample">
       <Cell>
          <header><b>Oops - Error 208</b></header>
-         I'm a teapot.
+         <BigIcon>error</BigIcon>
+         I'm a teapot.         
       </Cell>
    </VMContext>
 );
 \`\`\``;
       const setState = state => this.setState(state);
+      const propTypes = { center: null, middle: null, right: null };
       return (
-         <RenderExample propTypes={{}} buildCode={buildCode} onChange={setState}>
+         <RenderExample propTypes={propTypes} buildCode={buildCode} onChange={setState}>
             <Panel css="margin-bottom: 2rem">
-               <Cell>
+               <Cell {...this.state}>
                   <header>
                      <b>Oops - Error 208</b>
                   </header>
+                  <BigIcon>error</BigIcon>
                   I'm a teapot.
                </Cell>
             </Panel>

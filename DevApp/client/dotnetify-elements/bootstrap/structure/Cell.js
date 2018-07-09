@@ -23,17 +23,23 @@ export const Cell = styled.div.attrs({
 export const CellHeader = styled.div.attrs({
    className: 'card-header cell-header'
 })`
+   display: flex;
    border-radius: 0 !important;
    ${props => (props.padding ? `padding: ${props.padding};` : ``)}   
-   ${props => (props.right ? `display: flex; justify-content: flex-end;` : ``)}
+   ${props => (props.middle ? `align-items: center;` : ``)}
+   ${props => (props.right ? `justify-content: flex-end;` : ``)}
+   ${props => (props.center ? `justify-content: center;` : ``)}   
    ${props => props.theme.Cell.HeaderContainer};
 `;
 
 export const CellBody = styled.div.attrs({
    className: 'card-body cell-body'
 })`
+   display: flex;
    border-radius: 0;
    ${props => (props.padding ? `padding: ${props.padding};` : ``)}
-   ${props => (props.right ? `display: flex; justify-content: flex-end;` : ``)}
+   ${props => (props.middle ? `align-items: center;` : ``)}
+   ${props => (props.right ? `justify-content: flex-end;` : ``)}
+   ${props => (props.center ? `justify-content: center;` : ``)}
    ${props => props.theme.Cell.BodyContainer};
 `;

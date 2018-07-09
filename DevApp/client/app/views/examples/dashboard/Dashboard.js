@@ -42,10 +42,10 @@ const Dashboard = _ => (
             </Card>
             <Panel horizontal>
                <Panel flex="40%">
-                  <ActivitiesCard id="RecentActivities" />
+                  <ActivitiesCard flex id="RecentActivities" />
                </Panel>
                <Panel flex="60%">
-                  <Card>
+                  <Card flex>
                      <h4>Server Usage</h4>
                      <BarChart id="ServerUsage" height="70px" />
                   </Card>

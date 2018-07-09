@@ -2,8 +2,6 @@
 
 The element to arrange the layout of other elements.  It automatically inserts fixed gap between child components, and provide properties for various layout configuration, including _css_ property for inline styling using CSS syntax.
 
-> __Note:__  overuse of  _css_ property can lead to maintainability problem; consider creating styled components instead. 
-
 [inset]
 
 #### Frame

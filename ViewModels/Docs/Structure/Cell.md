@@ -61,15 +61,23 @@ public class CellGroupExample : BaseVM
 
 ```jsx
 static propTypes = {
-
    // Which sides of border to show (comma-delimited): top, left, right, bottom.
    borders: PropTypes.string,
+
+   // Centers the text horizontally.
+   center: PropTypes.bool,
 
    // Text or component for the card's header.
    header: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
 
+   // Centers the child components on the cross-axis.
+   middle: PropTypes.bool,
+
    // Sets custom padding.
    padding: PropTypes.string,
+
+   // Displays the text from the right.
+   right: PropTypes.bool,
 
    // Sets custom width.
    width: PropTypes.string

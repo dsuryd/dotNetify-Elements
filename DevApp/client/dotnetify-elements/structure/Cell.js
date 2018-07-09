@@ -7,8 +7,14 @@ export class Cell extends React.Component {
       // Which sides of border to show (comma-delimited): top, left, right, bottom.
       borders: PropTypes.string,
 
+      // Centers the text horizontally.
+      center: PropTypes.bool,
+
       // Text or component for the card's header.
       header: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
+
+      // Centers the text on the cross-axis.
+      middle: PropTypes.bool,
 
       // Sets custom padding.
       padding: PropTypes.string,
@@ -30,7 +36,7 @@ export class Cell extends React.Component {
 
    render() {
       const [ Container, Header, Body ] = utils.resolveComponents(Cell, this.props);
-      const { header, padding, right, children, borders, width, style, css, ...props } = this.props;
+      const { header, center, middle, padding, right, children, borders, width, style, css, ...props } = this.props;
 
       const reservedTypes = [ 'header' ];
       const [ sections, body ] = utils.filterChildren(children, child => child && reservedTypes.some(x => x === child.type));
@@ -40,12 +46,12 @@ export class Cell extends React.Component {
       return (
          <Container borders={borders} width={width} style={style} css={css}>
             {_header ? (
-               <Header padding={padding} right={right} css={headerCss}>
+               <Header padding={padding} center={center} right={right} middle={middle} css={headerCss}>
                   {_header}
                </Header>
             ) : null}
             {body ? (
-               <Body padding={padding} right={right}>
+               <Body padding={padding} center={center} right={right} middle={middle}>
                   {body}
                </Body>
             ) : null}

@@ -5,13 +5,13 @@ import * as utils from '../utils';
 
 const Container = styled.div`
    display: flex;
-   flex: ${props => props.flex};
+   ${props => (props.flex ? `flex: ${props.flex}` : '')};
    ${props => (props.middle ? 'align-items: center' : '')};
    flex-wrap: ${props => (props.flexWrap ? 'wrap' : 'nowrap')};
-   justify-content: ${props => (props.apart ? 'space-between' : props.right ? 'flex-end' : 'flex-start')};
+   justify-content: ${props => (props.apart ? 'space-between' : props.right ? 'flex-end' : props.center ? 'center' : 'flex-start')};
    flex-direction: ${props => (props.horizontal ? 'row' : 'column')};
    margin: ${props => props.margin};
-   padding: ${props => props.padding};
+   padding: ${props => props.padding || '1px'};
    height: ${props => props.height || (props.flex ? 'auto' : 'fit-content')};
    width: ${props => props.width || (props.right ? 'auto' : 'inherit')};
    overflow: ${props => (props.flex ? 'auto' : 'unset')};
@@ -35,6 +35,9 @@ export class Panel extends React.Component {
    static propTypes = {
       // Displays child components horizontally and apart from each other.
       apart: PropTypes.bool,
+
+      // Centers the child components horizontally.
+      center: PropTypes.bool,
 
       // Properties to apply to all child components.
       childProps: PropTypes.object,
@@ -137,6 +140,7 @@ export class Panel extends React.Component {
          margin,
          noMargin,
          smallMargin,
+         center,
          right,
          middle,
          height,
@@ -178,6 +182,7 @@ export class Panel extends React.Component {
             margin={_margin}
             horizontal={_horizontal}
             apart={apart}
+            center={center}
             right={right}
             middle={middle}
             width={_width}

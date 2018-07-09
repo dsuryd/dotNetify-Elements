@@ -19,22 +19,23 @@ namespace dotNetify_Elements
 
    public class Activity
    {
-      public int Id { get; set; }
-      public string PersonName { get; set; }
-      public string Status { get; set; }
-   }
-
-   public class LiveDataService : ILiveDataService
-   {
-      private readonly Random _random = new Random();
-
-      private readonly Dictionary<int, string> _activities = new Dictionary<int, string> {
+      private static readonly Dictionary<int, string> _activities = new Dictionary<int, string> {
             {1, "Offline"},
             {2, "Active"},
             {3, "Busy"},
             {4, "Away"},
             {5, "In a Call"}
         };
+
+      public int Id { get; set; }
+      public string PersonName { get; set; }
+      public int StatusId { get; set; }
+      public string Status => _activities[StatusId];
+   }
+
+   public class LiveDataService : ILiveDataService
+   {
+      private readonly Random _random = new Random();
 
       public IObservable<string> Download { get; }
 
@@ -97,7 +98,7 @@ namespace dotNetify_Elements
             {
                Id = customer.Id,
                PersonName = customer.Name.FullName,
-               Status = _activities[_random.Next(1, 6)]
+               StatusId = _random.Next(1, 6)
             })
             .StartWith(
                Enumerable.Range(1, 4)
@@ -106,7 +107,7 @@ namespace dotNetify_Elements
                {
                   Id = customer.Id,
                   PersonName = customer.Name.FullName,
-                  Status = _activities[_random.Next(1, 6)],
+                  StatusId = _random.Next(1, 6)
                })
                .ToArray()
             );

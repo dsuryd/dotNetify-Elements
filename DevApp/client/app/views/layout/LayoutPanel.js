@@ -40,6 +40,7 @@ const MyApp = _ => (
       const setState = state => this.setState(state);
       const propTypes = {
          apart: null,
+         center: null,
          horizontal: null,
          middle: null,
          noGap: null,
@@ -104,7 +105,9 @@ import React from 'react';
 import { Panel, Button } from 'dotnetify-elements';
 
 const MyApp = _ => (
-   <Panel horizontal childProps={{ css: 'border: 2px dashed red', ${Object.keys(this.state).map(key => `${key}: ${this.state[key]}`).join(', ')}}}>
+   <Panel horizontal childProps={{ css: 'border: 2px dashed red', ${Object.keys(this.state)
+      .map(key => `${key}: ${this.state[key]}`)
+      .join(', ')}}}>
       <Panel>
          <Button label="Button 1" primary />
       </Panel>
