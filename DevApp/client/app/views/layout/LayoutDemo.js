@@ -120,7 +120,7 @@ const SampleAppLayout = _ => (
                </Card>
             </Panel>
             <Panel horizontal gap="2rem">
-               <Panel flex="1 1 75%" css="margin-top: 2rem;">
+               <Panel flex="75%" css="margin-top: 2rem;">
                   <article>
                      <h4>From the Firehose</h4>
                      <h2>Sample Blog Post</h2>
@@ -148,7 +148,7 @@ const SampleAppLayout = _ => (
                      </p>
                   </article>
                </Panel>
-               <Panel flex="1 1 25%">
+               <Panel flex="25%">
                   <Panel css={aboutCss}>
                      <h5>About</h5>
                      <p>

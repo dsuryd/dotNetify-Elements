@@ -30,21 +30,21 @@ const Dashboard = _ => (
          <Panel>
             <Card>
                <Panel horizontal>
-                  <Panel flex="1 1 70%">
+                  <Panel flex="70%">
                      <h4>Network Traffic</h4>
                      <LineChart id="Traffic" height="75px" />
                   </Panel>
-                  <Panel flex="1 1 30%">
+                  <Panel flex="30%">
                      <h4>Utilization</h4>
                      <PieChart id="Utilization" />
                   </Panel>
                </Panel>
             </Card>
             <Panel horizontal>
-               <Panel flex="1 1 40%">
+               <Panel flex="40%">
                   <ActivitiesCard id="RecentActivities" />
                </Panel>
-               <Panel flex="1 1 60%">
+               <Panel flex="60%">
                   <Card>
                      <h4>Server Usage</h4>
                      <BarChart id="ServerUsage" height="70px" />

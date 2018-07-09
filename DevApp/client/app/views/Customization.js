@@ -51,10 +51,10 @@ const ElementPropertiesExample = _ => {
 \`\`\`jsx
 const ElementPropDemo = _ => (
    <Panel horizontal margin="1rem">
-      <Panel flex="1 1 40%">
+      <Panel flex="40%">
          <Item>1</Item>
       </Panel>
-      <Panel horizontal flex="1 1 60%" gap="2rem">
+      <Panel horizontal flex="60%" gap="2rem">
          <Item>2</Item>
          <Item>3</Item>
       </Panel>
@@ -66,10 +66,10 @@ const ElementPropDemo = _ => (
       <Panel>
          <Panel css="margin-top: 2rem; border: 2px dashed #ccc">
             <Panel horizontal margin="1rem">
-               <Panel flex="1 1 40%">
+               <Panel flex="40%">
                   <Item>1</Item>
                </Panel>
-               <Panel horizontal flex="1 1 60%" gap="2rem">
+               <Panel horizontal flex="60%" gap="2rem">
                   <Item>2</Item>
                   <Item>3</Item>
                </Panel>

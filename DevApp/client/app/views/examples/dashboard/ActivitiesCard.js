@@ -15,7 +15,7 @@ export default class ActivitiesCard extends Element {
             {activities.map((person, idx) => (
                <Panel key={idx} horizontal childProps={{ flex: true }} css={panelCss}>
                   <Cell>{person.PersonName}</Cell>
-                  <Cell>{person.Status}</Cell>
+                  <Cell right>{person.Status}</Cell>
                </Panel>
             ))}
          </Card>
