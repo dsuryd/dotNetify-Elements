@@ -6,6 +6,7 @@ import * as utils from '../utils';
 import { toChartJsConfig } from './chart';
 
 const ChartContainer = styled.div`
+   overflow-x: hidden;
    ${props => (props.width ? 'width: ' + props.width : '')};
    ${props => props.theme.LineChart};
    ${props => props.css};
