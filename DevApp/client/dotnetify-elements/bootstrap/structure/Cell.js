@@ -24,6 +24,8 @@ export const CellHeader = styled.div.attrs({
    className: 'card-header cell-header'
 })`
    border-radius: 0 !important;
+   ${props => (props.padding ? `padding: ${props.padding};` : ``)}   
+   ${props => (props.right ? `display: flex; justify-content: flex-end;` : ``)}
    ${props => props.theme.Cell.HeaderContainer};
 `;
 
@@ -32,5 +34,6 @@ export const CellBody = styled.div.attrs({
 })`
    border-radius: 0;
    ${props => (props.padding ? `padding: ${props.padding};` : ``)}
+   ${props => (props.right ? `display: flex; justify-content: flex-end;` : ``)}
    ${props => props.theme.Cell.BodyContainer};
 `;
