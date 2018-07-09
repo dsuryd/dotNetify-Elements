@@ -58,7 +58,7 @@ export class DataGrid extends Element {
       };
 
       window.addEventListener('resize', this.handleResize);
-      this.updateHeight();
+      setTimeout(_ => this.emitResizeEvent(), 100);
    }
 
    componentDidUpdate(props, state) {
@@ -66,12 +66,7 @@ export class DataGrid extends Element {
 
       if (this.redraw) {
          this.redraw = null;
-         if (utils.isIE11()) {
-            let event = document.createEvent('Event');
-            event.initEvent('resize', false, true);
-            window.dispatchEvent(event);
-         }
-         else window.dispatchEvent(new Event('resize'));
+         this.emitResizeEvent();
       }
    }
 
@@ -89,6 +84,15 @@ export class DataGrid extends Element {
    dispatchSelection(value) {
       this.selectedKeyProperty && this.dispatchProp(this.selectedKeyProperty, value);
       this.props.onSelect && this.props.onSelect(value);
+   }
+
+   emitResizeEvent() {
+      if (utils.isIE11()) {
+         let event = document.createEvent('Event');
+         event.initEvent('resize', false, true);
+         window.dispatchEvent(event);
+      }
+      else window.dispatchEvent(new Event('resize'));
    }
 
    mapColumns(children, columns) {
