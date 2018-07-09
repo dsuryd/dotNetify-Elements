@@ -3,10 +3,12 @@ using System.Linq;
 using System.Reactive.Linq;
 using DotNetify;
 using DotNetify.Elements;
+using DotNetify.Security;
 
 namespace spa_template
 {
-   public partial class CustomerForm : BaseVM
+   [Authorize]
+   public class CustomerForm : BaseVM
    {
       private readonly ICustomerRepository _customerRepository;
       private readonly ReactiveProperty<int> _selectedContact;

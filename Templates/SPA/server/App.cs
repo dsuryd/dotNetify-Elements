@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using DotNetify;
 using DotNetify.Elements;
 using DotNetify.Routing;
+using DotNetify.Security;
 
 namespace spa_template
 {

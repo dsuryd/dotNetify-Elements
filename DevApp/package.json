@@ -8,7 +8,10 @@
       "dist": "concurrently \"webpack --config ./webpack.dist.config.js\" \"webpack --config ./webpack.dist-bundle.config.js\""
    },
    "babel": {
-      "presets": [ "env", "react" ],
+      "presets": [
+         "env",
+         "react"
+      ],
       "plugins": [
          "babel-plugin-styled-components",
          "babel-plugin-transform-object-rest-spread",

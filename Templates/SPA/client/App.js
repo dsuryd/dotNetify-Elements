@@ -1,37 +1,30 @@
 import React from 'react';
-import styled from 'styled-components';
 import { Main, Header, Nav, NavMenu, NavMenuTarget, NavDrawerButton, Panel, Section, VMContext } from 'dotnetify-elements';
+import { withAuth, Logo } from './Login';
+import auth from './auth';
 
-const Logo = styled.div`
-   display: flex;
-   align-items: center;
-   padding-left: 1rem;
-   content: url(http://dotnetify.net/content/images/dotnetify-logo.png);
-   width: 200px;
-   height: 39px;
-`;
+const getVmOptions = _ => ({
+	headers: { Authorization: 'Bearer ' + auth.getAccessToken() },
+	exceptionHandler: _ => auth.signOut()
+});
 
-class App extends React.Component {
-   render() {
-      return (
-         <VMContext vm="App">
-            <Main>
-               <Header>
-                  <Panel horizontal middle>
-                     <Logo />
-                     <NavDrawerButton />
-                  </Panel>
-               </Header>
-               <Nav>
-                  <NavMenu id="NavMenu" />
-               </Nav>
-               <Section>
-                  <NavMenuTarget />
-               </Section>
-            </Main>
-         </VMContext>
-      );
-   }
-}
+const App = _ => (
+	<VMContext vm="App" options={getVmOptions()}>
+		<Main>
+			<Header>
+				<Panel horizontal middle>
+					<Logo />
+					<NavDrawerButton />
+				</Panel>
+			</Header>
+			<Nav>
+				<NavMenu flex id="NavMenu" />
+			</Nav>
+			<Section>
+				<NavMenuTarget />
+			</Section>
+		</Main>
+	</VMContext>
+);
 
-export default App;
+export default withAuth(App);
