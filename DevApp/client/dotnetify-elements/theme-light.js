@@ -201,6 +201,7 @@ const structureTheme = {
    },
    Tab: {
       Container: ``,
+      BodyContainer: ``,
       TabItemContainer: ``,
       TabItem: ``
    }

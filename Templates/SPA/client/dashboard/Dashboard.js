@@ -1,19 +1,18 @@
 import React from 'react';
 import { Card, Frame, Panel, VMContext, withTheme } from 'dotnetify-elements';
 import { BarChart, LineChart, PieChart } from 'dotnetify-elements';
-import InfoCard from '../components/InfoCard';
-import ActivitiesCard from '../components/ActivitiesCard';
+import InfoCard from './InfoCard';
+import ActivitiesCard from './ActivitiesCard';
 
 const infoPanelCss = `
    flex: 1 1 20%;
-   padding-bottom: 1rem;
-   @media (max-width: 1500px) { flex: 1 1 40%; }    
+   @media (max-width: 1280px) { flex: 1 1 40%; }    
    @media (max-width: 880px) { flex: 1 1 100%; }       
 `;
 
 const Dashboard = _ => (
    <VMContext vm="Dashboard">
-      <Frame noGap>
+      <Frame css="max-width: calc(100% - 3rem)">
          <Panel horizontal wrap childProps={{ css: infoPanelCss }}>
             <Panel>
                <InfoCard id="Download" color="#1c8adb" />
@@ -33,7 +32,7 @@ const Dashboard = _ => (
                <Panel horizontal>
                   <Panel flex="70%">
                      <h4>Network Traffic</h4>
-                     <LineChart id="Traffic" height="5" />
+                     <LineChart id="Traffic" height="75px" />
                   </Panel>
                   <Panel flex="30%">
                      <h4>Utilization</h4>
@@ -43,12 +42,12 @@ const Dashboard = _ => (
             </Card>
             <Panel horizontal>
                <Panel flex="40%">
-                  <ActivitiesCard id="RecentActivities" />
+                  <ActivitiesCard flex id="RecentActivities" />
                </Panel>
                <Panel flex="60%">
-                  <Card>
+                  <Card flex>
                      <h4>Server Usage</h4>
-                     <BarChart id="ServerUsage" height="4" />
+                     <BarChart id="ServerUsage" height="70px" />
                   </Card>
                </Panel>
             </Panel>

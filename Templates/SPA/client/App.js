@@ -1,6 +1,15 @@
 import React from 'react';
+import styled from 'styled-components';
 import { Main, Header, Nav, NavMenu, NavMenuTarget, NavDrawerButton, Panel, Section, VMContext } from 'dotnetify-elements';
-import Logo from '../components/Logo';
+
+const Logo = styled.div`
+   display: flex;
+   align-items: center;
+   padding-left: 1rem;
+   content: url(http://dotnetify.net/content/images/dotnetify-logo.png);
+   width: 200px;
+   height: 39px;
+`;
 
 class App extends React.Component {
    render() {

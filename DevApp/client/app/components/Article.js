@@ -22,14 +22,14 @@ const frameCss = `
    max-width: 1268px;
    @media (max-width: 1170px) {
       margin-left: 2rem;
-      width: calc(100% - 2rem);
+      max-width: calc(100% - 2rem);
       > *:last-child {
          display: none;
       }
     }   
     @media (max-width: 414px) {
       margin-left: 1rem;
-      width: calc(100% - 1rem);
+      max-width: calc(100% - 1rem);
     }      
 `;
 
@@ -39,6 +39,9 @@ const panelCss = `
    @media (max-width: 1170px) {
       max-width: calc(100% - 2rem);
     }    
+    @media (max-width: 414px) {
+      max-width: calc(100% - 1rem);
+    }  
 `;
 
 const scrollIntoView = id => document.getElementById(id).scrollIntoView({ behavior: 'smooth' });

@@ -1,13 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './views/App';
 import dotnetify from 'dotnetify';
-import * as views from './views';
+import App from './App';
+import Dashboard from './dashboard/Dashboard';
+import Form from './form/Form';
 import 'dotnetify-elements/dotnetify-elements.css';
 
 dotnetify.debug = true;
 
 // Import all the routeable views into the global window variable.
-Object.assign(window, { ...views });
+Object.assign(window, { Dashboard, Form });
 
 ReactDOM.render(<App />, document.getElementById('App'));

@@ -15,6 +15,9 @@ const InfoIcon = styled.i.attrs({
 const cardCss = `
    .card-body { padding: .5rem 1.5rem }
    h3 { font: 600 2rem Helvetica; }
+   @media (max-width: 1550px) and (min-width: 1280px) { 
+      h3 { font-size: 1.25rem } 
+   }    
 `;
 
 export default class InfoCard extends Element {

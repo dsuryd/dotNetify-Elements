@@ -12,12 +12,18 @@ export class Tab extends React.Component {
       // Sets the active tab.
       active: PropTypes.string,
 
+      // Sets content area's margin.
+      margin: PropTypes.string,
+
+      // Removes content area's margin.
+      noMargin: PropTypes.bool,
+
       // Occurs when a tab is activated.
       onActivate: PropTypes.func
    };
 
    static componentTypes = {
-      Container: Container,
+      Container,
       TabContainer: undefined,
       BodyContainer: Frame
    };
@@ -60,7 +66,7 @@ export class Tab extends React.Component {
 
    render() {
       const [ Container, TabContainer, BodyContainer ] = utils.resolveComponents(Tab, this.props);
-      const { children, style, css, ...props } = this.props;
+      const { children, margin, noMargin, style, css, ...props } = this.props;
 
       const tabItems = React.Children.map(children, (child, idx) => {
          const key = this.getItemKey(child, idx);
@@ -74,7 +80,7 @@ export class Tab extends React.Component {
 
       const tabContents = this.tabContents.map(({ key, content }) => (
          <div key={key} style={this.getDisplayStyle(key)}>
-            <BodyContainer style={style} css={css}>
+            <BodyContainer style={style} css={css} noMargin={noMargin} margin={margin}>
                {content}
             </BodyContainer>
          </div>

@@ -116,7 +116,7 @@ namespace dotNetify_Elements
                   Routes = new NavRoute[]
                   {
                      new NavRoute("Customer Form",       this.GetRoute(nameof(Route.ExampleCustomerForm))),
-                     new NavRoute("Real-time Dashboard", this.GetRoute(nameof(Route.ExampleDashboard))),
+                     new NavRoute("Admin Dashboard", this.GetRoute(nameof(Route.ExampleDashboard))),
                   },
                   IsExpanded = false
                },

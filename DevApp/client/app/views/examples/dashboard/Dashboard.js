@@ -11,7 +11,7 @@ const infoPanelCss = `
 `;
 
 const Dashboard = _ => (
-   <VMContext vm="Dashboard">
+   <VMContext vm="AdminDashboard">
       <Frame css="margin-left: 3rem; max-width: calc(100% - 6rem);">
          <Panel horizontal wrap childProps={{ css: infoPanelCss }}>
             <Panel>

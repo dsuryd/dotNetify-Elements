@@ -16,8 +16,7 @@ class CustomerForm extends React.Component {
       const canEdit = editable && !edit;
       return (
          <VMContext vm="CustomerForm">
-            <Frame css="margin-left: 3rem; width: calc(100% - 6rem)">
-               <h2>Customers</h2>
+            <Frame css="max-width: calc(100% - 3rem)">
                <DataGrid id="Contacts" onSelect={this.handleSelect} enable={!edit} />
                <Form plainText={!edit}>
                   <Panel>
@@ -33,7 +32,7 @@ class CustomerForm extends React.Component {
                         </Panel>
                      </Panel>
                      {/* Edit forms */}
-                     <Tab margin="1.5rem 0">
+                     <Tab margin="1.5rem 0 0 0">
                         <TabItem label="Basic Info">
                            <BasicInfoForm />
                         </TabItem>

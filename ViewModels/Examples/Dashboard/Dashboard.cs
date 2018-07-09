@@ -8,13 +8,13 @@ using DotNetify.Routing;
 
 namespace dotNetify_Elements
 {
-   public class Dashboard : BaseVM, IRoutable
+   public class AdminDashboard : BaseVM, IRoutable
    {
       private IDisposable _subscription;
 
       public RoutingState RoutingState { get; set; } = new RoutingState();
 
-      public Dashboard(ILiveDataService liveDataService)
+      public AdminDashboard(ILiveDataService liveDataService)
       {
          AddProperty<string>("Download")
             .WithAttribute(new { Label = "Download", Icon = "cloud_download" })
