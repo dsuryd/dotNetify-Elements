@@ -7,7 +7,11 @@ import { RouteLink } from 'dotnetify/dist/dotnetify-react.router';
 import Element from '../core/Element';
 import * as utils from '../utils';
 
-const Container = styled.div`padding: .75rem 0;`;
+const Container = styled.div`
+   flex: ${utils.flexAuto};
+   padding: .75rem 0;
+   ${props => props.css};
+`;
 
 const GroupContainer = props => (
    <Collapsible headerContainer={GroupHeaderContainer} {...props}>
@@ -71,7 +75,7 @@ export class NavMenu extends Element {
       const key = navRoute.Route.TemplateId || `${navRoute.Route.Redirect || ''}${navRoute.Route.Path}`;
       const isSelected = key === this.state.selected;
       return (
-         <RouteContainer key={key} isSelected={isSelected}>
+         <RouteContainer className="navmenu-route" key={key} isSelected={isSelected}>
             <RouteLink vm={this.vm} route={navRoute.Route}>
                <RouteLabel icon={navRoute.Icon} navGroup={navGroup}>
                   {navRoute.Label}
@@ -104,13 +108,14 @@ export class NavMenu extends Element {
 
    render() {
       const [ Container, GroupContainer, , GroupLabel ] = this.resolveComponents(NavMenu);
+      const { style, css } = this.props;
 
       const value = this.value || [];
       const navMenu = value.map((navItem, idx) => {
          const groupLabel = props => <GroupLabel icon={navItem.Icon} {...props} />;
          const collapsed = this.state.selectedPath.some(path => path === navItem.Label) ? false : !navItem.IsExpanded;
          return navItem.Routes ? (
-            <GroupContainer key={idx} label={navItem.Label} labelComponent={groupLabel} collapsed={collapsed}>
+            <GroupContainer className="navmenu-group" key={idx} label={navItem.Label} labelComponent={groupLabel} collapsed={collapsed}>
                {navItem.Routes.map(navRoute => this.buildRoute(navRoute, navItem))}
             </GroupContainer>
          ) : (
@@ -118,7 +123,11 @@ export class NavMenu extends Element {
          );
       });
 
-      return <Container>{navMenu}</Container>;
+      return (
+         <Container style={style} css={css}>
+            {navMenu}
+         </Container>
+      );
    }
 }
 
