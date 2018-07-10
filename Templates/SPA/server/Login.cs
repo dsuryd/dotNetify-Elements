@@ -7,7 +7,7 @@ namespace spa_template
    {
       public Login()
       {
-         AddProperty<string>("User")
+         AddProperty("User", "guest")
             .WithAttribute(new TextFieldAttribute { Label = "User:" });
 
          AddProperty<string>("Password")

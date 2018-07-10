@@ -5,13 +5,10 @@
    "scripts": {
       "build": "webpack",
       "prod": "webpack -p --progress",
-      "dist": "concurrently \"webpack --config ./webpack.dist.config.js\" \"webpack --config ./webpack.dist-bundle.config.js\""
+      "dist": "webpack --config ./webpack.dist.config.js && webpack --config ./webpack.dist-bundle.config.js"
    },
    "babel": {
-      "presets": [
-         "env",
-         "react"
-      ],
+      "presets": [ "env", "react" ],
       "plugins": [
          "babel-plugin-styled-components",
          "babel-plugin-transform-object-rest-spread",
@@ -48,7 +45,6 @@
       "babel-plugin-transform-object-rest-spread": "6.26.0",
       "babel-preset-env": "1.7.0",
       "babel-preset-react": "6.24.1",
-      "concurrently": "^3.6.0",
       "css-loader": "0.28.11",
       "deepmerge": "^2.1.1",
       "file-loader": "1.1.11",

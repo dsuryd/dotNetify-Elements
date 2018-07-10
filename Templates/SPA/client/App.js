@@ -1,30 +1,40 @@
 import React from 'react';
-import { Main, Header, Nav, NavMenu, NavMenuTarget, NavDrawerButton, Panel, Section, VMContext } from 'dotnetify-elements';
+import { Main, Header, Nav, NavMenu, NavMenuTarget, NavDrawerButton, Button, Frame, Panel, Section, VMContext } from 'dotnetify-elements';
 import { withAuth, Logo } from './Login';
 import auth from './auth';
 
 const getVmOptions = _ => ({
-	headers: { Authorization: 'Bearer ' + auth.getAccessToken() },
-	exceptionHandler: _ => auth.signOut()
+   headers: { Authorization: 'Bearer ' + auth.getAccessToken() },
+   exceptionHandler: _ => auth.signOut()
 });
 
+const logoutCss = `
+   margin: 1rem; 
+   width: calc(100% - 2rem);
+`;
+
 const App = _ => (
-	<VMContext vm="App" options={getVmOptions()}>
-		<Main>
-			<Header>
-				<Panel horizontal middle>
-					<Logo />
-					<NavDrawerButton />
-				</Panel>
-			</Header>
-			<Nav>
-				<NavMenu flex id="NavMenu" />
-			</Nav>
-			<Section>
-				<NavMenuTarget />
-			</Section>
-		</Main>
-	</VMContext>
+   <VMContext vm="App" options={getVmOptions()}>
+      <Main>
+         <Header>
+            <Panel horizontal middle>
+               <Logo />
+               <NavDrawerButton />
+            </Panel>
+         </Header>
+         <Nav>
+            <Panel flex>
+               <NavMenu id="NavMenu" />
+               <Panel flex bottom>
+                  <Button label="Logout" css={logoutCss} onClick={_ => auth.signOut()} />
+               </Panel>
+            </Panel>
+         </Nav>
+         <Section>
+            <NavMenuTarget />
+         </Section>
+      </Main>
+   </VMContext>
 );
 
 export default withAuth(App);
