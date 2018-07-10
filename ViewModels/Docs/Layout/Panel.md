@@ -64,10 +64,16 @@ static propTypes = {
    // Displays child components horizontally and apart from each other.
    apart: PropTypes.bool,
 
+   // Aligns child components to the bottom.
+   bottom: PropTypes.bool,
+
+   // Centers the child components horizontally.
+   center: PropTypes.bool,
+
    // Properties to apply to all child components.
    childProps: PropTypes.object,
 
-   // Sets CSS flex property; if true, same as 'flex: 1'.
+   // Sets css flex property; if true, same as 'flex: 1'.
    flex: PropTypes.oneOfType([ PropTypes.string, PropTypes.bool ]),
 
    // Sets custom gap between child components.
@@ -91,7 +97,7 @@ static propTypes = {
    // Removes the panel's margin.
    noMargin: PropTypes.bool,
 
-   // Displays child components horizontally from the right.
+   // Aligns child components to the right.
    right: PropTypes.bool,
 
    // Sets small gap between child components according to the theme.

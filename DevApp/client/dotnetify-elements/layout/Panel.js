@@ -8,7 +8,8 @@ const Container = styled.div`
    ${props => (props.flex ? `flex: ${props.flex}` : '')};
    ${props => (props.middle ? 'align-items: center' : '')};
    flex-wrap: ${props => (props.flexWrap ? 'wrap' : 'nowrap')};
-   justify-content: ${props => (props.apart ? 'space-between' : props.right ? 'flex-end' : props.center ? 'center' : 'flex-start')};
+   justify-content: ${props =>
+      props.apart ? 'space-between' : props.right || props.bottom ? 'flex-end' : props.center ? 'center' : 'flex-start'};
    flex-direction: ${props => (props.horizontal ? 'row' : 'column')};
    margin: ${props => props.margin};
    padding: ${props => props.padding};
@@ -35,6 +36,9 @@ export class Panel extends React.Component {
    static propTypes = {
       // Displays child components horizontally and apart from each other.
       apart: PropTypes.bool,
+
+      // Aligns child components to the bottom.
+      bottom: PropTypes.bool,
 
       // Centers the child components horizontally.
       center: PropTypes.bool,
@@ -66,7 +70,7 @@ export class Panel extends React.Component {
       // Removes the panel's margin.
       noMargin: PropTypes.bool,
 
-      // Displays child components horizontally from the right.
+      // Aligns child components to the right.
       right: PropTypes.bool,
 
       // Sets small gap between child components according to the theme.
@@ -143,6 +147,7 @@ export class Panel extends React.Component {
          center,
          right,
          middle,
+         bottom,
          height,
          width,
          wrap,
@@ -171,7 +176,7 @@ export class Panel extends React.Component {
          _width = `calc(100% + ${_gap})`;
       }
 
-      const _horizontal = horizontal || right || wrap || apart;
+      const _horizontal = (horizontal && !bottom) || right || wrap || apart;
 
       const flexAuto = utils.flexAuto;
       let _flex = typeof flex == 'boolean' ? (flex ? flexAuto : null) : flex;
@@ -185,6 +190,7 @@ export class Panel extends React.Component {
             center={center}
             right={right}
             middle={middle}
+            bottom={bottom}
             width={_width}
             height={height}
             flexWrap={wrap}
@@ -197,7 +203,7 @@ export class Panel extends React.Component {
                let childFlex = flex || (child.props && child.props.flex);
                childFlex = typeof childFlex == 'boolean' ? (childFlex ? flexAuto : null) : childFlex;
 
-               // If child or its container is a derivate of Panel, don't wrap it.
+               // If child or its container is a derivative of Panel, don't wrap it.
                const isPanel = x => x && x._isPanel;
                const childContainer = child.type && child.type.componentTypes ? child.type.componentTypes.Container : null;
                if (isPanel(child.type) || isPanel(childContainer)) {
@@ -215,7 +221,7 @@ export class Panel extends React.Component {
                      key={idx}
                      style={this.getStyle(idx)}
                      flex={childFlex}
-                     margin={this.numChildren <= 1 ? 0 : this.getMargin(idx, _gap, _horizontal)}
+                     margin={this.numChildren <= 1 ? 0 : this.getMargin(idx, _gap, _horizontal, wrap)}
                   >
                      {child.props ? (
                         React.cloneElement(child, utils.mergeProps(child, _childProps, { onShow: show => this.handleShow(idx, show) }))
