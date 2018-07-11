@@ -31,4 +31,10 @@ class Auth {
    }
 }
 
-export default new Auth();
+export const getAuthHeaders = _ => ({
+   headers: { Authorization: 'Bearer ' + auth.getAccessToken() },
+   exceptionHandler: _ => auth.signOut()
+});
+
+export const auth = new Auth();
+export default auth;

@@ -13,15 +13,6 @@ export const Logo = styled.div`
    height: 39px;
 `;
 
-export const withAuth = Component =>
-   class extends React.Component {
-      state = { authenticated: auth.hasAccessToken() };
-      handleAuthenticated = _ => this.setState({ authenticated: true });
-      render() {
-         return !this.state.authenticated ? <Login onAuthenticated={this.handleAuthenticated} /> : <Component />;
-      }
-   };
-
 export class Login extends React.Component {
    static propTypes = {
       onAuthenticated: PropTypes.func

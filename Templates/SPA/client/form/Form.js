@@ -2,6 +2,7 @@ import React from 'react';
 import BasicInfoForm from './BasicInfoForm';
 import AddressForm from './AddressForm';
 import NewCustomerDialog from './NewCustomerDialog';
+import { getAuthHeaders } from '../auth';
 import { Button, DataGrid, Form, Frame, Panel, Tab, TabItem, VMContext, withTheme } from 'dotnetify-elements';
 
 class CustomerForm extends React.Component {
@@ -15,7 +16,7 @@ class CustomerForm extends React.Component {
       const { editable, edit, openDialog } = this.state;
       const canEdit = editable && !edit;
       return (
-         <VMContext vm="CustomerForm">
+         <VMContext vm="CustomerForm" options={getAuthHeaders()}>
             <Frame css="max-width: calc(100% - 3rem)">
                <DataGrid id="Contacts" onSelect={this.handleSelect} enable={!edit} />
                <Form plainText={!edit}>

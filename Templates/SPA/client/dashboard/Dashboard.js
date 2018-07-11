@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, Frame, Panel, VMContext, withTheme } from 'dotnetify-elements';
 import { BarChart, LineChart, PieChart } from 'dotnetify-elements';
+import { getAuthHeaders } from '../auth';
 import InfoCard from './InfoCard';
 import ActivitiesCard from './ActivitiesCard';
 
@@ -10,8 +11,12 @@ const infoPanelCss = `
    @media (max-width: 880px) { flex: 1 1 100%; }       
 `;
 
+const getVmOptions = _ => ({
+   exceptionHandler: _ => auth.signOut()
+});
+
 const Dashboard = _ => (
-   <VMContext vm="Dashboard">
+   <VMContext vm="Dashboard" options={getAuthHeaders()}>
       <Frame css="max-width: calc(100% - 3rem)">
          <Panel horizontal wrap childProps={{ css: infoPanelCss }}>
             <Panel>

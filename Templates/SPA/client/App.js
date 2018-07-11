@@ -1,20 +1,10 @@
 import React from 'react';
 import { Main, Header, Nav, NavMenu, NavMenuTarget, NavDrawerButton, Button, Frame, Panel, Section, VMContext } from 'dotnetify-elements';
-import { withAuth, Logo } from './Login';
-import auth from './auth';
-
-const getVmOptions = _ => ({
-   headers: { Authorization: 'Bearer ' + auth.getAccessToken() },
-   exceptionHandler: _ => auth.signOut()
-});
-
-const logoutCss = `
-   margin: 1rem; 
-   width: calc(100% - 2rem);
-`;
+import { Logo, Login } from './Login';
+import { auth, getAuthHeaders } from './auth';
 
 const App = _ => (
-   <VMContext vm="App" options={getVmOptions()}>
+   <VMContext vm="App" options={getAuthHeaders()}>
       <Main>
          <Header>
             <Panel horizontal middle>
@@ -25,7 +15,7 @@ const App = _ => (
          <Nav>
             <Panel>
                <NavMenu id="NavMenu" />
-               <Panel bottom>
+               <Panel flex bottom padding="1rem">
                   <Button stretch label="Logout" onClick={_ => auth.signOut()} />
                </Panel>
             </Panel>
@@ -37,4 +27,10 @@ const App = _ => (
    </VMContext>
 );
 
-export default withAuth(App);
+export default class extends React.Component {
+   state = { authenticated: auth.hasAccessToken() };
+   handleAuthenticated = _ => this.setState({ authenticated: true });
+   render() {
+      return !this.state.authenticated ? <Login onAuthenticated={this.handleAuthenticated} /> : <App />;
+   }
+}
