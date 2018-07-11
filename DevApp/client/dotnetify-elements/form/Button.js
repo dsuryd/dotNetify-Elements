@@ -5,88 +5,93 @@ import { InputElement } from '../core/Element';
 import * as utils from '../utils';
 
 export class Button extends InputElement {
-	static contextTypes = FormContextTypes;
+   static contextTypes = FormContextTypes;
 
-	static propTypes = {
-		// Identifies the associated view model property.
-		id: PropTypes.string,
+   static propTypes = {
+      // Identifies the associated view model property.
+      id: PropTypes.string,
 
-		// Associates the button with form cancel action.
-		cancel: PropTypes.bool,
+      // Associates the button with form cancel action.
+      cancel: PropTypes.bool,
 
-		// Enables the button.
-		enable: PropTypes.bool,
+      // Enables the button.
+      enable: PropTypes.bool,
 
-		// Negative color.
-		negative: PropTypes.bool,
+      // Text or component for the button's label.
+      label: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
 
-		// Positive color.
-		positive: PropTypes.bool,
+      // Negative color.
+      negative: PropTypes.bool,
 
-		// Primary color.
-		primary: PropTypes.bool,
+      // Positive color.
+      positive: PropTypes.bool,
 
-		// Secondary color.
-		secondary: PropTypes.bool,
+      // Primary color.
+      primary: PropTypes.bool,
 
-		// Shows the button.
-		show: PropTypes.bool,
+      // Secondary color.
+      secondary: PropTypes.bool,
 
-		// Text or component for the button's label.
-		label: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
+      // Shows the button.
+      show: PropTypes.bool,
 
-		// Associates the button with form submit action.
-		submit: PropTypes.bool
-	};
+      // Fills the available space.
+      stretch: PropTypes.bool,
 
-	static componentTypes = {
-		ButtonComponent: undefined
-	};
+      // Associates the button with form submit action.
+      submit: PropTypes.bool
+   };
 
-	get shouldDisableSubmit() {
-		return this.props.enable === false || (this.context.formContext && !this.context.formContext.changed);
-	}
+   static componentTypes = {
+      ButtonComponent: undefined
+   };
 
-	handleClick = (_) => {
-		const { id, submit, cancel } = this.props;
-		let onClick = this.props.onClick;
-		if (!onClick) onClick = () => null;
+   get shouldDisableSubmit() {
+      return this.props.enable === false || (this.context.formContext && !this.context.formContext.changed);
+   }
 
-		// If button is associated with a form action, invoke it.
-		if ((submit || cancel) && this.context.formContext) {
-			if (submit) this.context.formContext.submit(id).then((canSubmit) => canSubmit && onClick());
-			else if (cancel) {
-				this.context.formContext.cancel();
-				onClick();
-			}
-		} else {
-			const data = onClick();
-			if (id && typeof data !== 'undefined') this.dispatch(data);
-		}
-	};
+   handleClick = _ => {
+      const { id, submit, cancel } = this.props;
+      let onClick = this.props.onClick;
+      if (!onClick) onClick = () => null;
 
-	render() {
-		const [ _Button ] = utils.resolveComponents(Button, this.props);
-		const { label, submit, show, enable, onClick, children, style, css, ...props } = this.attrs;
-		const disabled = submit ? this.shouldDisableSubmit : this.props.enable === false;
+      // If button is associated with a form action, invoke it.
+      if ((submit || cancel) && this.context.formContext) {
+         if (submit) this.context.formContext.submit(id).then(canSubmit => canSubmit && onClick());
+         else if (cancel) {
+            this.context.formContext.cancel();
+            onClick();
+         }
+      }
+      else {
+         const data = onClick();
+         if (id && typeof data !== 'undefined') this.dispatch(data);
+      }
+   };
 
-		const _label = typeof label == 'string' ? <div style={{ padding: '1px 0' }}>{label}</div> : label;
+   render() {
+      const [ _Button ] = utils.resolveComponents(Button, this.props);
+      const { label, submit, show, enable, onClick, children, style, stretch, css, ...props } = this.attrs;
+      const disabled = submit ? this.shouldDisableSubmit : this.props.enable === false;
 
-		const handleKeyPress = (event) => (event.charCode == 13 ? this.handleClick() : null);
+      const _label = typeof label == 'string' ? <div style={{ padding: '1px 0' }}>{label}</div> : label;
 
-		if (show === false) return null;
-		return (
-			<_Button
-				type={submit ? 'submit' : 'button'}
-				style={style}
-				css={css}
-				disabled={disabled}
-				onClick={this.handleClick}
-				onKeyPress={handleKeyPress}
-				{...props}
-			>
-				{_label || children}
-			</_Button>
-		);
-	}
+      const handleKeyPress = event => (event.charCode == 13 ? this.handleClick() : null);
+
+      if (show === false) return null;
+      return (
+         <_Button
+            type={submit ? 'submit' : 'button'}
+            style={style}
+            css={css}
+            stretch={stretch}
+            disabled={disabled}
+            onClick={this.handleClick}
+            onKeyPress={handleKeyPress}
+            {...props}
+         >
+            {_label || children}
+         </_Button>
+      );
+   }
 }

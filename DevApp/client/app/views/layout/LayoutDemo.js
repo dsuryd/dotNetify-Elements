@@ -64,17 +64,17 @@ const SampleAppLayout = _ => (
    <Main theme={sampleTheme}>
       <Header>
          <Frame noGap>
-            <Panel flex horizontal middle>
-               <Panel flex>
+            <Panel horizontal middle>
+               <Panel>
                   <a href="#">Subscribe</a>
                </Panel>
                <h1>Large</h1>
-               <Panel flex right>
+               <Panel right>
                   <Button>Sign up</Button>
                </Panel>
             </Panel>
             <hr />
-            <Panel flex horizontal apart>
+            <Panel horizontal apart>
                <a href="#">World</a>
                <a href="#">U.S.</a>
                <a href="#">Technology</a>
@@ -92,13 +92,13 @@ const SampleAppLayout = _ => (
          <Frame>
             <Card css={jumbotronCss}>
                <Panel horizontal noGap>
-                  <Panel flex>
+                  <Panel>
                      <h1>Title of a featured post</h1>
                      Multiple lines of text informing new readers quickly and efficiently about what's most interesting in this post's
                      contents.
                      <a href="#">Continue reading...</a>
                   </Panel>
-                  <Panel flex />
+                  <Panel />
                </Panel>
             </Card>
             <Panel horizontal childProps={{ flex: true }}>

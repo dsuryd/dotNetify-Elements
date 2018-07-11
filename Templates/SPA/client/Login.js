@@ -44,7 +44,7 @@ export class Login extends React.Component {
          <VMContext vm="Login">
             <Main>
                <Section>
-                  <Frame flex middle center>
+                  <Frame middle center>
                      <Logo />
                      <Form onSubmit={this.handleLogin}>
                         <Panel>

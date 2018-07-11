@@ -85,7 +85,7 @@ class MyApp extends React.Component {
       const handleSubmit = data => this.setState({ formData: data.Email + ' has been registered!' });
       return (
          <RenderExample propTypes={propTypes} buildCode={buildCode} onChange={setState}>
-            <Panel css="min-height: 3.5rem">
+            <Panel css="margin-bottom: 1rem">
                <Button label="Open Dialog" onClick={handleClick} />
                <Alert>{formData}</Alert>
                <MyDialog options={options} open={openDialog} onClose={handleClose} onSubmit={handleSubmit} />
@@ -115,7 +115,7 @@ class ModalCustomize extends React.Component {
                   <header>Header</header>
                   Body
                   <footer>
-                     <Panel flex apart>
+                     <Panel apart>
                         Footer
                         <Button label="Close" secondary onClick={handleClose} />
                      </Panel>

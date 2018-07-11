@@ -66,7 +66,7 @@ const NestedForms = _ => (
 const ChildForm_NameEmail = _ => (
    <VMContext vm="ChildForm_NameEmail">
       <Form id="NameEmail">
-         <Panel flex>
+         <Panel>
             <TextField id="Name" />
             <TextField id="Email" />
          </Panel>
@@ -77,7 +77,7 @@ const ChildForm_NameEmail = _ => (
 const ChildForm_Address = _ => (
    <VMContext vm="ChildForm_Address">
       <Form id="Address">
-         <Panel flex>
+         <Panel>
             <TextField id="Address" />
             <TextField id="City" />
             <DropdownList id="State" />

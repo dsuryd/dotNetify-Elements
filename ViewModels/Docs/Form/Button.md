@@ -34,6 +34,9 @@ static propTypes = {
    // Enables the button.
    enable: PropTypes.bool,
 
+   // Text or component for the button's label.
+   label: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
+
    // Negative color.
    negative: PropTypes.bool,
 
@@ -45,12 +48,12 @@ static propTypes = {
 
    // Secondary color.
    secondary: PropTypes.bool,
-   
+
    // Shows the button.
    show: PropTypes.bool,
 
-   // Text or component for the button's label.
-   label: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
+   // Fills the available space.
+   stretch: PropTypes.bool,
 
    // Associates the button with form submit action.
    submit: PropTypes.bool

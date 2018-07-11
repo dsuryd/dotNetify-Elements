@@ -5,6 +5,7 @@ import * as utils from '../utils';
 
 const Container = styled.div`
    display: flex;
+   flex: ${utils.flexAuto};
    ${props => (props.flex ? `flex: ${props.flex}` : '')};
    ${props => (props.middle ? 'align-items: center' : '')};
    flex-wrap: ${props => (props.flexWrap ? 'wrap' : 'nowrap')};
@@ -69,6 +70,9 @@ export class Panel extends React.Component {
 
       // Removes the panel's margin.
       noMargin: PropTypes.bool,
+
+      // Sets custom padding.
+      padding: PropTypes.string,
 
       // Aligns child components to the right.
       right: PropTypes.bool,
@@ -141,6 +145,7 @@ export class Panel extends React.Component {
          noGap,
          smallGap,
          horizontal,
+         padding,
          margin,
          noMargin,
          smallMargin,
@@ -179,12 +184,13 @@ export class Panel extends React.Component {
       const _horizontal = (horizontal && !bottom) || right || wrap || apart;
 
       const flexAuto = utils.flexAuto;
-      let _flex = typeof flex == 'boolean' ? (flex ? flexAuto : null) : flex;
+      let _flex = typeof flex == 'boolean' ? (flex ? flexAuto : '0') : flex;
       if (!_flex) _flex = (childProps && childProps.flex) || children.some(child => child.props && child.props.flex) ? flexAuto : null;
 
       return (
          <Container
             margin={_margin}
+            padding={padding}
             horizontal={_horizontal}
             apart={apart}
             center={center}

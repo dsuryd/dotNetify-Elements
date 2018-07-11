@@ -40,14 +40,14 @@ const MyApp = _ => (
 
 const DefaultPanelLayout = _ => (
    <Panel horizontal css="margin: 2rem 0">
-      <Panel flex>
+      <Panel>
          <Panel>
             <Item>1</Item>
             <Item>2</Item>
             <Item>3</Item>
          </Panel>
       </Panel>
-      <Panel flex>
+      <Panel>
          <SourceCode>{panelSource()}</SourceCode>
       </Panel>
    </Panel>
@@ -55,12 +55,12 @@ const DefaultPanelLayout = _ => (
 
 const HorizontalPanelLayout = _ => (
    <Panel horizontal css="margin: 2rem 0">
-      <Panel horizontal flex>
+      <Panel horizontal>
          <Item>1</Item>
          <Item>2</Item>
          <Item>3</Item>
       </Panel>
-      <Panel flex>
+      <Panel>
          <SourceCode>{panelSource('horizontal')}</SourceCode>
       </Panel>
    </Panel>
@@ -70,11 +70,9 @@ const flexPanelSource = props => `
 \`\`\`jsx
 const MyApp = _ => (
    <Panel horizontal>
-      <Panel flex>
-         <Item>1</Item>
-      </Panel>
+      <Item flex>1</Item>
       <Item>2</Item>
-      <Panel flex right>
+      <Panel right>
          <Item>3</Item>
       </Panel>
    </Panel>
@@ -84,15 +82,13 @@ const MyApp = _ => (
 const FlexPanelLayout = _ => (
    <Panel horizontal css="margin: 2rem 0">
       <Panel horizontal>
-         <Panel flex>
-            <Item>1</Item>
-         </Panel>
+         <Item flex>1</Item>
          <Item>2</Item>
-         <Panel flex right>
+         <Panel right>
             <Item>3</Item>
          </Panel>
       </Panel>
-      <Panel flex>
+      <Panel>
          <SourceCode>{flexPanelSource()}</SourceCode>
       </Panel>
    </Panel>
@@ -107,11 +103,9 @@ const customCss = \`
 \`;
 const MyApp = _ => (
    <Panel horizontal css={customCss}>
-      <Panel flex>
-         <Item>1</Item>
-      </Panel>
+      <Item flex>1</Item>
       <Item>2</Item>
-      <Panel flex right>
+      <Panel right>
          <Item className="make-me-red">3</Item>
       </Panel>
    </Panel>
@@ -126,18 +120,16 @@ const customCss = `
 
 const CssPanelLayout = _ => (
    <Panel horizontal>
-      <Panel flex>
+      <Panel flex="50%">
          <Panel flex="0" horizontal css={customCss}>
-            <Panel flex>
-               <Item>1</Item>
-            </Panel>
+            <Item flex>1</Item>
             <Item>2</Item>
-            <Panel flex right>
+            <Panel right>
                <Item className="make-me-red">3</Item>
             </Panel>
          </Panel>
       </Panel>
-      <Panel flex>
+      <Panel flex="50%">
          <SourceCode>{cssPanelSource()}</SourceCode>
       </Panel>
    </Panel>

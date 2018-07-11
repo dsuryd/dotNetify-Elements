@@ -8,7 +8,7 @@ import Element from '../core/Element';
 import * as utils from '../utils';
 
 const Container = styled.div`
-   flex: ${utils.flexAuto};
+   width: inherit;
    padding: .75rem 0;
    ${props => props.css};
 `;

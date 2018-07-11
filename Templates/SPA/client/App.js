@@ -23,10 +23,10 @@ const App = _ => (
             </Panel>
          </Header>
          <Nav>
-            <Panel flex>
+            <Panel>
                <NavMenu id="NavMenu" />
-               <Panel flex bottom>
-                  <Button label="Logout" css={logoutCss} onClick={_ => auth.signOut()} />
+               <Panel bottom>
+                  <Button stretch label="Logout" onClick={_ => auth.signOut()} />
                </Panel>
             </Panel>
          </Nav>

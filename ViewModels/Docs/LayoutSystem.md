@@ -34,7 +34,7 @@ Use any combination of the Panel's properties to customize the layout.  For exam
 
 [inset]
 
-Panels use CSS flexbox under the hood, and when the _flex_ property is added, the element will fill the available space. There are other flex-related properties that can be used to control the item alignment, for example:
+Panels use CSS flexbox under the hood, and when they are nested, they will fill the available space. The same will apply to the child elements when the _flex_ property is set on them:
 
 [inset]
 
@@ -45,7 +45,7 @@ And if that's not enough, you can always use the _css_ property to further custo
 
 Here are a few of the Panel's properties; for a complete list and other derived elements, see [Panel](layout/panel):
 - __apart__: display items horizontally with evenly distributed gap in-between.
-- __flex__ : fill the available space; accepts either a boolean, or a CSS flex value.
+- __flex__ : CSS flex shorthand value; can be used on child elements too.
 - __gap__: override default gap between items.
 - __horizontal__: display items horizontally.
 - __right__: shows items horizontally and right-aligned.

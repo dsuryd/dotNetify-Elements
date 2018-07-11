@@ -30,16 +30,23 @@ export const DemoLabel = styled.div`
 `;
 
 export const Rectangle = styled.div`
-   width: 20rem;
-   height: 3rem;
-   border: 1px solid #aaa;
-   background: #ccc;
    display: flex;
+   align-items: center;
+   justify-content: center;
+   width: 200px;
+   height: 50px;
+   color: white;
+   font-size: x-large;
+   background: #999;
 `;
 
 export const Square = styled.div`
-   width: 6rem;
-   height: 6rem;
-   border: 1px solid #aaa;
-   background: #ccc;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   width: 50px;
+   height: 50px;
+   color: white;
+   font-size: x-large;
+   background: #999;
 `;

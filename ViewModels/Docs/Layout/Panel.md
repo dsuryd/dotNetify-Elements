@@ -22,28 +22,29 @@ Using the combination of _flex_ and other properties such as _horizontal_ and _c
 const FlexLayoutExample = props => (
    <Panel css="border: 2px dashed #ccc">
       <Frame>
-         <Panel horizontal>
-            <Panel horizontal flex css="border: 2px dashed red">
-               <Square />
-               <Square />
-               <Square />
-            </Panel>
-            <Panel flex css="border: 2px dashed green">
-               <Rectangle />
-               <Rectangle />
-            </Panel>
+         <Panel horizontal flex css="border: 2px dashed red">
+            <Square>1</Square>
+            <Square>2</Square>
          </Panel>
-         <Panel horizontal>
-            <Panel flex="0 1 20%" right css="border: 2px dashed blue">
-               <Square />
-            </Panel>
-            <Panel flex middle css="border: 2px dashed orange">
-               <Square />
-               <Rectangle />
-            </Panel>
-            <Panel flex="0 1 30%" css="border: 2px dashed purple">
-               <Square />
-            </Panel>
+         <Panel horizontal css="border: 2px dashed aquamarine">
+            <Square>3</Square>
+            <Square>4</Square>
+         </Panel>
+         <Panel css="border: 2px dashed green">
+            <Rectangle>5</Rectangle>
+            <Rectangle>6</Rectangle>
+         </Panel>
+      </Panel>
+      <Panel horizontal>
+         <Panel flex="20%" right css="border: 2px dashed blue">
+            <Square>7</Square>
+         </Panel>
+         <Panel middle css="border: 2px dashed orange">
+            <Square>8</Square>
+            <Rectangle>9</Rectangle>
+         </Panel>
+         <Panel flex="30%" css="border: 2px dashed purple">
+            <Square>10</Square>
          </Panel>
       </Frame>
    </Panel>
@@ -96,6 +97,9 @@ static propTypes = {
 
    // Removes the panel's margin.
    noMargin: PropTypes.bool,
+
+   // Sets custom padding.
+   padding: PropTypes.string,   
 
    // Aligns child components to the right.
    right: PropTypes.bool,

@@ -29,9 +29,9 @@ import { VMContext, DateTimeField } from 'dotnetify-elements';
 const MyApp = _ => (
    <VMContext vm="DateTimeFieldExample">
       <Panel horizontal>
-         <DateField id="Date" ${props}flex />
-         <TimeField id="Time" ${props}flex />
-         <DateTimeField id="DateTime" ${props}flex />
+         <DateField id="Date" ${props} />
+         <TimeField id="Time" ${props} />
+         <DateTimeField id="DateTime" ${props} />
       </Panel>
    </VMContext>
 );
@@ -40,7 +40,7 @@ const MyApp = _ => (
       const propTypes = { enable: null, horizontal: null, plainText: null };
       return (
          <RenderExample vm="DateTimeFieldExample" propTypes={propTypes} buildCode={buildCode} onChange={setState}>
-            <Panel style={{ minHeight: '7rem' }}>
+            <Panel css="margin-bottom: 3rem">
                <Panel horizontal>
                   <DateField id="Date" {...this.state} />
                   <TimeField id="Time" {...this.state} />
@@ -64,7 +64,13 @@ class DateTimeFieldCustomize extends React.Component {
          validationMessages: value === 'ValidationMessageComponent' ? [ 'Validation message' ] : null
       });
       return (
-         <RenderCustomize vm="DateTimeFieldCustomize" name="DateTimeField" componentTypes={componentTypes} select={select} onSelected={handleSelected}>
+         <RenderCustomize
+            vm="DateTimeFieldCustomize"
+            name="DateTimeField"
+            componentTypes={componentTypes}
+            select={select}
+            onSelected={handleSelected}
+         >
             <DateTimeField id="MyDateTimeField" plainText={plainText} validationMessages={validationMessages} />
          </RenderCustomize>
       );

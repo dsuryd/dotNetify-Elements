@@ -12,7 +12,7 @@ const infoPanelCss = `
 
 const Dashboard = _ => (
    <VMContext vm="AdminDashboard">
-      <Frame css="margin-left: 3rem; max-width: calc(100% - 6rem);">
+      <Frame css="margin-left: 3rem; max-width: calc(100% - 6rem)">
          <Panel horizontal wrap childProps={{ css: infoPanelCss }}>
             <Panel>
                <InfoCard id="Download" color="#1c8adb" />

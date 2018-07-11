@@ -44,7 +44,8 @@ export const Nav = styled.nav`
    -ms-grid-row-span: 2;
    display: flex;
    box-sizing: content-box;
-   width: ${props => props.width || '250px'};
+   width: 100%;
+   min-width: ${props => props.width || '250px'};
    overflow: auto;
    visibility: visible;
    transition: all 250ms;

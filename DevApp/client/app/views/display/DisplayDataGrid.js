@@ -34,7 +34,7 @@ const MyApp = _ => (
       <Alert success>
          Selected contact email: <Element id="SelectedEmail" />
       </Alert>
-      <DataGrid id="Contacts" flex ${props}>
+      <DataGrid id="Contacts" ${props}>
          <GridColumn key="LastVisit" width="13rem" formatter={DateFormatter} />
       </DataGrid>
    </VMContext>
@@ -48,7 +48,7 @@ const MyApp = _ => (
                <Alert success>
                   Selected contact email: <Element id="SelectedEmail" />
                </Alert>
-               <DataGrid id="Contacts" flex {...this.state}>
+               <DataGrid id="Contacts" {...this.state}>
                   <GridColumn key="LastVisit" width="13rem" formatter={DateFormatter} />
                </DataGrid>
             </Panel>
@@ -82,8 +82,14 @@ class DataGridCustomize extends React.Component {
       const handleSelected = state => this.setState(state);
       const select = value => ({});
       return (
-         <RenderCustomize vm="DataGridCustomize" name="DataGrid" componentTypes={componentTypes} select={select} onSelected={handleSelected}>
-            <WrappedGrid id="MyDataGrid" flex />
+         <RenderCustomize
+            vm="DataGridCustomize"
+            name="DataGrid"
+            componentTypes={componentTypes}
+            select={select}
+            onSelected={handleSelected}
+         >
+            <WrappedGrid id="MyDataGrid" />
          </RenderCustomize>
       );
    }

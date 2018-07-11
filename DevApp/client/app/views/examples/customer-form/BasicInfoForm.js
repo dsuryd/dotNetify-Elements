@@ -3,7 +3,7 @@ import { Cell, DateField, DropdownList, Form, Panel, RadioGroup, TextField, Text
 
 const BasicInfoForm = () => (
    <Panel horizontal noGap>
-      <Panel flex>
+      <Panel>
          <Cell header="Person" borders="top, left, right">
             <VMContext vm="PersonForm">
                <Form id="Person">
@@ -31,7 +31,7 @@ const BasicInfoForm = () => (
             </VMContext>
          </Cell>
       </Panel>
-      <Panel flex>
+      <Panel>
          <Cell header="Other Info" borders="top, right">
             <VMContext vm="OtherInfoForm">
                <Form id="OtherInfo">

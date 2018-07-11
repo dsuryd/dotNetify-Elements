@@ -51,10 +51,10 @@ const ElementPropertiesExample = _ => {
 \`\`\`jsx
 const ElementPropDemo = _ => (
    <Panel horizontal margin="1rem">
-      <Panel flex="40%">
+      <Panel flex="30%">
          <Item>1</Item>
       </Panel>
-      <Panel horizontal flex="60%" gap="2rem">
+      <Panel horizontal flex="70%" gap="2rem">
          <Item>2</Item>
          <Item>3</Item>
       </Panel>
@@ -66,10 +66,10 @@ const ElementPropDemo = _ => (
       <Panel>
          <Panel css="margin-top: 2rem; border: 2px dashed #ccc">
             <Panel horizontal margin="1rem">
-               <Panel flex="40%">
+               <Panel flex="30%">
                   <Item>1</Item>
                </Panel>
-               <Panel horizontal flex="60%" gap="2rem">
+               <Panel horizontal flex="70%" gap="2rem">
                   <Item>2</Item>
                   <Item>3</Item>
                </Panel>
@@ -114,7 +114,7 @@ const HelloCard = _ => (
 
    return (
       <Panel horizontal css="overflow: hidden">
-         <Panel flex css="padding-top: 1rem">
+         <Panel css="padding-top: 1rem">
             <p>Original:</p>
             <Card>
                <header>
@@ -133,7 +133,7 @@ const HelloCard = _ => (
                <footer />
             </Card>
          </Panel>
-         <Panel flex>
+         <Panel>
             <Markdown>{sourceCode}</Markdown>
          </Panel>
       </Panel>
@@ -146,11 +146,11 @@ const SubComponentExample = _ => (
    <VMContext vm="SubComponentExample">
       <Card css="background: transparent">
          <Panel horizontal>
-            <Panel flex>
+            <Panel>
                <div>Original:</div>
                <TextField id="Name" horizontal />
             </Panel>
-            <Panel flex>
+            <Panel>
                <div>Override:</div>
                <TextField id="Name" horizontal inputComponent={MuiTextField} />
             </Panel>

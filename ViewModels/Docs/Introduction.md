@@ -212,4 +212,3 @@ public class RealtimeClock : BaseVM
 }
 ```
 
-As this project continues to grow and attracts participation, we hope to add many more components for real-time visualization and interaction.  Stay in the loop by following our [Twitter account](https://twitter.com/dotnetify)!
