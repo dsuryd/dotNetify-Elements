@@ -2,10 +2,10 @@
 ```jsx
 import React from 'react';
 import styled from 'styled-components';
-import { Button, Card, Frame, Header, Main, Panel, Section, withTheme } from 'dotnetify-elements';
+import { Button, Card, Frame, Header, Main, Panel, Section, Theme, withTheme } from 'dotnetify-elements';
 
 const sampleTheme = {
-   ...defaultTheme,
+   ...Theme.currentTheme,
    name: 'sample',
    Main: `background: white`,
    Header: `

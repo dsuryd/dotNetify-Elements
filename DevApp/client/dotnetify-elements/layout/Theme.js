@@ -2,77 +2,77 @@ import React from 'react';
 import styled from 'styled-components';
 import { PropTypes } from 'prop-types';
 import { ThemeProvider } from 'styled-components';
-import defaultTheme from '../theme-light';
+import lightTheme from '../theme-light';
 import * as utils from '../utils';
 
 const Container = styled.div`
-   display: flex;
-   flex: ${utils.flexAuto};
-   width: inherit;
+	display: flex;
+	flex: ${utils.flexAuto};
+	width: inherit;
 `;
 
 export class Theme extends React.Component {
-   static propTypes = {
-      // Object consisting of pairs of element names and their CSS styles.
-      theme: PropTypes.object
-   };
+	static propTypes = {
+		// Object consisting of pairs of element names and their CSS styles.
+		theme: PropTypes.object
+	};
 
-   static childContextTypes = {
-      theme: PropTypes.object
-   };
+	static childContextTypes = {
+		theme: PropTypes.object
+	};
 
-   static currentTheme = null;
-   static onChange = utils.createEventEmitter();
+	static currentTheme = null;
+	static onChange = utils.createEventEmitter();
 
-   constructor(props) {
-      super(props);
-   }
+	constructor(props) {
+		super(props);
+	}
 
-   get theme() {
-      const theme = this.props.theme || defaultTheme;
-      if (Theme.currentTheme !== theme) {
-         if (Theme.currentTheme) document.documentElement.classList.remove(`theme-${Theme.currentTheme.name}`);
-         document.documentElement.classList.add(`theme-${theme.name}`);
-         Theme.currentTheme = theme;
-         Theme.onChange.emit(theme);
-      }
+	get theme() {
+		const theme = this.props.theme || lightTheme;
+		if (Theme.currentTheme !== theme) {
+			if (Theme.currentTheme) document.documentElement.classList.remove(`theme-${Theme.currentTheme.name}`);
+			document.documentElement.classList.add(`theme-${theme.name}`);
+			Theme.currentTheme = theme;
+			Theme.onChange.emit(theme);
+		}
 
-      return Theme.currentTheme;
-   }
+		return Theme.currentTheme;
+	}
 
-   getChildContext() {
-      return { ...this.context, theme: this.theme };
-   }
+	getChildContext() {
+		return { ...this.context, theme: this.theme };
+	}
 
-   render() {
-      const { theme, children, ...props } = this.props;
-      const numChildren = React.Children.count(children);
+	render() {
+		const { theme, children, ...props } = this.props;
+		const numChildren = React.Children.count(children);
 
-      return numChildren > 1 ? (
-         <ThemeProvider theme={this.theme} {...props}>
-            <Container>{children}</Container>
-         </ThemeProvider>
-      ) : (
-         <ThemeProvider theme={this.theme} children={children} {...props} />
-      );
-   }
+		return numChildren > 1 ? (
+			<ThemeProvider theme={this.theme} {...props}>
+				<Container>{children}</Container>
+			</ThemeProvider>
+		) : (
+			<ThemeProvider theme={this.theme} children={children} {...props} />
+		);
+	}
 }
 
 export const withTheme = (Component, theme) =>
-   class extends React.Component {
-      constructor(props) {
-         super(props);
-         this.state = { theme: props.theme || Theme.currentTheme };
-         if (!props.theme) this.unsubscribe = Theme.onChange.subscribe(theme => this.setState({ theme: theme }));
-      }
-      componentWillUnmount() {
-         if (this.unsubscribe) this.unsubscribe();
-      }
-      render() {
-         return (
-            <Theme theme={this.state.theme}>
-               <Component {...this.props} />
-            </Theme>
-         );
-      }
-   };
+	class extends React.Component {
+		constructor(props) {
+			super(props);
+			this.state = { theme: props.theme || Theme.currentTheme };
+			if (!props.theme) this.unsubscribe = Theme.onChange.subscribe(theme => this.setState({ theme: theme }));
+		}
+		componentWillUnmount() {
+			if (this.unsubscribe) this.unsubscribe();
+		}
+		render() {
+			return (
+				<Theme theme={this.state.theme}>
+					<Component {...this.props} />
+				</Theme>
+			);
+		}
+	};

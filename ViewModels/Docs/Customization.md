@@ -21,12 +21,9 @@ An element's _css_ property is great for one-off styling, but if you need to app
 
 #### Theming
 
-To customize all element instances, _Elements_ provides a theme object, where you can define CSS styles for every element, including its sub-components. There are two built-in themes, the light and dark themes, which you can try out here:
+To customize all element instances, _Elements_ provides a theme object, where you can define CSS styles for every element, including its sub-components. There are two built-in themes, the light and dark themes, which you can by clicking the light bulb icon on the top-right corner.
 
-[inset]
-<br/>
-
-for the complete content of these theme objects, see [Theme](layout/theme).  You can derive a custom theme starting from them, and specify how it should differ by overriding the desired object properties.  For example:
+For the complete content of these theme objects, see [Theme](layout/theme).  You can derive a custom theme starting from them, and specify how it should differ by overriding the desired object properties.  For example:
 
 ```jsx
 import React from 'react';
