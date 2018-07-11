@@ -5,48 +5,48 @@ import { Alert, Button, Modal, Markdown, Panel, TabItem, TextField, VMContext, w
 import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
 
 const StructureModal = props => (
-   <TabsArticle vm="StructureModal" id="Overview">
-      <TabItem label="Overview" key="Overview">
-         <Markdown id="Overview">
-            <ModalExample />
-         </Markdown>
-      </TabItem>
-      <TabItem label="API" key="API">
-         <Markdown id="API" />
-      </TabItem>
-      <TabItem label="Customize">
-         <ModalCustomize />
-      </TabItem>
-   </TabsArticle>
+	<TabsArticle vm="StructureModal" id="Overview">
+		<TabItem label="Overview" key="Overview">
+			<Markdown id="Overview">
+				<ModalExample />
+			</Markdown>
+		</TabItem>
+		<TabItem label="API" key="API">
+			<Markdown id="API" />
+		</TabItem>
+		<TabItem label="Customize">
+			<ModalCustomize />
+		</TabItem>
+	</TabsArticle>
 );
 
 const MyDialog = props => (
-   <VMContext vm="ModalExample">
-      <Modal {...props.options} open={props.open} onSubmit={props.onSubmit}>
-         <header>Registration Dialog</header>
-         <TextField horizontal id="Email" />
-         <footer>
-            <Panel right>
-               <Button label="Cancel" cancel secondary onClick={props.onClose} />
-               <Button id="Submit" label="Register" submit onClick={props.onClose} />
-            </Panel>
-         </footer>
-      </Modal>
-   </VMContext>
+	<VMContext vm="ModalExample">
+		<Modal {...props.options} open={props.open} onSubmit={props.onSubmit}>
+			<header>Registration Dialog</header>
+			<TextField horizontal id="Email" />
+			<footer>
+				<Panel right>
+					<Button label="Cancel" cancel secondary onClick={props.onClose} />
+					<Button id="Submit" label="Register" submit onClick={props.onClose} />
+				</Panel>
+			</footer>
+		</Modal>
+	</VMContext>
 );
 
 class ModalExample extends React.Component {
-   state = { openDialog: false, formData: null };
+	state = { openDialog: false, formData: null };
 
-   render() {
-      const buildCode = props => `
+	render() {
+		const buildCode = props => `
 \`\`\`jsx
 import React from 'react';
 import { Alert, Button, Modal, Panel, TextField, VMContext } from 'dotnetify-elements';
 
 const MyDialog = props => (
    <VMContext vm="ModalExample">
-      <Modal ${props}open={props.open} onSubmit={props.onSubmit}>
+      <Modal${props} open={props.open} onSubmit={props.onSubmit}>
          <header>Registration Dialog</header>
          <TextField horizontal id="Email" />
          <footer>
@@ -76,55 +76,55 @@ class MyApp extends React.Component {
    }
 }
 \`\`\``;
-      const { openDialog, formData, ...options } = this.state;
-      const setState = state => this.setState(state);
-      const propTypes = { small: null, large: null };
+		const { openDialog, formData, ...options } = this.state;
+		const setState = state => this.setState(state);
+		const propTypes = { small: null, large: null };
 
-      const handleClick = _ => this.setState({ formData: null, openDialog: true });
-      const handleClose = _ => this.setState({ openDialog: false });
-      const handleSubmit = data => this.setState({ formData: data.Email + ' has been registered!' });
-      return (
-         <RenderExample propTypes={propTypes} buildCode={buildCode} onChange={setState}>
-            <Panel css="margin-bottom: 1rem">
-               <Button label="Open Dialog" onClick={handleClick} />
-               <Alert>{formData}</Alert>
-               <MyDialog options={options} open={openDialog} onClose={handleClose} onSubmit={handleSubmit} />
-            </Panel>
-         </RenderExample>
-      );
-   }
+		const handleClick = _ => this.setState({ formData: null, openDialog: true });
+		const handleClose = _ => this.setState({ openDialog: false });
+		const handleSubmit = data => this.setState({ formData: data.Email + ' has been registered!' });
+		return (
+			<RenderExample propTypes={propTypes} buildCode={buildCode} onChange={setState}>
+				<Panel css="margin-bottom: 1rem">
+					<Button label="Open Dialog" onClick={handleClick} />
+					<Alert>{formData}</Alert>
+					<MyDialog options={options} open={openDialog} onClose={handleClose} onSubmit={handleSubmit} />
+				</Panel>
+			</RenderExample>
+		);
+	}
 }
 
 class ModalCustomize extends React.Component {
-   state = { open: false };
+	state = { open: false };
 
-   render() {
-      const { open } = this.state;
-      const componentTypes = Modal.componentTypes;
-      const handleClick = _ => this.setState({ open: true });
-      const handleClose = _ => this.setState({ open: false });
-      const handleSelected = state => this.setState(state);
-      const select = value => {};
+	render() {
+		const { open } = this.state;
+		const componentTypes = Modal.componentTypes;
+		const handleClick = _ => this.setState({ open: true });
+		const handleClose = _ => this.setState({ open: false });
+		const handleSelected = state => this.setState(state);
+		const select = value => {};
 
-      return (
-         <Panel>
-            <Button label="Show Modal" onClick={handleClick} />
+		return (
+			<Panel>
+				<Button label="Show Modal" onClick={handleClick} />
 
-            <RenderCustomize name="Modal" componentTypes={componentTypes} select={select} onSelected={handleSelected}>
-               <Modal open={open}>
-                  <header>Header</header>
-                  Body
-                  <footer>
-                     <Panel apart>
-                        Footer
-                        <Button label="Close" secondary onClick={handleClose} />
-                     </Panel>
-                  </footer>
-               </Modal>
-            </RenderCustomize>
-         </Panel>
-      );
-   }
+				<RenderCustomize name="Modal" componentTypes={componentTypes} select={select} onSelected={handleSelected}>
+					<Modal open={open}>
+						<header>Header</header>
+						Body
+						<footer>
+							<Panel apart>
+								Footer
+								<Button label="Close" secondary onClick={handleClose} />
+							</Panel>
+						</footer>
+					</Modal>
+				</RenderCustomize>
+			</Panel>
+		);
+	}
 }
 
 export default withTheme(StructureModal);

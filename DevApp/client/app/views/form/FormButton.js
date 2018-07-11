@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Button, Element, Frame, Label, Markdown, Panel, RadioToggle, Tab, TabItem, VMContext, withTheme } from 'dotnetify-elements';
 import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
 
-const FormButton = (props) => (
+const FormButton = props => (
 	<TabsArticle vm="FormButton" id="Overview">
 		<TabItem label="Overview" key="Overview">
 			<Markdown id="Overview">
@@ -23,7 +23,7 @@ class ButtonExample extends React.Component {
 	state = { color: 'primary' };
 
 	render() {
-		const buildCode = (props) => `
+		const buildCode = props => `
 \`\`\`jsx
 import React from 'react';
 import { Button, Element, VMContext } from 'dotnetify-elements';
@@ -34,16 +34,16 @@ const handleClick = () => new Date();
 const MyApp = _ => (
    <VMContext vm="ButtonExample">
       <Panel horizontal middle>
-         <Button id="Add" ${props}${this.state.color}/>
+         <Button id="Add"${props} ${this.state.color} />
          <Element id="AddCounter" />
-         <Button id="Remove" label={RemoveLabel} onClick={handleClick} ${props}${this.state.color}/>
+         <Button id="Remove" label={RemoveLabel} onClick={handleClick}${props} ${this.state.color} />
          <Element id="RemoveTimeStamp" />
       </Panel>
    </VMContext>
 );
 \`\`\``;
-		const setState = (state) => this.setState(state);
-		const setColor = (color) => this.setState({ color: color, [this.state.color]: false, [color]: true });
+		const setState = state => this.setState(state);
+		const setColor = color => this.setState({ color: color, [this.state.color]: false, [color]: true });
 		const handleClick = () => new Date();
 		const colorOptions = [
 			{ Key: 'primary', Value: 'Primary' },
@@ -52,7 +52,14 @@ const MyApp = _ => (
 			{ Key: 'negative', Value: 'Negative' }
 		];
 		const extraToggles = (
-			<RadioToggle css="padding-bottom: 1rem" id="_colors" label="(color:)" options={colorOptions} value={this.state.color} onChange={setColor} />
+			<RadioToggle
+				css="padding-bottom: 1rem"
+				id="_colors"
+				label="(color:)"
+				options={colorOptions}
+				value={this.state.color}
+				onChange={setColor}
+			/>
 		);
 
 		const removeLabel = <Label icon="material-icons highlight_off">Remove</Label>;
@@ -76,8 +83,8 @@ class ButtonCustomize extends React.Component {
 
 	render() {
 		const componentTypes = Button.componentTypes;
-		const handleSelected = (state) => this.setState(state);
-		const select = (value) => ({});
+		const handleSelected = state => this.setState(state);
+		const select = value => ({});
 		return (
 			<RenderCustomize vm="ButtonCustomize" name="Button" componentTypes={componentTypes} select={select} onSelected={handleSelected}>
 				<Button id="MyButton" label="Label" />

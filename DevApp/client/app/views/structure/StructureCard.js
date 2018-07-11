@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Button, Card, CardImage, Image, Markdown, Panel, TabItem, TextField, withTheme } from 'dotnetify-elements';
 import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
 
-const StructureCard = (props) => (
+const StructureCard = props => (
 	<TabsArticle vm="StructureCard" id="Overview">
 		<TabItem label="Overview" key="Overview">
 			<Markdown id="Overview">
@@ -22,7 +22,7 @@ const StructureCard = (props) => (
 
 class CardExample extends React.Component {
 	render() {
-		const buildCode = (props) => `
+		const buildCode = props => `
 \`\`\`jsx
 import React from 'react';
 import { Button, Card, Markdown, Panel, TextField, VMContext } from 'dotnetify-elements';
@@ -41,7 +41,7 @@ const MyApp = _ => (
    </VMContext>
 );
 \`\`\``;
-		const setState = (state) => this.setState(state);
+		const setState = state => this.setState(state);
 		return (
 			<RenderExample vm="CardExample" propTypes={{}} buildCode={buildCode} onChange={setState}>
 				<Panel css="margin-bottom: 2rem">
@@ -72,7 +72,7 @@ const cardImageCss = `
 class CardImageExample extends React.Component {
 	state = { horizontal: false };
 	render() {
-		const buildCode = (props) => `
+		const buildCode = props => `
 \`\`\`jsx
 import React from 'react';
 import { Card, CardImage, Image, Markdown, VMContext } from 'dotnetify-elements';
@@ -93,7 +93,7 @@ const MyApp = _ => (
             </CardImage>
             <h2>* 5000 Monthly Customers *</h2>
          </Card>         
-         <Card ${props != 'horizontal ' ? 'width="360px" ' : ''}${props}>
+         <Card${props != ' horizontal' ? ' width="360px"' : ''}${props}>
             <Markdown id="Content" />   
             <Image id="Picture" />
          </Card>         
@@ -101,7 +101,7 @@ const MyApp = _ => (
    </VMContext>
 );
 \`\`\``;
-		const setState = (state) => this.setState(state);
+		const setState = state => this.setState(state);
 		const propTypes = { horizontal: null };
 		const props = !this.state.horizontal ? { width: '360px' } : null;
 		return (
@@ -129,8 +129,8 @@ class CardCustomize extends React.Component {
 
 	render() {
 		const componentTypes = Card.componentTypes;
-		const handleSelected = (state) => this.setState(state);
-		const select = (value) => ({});
+		const handleSelected = state => this.setState(state);
+		const select = value => ({});
 		return (
 			<RenderCustomize name="Card" componentTypes={componentTypes} select={select} onSelected={handleSelected}>
 				<Card width="255px">
