@@ -75,7 +75,7 @@ export class DataGrid extends Element {
 		};
 
 		window.addEventListener('resize', this.handleResize);
-		setTimeout(_ => this.emitResizeEvent(), 100);
+		setTimeout(_ => this.emitEvent('resize'), 100);
 	}
 
 	componentDidUpdate(props, state) {
@@ -83,7 +83,7 @@ export class DataGrid extends Element {
 
 		if (this.redraw) {
 			this.redraw = null;
-			setTimeout(_ => this.emitResizeEvent());
+			setTimeout(_ => this.emitEvent('resize'));
 		}
 	}
 
@@ -103,12 +103,10 @@ export class DataGrid extends Element {
 		this.props.onSelect && this.props.onSelect(value);
 	}
 
-	emitResizeEvent() {
-		if (utils.isIE11()) {
-			let event = document.createEvent('Event');
-			event.initEvent('resize', false, true);
-			window.dispatchEvent(event);
-		} else window.dispatchEvent(new Event('resize'));
+	emitEvent(eventType, element) {
+		let event = document.createEvent('Event');
+		event.initEvent(eventType, true, true);
+		(element || window).dispatchEvent(event);
 	}
 
 	mapColumns(children, columns) {
@@ -209,6 +207,12 @@ export class DataGrid extends Element {
 			var gridCanvas = this.gridDom.getDataGridDOMNode().querySelector('.react-grid-Canvas');
 			if (top < gridCanvas.scrollTop || top > gridCanvas.scrollTop + this.state.height - 2 * utils.toPixel(this.attrs.rowHeight)) {
 				gridCanvas.scrollTop = top;
+
+				// Hack to fix row data not getting updated when programmatically selected.
+				setTimeout(_ => {
+					var row = this.gridDom.getDataGridDOMNode().querySelector('.react-grid-Cell.row-selected');
+					this.emitEvent('click', row);
+				});
 			}
 		} else setTimeout(_ => this.handleScrollToRow(idx));
 	}
