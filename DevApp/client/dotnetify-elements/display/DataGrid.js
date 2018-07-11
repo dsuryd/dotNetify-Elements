@@ -177,25 +177,15 @@ export class DataGrid extends Element {
 			if (!utils.deepEqual(selectedKey, this.state.selectedKey)) {
 				this.setState({ selectedKey: selectedKey });
 				this.props.onSelect && this.props.onSelect(selectedKey);
+				this.vmProperty.vmState[this.selectedKeyProperty] = selectedKey;
 
 				// Make sure the selected row is visible.
 				const visibleKey = this.isMultiselect ? selectedKey.shift() : selectedKey;
-				const rowIdx = this.value.findIndex(x => x[this.attrs.rowKey] === selectedKey);
+				const rowIdx = this.value.findIndex(x => x[this.attrs.rowKey] === visibleKey);
 				this.handleScrollToRow(rowIdx);
 			}
 		}
 	}
-
-	handleSelectBy = _ => {
-		return this.attrs.rowKey
-			? {
-					keys: {
-						rowKey: this.attrs.rowKey,
-						values: this.isMultiselect ? this.state.selectedKey : [ this.state.selectedKey ]
-					}
-				}
-			: { indexes: this.isMultiselect ? this.state.selectedKey : [ this.state.selectedKey ] };
-	};
 
 	handleRowClick = (idx, row) => {
 		if (row && this.canSelect && this.props.enable !== false) {
@@ -220,8 +210,19 @@ export class DataGrid extends Element {
 			if (top < gridCanvas.scrollTop || top > gridCanvas.scrollTop + this.state.height - 2 * utils.toPixel(this.attrs.rowHeight)) {
 				gridCanvas.scrollTop = top;
 			}
-		} else setTimeout(_ => this.handleScrollToRow(idx), 0);
+		} else setTimeout(_ => this.handleScrollToRow(idx));
 	}
+
+	handleSelectBy = _ => {
+		return this.attrs.rowKey
+			? {
+					keys: {
+						rowKey: this.attrs.rowKey,
+						values: this.isMultiselect ? this.state.selectedKey : [ this.state.selectedKey ]
+					}
+				}
+			: { indexes: this.isMultiselect ? this.state.selectedKey : [ this.state.selectedKey ] };
+	};
 
 	render() {
 		const [ Container, _DataGrid ] = utils.resolveComponents(DataGrid, this.props);

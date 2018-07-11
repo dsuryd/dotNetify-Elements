@@ -25,7 +25,7 @@ namespace dotNetify_Elements
       {
          _customerRepository = customerRepository;
 
-         _selectedContact = AddProperty<int>("SelectedContact");
+         _selectedContact = AddProperty<int>("SelectedContact", 1);
 
          AddProperty("Contacts", customerRepository.GetAll().Select(customer => ToContact(customer)))
             .WithItemKey(nameof(Contact.Id))
@@ -66,6 +66,7 @@ namespace dotNetify_Elements
          var customer = _customerRepository.Update(id, formData);
 
          this.UpdateList("Contacts", ToContact(customer));
+         _selectedContact.Value = id;
          return true;
       }
 

@@ -68,6 +68,7 @@ namespace spa_template
          var customer = _customerRepository.Update(id, formData);
 
          this.UpdateList("Contacts", ToContact(customer));
+         _selectedContact.Value = id;
          return true;
       }
 
