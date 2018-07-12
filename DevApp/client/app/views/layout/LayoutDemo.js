@@ -9,14 +9,14 @@ const DemoArea = styled.div`
 	width: calc(100% - 6rem);
 `;
 
-const sampleTheme = {
+const getSampleTheme = _ => ({
 	...Theme.currentTheme,
 	name: 'sample',
 	Main: `
       margin-top: 1rem;
       margin-bottom: 3rem;
-      background: white;
-      color: black;
+      background: ${Theme.currentTheme.name === 'light' ? 'white' : 'black'};
+      color: ${Theme.currentTheme.name === 'light' ? 'black' : 'white'};
       box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12)
    `,
 	Header: `
@@ -26,7 +26,7 @@ const sampleTheme = {
       background: none;
    `,
 	Section: `background: none`
-};
+});
 
 const jumbotronCss = `
    color: #fff;
@@ -36,7 +36,7 @@ const jumbotronCss = `
 
 const aboutCss = `
    padding: 1rem;
-   background: #efefef;
+   background: rgba(0,0,0,.1);
    border-radius: .25rem;
 `;
 
@@ -61,7 +61,7 @@ const LayoutDemo = _ => (
 );
 
 const SampleAppLayout = _ => (
-	<Main theme={sampleTheme}>
+	<Main theme={getSampleTheme()}>
 		<Header>
 			<Frame noGap>
 				<Panel horizontal middle>

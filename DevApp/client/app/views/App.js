@@ -25,11 +25,13 @@ class App extends React.Component {
 						<DotNetifyLogo />
 						<Panel center middle right padding="1rem">
 							<ThemeToggle name={theme.name} onClick={_ => themeToggleEvent.emit()} />
-							<GitHubLink />
 						</Panel>
 					</Header>
 					<Nav>
-						<NavMenu id="NavMenu" />
+						<Panel noGap>
+							<GitHubLink />
+							<NavMenu id="NavMenu" />
+						</Panel>
 					</Nav>
 					<Section>
 						<NavMenuTarget />

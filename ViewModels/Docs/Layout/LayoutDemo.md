@@ -2,20 +2,26 @@
 ```jsx
 import React from 'react';
 import styled from 'styled-components';
-import { Button, Card, Frame, Header, Main, Panel, Section, Theme, withTheme } from 'dotnetify-elements';
+import { Button, Card, Frame, Header, Main, Panel, Section, lightTheme, withTheme } from 'dotnetify-elements';
 
-const sampleTheme = {
-   ...Theme.currentTheme,
-   name: 'sample',
-   Main: `background: white`,
-   Header: `
+const getSampleTheme = _ => ({
+	...Theme.currentTheme,
+	name: 'sample',
+	Main: `
+      margin-top: 1rem;
+      margin-bottom: 3rem;
+      background: ${Theme.currentTheme.name === 'light' ? 'white' : 'black'};
+      color: ${Theme.currentTheme.name === 'light' ? 'black' : 'white'};
+      box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12)
+   `,
+	Header: `
       height: 130px;
       border: none;
       box-shadow: none;
       background: none;
    `,
-   Section: `background: none`
-};
+	Section: `background: none`
+});
 
 const jumbotronCss = `
    color: #fff;
@@ -25,7 +31,7 @@ const jumbotronCss = `
 
 const aboutCss = `
    padding: 1rem;
-   background: #efefef;
+   background: rgba(0,0,0,.1);
    border-radius: .25rem;
 `;
 
@@ -34,7 +40,7 @@ const thumbnailImg = 'data:image/svg+xml;charset=UTF-8,/* image data */';
 /* Everything is put into a single component just for demo purpose; 
    but it'd be better to break this up into multiple components.  */
 const SampleAppLayout = _ => (
-   <Main theme={sampleTheme}>
+   <Main theme={getSampleTheme()}>
       <Header>
          <Frame noGap>
             <Panel horizontal middle>

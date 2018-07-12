@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Frame, Markdown, Panel, TabItem, withTheme } from 'dotnetify-elements';
-import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
+import { TabsArticle, RenderExample } from '../../components';
 import { Rectangle, Square } from './demo-helper';
 
 const LayoutPanel = props => (
@@ -136,17 +136,6 @@ const MyApp = _ => (
 					</Panel>
 				</Panel>
 			</RenderExample>
-		);
-	}
-}
-
-class PanelCustomize extends React.Component {
-	render() {
-		const componentTypes = Panel.componentTypes;
-		return (
-			<RenderCustomize name="Panel" componentTypes={componentTypes}>
-				<Panel />
-			</RenderCustomize>
 		);
 	}
 }

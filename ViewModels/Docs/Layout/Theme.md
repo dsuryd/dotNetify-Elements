@@ -15,7 +15,11 @@ export default withTheme(MyPageComponent);
 
 #### Built-In Themes
 
-Light and dark themes are available.  You can create a new theme object by starting with one of these and override as needed.  You can access the current theme through the static property _Theme.currentTheme_.
+Light and dark themes are available.  You can create a custom theme object by starting with one of these and override as needed.  You can access them like below.  To get the current active theme, use the static property _Theme.currentTheme_.
+
+```jsx
+import { lightTheme, darkTheme } from 'dotnetify-elements';
+```
 
 [inset]
 

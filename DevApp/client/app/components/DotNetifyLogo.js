@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Label } from 'dotnetify-elements';
+import { Label, Panel } from 'dotnetify-elements';
 import logo from './logo.png';
 
 const Logo = styled.img`
@@ -56,7 +56,7 @@ const DarkThemeIcon = _ => (
 	</span>
 );
 
-const labelCss = `
+const themeIconCss = `
    cursor: pointer;
    @media (max-width: 320px) {
       display: none;
@@ -64,14 +64,18 @@ const labelCss = `
 `;
 
 export const GitHubLink = _ => (
-	<a href="https://github.com/dsuryd/dotNetify-Elements">
-		<Label icon={<GitHubIcon />} css={labelCss} />
-	</a>
+	<Panel padding="1rem 1rem .5rem 1rem; &:hover { background: #efefef; }">
+		<a href="https://github.com/dsuryd/dotNetify-Elements">
+			<Label icon={<GitHubIcon />} css="cursor: pointer">
+				GitHub
+			</Label>
+		</a>
+	</Panel>
 );
 
 export const ThemeToggle = props => (
 	<a onClick={props.onClick}>
-		<Label icon={props.name === 'light' ? <LightThemeIcon /> : <DarkThemeIcon />} css={labelCss} />
+		<Label icon={props.name === 'light' ? <LightThemeIcon /> : <DarkThemeIcon />} css={themeIconCss} />
 	</a>
 );
 

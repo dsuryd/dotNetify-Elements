@@ -21,23 +21,32 @@ export class Theme extends React.Component {
 		theme: PropTypes.object
 	};
 
-	static currentTheme = null;
-	static onChange = utils.createEventEmitter();
+	static _root = null;
+	static get currentTheme() {
+		return Theme._root ? Theme._root.currentTheme : lightTheme;
+	}
 
 	constructor(props) {
 		super(props);
+		if (!Theme._root) {
+			Theme._root = this;
+			Theme._root.currentTheme = null;
+			Theme._root.onChange = utils.createEventEmitter();
+		}
 	}
 
 	get theme() {
 		const theme = this.props.theme || lightTheme;
-		if (Theme.currentTheme !== theme) {
-			if (Theme.currentTheme) document.documentElement.classList.remove(`theme-${Theme.currentTheme.name}`);
+
+		if (this === Theme._root && Theme._root.currentTheme !== theme) {
+			if (Theme._root.currentTheme) document.documentElement.classList.remove(`theme-${Theme._root.currentTheme.name}`);
 			document.documentElement.classList.add(`theme-${theme.name}`);
-			Theme.currentTheme = theme;
-			Theme.onChange.emit(theme);
+			Theme._root.currentTheme = theme;
+
+			Theme._root.onChange.emit(theme);
 		}
 
-		return Theme.currentTheme;
+		return theme;
 	}
 
 	getChildContext() {
@@ -58,12 +67,15 @@ export class Theme extends React.Component {
 	}
 }
 
-export const withTheme = (Component, theme) =>
+export const withTheme = Component =>
 	class extends React.Component {
 		constructor(props) {
 			super(props);
-			this.state = { theme: props.theme || Theme.currentTheme };
-			if (!props.theme) this.unsubscribe = Theme.onChange.subscribe(theme => this.setState({ theme: theme }));
+			this.state = { theme: props.theme || (Theme._root ? Theme._root.currentTheme : lightTheme) };
+			if (!props.theme && Theme._root) {
+				Theme._root.onChange.subscribe(theme => console.warn(theme));
+				this.unsubscribe = Theme._root.onChange.subscribe(theme => this.setState({ theme: theme }));
+			}
 		}
 		componentWillUnmount() {
 			if (this.unsubscribe) this.unsubscribe();

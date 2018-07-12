@@ -42,10 +42,10 @@ These elements are made of [styled components](https://www.styled-components.com
 Set the _theme_ attribute on the _Main_ element with a CSS theme object to customize all elements.  For example, the _LayoutGridDemo_ above uses this theme:
 
 ```jsx
-import { Theme } from 'dotnetify-elements';
+import { lightTheme } from 'dotnetify-elements';
 
 const demoTheme = {
-   ...Theme.currentTheme,
+   ...lightTheme,
    Main: `border: 2px dashed tomato`,
    Header: `background: #666`,
    Nav: `background: #eee; width: 100px;`,
