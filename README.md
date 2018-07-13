@@ -8,12 +8,10 @@ A library of React components for cross-platform .NET back-end, communicating in
 
 ### About This Repo
 
-This repo contains the library's source code, full documentation, and live demo's source code.  
-
-#### How To Run
-
-Get [.NET Core 2.1 SDK](https://www.microsoft.com/net/download/dotnet-core/sdk-2.1.300).  
-On a VS Code terminal:
+This repo contains the library's source code, full documentation, and live demo's source code.  To run the repo:
+- Get [.NET Core 2.1 SDK](https://www.microsoft.com/net/download/dotnet-core/sdk-2.1.300).  
+- Get [Node.js](https://nodejs.org/en/).
+- On a VS Code terminal:
 
 ```
 cd DevApp
@@ -21,5 +19,7 @@ npm i
 dotnet build
 dotnet watch run
 ```
-  
+
+<br/>     
+   
 _Logo design by [area55git](https://github.com/area55git)._
