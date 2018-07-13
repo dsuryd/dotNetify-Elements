@@ -159,3 +159,32 @@ public class TextFieldAttribute
    public Mask Mask { get; set; }
 }
 ```
+
+#### Validation Patterns
+
+```csharp
+public static class Pattern
+{
+   public const string Email = @"^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$";
+
+   public const string Digit = @"^[0-9]+$";
+
+   public const string Currency = @"^[0-9]+(\.\[0-9]+)?$";
+
+   public const string Number = @"^[-+]?\[0-9]+(\.\[0-9]+)?$";
+
+   public const string Alphabet = @"^[a-zA-Z]*$";
+
+   public const string Alphanumeric = @"^[a-zA-Z0-9]+$";
+
+   public const string URL = @"^(((http|https|ftp):\/\/)?([[a-zA-Z0-9]\-\.])+(\.)([[a-zA-Z0-9]]){2,4}([[a-zA-Z0-9]\/+=%&_\.~?\-]*))*$";
+
+   public const string USPhoneNumber = @"^((([0-9]{1})*[- .(]*([0-9]{3})[- .)]*[0-9]{3}[- .]*[0-9]{4})+)*$";
+
+   public const string USZipCode = @"^([0-9]{5}(?:-[0-9]{4})?)*$";
+
+   public const string IPAddress = @"^((?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))*$";
+
+   public const string USSocialSecurityNumber = @"[0-9]{3}-[0-9]{2}-[0-9]{4}$";
+}
+```
