@@ -73,7 +73,6 @@ export const withTheme = Component =>
 			super(props);
 			this.state = { theme: props.theme || (Theme._root ? Theme._root.currentTheme : lightTheme) };
 			if (!props.theme && Theme._root) {
-				Theme._root.onChange.subscribe(theme => console.warn(theme));
 				this.unsubscribe = Theme._root.onChange.subscribe(theme => this.setState({ theme: theme }));
 			}
 		}

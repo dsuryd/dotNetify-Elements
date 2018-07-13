@@ -4,46 +4,48 @@ import styled from 'styled-components';
 import * as utils from '../utils';
 
 const IconContainer = styled.button`
-   cursor: pointer;
-   height: 2.5rem;
-   background: transparent;
-   padding: 0.25rem 0.75rem;
-   border-radius: 0.25rem;
-   border: 1px solid #999;
-   display: none;
-   @media (max-width: 768px) {
-      display: block;
-   }
-   ${props => props.theme.NavDrawerButton};
-   ${props => props.css};
+	cursor: pointer;
+	height: 2.5rem;
+	background: transparent;
+	padding: 0.25rem 0.5rem;
+	border-radius: 0.25rem;
+	border: 1px solid #666;
+	display: none;
+	fill: #666;
+	@media (max-width: 768px) {
+		display: block;
+	}
+	${props => props.theme.NavDrawerButton};
+	${props => props.css};
 `;
 
-const HamburgerIcon = styled.div`
-   width: 1.5rem;
-   height: 1.5rem;
-   vertical-align: middle;
-   background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
-`;
+const HamburgerIcon = _ => (
+	<span>
+		<svg style={{ width: '24px', height: '24px' }} focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+			<path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
+		</svg>
+	</span>
+);
 
 export class NavDrawerButton extends React.Component {
-   static propTypes = {
-      // Icon.
-      icon: PropTypes.object
-   };
+	static propTypes = {
+		// Icon.
+		icon: PropTypes.object
+	};
 
-   static componentTypes = {
-      IconContainer
-   };
+	static componentTypes = {
+		IconContainer
+	};
 
-   render() {
-      const [ IconContainer ] = utils.resolveComponents(NavDrawerButton, this.props);
+	render() {
+		const [ IconContainer ] = utils.resolveComponents(NavDrawerButton, this.props);
 
-      const { icon, ...props } = this.props;
-      const handleClick = _ => utils.toggleNavDrawer();
-      return (
-         <IconContainer onClick={handleClick} {...props}>
-            {icon ? icon : <HamburgerIcon />}
-         </IconContainer>
-      );
-   }
+		const { icon, ...props } = this.props;
+		const handleClick = _ => utils.toggleNavDrawer();
+		return (
+			<IconContainer onClick={handleClick} {...props}>
+				{icon ? icon : <HamburgerIcon />}
+			</IconContainer>
+		);
+	}
 }
