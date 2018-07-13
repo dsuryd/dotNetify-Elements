@@ -2,7 +2,7 @@
 
 ## DotNetify-Elements SPA Template
 
-This is a single-page application template for ASP.NET Core v2.1 featuring React-based dotNetify-Elements library. 
+This is a single-page application template for ASP.NET Core v2.1 featuring _dotNetify-Elements_ React components. 
 
 [**View documentation and live demo**](http://dotnetify.net/elements)  
 
