@@ -6,7 +6,7 @@ The element to display other elements in a collapsible container.
 
 #### Source
 
-This element incorporates https://github.com/reactstrap/reactstrap ([license: MIT](https://github.com/reactstrap/reactstrap/blob/master/LICENSE))
+https://github.com/reactstrap/reactstrap ([license: MIT](https://github.com/reactstrap/reactstrap/blob/master/LICENSE))
 
 #### Property Types
 

@@ -2,7 +2,7 @@
 
 #### SPA Template
 
-The easiest way to get started to use the basic SPA template that contains the examples from this website.
+The easiest way to get started to use the basic SPA template that contains some of the examples from this website, and also include a functional login page with JWT authentication.
 
 Prerequisite: 
 - Node.js
@@ -244,4 +244,4 @@ npm run build
 dotnet watch run
 ```
 
-Open the browser to **http://localhost:5000**.  If you make changes either on either client- or server-side, the application will rebuild and the browser reload.
+Open the browser to **http://localhost:5000**.  If you make changes on client- or server-side, the application will rebuild and the browser reload.

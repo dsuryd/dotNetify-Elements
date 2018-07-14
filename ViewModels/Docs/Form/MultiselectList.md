@@ -46,7 +46,7 @@ public class MultiselectListExample : BaseVM
 
 #### Source
 
-This element incorporates https://github.com/jquense/react-widgets ([license: MIT](https://github.com/jquense/react-widgets/blob/master/LICENSE.md))
+https://github.com/jquense/react-widgets ([license: MIT](https://github.com/jquense/react-widgets/blob/master/LICENSE.md))
 
 #### Property Types
 

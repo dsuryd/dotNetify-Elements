@@ -49,7 +49,7 @@ public class DataGridExample : BaseVM
 
 #### Source
 
-This element incorporates https://github.com/adazzle/react-data-grid ([license: MIT](https://github.com/adazzle/react-data-grid/blob/master/LICENSE))
+https://github.com/adazzle/react-data-grid ([license: MIT](https://github.com/adazzle/react-data-grid/blob/master/LICENSE))
 
 
 #### Property Types

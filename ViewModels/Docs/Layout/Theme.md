@@ -44,4 +44,4 @@ const MyElement = props =>
 
 #### Source
 
-This element incorporates https://github.com/styled-components ([license: MIT](https://github.com/styled-components/styled-components/blob/master/LICENSE))
+https://github.com/styled-components ([license: MIT](https://github.com/styled-components/styled-components/blob/master/LICENSE))

@@ -23,6 +23,11 @@ namespace dotNetify_Elements
 
       public CustomerForm(ICustomerRepository customerRepository)
       {
+         var markdown = new Markdown("dotNetify_Elements.Docs.Examples.CustomerForm.md");
+
+         AddProperty("ViewSource", markdown.GetSection(null, "CustomerForm.cs"));
+         AddProperty("ViewModelSource", markdown.GetSection("CustomerForm.cs"));
+
          _customerRepository = customerRepository;
 
          _selectedContact = AddProperty<int>("SelectedContact", 1);

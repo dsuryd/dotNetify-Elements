@@ -26,7 +26,7 @@ The __onSubmit__ and __onSubmitError__ events are similar to the Form element ev
 
 #### Source
 
-This element incorporates https://github.com/reactstrap/reactstrap ([license: MIT](https://github.com/reactstrap/reactstrap/blob/master/LICENSE))
+https://github.com/reactstrap/reactstrap ([license: MIT](https://github.com/reactstrap/reactstrap/blob/master/LICENSE))
 
 #### Property Types
 

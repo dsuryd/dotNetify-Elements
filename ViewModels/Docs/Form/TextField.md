@@ -97,7 +97,7 @@ public class NumberMask : Mask
 
 #### Source
 
-This element incorporates https://github.com/text-mask/text-mask ([license: The Unlicense](https://github.com/text-mask/text-mask/blob/master/LICENSE))
+https://github.com/text-mask/text-mask ([license: The Unlicense](https://github.com/text-mask/text-mask/blob/master/LICENSE))
 
 #### Property Types
 

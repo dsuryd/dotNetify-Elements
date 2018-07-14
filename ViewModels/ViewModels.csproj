@@ -7,6 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Docs\Examples\CustomerForm.md" />
+    <None Remove="Docs\Examples\Dashboard.md" />
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Include="Docs\Customization.md" />
     <EmbeddedResource Include="Docs\Display\Chart.md" />
     <EmbeddedResource Include="Docs\Display\Alert.md" />
@@ -14,6 +19,8 @@
     <EmbeddedResource Include="Docs\Display\Image.md" />
     <EmbeddedResource Include="Docs\Display\Label.md" />
     <EmbeddedResource Include="Docs\Display\Markdown.md" />
+    <EmbeddedResource Include="Docs\Examples\CustomerForm.md" />
+    <EmbeddedResource Include="Docs\Examples\Dashboard.md" />
     <EmbeddedResource Include="Docs\Form\Button.md" />
     <EmbeddedResource Include="Docs\Form\Checkbox.md" />
     <EmbeddedResource Include="Docs\Form\CheckboxGroup.md" />

@@ -51,7 +51,7 @@ const MyApp = _ => (
 );
 \`\`\``;
       const setState = state => this.setState(state);
-      const propTypes = { horizontal: null, plainText: null, right: null };
+      const propTypes = { horizontal: null, right: null };
       return (
          <RenderExample propTypes={propTypes} buildCode={buildCode} onChange={setState}>
             <Panel css="min-height: 12.5rem">

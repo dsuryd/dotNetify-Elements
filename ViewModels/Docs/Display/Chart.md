@@ -114,7 +114,6 @@ const showLegendAtTop = {
 
 #### Source
 
-This element incorporates:
 - http://www.chartjs.org/ ([license: MIT](http://www.chartjs.org/docs/latest/notes/license.html))
 - https://github.com/jerairrest/react-chartjs-2 ([license: MIT](https://github.com/jerairrest/react-chartjs-2/blob/master/LICENSE.md))
 

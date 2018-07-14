@@ -16,6 +16,11 @@ namespace dotNetify_Elements
 
       public AdminDashboard(ILiveDataService liveDataService)
       {
+         var markdown = new Markdown("dotNetify_Elements.Docs.Examples.Dashboard.md");
+
+         AddProperty("ViewSource", markdown.GetSection(null, "AdminDashboard.cs"));
+         AddProperty("ViewModelSource", markdown.GetSection("AdminDashboard.cs"));
+
          AddProperty<string>("Download")
             .WithAttribute(new { Label = "Download", Icon = "cloud_download" })
             .SubscribeTo(liveDataService.Download);

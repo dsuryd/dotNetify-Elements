@@ -1,7 +1,4 @@
 ﻿using DotNetify;
-using DotNetify.Elements;
-using System.Linq;
-using System.Reactive.Linq;
 
 namespace dotNetify_Elements
 {

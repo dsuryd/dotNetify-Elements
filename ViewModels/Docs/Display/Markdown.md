@@ -75,7 +75,7 @@ public class DisplayMarkdown : BaseVM
 
 #### Source
 
-This element incorporates https://github.com/markedjs/marked ([license: MIT](https://github.com/markedjs/marked/blob/master/LICENSE.md))
+https://github.com/markedjs/marked ([license: MIT](https://github.com/markedjs/marked/blob/master/LICENSE.md))
 
 #### Property Types
 
