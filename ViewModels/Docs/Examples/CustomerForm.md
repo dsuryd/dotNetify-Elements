@@ -19,46 +19,32 @@ class CustomerForm extends React.Component {
       const canEdit = editable && !edit;
       return (
          <VMContext vm="CustomerForm">
-            <Frame css="margin-left: 3rem; max-width: calc(100% - 6rem)">
-               <Tab>
-                  <TabItem label="Output">
-                     <DataGrid id="Contacts" onSelect={this.handleSelect} enable={!edit} />
-                     <Form plainText={!edit}>
-                        <Panel>
-                           {/* Toolbar */}
-                           <Panel horizontal>
-                              <Panel horizontal>
-                                 <Button label="Edit" enable={canEdit} onClick={this.toggleEdit} />
-                                 <Button label="Update" id="Submit" submit show={edit} onClick={this.toggleEdit} />
-                                 <Button label="Cancel" cancel secondary show={edit} onClick={this.toggleEdit} />
-                              </Panel>
-                              <Panel right>
-                                 <Button label="New Customer" onClick={this.toggleDialog} enable={!edit} />
-                              </Panel>
-                           </Panel>
-                           {/* Edit forms */}
-                           <Tab margin="1.5rem 0">
-                              <TabItem label="Basic Info">
-                                 <BasicInfoForm />
-                              </TabItem>
-                              <TabItem label="Address">
-                                 <AddressForm />
-                              </TabItem>
-                           </Tab>
+            <Frame>
+               <DataGrid id="Contacts" onSelect={this.handleSelect} enable={!edit} />
+               <Form plainText={!edit}>
+                  <Panel>
+                     {/* Toolbar */}
+                     <Panel horizontal>
+                        <Panel horizontal>
+                           <Button label="Edit" enable={canEdit} onClick={this.toggleEdit} />
+                           <Button label="Update" id="Submit" submit show={edit} onClick={this.toggleEdit} />
+                           <Button label="Cancel" cancel secondary show={edit} onClick={this.toggleEdit} />
                         </Panel>
-                     </Form>
-                  </TabItem>
-                  <TabItem label="Source">
-                     <Tab>
-                        <TabItem label="View">
-                           <Markdown id="ViewSource" />
+                        <Panel right>
+                           <Button label="New Customer" onClick={this.toggleDialog} enable={!edit} />
+                        </Panel>
+                     </Panel>
+                     {/* Edit forms */}
+                     <Tab margin="1.5rem 0">
+                        <TabItem label="Basic Info">
+                           <BasicInfoForm />
                         </TabItem>
-                        <TabItem label="View Model">
-                           <Markdown id="ViewModelSource" />
+                        <TabItem label="Address">
+                           <AddressForm />
                         </TabItem>
                      </Tab>
-                  </TabItem>
-               </Tab>
+                  </Panel>
+               </Form>
             </Frame>
             <NewCustomerDialog open={openDialog} onClose={this.toggleDialog} />
          </VMContext>
