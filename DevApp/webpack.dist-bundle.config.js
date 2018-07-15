@@ -26,6 +26,11 @@ module.exports = {
          { test: /\.(eot|svg|ttf|woff(2)?)(\?v=\d+\.\d+\.\d+)?/, loader: 'url-loader' }
       ]
    },
-   externals: [ 'dotnetify', 'react', 'react-dom', 'styled-components' ],
+   externals: {
+      dotnetify: 'dotnetify',
+      react: 'React',
+      'react-dom': 'ReactDOM',
+      'styled-components': 'styled'
+   },
    plugins: [ new MiniCssExtractPlugin() ]
 };
