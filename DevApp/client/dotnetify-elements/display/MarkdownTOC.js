@@ -63,7 +63,7 @@ export class MarkdownTOC extends Element {
       while ((m = regex.exec(this.value)) !== null) {
          // This is necessary to avoid infinite loops with zero-width matches
          if (m.index === regex.lastIndex) regex.lastIndex++;
-         headers.push({ level: m[1].length, title: m[2], link: '#' + m[2].split(' ').join('-').toLowerCase() });
+         headers.push({ level: m[1].length, title: m[2], link: '#' + m[2].split(' ').join('-').split('.').join('-').toLowerCase() });
       }
       return headers;
    }
@@ -84,7 +84,12 @@ export class MarkdownTOC extends Element {
       return (
          <Container id={`${fullId}__toc`} {...props}>
             {this.getHeaders().map(header => (
-               <ItemContainer key={header.link} className={`toc-h${header.level}`} isSelected={selected === header.link} onClick={_ => select(header.link)}>
+               <ItemContainer
+                  key={header.link}
+                  className={`toc-h${header.level}`}
+                  isSelected={selected === header.link}
+                  onClick={_ => select(header.link)}
+               >
                   <a href="javascript:void(0)">{header.title}</a>
                </ItemContainer>
             ))}
