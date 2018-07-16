@@ -53,7 +53,7 @@ import React from 'react';
 import { BarChart, VMContext } from 'dotnetify-elements';
 
 const MyApp = _ => (
-   <VMContext vm="ChartExample">
+   <VMContext vm="BarChartExample">
       <BarChart id="MonthlySales" />
    </VMContext>
 );
@@ -77,7 +77,7 @@ import React from 'react';
 import { PieChart, VMContext } from 'dotnetify-elements';
 
 const MyApp = _ => (
-   <VMContext vm="ChartExample">
+   <VMContext vm="PieChartExample">
       <PieChart id="Utilization" />
       <Button id="Refresh" label="Refresh" />
    </VMContext>
