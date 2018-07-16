@@ -1,0 +1,95 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="WebForms.SiteMaster" %>
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head runat="server">
+   <meta charset="utf-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <title><%: Page.Title %> - My ASP.NET Application</title>
+
+   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" />
+   <link href="https://unpkg.com/dotnetify-elements@0.1.1/dotnetify-elements.css" rel="stylesheet"></link>
+   <style>
+      .navbar .container {
+         flex-wrap: nowrap;
+      }
+
+      ul.navbar-nav {
+         flex-direction: row;
+      }
+   </style>
+
+   <asp:PlaceHolder runat="server">
+      <%: Scripts.Render("~/bundles/modernizr") %>
+   </asp:PlaceHolder>
+
+   <webopt:BundleReference runat="server" Path="~/Content/css" />
+   <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+</head>
+<body>
+   <form runat="server">
+      <asp:ScriptManager runat="server">
+         <Scripts>
+            <%--To learn more about bundling scripts in ScriptManager see https://go.microsoft.com/fwlink/?LinkID=301884 --%>
+            <%--Framework Scripts--%>
+            <asp:ScriptReference Name="MsAjaxBundle" />
+            <asp:ScriptReference Name="jquery" />
+            <asp:ScriptReference Name="bootstrap" />
+            <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
+            <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
+            <asp:ScriptReference Name="MenuStandards.js" Assembly="System.Web" Path="~/Scripts/WebForms/MenuStandards.js" />
+            <asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />
+            <asp:ScriptReference Name="DetailsView.js" Assembly="System.Web" Path="~/Scripts/WebForms/DetailsView.js" />
+            <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
+            <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
+            <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
+            <asp:ScriptReference Name="WebFormsBundle" />
+            <%--Site Scripts--%>
+         </Scripts>
+      </asp:ScriptManager>
+
+      <div class="navbar navbar-inverse navbar-fixed-top">
+         <div class="container">
+            <div class="navbar-header">
+               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+               </button>
+               <a class="navbar-brand" runat="server" href="~/">Application name</a>
+            </div>
+            <div class="navbar-collapse collapse">
+               <ul class="nav navbar-nav">
+                  <li><a runat="server" href="~/">Home</a></li>
+                  <li><a runat="server" href="~/About">DotNetify-Elements</a></li>
+                  <li><a runat="server" href="~/Contact">Contact</a></li>
+               </ul>
+            </div>
+         </div>
+      </div>
+      <div class="container body-content">
+         <asp:ContentPlaceHolder ID="MainContent" runat="server">
+         </asp:ContentPlaceHolder>
+         <hr />
+         <footer>
+            <p>&copy; <%: DateTime.Now.Year %> - My ASP.NET Application</p>
+         </footer>
+      </div>
+   </form>
+
+   <script src="https://unpkg.com/react@16.3.2/umd/react.production.min.js"></script>
+   <script src="https://unpkg.com/react-dom@16.3.2/umd/react-dom.production.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/styled-components/3.3.3/styled-components.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.js"></script>
+   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+   <script src="https://ajax.aspnetcdn.com/ajax/signalr/jquery.signalr-2.2.2.min.js"></script>
+   <script>
+      // Replace dotnetify-hub in bundle.min.js with the SignalR for .NET FX version.
+      signalR = jQuery.signalR;
+   </script>
+   <script src="https://unpkg.com/dotnetify@3.0.1/dist/dotnetify-hub.js"></script>
+   <script src="https://unpkg.com/dotnetify@3.0.1/dist/dotnetify-react.min.js"></script>
+   <script src="https://unpkg.com/dotnetify-elements@0.1.1/lib/dotnetify-elements.bundle.js"></script>
+</body>
+</html>
