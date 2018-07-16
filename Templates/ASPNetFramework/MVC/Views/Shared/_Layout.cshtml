@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+   <meta charset="utf-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>@ViewBag.Title - My ASP.NET Application</title>
+
+   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" />
+   <link href="https://unpkg.com/dotnetify-elements@0.1.1/dotnetify-elements.css" rel="stylesheet"></link>
+   <style>
+      .navbar .container {
+         flex-wrap: nowrap;
+      }
+
+      ul.navbar-nav {
+         flex-direction: row;
+      }
+   </style>
+
+   @Styles.Render("~/Content/css")
+   @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+   <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+         <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+            </button>
+            @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+         </div>
+         <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+               <li>@Html.ActionLink("Home", "Index", "Home")</li>
+               <li>@Html.ActionLink("DotNetify-Elements", "About", "Home")</li>
+               <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+            </ul>
+         </div>
+      </div>
+   </div>
+   <div class="container body-content">
+      @RenderBody()
+      <hr />
+      <footer>
+         <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+      </footer>
+   </div>
+
+   @Scripts.Render("~/bundles/jquery")
+   @Scripts.Render("~/bundles/bootstrap")
+   @RenderSection("scripts", required: false)
+
+   <script src="https://unpkg.com/react@16.3.2/umd/react.production.min.js"></script>
+   <script src="https://unpkg.com/react-dom@16.3.2/umd/react-dom.production.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/styled-components/3.3.3/styled-components.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.js"></script>
+   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+   <script src="https://ajax.aspnetcdn.com/ajax/signalr/jquery.signalr-2.2.2.min.js"></script>
+   <script>
+      // Replace dotnetify-hub in bundle.min.js with the SignalR for .NET FX version.
+      signalR = jQuery.signalR;
+   </script>
+   <script src="https://unpkg.com/dotnetify@3.0.1/dist/dotnetify-hub.js"></script>
+   <script src="https://unpkg.com/dotnetify@3.0.1/dist/dotnetify-react.min.js"></script>
+   <script src="https://unpkg.com/dotnetify-elements@0.1.1/lib/dotnetify-elements.bundle.js"></script>
+</body>
+</html>
