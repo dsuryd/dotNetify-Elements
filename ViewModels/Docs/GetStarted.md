@@ -250,7 +250,7 @@ Open the browser to *http://localhost:5000*.  If you make changes on client- or 
 
 #### Existing ASP.NET Framework
 
-The following steps will insert a demo page to an existing ASP.NET Framework project.  We'll start from the _ASP.NET Web Application (.NET Framework)_ template that Visual Studio generates.   
+The following steps will insert a demo page to an existing ASP.NET Framework project.  We'll start from the _ASP.NET Web Application (.NET Framework)_ MVC template that Visual Studio generates.   
 
 Prerequisites: 
 - .NET Framework 4.6 or up.
