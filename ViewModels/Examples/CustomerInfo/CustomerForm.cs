@@ -6,7 +6,18 @@ using DotNetify.Elements;
 
 namespace dotNetify_Elements
 {
-   public partial class CustomerForm : BaseVM
+   public class CustomerFormExample : BaseVM
+   {
+      public CustomerFormExample()
+      {
+         var markdown = new Markdown("dotNetify_Elements.Docs.Examples.CustomerForm.md");
+
+         AddProperty("ViewSource", markdown.GetSection(null, "CustomerForm.cs"));
+         AddProperty("ViewModelSource", markdown.GetSection("CustomerForm.cs"));
+      }
+   }
+
+   public class CustomerForm : BaseVM
    {
       private readonly ICustomerRepository _customerRepository;
       private readonly ReactiveProperty<int> _selectedContact;
@@ -23,11 +34,6 @@ namespace dotNetify_Elements
 
       public CustomerForm(ICustomerRepository customerRepository)
       {
-         var markdown = new Markdown("dotNetify_Elements.Docs.Examples.CustomerForm.md");
-
-         AddProperty("ViewSource", markdown.GetSection(null, "CustomerForm.cs"));
-         AddProperty("ViewModelSource", markdown.GetSection("CustomerForm.cs"));
-
          _customerRepository = customerRepository;
 
          _selectedContact = AddProperty<int>("SelectedContact", 1);

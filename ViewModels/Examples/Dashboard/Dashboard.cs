@@ -8,6 +8,17 @@ using DotNetify.Routing;
 
 namespace dotNetify_Elements
 {
+   public class DashboardExample : BaseVM
+   {
+      public DashboardExample()
+      {
+         var markdown = new Markdown("dotNetify_Elements.Docs.Examples.Dashboard.md");
+
+         AddProperty("ViewSource", markdown.GetSection(null, "AdminDashboard.cs"));
+         AddProperty("ViewModelSource", markdown.GetSection("AdminDashboard.cs"));
+      }
+   }
+
    public class AdminDashboard : BaseVM, IRoutable
    {
       private IDisposable _subscription;
@@ -16,11 +27,6 @@ namespace dotNetify_Elements
 
       public AdminDashboard(ILiveDataService liveDataService)
       {
-         var markdown = new Markdown("dotNetify_Elements.Docs.Examples.Dashboard.md");
-
-         AddProperty("ViewSource", markdown.GetSection(null, "AdminDashboard.cs"));
-         AddProperty("ViewModelSource", markdown.GetSection("AdminDashboard.cs"));
-
          AddProperty<string>("Download")
             .WithAttribute(new { Label = "Download", Icon = "cloud_download" })
             .SubscribeTo(liveDataService.Download);

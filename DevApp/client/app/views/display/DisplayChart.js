@@ -29,7 +29,7 @@ import React from 'react';
 import { LineChart, VMContext } from 'dotnetify-elements';
 
 const MyApp = _ => (
-   <VMContext vm="ChartExample">
+   <VMContext vm="LineChartExample">
       <LineChart id="Waveform" />
    </VMContext>
 );
