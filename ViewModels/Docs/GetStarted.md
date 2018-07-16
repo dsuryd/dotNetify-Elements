@@ -245,15 +245,17 @@ npm run build
 dotnet watch run
 ```
 
-Open the browser to **http://localhost:5000**.  If you make changes on client- or server-side, the application will rebuild and the browser reload.
+Open the browser to *http://localhost:5000*.  If you make changes on client- or server-side, the application will rebuild and the browser reload.
 
 
 #### Existing ASP.NET Framework
 
-The following steps will insert a demo page to an existing ASP.NET Framework project.  We'll start from the _ASP.NET Web Application (.NET Framework)_ template that Visual Studio generates. 
+The following steps will insert a demo page to an existing ASP.NET Framework project.  We'll start from the _ASP.NET Web Application (.NET Framework)_ template that Visual Studio generates.   
 
 Prerequisites: 
 - .NET Framework 4.6 or up.
+
+Similar code is also available in [this github repo](https://github.com/dsuryd/dotNetify-Elements/tree/master/Templates/ASPNetFramework).
 
 **Add NuGet**
 
@@ -420,5 +422,4 @@ namespace MyApplication
 ```
 
 That's it!  Compile and run it, then click the About link.  Hello World!
-
 
