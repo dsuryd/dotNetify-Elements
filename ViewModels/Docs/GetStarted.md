@@ -8,9 +8,13 @@ Prerequisites:
 - Node.js
 - .NET Core SDK (v2.1 and up)
 
-Download the template from [this github repo](https://github.com/dsuryd/dotNetify-Elements/tree/master/Templates/SPA), and then run the following from the command line:
+Download the template from nuget from the command line, then create your project:
 
-```
+```js
+dotnet new -i dotnetify.react.template
+
+dotnet new elements -o MyApp
+cd MyApp
 npm i
 dotnet watch run
 ```
