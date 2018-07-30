@@ -87,8 +87,8 @@ export class MyImage extends Element {
 ```
 ```csharp
 // Example of use:
-AddProperty("MyImageProp")
-   .WithAttribute(new { src = "my-image.jpg", width = "100px", height = "100px" });
+AddProperty("MyImageProp", "my-image.jpg")
+   .WithAttribute(new { width = "100px", height = "100px" });
 ```
 
 Things to note:
