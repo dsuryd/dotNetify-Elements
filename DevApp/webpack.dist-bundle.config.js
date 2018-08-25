@@ -5,7 +5,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 module.exports = {
    mode: 'production',
    entry: {
-      'dotnetify-elements': './client/dotnetify-elements/index.js'
+      'dotnetify-elements': './src/dotnetify-elements/index.js'
    },
    output: {
       path: __dirname + '/dist',
@@ -14,7 +14,7 @@ module.exports = {
       libraryTarget: 'umd'
    },
    resolve: {
-      modules: [ 'client', 'node_modules' ],
+      modules: [ 'src', 'node_modules' ],
       extensions: [ '.js', '.jsx', '.tsx' ]
    },
    module: {

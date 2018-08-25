@@ -6,7 +6,7 @@ module.exports = {
    mode: 'development',
    entry: {
       app: './client/main.js',
-      'dotnetify-elements': './client/dotnetify-elements/index.js'
+      'dotnetify-elements': './src/dotnetify-elements/index.js'
    },
    output: {
       filename: '[name].js',
@@ -14,7 +14,7 @@ module.exports = {
       publicPath: '/dist/'
    },
    resolve: {
-      modules: [ 'client', 'node_modules' ],
+      modules: [ 'src', 'client', 'node_modules' ],
       extensions: [ '.js', '.jsx', '.tsx' ]
    },
    module: {
