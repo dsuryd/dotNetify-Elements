@@ -1,0 +1,183 @@
+@page
+<div id="Mount" />
+
+<script type="text/babel">
+    const { Button, Cell, DataGrid, DropdownList, Form, Frame, Main, Modal, NumberField, Panel, Section, Tab, TabItem, TextField, VMContext } = dotNetifyElements;
+
+    const BasicInfoForm = () => (
+        <Panel horizontal noGap>
+            <Panel horizontal>
+                <Cell header="Person" flex>
+                    <VMContext vm="PersonForm">
+                        <Form id="Person">
+                            <Panel childProps={{ horizontal: true }}>
+                                <TextField id="FullName" plainText />
+                                <DropdownList id="Prefix" />
+                                <TextField id="FirstName" />
+                                <TextField id="MiddleName" />
+                                <TextField id="LastName" />
+                                <DropdownList id="Suffix" />
+                            </Panel>
+                        </Form>
+                    </VMContext>
+                </Cell>
+                <Cell header="Phone" flex borders="top, right, bottom">
+                    <VMContext vm="PhoneForm">
+                        <Form id="Phone">
+                            <Panel childProps={{ horizontal: true }}>
+                                <TextField id="Work" />
+                                <TextField id="Home" />
+                                <TextField id="Mobile" />
+                                <DropdownList id="Primary" />
+                            </Panel>
+                        </Form>
+                    </VMContext>
+                </Cell>
+            </Panel>
+        </Panel>
+    );
+
+    const AddressForm = () => (
+        <Panel>
+            <Cell header="Primary Address">
+                <VMContext vm="AddressForm">
+                    <Form id="Address">
+                        <Panel flex childProps={{ horizontal: true }}>
+                            <TextField id="Address1" />
+                            <TextField id="Address2" />
+                            <TextField id="City" />
+                            <DropdownList id="State" />
+                            <NumberField id="ZipCode" />
+                        </Panel>
+                    </Form>
+                </VMContext>
+            </Cell>
+        </Panel>
+    );
+
+    class CustomerForm extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = { editable: false, edit: false, openDialog: false };
+
+            this.handleSelect = value => this.setState({ editable: value ? true : false });
+            this.toggleEdit = _ => this.setState({ edit: !this.state.edit });
+            this.toggleDialog = _ => this.setState({ openDialog: !this.state.openDialog });
+        }
+
+        render() {
+            const { editable, edit, openDialog } = this.state;
+            const canEdit = editable && !edit;
+            return (
+                <VMContext vm="CustomerForm">
+                    <Frame css="max-width: calc(100% - 3rem)">
+                    <DataGrid id="Contacts" onSelect={this.handleSelect} enable={!edit} />
+                    <Form plainText={!edit}>
+                        <Panel>
+                            {/* Toolbar */}
+                            <Panel horizontal>
+                                <Panel horizontal>
+                                    <Button label="Edit" enable={canEdit} onClick={this.toggleEdit} />
+                                    <Button label="Update" id="Submit" submit show={edit} onClick={this.toggleEdit} />
+                                    <Button label="Cancel" cancel secondary show={edit} onClick={this.toggleEdit} />
+                                </Panel>
+                                <Panel right>
+                                    <Button label="New Customer" onClick={this.toggleDialog} enable={!edit} />
+                                </Panel>
+                            </Panel>
+                            {/* Edit forms */}
+                            <Tab margin="1.5rem 0 0 0">
+                                <TabItem label="Basic Info">
+                                    <BasicInfoForm />
+                                </TabItem>
+                                <TabItem label="Address">
+                                    <AddressForm />
+                                </TabItem>
+                            </Tab>
+                        </Panel>
+                    </Form>
+                </Frame>
+                <NewCustomerDialog open={openDialog} onClose={this.toggleDialog} />
+            </VMContext>
+            );
+        }
+    }
+
+    class NewCustomerDialog extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = { activeTab: 'Person' };
+
+            this.handleClose = _ => this.props.onClose();
+            this.handleSubmitError = data => this.setState({ activeTab: data.failedForms[0].formId });
+            this.handleActivate = tab => this.setState({ activeTab: tab });
+        }
+
+        render() {
+            const { open } = this.props;
+            const { activeTab } = this.state;
+            return (
+                <VMContext vm="NewCustomerForm">
+                    <Modal header="New Customer" open={open} large onSubmitError={this.handleSubmitError}>
+                    <Tab active={activeTab} onActivate={this.handleActivate}>
+                        <TabItem key="Person" label="Person">
+                            <VMContext vm="PersonForm">
+                                <Form id="Person">
+                                <Panel>
+                                    <DropdownList id="Prefix" />
+                                    <TextField id="FirstName" />
+                                    <TextField id="MiddleName" />
+                                    <TextField id="LastName" />
+                                    <DropdownList id="Suffix" />
+                                </Panel>
+                                </Form>
+                            </VMContext>
+                        </TabItem>
+                        <TabItem key="Phone" label="Phone">
+                            <VMContext vm="PhoneForm">
+                                <Form id="Phone">
+                                <Panel>
+                                    <TextField id="Work" />
+                                    <TextField id="Home" />
+                                    <TextField id="Mobile" />
+                                    <DropdownList id="Primary" />
+                                </Panel>
+                                </Form>
+                            </VMContext>
+                        </TabItem>
+                        <TabItem key="Address" label="Address">
+                            <VMContext vm="AddressForm">
+                                <Form id="Address">
+                                <Panel>
+                                    <TextField id="Address1" />
+                                    <TextField id="Address2" />
+                                    <TextField id="City" />
+                                    <DropdownList id="State" />
+                                    <NumberField id="ZipCode" />
+                                </Panel>
+                                </Form>
+                            </VMContext>
+                        </TabItem>
+                    </Tab>
+                    <footer>
+                        <Panel right>
+                            <Button label="Cancel" cancel secondary onClick={this.handleClose} />
+                            <Button label="Submit" id="Submit" submit onClick={this.handleClose} />
+                        </Panel>
+                    </footer>
+                    </Modal>
+                </VMContext>
+            );
+        }
+    }
+
+    const FormPage = _ => (
+        <Main>
+            <Section>
+                <CustomerForm />
+            </Section>
+        </Main>
+    )
+
+    ReactDOM.render(<FormPage />, document.getElementById('Mount'));
+</script>

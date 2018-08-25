@@ -1,0 +1,154 @@
+@page
+<div id="Mount" />
+
+<script type="text/babel">
+    const { BarChart, Card, CardImage, Cell, Element, Frame, Main, LineChart, Panel, PieChart, Section, VMContext } = dotNetifyElements;
+
+    const infoPanelCss = `
+        flex: 1 1 20%;    
+    `;
+console.log(styled)
+    const InfoIcon = styled.default.i.attrs({
+        className: 'material-icons'
+    })`
+        font-size: 3rem;
+        padding: 1.5rem;
+        color: white;   
+        background: ${props => props.color};
+        opacity: .8;
+    `;
+
+    const cardCss = `
+        .card-body { padding: .5rem 1.5rem }
+        h3 { font: 600 2rem Helvetica; }
+    `;
+
+    const panelCss = `
+    overflow-x: hidden;
+    .cell { border: none; }
+    .cell-body { padding: .5rem 0 }
+    `;
+
+    const statusColors = [ '', 'silver', 'limegreen', 'red', 'gray', 'orange' ];
+    const userIconColors = [ '#00ce6f', '#a95df0', '#2ea7eb' ];
+
+    const UserIcon = styled.default.span`
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    color: white;
+    background: ${props => props.color};
+    font-weight: bold;
+    margin-right: 1rem;
+    text-align: center;
+    `;
+
+    const StatusIcon = styled.default.span`
+    height: 14px;
+    width: 14px;
+    margin-left: 1rem;
+    background-color: ${props => statusColors[props.status]};
+    border-radius: 50%;
+    display: inline-block;
+    `;
+
+    const Activity = ({ person }) => {
+        const initial = person.PersonName[0].toUpperCase();
+        const iconColor = userIconColors[initial.charCodeAt(0) % 3];
+        return (
+            <Panel horizontal css={panelCss}>
+                <Cell flex>
+                    <UserIcon color={iconColor}>{initial}</UserIcon>
+                    {person.PersonName}
+                </Cell>
+                <Cell flex right middle>
+                    {person.Status}
+                    <StatusIcon status={person.StatusId} />
+                </Cell>
+            </Panel>
+        );
+    };
+
+    class ActivitiesCard extends Element {
+        render() {
+            const activities = this.value || [];
+            return (
+                <Card horizontal>
+                    <h4>Activities</h4>
+                    {activities.map((person, idx) => <Activity key={idx} person={person} />)}
+                </Card>
+            );
+        }
+    }    
+
+    class InfoCard extends Element {
+        render() {
+            const { color, icon, label } = this.attrs;
+            return (
+                <Card horizontal css={cardCss}>
+                    <CardImage>
+                        <InfoIcon color={color}>{icon}</InfoIcon>
+                    </CardImage>
+                    <label>{label}</label>
+                    <h3>{this.value}</h3>
+                </Card>
+            );
+        }
+    }
+
+    const Dashboard = _ => (
+    <VMContext vm="Dashboard">
+        <Frame css="max-width: calc(100% - 3rem)">
+            <Panel horizontal wrap childProps={{ css: infoPanelCss }}>
+                <Panel>
+                    <InfoCard id="Download" color="#1c8adb" />
+                </Panel>
+                <Panel>
+                    <InfoCard id="Upload" color="#5cb85c" />
+                </Panel>
+                <Panel>
+                    <InfoCard id="Latency" color="#f0ad4e" />
+                </Panel>
+                <Panel>
+                    <InfoCard id="Users" color="#d9534f" />
+                </Panel>
+            </Panel>
+            <Panel>
+                <Card>
+                    <Panel horizontal>
+                        <Panel flex="70%">
+                            <h4>Network Traffic</h4>
+                            <LineChart id="Traffic" height="75px" />
+                        </Panel>
+                        <Panel flex="30%">
+                            <h4>Utilization</h4>
+                            <PieChart id="Utilization" />
+                        </Panel>
+                    </Panel>
+                </Card>
+                <Panel horizontal>
+                    <Panel flex="40%">
+                        <ActivitiesCard flex id="RecentActivities" />
+                    </Panel>
+                    <Panel flex="60%">
+                        <Card flex>
+                            <h4>Server Usage</h4>
+                            <BarChart id="ServerUsage" height="70px" />
+                        </Card>
+                    </Panel>
+                </Panel>
+            </Panel>
+        </Frame>
+    </VMContext>
+    );
+
+    const DashboardPage = _ => (
+        <Main>
+            <Section>
+                <Dashboard />
+            </Section>
+        </Main>
+    )
+
+    ReactDOM.render(<DashboardPage />, document.getElementById('Mount'));
+</script>
