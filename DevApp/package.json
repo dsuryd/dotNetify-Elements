@@ -5,7 +5,7 @@
    "scripts": {
       "build": "webpack",
       "prod": "webpack -p --progress",
-      "dist": "webpack --config ./webpack.dist.config.js && webpack --config ./webpack.dist-bundle.config.js"
+      "dist": "webpack --config ./webpack.dist.config.js"
    },
    "babel": {
       "presets": [ "env", "react" ],
