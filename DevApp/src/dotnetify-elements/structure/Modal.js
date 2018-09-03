@@ -44,12 +44,21 @@ export class Modal extends React.Component {
    };
 
    render() {
+      if (!this.context.theme) {
+         const error = 'ERROR: Modal must be nested inside a Theme component.';
+         console.error(error);
+         throw error;
+      }
+
       const [ Container, Header, Body, Footer ] = utils.resolveComponents(Modal, this.props);
       const { open, small, large, width, header, footer, children, onSubmit, onSubmitError, ...props } = this.props;
       const centered = true;
       const size = small ? 'sm' : large ? 'lg' : null;
 
-      const [ sections, body ] = utils.filterChildren(children, child => child && (child.type === 'header' || child.type === 'footer'));
+      const [ sections, body ] = utils.filterChildren(
+         children,
+         child => child && (child.type === 'header' || child.type === 'footer')
+      );
       const _header = header || sections.filter(section => section.type === 'header').shift();
       const _footer = footer || sections.filter(section => section.type === 'footer').shift();
 
