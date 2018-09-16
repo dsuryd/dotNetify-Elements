@@ -1,6 +1,18 @@
 import React from 'react';
-import { Main, Header, Footer, Nav, NavDrawerButton, NavMenu, NavMenuTarget, Panel, Section, VMContext } from 'dotnetify-elements';
+import {
+   Main,
+   Header,
+   Footer,
+   Nav,
+   NavDrawerButton,
+   NavMenu,
+   NavMenuTarget,
+   Panel,
+   Section,
+   VMContext
+} from 'dotnetify-elements';
 import DotNetifyLogo, { GitHubLink, TwitterLink, ThemeToggle, LicenseNotice } from '../components/DotNetifyLogo';
+import MenuLinks from '../components/MenuLinks';
 import lightTheme from 'dotnetify-elements/theme-light';
 import darkTheme from 'dotnetify-elements/theme-dark';
 import { themeToggleEvent } from './layout/demo-helper';
@@ -18,11 +30,12 @@ class App extends React.Component {
    render() {
       const { theme } = this.state;
       return (
-         <VMContext vm="App">
+         <VMContext vm="ElementsApp">
             <Main theme={theme}>
                <Header>
                   <NavDrawerButton show css="margin-left: 1rem" />
                   <DotNetifyLogo />
+                  <MenuLinks active="elements" />
                   <Panel center middle right padding="1rem">
                      <ThemeToggle name={theme.name} onClick={_ => themeToggleEvent.emit()} />
                      <TwitterLink />

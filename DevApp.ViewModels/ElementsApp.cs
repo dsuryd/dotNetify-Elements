@@ -5,7 +5,7 @@ using DotNetify.Routing;
 
 namespace dotNetify_Elements
 {
-   public class App : BaseVM, IRoutable
+   public class ElementsApp : BaseVM, IRoutable
    {
       private enum Route
       {
@@ -54,7 +54,7 @@ namespace dotNetify_Elements
 
       public RoutingState RoutingState { get; set; }
 
-      public App()
+      public ElementsApp()
       {
          this.RegisterRoutes("elements", new List<RouteTemplate>
          {
