@@ -43,6 +43,7 @@ class App extends React.Component {
                </Header>
                <Nav>
                   <Panel noGap>
+                     <MenuLinks nav={true} active="elements" />
                      <GitHubLink />
                      <NavMenu id="NavMenu" />
                   </Panel>
