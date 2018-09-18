@@ -8,7 +8,7 @@ _Elements_ incorporates and curates many other existing, widely-adopted open-sou
 
 #### The Basics
 
-Let's revisit the Hello World example (if you're not familiar with _dotNetify_, [read the overview first!](http://dotnetify.net/react)) :
+Let's revisit the Hello World example (if you're not familiar with _dotNetify_, [read the overview first!](http://dotnetify.net/core/overview)) :
 
 ```jsx
 import React from 'react';
