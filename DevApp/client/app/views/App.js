@@ -17,6 +17,20 @@ import lightTheme from 'dotnetify-elements/theme-light';
 import darkTheme from 'dotnetify-elements/theme-dark';
 import { themeToggleEvent } from './layout/demo-helper';
 
+const navCss = `
+  ::-webkit-scrollbar {
+    width: 7px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 20px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #eee;
+    border-radius: 20px;
+  }
+`;
+
 class App extends React.Component {
    constructor(props) {
       super(props);
@@ -41,7 +55,7 @@ class App extends React.Component {
                      <TwitterLink />
                   </Panel>
                </Header>
-               <Nav>
+               <Nav css={navCss}>
                   <Panel noGap>
                      <MenuLinks nav={true} active="elements" />
                      <GitHubLink />
