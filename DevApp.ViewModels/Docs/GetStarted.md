@@ -357,9 +357,8 @@ Update **Views\Shared\_Layout.cshtml** by adding:
       // Replace dotnetify-hub in bundle.min.js with the SignalR for .NET FX version.
       signalR = jQuery.signalR;
    </script>
-   <script src="https://unpkg.com/dotnetify@3.0.1/dist/dotnetify-hub.js"></script>
-   <script src="https://unpkg.com/dotnetify@3.0.1/dist/dotnetify-react.min.js"></script>
-   <script src="https://unpkg.com/dotnetify-elements@0.1.1/lib/dotnetify-elements.bundle.js"></script>   
+   <script src="https://unpkg.com/dotnetify@3/dist/dotnetify-react.min.js"></script>
+   <script src="https://unpkg.com/dotnetify-elements@0/lib/dotnetify-elements.bundle.js"></script>   
 </body>
 </html>
 ```
