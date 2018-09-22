@@ -104,7 +104,7 @@ export class Panel extends React.Component {
    static _isPanel = true;
 
    get children() {
-      return React.Children.toArray(this.props.children).filter(x => x);
+      return React.Children.toArray(this.props.children).filter(x => x).filter(x => x.props && x.props.show !== false);
    }
 
    get numChildren() {
@@ -169,8 +169,7 @@ export class Panel extends React.Component {
          throw error;
       }
 
-      const children = React.Children.toArray(this.children);
-      const hasCell = children.some(x => x.type && x.type._typeName === 'Cell');
+      const hasCell = this.children.some(x => x.type && x.type._typeName === 'Cell');
 
       const { Gap, Margin } = this.context.theme.Panel;
       const _gap = gap || (noGap || hasCell ? '0rem' : smallGap ? Gap.small : Gap.large);
@@ -190,7 +189,7 @@ export class Panel extends React.Component {
       let _flex = typeof flex == 'boolean' ? (flex ? flexAuto : '0') : flex;
       if (!_flex)
          _flex =
-            (childProps && childProps.flex) || children.some(child => child.props && child.props.flex)
+            (childProps && childProps.flex) || this.children.some(child => child.props && child.props.flex)
                ? flexAuto
                : null;
 
