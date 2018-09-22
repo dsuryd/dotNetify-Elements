@@ -13,6 +13,7 @@ module.exports = {
       path: __dirname + '/wwwroot/dist',
       publicPath: '/dist/'
    },
+   devtool: 'source-map',
    resolve: {
       modules: [ 'src', 'client', 'node_modules' ],
       extensions: [ '.js', '.jsx', '.tsx' ]
