@@ -11,7 +11,9 @@ export default class VMInput extends VMProperty {
 
       // If this input field is inside the Form context, get the validator from the context
       // so that the Form can validate all its input fields.  Otherwise, create it here.
-      this.validator = this.vmContext.getValidator ? this.vmContext.getValidator(this) : new VMInputValidator(vmContext, propId);
+      this.validator = this.vmContext.getValidator
+         ? this.vmContext.getValidator(this)
+         : new VMInputValidator(vmContext, propId);
    }
 
    get domValue() {
@@ -37,7 +39,7 @@ export default class VMInput extends VMProperty {
       this.validator.addValidation(validation);
    }
 
-   dispatch(newValue) {
+   dispatch(newValue, toServer) {
       if (typeof newValue != 'undefined') {
          newValue = typeof this.value == 'number' ? parseFloat(newValue) : newValue;
          this.value = newValue;
@@ -47,7 +49,7 @@ export default class VMInput extends VMProperty {
       value = this._unmask ? this._unmask(value) : value;
 
       this.validator.validate(value);
-      this.vmContext.dispatchState({ [this.propId]: value });
+      this.vmContext.dispatchState({ [this.propId]: value }, toServer);
    }
 
    initMask() {

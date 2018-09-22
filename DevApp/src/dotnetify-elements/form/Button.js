@@ -65,7 +65,7 @@ export class Button extends InputElement {
       }
       else {
          const data = onClick();
-         if (id && typeof data !== 'undefined') this.dispatch(data);
+         if (id && typeof data !== 'undefined') this.dispatch(data, true);
       }
    };
 

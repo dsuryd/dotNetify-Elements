@@ -118,7 +118,7 @@ export class InputElement extends Element {
       this._changed = value;
    }
 
-   dispatch(value) {
-      return this.vmProperty.dispatch(value);
+   dispatch(value, toServer) {
+      return this.vmProperty.dispatch(value, toServer);
    }
 }

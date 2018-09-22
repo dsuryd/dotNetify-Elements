@@ -30,8 +30,8 @@ export default class VMProperty {
       this.vmContext.setState({ [this.propId]: value });
    }
 
-   dispatch(value) {
-      this.vmContext.dispatchState({ [this.propId]: value });
+   dispatch(value, toServer) {
+      this.vmContext.dispatchState({ [this.propId]: value }, toServer);
    }
 
    dispatchProp(propId, value) {
