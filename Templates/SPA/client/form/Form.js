@@ -28,7 +28,7 @@ class CustomerForm extends React.Component {
                            <Button label="Update" id="Submit" submit show={edit} onClick={this.toggleEdit} />
                            <Button label="Cancel" cancel secondary show={edit} onClick={this.toggleEdit} />
                         </Panel>
-                        <Panel right>
+                        <Panel horizontal right>
                            <Button label="New Customer" onClick={this.toggleDialog} enable={!edit} />
                         </Panel>
                      </Panel>

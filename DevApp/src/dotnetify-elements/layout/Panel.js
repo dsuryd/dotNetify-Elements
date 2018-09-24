@@ -6,25 +6,24 @@ import * as utils from '../utils';
 const Container = styled.div`
    display: flex;
    flex: ${utils.flexAuto};
-   ${props => (props.flex ? `flex: ${props.flex}` : '')};
-   ${props => (props.middle ? 'align-items: center' : '')};
+   ${props => props.flex && `flex: ${props.flex}`};
    flex-wrap: ${props => (props.flexWrap ? 'wrap' : 'nowrap')};
    justify-content: ${props =>
-      props.apart
-         ? 'space-between'
-         : props.right || props.bottom ? 'flex-end' : props.center ? 'center' : 'flex-start'};
+      props.apart ? 'space-between' : props.bottom ? 'flex-end' : props.center ? 'center' : 'flex-start'};
    flex-direction: ${props => (props.horizontal ? 'row' : 'column')};
    margin: ${props => props.margin};
    padding: ${props => props.padding};
    height: ${props => props.height || (props.flex ? 'auto' : 'fit-content')};
    width: ${props => props.width || (props.right ? 'auto' : 'inherit')};
    overflow: ${props => (props.flex ? 'auto' : 'unset')};
+   ${props => props.middle && 'align-items: center'};
+   ${props => props.right && (props.horizontal ? 'justify-content: flex-end' : 'align-items: flex-end')};
    ${props => props.css};
    ${props => props.theme.Panel.Container};
 `;
 
 const ChildContainer = styled.div`
-   ${props => (props.flex ? 'display: flex; align-items: stretch' : '')};
+   ${props => props.flex && 'display: flex; align-items: stretch'};
    flex: ${props => props.flex};
    margin: ${props => props.margin};
    padding: ${props => props.padding};
@@ -183,7 +182,7 @@ export class Panel extends React.Component {
          _width = `calc(100% + ${_gap})`;
       }
 
-      const _horizontal = (horizontal && !bottom) || right || wrap || apart;
+      const _horizontal = (horizontal && !bottom) || wrap || apart;
 
       const flexAuto = utils.flexAuto;
       let _flex = typeof flex == 'boolean' ? (flex ? flexAuto : '0') : flex;

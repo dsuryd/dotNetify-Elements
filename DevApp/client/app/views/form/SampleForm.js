@@ -37,7 +37,7 @@ const SampleForm = ({ vm, title, horizontal, plainText }) => (
                   <RadioToggle id="MyRadioToggle" />
                   <Checkbox id="MyCheckbox" />
                   <CheckboxGroup id="MyCheckboxGroup" />
-                  <Panel right>
+                  <Panel horizontal right>
                      <Button label="Cancel" cancel secondary />
                      <Button label="Submit" id="Submit" submit primary />
                   </Panel>

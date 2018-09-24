@@ -50,7 +50,7 @@ class App extends React.Component {
                   <NavDrawerButton show css="margin-left: 1rem" />
                   <DotNetifyLogo />
                   <MenuLinks active="elements" />
-                  <Panel center middle right padding="1rem">
+                  <Panel horizontal center middle right padding="1rem">
                      <ThemeToggle name={theme.name} onClick={_ => themeToggleEvent.emit()} />
                      <TwitterLink />
                   </Panel>

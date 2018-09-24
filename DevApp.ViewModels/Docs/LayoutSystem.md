@@ -48,7 +48,7 @@ Here are a few of the Panel's properties; for a complete list and other derived 
 - __flex__ : CSS flex shorthand value; can be used on child elements too.
 - __gap__: override default gap between items.
 - __horizontal__: display items horizontally.
-- __right__: shows items horizontally and right-aligned.
+- __right__: shows items aligned to the right.
 - __wrap__: wrap items to multi-lines on overflow.
 
 You could create all sorts of layout by nesting the Panels, as demonstrated on [Layout Demo](layout/demo).

@@ -1,5 +1,16 @@
 import React from 'react';
-import { Button, DropdownList, Form, Modal, NumberField, Panel, Tab, TabItem, TextField, VMContext } from 'dotnetify-elements';
+import {
+   Button,
+   DropdownList,
+   Form,
+   Modal,
+   NumberField,
+   Panel,
+   Tab,
+   TabItem,
+   TextField,
+   VMContext
+} from 'dotnetify-elements';
 
 export default class NewCustomerDialog extends React.Component {
    state = { activeTab: 'Person' };
@@ -55,7 +66,7 @@ export default class NewCustomerDialog extends React.Component {
                   </TabItem>
                </Tab>
                <footer>
-                  <Panel right>
+                  <Panel horizontal right>
                      <Button label="Cancel" cancel secondary onClick={this.handleClose} />
                      <Button label="Submit" id="Submit" submit onClick={this.handleClose} />
                   </Panel>

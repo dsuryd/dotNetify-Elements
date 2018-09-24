@@ -1,7 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
-import { Alert, Button, Form, Frame, Markdown, Panel, Tab, TabItem, TextField, VMContext, withTheme } from 'dotnetify-elements';
-import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
+import { Alert, Button, Form, Markdown, Panel, TabItem, TextField, withTheme } from 'dotnetify-elements';
+import { TabsArticle, RenderExample } from '../../components';
 
 const _Form = props => (
    <TabsArticle vm="Form" id="Overview">
@@ -32,7 +31,7 @@ const MyApp = _ => (
          <Panel>
             <TextField id="Name" horizontal />
             <TextField id="Email" horizontal />
-            <Panel right>
+            <Panel horizontal right>
                <Button label="Cancel" cancel secondary />
                <Button id="Register" submit />
             </Panel>               
@@ -54,7 +53,7 @@ const MyApp = _ => (
                <Panel>
                   <TextField id="Name" horizontal />
                   <TextField id="Email" horizontal />
-                  <Panel right>
+                  <Panel horizontal right>
                      <Button label="Cancel" cancel secondary onClick={clearEmittedEvent} />
                      <Button id="Register" submit />
                   </Panel>

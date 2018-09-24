@@ -97,7 +97,7 @@ export default class NewCustomerDialog extends React.Component {
                   </TabItem>
                </Tab>
                <footer>
-                  <Panel right>
+                  <Panel horizontal right>
                      <Button label="Cancel" cancel secondary onClick={this.handleClose} />
                      <Button label="Submit" id="Submit" submit onClick={this.handleClose} />
                   </Panel>

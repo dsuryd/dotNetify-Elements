@@ -25,7 +25,7 @@ const BasicForm = props => (
          <Panel>
             <TextField id="Name" />
             <TextField id="Email" />
-            <Panel right>
+            <Panel horizontal right>
                <Button label="Cancel" cancel secondary />
                <Button id="Register" submit />
             </Panel>
