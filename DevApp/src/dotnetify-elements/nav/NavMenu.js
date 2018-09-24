@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { PropTypes } from 'prop-types';
 import { Collapsible } from '../structure/Collapsible';
 import { Label } from '../display/Label';
-import { RouteLink } from 'dotnetify/dist/dotnetify-react.router';
+import { RouteLink } from 'dotnetify';
 import Element from '../core/Element';
 import * as utils from '../utils';
 
@@ -36,7 +36,13 @@ const GroupLabel = ({ padding, icon, children, style }) => (
 );
 
 const RouteLabel = ({ padding, navGroup, icon, children, style }) => (
-   <div style={{ padding: padding || '.75rem 1rem', paddingLeft: navGroup ? (navGroup.Icon ? '2.5rem' : '2rem') : '1rem', ...style }}>
+   <div
+      style={{
+         padding: padding || '.75rem 1rem',
+         paddingLeft: navGroup ? (navGroup.Icon ? '2.5rem' : '2rem') : '1rem',
+         ...style
+      }}
+   >
       <Label icon={icon}>{children}</Label>
    </div>
 );
@@ -115,7 +121,13 @@ export class NavMenu extends Element {
          const groupLabel = props => <GroupLabel icon={navItem.Icon} {...props} />;
          const collapsed = this.state.selectedPath.some(path => path === navItem.Label) ? false : !navItem.IsExpanded;
          return navItem.Routes ? (
-            <GroupContainer className="navmenu-group" key={idx} label={navItem.Label} labelComponent={groupLabel} collapsed={collapsed}>
+            <GroupContainer
+               className="navmenu-group"
+               key={idx}
+               label={navItem.Label}
+               labelComponent={groupLabel}
+               collapsed={collapsed}
+            >
                {navItem.Routes.map(navRoute => this.buildRoute(navRoute, navItem))}
             </GroupContainer>
          ) : (
