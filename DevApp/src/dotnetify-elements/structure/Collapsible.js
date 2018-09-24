@@ -52,7 +52,7 @@ export class Collapsible extends React.Component {
       collapsed: PropTypes.bool,
 
       // Text or component for the button's label.
-      label: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+      label: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
 
       // Don't show toggle icon.
       noIcon: PropTypes.bool,
@@ -92,14 +92,22 @@ export class Collapsible extends React.Component {
    };
 
    render() {
-      const [ Container, HeaderContainer, Header, Label, AngleCollapseIcon, AngleExpandIcon, CollapsePanel ] = utils.resolveComponents(Collapsible, this.props);
+      const [
+         Container,
+         HeaderContainer,
+         Header,
+         Label,
+         AngleCollapseIcon,
+         AngleExpandIcon,
+         CollapsePanel
+      ] = utils.resolveComponents(Collapsible, this.props);
       const { noIcon, label, children, style, css } = this.props;
       const icon = this.state.open ? <AngleCollapseIcon /> : <AngleExpandIcon />;
 
       return (
          <Container style={style} css={css}>
             <HeaderContainer onClick={this.handleClick}>
-               <Header right apart icon={noIcon ? null : icon}>
+               <Header right={!noIcon} apart icon={noIcon ? null : icon}>
                   <Label isOpen={this.state.open}>{this.props.label}</Label>
                </Header>
             </HeaderContainer>
