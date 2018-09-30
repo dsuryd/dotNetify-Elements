@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Reactive.Linq;
+using System.Threading.Tasks;
 using DotNetify;
 using DotNetify.Elements;
 
@@ -21,6 +22,7 @@ namespace dotNetify_Elements
    {
       private readonly ICustomerRepository _customerRepository;
       private readonly ReactiveProperty<int> _selectedContact;
+      private ReactiveProperty<Customer> _selectedCustomer;
 
       public class Contact
       {
@@ -36,7 +38,10 @@ namespace dotNetify_Elements
       {
          _customerRepository = customerRepository;
 
-         _selectedContact = AddProperty<int>("SelectedContact", 1);
+         _selectedContact = AddProperty("SelectedContact", 1);
+
+         _selectedCustomer = AddInternalProperty("Customer", default(Customer))
+            .SubscribeToAsync(_selectedContact, async id => await GetCustomerAsync(id));
 
          AddProperty("Contacts", customerRepository.GetAll().Select(customer => ToContact(customer)))
             .WithItemKey(nameof(Contact.Id))
@@ -62,13 +67,20 @@ namespace dotNetify_Elements
          // Have sub-forms with 'Customer' property subscribe to the customer data grid's selection changed event.
          var customerPropInfo = subVM.GetType().GetProperty(nameof(Customer));
          if (typeof(ReactiveProperty<Customer>).IsAssignableFrom(customerPropInfo?.PropertyType))
-            _selectedContact.SubscribedBy(
-               customerPropInfo.GetValue(subVM) as ReactiveProperty<Customer>,
-               id => _customerRepository.Get(id)
-            );
+         {
+            (customerPropInfo.GetValue(subVM) as ReactiveProperty<Customer>)
+               .SubscribeTo(_selectedCustomer)
+               .Subscribe(_ => PushUpdates(true));
+         }
 
          if (subVM is NewCustomerForm)
             (subVM as NewCustomerForm).NewCustomer.Subscribe(customer => UpdateContact(customer));
+      }
+
+      private async Task<Customer> GetCustomerAsync(int id)
+      {
+         await Task.Delay(50);  // Mock async.
+         return _customerRepository.Get(id);
       }
 
       private bool Save(CustomerFormData formData)
