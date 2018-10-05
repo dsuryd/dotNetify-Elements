@@ -1,24 +1,33 @@
+html {
+   height: 100%;
+}
+
 body {
-	-webkit-overflow-scrolling: touch;
-	font-family: Segoe UI, Arial, sans-serif;
-	margin: 0;
+   -webkit-overflow-scrolling: touch;
+   font-family: Segoe UI, Arial, sans-serif;
+   margin: 0;
+   height: inherit;
+}
+
+body > *:first-child {
+   height: inherit;
 }
 
 form {
-	margin-bottom: 0;
+   margin-bottom: 0;
 }
 
 [class^="Alert"] p {
-	margin-bottom: 0;
+   margin-bottom: 0;
 }
 
 .pull-right {
-	float: right;
+   float: right;
 }
 
 @media (max-width: 768px) {
-	nav.open {
-		margin-left: 0;
-		visibility: visible;
-	}
+   nav.open {
+      margin-left: 0;
+      visibility: visible;
+   }
 }
