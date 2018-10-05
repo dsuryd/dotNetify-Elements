@@ -1,14 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Main, Section, Frame, Form, Panel, Alert, Button, TextField, PasswordField, VMContext } from 'dotnetify-elements';
+import {
+   Main,
+   Section,
+   Frame,
+   Form,
+   Panel,
+   Alert,
+   Button,
+   TextField,
+   PasswordField,
+   VMContext
+} from 'dotnetify-elements';
 import auth from './auth';
 
 export const Logo = styled.div`
    display: flex;
    align-items: center;
-   padding-left: 1rem;
-   content: url(http://dotnetify.net/content/images/dotnetify-logo.png);
+   margin-left: 1rem;
+   background-image: url(http://dotnetify.net/content/images/dotnetify-logo.png);
+   background-size: 100% 100%;
    width: 200px;
    height: 39px;
 `;
