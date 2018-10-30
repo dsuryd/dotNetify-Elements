@@ -8,7 +8,10 @@
       "dist": "webpack --config ./webpack.dist.config.js"
    },
    "babel": {
-      "presets": [ "env", "react" ],
+      "presets": [
+         "env",
+         "react"
+      ],
       "plugins": [
          "babel-plugin-styled-components",
          "babel-plugin-transform-object-rest-spread",
@@ -23,10 +26,10 @@
       "moment": "~2.22.2",
       "prismjs": "~1.15.0",
       "prop-types": "~15.6.1",
-      "react": "~16.3.2",
+      "react": "~16.6.0",
       "react-chartjs-2": "~2.7.2",
       "react-data-grid": "~4.0.7",
-      "react-dom": "~16.3.2",
+      "react-dom": "~16.6.0",
       "react-widgets": "~4.3.2",
       "react-widgets-moment": "~4.0.6",
       "reactstrap": "~6.1.0",
