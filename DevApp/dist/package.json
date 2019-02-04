@@ -1,9 +1,9 @@
 {
    "name": "dotnetify-elements",
-   "version": "0.2.0",
+   "version": "0.3.0",
    "description": "React components for reactive, real-time .NET web applications.",
    "main": "dotnetify-elements.js",
-   "files": [ "lib/*.*", "*.js", "*.css", "LICENSE.md", "README.md" ],
+   "files": [ "lib/*.*", "components/*.*",  "*.js", "*.css", "LICENSE.md", "README.md" ],
    "dependencies": {
       "bootstrap": "~4.1.1",
       "chart.js": "~2.7.2",
