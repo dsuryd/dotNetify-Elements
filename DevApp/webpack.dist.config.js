@@ -1,6 +1,7 @@
 'use strict';
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const fs = require('fs');
 
 const baseExport = {
    module: {
@@ -15,44 +16,50 @@ const baseExport = {
    plugins: [ new MiniCssExtractPlugin() ]
 };
 
-module.exports = [
-   {
-      mode: 'production',
-      entry: {
-         'dotnetify-elements': './src/dotnetify-elements/index.js'
-      },
-      output: {
-         path: __dirname + '/dist',
-         filename: '[name].js',
-         library: 'dotNetifyElements',
-         libraryTarget: 'umd'
-      },
-      resolve: {
-         modules: [ 'src', 'node_modules' ],
-         extensions: [ '.js', '.jsx', '.tsx' ]
-      },
-      externals: [
-         'bootstrap',
-         'chart.js',
-         'dotnetify',
-         'marked',
-         'moment',
-         'prismjs',
-         'prop-types',
-         'react',
-         'react-chartjs-2',
-         'react-data-grid',
-         'react-dom',
-         'react-widgets',
-         'react-widgets-moment',
-         'reactstrap',
-         'styled-components',
-         'text-mask-addons',
-         'text-mask-core'
-      ],
-      module: baseExport.module,
-      plugins: baseExport.plugins
+let components = {};
+let componentsFolder = './src/dotnetify-elements/bootstrap/_components/';
+fs.readdirSync(componentsFolder).forEach(file => {
+   components[file.slice(0, -3)] = componentsFolder + file;
+});
+
+const moduleConfig = {
+   mode: 'production',
+   output: {
+      path: __dirname + '/dist',
+      filename: '[name].js',
+      library: 'dotNetifyElements',
+      libraryTarget: 'umd'
    },
+   resolve: {
+      modules: [ 'src', 'node_modules' ],
+      extensions: [ '.js', '.jsx', '.tsx' ]
+   },
+   externals: [
+      'bootstrap',
+      'chart.js',
+      'dotnetify',
+      'marked',
+      'moment',
+      'prismjs',
+      'prop-types',
+      'react',
+      'react-chartjs-2',
+      'react-data-grid',
+      'react-dom',
+      'react-widgets',
+      'react-widgets-moment',
+      'reactstrap',
+      'styled-components',
+      'text-mask-addons',
+      'text-mask-core'
+   ],
+   module: baseExport.module,
+   plugins: baseExport.plugins
+};
+
+module.exports = [
+   { ...moduleConfig, entry: { 'dotnetify-elements': './src/dotnetify-elements/index.js' } },
+   { ...moduleConfig, entry: components, output: { ...moduleConfig.output, path: __dirname + '/dist/components', library: '[name]' } },
    {
       mode: 'production',
       entry: {

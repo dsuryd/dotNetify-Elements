@@ -2,7 +2,6 @@ import React from 'react';
 import { PropTypes } from 'prop-types';
 import VMInputValidator from '../_internal/VMInputValidator';
 import { ContextTypes } from '../core/VMContext';
-import * as utils from '../utils';
 
 export const FormContextTypes = {
    formContext: PropTypes.object,
@@ -55,8 +54,7 @@ export class Form extends React.Component {
    }
 
    componentWillUpdate(props) {
-      if (typeof props.plainText == 'boolean' && props.plainText !== this.state.plainText)
-         this.setState({ plainText: props.plainText });
+      if (typeof props.plainText == 'boolean' && props.plainText !== this.state.plainText) this.setState({ plainText: props.plainText });
    }
 
    componentDidUpdate() {
@@ -79,9 +77,7 @@ export class Form extends React.Component {
       // Intercept dispatchState calls from the input fields to group them all first here,
       // and only send them on Submit button click. But use 'toServer' to override this
       // for special cases, e.g. letting field value go through to be validated server-side.
-      toServer === true
-         ? this.context.vmContext.dispatchState(state)
-         : this.setState({ changed: true, data: Object.assign({}, this.state.data, state) });
+      toServer === true ? this.context.vmContext.dispatchState(state) : this.setState({ changed: true, data: Object.assign({}, this.state.data, state) });
 
       this.changed(state);
    }
@@ -223,8 +219,7 @@ export class Form extends React.Component {
 
    submit(propId, data) {
       let formData = Object.assign({}, this.preEditState, data);
-      if (!this.props.onSubmit || this.props.onSubmit(formData) !== false)
-         this.context.vmContext.dispatchState(propId ? { [propId]: formData } : data);
+      if (!this.props.onSubmit || this.props.onSubmit(formData) !== false) this.context.vmContext.dispatchState(propId ? { [propId]: formData } : data);
       this.resetForm();
    }
 

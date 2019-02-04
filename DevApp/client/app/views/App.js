@@ -1,16 +1,5 @@
 import React from 'react';
-import {
-   Main,
-   Header,
-   Footer,
-   Nav,
-   NavDrawerButton,
-   NavMenu,
-   NavMenuTarget,
-   Panel,
-   Section,
-   VMContext
-} from 'dotnetify-elements';
+import { Main, Header, Footer, Nav, NavDrawerButton, NavMenu, NavMenuTarget, Panel, Section, VMContext } from 'dotnetify-elements';
 import DotNetifyLogo, { GitHubLink, TwitterLink, ThemeToggle, LicenseNotice } from '../components/DotNetifyLogo';
 import MenuLinks from '../components/MenuLinks';
 import lightTheme from 'dotnetify-elements/theme-light';
@@ -67,8 +56,7 @@ class App extends React.Component {
                </Section>
                <Footer>
                   <LicenseNotice>
-                     © 2015-2018 Dicky Suryadi. Licensed under the{' '}
-                     <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache license version 2.0</a>
+                     © 2015-2019 Dicky Suryadi. Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache license version 2.0</a>
                   </LicenseNotice>
                </Footer>
             </Main>

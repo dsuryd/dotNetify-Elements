@@ -1,6 +1,5 @@
-import React from 'react';
+import 'react-widgets/dist/css/react-widgets.css';
 import styled from 'styled-components';
-
 import * as rw from 'react-widgets';
 
 const StyledMultiSelect = styled(rw.Multiselect)`

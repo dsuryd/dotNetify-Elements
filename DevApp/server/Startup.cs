@@ -22,7 +22,7 @@ namespace dotNetify_Elements
          services.AddScoped<ICustomerRepository, CustomerRepository>();
       }
 
-      public void Configure(IApplicationBuilder app)
+      public void Configure(IApplicationBuilder app, IHostingEnvironment env)
       {
          app.UseWebSockets();
          app.UseSignalR(routes => routes.MapDotNetifyHub());
@@ -32,11 +32,12 @@ namespace dotNetify_Elements
             config.UseDeveloperLogging();
          });
 
-         app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
-         {
-            HotModuleReplacement = true,
-            HotModuleReplacementClientOptions = new Dictionary<string, string> { { "reload", "true" } },
-         });
+         if (env.IsDevelopment()) 
+            app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
+            {
+               HotModuleReplacement = true,
+               HotModuleReplacementClientOptions = new Dictionary<string, string> { { "reload", "true" } },
+            });
 
          app.UseStaticFiles();
 

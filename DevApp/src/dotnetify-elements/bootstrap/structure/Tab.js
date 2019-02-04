@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import * as utils from '../utils';
 
 export const Tab = styled.ul.attrs({
    className: 'nav nav-tabs'

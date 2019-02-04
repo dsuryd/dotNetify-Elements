@@ -1,6 +1,5 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
-import { ContextTypes } from '../core/VMContext';
 import { InputElement } from '../core/Element';
 
 export class Checkbox extends InputElement {
