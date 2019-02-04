@@ -212,3 +212,10 @@ public class RealtimeClock : BaseVM
 }
 ```
 
+#### State Change Notification
+
+In the case that you need to have direct access to the server state, _VMContext_ provides the __onStateChange__ attribute that takes a function.  The state object will be passed to this function on every incoming state change from the server.
+```jsx
+<VMContext onStateChange={state => console.log(state)} />
+```
+
