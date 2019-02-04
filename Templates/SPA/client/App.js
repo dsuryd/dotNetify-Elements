@@ -1,9 +1,5 @@
 import React from 'react';
-import { VMContext } from 'dotnetify-elements/components';
-import { Button } from 'dotnetify-elements/components/Button';
-import { Panel } from 'dotnetify-elements/components/Panel';
-import { Main, Header, Nav, Section } from 'dotnetify-elements/components/LayoutGrid';
-import { NavMenu, NavMenuTarget, NavDrawerButton } from 'dotnetify-elements/components/NavMenu';
+import { Main, Header, Nav, NavMenu, NavMenuTarget, NavDrawerButton, Button, Panel, Section, VMContext } from 'dotnetify-elements';
 import { Logo, Login } from './Login';
 import { auth, getAuthHeaders } from './auth';
 

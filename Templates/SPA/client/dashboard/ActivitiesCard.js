@@ -1,9 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Element } from 'dotnetify-elements/components';
-import { Card } from 'dotnetify-elements/components/Card';
-import { Cell } from 'dotnetify-elements/components/Cell';
-import { Panel } from 'dotnetify-elements/components/Panel';
+import { Card, Cell, Element, Panel } from 'dotnetify-elements';
 
 const panelCss = `
    overflow-x: hidden;

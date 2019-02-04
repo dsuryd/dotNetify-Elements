@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Element } from 'dotnetify-elements/components';
-import { Card, CardImage } from 'dotnetify-elements/components/Card';
+import { Card, CardImage, Element } from 'dotnetify-elements';
 
 const InfoIcon = styled.i.attrs({
   className: 'material-icons'

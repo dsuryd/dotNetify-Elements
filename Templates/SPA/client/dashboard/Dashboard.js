@@ -1,10 +1,6 @@
 import React from 'react';
-import { VMContext } from 'dotnetify-elements/components';
-import { Card } from 'dotnetify-elements/components/Card';
-import { Frame, Panel } from 'dotnetify-elements/components/Panel';
-import { withTheme } from 'dotnetify-elements/components/Theme';
-import { BarChart, LineChart, PieChart } from 'dotnetify-elements/components/Chart';
-
+import { Card, Frame, Panel, VMContext, withTheme } from 'dotnetify-elements';
+import { BarChart, LineChart, PieChart } from 'dotnetify-elements';
 import { getAuthHeaders } from '../auth';
 import InfoCard from './InfoCard';
 import ActivitiesCard from './ActivitiesCard';

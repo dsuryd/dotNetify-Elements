@@ -1,14 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Main, Section } from 'dotnetify-elements/components/LayoutGrid';
-import { Frame, Panel } from 'dotnetify-elements/components/Panel';
-import { Form } from 'dotnetify-elements/components/Form';
-import { Alert } from 'dotnetify-elements/components/Alert';
-import { Button } from 'dotnetify-elements/components/Button';
-import { TextField } from 'dotnetify-elements/components/TextField';
-import { PasswordField } from 'dotnetify-elements/components/PasswordField';
-import { VMContext } from 'dotnetify-elements/components';
+import { Main, Section, Frame, Form, Panel, Alert, Button, TextField, PasswordField, VMContext } from 'dotnetify-elements';
 import auth from './auth';
 
 export const Logo = styled.div`
