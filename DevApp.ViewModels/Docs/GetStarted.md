@@ -426,3 +426,13 @@ namespace MyApplication
 
 That's it!  Compile and run it, then click the About link.  Hello World!
 
+#### Reducing Bundle Size
+
+Importing the root module is convenient, but will significantly increase the application bundle size.  When this is a concern, you can import just the components you need, for example:
+
+```jsx
+import { Element, VMContext } from 'dotnetify-elements/components';
+import { Alert } from 'dotnetify-elements/components/Alert';
+import { TextField } from 'dotnetify-elements/components/TextField';
+```
+
