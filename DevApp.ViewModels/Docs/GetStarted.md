@@ -436,3 +436,17 @@ import { Alert } from 'dotnetify-elements/components/Alert';
 import { TextField } from 'dotnetify-elements/components/TextField';
 ```
 
+Dependency to `moment.js` will bring all the locale files into the bundle.  To include only the locales you need, set your webpack to use  `ContextReplacementPlugin`:
+
+```jsx
+const webpack = require('webpack');
+module.exports = {
+  //...
+  plugins: [
+    // load `moment/locale/en.js` only
+    new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en/),
+  ],
+};
+```
+
+
