@@ -30,8 +30,8 @@ public class DataGridExample : BaseVM
                RowKey = nameof(Contact.Id),
                Columns = new DataGridColumn[] {
                new DataGridColumn(nameof(Contact.Id), "Id") { Width = 3, Resizable = false, Sortable = false },
-               new DataGridColumn(nameof(Contact.FirstName), "First Name"),
-               new DataGridColumn(nameof(Contact.LastName), "Last Name"),
+               new DataGridColumn(nameof(Contact.FirstName), "First Name") { Editable = true },
+               new DataGridColumn(nameof(Contact.LastName), "Last Name") { Editable = true },
                new DataGridColumn(nameof(Contact.Phone), "Phone"),
                new DataGridColumn(nameof(Contact.LastVisit), "Last Visit")
                },
@@ -42,10 +42,19 @@ public class DataGridExample : BaseVM
                AddProperty("SelectedId", rowData.First().Id)
                   .SubscribedBy(AddProperty<string>("SelectedEmail"), id => rowData.First(row => row.Id == id).EmailAddress)
             )
+            .OnEdit(AddInternalProperty<dynamic>("HandleEdit"))
          );
    }
 }
 ```
+
+#### Cell Editing
+
+Enable individual data grid cell editing by setting the _Editable_ property of the _DataGridColumn_ object.  Use the _OnEdit_ method to add the view model property that will receive the edited key-value pair.  
+
+By default, basic text editing is used.  To use other editors, provide the component through the _editor_ attribute of the _GridColumn_ element.  See the [react-data-grid documentation](http://adazzle.github.io/react-data-grid/docs/examples/dropdown-editor) on types of editors that are available.
+
+You can intercept the edits before they're sent to the server by setting the _onEdit_ attribute of the _DataGrid_ element with a function.  The function will be passed the edited key-value; and if it returns false, the edit will be cancelled.
 
 #### Source
 
@@ -70,7 +79,10 @@ static propTypes = {
    rowHeight: PropTypes.string,
 
    // Occurs when an item is selected.
-   onSelect: PropTypes.func
+   onSelect: PropTypes.func,
+
+   // Occurs when a cell is edited.
+   onEdit: PropTypes.func
 };
 ```
 
@@ -79,6 +91,9 @@ static propTypes = {
 static propTypes = {
    // Content formatter.
    formatter: PropTypes.func,
+
+   // Content editor.
+   editor: PropTypes.func,
 
    // Sets custom width.
    width: PropTypes.string
@@ -114,6 +129,13 @@ public class DataGridAttribute
    /// <param name="selectedKeyProperty">View model property that will receive the selected key(s).</param>
    /// <returns>The data grid object.</returns>
    public DataGridAttribute CanSelect(Selection selectMode, IReactiveProperty selectedKeyProperty);
+
+   /// <summary>
+   /// Hooks up a handler to the data grid edit event.
+   /// </summary>
+   /// <param name="onEditProperty">View model property to handle the edit event.</param>
+   /// <returns>The data grid object.</returns>
+   public DataGridAttribute OnEdit(IReactiveProperty onEditProperty)   
 }
 
 public class DataGridColumn
@@ -123,6 +145,9 @@ public class DataGridColumn
 
    // Column label.
    public string Label { get; set; }
+
+   // Allows editing.
+   public bool Editable { get; set; } = false;   
 
    // Allows resize.
    public bool Resizable { get; set; } = true;

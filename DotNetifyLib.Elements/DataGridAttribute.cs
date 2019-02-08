@@ -41,6 +41,9 @@ namespace DotNetify.Elements
       // Whether it is single-select or mult-select. Don't use directly, call CanSelect instead.
       public string SelectMode { get; protected set; }
 
+      // View model property that handles edit event.  Don't use directly, call OnEdit instead.
+      public string OnEditProperty { get; protected set; }
+
       /// <summary>
       /// Indicates the data grid is selectable.
       /// </summary>
@@ -53,6 +56,17 @@ namespace DotNetify.Elements
          SelectedKeyProperty = selectedKeyProperty.Name;
          return this;
       }
+
+      /// <summary>
+      /// Hooks up a handler to the data grid edit event.
+      /// </summary>
+      /// <param name="onEditProperty">View model property to handle the edit event.</param>
+      /// <returns>The data grid object.</returns>
+      public DataGridAttribute OnEdit(IReactiveProperty onEditProperty)
+      {
+         OnEditProperty = onEditProperty.Name;
+         return this;
+      }
    }
 
    public class DataGridColumn
@@ -62,6 +76,9 @@ namespace DotNetify.Elements
 
       // Column label.
       public string Label { get; set; }
+
+      // Allows editing.
+      public bool Editable { get; set; } = false;
 
       // Allows resize.
       public bool Resizable { get; set; } = true;
