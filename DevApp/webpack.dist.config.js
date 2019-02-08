@@ -1,5 +1,6 @@
 'use strict';
 
+const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const fs = require('fs');
 
@@ -13,7 +14,7 @@ const baseExport = {
          { test: /\.(eot|svg|ttf|woff(2)?)(\?v=\d+\.\d+\.\d+)?/, loader: 'url-loader' }
       ]
    },
-   plugins: [ new MiniCssExtractPlugin() ]
+   plugins: [ new MiniCssExtractPlugin(), new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en/) ]
 };
 
 let components = {};

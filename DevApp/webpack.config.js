@@ -1,6 +1,8 @@
 'use strict';
 
+const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
    mode: 'development',
@@ -34,5 +36,5 @@ module.exports = {
       'react-dom': 'ReactDOM',
       'styled-components': 'styled'
    },
-   plugins: [ new MiniCssExtractPlugin() ]
+   plugins: [ new MiniCssExtractPlugin(), new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en/), new BundleAnalyzerPlugin() ]
 };
