@@ -1,7 +1,8 @@
 'use strict';
 
+const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-//const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
   mode: 'development',
@@ -26,8 +27,5 @@ module.exports = {
       { test: /\.(eot|svg|ttf|woff(2)?)(\?v=\d+\.\d+\.\d+)?/, loader: 'url-loader' }
     ]
   },
-  plugins: [
-    new MiniCssExtractPlugin()
-    //, new BundleAnalyzerPlugin()
-  ]
+  plugins: [ new MiniCssExtractPlugin(), new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en/) /*, new BundleAnalyzerPlugin()*/ ]
 };
