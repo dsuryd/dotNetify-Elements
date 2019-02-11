@@ -41,6 +41,7 @@ export class RadioToggle extends React.Component {
             labelComponent={Label}
             inputComponent={Input}
             plainTextComponent={PlainText}
+            isToggle={true}
             {...this.props}
          />
       );

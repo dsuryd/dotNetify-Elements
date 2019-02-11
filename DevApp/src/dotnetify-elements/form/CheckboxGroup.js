@@ -48,12 +48,17 @@ export class CheckboxGroup extends InputElement {
       const values = this.value || [];
 
       let checkboxOptions = options || [];
-      const checkboxes = checkboxOptions.map(opt => (
+      const checkboxes = checkboxOptions.map((opt, idx) => (
          <CheckboxContainer key={opt.Key} inline={inline} checked={values.includes(opt.Key)}>
-            <Label>
-               <Input type="checkbox" value={opt.Key} checked={values.includes(opt.Key)} disabled={disabled} onChange={this.handleChange} />
-               {opt.Value}
-            </Label>
+            <Input
+               type="checkbox"
+               id={`${fullId}__input${idx}`}
+               value={opt.Key}
+               checked={values.includes(opt.Key)}
+               disabled={disabled}
+               onChange={this.handleChange}
+            />
+            <Label htmlFor={`${fullId}__input${idx}`}>{opt.Value}</Label>
          </CheckboxContainer>
       ));
 

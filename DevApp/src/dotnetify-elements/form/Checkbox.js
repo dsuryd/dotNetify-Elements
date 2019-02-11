@@ -13,6 +13,9 @@ export class Checkbox extends InputElement {
       // Text or component for the field's label.
       label: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
 
+      // Appears as a switch.
+      switch: PropTypes.bool,
+
       // Replaces the input field with plain text.
       plainText: PropTypes.bool
    };
@@ -33,14 +36,14 @@ export class Checkbox extends InputElement {
       const disabled = enable === false;
 
       return (
-         <Container id={fullId} checked={checked} style={style} css={css}>
+         <Container id={fullId} checked={checked} style={style} css={css} switch={this.props.switch}>
             {plainText ? (
                <PlainText checked={checked}>{label}</PlainText>
             ) : (
-               <Label>
-                  <Input type="checkbox" name={fullId} checked={checked} onChange={this.handleChange} disabled={disabled} />
-                  {label}
-               </Label>
+               <React.Fragment>
+                  <Input type="checkbox" id={`${fullId}__input`} name={fullId} checked={checked} onChange={this.handleChange} disabled={disabled} />
+                  <Label htmlFor={`${fullId}__input`}>{label}</Label>
+               </React.Fragment>
             )}
          </Container>
       );

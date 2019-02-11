@@ -32,7 +32,10 @@ static propTypes = {
    label: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
 
    // Replaces the input field with plain text.
-   plainText: PropTypes.bool
+   plainText: PropTypes.bool,
+
+   // Appears as a switch.
+   switch: PropTypes.bool
 };
 ```
 

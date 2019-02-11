@@ -42,16 +42,39 @@ export class RadioGroup extends InputElement {
    };
    render() {
       const [ Container, GroupContainer, RadioContainer, Label, Input, PlainText ] = this.resolveComponents(RadioGroup);
-      const { fullId, label, options, plainText, right, horizontal, enable, style, css } = this.attrs;
+      const { fullId, label, options, plainText, right, horizontal, enable, style, css, isToggle } = this.attrs;
 
       const disabled = enable === false;
       const radioOptions = (options || []).map(opt => utils.toCamelCase(opt));
-      const radio = radioOptions.map(opt => (
+      const radio = radioOptions.map((opt, idx) => (
          <RadioContainer key={opt.key} id={fullId} checked={opt.key == this.value}>
-            <Label>
-               <Input type="radio" name={fullId} value={opt.key} disabled={disabled} checked={opt.key == this.value} onChange={this.handleChange} />
-               {opt.value}
-            </Label>
+            {isToggle ? (
+               <Label htmlFor={`${fullId}__input${idx}`}>
+                  <Input
+                     type="radio"
+                     name={fullId}
+                     id={`${fullId}__input${idx}`}
+                     value={opt.key}
+                     disabled={disabled}
+                     checked={opt.key == this.value}
+                     onChange={this.handleChange}
+                  />
+                  {opt.value}
+               </Label>
+            ) : (
+               <React.Fragment>
+                  <Input
+                     type="radio"
+                     name={fullId}
+                     id={`${fullId}__input${idx}`}
+                     value={opt.key}
+                     disabled={disabled}
+                     checked={opt.key == this.value}
+                     onChange={this.handleChange}
+                  />
+                  <Label htmlFor={`${fullId}__input${idx}`}>{opt.value}</Label>
+               </React.Fragment>
+            )}
          </RadioContainer>
       ));
 

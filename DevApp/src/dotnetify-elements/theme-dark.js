@@ -61,6 +61,7 @@ const formTheme = {
       margin-left: 3px;
    `,
    Checkbox: {
+      style: 'custom',
       GroupContainer: ``,
       Container: {
          Default: ``,
@@ -74,6 +75,7 @@ const formTheme = {
         border-color: red;
     `,
    Radio: {
+      style: 'custom',
       GroupContainer: ``,
       Container: {
          Default: ``,
