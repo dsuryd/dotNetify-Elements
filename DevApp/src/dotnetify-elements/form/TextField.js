@@ -105,6 +105,7 @@ export class TextField extends InputElement {
                   <Input
                      valid={this.state.valid}
                      id={fullId}
+                     label={label}
                      maxLength={maxLength}
                      type={type || 'text'}
                      placeholder={placeholder}
