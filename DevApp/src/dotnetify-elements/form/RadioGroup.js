@@ -46,7 +46,7 @@ export class RadioGroup extends InputElement {
 
       const disabled = enable === false;
       const radioOptions = (options || []).map(opt => utils.toCamelCase(opt));
-      const radio = radioOptions.map((opt, idx) => (
+      const radio = radioOptions.filter(opt => opt.value).map((opt, idx) => (
          <RadioContainer key={opt.key} id={fullId} checked={opt.key == this.value}>
             {isToggle ? (
                <Label htmlFor={`${fullId}__input${idx}`}>
