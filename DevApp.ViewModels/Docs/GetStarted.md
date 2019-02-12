@@ -184,7 +184,7 @@ Create a new file **/wwwroot/index.html** with the following content:
     <head>
        <meta charset="utf-8">
        <meta name="viewport" content="initial-scale=1, width=device-width"/>
-       <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" />
+       <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" />
        <link href="/dist/app.css" rel="stylesheet" />
     </head>
     <body>
@@ -305,7 +305,7 @@ Update **Views\Shared\_Layout.cshtml** by adding:
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>@ViewBag.Title - My ASP.NET Application</title>
 
-   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" />
+   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" />
    <link href="https://unpkg.com/dotnetify-elements@0.1.1/dotnetify-elements.css" rel="stylesheet"></link>
    <style>
       .navbar .container { flex-wrap: nowrap; }
