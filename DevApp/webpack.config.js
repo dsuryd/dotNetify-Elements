@@ -36,5 +36,9 @@ module.exports = {
       'react-dom': 'ReactDOM',
       'styled-components': 'styled'
    },
-   plugins: [ new MiniCssExtractPlugin(), new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en/), new BundleAnalyzerPlugin() ]
+   plugins: [
+      new MiniCssExtractPlugin(),
+      new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en/)
+      //, new BundleAnalyzerPlugin()
+   ]
 };
