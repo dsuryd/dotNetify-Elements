@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Theme } from './Theme';
+import lightTheme from '../theme-light';
 
 const LayoutGrid = styled.main`
    display: grid;
@@ -80,3 +81,9 @@ export const Section = styled.section`
    ${props => props.theme.Section};
    ${props => props.css};
 `;
+
+LayoutGrid.defaultProps = { theme: lightTheme };
+Header.defaultProps = { theme: lightTheme };
+Nav.defaultProps = { theme: lightTheme };
+Footer.defaultProps = { theme: lightTheme };
+Section.defaultProps = { theme: lightTheme };

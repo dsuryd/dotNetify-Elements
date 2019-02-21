@@ -7,4 +7,5 @@ Object.assign(DropdownList.componentTypes, {
    InputGroupComponent: InputGroup
 });
 
+export default DropdownList;
 export { DropdownList };

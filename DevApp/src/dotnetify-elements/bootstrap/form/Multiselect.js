@@ -1,12 +1,13 @@
 import 'react-widgets/dist/css/react-widgets.css';
 import styled from 'styled-components';
-import rwMultiSelect from 'react-widgets/lib/Multiselect';
+import rwMultiselect from 'react-widgets/lib/Multiselect';
+import lightTheme from '../../theme-light';
 
-const StyledMultiSelect = styled(rwMultiSelect)`
+export const Multiselect = styled(rwMultiselect)`
 > .rw-widget-input {
    ${props => props.theme.Input}
    ${props => (props.valid === false ? props.theme.InputValidationError : '')};
 }
 `;
 
-export const Multiselect = StyledMultiSelect;
+Multiselect.defaultProps = { theme: lightTheme };

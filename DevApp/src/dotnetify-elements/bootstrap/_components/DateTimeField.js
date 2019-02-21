@@ -7,4 +7,5 @@ Object.assign(DateTimeField.componentTypes, {
    InputGroupComponent: InputGroup
 });
 
+export default DateTimeField;
 export { DateTimeField, DateField, TimeField };

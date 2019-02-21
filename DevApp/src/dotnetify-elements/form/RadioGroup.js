@@ -4,10 +4,13 @@ import { PropTypes } from 'prop-types';
 import { Field } from '../structure/Field';
 import { InputElement } from '../core/Element';
 import * as utils from '../utils';
+import lightTheme from '../theme-light';
 
 const GroupContainer = styled.section`${props => props.theme.Radio.GroupContainer};`;
 
 const PlainTextComponent = props => <span {...props} />;
+
+GroupContainer.defaultProps = { theme: lightTheme };
 
 export class RadioGroup extends InputElement {
    static propTypes = {

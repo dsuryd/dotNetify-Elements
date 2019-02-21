@@ -9,4 +9,5 @@ Object.assign(Card.componentTypes, {
    FooterContainer: CardFooter
 });
 
+export default Card;
 export { Card, CardImage };

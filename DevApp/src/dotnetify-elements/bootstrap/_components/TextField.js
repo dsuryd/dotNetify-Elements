@@ -6,4 +6,5 @@ Object.assign(TextField.componentTypes, {
    InputGroupComponent: InputGroup
 });
 
+export default TextField;
 export { TextField };

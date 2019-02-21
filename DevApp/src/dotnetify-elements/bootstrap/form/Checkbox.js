@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import lightTheme from '../../theme-light';
 
 export const CheckboxInput = styled.input.attrs({
    className: props => (props.switch || props.theme.Checkbox.style ? 'custom-control-input' : 'form-check-input')
@@ -23,3 +24,7 @@ export const CheckboxPlainText = styled.b`
    margin-left: -1.25rem;
    ${props => (!props.checked ? 'text-decoration: line-through' : '')};
 `;
+
+CheckboxInput.defaultProps = { theme: lightTheme };
+CheckboxLabel.defaultProps = { theme: lightTheme };
+CheckboxContainer.defaultProps = { theme: lightTheme };

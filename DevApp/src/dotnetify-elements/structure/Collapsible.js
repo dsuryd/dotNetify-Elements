@@ -3,6 +3,7 @@ import { PropTypes } from 'prop-types';
 import styled from 'styled-components';
 import * as utils from '../utils';
 import { Label } from '../display/Label';
+import lightTheme from '../theme-light';
 
 const Container = styled.div`
    ${props => props.theme.Collapsible.Container};
@@ -45,6 +46,9 @@ const AngleExpandIcon = props => (
       </svg>
    </IconContainer>
 );
+
+Container.defaultProps = { theme: lightTheme };
+HeaderContainer.defaultProps = { theme: lightTheme };
 
 export class Collapsible extends React.Component {
    static propTypes = {
@@ -92,15 +96,7 @@ export class Collapsible extends React.Component {
    };
 
    render() {
-      const [
-         Container,
-         HeaderContainer,
-         Header,
-         Label,
-         AngleCollapseIcon,
-         AngleExpandIcon,
-         CollapsePanel
-      ] = utils.resolveComponents(Collapsible, this.props);
+      const [ Container, HeaderContainer, Header, Label, AngleCollapseIcon, AngleExpandIcon, CollapsePanel ] = utils.resolveComponents(Collapsible, this.props);
       const { noIcon, label, children, style, css } = this.props;
       const icon = this.state.open ? <AngleCollapseIcon /> : <AngleExpandIcon />;
 

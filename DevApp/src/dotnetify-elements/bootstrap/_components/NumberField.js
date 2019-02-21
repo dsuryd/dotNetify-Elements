@@ -6,4 +6,5 @@ Object.assign(NumberField.componentTypes, {
    InputGroupComponent: InputGroup
 });
 
+export default NumberField;
 export { NumberField };

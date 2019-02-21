@@ -3,4 +3,5 @@ import Collapse from 'reactstrap/lib/Collapse';
 
 Collapsible.componentTypes.CollapsePanel = Collapse;
 
+export default Collapsible;
 export { Collapsible };

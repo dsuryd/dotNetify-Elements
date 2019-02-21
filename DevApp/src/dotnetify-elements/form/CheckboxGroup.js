@@ -3,10 +3,13 @@ import styled from 'styled-components';
 import { PropTypes } from 'prop-types';
 import { Field } from '../structure/Field';
 import { InputElement } from '../core/Element';
+import lightTheme from '../theme-light';
 
 const GroupContainer = styled.section`${props => props.theme.Checkbox.GroupContainer};`;
 
 const PlainTextComponent = props => <span {...props}>{React.Children.toArray(props.children).join(', ')}</span>;
+
+GroupContainer.defaultProps = { theme: lightTheme };
 
 export class CheckboxGroup extends InputElement {
    static propTypes = {

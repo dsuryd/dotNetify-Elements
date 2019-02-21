@@ -7,4 +7,5 @@ Object.assign(Cell.componentTypes, {
    BodyContainer: CellBody
 });
 
+export default Cell;
 export { Cell };

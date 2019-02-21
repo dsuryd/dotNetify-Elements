@@ -12,4 +12,5 @@ Object.assign(Modal.componentTypes, {
    FooterContainer: styled(rsModalFooter)`${props => props.theme.Modal.FooterContainer}`
 });
 
+export default Modal;
 export { Modal };

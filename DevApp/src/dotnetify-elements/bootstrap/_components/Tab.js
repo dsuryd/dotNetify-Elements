@@ -4,4 +4,5 @@ import { Tab, TabItem } from '../../structure/Tab';
 Tab.componentTypes.TabContainer = _Tab;
 TabItem.componentTypes.TabItemComponent = _TabItem;
 
+export default Tab;
 export { Tab, TabItem };

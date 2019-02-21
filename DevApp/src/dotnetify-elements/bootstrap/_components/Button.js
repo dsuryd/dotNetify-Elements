@@ -3,4 +3,5 @@ import { Button } from '../../form/Button';
 
 Button.componentTypes.ButtonComponent = _Button;
 
+export default Button;
 export { Button };

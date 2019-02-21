@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import Element from '../core/Element';
 import * as utils from '../utils';
 import { toChartJsConfig } from './chart';
+import lightTheme from '../theme-light';
 
 const ChartContainer = styled.div`
    overflow-x: hidden;
@@ -11,6 +12,8 @@ const ChartContainer = styled.div`
    ${props => props.theme.BarChart};
    ${props => props.css};
 `;
+
+ChartContainer.defaultProps = { theme: lightTheme };
 
 export class BarChart extends Element {
    static propTypes = {

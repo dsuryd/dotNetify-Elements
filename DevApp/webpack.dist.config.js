@@ -60,7 +60,18 @@ const moduleConfig = {
 
 module.exports = [
    { ...moduleConfig, entry: { 'dotnetify-elements': './src/dotnetify-elements/index.js' } },
-   { ...moduleConfig, entry: components, output: { ...moduleConfig.output, path: __dirname + '/dist/components', library: '[name]' } },
+   {
+      ...moduleConfig,
+      entry: components,
+      output: { ...moduleConfig.output, path: __dirname + '/dist/components', library: '[name]' },
+      externals: {
+         bootstrap: 'bootstrap',
+         dotnetify: 'dotnetify',
+         react: 'React',
+         'react-dom': 'ReactDOM',
+         'styled-components': 'styled'
+      }
+   },
    {
       mode: 'production',
       entry: {

@@ -3,6 +3,7 @@ import { PropTypes } from 'prop-types';
 import styled from 'styled-components';
 import { Label } from '../display/Label';
 import * as utils from '../utils';
+import lightTheme from '../theme-light';
 
 const Container = styled.div`
    display: grid;
@@ -54,6 +55,12 @@ const ValidationMessageContainer = styled.div`
    }
 `;
 
+Container.defaultProps = { theme: lightTheme };
+LabelContainer.defaultProps = { theme: lightTheme };
+InputContainer.defaultProps = { theme: lightTheme };
+PlainTextContainer.defaultProps = { theme: lightTheme };
+ValidationMessageContainer.defaultProps = { theme: lightTheme };
+
 export class Field extends React.Component {
    static propTypes = {
       // Id to associate the label with the input element.
@@ -88,22 +95,14 @@ export class Field extends React.Component {
    static _isPanel = true;
 
    render() {
-      const [
-         Container,
-         LabelContainer,
-         Label,
-         InputContainer,
-         PlainTextContainer,
-         PlainText,
-         ValidationMessageContainer
-      ] = utils.resolveComponents(Field, this.props);
+      const [ Container, LabelContainer, Label, InputContainer, PlainTextContainer, PlainText, ValidationMessageContainer ] = utils.resolveComponents(
+         Field,
+         this.props
+      );
       const { id, label, plainText, horizontal, right, width, style, css, ...props } = this.props;
       const labelPadding = horizontal ? null : '0 0 .5rem 0';
 
-      const [ validationMessages, children ] = utils.filterChildren(
-         this.props.children,
-         child => child.key && child.key.startsWith(validationKeyPrefix)
-      );
+      const [ validationMessages, children ] = utils.filterChildren(this.props.children, child => child.key && child.key.startsWith(validationKeyPrefix));
 
       const hasValidationMessage = validationMessages && validationMessages.length > 0;
 
@@ -125,11 +124,7 @@ export class Field extends React.Component {
                   <InputContainer right={right} horizontal={horizontal}>
                      {children}
                   </InputContainer>
-                  {hasValidationMessage && (
-                     <ValidationMessageContainer horizontal={horizontal}>
-                        {validationMessages}
-                     </ValidationMessageContainer>
-                  )}
+                  {hasValidationMessage && <ValidationMessageContainer horizontal={horizontal}>{validationMessages}</ValidationMessageContainer>}
                </React.Fragment>
             )}
          </Container>

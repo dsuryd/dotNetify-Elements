@@ -7,4 +7,5 @@ Object.assign(RadioGroup.componentTypes, {
    InputComponent: RadioInput
 });
 
+export default RadioGroup;
 export { RadioGroup };

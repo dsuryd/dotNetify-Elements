@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import * as utils from '../utils';
+import lightTheme from '../../theme-light';
 
 export const Button = styled.button.attrs({
    className: props => 'btn ' + utils.mapStyleToClass(props, 'btn-'),
@@ -10,3 +11,5 @@ export const Button = styled.button.attrs({
    ${props => props.theme.Button};
    ${props => props.css};
 `;
+
+Button.defaultProps = { theme: lightTheme };

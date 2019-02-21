@@ -8,4 +8,5 @@ Object.assign(RadioToggle.componentTypes, {
    InputComponent: RadioToggleInput
 });
 
+export default RadioToggle;
 export { RadioToggle };

@@ -3,4 +3,5 @@ import { Alert } from '../../display/Alert';
 
 Alert.componentTypes.AlertComponent = _Alert;
 
+export default Alert;
 export { Alert };

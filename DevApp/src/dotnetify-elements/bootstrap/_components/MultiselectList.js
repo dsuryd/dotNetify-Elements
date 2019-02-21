@@ -5,4 +5,5 @@ Object.assign(MultiselectList.componentTypes, {
    InputComponent: Multiselect
 });
 
+export default MultiselectList;
 export { MultiselectList };

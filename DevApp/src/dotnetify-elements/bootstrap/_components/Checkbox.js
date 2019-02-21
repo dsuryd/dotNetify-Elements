@@ -15,4 +15,5 @@ Object.assign(CheckboxGroup.componentTypes, {
    InputComponent: CheckboxInput
 });
 
+export default Checkbox;
 export { Checkbox, CheckboxGroup };

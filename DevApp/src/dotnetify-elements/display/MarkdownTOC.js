@@ -2,6 +2,7 @@ import React from 'react';
 import { PropTypes } from 'prop-types';
 import styled from 'styled-components';
 import Element from '../core/Element';
+import lightTheme from '../theme-light';
 
 const ContainerComponent = styled.div`
    white-space: nowrap;
@@ -9,6 +10,9 @@ const ContainerComponent = styled.div`
 `;
 
 const ItemContainerComponent = styled.p`${props => (props.isSelected ? props.theme.MarkdownTOC.Selected : '')};`;
+
+ContainerComponent.defaultProps = { theme: lightTheme };
+ItemContainerComponent.defaultProps = { theme: lightTheme };
 
 export class MarkdownTOC extends Element {
    static propTypes = {

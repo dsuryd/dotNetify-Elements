@@ -6,4 +6,5 @@ Object.assign(PasswordField.componentTypes, {
    InputGroupComponent: InputGroup
 });
 
+export default PasswordField;
 export { PasswordField };

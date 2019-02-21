@@ -6,6 +6,7 @@ import { Label } from '../display/Label';
 import { RouteLink } from 'dotnetify';
 import Element from '../core/Element';
 import * as utils from '../utils';
+import lightTheme from '../theme-light';
 
 const Container = styled.div`
    width: inherit;
@@ -46,6 +47,9 @@ const RouteLabel = ({ padding, navGroup, icon, children, style }) => (
       <Label icon={icon}>{children}</Label>
    </div>
 );
+
+RouteContainer.defaultProps = { theme: lightTheme };
+GroupHeaderContainer.defaultProps = { theme: lightTheme };
 
 export class NavMenu extends Element {
    static propTypes = {
@@ -121,13 +125,7 @@ export class NavMenu extends Element {
          const groupLabel = props => <GroupLabel icon={navItem.Icon} {...props} />;
          const collapsed = this.state.selectedPath.some(path => path === navItem.Label) ? false : !navItem.IsExpanded;
          return navItem.Routes ? (
-            <GroupContainer
-               className="navmenu-group"
-               key={idx}
-               label={navItem.Label}
-               labelComponent={groupLabel}
-               collapsed={collapsed}
-            >
+            <GroupContainer className="navmenu-group" key={idx} label={navItem.Label} labelComponent={groupLabel} collapsed={collapsed}>
                {navItem.Routes.map(navRoute => this.buildRoute(navRoute, navItem))}
             </GroupContainer>
          ) : (

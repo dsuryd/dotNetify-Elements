@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import lightTheme from '../../theme-light';
 
 export const RadioInput = styled.input.attrs({
    className: props => (props.theme.Radio.style ? 'custom-control-input' : 'form-check-input')
@@ -17,3 +18,7 @@ export const RadioContainer = styled.div.attrs({
 })`
    ${props => (props.checked ? props.theme.Radio.Container.Checked : props.theme.Radio.Container.Default)}
 `;
+
+RadioInput.defaultProps = { theme: lightTheme };
+RadioLabel.defaultProps = { theme: lightTheme };
+RadioContainer.defaultProps = { theme: lightTheme };
