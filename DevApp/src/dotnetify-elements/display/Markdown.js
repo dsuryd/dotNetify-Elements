@@ -2,14 +2,14 @@ import React from 'react';
 import { PropTypes } from 'prop-types';
 import styled from 'styled-components';
 import Element from '../core/Element';
-import * as utils from '../utils';
+import markdown from '../markdown';
 
 const ContainerComponent = styled.div`
    ${props => props.theme.Markdown};
    ${props => props.css};
 `;
 
-const MarkdownText = props => utils.markdown(props.text);
+const MarkdownText = props => markdown(props.text);
 
 export class Markdown extends Element {
    static propTypes = {

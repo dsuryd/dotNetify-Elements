@@ -1,7 +1,7 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import Element from '../core/Element';
-import * as utils from '../utils';
+import markdown from '../markdown';
 
 export class Alert extends Element {
    static propTypes = {
@@ -38,7 +38,7 @@ export class Alert extends Element {
       return (
          show && (
             <_Alert id={fullId} {...props}>
-               {this.value && utils.markdown(this.value)}
+               {this.value && markdown(this.value)}
                {children}
             </_Alert>
          )
