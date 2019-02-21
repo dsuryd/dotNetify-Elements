@@ -1,8 +1,8 @@
 import 'react-widgets/dist/css/react-widgets.css';
 import styled from 'styled-components';
-import * as rw from 'react-widgets';
+import rwMultiSelect from 'react-widgets/lib/Multiselect';
 
-const StyledMultiSelect = styled(rw.Multiselect)`
+const StyledMultiSelect = styled(rwMultiSelect)`
 > .rw-widget-input {
    ${props => props.theme.Input}
    ${props => (props.valid === false ? props.theme.InputValidationError : '')};

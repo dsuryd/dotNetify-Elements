@@ -1,6 +1,6 @@
 import { Collapsible } from '../../structure/Collapsible';
-import * as rs from 'reactstrap';
+import Collapse from 'reactstrap/lib/Collapse';
 
-Collapsible.componentTypes.CollapsePanel = rs.Collapse;
+Collapsible.componentTypes.CollapsePanel = Collapse;
 
 export { Collapsible };
