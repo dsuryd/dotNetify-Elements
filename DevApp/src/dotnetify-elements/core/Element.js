@@ -5,6 +5,7 @@ import { FormContextTypes } from '../form/Form';
 import VMProperty from '../_internal/VMProperty';
 import VMInput from '../_internal/VMInput';
 import * as utils from '../utils';
+import VMInputValidator from '../_internal/VMInputValidator';
 
 export default class Element extends React.Component {
    static contextTypes = ContextTypes;
@@ -47,18 +48,26 @@ export default class Element extends React.Component {
    }
 
    get vmProperty() {
+      if (this._vmProperty) return this._vmProperty;
+
       // Returns the object that provides data from the back-end view model.
       if (this.isVMProperty) {
-         this._vmProperty = this._vmProperty || new VMProperty(this.context.vmContext, this.props.id);
+         this._vmProperty = new VMProperty(this.context.vmContext, this.props.id);
          return this._vmProperty;
       }
 
-      return {
-         // Fallback is this component isn't associated with a back-end view model.
-         fullId: this.props.id,
-         value: this.props.value,
-         attrs: this.props.attrs || {}
-      };
+      // Fallback is this component isn't associated with a back-end view model.
+      const propId = this.props.id || Math.random().toString(36).substring(2);
+      this._vmProperty = new VMProperty(
+         {
+            getState: id => (id === propId ? this.props.value : (this.state && this.state[id]) || this.props[id]),
+            setState: state => this.setState(state),
+            getPropAttributes: _ => this.props.attrs || {},
+            dispatchState: _ => {}
+         },
+         propId
+      );
+      return this._vmProperty;
    }
 
    componentDidMount() {
@@ -90,10 +99,12 @@ export class InputElement extends Element {
    static contextTypes = FormContextTypes;
 
    get vmProperty() {
+      if (this._vmInput) return this._vmInput;
+
       // Returns the object that provides data from the back-end view model, and manages input validation
       // and sending back of data to the back-end.
       if (this.isVMProperty) {
-         this._vmInput = this._vmInput || new VMInput(this.context.vmContext, this.props.id);
+         this._vmInput = new VMInput(this.context.vmContext, this.props.id);
          return this._vmInput;
       }
 
@@ -107,6 +118,21 @@ export class InputElement extends Element {
          onValidated: handler => (this.props.onValidated ? this.props.onValidated(handler) : null),
          initMask: _ => (this.props.initMask ? this.props.initMask() : null)
       };
+
+      // Fallback is this component isn't associated with a back-end view model.
+      setTimeout(() => this.setState({ [propId]: this.props.value }));
+
+      const propId = this.props.id || Math.random().toString(36).substring(2);
+      const vmContext = {
+         getState: id => (id === propId ? this.props.value : (this.state && this.state[id]) || this.props[id]),
+         setState: state => this.setState(state),
+         getPropAttributes: _ => this.props.attrs || {},
+         getPropValidations: _ => {},
+         getValidator: _ => new VMInputValidator(vmContext, propId),
+         dispatchState: state => this.props.onChange && this.props.onChange(state)
+      };
+      this._vmInput = new VMInput(vmContext, propId);
+      return this._vmInput;
    }
 
    get changed() {
