@@ -151,19 +151,19 @@ namespace dotNetify_Elements
       private string SuccessMessage(FormData data) =>
          // Written in Github-flavored markdown format:
          $@"**Submitted:**<br/>
-         MyText: **{WhitespaceIfEmpty(data.MyText)}**<br/>
-         MyPassword: **{WhitespaceIfEmpty(data.MyPassword)}**<br/>
-         MyNumber: **{data.MyNumber}**<br/>
-         MyMoney: **{data.MyMoney}**<br/>
-         MyDate: **{data.MyDate}**<br/>
-         MyDropdown: **{data.MyDropdown}**<br/>
-         MyMultiselect: **{WhitespaceIfEmpty(string.Join(", ", data.MyMultiselect))}**<br/>
-         MyTextArea: **{WhitespaceIfEmpty(data.MyTextArea)}**<br/>
-         MyRadio: **{data.MyRadio}**<br/>
-         MyRadioToggle: **{data.MyRadioToggle}**<br/>
-         MyCheckbox: **{data.MyCheckbox}**<br/>
-         MyCheckboxGroup: **{WhitespaceIfEmpty(string.Join(", ", data.MyCheckboxGroup))}**";
+         MyText: {Bold(data.MyText)}<br/>
+         MyPassword: {Bold(data.MyPassword)}<br/>
+         MyNumber: {Bold(data.MyNumber)}<br/>
+         MyMoney: {Bold(data.MyMoney)}<br/>
+         MyDate: {Bold(data.MyDate)}<br/>
+         MyDropdown: {Bold(data.MyDropdown)}<br/>
+         MyMultiselect: {Bold(string.Join(", ", data.MyMultiselect))}<br/>
+         MyTextArea: {Bold(data.MyTextArea)}<br/>
+         MyRadio: {Bold(data.MyRadio)}<br/>
+         MyRadioToggle: {Bold(data.MyRadioToggle)}<br/>
+         MyCheckbox: {Bold(data.MyCheckbox)}<br/>
+         MyCheckboxGroup: {Bold(string.Join(", ", data.MyCheckboxGroup))}";
 
-      private string WhitespaceIfEmpty(string text) => !string.IsNullOrEmpty(text) ? text : " ";
+      private string Bold(object text) => text != null && !string.IsNullOrWhiteSpace(text.ToString()) ? $"<b>{text}</b>" : "";
    }
 }
