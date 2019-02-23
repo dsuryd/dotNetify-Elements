@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Element from '../core/Element';
-import markdown from '../markdown';
+import markdown from '../utils/markdown';
 
 export class Alert extends Element {
    static propTypes = {

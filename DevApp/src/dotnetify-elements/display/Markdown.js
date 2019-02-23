@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Element from '../core/Element';
-import markdown from '../markdown';
+import markdown from '../utils/markdown';
 import lightTheme from '../theme-light';
 
 const ContainerComponent = styled.div`
