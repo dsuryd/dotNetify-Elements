@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Element from '../core/Element';
 import markdown from '../utils/markdown';
+import createHtmlElement from '../utils/html-element';
 
 export class Alert extends Element {
    static propTypes = {
@@ -28,6 +29,10 @@ export class Alert extends Element {
       AlertComponent: undefined
    };
 
+   static createHtmlElement() {
+      createHtmlElement(Alert, 'd-alert');
+   }
+
    render() {
       const [ _Alert ] = this.resolveComponents(Alert);
       const { fullId, children, onShow, ...props } = this.attrs;
@@ -45,3 +50,5 @@ export class Alert extends Element {
       );
    }
 }
+
+Alert.createHtmlElement();
