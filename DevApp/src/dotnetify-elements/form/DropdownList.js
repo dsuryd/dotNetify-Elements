@@ -1,8 +1,8 @@
 import React from 'react';
-import { PropTypes } from 'prop-types';
+import PropTypes from 'prop-types';
+import InputElement from '../core/InputElement';
 import { Field, validationKeyPrefix } from '../structure/Field';
 import { Label } from '../display/Label';
-import { InputElement } from '../core/Element';
 
 const PlainTextComponent = props => <span {...props} />;
 

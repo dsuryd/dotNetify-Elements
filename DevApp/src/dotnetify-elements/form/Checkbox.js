@@ -1,6 +1,6 @@
 import React from 'react';
-import { PropTypes } from 'prop-types';
-import { InputElement } from '../core/Element';
+import PropTypes from 'prop-types';
+import InputElement from '../core/InputElement';
 
 export class Checkbox extends InputElement {
    static propTypes = {
@@ -32,6 +32,7 @@ export class Checkbox extends InputElement {
    render() {
       const [ Container, Label, Input, PlainText ] = this.resolveComponents(Checkbox);
       const { fullId, label, plainText, enable, style, css } = this.attrs;
+
       const checked = !!this.value;
       const disabled = enable === false;
 

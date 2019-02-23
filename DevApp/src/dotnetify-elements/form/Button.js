@@ -1,7 +1,7 @@
 import React from 'react';
-import { PropTypes } from 'prop-types';
+import PropTypes from 'prop-types';
+import InputElement from '../core/InputElement';
 import { FormContextTypes } from './Form';
-import { InputElement } from '../core/Element';
 import * as utils from '../utils';
 
 export class Button extends InputElement {

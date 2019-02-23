@@ -1,5 +1,5 @@
 import React from 'react';
-import { PropTypes } from 'prop-types';
+import PropTypes from 'prop-types';
 import { Form, FormContextTypes } from '../form/Form';
 import * as utils from '../utils';
 
@@ -55,10 +55,7 @@ export class Modal extends React.Component {
       const centered = true;
       const size = small ? 'sm' : large ? 'lg' : null;
 
-      const [ sections, body ] = utils.filterChildren(
-         children,
-         child => child && (child.type === 'header' || child.type === 'footer')
-      );
+      const [ sections, body ] = utils.filterChildren(children, child => child && (child.type === 'header' || child.type === 'footer'));
       const _header = header || sections.filter(section => section.type === 'header').shift();
       const _footer = footer || sections.filter(section => section.type === 'footer').shift();
 

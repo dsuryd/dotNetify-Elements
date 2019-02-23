@@ -1,5 +1,5 @@
 import React from 'react';
-import { PropTypes } from 'prop-types';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Element from '../core/Element';
 import lightTheme from '../theme-light';

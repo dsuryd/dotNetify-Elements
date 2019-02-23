@@ -1,7 +1,7 @@
 import React from 'react';
-import { PropTypes } from 'prop-types';
+import PropTypes from 'prop-types';
+import InputElement from '../core/InputElement';
 import { TextField } from './TextField';
-import { InputElement } from '../core/Element';
 
 export class TextAreaField extends InputElement {
    static propTypes = {

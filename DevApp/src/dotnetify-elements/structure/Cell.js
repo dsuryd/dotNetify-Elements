@@ -1,5 +1,5 @@
 import React from 'react';
-import { PropTypes } from 'prop-types';
+import PropTypes from 'prop-types';
 import * as utils from '../utils';
 
 export class Cell extends React.Component {

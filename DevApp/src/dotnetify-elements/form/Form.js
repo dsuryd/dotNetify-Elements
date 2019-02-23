@@ -1,5 +1,5 @@
 import React from 'react';
-import { PropTypes } from 'prop-types';
+import PropTypes from 'prop-types';
 import VMInputValidator from '../_internal/VMInputValidator';
 import { ContextTypes } from '../core/VMContext';
 

@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { PropTypes } from 'prop-types';
+import PropTypes from 'prop-types';
+import InputElement from '../core/InputElement';
 import { Field } from '../structure/Field';
-import { InputElement } from '../core/Element';
 import lightTheme from '../theme-light';
 
 const GroupContainer = styled.section`${props => props.theme.Checkbox.GroupContainer};`;
