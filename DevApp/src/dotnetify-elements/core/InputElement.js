@@ -19,7 +19,7 @@ export default class InputElement extends Element {
       // Fallback is this component isn't associated with a back-end view model.
       const propId = this.props.id || Math.random().toString(36).substring(2);
       const vmContext = {
-         getState: id => (id === propId ? this.props.value : this.state && this.state[id]),
+         getState: id => (id === propId && this.props.hasOwnProperty('value') ? this.props.value : this.state && this.state[id]),
          setState: state => this.setState(state),
          getPropAttributes: _ => this.props.attrs || {},
          getPropValidations: _ => this.props.validations || null,

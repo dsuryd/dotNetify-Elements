@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import InputElement from '../core/InputElement';
 import { Field, validationKeyPrefix } from '../structure/Field';
 import { Label } from '../display/Label';
+import createHtmlElement from '../utils/html-element';
 
 const PlainTextComponent = props => (props.type === 'password' ? '' : <span {...props} />);
 
@@ -87,10 +88,28 @@ export class TextField extends InputElement {
 
    render() {
       const [ Container, Input, InputGroup, ValidationMessage, PlainText ] = this.resolveComponents(TextField);
-      const { fullId, label, placeholder, prefix, suffix, maxLength, plainText, horizontal, enable, onChange, type, css, style, ...props } = this.attrs;
+      const {
+         fullId,
+         label,
+         placeholder,
+         prefix,
+         suffix,
+         maxLength,
+         plainText,
+         horizontal,
+         enable,
+         onChange,
+         type,
+         css,
+         style,
+         ...props
+      } = this.attrs;
 
-      let handleChange = onChange ? e => onChange(e.target.value) : e => this.handleChange(e.target.value);
-      const handleBlur = onChange ? null : this.handleBlur;
+      let handleChange = e => {
+         this.handleChange(e.target.value);
+         onChange && onChange(e.target.value);
+      };
+      const handleBlur = this.handleBlur;
 
       const disabled = enable === false;
       const plainTextValue = `${prefix || ''}${this.value || ''}${suffix || ''}`;
@@ -124,3 +143,5 @@ export class TextField extends InputElement {
       );
    }
 }
+
+createHtmlElement(TextField, 'd-text-field');

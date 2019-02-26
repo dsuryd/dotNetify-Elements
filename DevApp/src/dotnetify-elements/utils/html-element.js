@@ -1,61 +1,54 @@
-export default function createHtmlElement(Component, elementName, observedAttributes, useShadowDom) {
+export default function createHtmlElement(Component, elementName, useShadowDom) {
    class CustomElement extends HTMLElement {
       constructor() {
-         const self = super();
+         super();
+         this.mountRoot = useShadowDom ? this.attachShadow({ mode: 'open' }) : this;
 
-         const customElement = this;
-         const shadowRoot = useShadowDom ? this.attachShadow({ mode: 'open' }) : null;
+         // Watch for attribute change on the custom element to render (and re-render) the React component.
+         const observer = new MutationObserver(() => {
+            this.unmountComponent();
+            this.mountComponent();
+         });
+         observer.observe(this, { attributes: true });
+      }
 
-         function getChildren(el) {
-            const fragment = document.createDocumentFragment();
-            while (el.childNodes.length) {
-               fragment.appendChild(el.childNodes[0]);
+      disconnectedCallback() {
+         this.unmountComponent();
+      }
+
+      mountComponent() {
+         // Move any custom element's child node to a document fragment, to be made the React component's children.
+         const fragment = document.createDocumentFragment();
+         this.childNodes.forEach(node => fragment.appendChild(node));
+
+         this.props = [ ...this.attributes ].reduce(
+            (props, attribute) => ({ ...props, [attribute.name]: this.correctValueType(attribute.value) }),
+            { onChange: e => console.warn(e) }
+         );
+         this.component = <Component {...this.props} />;
+         const element = ReactDOM.render(this.component, this.mountRoot);
+
+         // If the React component can accept children, it will have "slotParent" reference as the append target.
+         if (element.refs.slotParent) {
+            const slotNode = ReactDOM.findDOMNode(element.refs.slotParent);
+            if (slotNode && fragment.childNodes.length > 0) {
+               slotNode.appendChild(fragment);
             }
-            return fragment;
          }
-
-         const observer = new MutationObserver((list, obsv) => {
-            ReactDOM.unmountComponentAtNode(useShadowDom ? shadowRoot : this);
-            const props = [ ...this.attributes ].reduce((props, attribute) => ({ ...props, [attribute.name]: attribute.value }), {
-               children: getChildren(this),
-               customElement,
-               shadowRoot
-            });
-            const instance = <Component {...props} />;
-            ReactDOM.render(instance, useShadowDom ? shadowRoot : this);
-            this.instance = instance;
-            this.props = props;
-         });
-
-         observer.observe(self, {
-            attributes: true
-         });
       }
 
-      connectedCallback() {
-         // const customElement = this;
-         // const shadowRoot = useShadowDom ? this.attachShadow({ mode: 'open' }) : null;
-         // const props = [ ...this.attributes ].reduce((props, attribute) => ({ ...props, [attribute.name]: attribute.value }), {
-         //    customElement,
-         //    shadowRoot
-         // });
-         // const instance = <Component {...props} />;
-         // ReactDOM.render(instance, useShadowDom ? shadowRoot : this);
-         // this.instance = instance;
-         // this.props = props;
+      unmountComponent() {
+         if (this.component) {
+            ReactDOM.unmountComponentAtNode(this.mountRoot);
+            this.component = null;
+         }
       }
-      // attributeChangedCallback(name, oldValue, newValue) {
-      //    const { instance, shadowRoot, props } = this;
-      //    if (!instance) return;
 
-      //    const newProps = { ...props, ...{ [name]: newValue } };
-      //    const newInstance = <Component {...newProps} />;
-
-      //    ReactDOM.render(newInstance, useShadowDom ? shadowRoot : this);
-
-      //    this.instance = newInstance;
-      //    this.props = newProps;
-      // }
+      correctValueType(value) {
+         if (value === 'true' || value === 'false') return !!value;
+         if (!isNaN(value)) return +value;
+         return value;
+      }
    }
 
    window.customElements.define(elementName, CustomElement);

@@ -57,7 +57,7 @@ export default class Element extends React.Component {
       const propId = this.props.id || Math.random().toString(36).substring(2);
       this._vmProperty = new VMProperty(
          {
-            getState: id => (id === propId ? this.props.value : this.state && this.state[id]),
+            getState: id => (id === propId && this.props.hasOwnProperty('value') ? this.props.value : this.state && this.state[id]),
             setState: state => this.setState(state),
             getPropAttributes: _ => this.props.attrs || {},
             dispatchState: _ => {}
