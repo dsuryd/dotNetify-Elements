@@ -47,6 +47,8 @@ namespace dotNetify_Elements
          DisplayMarkdown,
          NavigationNavMenu,
 
+         WebComponents,
+
          /* Examples */
          ExampleCustomerForm,
          ExampleDashboard
@@ -64,6 +66,7 @@ namespace dotNetify_Elements
             new RouteTemplate(nameof(Route.LayoutSystem))         { UrlPattern = "layout" },
             new RouteTemplate(nameof(Route.Customization))        { UrlPattern = "customize" },
             new RouteTemplate(nameof(Route.GetStarted))           { UrlPattern = "getstarted" },
+
             new RouteTemplate(nameof(Route.FormButton))           { UrlPattern = "form/button" },
             new RouteTemplate(nameof(Route.FormCheckbox))         { UrlPattern = "form/checkbox" },
             new RouteTemplate(nameof(Route.FormCheckboxGroup))    { UrlPattern = "form/checkboxgroup" },
@@ -96,6 +99,9 @@ namespace dotNetify_Elements
             new RouteTemplate(nameof(Route.DisplayMarkdown))      { UrlPattern = "display/markdown" },
             new RouteTemplate(nameof(Route.DisplayDataGrid))      { UrlPattern = "list/datagrid" },
             new RouteTemplate(nameof(Route.NavigationNavMenu))    { UrlPattern = "navigation/navmenu" },
+
+            new RouteTemplate(nameof(Route.WebComponents))         { UrlPattern = "webcomponent" },
+
             new RouteTemplate(nameof(Route.ExampleCustomerForm))  { UrlPattern = "examples/customerform" },
             new RouteTemplate(nameof(Route.ExampleDashboard))     { UrlPattern = "examples/dashboard" },
          });
@@ -192,6 +198,8 @@ namespace dotNetify_Elements
                   },
                   IsExpanded = false
                },
+
+               new NavRoute("Web Components",            this.GetRoute(nameof(Route.WebComponents))),
             }));
       }
    }

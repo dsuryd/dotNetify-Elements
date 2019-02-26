@@ -3,6 +3,7 @@ import WorkingWithForms from './WorkingWithForms';
 import LayoutSystem from './LayoutSystem';
 import Customization from './Customization';
 import GetStarted from './GetStarted';
+import WebComponents from './WebComponents';
 
 import Form from './form/Form';
 import FormButton from './form/FormButton';
@@ -49,6 +50,7 @@ export {
    LayoutSystem,
    Customization,
    GetStarted,
+   WebComponents,
    Form,
    FormButton,
    FormCheckbox,
