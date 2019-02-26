@@ -165,15 +165,11 @@ export class Panel extends React.Component {
          style
       } = this.props;
 
-      if (!this.context.theme) {
-         const error = 'ERROR: Panel must be nested inside a Theme component.';
-         console.error(error);
-         throw error;
-      }
-
       const hasCell = this.children.some(x => x.type && x.type._typeName === 'Cell');
 
-      const { Gap, Margin } = this.context.theme.Panel;
+      const Gap = this.context.theme ? this.context.theme.Panel.Gap : lightTheme.Panel.Gap;
+      const Margin = this.context.theme ? this.context.theme.Panel.Margin : lightTheme.Panel.Margin;
+
       const _gap = gap || (noGap || hasCell ? '0rem' : smallGap ? Gap.small : Gap.large);
       let _margin = margin || (noMargin ? '0rem' : smallMargin ? Margin.small : Margin.large);
       let _width = width;
@@ -237,7 +233,11 @@ export class Panel extends React.Component {
                      flex={childFlex}
                      margin={this.numChildren <= 1 ? 0 : this.getMargin(idx, _gap, _horizontal, wrap)}
                   >
-                     {child.props ? React.cloneElement(child, utils.mergeProps(child, _childProps, { onShow: show => this.handleShow(idx, show) })) : child}
+                     {child.props ? (
+                        React.cloneElement(child, utils.mergeProps(child, _childProps, { onShow: show => this.handleShow(idx, show) }))
+                     ) : (
+                        child
+                     )}
                   </ChildContainer>
                );
             })}
