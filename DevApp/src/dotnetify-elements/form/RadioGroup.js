@@ -27,7 +27,10 @@ export class RadioGroup extends InputElement {
       horizontal: PropTypes.bool,
 
       // Replaces the input field with plain text.
-      plainText: PropTypes.bool
+      plainText: PropTypes.bool,
+
+      // Occurs when the value changes.
+      onChange: PropTypes.func
    };
 
    static componentTypes = {

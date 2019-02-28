@@ -19,7 +19,10 @@ export class RadioToggle extends React.Component {
       horizontal: PropTypes.bool,
 
       // Replaces the input field with plain text.
-      plainText: PropTypes.bool
+      plainText: PropTypes.bool,
+
+      // Occurs when the value changes.
+      onChange: PropTypes.func
    };
 
    static componentTypes = {

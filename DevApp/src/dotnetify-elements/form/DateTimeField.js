@@ -28,7 +28,10 @@ export class DateTimeField extends InputElement {
       plainText: PropTypes.bool,
 
       // Custom validation functions.
-      validation: PropTypes.oneOfType([ PropTypes.array, PropTypes.shape({ validate: PropTypes.func, message: PropTypes.string }) ])
+      validation: PropTypes.oneOfType([ PropTypes.array, PropTypes.shape({ validate: PropTypes.func, message: PropTypes.string }) ]),
+
+      // Occurs when the value changes.
+      onChange: PropTypes.func
    };
 
    static componentTypes = {
@@ -67,13 +70,31 @@ export class DateTimeField extends InputElement {
 
    render() {
       const [ Container, Input, InputGroup, ValidationMessage, PlainText ] = this.resolveComponents(DateTimeField);
-      const { fullId, label, placeholder, plainText, prefix, suffix, min, max, format, horizontal, enable, style, css, validation, ...props } = this.attrs;
+      const {
+         fullId,
+         label,
+         placeholder,
+         plainText,
+         prefix,
+         suffix,
+         min,
+         max,
+         format,
+         horizontal,
+         enable,
+         style,
+         css,
+         validation,
+         ...props
+      } = this.attrs;
 
       let dateValue = this.value ? new Date(this.value) : null;
       dateValue = dateValue && dateValue.getFullYear() === 0 ? null : dateValue;
 
       const plainTextValue = dateValue
-         ? `${props.time === false ? moment(dateValue).format('L') : props.date === false ? moment(dateValue).format('LT') : moment(dateValue).format('LLL')}`
+         ? `${props.time === false
+              ? moment(dateValue).format('L')
+              : props.date === false ? moment(dateValue).format('LT') : moment(dateValue).format('LLL')}`
          : '';
       const validationMessages = this.props.validationMessages || this.state.validationMessages;
       const disabled = enable === false;

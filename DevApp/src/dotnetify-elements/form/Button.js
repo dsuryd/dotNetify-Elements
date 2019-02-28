@@ -39,7 +39,10 @@ export class Button extends InputElement {
       stretch: PropTypes.bool,
 
       // Associates the button with form submit action.
-      submit: PropTypes.bool
+      submit: PropTypes.bool,
+
+      // Occurs when the button is clicked.
+      onClick: PropTypes.func
    };
 
    static componentTypes = {

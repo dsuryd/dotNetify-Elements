@@ -21,7 +21,10 @@ export class MultiselectList extends InputElement {
       label: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
 
       // Replaces the input field with plain text.
-      plainText: PropTypes.bool
+      plainText: PropTypes.bool,
+
+      // Occurs when the value changes.
+      onChange: PropTypes.func
    };
 
    static componentTypes = {

@@ -27,7 +27,10 @@ export class DropdownList extends InputElement {
       prefix: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
 
       // Text or component to display after the field.
-      suffix: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ])
+      suffix: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
+
+      // Occurs when the value changes.
+      onChange: PropTypes.func
    };
 
    static componentTypes = {

@@ -17,7 +17,10 @@ export class Checkbox extends InputElement {
       switch: PropTypes.bool,
 
       // Replaces the input field with plain text.
-      plainText: PropTypes.bool
+      plainText: PropTypes.bool,
+
+      // Occurs when the value changes.
+      onChange: PropTypes.func
    };
 
    static componentTypes = {
@@ -42,7 +45,14 @@ export class Checkbox extends InputElement {
                <PlainText checked={checked}>{label}</PlainText>
             ) : (
                <React.Fragment>
-                  <Input type="checkbox" id={`${fullId}__input`} name={fullId} checked={checked} onChange={this.handleChange} disabled={disabled} />
+                  <Input
+                     type="checkbox"
+                     id={`${fullId}__input`}
+                     name={fullId}
+                     checked={checked}
+                     onChange={this.handleChange}
+                     disabled={disabled}
+                  />
                   <Label htmlFor={`${fullId}__input`}>{label}</Label>
                </React.Fragment>
             )}

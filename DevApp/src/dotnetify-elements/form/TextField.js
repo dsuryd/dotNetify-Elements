@@ -37,7 +37,10 @@ export class TextField extends InputElement {
       suffix: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
 
       // Custom validation functions.
-      validation: PropTypes.oneOfType([ PropTypes.array, PropTypes.shape({ validate: PropTypes.func, message: PropTypes.string }) ])
+      validation: PropTypes.oneOfType([ PropTypes.array, PropTypes.shape({ validate: PropTypes.func, message: PropTypes.string }) ]),
+
+      // Occurs when the value changes.
+      onChange: PropTypes.func
    };
 
    static componentTypes = {
