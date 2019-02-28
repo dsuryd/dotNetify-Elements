@@ -13,7 +13,7 @@ const WebComponents = _ => (
 const BasicDemo = () => (
    <React.Fragment>
       <d-alert value="Alert" success="true" />
-      <d-text-field id="_textfield" label="Text Field:" maxLength="3" placeholder="Enter text here" onChange={e => console.warn(e)} />
+      <d-text-field id="_textfield" label="Text Field:" maxlength="3" placeholder="Enter text here" onchange="handleEvent()" />
    </React.Fragment>
 );
 

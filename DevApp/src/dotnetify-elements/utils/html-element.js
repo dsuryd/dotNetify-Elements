@@ -21,10 +21,9 @@ export default function createHtmlElement(Component, elementName, useShadowDom) 
          const fragment = document.createDocumentFragment();
          this.childNodes.forEach(node => fragment.appendChild(node));
 
-         this.props = [ ...this.attributes ].reduce(
-            (props, attribute) => ({ ...props, [attribute.name]: this.correctValueType(attribute.value) }),
-            { onChange: e => console.warn(e) }
-         );
+         this.props = this.getAttributes().reduce((props, attribute) => ({ ...props, [attribute.name]: attribute.value }), {
+            ...this.getEvents()
+         });
          this.component = <Component {...this.props} />;
          const element = ReactDOM.render(this.component, this.mountRoot);
 
@@ -44,10 +43,32 @@ export default function createHtmlElement(Component, elementName, useShadowDom) 
          }
       }
 
-      correctValueType(value) {
+      correctName(name) {
+         const propName = Object.keys(Component.propTypes).find(key => key.toLowerCase() == name);
+         return propName ? propName : name;
+      }
+
+      correctType(value) {
          if (value === 'true' || value === 'false') return !!value;
          if (!isNaN(value)) return +value;
          return value;
+      }
+
+      getAttributes() {
+         return [ ...this.attributes ].map(attr => ({ name: this.correctName(attr.name), value: this.correctType(attr.value) }));
+      }
+
+      getEvents() {
+         return Object.keys(Component.propTypes).filter(key => /on([A-Z].*)/.exec(key)).reduce(
+            (events, e) => ({
+               ...events,
+               [e]: args => {
+                  if (typeof this[e] == 'function') this[e](args);
+                  dispatchEvent(new CustomEvent(e, { ...args }));
+               }
+            }),
+            {}
+         );
       }
    }
 
