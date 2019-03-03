@@ -32,6 +32,6 @@ export default class VMContextCustomElement extends HTMLElement {
 
    setState(state) {
       Object.assign(this.state, state);
-      this.dispatchEvent(new CustomEvent('onStateChange', state));
+      this.dispatchEvent(new CustomEvent('onLocalStateChange', state));
    }
 }

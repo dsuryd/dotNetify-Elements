@@ -9,22 +9,27 @@ export default function createCustomElement(Component, elementName, useShadowDom
          // Watch for attribute change on the custom element to render (and re-render) the React component.
          this.observer = new MutationObserver(() => this.remountComponent());
          this.observer.observe(this, { attributes: true });
-
-         this.onVMContextStateChange = _ => this.remountComponent();
       }
+
+      onVMContextStateChange = _ => this.remountComponent();
+      onVMContextLocalStateChange = _ => this.component && this.component.forceUpdate();
 
       connectedCallback() {
          this.vmContextElem = this.closest('d-vm-context');
          if (this.vmContextElem) {
             this.vmContext = this.vmContextElem.context;
             this.vmContextElem.addEventListener('onStateChange', this.onVMContextStateChange);
+            this.vmContextElem.addEventListener('onLocalStateChange', this.onVMContextLocalStateChange);
          }
       }
 
       disconnectedCallback() {
          this.unmountComponent();
          this.observer.disconnect();
-         this.vmContextElem && this.vmContextElem.removeEventListener('onStateChange', this.onVMContextStateChange);
+         if (this.vmContextElem) {
+            this.vmContextElem.removeEventListener('onStateChange', this.onVMContextStateChange);
+            this.vmContextElem.removeEventListener('onLocalStateChange', this.onVMContextLocalStateChange);
+         }
       }
 
       mountComponent() {
@@ -36,12 +41,12 @@ export default function createCustomElement(Component, elementName, useShadowDom
             ...this.getEvents(),
             vmContext: this.vmContext
          });
-         this.component = <Component {...this.props} />;
-         const element = ReactDOM.render(this.component, this.mountRoot);
+
+         this.component = ReactDOM.render(<Component {...this.props} />, this.mountRoot);
 
          // If the React component can accept children, it will have "slotParent" reference as the append target.
-         if (element.refs.slotParent) {
-            const slotNode = ReactDOM.findDOMNode(element.refs.slotParent);
+         if (this.component.refs.slotParent) {
+            const slotNode = ReactDOM.findDOMNode(this.component.refs.slotParent);
             if (slotNode && fragment.childNodes.length > 0) {
                slotNode.appendChild(fragment);
             }
@@ -56,8 +61,11 @@ export default function createCustomElement(Component, elementName, useShadowDom
       }
 
       remountComponent() {
-         this.unmountComponent();
-         this.mountComponent();
+         if (!this.component) this.mountComponent();
+         else {
+            this.unmountComponent();
+            this.mountComponent();
+         }
       }
 
       convertAttributeToProp(attrName, attrValue) {
