@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import InputElement from '../core/InputElement';
 import { Field, validationKeyPrefix } from '../structure/Field';
 import { Label } from '../display/Label';
-import createHtmlElement from '../utils/html-element';
+import createCustomElement from '../utils/custom-element';
 
 const PlainTextComponent = props => (props.type === 'password' ? '' : <span {...props} />);
 
@@ -110,9 +110,11 @@ export class TextField extends InputElement {
 
       let handleChange = e => {
          this.handleChange(e.target.value);
-         onChange && onChange(e.target.value);
       };
-      const handleBlur = this.handleBlur;
+      const handleBlur = _ => {
+         this.handleBlur();
+         this.changed && onChange && onChange(this.value);
+      };
 
       const disabled = enable === false;
       const plainTextValue = `${prefix || ''}${this.value || ''}${suffix || ''}`;
@@ -147,4 +149,4 @@ export class TextField extends InputElement {
    }
 }
 
-createHtmlElement(TextField, 'd-text-field');
+createCustomElement(TextField, 'd-text-field');

@@ -6,13 +6,17 @@ import Element from './Element';
 export default class InputElement extends Element {
    static contextTypes = FormContextTypes;
 
+   get formContext() {
+      return this.context.formContext;
+   }
+
    get vmProperty() {
       if (this._vmInput) return this._vmInput;
 
       // Returns the object that provides data from the back-end view model, and manages input validation
       // and sending back of data to the back-end.
       if (this.isVMProperty) {
-         this._vmInput = new VMInput(this.context.vmContext, this.props.id);
+         this._vmInput = new VMInput(this.vmContext, this.props.id);
          return this._vmInput;
       }
 
@@ -35,7 +39,7 @@ export default class InputElement extends Element {
    }
 
    set changed(value) {
-      if (value && !this._changed && this.context.formContext) this.context.formContext.setChanged(value);
+      if (value && !this._changed && this.formContext) this.formContext.setChanged(value);
       this._changed = value;
    }
 

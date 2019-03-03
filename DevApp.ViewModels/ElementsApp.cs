@@ -47,11 +47,10 @@ namespace dotNetify_Elements
          DisplayMarkdown,
          NavigationNavMenu,
 
-         WebComponents,
-
          /* Examples */
          ExampleCustomerForm,
-         ExampleDashboard
+         ExampleDashboard,
+         ExampleWebComponents
       }
 
       public RoutingState RoutingState { get; set; }
@@ -100,10 +99,9 @@ namespace dotNetify_Elements
             new RouteTemplate(nameof(Route.DisplayDataGrid))      { UrlPattern = "list/datagrid" },
             new RouteTemplate(nameof(Route.NavigationNavMenu))    { UrlPattern = "navigation/navmenu" },
 
-            new RouteTemplate(nameof(Route.WebComponents))         { UrlPattern = "webcomponent" },
-
             new RouteTemplate(nameof(Route.ExampleCustomerForm))  { UrlPattern = "examples/customerform" },
             new RouteTemplate(nameof(Route.ExampleDashboard))     { UrlPattern = "examples/dashboard" },
+            new RouteTemplate(nameof(Route.ExampleWebComponents)) { UrlPattern = "webcomponent" },
          });
 
          AddProperty("NavMenu", new NavMenu(
@@ -122,7 +120,8 @@ namespace dotNetify_Elements
                   Routes = new NavRoute[]
                   {
                      new NavRoute("Customer Form",       this.GetRoute(nameof(Route.ExampleCustomerForm))),
-                     new NavRoute("Admin Dashboard", this.GetRoute(nameof(Route.ExampleDashboard))),
+                     new NavRoute("Admin Dashboard",     this.GetRoute(nameof(Route.ExampleDashboard))),
+                     new NavRoute("Web Components",      this.GetRoute(nameof(Route.ExampleWebComponents))),
                   },
                   IsExpanded = false
                },
@@ -197,9 +196,7 @@ namespace dotNetify_Elements
                      new NavRoute("NavMenu",             this.GetRoute(nameof(Route.NavigationNavMenu))),
                   },
                   IsExpanded = false
-               },
-
-               new NavRoute("Web Components",            this.GetRoute(nameof(Route.WebComponents))),
+               }
             }));
       }
    }

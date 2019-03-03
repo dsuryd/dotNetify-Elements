@@ -23,7 +23,7 @@ export default class Element extends React.Component {
    }
 
    get vmContext() {
-      return this.vmProperty.vmContext;
+      return this.context.vmContext || this.props.vmContext;
    }
 
    get value() {
@@ -40,7 +40,7 @@ export default class Element extends React.Component {
 
    get isVMProperty() {
       // Returns whether this component is associated with a back-end view model property.
-      const state = this.context.vmContext && this.context.vmContext.getState();
+      const state = this.vmContext && this.vmContext.getState();
       return state ? state.hasOwnProperty(this.props.id) : false;
    }
 
@@ -49,7 +49,7 @@ export default class Element extends React.Component {
 
       // Returns the object that provides data from the back-end view model.
       if (this.isVMProperty) {
-         this._vmProperty = new VMProperty(this.context.vmContext, this.props.id);
+         this._vmProperty = new VMProperty(this.vmContext, this.props.id);
          return this._vmProperty;
       }
 

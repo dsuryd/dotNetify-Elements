@@ -3,7 +3,6 @@ import WorkingWithForms from './WorkingWithForms';
 import LayoutSystem from './LayoutSystem';
 import Customization from './Customization';
 import GetStarted from './GetStarted';
-import WebComponents from './WebComponents';
 
 import Form from './form/Form';
 import FormButton from './form/FormButton';
@@ -43,6 +42,7 @@ import NavigationNavMenu from './navigation/NavigationNavMenu';
 
 import ExampleCustomerForm from './examples/customer-form/CustomerForm';
 import ExampleDashboard from './examples/dashboard/Dashboard';
+import ExampleWebComponents from './examples/web-components/WebComponents';
 
 export {
    Introduction,
@@ -50,7 +50,6 @@ export {
    LayoutSystem,
    Customization,
    GetStarted,
-   WebComponents,
    Form,
    FormButton,
    FormCheckbox,
@@ -83,5 +82,6 @@ export {
    DisplayMarkdown,
    NavigationNavMenu,
    ExampleCustomerForm,
-   ExampleDashboard
+   ExampleDashboard,
+   ExampleWebComponents
 };

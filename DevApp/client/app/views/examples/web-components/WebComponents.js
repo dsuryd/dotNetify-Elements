@@ -1,6 +1,6 @@
 import React from 'react';
 import { Markdown, withTheme } from 'dotnetify-elements';
-import Article from '../components/Article';
+import Article from '../../../components/Article';
 
 const WebComponents = _ => (
    <Article vm="WebComponents" id="Content">
@@ -12,8 +12,10 @@ const WebComponents = _ => (
 
 const BasicDemo = () => (
    <React.Fragment>
-      <d-alert value="Alert" success="true" />
-      <d-text-field id="_textfield" label="Text Field:" maxlength="3" placeholder="Enter text here" onchange="handleEvent()" />
+      <d-vm-context vm="SampleForm">
+         <d-alert value="Alert" success="true" />
+         <d-text-field id="MyText" />
+      </d-vm-context>
    </React.Fragment>
 );
 
