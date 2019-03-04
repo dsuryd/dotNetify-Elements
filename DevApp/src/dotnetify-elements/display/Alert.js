@@ -33,7 +33,7 @@ export class Alert extends Element {
       const [ _Alert ] = this.resolveComponents(Alert);
       const { fullId, children, onShow, ...props } = this.attrs;
 
-      const show = (!!fullId && !!children) || !!this.value;
+      const show = (!!fullId && !!children) || (typeof this.value !== 'undefined' && this.value !== null);
       onShow && onShow(show);
 
       return (
