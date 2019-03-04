@@ -5,7 +5,6 @@ export default class VMContextCustomElement extends HTMLElement {
    constructor() {
       super();
       this.store = new VMContextStore(this);
-      this.state = {};
    }
 
    onStateChange = state => {
@@ -31,7 +30,7 @@ export default class VMContextCustomElement extends HTMLElement {
    }
 
    setState(state) {
-      Object.assign(this.state, state);
+      this.state = Object.assign(this.state || {}, state);
       this.dispatchEvent(new CustomEvent('onLocalStateChange', state));
    }
 }

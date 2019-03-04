@@ -6,15 +6,23 @@ export default function createCustomElement(Component, elementName, useShadowDom
          super();
          this.mountRoot = useShadowDom ? this.attachShadow({ mode: 'open' }) : this;
 
-         // Watch for attribute change on the custom element to render (and re-render) the React component.
-         this.observer = new MutationObserver(() => this.remountComponent());
+         // Watch for attribute change on the custom element to render the React component.
+         this.observer = new MutationObserver(() => {
+            // If the element is within a VMContext element, don't render the component until it has state.
+            const vmContextElem = this.closest('d-vm-context');
+            if (!vmContextElem || vmContextElem.context.getState()) this.renderComponent(true);
+         });
          this.observer.observe(this, { attributes: true });
       }
 
-      onVMContextStateChange = _ => this.remountComponent();
-      onVMContextLocalStateChange = _ => this.component && this.component.forceUpdate();
+      onVMContextStateChange = _ => this.renderComponent();
+      onVMContextLocalStateChange = _ => this.renderComponent();
 
       connectedCallback() {
+         // Move any custom element's child node to a document fragment, to be made the React component's children.
+         this.fragment = document.createElement('div');
+         this.childNodes.forEach(node => this.fragment.appendChild(node));
+
          this.vmContextElem = this.closest('d-vm-context');
          if (this.vmContextElem) {
             this.vmContext = this.vmContextElem.context;
@@ -33,10 +41,6 @@ export default function createCustomElement(Component, elementName, useShadowDom
       }
 
       mountComponent() {
-         // Move any custom element's child node to a document fragment, to be made the React component's children.
-         const fragment = document.createDocumentFragment();
-         this.childNodes.forEach(node => fragment.appendChild(node));
-
          this.props = this.getProps().reduce((props, prop) => ({ ...props, [prop.name]: prop.value }), {
             ...this.getEvents(),
             vmContext: this.vmContext
@@ -47,8 +51,9 @@ export default function createCustomElement(Component, elementName, useShadowDom
          // If the React component can accept children, it will have "slotParent" reference as the append target.
          if (this.component.refs.slotParent) {
             const slotNode = ReactDOM.findDOMNode(this.component.refs.slotParent);
-            if (slotNode && fragment.childNodes.length > 0) {
-               slotNode.appendChild(fragment);
+            if (slotNode && this.fragment.childNodes.length > 0) {
+               slotNode.appendChild(this.fragment);
+               this.component.forceUpdate();
             }
          }
       }
@@ -60,8 +65,9 @@ export default function createCustomElement(Component, elementName, useShadowDom
          }
       }
 
-      remountComponent() {
+      renderComponent(remount) {
          if (!this.component) this.mountComponent();
+         else if (this.vmContext && !remount) this.component.forceUpdate();
          else {
             this.unmountComponent();
             this.mountComponent();
@@ -73,8 +79,8 @@ export default function createCustomElement(Component, elementName, useShadowDom
 
          // Convert attribute value type, which is always string, to the expected property type.
          let value = attrValue;
-         if (attrValue === 'true' || attrValue === 'false') value = !!attrValue;
-         else if (!isNaN(attrValue)) value = +attrValue;
+         if (attrValue === 'true' || attrValue === 'false') value = attrValue == 'true';
+         else if (!isNaN(attrValue) && attrValue !== '') value = +attrValue;
          else if (/{.*}/.exec(attrValue)) value = JSON.parse(attrValue);
          else if (propName && Component.propTypes[propName] == PropTypes.func) value = parseFunctionString(attrValue);
 
