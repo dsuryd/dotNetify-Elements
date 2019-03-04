@@ -176,7 +176,7 @@ export class Panel extends React.Component {
 
       // If wrap is enabled, use negative margin on the outer container to counter the full margin
       // on the child items. Must increase the width too.
-      if (wrap) {
+      if (wrap && this.numChildren > 1) {
          _margin = `calc(${_margin} + ${_gap}/2 * -1)`;
          _width = `calc(100% + ${_gap})`;
       }
