@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types';
-
 export default function createCustomElement(Component, elementName, useShadowDom) {
    class CustomElement extends HTMLElement {
       constructor() {
@@ -82,7 +80,7 @@ export default function createCustomElement(Component, elementName, useShadowDom
          if (attrValue === 'true' || attrValue === 'false') value = attrValue == 'true';
          else if (!isNaN(attrValue) && attrValue !== '') value = +attrValue;
          else if (/{.*}/.exec(attrValue)) value = JSON.parse(attrValue);
-         else if (propName && Component.propTypes[propName] == PropTypes.func) value = parseFunctionString(attrValue);
+         else if (/([A-z0-9$_]*)\(.*\)/.exec(attrValue)) value = parseFunctionString(attrValue);
 
          return {
             name: propName ? propName : attrName,
@@ -108,7 +106,7 @@ export default function createCustomElement(Component, elementName, useShadowDom
       }
    }
 
-   window.customElements.define(elementName, CustomElement);
+   if (!window.customElements.get(elementName)) window.customElements.define(elementName, CustomElement);
 }
 
 export function parseFunctionString(funcString) {

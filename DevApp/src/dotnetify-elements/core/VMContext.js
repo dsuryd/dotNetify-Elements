@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import VMContextStore from '../_internal/VMContextStore';
-import VMContextCustomElement from './VMContextCustomElement';
+import CustomElement from './VMContextCustomElement';
 
 export const ContextTypes = {
    vmContext: PropTypes.object,
@@ -53,4 +53,5 @@ export class VMContext extends React.Component {
    }
 }
 
-window.customElements.define('d-vm-context', VMContextCustomElement);
+const elemName = 'd-vm-context';
+if (!window.customElements.get(elemName)) window.customElements.define(elemName, CustomElement);
