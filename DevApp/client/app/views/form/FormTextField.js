@@ -41,9 +41,9 @@ const MyApp = _ => (
       const buildWebComponentCode = props => `
 \`\`\`jsx
 <d-vm-context vm="TextFieldExample">
-   <d-text-field id="Name"${props} />
-   <d-text-field id="Phone"${props} />
-   <d-text-field id="Amount"${props} />
+   <d-text-field id="Name"${props}></d-text-field>
+   <d-text-field id="Phone"${props}></d-text-field>
+   <d-text-field id="Amount"${props}></d-text-field>
 </d-vm-context>
 \`\`\``;
       const setState = state => this.setState(state);
