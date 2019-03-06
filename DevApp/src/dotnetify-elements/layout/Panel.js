@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import * as utils from '../utils';
 import lightTheme from '../theme-light';
+import createCustomElement from '../utils/custom-element';
 
 const Container = styled.div`
    display: flex;
@@ -245,3 +246,5 @@ export class Panel extends React.Component {
       );
    }
 }
+
+createCustomElement(Panel, 'd-panel');

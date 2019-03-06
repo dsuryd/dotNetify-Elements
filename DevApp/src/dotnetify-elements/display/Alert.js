@@ -38,7 +38,7 @@ export class Alert extends Element {
 
       return (
          show && (
-            <_Alert id={fullId} ref="slotParent" {...props}>
+            <_Alert id={fullId} {...props}>
                {this.value && markdown(this.value)}
                {children}
             </_Alert>

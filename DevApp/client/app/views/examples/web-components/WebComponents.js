@@ -13,8 +13,13 @@ const WebComponents = _ => (
 const BasicDemo = () => (
    <React.Fragment>
       <d-vm-context vm="SampleForm">
-         <d-alert value="Alert" success="true" />
-         <d-text-field id="MyText" />
+         <d-panel>
+            <d-alert success="true">
+               Alert
+               <b>Test</b>
+            </d-alert>
+            <d-text-field id="MyText" />
+         </d-panel>
       </d-vm-context>
    </React.Fragment>
 );

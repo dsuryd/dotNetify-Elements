@@ -1,3 +1,5 @@
+import htmlToReact from 'html-to-react';
+
 export default function createCustomElement(Component, elementName, useShadowDom) {
    class CustomElement extends HTMLElement {
       constructor() {
@@ -17,10 +19,6 @@ export default function createCustomElement(Component, elementName, useShadowDom
       onVMContextLocalStateChange = _ => this.renderComponent();
 
       connectedCallback() {
-         // Move any custom element's child node to a document fragment, to be made the React component's children.
-         this.fragment = document.createElement('div');
-         this.childNodes.forEach(node => this.fragment.appendChild(node));
-
          this.vmContextElem = this.closest('d-vm-context');
          if (this.vmContextElem) {
             this.vmContext = this.vmContextElem.context;
@@ -44,16 +42,9 @@ export default function createCustomElement(Component, elementName, useShadowDom
             vmContext: this.vmContext
          });
 
+         this.childrenHtml = this.childrenHtml || this.innerHTML;
+         if (this.childrenHtml) Object.assign(this.props, { children: new htmlToReact.Parser().parse(this.childrenHtml) });
          this.component = ReactDOM.render(<Component {...this.props} />, this.mountRoot);
-
-         // If the React component can accept children, it will have "slotParent" reference as the append target.
-         if (this.component.refs.slotParent) {
-            const slotNode = ReactDOM.findDOMNode(this.component.refs.slotParent);
-            if (slotNode && this.fragment.childNodes.length > 0) {
-               slotNode.appendChild(this.fragment);
-               this.component.forceUpdate();
-            }
-         }
       }
 
       unmountComponent() {
