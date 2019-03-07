@@ -45,10 +45,9 @@ export class Form extends React.Component {
 
    constructor(props) {
       super(props);
-      this.state = { changed: false, plainText: !!this.props.plainText };
-      this.subForms = [];
+      this.state = { plainText: !!this.props.plainText };
 
-      this.formStore = new FormStore();
+      this.formStore = new FormStore(this);
    }
 
    componentDidMount() {
@@ -57,8 +56,7 @@ export class Form extends React.Component {
    }
 
    componentWillUpdate(props) {
-      if (typeof props.plainText == 'boolean' && props.plainText !== this.state.plainText)
-         this.setState({ plainText: props.plainText });
+      if (typeof props.plainText == 'boolean' && props.plainText !== this.state.plainText) this.setState({ plainText: props.plainText });
    }
 
    componentDidUpdate() {
@@ -69,8 +67,8 @@ export class Form extends React.Component {
    }
 
    changed(state) {
-      if (!this.state.changed) {
-         this.setState({ changed: true });
+      if (!this.formStore.changed) {
+         this.formStore.changed = true;
          this.props.onChanged && this.props.onChanged(state);
       }
 
@@ -81,9 +79,8 @@ export class Form extends React.Component {
       // Intercept dispatchState calls from the input fields to group them all first here,
       // and only send them on Submit button click. But use 'toServer' to override this
       // for special cases, e.g. letting field value go through to be validated server-side.
-      toServer === true
-         ? this.vmContext.dispatchState(state)
-         : this.setState({ changed: true, data: Object.assign({}, this.state.data, state) });
+      if (toServer === true) this.vmContext.dispatchState(state);
+      else this.formStore.store(state);
 
       this.changed(state);
    }
@@ -93,7 +90,7 @@ export class Form extends React.Component {
 
       formContext = formContext || {
          subForms: this.formStore.subForms,
-         changed: this.state.changed,
+         changed: this.formStore.changed,
          plainText: this.state.plainText,
          setChanged: state => this.changed(state),
          setPlainText: state => this.setState({ plainText: state }),
@@ -117,9 +114,13 @@ export class Form extends React.Component {
    }
 
    handleSubmit(propId) {
-      if (this.formStore.subForms.length > 0) return this.handleSubmitSubForms(propId);
+      const submit = this.submit.bind(this);
 
-      return this.submitOnValidated(propId)
+      if (this.formStore.subForms.length > 0)
+         return this.formStore.handleSubmitSubForms(this.props.id, propId, submit, this.props.onSubmitError);
+
+      return this.formStore
+         .submitOnValidated(propId, submit)
          .then(result => {
             if (!result.valid) {
                this.props.onSubmitError && this.props.onSubmitError(result);
@@ -130,48 +131,10 @@ export class Form extends React.Component {
          .then(result => result.valid);
    }
 
-   handleSubmitSubForms(propId) {
-      let subFormData = {};
-      const submit = (id, data) => Object.assign(subFormData, id ? { [id]: data } : data);
-
-      return Promise.all(this.formStore.subForms.map(form => form.submitOnValidated(form.props.id, submit)))
-         .then(results =>
-            results.reduce(
-               (aggregate, current) => ({
-                  failedForms:
-                     current.failedIds.length > 0
-                        ? [ ...aggregate.failedForms, { formId: current.formId, failedIds: current.failedIds } ]
-                        : aggregate.failedForms,
-                  valid: aggregate.valid && current.valid,
-                  messages: [ ...aggregate.messages, ...current.messages ]
-               }),
-               { valid: true, messages: [], failedForms: [] }
-            )
-         )
-         .then(result => {
-            if (!result.valid) {
-               this.props.onSubmitError && this.props.onSubmitError(result);
-               const form = this.formStore.subForms
-                  .filter(form => form.props.id === result.failedForms[0].formId)
-                  .shift();
-               form && form.formStore.setInputFocus(result.failedForms[0].failedIds[0]);
-            }
-            return result;
-         })
-         .then(result => {
-            result.valid && this.submit(propId, subFormData);
-            return result.valid;
-         });
-   }
-
    handleCancel() {
-      this.formStore.cancel();
-      this.cancel();
-   }
-
-   cancel() {
       this.vmContext.setState(this.formStore.preEditState);
-      this.setState({ changed: false, data: null });
+      this.formStore.cancel();
+      this.formStore.reset();
    }
 
    render() {
@@ -186,21 +149,6 @@ export class Form extends React.Component {
 
    resetForm() {
       this.formStore.reset(this.vmContext && this.vmContext.getState(), this.plainText);
-      this.setState({ changed: false, data: null });
-   }
-
-   submitOnValidated(propId, submit) {
-      const { data } = this.state;
-      const formId = this.props.id;
-      const isDirty = !!data;
-      const shouldValidate = isDirty || this.formStore.validators.some(validator => validator.isRequired);
-
-      return shouldValidate
-         ? this.formStore.validate(formId).then(result => {
-              if (result.valid && isDirty) submit ? submit(propId, data) : this.submit(propId, data);
-              return result;
-           })
-         : Promise.resolve({ formId: formId, valid: true, messages: [], failedIds: [] });
    }
 
    submit(propId, data) {
