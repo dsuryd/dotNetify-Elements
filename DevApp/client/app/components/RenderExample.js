@@ -85,7 +85,14 @@ export default class RenderExample extends React.Component {
                   {extraToggles}
                </Panel>
             </Panel>
-            {onWebComponent && <Checkbox id="_webComponent" label="Web component" switch={true} onChange={showWebComponent} />}
+            {onWebComponent && (
+               <Checkbox
+                  id="_webComponent"
+                  label={<span style={{ fontWeight: '500' }}>Web component</span>}
+                  switch={true}
+                  onChange={showWebComponent}
+               />
+            )}
             <Markdown>{this.buildCode(this.state)}</Markdown>
          </Panel>
       );
