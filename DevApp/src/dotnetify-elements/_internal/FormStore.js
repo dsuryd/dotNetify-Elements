@@ -7,9 +7,8 @@ export default class FormStore {
       this.validators = [];
       this.inputs = [];
       this.subForms = [];
-      this.plainText = false;
+      this.editMode = false;
       this.preEditState = null;
-      this.vmContextState = null;
    }
 
    get edits() {
@@ -28,22 +27,74 @@ export default class FormStore {
       this.host.setState({ changed: value });
    }
 
+   get plainText() {
+      return this.host.state.plainText;
+   }
+
+   set plainText(value) {
+      this.host.setState({ plainText: value });
+   }
+
+   get props() {
+      return this.host.props || {};
+   }
+
    cancel() {
-      this.subForms.forEach(form => form.handleCancel());
+      this.host.vmContext.setState(this.preEditState);
+      this.subForms.forEach(form => form.cancel());
       this.validators.forEach(validator => validator.clear());
+      this.leaveEditMode();
    }
 
-   enteringEditMode(plainText) {
-      const result = this.plainText && !plainText;
-      this.plainText = plainText;
-      return result;
+   dispatchState(state, toServer) {
+      // Intercept dispatchState calls from the input fields to group them all first here,
+      // and only send them on Submit button click. But use 'toServer' to override this
+      // for special cases, e.g. letting field value go through to be validated server-side.
+      if (toServer === true) this.host.vmContext.dispatchState(state);
+      else this.store(state);
+
+      this.setChanged(state);
    }
 
-   getPreEditState() {
+   enterEditMode() {
+      if (!this.editMode) {
+         this.editMode = true;
+         this.preEditState = this.getPreEditState(this.host.vmContext.getState());
+         this.subForms.forEach(form => form.enterEditMode());
+      }
+   }
+
+   getContext(vmContext, formContext) {
+      formContext = formContext || {
+         subForms: this.subForms,
+         changed: this.changed,
+         plainText: this.plainText,
+         setChanged: state => this.setChanged(state),
+         setPlainText: state => (this.plainText = state),
+         submit: propId => this.handleSubmit(propId),
+         cancel: _ => this.cancel()
+      };
+
+      return {
+         formContext,
+         vmContext: Object.assign({}, vmContext, {
+            dispatchState: (state, toServer) => this.dispatchState(state, toServer),
+            getValidator: vmInput => this.getValidator(vmInput),
+            getPropAttributes: propId => this.getPropAttributes(vmContext, propId)
+         })
+      };
+   }
+
+   getPreEditState(vmContextState) {
       // Get the pre-edit state of the input fields so we can restore them on Cancel.
-      return Object.entries(this.vmContextState)
+      return Object.entries(vmContextState)
          .filter(pair => this.inputs.some(input => input.propId === pair[0]))
          .reduce((aggregate, pair) => Object.assign(aggregate, { [pair[0]]: pair[1] }), {});
+   }
+
+   getPropAttributes(vmContext, propId) {
+      const plainText = this.host.formContext ? this.host.formContext.plainText : this.props.plainText;
+      return Object.assign({ plainText }, vmContext.getPropAttributes(propId));
    }
 
    getValidator(vmInput) {
@@ -54,11 +105,26 @@ export default class FormStore {
       return validator;
    }
 
-   handleSubmitSubForms(formId, propId, submit, onSubmitError) {
+   handleSubmit(propId) {
+      const submit = (_propId, data) => this.submit(_propId, data);
+      if (this.subForms.length > 0) return this.handleSubmitSubForms(propId, submit, this.props.onSubmitError);
+
+      return this.submitOnValidated(propId, submit)
+         .then(result => {
+            if (!result.valid) {
+               this.props.onSubmitError && this.props.onSubmitError(result);
+               this.setInputFocus(result.failedIds[0]);
+            }
+            return result;
+         })
+         .then(result => result.valid);
+   }
+
+   handleSubmitSubForms(propId, submit, onSubmitError) {
       let subFormData = {};
       const subFormSubmit = (id, data) => Object.assign(subFormData, id ? { [id]: data } : data);
 
-      return Promise.all(this.subForms.map(form => form.formStore.submitOnValidated(form.props.id, subFormSubmit)))
+      return Promise.all(this.subForms.map(form => form.submitOnValidated(form.props.id, subFormSubmit)))
          .then(results =>
             results.reduce(
                (aggregate, current) => ({
@@ -86,16 +152,24 @@ export default class FormStore {
          });
    }
 
-   initPreEditState() {
-      this.preEditState = this.preEditState || this.getPreEditState();
+   init() {
+      this.host.formContext && this.host.formContext.subForms.push(this);
+      this.plainText = this.props.plainText;
    }
 
-   reset(vmContextState, plainText) {
-      this.preEditState = null;
-      if (typeof vmContextState != 'undefined') this.vmContextState = vmContextState;
-      if (typeof plainText != 'undefined') this.plainText = plainText;
-
+   leaveEditMode() {
       this.host.setState({ changed: false, edits: null });
+      this.subForms.forEach(form => form.leaveEditMode());
+      this.editMode = false;
+   }
+
+   setChanged(state) {
+      if (!this.changed) {
+         this.changed = true;
+         this.props.onChanged && this.props.onChanged(state);
+      }
+
+      if (this.host.formContext && !this.host.formContext.changed) this.host.formContext.setChanged(state);
    }
 
    setInputFocus(inputId) {
@@ -104,7 +178,15 @@ export default class FormStore {
    }
 
    store(edit) {
-      this.host.setState({ changed: true, edits: Object.assign({}, this.host.state.edits, edit) });
+      this.host.setState({ changed: true, edits: Object.assign({}, this.edits, edit) });
+   }
+
+   submit(propId, data) {
+      let formData = Object.assign({}, this.preEditState, data);
+      if (!this.props.onSubmit || this.props.onSubmit(formData) !== false)
+         this.host.vmContext.dispatchState(propId ? { [propId]: formData } : data);
+
+      this.leaveEditMode();
    }
 
    submitOnValidated(propId, submit) {

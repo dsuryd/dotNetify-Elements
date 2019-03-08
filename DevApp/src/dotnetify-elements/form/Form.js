@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import { ContextTypes } from '../core/VMContext';
 import FormStore from '../_internal/FormStore';
 
@@ -35,126 +34,41 @@ export class Form extends React.Component {
       return this.context.formContext;
    }
 
-   get plainText() {
-      return this.formContext ? this.formContext.plainText : this.props.plainText;
-   }
-
    get vmContext() {
       return this.context.vmContext;
    }
 
    constructor(props) {
       super(props);
-      this.state = { plainText: !!this.props.plainText };
-
+      this.state = {};
       this.formStore = new FormStore(this);
    }
 
    componentDidMount() {
-      this.resetForm();
-      this.formContext && this.formContext.subForms.push(this);
+      this.formStore.init();
    }
 
-   componentWillUpdate(props) {
-      if (typeof props.plainText == 'boolean' && props.plainText !== this.state.plainText) this.setState({ plainText: props.plainText });
-   }
-
-   componentDidUpdate() {
-      if (this.formStore.enteringEditMode(this.plainText)) this.resetForm();
-
-      // Keep the pre-edit state so we can restore them on Cancel action.
-      this.formStore.initPreEditState();
-   }
-
-   changed(state) {
-      if (!this.formStore.changed) {
-         this.formStore.changed = true;
-         this.props.onChanged && this.props.onChanged(state);
-      }
-
-      if (this.formContext && !this.formContext.changed) this.formContext.setChanged(state);
-   }
-
-   dispatchState(state, toServer) {
-      // Intercept dispatchState calls from the input fields to group them all first here,
-      // and only send them on Submit button click. But use 'toServer' to override this
-      // for special cases, e.g. letting field value go through to be validated server-side.
-      if (toServer === true) this.vmContext.dispatchState(state);
-      else this.formStore.store(state);
-
-      this.changed(state);
+   shouldComponentUpdate(props) {
+      if (props.hasOwnProperty('plainText') && props.plainText !== this.formStore.plainText) this.formStore.plainText = props.plainText;
+      if (props.plainText === false) this.formStore.enterEditMode();
+      return true;
    }
 
    getChildContext() {
       let { vmContext, formContext, ...context } = this.context;
-
-      formContext = formContext || {
-         subForms: this.formStore.subForms,
-         changed: this.formStore.changed,
-         plainText: this.state.plainText,
-         setChanged: state => this.changed(state),
-         setPlainText: state => this.setState({ plainText: state }),
-         submit: propId => this.handleSubmit(propId),
-         cancel: _ => this.handleCancel()
-      };
-
       return {
          ...context,
-         formContext: formContext,
-         vmContext: Object.assign({}, vmContext, {
-            dispatchState: (state, toServer) => this.dispatchState(state, toServer),
-            getValidator: vmInput => this.formStore.getValidator(vmInput),
-            getPropAttributes: propId => this.getPropAttributes(vmContext, propId)
-         })
+         ...this.formStore.getContext(vmContext, formContext)
       };
-   }
-
-   getPropAttributes(vmContext, propId) {
-      return Object.assign({ plainText: this.plainText }, vmContext.getPropAttributes(propId));
-   }
-
-   handleSubmit(propId) {
-      const submit = this.submit.bind(this);
-
-      if (this.formStore.subForms.length > 0)
-         return this.formStore.handleSubmitSubForms(this.props.id, propId, submit, this.props.onSubmitError);
-
-      return this.formStore
-         .submitOnValidated(propId, submit)
-         .then(result => {
-            if (!result.valid) {
-               this.props.onSubmitError && this.props.onSubmitError(result);
-               this.formStore.setInputFocus(result.failedIds[0]);
-            }
-            return result;
-         })
-         .then(result => result.valid);
-   }
-
-   handleCancel() {
-      this.vmContext.setState(this.formStore.preEditState);
-      this.formStore.cancel();
-      this.formStore.reset();
    }
 
    render() {
-      return this.context.formContext ? (
+      return this.formContext ? (
          this.props.children
       ) : (
          <form style={{ width: 'inherit' }} onSubmit={e => e.preventDefault()}>
             {this.props.children}
          </form>
       );
-   }
-
-   resetForm() {
-      this.formStore.reset(this.vmContext && this.vmContext.getState(), this.plainText);
-   }
-
-   submit(propId, data) {
-      let formData = Object.assign({}, this.formStore.preEditState, data);
-      if (!this.props.onSubmit || this.props.onSubmit(formData) !== false)
-         this.vmContext.dispatchState(propId ? { [propId]: formData } : data);
-      this.resetForm();
    }
 }
