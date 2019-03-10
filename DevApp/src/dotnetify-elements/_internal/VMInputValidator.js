@@ -33,6 +33,7 @@ export default class VMInputValidator extends VMProperty {
 
    onValidated(handler) {
       if (typeof handler === 'function') this.handleValidated = handler;
+      return () => (this.handleValidated = null);
    }
 
    validate(value) {

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import VMContextStore from '../_internal/VMContextStore';
-import CustomElement from './VMContextCustomElement';
+import createWebComponent from '../_internal/VMContextComponent';
 
 export const ContextTypes = {
    vmContext: PropTypes.object,
@@ -28,12 +28,12 @@ export class VMContext extends React.Component {
       this.store = new VMContextStore(this);
    }
 
-   get vmId() {
-      return this.context && this.context.vmContext ? `${this.context.vmContext.vmId}.${this.props.vm}` : this.props.vm;
+   get vmContext() {
+      return this.context && this.context.vmContext;
    }
 
    componentDidMount() {
-      this.store.connect(this.vmId, this.props.options, this.props.onStateChange);
+      this.store.connect(this.props.vm, this.props.options, this.props.onStateChange);
    }
 
    componentWillUnmount() {
@@ -53,5 +53,4 @@ export class VMContext extends React.Component {
    }
 }
 
-const elemName = 'd-vm-context';
-if (!window.customElements.get(elemName)) window.customElements.define(elemName, CustomElement);
+createWebComponent(VMContext, 'd-vm-context');

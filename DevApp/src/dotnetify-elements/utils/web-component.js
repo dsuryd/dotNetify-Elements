@@ -1,9 +1,11 @@
 import htmlToReact from 'html-to-react';
+import WebComponentHelper from './web-component-helper';
 
-export default function createCustomElement(Component, elementName, useShadowDom) {
+export default function createWebComponent(Component, elementName, useShadowDom) {
    class CustomElement extends HTMLElement {
       constructor() {
          super();
+
          this.mountRoot = useShadowDom ? this.attachShadow({ mode: 'open' }) : this;
 
          // Watch for attribute change on the custom element to render the React component.
@@ -17,6 +19,7 @@ export default function createCustomElement(Component, elementName, useShadowDom
 
       onVMContextStateChange = _ => this.renderComponent();
       onVMContextLocalStateChange = _ => this.renderComponent();
+      onFormContextStateChange = _ => this.renderComponent();
 
       connectedCallback() {
          this.vmContextElem = this.closest('d-vm-context');
@@ -24,6 +27,13 @@ export default function createCustomElement(Component, elementName, useShadowDom
             this.vmContext = this.vmContextElem.context;
             this.vmContextElem.addEventListener('onStateChange', this.onVMContextStateChange);
             this.vmContextElem.addEventListener('onLocalStateChange', this.onVMContextLocalStateChange);
+         }
+
+         this.formElem = this.closest('d-form');
+         if (this.formElem) {
+            this.vmContext = this.formElem.context.vmContext;
+            this.formContext = this.formElem.context.formContext;
+            this.formElem.addEventListener('onStateChange', this.onFormContextStateChange);
          }
       }
 
@@ -34,13 +44,17 @@ export default function createCustomElement(Component, elementName, useShadowDom
             this.vmContextElem.removeEventListener('onStateChange', this.onVMContextStateChange);
             this.vmContextElem.removeEventListener('onLocalStateChange', this.onVMContextLocalStateChange);
          }
+         if (this.formElem) this.formElem.removeEventListener('onStateChange', this.onFormContextStateChange);
       }
 
       mountComponent() {
-         this.props = this.getProps().reduce((props, prop) => ({ ...props, [prop.name]: prop.value }), {
-            ...this.getEvents(),
-            vmContext: this.vmContext
-         });
+         const helper = new WebComponentHelper(this);
+         this.props = {
+            ...helper.getProps(this.attributes, Component.propTypes),
+            ...helper.getEvents(Component.propTypes),
+            vmContext: this.vmContext,
+            formContext: this.formContext
+         };
 
          this.childrenHtml = this.childrenHtml || this.innerHTML;
          if (this.childrenHtml) Object.assign(this.props, { children: new htmlToReact.Parser().parse(this.childrenHtml) });
@@ -62,51 +76,7 @@ export default function createCustomElement(Component, elementName, useShadowDom
             this.mountComponent();
          }
       }
-
-      convertAttributeToProp(attrName, attrValue) {
-         const propName = Object.keys(Component.propTypes).find(key => key.toLowerCase() == attrName);
-
-         // Convert attribute value type, which is always string, to the expected property type.
-         let value = attrValue;
-         if (attrValue === 'true' || attrValue === 'false') value = attrValue == 'true';
-         else if (!isNaN(attrValue) && attrValue !== '') value = +attrValue;
-         else if (/{.*}/.exec(attrValue)) value = JSON.parse(attrValue);
-         else if (/([A-z0-9$_]*)\(.*\)/.exec(attrValue)) value = parseFunctionString(attrValue);
-
-         return {
-            name: propName ? propName : attrName,
-            value: value
-         };
-      }
-
-      getProps() {
-         return [ ...this.attributes ].map(attr => this.convertAttributeToProp(attr.name, attr.value));
-      }
-
-      getEvents() {
-         return Object.keys(Component.propTypes).filter(key => /on([A-Z].*)/.exec(key)).reduce(
-            (events, e) => ({
-               ...events,
-               [e]: args => {
-                  if (typeof this[e] == 'function') this[e](args);
-                  this.dispatchEvent(new CustomEvent(e, { ...args }));
-               }
-            }),
-            {}
-         );
-      }
    }
 
    if (!window.customElements.get(elementName)) window.customElements.define(elementName, CustomElement);
-}
-
-export function parseFunctionString(funcString) {
-   if (!funcString) return null;
-   return args => {
-      // Parse the function name from the attribute value.
-      const match = /([A-z0-9$_]*)\(?\)?/.exec(funcString);
-      const fnName = match ? match[1] : funcString;
-      if (typeof window[fnName] === 'function') window[fnName](args);
-      else eval(funcString.replace('$event', `'${JSON.stringify(args)}'`));
-   };
 }

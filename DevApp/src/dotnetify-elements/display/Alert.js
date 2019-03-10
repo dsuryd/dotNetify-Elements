@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Element from '../core/Element';
 import markdown from '../utils/markdown';
-import createCustomElement from '../utils/custom-element';
+import createWebComponent from '../utils/web-component';
 
 export class Alert extends Element {
    static propTypes = {
@@ -47,4 +47,4 @@ export class Alert extends Element {
    }
 }
 
-createCustomElement(Alert, 'd-alert');
+createWebComponent(Alert, 'd-alert');

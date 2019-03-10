@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import InputElement from '../core/InputElement';
 import { FormContextTypes } from './Form';
 import * as utils from '../utils';
+import createWebComponent from '../utils/web-component';
 
 export class Button extends InputElement {
    static contextTypes = FormContextTypes;
@@ -50,7 +51,7 @@ export class Button extends InputElement {
    };
 
    get shouldDisableSubmit() {
-      return this.props.enable === false || (this.context.formContext && !this.context.formContext.changed);
+      return this.props.enable === false || (this.formContext && !this.formContext.isChanged());
    }
 
    handleClick = _ => {
@@ -59,10 +60,10 @@ export class Button extends InputElement {
       if (!onClick) onClick = () => null;
 
       // If button is associated with a form action, invoke it.
-      if ((submit || cancel) && this.context.formContext) {
-         if (submit) this.context.formContext.submit(id).then(canSubmit => canSubmit && onClick());
+      if ((submit || cancel) && this.formContext) {
+         if (submit) this.formContext.submit(id).then(canSubmit => canSubmit && onClick());
          else if (cancel) {
-            this.context.formContext.cancel();
+            this.formContext.cancel();
             onClick();
          }
       }
@@ -98,3 +99,5 @@ export class Button extends InputElement {
       );
    }
 }
+
+createWebComponent(Button, 'd-button');

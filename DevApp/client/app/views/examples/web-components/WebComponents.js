@@ -12,18 +12,31 @@ const WebComponents = _ => (
 
 const BasicDemo = () => (
    <React.Fragment>
-      <d-vm-context vm="SampleForm">
-         <d-panel css="border: 1px solid red; padding: 1rem">
-            <d-panel css="border: 1px solid green; padding: 1rem">
-               <d-alert success="true">
-                  Alert<br />
-                  <b>Test</b>
-               </d-alert>
-               <d-text-field id="MyText" />
+      <d-vm-context vm="MasterForm">
+         <d-form>
+            <d-alert id="ServerResponse" />
+            <d-panel horizontal="true">
+               <d-vm-context vm="ChildForm_NameEmail">
+                  <d-form id="NameEmail">
+                     <d-panel>
+                        <d-text-field id="Name" />
+                        <d-text-field id="Email" />
+                     </d-panel>
+                  </d-form>
+               </d-vm-context>
+               <d-vm-context vm="ChildForm_Address">
+                  <d-form id="Address">
+                     <d-panel>
+                        <d-text-field id="Address" />
+                        <d-text-field id="City" />
+                        <d-dropdown-list id="State" />
+                     </d-panel>
+                  </d-form>
+               </d-vm-context>
             </d-panel>
-         </d-panel>
+            <d-button id="Register" submit="true" />
+         </d-form>
       </d-vm-context>
    </React.Fragment>
 );
-
 export default withTheme(WebComponents);

@@ -43,7 +43,7 @@ export class MultiselectList extends InputElement {
    }
 
    componentDidMount() {
-      this.vmProperty.onValidated(result =>
+      this.unsubOnValidated = this.vmProperty.onValidated(result =>
          this.setState({
             valid: result.valid ? null : false,
             validationMessages: result.messages
@@ -61,6 +61,10 @@ export class MultiselectList extends InputElement {
             });
          }
       }
+   }
+
+   componentWillUnmount() {
+      this.unsubOnValidated();
    }
 
    handleChange = value => this.dispatch(value.map(val => val.Key));

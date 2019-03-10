@@ -48,7 +48,7 @@ export class DateTimeField extends InputElement {
    }
 
    componentDidMount() {
-      this.vmProperty.onValidated(result =>
+      this.unsubOnValidated = this.vmProperty.onValidated(result =>
          this.setState({
             valid: result.valid ? null : false,
             validationMessages: result.messages
@@ -56,6 +56,10 @@ export class DateTimeField extends InputElement {
       );
 
       if (this.props.validation) this.vmProperty.addValidation(this.props.validation);
+   }
+
+   componentWillUnmount() {
+      this.unsubOnValidated();
    }
 
    handleChange = value => {

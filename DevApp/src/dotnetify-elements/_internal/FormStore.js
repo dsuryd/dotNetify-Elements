@@ -3,7 +3,7 @@ import VMInputValidator from './VMInputValidator';
 export default class FormStore {
    constructor(host) {
       this.host = host;
-      this.formId = host.props.id;
+      this.formId = this.props.id;
       this.validators = [];
       this.inputs = [];
       this.subForms = [];
@@ -67,12 +67,12 @@ export default class FormStore {
    getContext(vmContext, formContext) {
       formContext = formContext || {
          subForms: this.subForms,
-         changed: this.changed,
-         plainText: this.plainText,
+         isChanged: () => this.changed,
+         isPlainText: () => this.plainText,
          setChanged: state => this.setChanged(state),
          setPlainText: state => (this.plainText = state),
          submit: propId => this.handleSubmit(propId),
-         cancel: _ => this.cancel()
+         cancel: () => this.cancel()
       };
 
       return {
@@ -93,7 +93,7 @@ export default class FormStore {
    }
 
    getPropAttributes(vmContext, propId) {
-      const plainText = this.host.formContext ? this.host.formContext.plainText : this.props.plainText;
+      const plainText = this.host.formContext ? this.host.formContext.isPlainText() : this.props.plainText;
       return Object.assign({ plainText }, vmContext.getPropAttributes(propId));
    }
 
@@ -141,8 +141,8 @@ export default class FormStore {
          .then(result => {
             if (!result.valid) {
                onSubmitError && onSubmitError(result);
-               const form = this.subForms.filter(form => form.props.id === result.failedForms[0].formId).shift();
-               form && form.formStore.setInputFocus(result.failedForms[0].failedIds[0]);
+               const form = this.subForms.find(form => form.props.id === result.failedForms[0].formId);
+               form && form.setInputFocus(result.failedForms[0].failedIds[0]);
             }
             return result;
          })
@@ -169,7 +169,7 @@ export default class FormStore {
          this.props.onChanged && this.props.onChanged(state);
       }
 
-      if (this.host.formContext && !this.host.formContext.changed) this.host.formContext.setChanged(state);
+      if (this.host.formContext && !this.host.formContext.isChanged()) this.host.formContext.setChanged(state);
    }
 
    setInputFocus(inputId) {

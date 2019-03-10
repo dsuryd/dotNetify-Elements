@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { ContextTypes } from '../core/VMContext';
 import FormStore from '../_internal/FormStore';
+import createWebComponent from '../_internal/FormComponent';
 
 export const FormContextTypes = {
    formContext: PropTypes.object,
@@ -72,3 +73,5 @@ export class Form extends React.Component {
       );
    }
 }
+
+createWebComponent(Form, 'd-form');

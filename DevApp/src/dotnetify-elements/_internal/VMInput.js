@@ -11,9 +11,7 @@ export default class VMInput extends VMProperty {
 
       // If this input field is inside the Form context, get the validator from the context
       // so that the Form can validate all its input fields.  Otherwise, create it here.
-      this.validator = this.vmContext.getValidator
-         ? this.vmContext.getValidator(this)
-         : new VMInputValidator(vmContext, propId);
+      this.validator = this.vmContext.getValidator ? this.vmContext.getValidator(this) : new VMInputValidator(vmContext, propId);
    }
 
    get domValue() {
@@ -76,6 +74,6 @@ export default class VMInput extends VMProperty {
    }
 
    onValidated(handler) {
-      this.validator.onValidated(handler);
+      return this.validator.onValidated(handler);
    }
 }

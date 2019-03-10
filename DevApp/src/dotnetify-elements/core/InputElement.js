@@ -7,7 +7,7 @@ export default class InputElement extends Element {
    static contextTypes = FormContextTypes;
 
    get formContext() {
-      return this.context.formContext;
+      return this.context.formContext || this.props.formContext;
    }
 
    get vmProperty() {

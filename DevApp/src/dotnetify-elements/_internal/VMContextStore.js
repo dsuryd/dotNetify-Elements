@@ -10,6 +10,7 @@ export default class VMContextStore {
    }
 
    connect(vmId, options, onStateChange) {
+      vmId = this.host.vmContext ? `${this.host.vmContext.vmId}.${vmId}` : vmId;
       if (!vmId) throw new Error("'vmId' is required by connect()");
 
       this.removeOrphan(vmId);

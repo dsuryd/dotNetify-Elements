@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import InputElement from '../core/InputElement';
 import { Field, validationKeyPrefix } from '../structure/Field';
 import { Label } from '../display/Label';
-import createCustomElement from '../utils/custom-element';
+import createWebComponent from '../utils/web-component';
 
 const PlainTextComponent = props => (props.type === 'password' ? '' : <span {...props} />);
 
@@ -58,7 +58,7 @@ export class TextField extends InputElement {
    }
 
    componentDidMount() {
-      this.vmProperty.onValidated(result => {
+      this.unsubOnValidated = this.vmProperty.onValidated(result => {
          this.setState({
             valid: result.valid ? null : false,
             validationMessages: result.messages
@@ -68,6 +68,10 @@ export class TextField extends InputElement {
       if (this.props.validation) this.vmProperty.addValidation(this.props.validation);
 
       this.vmProperty.initMask();
+   }
+
+   componentWillUnmount() {
+      this.unsubOnValidated();
    }
 
    componentDidUpdate() {
@@ -149,4 +153,4 @@ export class TextField extends InputElement {
    }
 }
 
-createCustomElement(TextField, 'd-text-field');
+createWebComponent(TextField, 'd-text-field');

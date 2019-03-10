@@ -40,7 +40,11 @@ const MyApp = _ => (
       const buildWebComponentCode = props => `
 \`\`\`jsx
 <d-vm-context vm="AlertExample">
-   <d-alert id="Feedback"${props} ${this.state.color}="true"></d-alert>
+   <d-alert id="Feedback"${props} ${this.state.color}="true">
+      <d-panel right="true">
+         <d-button label="Continue" />
+      </d-panel>
+   </d-alert>
 </d-vm-context>
 \`\`\``;
       const setState = state => this.setState(state);
@@ -82,7 +86,11 @@ const MyApp = _ => (
                      info={color == 'info'}
                      warning={color == 'warning'}
                      danger={color == 'danger'}
-                  />
+                  >
+                     <d-panel right="true">
+                        <d-button label="Continue" />
+                     </d-panel>
+                  </d-alert>
                </d-vm-context>
             )}
          </RenderExample>
