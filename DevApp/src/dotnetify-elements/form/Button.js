@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import InputElement from '../core/InputElement';
 import { FormContextTypes } from './Form';
+import { Label } from '../display/Label';
 import * as utils from '../utils';
 import createWebComponent from '../utils/web-component';
 
@@ -17,6 +18,9 @@ export class Button extends InputElement {
 
       // Enables the button.
       enable: PropTypes.bool,
+
+      // Icon to the left.
+      icon: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
 
       // Text or component for the button's label.
       label: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
@@ -47,7 +51,8 @@ export class Button extends InputElement {
    };
 
    static componentTypes = {
-      ButtonComponent: undefined
+      ButtonComponent: undefined,
+      LabelComponent: Label
    };
 
    get shouldDisableSubmit() {
@@ -68,17 +73,18 @@ export class Button extends InputElement {
          }
       }
       else {
+         // Dispatch to server only if the 'onClick' returns a value or null.
          const data = onClick();
          if (id && typeof data !== 'undefined') this.dispatch(data, true);
       }
    };
 
    render() {
-      const [ _Button ] = utils.resolveComponents(Button, this.props);
-      const { label, submit, show, enable, onClick, children, style, stretch, css, ...props } = this.attrs;
+      const [ _Button, Label ] = utils.resolveComponents(Button, this.props);
+      const { label, icon, submit, show, enable, onClick, children, style, stretch, css, ...props } = this.attrs;
       const disabled = submit ? this.shouldDisableSubmit : this.props.enable === false;
 
-      const _label = typeof label == 'string' ? <div style={{ padding: '1px 0' }}>{label}</div> : label;
+      const _label = typeof label == 'string' ? <Label icon={icon}>{label}</Label> : label;
 
       const handleKeyPress = event => (event.charCode == 13 ? this.handleClick() : null);
 

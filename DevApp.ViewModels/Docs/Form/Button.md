@@ -34,6 +34,9 @@ static propTypes = {
    // Enables the button.
    enable: PropTypes.bool,
 
+   // Icon to the left.
+   icon: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),   
+
    // Text or component for the button's label.
    label: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
 
