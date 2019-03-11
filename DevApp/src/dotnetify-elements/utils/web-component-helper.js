@@ -1,6 +1,7 @@
 export default class WebComponentHelper {
    constructor(host) {
       this.host = host;
+      this.host.__eventHandlers = {};
    }
 
    convertAttributeToProp(componentPropTypes, attrName, attrValue) {
@@ -10,8 +11,10 @@ export default class WebComponentHelper {
       let value = attrValue;
       if (attrValue === 'true' || attrValue === 'false') value = attrValue == 'true';
       else if (!isNaN(attrValue) && attrValue !== '') value = +attrValue;
-      else if (/{.*}/.exec(attrValue)) value = JSON.parse(attrValue);
-      else if (/([A-z0-9$_]*)\(.*\)/.exec(attrValue)) value = parseFunctionString(attrValue);
+      else if (/^{.*}/.exec(attrValue)) value = JSON.parse(attrValue);
+      else if (/([A-z0-9$_]*)\(.*\)/.exec(attrValue)) value = this.parseFunctionString(attrValue);
+
+      if (typeof value == 'function') this.host.__eventHandlers[attrName] = value;
 
       return {
          name: propName ? propName : attrName,
@@ -32,8 +35,12 @@ export default class WebComponentHelper {
          (events, e) => ({
             ...events,
             [e]: args => {
-               if (typeof this[e] == 'function') this[e](args);
+               const eventName = e.toLowerCase();
+               const eventHandler = this.host.__eventHandlers[eventName];
+               let result = typeof eventHandler == 'function' ? eventHandler(args) : null;
+
                this.host.dispatchEvent(new CustomEvent(e, { ...args }));
+               return result;
             }
          }),
          {}
@@ -46,8 +53,8 @@ export default class WebComponentHelper {
          // Parse the function name from the attribute value.
          const match = /([A-z0-9$_]*)\(?\)?/.exec(funcString);
          const fnName = match ? match[1] : funcString;
-         if (typeof window[fnName] === 'function') window[fnName](args);
-         else eval(funcString.replace('$event', `'${JSON.stringify(args)}'`));
+         if (fnName !== 'function' && typeof window[fnName] === 'function') return window[fnName](args);
+         else return eval(`(${funcString})`)(args);
       };
    }
 }
