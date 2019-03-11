@@ -4,8 +4,10 @@ import styled from 'styled-components';
 import Element from '../core/Element';
 import * as utils from '../utils';
 import lightTheme from '../theme-light';
+import createWebComponent from '../utils/web-component';
 
 const LabelContainer = styled.div`
+   line-height: 1.7;
    display: flex;
    align-items: center;
    flex-direction: ${props => (props.right ? 'row-reverse' : 'row')};
@@ -18,6 +20,7 @@ const LabelContainer = styled.div`
 `;
 
 const IconContainer = styled.span`
+   line-height: 0;
    margin: ${props => (props.noMargin ? '0' : props.right ? '0 0 0 .5rem ' : '0 .5rem 0 0')};
    ${props => props.theme.Label.IconContainer};
 `;
@@ -94,3 +97,5 @@ export class Label extends Element {
       );
    }
 }
+
+createWebComponent(Label, 'd-label');

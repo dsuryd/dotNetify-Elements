@@ -1,8 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { ContextTypes } from './VMContext';
 import VMProperty from '../_internal/VMProperty';
 import * as utils from '../utils';
+import createWebComponent from '../utils/web-component';
+
+const Container = styled.span`${props => props.css};`;
 
 export default class Element extends React.Component {
    static contextTypes = ContextTypes;
@@ -88,6 +92,12 @@ export default class Element extends React.Component {
    }
 
    render() {
-      return !this.props.hidden ? this.vmProperty.value : null;
+      const { hidden, css } = this.attrs;
+      const value = this.vmProperty.value;
+      const elem = css && value ? <Container css={css}>{value}</Container> : value;
+
+      return !hidden ? elem : null;
    }
 }
+
+createWebComponent(Element, 'd-element');

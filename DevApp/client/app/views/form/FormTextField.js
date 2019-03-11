@@ -51,12 +51,13 @@ const MyApp = _ => (
 
       const setWebComponent = show => this.setState({ webComponent: show });
       const webComponent = this.state && this.state.webComponent;
+      const selectBuildCode = webComponent ? buildWebComponentCode : buildCode;
 
       return (
          <RenderExample
             vm="TextFieldExample"
             propTypes={propTypes}
-            buildCode={webComponent ? buildWebComponentCode : buildCode}
+            buildCode={selectBuildCode}
             onChange={setState}
             onWebComponent={setWebComponent}
          >
