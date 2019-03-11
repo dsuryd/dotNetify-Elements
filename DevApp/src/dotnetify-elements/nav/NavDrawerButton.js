@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import * as utils from '../utils';
 import lightTheme from '../theme-light';
+import createWebComponent from '../utils/web-component';
 
 const IconContainer = styled.button`
    cursor: pointer;
@@ -52,3 +53,5 @@ export class NavDrawerButton extends React.Component {
       );
    }
 }
+
+createWebComponent(NavDrawerButton, 'd-nav-drawer-button');

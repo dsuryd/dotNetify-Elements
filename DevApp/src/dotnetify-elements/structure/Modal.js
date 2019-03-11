@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Form, FormContextTypes } from '../form/Form';
 import * as utils from '../utils';
+import createWebComponent from '../utils/web-component';
 
 export class Modal extends React.Component {
    static contextTypes = FormContextTypes;
@@ -81,3 +82,5 @@ export class Modal extends React.Component {
       );
    }
 }
+
+createWebComponent(Modal, 'd-modal');

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Element from '../core/Element';
 import lightTheme from '../theme-light';
+import createWebComponent from '../utils/web-component';
 
 const ContainerComponent = styled.div`
    white-space: nowrap;
@@ -87,7 +88,12 @@ export class MarkdownTOC extends Element {
       return (
          <Container id={`${fullId}__toc`} {...props}>
             {this.getHeaders().map(header => (
-               <ItemContainer key={header.link} className={`toc-h${header.level}`} isSelected={selected === header.link} onClick={_ => select(header.link)}>
+               <ItemContainer
+                  key={header.link}
+                  className={`toc-h${header.level}`}
+                  isSelected={selected === header.link}
+                  onClick={_ => select(header.link)}
+               >
                   <a href="javascript:void(0)">{header.title}</a>
                </ItemContainer>
             ))}
@@ -103,3 +109,5 @@ export class MarkdownTOC extends Element {
       return key;
    }
 }
+
+createWebComponent(MarkdownTOC, 'd-markdown-toc');

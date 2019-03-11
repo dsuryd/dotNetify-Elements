@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import InputElement from '../core/InputElement';
 import { Field } from '../structure/Field';
 import lightTheme from '../theme-light';
+import createWebComponent from '../utils/web-component';
 
 const GroupContainer = styled.section`${props => props.theme.Checkbox.GroupContainer};`;
 
@@ -78,3 +79,5 @@ export class CheckboxGroup extends InputElement {
       );
    }
 }
+
+createWebComponent(CheckboxGroup, 'd-checkbox-group');

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as utils from '../utils';
+import createWebComponent from '../utils/web-component';
 
 export class Cell extends React.Component {
    static propTypes = {
@@ -59,3 +60,5 @@ export class Cell extends React.Component {
       );
    }
 }
+
+createWebComponent(Cell, 'd-cell');

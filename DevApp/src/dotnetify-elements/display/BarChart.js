@@ -5,6 +5,7 @@ import Element from '../core/Element';
 import * as utils from '../utils';
 import { toChartJsConfig } from './chart';
 import lightTheme from '../theme-light';
+import createWebComponent from '../utils/web-component';
 
 const ChartContainer = styled.div`
    overflow-x: hidden;
@@ -66,3 +67,5 @@ export class BarChart extends Element {
       );
    }
 }
+
+createWebComponent(BarChart, 'd-bar-chart');

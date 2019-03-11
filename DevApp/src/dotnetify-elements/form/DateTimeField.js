@@ -4,6 +4,7 @@ import InputElement from '../core/InputElement';
 import { Field, validationKeyPrefix } from '../structure/Field';
 import { Label } from '../display/Label';
 import moment from 'moment';
+import createWebComponent from '../utils/web-component';
 
 const PlainTextComponent = props => <span {...props} />;
 
@@ -139,3 +140,7 @@ DateField.componentTypes = { ...DateTimeField.componentTypes };
 export const TimeField = props => <DateTimeField date={false} {...props} />;
 TimeField.propTypes = { ...DateTimeField.propTypes };
 TimeField.componentTypes = { ...DateTimeField.componentTypes };
+
+createWebComponent(DateTimeField, 'd-datetime-field');
+createWebComponent(DateField, 'd-date-field');
+createWebComponent(TimeField, 'd-time-field');

@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import * as utils from '../utils';
+import createWebComponent from '../utils/web-component';
 
 export class Card extends React.Component {
    static propTypes = {
@@ -31,7 +32,10 @@ export class Card extends React.Component {
       const { header, footer, horizontal, children, width, style, css, ...props } = this.props;
 
       const reservedTypes = [ 'header', 'footer', 'img', 'Image', 'CardImage' ];
-      const [ sections, body ] = utils.filterChildren(children, child => child && reservedTypes.some(x => x === child.type || x === child.type._typeName));
+      const [ sections, body ] = utils.filterChildren(
+         children,
+         child => child && reservedTypes.some(x => x === child.type || x === child.type._typeName)
+      );
 
       const isImage = comp => [ 'img', 'Image', 'CardImage' ].some(x => x === comp.type || x === comp.type._typeName);
       const img = sections.filter(section => isImage(section)).shift();
@@ -78,3 +82,5 @@ export class CardImage extends React.Component {
       return <CardImageContainer {...this.props} />;
    }
 }
+
+createWebComponent(Card, 'd-card');

@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import * as utils from '../utils';
 import { Label } from '../display/Label';
 import lightTheme from '../theme-light';
+import createWebComponent from '../utils/web-component';
 
 const Container = styled.div`
    ${props => props.theme.Collapsible.Container};
@@ -96,7 +97,10 @@ export class Collapsible extends React.Component {
    };
 
    render() {
-      const [ Container, HeaderContainer, Header, Label, AngleCollapseIcon, AngleExpandIcon, CollapsePanel ] = utils.resolveComponents(Collapsible, this.props);
+      const [ Container, HeaderContainer, Header, Label, AngleCollapseIcon, AngleExpandIcon, CollapsePanel ] = utils.resolveComponents(
+         Collapsible,
+         this.props
+      );
       const { noIcon, label, children, style, css } = this.props;
       const icon = this.state.open ? <AngleCollapseIcon /> : <AngleExpandIcon />;
 
@@ -112,3 +116,5 @@ export class Collapsible extends React.Component {
       );
    }
 }
+
+createWebComponent(Collapsible, 'd-collapsible');

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Element from '../core/Element';
 import * as utils from '../utils';
 import lightTheme from '../theme-light';
+import createWebComponent from '../utils/web-component';
 
 const Container = styled.div`
    display: flex;
@@ -159,7 +160,9 @@ export class DataGrid extends Element {
 
    sort = (sortColumn, sortDirection) => {
       const comparer = (a, b) =>
-         sortDirection == 'ASC' ? (a[sortColumn] > b[sortColumn] ? 1 : -1) : sortDirection == 'DESC' ? (a[sortColumn] < b[sortColumn] ? 1 : -1) : null;
+         sortDirection == 'ASC'
+            ? a[sortColumn] > b[sortColumn] ? 1 : -1
+            : sortDirection == 'DESC' ? (a[sortColumn] < b[sortColumn] ? 1 : -1) : null;
 
       if (!this.unsortedValue) this.unsortedValue = [ ...this.value ];
       this.value = sortDirection !== 'NONE' ? this.value.sort(comparer) : [ ...this.unsortedValue ];
@@ -307,3 +310,5 @@ export class GridColumn extends React.Component {
       return this.props.children;
    }
 }
+
+createWebComponent(DataGrid, 'd-data-grid');
