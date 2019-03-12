@@ -55,7 +55,7 @@ import MuiTextField from '@material-ui/core/TextField';
 
 const SubComponentExample = _ => (
    <VMContext vm="SubComponentExample">
-      <TextField id="Name" horizontal inputComponent={MuiTextField} />
+      <TextField id="Name" label="" inputComponent={MuiTextField} />
    </VMContext>
 );
 ```

@@ -6,14 +6,14 @@ import { Article } from '../components';
 import MuiTextField from '@material-ui/core/TextField';
 
 const Customization = props => (
-	<Article vm="Customization" id="Content">
-		<Markdown id="Content">
-			<ElementPropertiesExample />
-			<CssOverrideExample />
+   <Article vm="Customization" id="Content">
+      <Markdown id="Content">
+         <ElementPropertiesExample />
+         <CssOverrideExample />
 
-			<SubComponentExample />
-		</Markdown>
-	</Article>
+         <SubComponentExample />
+      </Markdown>
+   </Article>
 );
 
 const helloCss = `
@@ -36,18 +36,18 @@ const helloCss = `
 `;
 
 const Item = styled.div`
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 50px;
-	height: 50px;
-	color: white;
-	font-size: x-large;
-	background: #999;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   width: 50px;
+   height: 50px;
+   color: white;
+   font-size: x-large;
+   background: #999;
 `;
 
 const ElementPropertiesExample = _ => {
-	const sourceCode = `
+   const sourceCode = `
 \`\`\`jsx
 const ElementPropDemo = _ => (
    <Panel horizontal margin="1rem">
@@ -62,26 +62,26 @@ const ElementPropDemo = _ => (
 );
 \`\`\``;
 
-	return (
-		<Panel>
-			<Panel css="margin-top: 2rem; border: 2px dashed #ccc">
-				<Panel horizontal margin="1rem">
-					<Panel flex="30%">
-						<Item>1</Item>
-					</Panel>
-					<Panel horizontal flex="70%" gap="2rem">
-						<Item>2</Item>
-						<Item>3</Item>
-					</Panel>
-				</Panel>
-			</Panel>
-			<Markdown>{sourceCode}</Markdown>
-		</Panel>
-	);
+   return (
+      <Panel>
+         <Panel css="margin-top: 2rem; border: 2px dashed #ccc">
+            <Panel horizontal margin="1rem">
+               <Panel flex="30%">
+                  <Item>1</Item>
+               </Panel>
+               <Panel horizontal flex="70%" gap="2rem">
+                  <Item>2</Item>
+                  <Item>3</Item>
+               </Panel>
+            </Panel>
+         </Panel>
+         <Markdown>{sourceCode}</Markdown>
+      </Panel>
+   );
 };
 
 const CssOverrideExample = _ => {
-	const sourceCode = `
+   const sourceCode = `
 \`\`\`jsx
 const helloCss = \`
    max-width: 300px;
@@ -112,48 +112,48 @@ const HelloCard = _ => (
 );
 \`\`\``;
 
-	return (
-		<Panel horizontal css="overflow: hidden">
-			<Panel css="padding-top: 1rem">
-				<p>Original:</p>
-				<Card>
-					<header>
-						<h5>Hello</h5>
-						<div>My name is</div>
-					</header>
-					<footer />
-				</Card>
-				<br />
-				<p>Override:</p>
-				<Card css={helloCss}>
-					<header>
-						<h5>Hello</h5>
-						<div>My name is</div>
-					</header>
-					<footer />
-				</Card>
-			</Panel>
-			<Panel>
-				<Markdown>{sourceCode}</Markdown>
-			</Panel>
-		</Panel>
-	);
+   return (
+      <Panel horizontal css="overflow: hidden">
+         <Panel css="padding-top: 1rem">
+            <p>Original:</p>
+            <Card>
+               <header>
+                  <h5>Hello</h5>
+                  <div>My name is</div>
+               </header>
+               <footer />
+            </Card>
+            <br />
+            <p>Override:</p>
+            <Card css={helloCss}>
+               <header>
+                  <h5>Hello</h5>
+                  <div>My name is</div>
+               </header>
+               <footer />
+            </Card>
+         </Panel>
+         <Panel>
+            <Markdown>{sourceCode}</Markdown>
+         </Panel>
+      </Panel>
+   );
 };
 const SubComponentExample = _ => (
-	<VMContext vm="SubComponentExample">
-		<Card css="background: transparent">
-			<Panel horizontal>
-				<Panel>
-					<div>Original:</div>
-					<TextField id="Name" horizontal />
-				</Panel>
-				<Panel>
-					<div>Override:</div>
-					<TextField id="Name" horizontal inputComponent={MuiTextField} />
-				</Panel>
-			</Panel>
-		</Card>
-	</VMContext>
+   <VMContext vm="SubComponentExample">
+      <Card css="background: transparent">
+         <Panel horizontal>
+            <Panel>
+               <div>Original:</div>
+               <TextField id="Name" horizontal />
+            </Panel>
+            <Panel>
+               <div>Override:</div>
+               <TextField id="Name" label="" inputComponent={MuiTextField} />
+            </Panel>
+         </Panel>
+      </Card>
+   </VMContext>
 );
 
 export default withTheme(Customization);
