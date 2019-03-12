@@ -72,7 +72,7 @@ export class MultiselectList extends InputElement {
 
    render() {
       const [ Container, Input, Tag, Item, List, ValidationMessage, PlainText ] = this.resolveComponents(MultiselectList);
-      const { fullId, label, plainText, options, horizontal, enable, style, css, ...props } = this.attrs;
+      const { fullId, label, plainText, options, horizontal, enable, style, css, onChange, ...props } = this.attrs;
 
       const disabled = enable === false;
       const values = this.value ? this.value.map(x => `${x}`) : [];

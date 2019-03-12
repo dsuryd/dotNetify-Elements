@@ -109,6 +109,7 @@ export class TextField extends InputElement {
          type,
          css,
          style,
+         children,
          ...props
       } = this.attrs;
 
