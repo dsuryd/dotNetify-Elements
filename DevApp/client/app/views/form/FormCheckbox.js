@@ -1,6 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
-import { Checkbox, Frame, Markdown, Panel, Tab, TabItem, VMContext, withTheme } from 'dotnetify-elements';
+import { Checkbox, Markdown, Panel, TabItem, withTheme } from 'dotnetify-elements';
 import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
 
 const FormCheckbox = props => (
@@ -32,12 +31,35 @@ const MyApp = _ => (
    </VMContext>
 );
 \`\`\``;
+      const buildWebComponentCode = props => `
+\`\`\`jsx
+<d-vm-context vm="CheckboxExample">
+   <d-checkbox id="Agree"${props} />
+</d-vm-context>
+\`\`\``;
       const setState = state => this.setState(state);
       const propTypes = { enable: null, plainText: null, switch: null };
+
+      const setWebComponent = show => this.setState({ webComponent: show });
+      const webComponent = this.state && this.state.webComponent;
+      const selectBuildCode = webComponent ? buildWebComponentCode : buildCode;
+
       return (
-         <RenderExample vm="CheckboxExample" propTypes={propTypes} buildCode={buildCode} onChange={setState}>
+         <RenderExample
+            vm="CheckboxExample"
+            propTypes={propTypes}
+            buildCode={selectBuildCode}
+            onChange={setState}
+            onWebComponent={setWebComponent}
+         >
             <Panel style={{ minHeight: '4rem' }}>
-               <Checkbox id="Agree" {...this.state} />
+               {!webComponent ? (
+                  <Checkbox id="Agree" {...this.state} />
+               ) : (
+                  <d-vm-context vm="CheckboxExample">
+                     <d-checkbox id="Agree" {...this.state} />
+                  </d-vm-context>
+               )}
             </Panel>
          </RenderExample>
       );
@@ -55,7 +77,13 @@ class CheckboxCustomize extends React.Component {
          plainText: value === 'PlainTextComponent'
       });
       return (
-         <RenderCustomize vm="CheckboxCustomize" name="Checkbox" componentTypes={componentTypes} select={select} onSelected={handleSelected}>
+         <RenderCustomize
+            vm="CheckboxCustomize"
+            name="Checkbox"
+            componentTypes={componentTypes}
+            select={select}
+            onSelected={handleSelected}
+         >
             <Checkbox id="MyCheckbox" plainText={plainText} />
          </RenderCustomize>
       );

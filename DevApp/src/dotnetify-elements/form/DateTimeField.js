@@ -69,8 +69,11 @@ export class DateTimeField extends InputElement {
    };
 
    handleBlur = _ => {
-      this.state.changed && this.dispatch();
-      this.setState({ changed: false });
+      if (this.state.changed) {
+         this.dispatch();
+         this.props.onChange && this.props.onChange(this.value);
+         this.setState({ changed: false });
+      }
    };
 
    render() {
@@ -90,6 +93,7 @@ export class DateTimeField extends InputElement {
          style,
          css,
          validation,
+         onChange,
          ...props
       } = this.attrs;
 
@@ -141,6 +145,6 @@ export const TimeField = props => <DateTimeField date={false} {...props} />;
 TimeField.propTypes = { ...DateTimeField.propTypes };
 TimeField.componentTypes = { ...DateTimeField.componentTypes };
 
-createWebComponent(DateTimeField, 'd-datetime-field');
+createWebComponent(DateTimeField, 'd-date-time-field');
 createWebComponent(DateField, 'd-date-field');
 createWebComponent(TimeField, 'd-time-field');
