@@ -4,11 +4,12 @@ import WebComponentHelper from '../utils/web-component-helper';
 export default function createWebComponent(Component, elementName) {
    class CustomElement extends HTMLElement {
       static get observedAttributes() {
-         return [ 'plainText' ];
+         return [ 'plaintext' ];
       }
 
       constructor() {
          super();
+         this.state = {};
          this.formStore = new FormStore(this);
          this.helper = new WebComponentHelper(this);
       }
@@ -54,8 +55,9 @@ export default function createWebComponent(Component, elementName) {
       disconnectedCallback() {}
 
       attributeChangedCallback(name, oldValue, newValue) {
-         if (name === 'plainText' && newValue !== this.formStore.plainText) this.formStore.plainText = newValue;
-         if (newValue === false) this.formStore.enterEditMode();
+         const plainText = newValue === 'true';
+         if (name === 'plaintext' && plainText !== this.formStore.plainText) this.formStore.plainText = plainText;
+         if (oldValue !== null && !plainText) this.formStore.enterEditMode();
       }
 
       get context() {
@@ -66,7 +68,7 @@ export default function createWebComponent(Component, elementName) {
       }
 
       setState(state) {
-         this.state = Object.assign(this.state || {}, state);
+         this.state = Object.assign(this.state, state);
          this.dispatchEvent(new CustomEvent('onStateChange', state));
       }
    }

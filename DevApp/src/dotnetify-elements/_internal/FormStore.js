@@ -70,7 +70,6 @@ export default class FormStore {
          isChanged: () => this.changed,
          isPlainText: () => this.plainText,
          setChanged: state => this.setChanged(state),
-         setPlainText: state => (this.plainText = state),
          submit: propId => this.handleSubmit(propId),
          cancel: () => this.cancel()
       };
@@ -93,7 +92,7 @@ export default class FormStore {
    }
 
    getPropAttributes(vmContext, propId) {
-      const plainText = this.host.formContext ? this.host.formContext.isPlainText() : this.props.plainText;
+      const plainText = this.host.formContext ? this.host.formContext.isPlainText() : this.plainText;
       return Object.assign({ plainText }, vmContext.getPropAttributes(propId));
    }
 
