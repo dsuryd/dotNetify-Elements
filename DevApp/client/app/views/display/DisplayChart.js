@@ -1,6 +1,6 @@
 import React from 'react';
 import { BarChart, LineChart, PieChart } from 'dotnetify-elements';
-import { Button, Markdown, Panel, TabItem, VMContext, withTheme } from 'dotnetify-elements';
+import { Button, Markdown, Panel, TabItem, withTheme } from 'dotnetify-elements';
 import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
 
 const DisplayChart = props => (
@@ -34,13 +34,14 @@ const MyApp = _ => (
    </VMContext>
 );
 \`\`\``;
+      const setState = state => this.setState(state);
+      let propTypes = {};
       return (
-         <VMContext vm="LineChartExample">
+         <RenderExample vm="LineChartExample" panelCss="padding-left: 3px" propTypes={propTypes} buildCode={buildCode} onChange={setState}>
             <Panel css="margin-bottom: 2rem">
                <LineChart id="Waveform" />
             </Panel>
-            <Markdown>{buildCode()}</Markdown>
-         </VMContext>
+         </RenderExample>
       );
    }
 }
@@ -58,13 +59,14 @@ const MyApp = _ => (
    </VMContext>
 );
 \`\`\``;
+      const setState = state => this.setState(state);
+      let propTypes = {};
       return (
-         <VMContext vm="BarChartExample">
+         <RenderExample vm="BarChartExample" panelCss="padding-left: 3px" propTypes={propTypes} buildCode={buildCode} onChange={setState}>
             <Panel css="margin-bottom: 2rem">
                <BarChart id="MonthlySales" />
             </Panel>
-            <Markdown>{buildCode()}</Markdown>
-         </VMContext>
+         </RenderExample>
       );
    }
 }
@@ -83,14 +85,15 @@ const MyApp = _ => (
    </VMContext>
 );
 \`\`\``;
+      const setState = state => this.setState(state);
+      let propTypes = {};
       return (
-         <VMContext vm="PieChartExample">
+         <RenderExample vm="PieChartExample" panelCss="padding-left: 3px" propTypes={propTypes} buildCode={buildCode} onChange={setState}>
             <Panel css="margin-bottom: 2rem">
                <PieChart id="Utilization" />
                <Button id="Refresh" label="Refresh" />
             </Panel>
-            <Markdown>{buildCode()}</Markdown>
-         </VMContext>
+         </RenderExample>
       );
    }
 }

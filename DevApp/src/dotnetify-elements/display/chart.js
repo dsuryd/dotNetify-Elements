@@ -65,13 +65,13 @@ function toChartJsOptions(config, props) {
    let configOptions = merge(
       {
          legend: { display: false },
-         scales: {}
+         scales: { xAxes: [], yAxes: [] }
       },
       config.options || {},
       { arrayMerge: combineMerge }
    );
 
-   if (yAxisLabel) {
+   if (yAxisLabel && !configOptions.scales.yAxes.length) {
       configOptions.scales = merge(configOptions.scales, {
          yAxes: [
             {
@@ -84,7 +84,7 @@ function toChartJsOptions(config, props) {
       });
    }
 
-   if (xAxisLabel) {
+   if (xAxisLabel && !configOptions.scales.xAxes.length) {
       configOptions.scales = merge(configOptions.scales, {
          xAxes: [
             {

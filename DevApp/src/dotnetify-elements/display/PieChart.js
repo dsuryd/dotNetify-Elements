@@ -54,16 +54,15 @@ export class PieChart extends Element {
    });
 
    render() {
-      if (!this.context.theme) {
-         console.error('ERROR: PieChart must be nested inside a Theme component.');
-         throw 'error';
-      }
       if (!Array.isArray(this.value)) return null;
 
       const [ Container, Chart ] = this.resolveComponents(PieChart);
       const { fullId, config, width, height, style, css, ...props } = this.attrs;
 
-      const _config = this.getConfig(config, this.context && this.context.theme);
+      let theme = this.context && this.context.theme;
+      if (!theme) theme = lightTheme;
+
+      const _config = this.getConfig(config, theme);
       const { data, options } = toChartJsConfig(_config, props, this.value);
 
       return (

@@ -76,15 +76,20 @@ export default class RenderExample extends React.Component {
          />
       ));
 
+      const showToggles = radioToggles.length > 0 || extraToggles;
+      const topPanelCss = this.props.panelCss || 'border-top: 1px solid #ccc; padding-top: 3rem; padding-left: 3px';
+
       const content = (
-         <Panel css="border-top: 1px solid #ccc; padding-top: 3rem; padding-left: 3px">
+         <Panel css={topPanelCss}>
             {children}
-            <Panel css="border-top: 1px solid #ccc; padding-top: 1rem">
-               <Panel wrap>
-                  {radioToggles}
-                  {extraToggles}
+            {showToggles && (
+               <Panel css="border-top: 1px solid #ccc; padding-top: 1rem">
+                  <Panel wrap>
+                     {radioToggles}
+                     {extraToggles}
+                  </Panel>
                </Panel>
-            </Panel>
+            )}
             {onWebComponent && (
                <Checkbox
                   id="_webComponent"
