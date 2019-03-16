@@ -107,7 +107,12 @@ export class Panel extends React.Component {
    static _isPanel = true;
 
    get children() {
-      return React.Children.toArray(this.props.children).filter(x => x).filter(x => x.props && x.props.show !== false);
+      let children = React.Children.toArray(this.props.children);
+      if (children.length == 1 && children[0].type == React.Fragment) {
+         children = React.Children.toArray(children[0].props.children);
+      }
+
+      return children.filter(x => x).filter(x => x.props && x.props.show !== false);
    }
 
    get numChildren() {
