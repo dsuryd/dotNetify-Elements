@@ -116,6 +116,7 @@ const showLegendAtTop = {
 
 - http://www.chartjs.org/ ([license: MIT](http://www.chartjs.org/docs/latest/notes/license.html))
 - https://github.com/jerairrest/react-chartjs-2 ([license: MIT](https://github.com/jerairrest/react-chartjs-2/blob/master/LICENSE.md))
+- https://github.com/nagix/chartjs-plugin-streaming ([license: MIT](https://github.com/nagix/chartjs-plugin-streaming/blob/master/LICENSE.md))
 
 #### Property Types
 

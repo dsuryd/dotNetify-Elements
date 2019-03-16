@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Element from '../core/Element';
 import * as utils from '../utils';
-import { toChartJsConfig } from './chart';
+import { toChartJsConfig, toDataLabelPair } from './chart';
 import lightTheme from '../theme-light';
 import createWebComponent from '../utils/web-component';
 import 'chartjs-plugin-streaming';
@@ -37,43 +37,37 @@ export class LineChart extends Element {
       ChartComponent: undefined
    };
 
+   constructor(props) {
+      super(props);
+      this.isStreaming = this.checkStreaming(props);
+   }
+
+   checkDate(value) {
+      return value && value.length >= 8 && Date.parse(value) !== NaN;
+   }
+
+   checkStreaming(props) {
+      const xAxes = utils.nestedGet(props, 'config.options.scales.xAxes');
+      return Array.isArray(xAxes) && xAxes.length > 0 && xAxes[0].type === 'realtime';
+   }
+
    getConfig = (config, theme) => ({
       data: {
          datasets: [
             {
-               // backgroundColor: theme.LineChart.AreaColor,
-               // borderColor: theme.LineChart.LineColor,
-               backgroundColor: 'rgba(217,237,245,0.4)',
-               borderColor: '#9acfea',
+               backgroundColor: theme.LineChart.AreaColor,
+               borderColor: theme.LineChart.LineColor,
                borderWidth: theme.LineChart.LineWidth
             }
          ]
-      },
-      options: {
-         scales: {
-            xAxes: [
-               {
-                  type: 'realtime',
-                  realtime: { delay: 2000 }
-               }
-            ],
-            yAxes: [
-               {
-                  ticks: {
-                     suggestedMin: -1,
-                     suggestedMax: 1
-                  }
-               }
-            ]
-         }
       },
       ...config
    });
 
    shouldComponentUpdate() {
-      if (this.value.length > 0) {
-         const data = this.value[this.value.length - 1];
-         this.chartData.datasets[0].data.push({ x: Date.now(), y: data[1] });
+      if (this.isStreaming && this.value.length > 0) {
+         const { data, label } = toDataLabelPair(this.value[this.value.length - 1]);
+         this.chartData.datasets[0].data.push({ x: this.checkDate(label) ? new Date(label) : Date.now(), y: data });
          return false;
       }
       return true;
@@ -90,10 +84,17 @@ export class LineChart extends Element {
 
       const _config = this.getConfig(config, theme);
       const { data, options } = toChartJsConfig(_config, props, this.value);
+
       this.chartData = data;
-      const maxIdx = this.value.length - 1;
-      // this.chartData.labels = data.map(x => x[0]);
-      this.chartData.datasets[0].data = this.value.map((data, idx) => ({ x: Date.now() - (maxIdx - idx) * 1000, y: data[1] }));
+
+      // If using chartjs-plugin-streaming, data type is {x, y} where x is date.
+      // Use label for x if it's date string, otherwise set Date.now() to latest data and works backward.
+      if (this.isStreaming) {
+         const maxIdx = this.value.length - 1;
+         if (this.checkDate(this.chartData.labels[0]))
+            this.chartData.datasets[0].data = this.value.map((data, idx) => ({ x: new Date(data[0]), y: data[1] }));
+         else this.chartData.datasets[0].data = this.value.map((data, idx) => ({ x: Date.now() - (maxIdx - idx) * 1000, y: data[1] }));
+      }
 
       return (
          <Container id={fullId} width={width} style={style} css={css}>

@@ -45,7 +45,8 @@ export function mapChildren(children, predicate, mapper) {
       if (!child) return;
 
       if (child.type && predicate(child)) return mapper(child);
-      else if (child.props && child.props.children) return React.cloneElement(child, child.props, this.mapChildren(child.props.children, predicate, mapper));
+      else if (child.props && child.props.children)
+         return React.cloneElement(child, child.props, this.mapChildren(child.props.children, predicate, mapper));
       return child;
    });
 }
@@ -59,6 +60,10 @@ export function mergeProps(elem, ...newProps) {
       .filter(key => key === 'style' || key === 'css' || propTypes.includes(key))
       .reduce((aggregate, key) => Object.assign(aggregate, { [key]: props[key] }), {});
    return Object.assign({}, validProps, elem.props);
+}
+
+export function nestedGet(obj, path) {
+   return path.split('.').reduce((acc, current) => (typeof acc == 'undefined' || acc === null ? acc : acc[current]), obj);
 }
 
 export function resolveComponents(type, props) {

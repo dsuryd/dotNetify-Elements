@@ -23,19 +23,39 @@ function combineMerge(target, source, options) {
    return destination;
 }
 
+export function toDataLabelPair(value) {
+   let data, label;
+   if (value.length == 2) {
+      label = value[0];
+      data = value[1];
+   }
+   else if (value.Key) {
+      label = value.Key;
+      data = value.Value;
+   }
+   else {
+      label = '';
+      data = value;
+   }
+   return { data, label };
+}
+
 function toChartJsData(config, props, value) {
    let { labels, maxDataSize } = props;
 
    let data;
+   // Value type is array.
    if (value[0].length == 2) {
       if (!labels) labels = value.map(x => x[0]);
       data = value.map(x => x[1]);
    }
    else if (value[0].Key) {
+      // Value type is key-value pair.
       if (!labels) labels = value.map(x => x.Key);
       data = value.map(x => x.Value);
    }
    else {
+      // Value is primitive type.
       data = value.map(x => x);
    }
    labels = labels || data.map(_ => '');
