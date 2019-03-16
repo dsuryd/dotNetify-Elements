@@ -70,7 +70,12 @@ export default function createWebComponent(Component, elementName, useShadowDom)
 
       renderComponent(remount) {
          if (!this.component) this.mountComponent();
-         else if (this.vmContext && !remount) this.component.forceUpdate();
+         else if (this.vmContext && !remount) {
+            if (typeof this.component.shouldComponentUpdate == 'function') {
+               if (this.component.shouldComponentUpdate()) this.component.forceUpdate();
+            }
+            else this.component.forceUpdate();
+         }
          else {
             this.unmountComponent();
             this.mountComponent();
