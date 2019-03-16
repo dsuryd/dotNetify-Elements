@@ -92,7 +92,7 @@ export default class RenderExample extends React.Component {
             )}
             {onWebComponent && (
                <Checkbox
-                  id="_webComponent"
+                  id={'_webComponent__' + Math.random().toString(36).substring(2)}
                   label={<span style={{ fontWeight: '500' }}>Web component</span>}
                   switch={true}
                   onChange={showWebComponent}

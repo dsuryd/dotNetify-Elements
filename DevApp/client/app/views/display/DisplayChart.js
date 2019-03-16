@@ -55,6 +55,15 @@ const MyApp = _ => (
    </VMContext>
 );
 \`\`\``;
+      const buildWebComponentCode = props => `
+\`\`\`jsx
+<d-vm-context vm="LineChartExample">
+   <d-line-chart id="Waveform" ${this.state.streaming
+      ? 'config="options:{scales:{xAxes:[{type:\'realtime\',realtime:{delay:2000}}],yAxes:[{ticks:{suggestedMin:-1.5,suggestedMax:1.5}}]}}"'
+      : ''}/>
+</d-vm-context>
+\`\`\``;
+      let propTypes = {};
       const setState = state => this.setState(state);
       const extraToggles = (
          <Checkbox
@@ -66,18 +75,28 @@ const MyApp = _ => (
          />
       );
 
-      let propTypes = {};
+      const { webComponent } = this.state;
+      const setWebComponent = show => this.setState({ webComponent: show });
+      const selectBuildCode = webComponent ? buildWebComponentCode : buildCode;
+
       return (
          <RenderExample
             vm="LineChartExample"
             panelCss="padding-left: 3px"
             propTypes={propTypes}
             extraToggles={extraToggles}
-            buildCode={buildCode}
+            buildCode={selectBuildCode}
             onChange={setState}
+            onWebComponent={setWebComponent}
          >
             <Panel css="margin-bottom: 2rem">
-               <LineChart id="Waveform" key={this.state.streaming} config={this.state.streaming ? realtimeConfig : null} />
+               {!webComponent ? (
+                  <LineChart id="Waveform" key={this.state.streaming} config={this.state.streaming ? realtimeConfig : null} />
+               ) : (
+                  <d-vm-context vm="LineChartExample">
+                     <d-line-chart id="Waveform" config={this.state.streaming ? JSON.stringify(realtimeConfig) : null} />
+                  </d-vm-context>
+               )}
             </Panel>
          </RenderExample>
       );
@@ -97,13 +116,37 @@ const MyApp = _ => (
    </VMContext>
 );
 \`\`\``;
+      const buildWebComponentCode = props => `
+\`\`\`jsx
+<d-vm-context vm="BarChartExample">
+   <d-bar-chart id="MonthlySales" />
+</d-vm-context>
+\`\`\``;
       const setState = state => this.setState(state);
       let propTypes = {};
+
+      const setWebComponent = show => this.setState({ webComponent: show });
+      const webComponent = this.state && this.state.webComponent;
+      const selectBuildCode = webComponent ? buildWebComponentCode : buildCode;
+
       return (
-         <RenderExample vm="BarChartExample" panelCss="padding-left: 3px" propTypes={propTypes} buildCode={buildCode} onChange={setState}>
-            <Panel css="margin-bottom: 2rem">
-               <BarChart id="MonthlySales" />
-            </Panel>
+         <RenderExample
+            vm="BarChartExample"
+            panelCss="padding-left: 3px"
+            propTypes={propTypes}
+            buildCode={selectBuildCode}
+            onChange={setState}
+            onWebComponent={setWebComponent}
+         >
+            {!webComponent ? (
+               <Panel css="margin-bottom: 2rem">
+                  <BarChart id="MonthlySales" />
+               </Panel>
+            ) : (
+               <d-vm-context vm="BarChartExample">
+                  <d-bar-chart id="MonthlySales" />
+               </d-vm-context>
+            )}
          </RenderExample>
       );
    }
@@ -123,13 +166,41 @@ const MyApp = _ => (
    </VMContext>
 );
 \`\`\``;
+      const buildWebComponentCode = props => `
+\`\`\`jsx
+<d-vm-context vm="PieChartExample">
+   <d-pie-chart id="Utilization" />
+   <d-button id="Refresh">Refresh</d-button>
+</d-vm-context>
+\`\`\``;
       const setState = state => this.setState(state);
       let propTypes = {};
+
+      const setWebComponent = show => this.setState({ webComponent: show });
+      const webComponent = this.state && this.state.webComponent;
+      const selectBuildCode = webComponent ? buildWebComponentCode : buildCode;
+
       return (
-         <RenderExample vm="PieChartExample" panelCss="padding-left: 3px" propTypes={propTypes} buildCode={buildCode} onChange={setState}>
+         <RenderExample
+            vm="PieChartExample"
+            panelCss="padding-left: 3px"
+            propTypes={propTypes}
+            buildCode={selectBuildCode}
+            onChange={setState}
+            onWebComponent={setWebComponent}
+         >
             <Panel css="margin-bottom: 2rem">
-               <PieChart id="Utilization" />
-               <Button id="Refresh" label="Refresh" />
+               {!webComponent ? (
+                  <React.Fragment>
+                     <PieChart id="Utilization" />
+                     <Button id="Refresh" label="Refresh" />
+                  </React.Fragment>
+               ) : (
+                  <d-vm-context vm="PieChartExample">
+                     <d-pie-chart id="Utilization" />
+                     <d-button id="Refresh">Refresh</d-button>
+                  </d-vm-context>
+               )}
             </Panel>
          </RenderExample>
       );
