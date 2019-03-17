@@ -35,6 +35,10 @@ export default function createWebComponent(Component, elementName, useShadowDom)
             this.formContext = this.formElem.context.formContext;
             this.formElem.addEventListener('onStateChange', this.onFormContextStateChange);
          }
+
+         // React render occurs when an attribute is set, but if there's no attribute, call
+         // the render here, but use setTimeout to have it rendered after its parent.
+         if (!this.hasAttributes()) setTimeout(() => this.renderComponent());
       }
 
       disconnectedCallback() {
