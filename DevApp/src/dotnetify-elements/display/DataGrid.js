@@ -5,6 +5,7 @@ import Element from '../core/Element';
 import * as utils from '../utils';
 import lightTheme from '../theme-light';
 import createWebComponent from '../utils/web-component';
+import WebComponentHelper from './../utils/web-component-helper';
 
 const Container = styled.div`
    display: flex;
@@ -135,10 +136,15 @@ export class DataGrid extends Element {
             width: c.width ? utils.toPixel(c.width) : null
          };
 
-         const [ gridColumns, rest ] = utils.filterChildren(children, child => child.type == GridColumn && child.key === c.key);
+         const [ gridColumns, rest ] = utils.filterChildren(
+            children,
+            child => (child.type == GridColumn && child.key === c.key) || (child.type == 'd-grid-column' && child.props.colkey === c.key)
+         );
          const gridCol = gridColumns.shift();
          if (gridCol) {
-            const { width, formatter, editor, columnChildren } = gridCol.props;
+            let { width, formatter, editor, columnChildren } = gridCol.props;
+            if (gridCol.type == 'd-grid-column') formatter = WebComponentHelper._parseFunctionString(formatter);
+
             col.width = utils.toPixel(width || col.width);
             col.formatter = formatter || (columnChildren ? React.Children.only(columnChildren) : null);
             col.editor = editor;
@@ -260,9 +266,10 @@ export class DataGrid extends Element {
       const [ Container, _DataGrid ] = utils.resolveComponents(DataGrid, this.props);
       const { fullId, rowKey, columns, rows, height, rowHeight, style, css, children, ...props } = this.attrs;
 
+      const rowsCount = this.value && this.value.length;
       const rowGetter = idx => this.value[idx];
       let minHeight = rows ? (rows + 1) * utils.toPixel(rowHeight) + 2 : this.state.height;
-      if (minHeight === null) minHeight = (this.value.length + 1) * utils.toPixel(rowHeight) + 2;
+      if (minHeight === null) minHeight = (rowsCount + 1) * utils.toPixel(rowHeight) + 2;
 
       const editEnabled = this.props.enable !== false && columns.some(c => c.Editable);
 
@@ -272,7 +279,7 @@ export class DataGrid extends Element {
                id={fullId}
                columns={this.mapColumns(children, columns)}
                rowGetter={rowGetter}
-               rowsCount={this.value.length}
+               rowsCount={rowsCount}
                rowHeight={utils.toPixel(rowHeight)}
                minHeight={minHeight}
                height={minHeight}
@@ -312,3 +319,4 @@ export class GridColumn extends React.Component {
 }
 
 createWebComponent(DataGrid, 'd-data-grid');
+createWebComponent(GridColumn, 'd-grid-column');

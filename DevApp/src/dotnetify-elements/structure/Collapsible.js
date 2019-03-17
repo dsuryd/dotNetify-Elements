@@ -108,7 +108,7 @@ export class Collapsible extends React.Component {
          <Container style={style} css={css}>
             <HeaderContainer onClick={this.handleClick}>
                <Header right={!noIcon} apart icon={noIcon ? null : icon}>
-                  <Label isOpen={this.state.open}>{this.props.label}</Label>
+                  <Label isOpen={this.state.open}>{label}</Label>
                </Header>
             </HeaderContainer>
             <CollapsePanel isOpen={this.state.open}>{children}</CollapsePanel>
