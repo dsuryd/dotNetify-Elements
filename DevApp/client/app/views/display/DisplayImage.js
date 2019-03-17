@@ -31,12 +31,35 @@ const MyApp = _ => (
    </VMContext>
 );
 \`\`\``;
+      const buildWebComponentCode = props => `
+\`\`\`jsx
+<d-vm-context vm="ImageExample">
+   <d-image id="Picture"${props} />
+</d-vm-context>
+\`\`\``;
       const setState = state => this.setState(state);
       let propTypes = {};
+
+      const setWebComponent = show => this.setState({ webComponent: show });
+      const webComponent = this.state && this.state.webComponent;
+      const selectBuildCode = webComponent ? buildWebComponentCode : buildCode;
+
       return (
-         <RenderExample vm="ImageExample" propTypes={propTypes} buildCode={buildCode} onChange={setState}>
+         <RenderExample
+            vm="ImageExample"
+            propTypes={propTypes}
+            buildCode={selectBuildCode}
+            onChange={setState}
+            onWebComponent={setWebComponent}
+         >
             <Panel css="margin-bottom: 2rem">
-               <Image id="Picture" {...this.state} />
+               {!webComponent ? (
+                  <Image id="Picture" {...this.state} />
+               ) : (
+                  <d-vm-context vm="ImageExample">
+                     <d-image id="Picture" {...this.state} />
+                  </d-vm-context>
+               )}
             </Panel>
          </RenderExample>
       );

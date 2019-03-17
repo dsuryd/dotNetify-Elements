@@ -1,6 +1,6 @@
 import React from 'react';
 import { BarChart, LineChart, PieChart } from 'dotnetify-elements';
-import { Button, Checkbox, Markdown, Panel, RadioToggle, TabItem, withTheme } from 'dotnetify-elements';
+import { Button, Checkbox, Markdown, Panel, TabItem, withTheme } from 'dotnetify-elements';
 import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
 
 const DisplayChart = props => (

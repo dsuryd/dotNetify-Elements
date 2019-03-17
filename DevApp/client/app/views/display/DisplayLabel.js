@@ -77,20 +77,24 @@ const MyApp = _ => (
             onChange={setState}
             onWebComponent={setWebComponent}
          >
-            {!webComponent ? (
-               <Panel css="margin-bottom: 2rem">
-                  <Label id="Clock" icon="material-icons alarm" {...this.state} />
-                  <Label id="NotificationLabel" rightIcon={<Badge id="NotificationCount" />} {...this.state} />
-                  <Label icon={<BigIcon>info</BigIcon>} css="padding: 1rem; color: black; background: white; width: 25rem" {...this.state}>
-                     <div>
-                        <b>Attention</b>
-                        <br />
-                        You have <Element id="NotificationCount" /> notifications in your inbox.
-                     </div>
-                  </Label>
-               </Panel>
-            ) : (
-               <Panel css="margin-bottom: 2rem">
+            <Panel css="margin-bottom: 2rem">
+               {!webComponent ? (
+                  <React.Fragment>
+                     <Label id="Clock" icon="material-icons alarm" {...this.state} />
+                     <Label id="NotificationLabel" rightIcon={<Badge id="NotificationCount" />} {...this.state} />
+                     <Label
+                        icon={<BigIcon>info</BigIcon>}
+                        css="padding: 1rem; color: black; background: white; width: 25rem"
+                        {...this.state}
+                     >
+                        <div>
+                           <b>Attention</b>
+                           <br />
+                           You have <Element id="NotificationCount" /> notifications in your inbox.
+                        </div>
+                     </Label>
+                  </React.Fragment>
+               ) : (
                   <d-vm-context vm="LabelExample">
                      <d-label id="Clock" icon="material-icons alarm" {...this.state} />
                      <d-label id="NotificationLabel" {...this.state} css="margin: 1rem 0">
@@ -111,8 +115,8 @@ const MyApp = _ => (
                         </div>
                      </d-label>
                   </d-vm-context>
-               </Panel>
-            )}
+               )}
+            </Panel>
          </RenderExample>
       );
    }

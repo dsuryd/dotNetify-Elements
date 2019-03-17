@@ -1,7 +1,7 @@
 import React from 'react';
 import { Markdown, Panel, TabItem, VMContext, withTheme } from 'dotnetify-elements';
 import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
-import { Rectangle, Square } from '../layout/demo-helper';
+import { Square } from '../layout/demo-helper';
 
 const DisplayMarkdown = props => (
    <TabsArticle vm="DisplayMarkdown" id="Overview">
@@ -33,12 +33,35 @@ const MyApp = _ => (
    </VMContext>
 );
 \`\`\``;
+      const buildWebComponentCode = props => `
+\`\`\`jsx
+<d-vm-context vm="MarkdownExample">
+   <d-markdown id="Content" css="padding: 1rem; background: #fff"${props} />
+</d-vm-context>
+\`\`\``;
       const setState = state => this.setState(state);
       let propTypes = {};
+
+      const setWebComponent = show => this.setState({ webComponent: show });
+      const webComponent = this.state && this.state.webComponent;
+      const selectBuildCode = webComponent ? buildWebComponentCode : buildCode;
+
       return (
-         <RenderExample vm="MarkdownExample" propTypes={propTypes} buildCode={buildCode} onChange={setState}>
+         <RenderExample
+            vm="MarkdownExample"
+            propTypes={propTypes}
+            buildCode={selectBuildCode}
+            onChange={setState}
+            onWebComponent={setWebComponent}
+         >
             <Panel css="margin-bottom: 2rem">
-               <Markdown id="Content" css="padding: 1rem; color: #000; background: #fff" {...this.state} />
+               {!webComponent ? (
+                  <Markdown id="Content" css="padding: 1rem; color: #000; background: #fff" {...this.state} />
+               ) : (
+                  <d-vm-context vm="MarkdownExample">
+                     <d-markdown id="Content" css="padding: 1rem; background: #fff" {...this.state} />
+                  </d-vm-context>
+               )}
             </Panel>
          </RenderExample>
       );
