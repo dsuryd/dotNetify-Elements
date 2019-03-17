@@ -48,6 +48,10 @@ export default class WebComponentHelper {
    }
 
    parseFunctionString(funcString) {
+      return WebComponentHelper._parseFunctionString(funcString);
+   }
+
+   static _parseFunctionString(funcString) {
       if (!funcString) return null;
       return args => {
          // Parse the function name from the attribute value.
