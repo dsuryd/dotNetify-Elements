@@ -76,19 +76,55 @@ class MyApp extends React.Component {
    }
 }
 \`\`\``;
+      const buildWebComponentCode = props => `
+\`\`\`jsx
+<d-vm-context vm="ModalExample">
+<d-modal${props} open={props.open} onSubmit={props.onSubmit}>
+   <header>Registration Dialog</header>
+   <d-text-field horizontal="true" id="Email" />
+   <footer>
+      <d-panel horizontal="true" right="true">
+         <d-button label="Cancel" cancel secondary onClick={props.onClose} />
+         <d-button id="Submit" label="Register" submit onClick={props.onClose} />
+      </d-panel>
+   </footer>
+</d-modal>
+</d-vm-context>
+\`\`\``;
       const { openDialog, formData, ...options } = this.state;
       const setState = state => this.setState(state);
       const propTypes = { small: null, large: null };
+
+      const setWebComponent = show => this.setState({ webComponent: show });
+      const webComponent = this.state && this.state.webComponent;
+      const selectBuildCode = webComponent ? buildWebComponentCode : buildCode;
 
       const handleClick = _ => this.setState({ formData: null, openDialog: true });
       const handleClose = _ => this.setState({ openDialog: false });
       const handleSubmit = data => this.setState({ formData: data.Email + ' has been registered!' });
       return (
-         <RenderExample propTypes={propTypes} buildCode={buildCode} onChange={setState}>
+         <RenderExample propTypes={propTypes} buildCode={selectBuildCode} onChange={setState} onWebComponent={setWebComponent}>
             <Panel css="margin-bottom: 1rem">
-               <Button label="Open Dialog" onClick={handleClick} />
-               <Alert>{formData}</Alert>
-               <MyDialog options={options} open={openDialog} onClose={handleClose} onSubmit={handleSubmit} />
+               {!webComponent ? (
+                  <React.Fragment>
+                     <Button label="Open Dialog" onClick={handleClick} />
+                     <Alert>{formData}</Alert>
+                     <MyDialog options={options} open={openDialog} onClose={handleClose} onSubmit={handleSubmit} />
+                  </React.Fragment>
+               ) : (
+                  <d-vm-context vm="ModalExample">
+                     <d-modal {...this.state} open="true" onsubmit="function() { alert('submit')}">
+                        <header>Registration Dialog</header>
+                        <d-text-field horizontal="true" id="Email" />
+                        <footer>
+                           <d-panel horizontal="true" right="true">
+                              <d-button label="Cancel" cancel="true" secondary="true" onclick="function() { alert('cancel')}" />
+                              <d-button id="Submit" label="Register" submit="true" onclick="function() { alert('submit')}" />
+                           </d-panel>
+                        </footer>
+                     </d-modal>
+                  </d-vm-context>
+               )}
             </Panel>
          </RenderExample>
       );

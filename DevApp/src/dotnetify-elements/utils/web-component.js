@@ -23,6 +23,12 @@ export default function createWebComponent(Component, elementName, useShadowDom)
 
       connectedCallback() {
          this.vmContextElem = this.closest('d-vm-context');
+
+         if (!this.vmContextElem) {
+            const modals = document.getElementsByTagName('d-modal');
+            if (modals.length > 0) this.vmContextElem = modals[0].closest('d-vm-context');
+         }
+
          if (this.vmContextElem) {
             this.vmContext = this.vmContextElem.context;
             this.vmContextElem.addEventListener('onStateChange', this.onVMContextStateChange);

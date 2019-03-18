@@ -45,12 +45,6 @@ export class Modal extends React.Component {
    };
 
    render() {
-      if (!this.context.theme) {
-         const error = 'ERROR: Modal must be nested inside a Theme component.';
-         console.error(error);
-         throw error;
-      }
-
       const [ Container, Header, Body, Footer ] = utils.resolveComponents(Modal, this.props);
       const { open, small, large, width, header, footer, children, onSubmit, onSubmitError, ...props } = this.props;
       const centered = true;
@@ -68,12 +62,13 @@ export class Modal extends React.Component {
          </React.Fragment>
       );
 
-      if (onSubmit || onSubmitError)
+      if (onSubmit || onSubmitError) {
          modalContent = (
-            <Form onSubmit={onSubmit} onSubmitError={onSubmitError}>
+            <Form onSubmit={onSubmit} onSubmitError={onSubmitError} vmContext={this.props.vmContext}>
                {modalContent}
             </Form>
          );
+      }
 
       return (
          <Container isOpen={open} centered={centered} size={size} style={{ maxWidth: width }}>

@@ -32,11 +32,11 @@ export class Form extends React.Component {
    };
 
    get formContext() {
-      return this.context.formContext;
+      return this.context.formContext || this.props.formContext;
    }
 
    get vmContext() {
-      return this.context.vmContext;
+      return this.context.vmContext || this.props.vmContext;
    }
 
    constructor(props) {
@@ -59,7 +59,7 @@ export class Form extends React.Component {
       let { vmContext, formContext, ...context } = this.context;
       return {
          ...context,
-         ...this.formStore.getContext(vmContext, formContext)
+         ...this.formStore.getContext(this.vmContext, this.formContext)
       };
    }
 
