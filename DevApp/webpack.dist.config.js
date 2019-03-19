@@ -20,7 +20,9 @@ const baseExport = {
 let components = {};
 let componentsFolder = './src/dotnetify-elements/bootstrap/_components/';
 fs.readdirSync(componentsFolder).forEach(file => {
-   components[file.slice(0, -3)] = componentsFolder + file;
+   const name = file.slice(0, -3);
+   components[name] = componentsFolder + file;
+   if (name === 'Core') components['index'] = componentsFolder + file;
 });
 
 const moduleConfig = {
@@ -67,9 +69,24 @@ module.exports = [
       externals: {
          bootstrap: 'bootstrap',
          dotnetify: 'dotnetify',
-         react: 'React',
-         'react-dom': 'ReactDOM',
-         'styled-components': 'styled'
+         react: {
+            commonjs: 'react',
+            commonjs2: 'react',
+            amd: 'react',
+            root: 'React'
+         },
+         'react-dom': {
+            commonjs: 'react-dom',
+            commonjs2: 'react-dom',
+            amd: 'react-dom',
+            root: 'ReactDOM'
+         },
+         'styled-components': {
+            commonjs: 'styled-components',
+            commonjs2: 'styled-components',
+            amd: 'styled-components',
+            root: 'styled'
+         }
       }
    },
    {
