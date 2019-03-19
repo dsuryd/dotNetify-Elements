@@ -49,7 +49,7 @@ const MyApp = _ => (
    <d-button id="Remove"
       icon="material-icons highlight_off"
       label="Remove"
-      onclick="function() {return new Date()}"
+      onclick="new Date()"
      ${props} ${this.state.color}="true"
    />
    <d-element id="RemoveTimeStamp" css="margin-left: 1.5rem" />
@@ -103,13 +103,7 @@ const MyApp = _ => (
                   <d-vm-context vm="ButtonExample">
                      <d-button id="Add" {...this.state} css="margin-right: 1.5rem" />
                      <d-element id="AddCounter" css="margin-right: 1.5rem" />
-                     <d-button
-                        id="Remove"
-                        icon="material-icons highlight_off"
-                        label="Remove"
-                        onclick="function() {return new Date()}"
-                        {...this.state}
-                     />
+                     <d-button id="Remove" icon="material-icons highlight_off" label="Remove" onclick="new Date()" {...this.state} />
                      <d-element id="RemoveTimeStamp" css="margin-left: 1.5rem" />
                   </d-vm-context>
                </Panel>

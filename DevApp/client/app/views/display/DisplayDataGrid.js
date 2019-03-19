@@ -48,7 +48,7 @@ const MyApp = _ => (
    </d-alert>
    <d-data-grid id="Contacts"${props}>
       <d-grid-column key="LastVisit" width="13rem" 
-        formatter="function(props) { return new Date(props.value).toLocaleString() }" 
+        formatter="props => new Date(props.value).toLocaleString()" 
       />
    </d-data-grid>
 </d-vm-context>
@@ -84,11 +84,7 @@ const MyApp = _ => (
                         Selected contact email: <d-element id="SelectedEmail" />
                      </d-alert>
                      <d-data-grid id="Contacts" {...this.state}>
-                        <d-grid-column
-                           colkey="LastVisit"
-                           width="13rem"
-                           formatter="function(props){ return new Date(props.value).toLocaleString() }"
-                        />
+                        <d-grid-column colkey="LastVisit" width="13rem" formatter="props => new Date(props.value).toLocaleString()" />
                      </d-data-grid>
                   </d-vm-context>
                )}
