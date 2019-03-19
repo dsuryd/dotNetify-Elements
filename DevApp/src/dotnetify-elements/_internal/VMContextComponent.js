@@ -27,7 +27,7 @@ export default function createWebComponent(Component, elementName) {
 
          this.props = {
             ...this.helper.getProps(this.attributes, Component.propTypes),
-            ...this.helper.getEvents(Component.propTypes)
+            ...this.helper.getEvents(this.attributes, Component.propTypes)
          };
       }
 
