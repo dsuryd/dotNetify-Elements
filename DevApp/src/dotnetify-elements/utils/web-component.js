@@ -61,7 +61,7 @@ export default function createWebComponent(Component, elementName, useShadowDom)
          const helper = new WebComponentHelper(this);
          this.props = {
             ...helper.getProps(this.attributes, Component.propTypes),
-            ...helper.getEvents(Component.propTypes),
+            ...helper.getEvents(this.attributes, Component.propTypes),
             vmContext: this.vmContext,
             formContext: this.formContext
          };

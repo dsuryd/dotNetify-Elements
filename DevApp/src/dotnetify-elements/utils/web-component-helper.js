@@ -1,7 +1,7 @@
 export default class WebComponentHelper {
    constructor(host) {
       this.host = host;
-      this.host.__eventHandlers = {};
+      this.host.__eventHandlers = [];
    }
 
    convertAttributeToProp(componentPropTypes, attrName, attrValue) {
@@ -13,8 +13,6 @@ export default class WebComponentHelper {
       else if (!isNaN(attrValue) && attrValue !== '') value = +attrValue;
       else if (/^{.*}/.exec(attrValue)) value = JSON.parse(attrValue);
       else if (/([A-z0-9$_]*)\(.*\)/.exec(attrValue)) value = this.parseFunctionString(attrValue);
-
-      if (typeof value == 'function') this.host.__eventHandlers[attrName] = value;
 
       return {
          name: propName ? propName : attrName,
@@ -29,15 +27,26 @@ export default class WebComponentHelper {
          .reduce((props, prop) => ({ ...props, [prop.name]: prop.value }), {});
    }
 
-   getEvents(componentPropTypes) {
+   getEvents(attributes, componentPropTypes) {
       // Look for attributes with camel-case names that start with 'on'.
       return Object.keys(componentPropTypes).filter(key => /on([A-Z].*)/.exec(key)).reduce(
          (events, e) => ({
             ...events,
             [e]: args => {
                const eventName = e.toLowerCase();
-               const eventHandler = this.host.__eventHandlers[eventName];
-               let result = typeof eventHandler == 'function' ? eventHandler(args) : null;
+
+               let eventHandler = this.host.__eventHandlers[eventName];
+               if (!eventHandler) {
+                  const attr = [ ...attributes ].find(attr => attr.name == eventName);
+                  if (attr) {
+                     eventHandler = attr.value;
+                     if (/([A-z0-9$_]*)\(.*\)/.exec(attr.value)) eventHandler = this.parseFunctionString(attr.value);
+                     this.host.__eventHandlers[eventName] = eventHandler;
+                  }
+               }
+
+               if (eventHandler && typeof eventHandler !== 'function') eventHandler = eval(eventHandler);
+               let result = typeof eventHandler == 'function' ? eventHandler(args) : eventHandler;
 
                this.host.dispatchEvent(new CustomEvent(e, { ...args }));
                return result;
@@ -58,7 +67,10 @@ export default class WebComponentHelper {
          const match = /([A-z0-9$_]*)\(?\)?/.exec(funcString);
          const fnName = match ? match[1] : funcString;
          if (fnName !== 'function' && typeof window[fnName] === 'function') return window[fnName](args);
-         else return eval(`(${funcString})`)(args);
+         else {
+            const result = eval(`(${funcString})`);
+            return typeof result == 'function' ? result(args) : result;
+         }
       };
    }
 }
