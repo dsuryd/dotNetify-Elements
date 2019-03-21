@@ -1,7 +1,7 @@
 'use strict';
 
 const webpack = require('webpack');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const fs = require('fs');
 
 const baseExport = {
@@ -9,12 +9,12 @@ const baseExport = {
       rules: [
          { test: /\.jsx?$/, use: 'babel-loader', exclude: /node_modules/ },
          { test: /\.tsx?$/, use: 'awesome-typescript-loader?silent=true' },
-         { test: /\.css$/, use: [ MiniCssExtractPlugin.loader, 'css-loader?minimize' ] },
+         { test: /\.css$/, loader: 'raw-loader' },
          { test: /\.(png|jpg|jpeg|gif|svg)$/, use: 'url-loader?limit=25000' },
          { test: /\.(eot|svg|ttf|woff(2)?)(\?v=\d+\.\d+\.\d+)?/, loader: 'url-loader' }
       ]
    },
-   plugins: [ new MiniCssExtractPlugin(), new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en/) ]
+   plugins: [ new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en/) ]
 };
 
 let components = {};
@@ -57,7 +57,21 @@ const moduleConfig = {
       'text-mask-core'
    ],
    module: baseExport.module,
-   plugins: baseExport.plugins
+   plugins: baseExport.plugins,
+   optimization: {
+      minimizer: [
+         new UglifyJSPlugin({
+            cache: true,
+            parallel: true,
+            uglifyOptions: {
+               compress: true,
+               keep_classnames: true,
+               keep_fnames: true
+            },
+            sourceMap: true
+         })
+      ]
+   }
 };
 
 module.exports = [
