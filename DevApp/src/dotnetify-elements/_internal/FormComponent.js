@@ -12,35 +12,49 @@ export default function createWebComponent(Component, elementName) {
          this.state = {};
          this.formStore = new FormStore(this);
          this.helper = new WebComponentHelper(this);
+         this.hasVMContextState = false;
       }
 
+      onChanged = field => {
+         const onChanged = this.helper.parseFunctionString(this.getAttribute('onchanged'));
+         if (typeof onChanged == 'function') onChanged(field);
+         this.dispatchEvent(new CustomEvent('onChanged', field));
+      };
+
       onStateChange = state => {
-         const onStateChange = this.helper.parseFunctionString(this.getAttribute('onStateChange'));
+         const onStateChange = this.helper.parseFunctionString(this.getAttribute('onstatechange'));
          if (typeof onStateChange == 'function') onStateChange(state);
          this.dispatchEvent(new CustomEvent('onStateChange', state));
       };
 
       onSubmit = formData => {
-         const onSubmit = this.helper.parseFunctionString(this.getAttribute('onSubmit'));
+         const onSubmit = this.helper.parseFunctionString(this.getAttribute('onsubmit'));
          if (typeof onSubmit == 'function') onSubmit(formData);
          this.dispatchEvent(new CustomEvent('onSubmit', formData));
       };
 
       onSubmitError = error => {
-         const onSubmitError = this.helper.parseFunctionString(this.getAttribute('onSubmitError'));
+         const onSubmitError = this.helper.parseFunctionString(this.getAttribute('onsubmiterror'));
          if (typeof onSubmitError == 'function') onSubmitError(error);
          this.dispatchEvent(new CustomEvent('onSubmitError', error));
       };
 
-      onChanged = field => {
-         const onChanged = this.helper.parseFunctionString(this.getAttribute('onChanged'));
-         if (typeof onChanged == 'function') onChanged(field);
-         this.dispatchEvent(new CustomEvent('onChanged', field));
+      onVMContextStateChange = _ => {
+         this.hasVMContextState = true;
       };
 
       connectedCallback() {
          this.vmContextElem = this.closest('d-vm-context');
-         if (this.vmContextElem) this.vmContext = this.vmContextElem.context;
+
+         if (!this.vmContextElem) {
+            const modals = document.getElementsByTagName('d-modal');
+            if (modals.length > 0) this.vmContextElem = modals[0].closest('d-vm-context');
+         }
+
+         if (this.vmContextElem) {
+            this.vmContext = this.vmContextElem.context;
+            this.vmContextElem.addEventListener('onStateChange', this.onVMContextStateChange);
+         }
 
          this.formElem = this.parentElement.closest('d-form');
          if (this.formElem) this.formContext = this.formElem.context.formContext;
@@ -52,12 +66,15 @@ export default function createWebComponent(Component, elementName) {
          this.formStore.init();
       }
 
-      disconnectedCallback() {}
+      disconnectedCallback() {
+         if (this.vmContextElem) {
+            this.vmContextElem.removeEventListener('onStateChange', this.onVMContextStateChange);
+         }
+      }
 
       attributeChangedCallback(name, oldValue, newValue) {
          const plainText = newValue === 'true';
          if (name === 'plaintext' && plainText !== this.formStore.plainText) this.formStore.plainText = plainText;
-         if (oldValue !== null && !plainText) this.formStore.enterEditMode();
       }
 
       get context() {
@@ -68,6 +85,8 @@ export default function createWebComponent(Component, elementName) {
       }
 
       setState(state) {
+         if (state.plainText !== 'true' && this.hasVMContextState) this.formStore.enterEditMode();
+
          this.state = Object.assign(this.state, state);
          this.dispatchEvent(new CustomEvent('onStateChange', state));
       }
