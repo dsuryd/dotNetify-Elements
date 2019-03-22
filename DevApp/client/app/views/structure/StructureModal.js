@@ -112,18 +112,31 @@ class MyApp extends React.Component {
                      <MyDialog options={options} open={openDialog} onClose={handleClose} onSubmit={handleSubmit} />
                   </React.Fragment>
                ) : (
-                  <d-vm-context vm="ModalExample">
-                     <d-modal {...this.state} open="true" onsubmit="function() { alert('submit')}">
-                        <header>Registration Dialog</header>
-                        <d-text-field horizontal="true" id="Email" />
-                        <footer>
-                           <d-panel horizontal="true" right="true">
-                              <d-button label="Cancel" cancel="true" secondary="true" onclick="function() { alert('cancel')}" />
-                              <d-button id="Submit" label="Register" submit="true" onclick="function() { alert('submit')}" />
-                           </d-panel>
-                        </footer>
-                     </d-modal>
-                  </d-vm-context>
+                  <div>
+                     <d-button label="Show Modal" onclick="document.getElementById('Modal').setAttribute('open','true')" />
+                     <d-vm-context vm="ModalExample">
+                        <d-modal id="Modal" {...this.state} open="false" onsubmit="function() { alert('submit')}">
+                           <header>Registration Dialog</header>
+                           <d-text-field horizontal="true" id="Email" />
+                           <footer>
+                              <d-panel horizontal="true" right="true">
+                                 <d-button
+                                    label="Cancel"
+                                    cancel="true"
+                                    secondary="true"
+                                    onclick="setTimeout(() => document.getElementById('Modal').setAttribute('open','false'))"
+                                 />
+                                 <d-button
+                                    id="Submit"
+                                    label="Register"
+                                    submit="true"
+                                    onclick="setTimeout(() => document.getElementById('Modal').setAttribute('open','false'))"
+                                 />
+                              </d-panel>
+                           </footer>
+                        </d-modal>
+                     </d-vm-context>
+                  </div>
                )}
             </Panel>
          </RenderExample>

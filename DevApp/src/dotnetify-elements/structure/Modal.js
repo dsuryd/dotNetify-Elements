@@ -63,11 +63,16 @@ export class Modal extends React.Component {
       );
 
       if (onSubmit || onSubmitError) {
-         modalContent = (
-            <Form onSubmit={onSubmit} onSubmitError={onSubmitError} vmContext={this.props.vmContext}>
-               {modalContent}
-            </Form>
-         );
+         modalContent =
+            this.props.vmContext && this.props.vmContext._type === 'custom' ? (
+               <d-form onsubmit={onSubmit} onsubmiterror={onSubmitError}>
+                  {modalContent}
+               </d-form>
+            ) : (
+               <Form onSubmit={onSubmit} onSubmitError={onSubmitError}>
+                  {modalContent}
+               </Form>
+            );
       }
 
       return (

@@ -7,12 +7,15 @@ export default function createWebComponent(Component, elementName) {
          return [ 'plaintext' ];
       }
 
+      get hasVMContextState() {
+         return !!(this.vmContext && this.vmContext.getState() && Object.entries(this.vmContext.getState()).length > 0);
+      }
+
       constructor() {
          super();
          this.state = {};
          this.formStore = new FormStore(this);
          this.helper = new WebComponentHelper(this);
-         this.hasVMContextState = false;
       }
 
       onChanged = field => {
@@ -39,10 +42,6 @@ export default function createWebComponent(Component, elementName) {
          this.dispatchEvent(new CustomEvent('onSubmitError', error));
       };
 
-      onVMContextStateChange = _ => {
-         this.hasVMContextState = true;
-      };
-
       connectedCallback() {
          this.vmContextElem = this.closest('d-vm-context');
 
@@ -53,7 +52,6 @@ export default function createWebComponent(Component, elementName) {
 
          if (this.vmContextElem) {
             this.vmContext = this.vmContextElem.context;
-            this.vmContextElem.addEventListener('onStateChange', this.onVMContextStateChange);
          }
 
          this.formElem = this.parentElement.closest('d-form');
@@ -64,12 +62,6 @@ export default function createWebComponent(Component, elementName) {
             ...this.helper.getEvents(this.attributes, Component.propTypes)
          };
          this.formStore.init();
-      }
-
-      disconnectedCallback() {
-         if (this.vmContextElem) {
-            this.vmContextElem.removeEventListener('onStateChange', this.onVMContextStateChange);
-         }
       }
 
       attributeChangedCallback(name, oldValue, newValue) {
@@ -85,7 +77,7 @@ export default function createWebComponent(Component, elementName) {
       }
 
       setState(state) {
-         if (state.plainText !== 'true' && this.hasVMContextState) this.formStore.enterEditMode();
+         if (state.plainText !== 'true' && this.hasVMContextState) setTimeout(() => this.formStore.enterEditMode());
 
          this.state = Object.assign(this.state, state);
          this.dispatchEvent(new CustomEvent('onStateChange', state));

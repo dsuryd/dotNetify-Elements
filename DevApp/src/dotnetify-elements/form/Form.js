@@ -51,7 +51,7 @@ export class Form extends React.Component {
 
    shouldComponentUpdate(props) {
       if (props.hasOwnProperty('plainText') && props.plainText !== this.formStore.plainText) this.formStore.plainText = props.plainText;
-      if (props.plainText === false) this.formStore.enterEditMode();
+      if (props.plainText !== true) this.formStore.enterEditMode();
       return true;
    }
 

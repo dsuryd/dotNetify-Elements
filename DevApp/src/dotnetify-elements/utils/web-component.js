@@ -94,4 +94,5 @@ export default function createWebComponent(Component, elementName, useShadowDom)
    }
 
    if (!window.customElements.get(elementName)) window.customElements.define(elementName, CustomElement);
+   return CustomElement;
 }

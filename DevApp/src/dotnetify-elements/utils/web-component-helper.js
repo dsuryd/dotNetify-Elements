@@ -1,7 +1,7 @@
 export default class WebComponentHelper {
    constructor(host) {
       this.host = host;
-      this.host.__eventHandlers = [];
+      this.host.__eventHandlers = this.host.__eventHandlers || {};
    }
 
    convertAttributeToProp(componentPropTypes, attrName, attrValue) {
@@ -63,14 +63,8 @@ export default class WebComponentHelper {
    static _parseFunctionString(funcString) {
       if (!funcString) return null;
       return args => {
-         // Parse the function name from the attribute value.
-         const match = /([A-z0-9$_]*)\(?\)?/.exec(funcString);
-         const fnName = match ? match[1] : funcString;
-         if (fnName !== 'function' && typeof window[fnName] === 'function') return window[fnName](args);
-         else {
-            const result = eval(`(${funcString})`);
-            return typeof result == 'function' ? result(args) : result;
-         }
+         const result = eval(`(${funcString})`);
+         return typeof result == 'function' ? result(args) : result;
       };
    }
 }
