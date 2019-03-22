@@ -1,7 +1,10 @@
 import htmlToReact from 'html-to-react';
 import WebComponentHelper from './web-component-helper';
+import * as utils from '../utils';
 
 export default function createWebComponent(Component, elementName, useShadowDom) {
+   if (utils.isIE11()) return;
+
    class CustomElement extends HTMLElement {
       constructor() {
          super();

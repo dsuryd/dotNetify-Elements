@@ -49,7 +49,7 @@ export default class WebComponentHelper {
                let result = typeof eventHandler == 'function' ? eventHandler(args) : eventHandler;
 
                this.host.dispatchEvent(new CustomEvent(e, { ...args }));
-               return result;
+               return result || null;
             }
          }),
          {}

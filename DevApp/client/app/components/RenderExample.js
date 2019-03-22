@@ -59,6 +59,8 @@ export default class RenderExample extends React.Component {
          this.props.onChange(newState);
       };
 
+      const isIE11 = window.navigator.userAgent.indexOf('Trident/') > 0;
+
       const showWebComponent = show => {
          this.showWebComponent = show;
          onWebComponent(show);
@@ -90,7 +92,8 @@ export default class RenderExample extends React.Component {
                   </Panel>
                </Panel>
             )}
-            {onWebComponent && (
+            {onWebComponent &&
+            !isIE11 && (
                <Checkbox
                   id={'_webComponent__' + Math.random().toString(36).substring(2)}
                   label={<span style={{ fontWeight: '500' }}>Web component</span>}

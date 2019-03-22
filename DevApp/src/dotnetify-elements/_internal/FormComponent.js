@@ -1,7 +1,10 @@
 import FormStore from './FormStore';
 import WebComponentHelper from '../utils/web-component-helper';
+import * as utils from '../utils';
 
 export default function createWebComponent(Component, elementName) {
+   if (utils.isIE11()) return;
+
    class CustomElement extends HTMLElement {
       static get observedAttributes() {
          return [ 'plaintext' ];
