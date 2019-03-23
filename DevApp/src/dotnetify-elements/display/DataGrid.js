@@ -138,7 +138,9 @@ export class DataGrid extends Element {
 
          const [ gridColumns, rest ] = utils.filterChildren(
             children,
-            child => (child.type == GridColumn && child.key === c.key) || (child.type == 'd-grid-column' && child.props.colkey === c.key)
+            child =>
+               (child.type == GridColumn && child.key === c.key) ||
+               (child.type == 'd-grid-column' && child.props.colkey === c.key)
          );
          const gridCol = gridColumns.shift();
          if (gridCol) {
@@ -225,7 +227,8 @@ export class DataGrid extends Element {
       if (this.value[fromRow][key] === value) return;
 
       let isValid = true;
-      const keyValue = { Key: key, Value: value };
+      const id = this.attrs.rowKey ? this.value[fromRow][this.attrs.rowKey] : fromRow;
+      const keyValue = { Id: id, Key: key, Value: value };
       if (this.props.onEdit) isValid = this.props.onEdit(keyValue) !== false;
 
       if (isValid) {
@@ -238,7 +241,10 @@ export class DataGrid extends Element {
       if (this.gridDom && this.gridDom.getDataGridDOMNode) {
          var top = this.gridDom.getRowOffsetHeight() * idx;
          var gridCanvas = this.gridDom.getDataGridDOMNode().querySelector('.react-grid-Canvas');
-         if (top < gridCanvas.scrollTop || top > gridCanvas.scrollTop + this.state.height - 2 * utils.toPixel(this.attrs.rowHeight)) {
+         if (
+            top < gridCanvas.scrollTop ||
+            top > gridCanvas.scrollTop + this.state.height - 2 * utils.toPixel(this.attrs.rowHeight)
+         ) {
             gridCanvas.scrollTop = top;
 
             // Hack to fix row data not getting updated when programmatically selected.
@@ -247,8 +253,7 @@ export class DataGrid extends Element {
                this.emitEvent('click', row);
             });
          }
-      }
-      else setTimeout(_ => this.handleScrollToRow(idx));
+      } else setTimeout(_ => this.handleScrollToRow(idx));
    }
 
    handleSelectBy = _ => {

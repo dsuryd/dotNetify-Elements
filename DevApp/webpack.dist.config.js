@@ -65,6 +65,7 @@ const moduleConfig = {
             parallel: true,
             uglifyOptions: {
                compress: true,
+               ecma: 5,
                keep_classnames: true,
                keep_fnames: true
             },
