@@ -18,7 +18,10 @@ const MarkdownText = props => markdown(props.text);
 export class Markdown extends Element {
    static propTypes = {
       // Identifies the associated view model property.
-      id: PropTypes.string
+      id: PropTypes.string,
+
+      // Markdown text.
+      text: PropTypes.string
    };
 
    static componentTypes = {
@@ -34,9 +37,10 @@ export class Markdown extends Element {
       const renderText = section => (typeof section == 'string' ? <MarkdownText text={section} /> : section);
 
       let markdown = null;
-      if (this.value) {
+      let rawText = this.props.text || this.value;
+      if (rawText) {
          let markdowns = [];
-         this.value.split('[inset]').forEach((section, idx) => {
+         rawText.split('[inset]').forEach((section, idx) => {
             markdowns.push(section);
             idx < _children.length && markdowns.push(_children[idx]);
          });

@@ -82,7 +82,10 @@ https://github.com/markedjs/marked ([license: MIT](https://github.com/markedjs/m
 ```jsx
 static propTypes = {
    // Identifies the associated view model property.
-   id: PropTypes.string
+   id: PropTypes.string,
+
+   // Markdown text.
+   text: PropTypes.String
 };
 ```
 
