@@ -65,9 +65,7 @@ export class Modal extends React.Component {
       if (onSubmit || onSubmitError) {
          modalContent =
             this.props.vmContext && this.props.vmContext._type === 'custom' ? (
-               <d-form onsubmit={onSubmit} onsubmiterror={onSubmitError}>
-                  {modalContent}
-               </d-form>
+               <d-form>{modalContent}</d-form>
             ) : (
                <Form onSubmit={onSubmit} onSubmitError={onSubmitError}>
                   {modalContent}
@@ -83,4 +81,15 @@ export class Modal extends React.Component {
    }
 }
 
-createWebComponent(Modal, 'd-modal');
+let modalComponent = createWebComponent(Modal, 'd-modal');
+
+modalComponent.prototype.open = function() {
+   this.setAttribute('open', 'true');
+};
+modalComponent.prototype.close = function() {
+   // Use setTimeout to allow the click event that triggers the modal close to bubble down first.
+   setTimeout(() => {
+      this.setAttribute('open', 'false');
+      this.dispatchEvent(new CustomEvent('onclose'));
+   });
+};

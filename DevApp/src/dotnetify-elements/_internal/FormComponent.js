@@ -50,7 +50,11 @@ export default function createWebComponent(Component, elementName) {
 
          if (!this.vmContextElem) {
             const modals = document.getElementsByTagName('d-modal');
-            if (modals.length > 0) this.vmContextElem = modals[0].closest('d-vm-context');
+            if (modals.length > 0) {
+               this.vmContextElem = modals[0].closest('d-vm-context');
+               this.setAttribute('onsubmit', modals[0].getAttribute('onsubmit'));
+               this.setAttribute('onsubmiterror', modals[0].getAttribute('onsubmiterror'));
+            }
          }
 
          if (this.vmContextElem) {

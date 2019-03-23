@@ -78,17 +78,30 @@ class MyApp extends React.Component {
 \`\`\``;
       const buildWebComponentCode = props => `
 \`\`\`jsx
+<d-panel>
+   <d-button label="Open Dialog" onclick="document.getElementById('_modal').open()" />
+   <d-alert id="_alert" />
+</d-panel>
 <d-vm-context vm="ModalExample">
-<d-modal${props} open={props.open} onSubmit={props.onSubmit}>
-   <header>Registration Dialog</header>
-   <d-text-field horizontal="true" id="Email" />
-   <footer>
-      <d-panel horizontal="true" right="true">
-         <d-button label="Cancel" cancel secondary onClick={props.onClose} />
-         <d-button id="Submit" label="Register" submit onClick={props.onClose} />
-      </d-panel>
-   </footer>
-</d-modal>
+   <d-modal${props}
+      id="_modal"
+      open="false"
+      onsubmit="data => document.getElementById('_alert').setAttribute('text', data.Email + ' has been registered!')"
+   >
+      <header>Registration Dialog</header>
+      <d-text-field horizontal="true" id="Email" />
+      <footer>
+         <d-panel horizontal="true" right="true">
+            <d-button
+               label="Cancel"
+               cancel="true"
+               secondary="true"
+               onclick="document.getElementById('_modal').close()"
+            />
+            <d-button id="Submit" label="Register" submit="true" onclick="document.getElementById('_modal').close()" />
+         </d-panel>
+      </footer>
+   </d-modal>
 </d-vm-context>
 \`\`\``;
       const { openDialog, formData, ...options } = this.state;
@@ -113,9 +126,17 @@ class MyApp extends React.Component {
                   </React.Fragment>
                ) : (
                   <div>
-                     <d-button label="Show Modal" onclick="document.getElementById('Modal').setAttribute('open','true')" />
+                     <d-panel>
+                        <d-button label="Open Dialog" onclick="document.getElementById('_modal').open()" />
+                        <d-alert id="_alert" />
+                     </d-panel>
                      <d-vm-context vm="ModalExample">
-                        <d-modal id="Modal" {...this.state} open="false" onsubmit="function() { alert('submit')}">
+                        <d-modal
+                           id="_modal"
+                           {...this.state}
+                           open="false"
+                           onsubmit="data => document.getElementById('_alert').setAttribute('text', data.Email + ' has been registered!')"
+                        >
                            <header>Registration Dialog</header>
                            <d-text-field horizontal="true" id="Email" />
                            <footer>
@@ -124,14 +145,9 @@ class MyApp extends React.Component {
                                     label="Cancel"
                                     cancel="true"
                                     secondary="true"
-                                    onclick="setTimeout(() => document.getElementById('Modal').setAttribute('open','false'))"
+                                    onclick="document.getElementById('_modal').close()"
                                  />
-                                 <d-button
-                                    id="Submit"
-                                    label="Register"
-                                    submit="true"
-                                    onclick="setTimeout(() => document.getElementById('Modal').setAttribute('open','false'))"
-                                 />
+                                 <d-button id="Submit" label="Register" submit="true" onclick="document.getElementById('_modal').close()" />
                               </d-panel>
                            </footer>
                         </d-modal>
