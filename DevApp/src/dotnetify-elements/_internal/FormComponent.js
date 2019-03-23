@@ -24,25 +24,25 @@ export default function createWebComponent(Component, elementName) {
       onChanged = field => {
          const onChanged = this.helper.parseFunctionString(this.getAttribute('onchanged'));
          if (typeof onChanged == 'function') onChanged(field);
-         this.dispatchEvent(new CustomEvent('onChanged', field));
+         this.dispatchEvent(new CustomEvent('onChanged', { detail: field }));
       };
 
       onStateChange = state => {
          const onStateChange = this.helper.parseFunctionString(this.getAttribute('onstatechange'));
          if (typeof onStateChange == 'function') onStateChange(state);
-         this.dispatchEvent(new CustomEvent('onStateChange', state));
+         this.dispatchEvent(new CustomEvent('onStateChange', { detail: state }));
       };
 
       onSubmit = formData => {
          const onSubmit = this.helper.parseFunctionString(this.getAttribute('onsubmit'));
          if (typeof onSubmit == 'function') onSubmit(formData);
-         this.dispatchEvent(new CustomEvent('onSubmit', formData));
+         this.dispatchEvent(new CustomEvent('onSubmit', { detail: formData }));
       };
 
       onSubmitError = error => {
          const onSubmitError = this.helper.parseFunctionString(this.getAttribute('onsubmiterror'));
          if (typeof onSubmitError == 'function') onSubmitError(error);
-         this.dispatchEvent(new CustomEvent('onSubmitError', error));
+         this.dispatchEvent(new CustomEvent('onSubmitError', { detail: error }));
       };
 
       connectedCallback() {
@@ -62,9 +62,13 @@ export default function createWebComponent(Component, elementName) {
 
          this.props = {
             ...this.helper.getProps(this.attributes, Component.propTypes),
-            ...this.helper.getEvents(this.attributes, Component.propTypes)
+            ...this.helper.getEvents(this.attributes, Component.propTypes),
+            onChanged: this.onChanged,
+            onSubmit: this.onSubmit,
+            onSubmitError: this.onSubmitError
          };
-         this.formStore.init();
+
+         setTimeout(() => this.formStore.init());
       }
 
       attributeChangedCallback(name, oldValue, newValue) {
@@ -80,7 +84,7 @@ export default function createWebComponent(Component, elementName) {
       }
 
       setState(state) {
-         if (state.plainText !== 'true' && this.hasVMContextState) setTimeout(() => this.formStore.enterEditMode());
+         if (state.plainText !== 'true' && this.hasVMContextState) this.formStore.enterEditMode();
 
          this.state = Object.assign(this.state, state);
          this.dispatchEvent(new CustomEvent('onStateChange', state));

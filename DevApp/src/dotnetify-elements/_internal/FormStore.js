@@ -97,6 +97,10 @@ export default class FormStore {
    }
 
    getValidator(vmInput) {
+      // Make sure we're not storing duplicates.
+      this.validators = this.validators.filter(x => x.propId !== vmInput.propId);
+      this.inputs = this.inputs.filter(x => x.propId !== vmInput.propId);
+
       // Create a validator for an input field.
       const validator = new VMInputValidator(vmInput.vmContext, vmInput.propId);
       this.validators.push(validator);

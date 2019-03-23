@@ -15,7 +15,7 @@ export default function createWebComponent(Component, elementName) {
       onStateChange = state => {
          const onStateChange = this.helper.parseFunctionString(this.getAttribute('onStateChange'));
          if (typeof onStateChange == 'function') onStateChange(state);
-         this.dispatchEvent(new CustomEvent('onStateChange', state));
+         this.dispatchEvent(new CustomEvent('onStateChange', { detail: state }));
       };
 
       connectedCallback() {
@@ -44,7 +44,7 @@ export default function createWebComponent(Component, elementName) {
 
       setState(state) {
          this.state = Object.assign(this.state || {}, state);
-         this.dispatchEvent(new CustomEvent('onLocalStateChange', state));
+         this.dispatchEvent(new CustomEvent('onLocalStateChange', { detail: state }));
       }
    }
 

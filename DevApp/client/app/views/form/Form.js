@@ -90,7 +90,12 @@ const MyApp = _ => (
                </Form>
             ) : (
                <d-vm-context vm="BasicForm">
-                  <d-form {...this.state}>
+                  <d-form
+                     {...this.state}
+                     onchanged="args => document.getElementById('_log').setAttribute('text','```onChanged: ' + args + '```')"
+                     onsubmit="args => document.getElementById('_log').setAttribute('text','```onSubmit: ' + JSON.stringify(args) + '```')"
+                     onsubmiterror="args => document.getElementById('_log').setAttribute('text','```onSubmitError: ' + JSON.stringify(args) + '```')"
+                  >
                      <d-alert id="ServerResponse" />
                      <d-panel>
                         <d-text-field id="Name" horizontal="true" />
@@ -99,6 +104,7 @@ const MyApp = _ => (
                            <d-button label="Cancel" cancel="true" secondary="true" />
                            <d-button id="Register" submit="true" />
                         </d-panel>
+                        <d-markdown id="_log" />
                      </d-panel>
                   </d-form>
                </d-vm-context>
