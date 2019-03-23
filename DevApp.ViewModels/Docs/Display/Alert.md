@@ -20,6 +20,9 @@ static propTypes = {
    // Identifies the associated view model property.
    id: PropTypes.string,
 
+   // Alert text.
+   text: PropTypes.string,
+
    // Danger color.
    danger: PropTypes.bool,
 

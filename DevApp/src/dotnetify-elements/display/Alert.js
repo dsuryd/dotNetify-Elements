@@ -9,6 +9,9 @@ export class Alert extends Element {
       // Identifies the associated view model property.
       id: PropTypes.string,
 
+      // Alert text.
+      text: PropTypes.string,
+
       // Danger color.
       danger: PropTypes.bool,
 
@@ -33,13 +36,14 @@ export class Alert extends Element {
       const [ _Alert ] = this.resolveComponents(Alert);
       const { fullId, children, onShow, ...props } = this.attrs;
 
-      const show = (!!fullId && !!children) || (typeof this.value !== 'undefined' && this.value !== null);
+      const rawText = this.props.text || this.value;
+      const show = (!!fullId && !!children) || rawText != null;
       onShow && onShow(show);
 
       return (
          show && (
             <_Alert id={fullId} {...props}>
-               {this.value && markdown(this.value)}
+               {rawText && markdown(rawText)}
                {children}
             </_Alert>
          )
