@@ -190,10 +190,11 @@ const structureTheme = {
             ::-webkit-input-placeholder {
                font-weight: 400;
             }
-         },`,
+         }
+      `,
       ValidationMessageContainer: `
             color: red;
-        `,
+      `,
       PlainTextContainer: ``,
       PlainTextComponent: `font-weight: 500;`
    },
