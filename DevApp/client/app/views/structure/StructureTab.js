@@ -47,24 +47,71 @@ const MyApp = _ => (
    </VMContext>   
 );
 \`\`\``;
+      const buildWebComponentCode = props => `
+\`\`\`jsx
+<d-vm-context vm="TabExample">
+   <d-tab>
+      <d-tab-item itemkey="home" label="Home">
+         <d-markdown id="home" />
+      </d-tab-item>
+      <d-tab-item itemkey="menu" label="Menu">
+         <d-markdown id="Menu">
+            <d-image id="MenuPicture" />
+         </d-markdown>
+      </d-tab-item>
+      <d-tab-item itemkey="about" label="About">
+         <d-markdown id="About" />
+      </d-tab-item>
+   </d-tab>
+</d-vm-context>
+\`\`\``;
       const setState = state => this.setState(state);
       const propTypes = {};
+
+      const setWebComponent = show => this.setState({ webComponent: show });
+      const webComponent = this.state && this.state.webComponent;
+      const selectBuildCode = webComponent ? buildWebComponentCode : buildCode;
+
       return (
-         <RenderExample vm="TabExample" propTypes={propTypes} buildCode={buildCode} onChange={setState}>
+         <RenderExample
+            vm="TabExample"
+            propTypes={propTypes}
+            buildCode={selectBuildCode}
+            onChange={setState}
+            onWebComponent={setWebComponent}
+         >
             <Panel css="padding: 2rem; margin-bottom: 2rem; background: white">
-               <Tab active="home">
-                  <TabItem key="home" label="Home">
-                     <Markdown id="Home" />
-                  </TabItem>
-                  <TabItem key="menu" label="Menu">
-                     <Markdown id="Menu">
-                        <Image id="MenuPicture" />
-                     </Markdown>
-                  </TabItem>
-                  <TabItem key="about" label="About">
-                     <Markdown id="About" />
-                  </TabItem>
-               </Tab>
+               {!webComponent ? (
+                  <Tab active="home">
+                     <TabItem key="home" label="Home">
+                        <Markdown id="Home" />
+                     </TabItem>
+                     <TabItem key="menu" label="Menu">
+                        <Markdown id="Menu">
+                           <Image id="MenuPicture" />
+                        </Markdown>
+                     </TabItem>
+                     <TabItem key="about" label="About">
+                        <Markdown id="About" />
+                     </TabItem>
+                  </Tab>
+               ) : (
+                  <d-vm-context vm="TabExample">
+                     <d-tab active="home">
+                        <d-tab-item itemkey="home" label="Home">
+                           <d-markdown id="Home" />
+                        </d-tab-item>
+                        <d-tab-item itemkey="menu" label="Menu">
+                           <d-markdown id="Menu">
+                              <d-image id="MenuPicture" />
+                           </d-markdown>
+                        </d-tab-item>
+                        <d-tab-item itemkey="about" label="About">
+                           <d-markdown id="About" />
+                        </d-tab-item>
+                     </d-tab>
+                  </d-vm-context>
+               )}
             </Panel>
          </RenderExample>
       );

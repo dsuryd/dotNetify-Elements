@@ -53,7 +53,10 @@ export class Tab extends React.Component {
       if (this.props.active !== props.active && this.props.onActivate) this.setActiveState(props.active);
    }
 
-   getItemKey = (child, idx) => (child.key ? child.key : `${idx}`);
+   getItemKey = (child, idx) => {
+      if (child.type === 'd-tab-item') return child.props.itemkey || `${idx}`;
+      return child.props.itemKey || child.key || `${idx}`;
+   };
    getDisplayStyle = key => ({ display: this.state.active == key ? 'block' : 'none' });
 
    handleClick = (event, key, label) => {
@@ -129,3 +132,8 @@ export class TabItem extends React.Component {
 }
 
 createWebComponent(Tab, 'd-tab');
+
+let tabItemComponent = createWebComponent(TabItem, 'd-tab-item');
+tabItemComponent.getKey = function() {
+   return this.getAttribute('key');
+};
