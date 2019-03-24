@@ -32,11 +32,12 @@ class LayoutThemeExample extends React.Component {
       theme = { name: name, ...theme };
 
       let themeJson = JSON.stringify(theme, null, 4).replace(/\\n/g, '\r\n');
+      let themeClipboard = themeJson.replace(/"/g, '`').replace(/`(.+)`:/g, x => `${x.replace(/`/g, '')}`);
       return (
          <Panel noGap css="margin-top: 3rem; .token {color: #ccc} .token.property, .token.operator { color: #9cdcfe}">
             <Panel apart horizontal>
                <Button positive label="Toggle Theme" onClick={_ => themeToggleEvent.emit()} />
-               <Button secondary label="Copy to Clipboard" onClick={_ => copyToClipboard(themeJson)} />
+               <Button secondary label="Copy to Clipboard" onClick={_ => copyToClipboard(themeClipboard)} />
             </Panel>
             <Markdown>{'```json\r\n' + themeJson + '\r\n```'}</Markdown>
          </Panel>
