@@ -57,8 +57,8 @@ export class DropdownList extends InputElement {
 
       // If "required" validation is specified, add a custom validator to validate against an empty selection.
       if (this.vmProperty.validator && this.vmProperty.validator.validations) {
-         const requiredValidation = this.vmProperty.validator.validations.filter(x => x.type === 'Required').shift();
-         const emptySelection = this.attrs.options.filter(x => !x.Value).shift();
+         const requiredValidation = this.vmProperty.validator.validations.find(x => x.type === 'Required');
+         const emptySelection = (this.attrs.options || []).find(x => !x.Value);
 
          if (requiredValidation && emptySelection) {
             this.vmProperty.addValidation({
