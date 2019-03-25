@@ -27,12 +27,6 @@ export default function createWebComponent(Component, elementName) {
          this.dispatchEvent(new CustomEvent('onChanged', { detail: field }));
       };
 
-      onStateChange = state => {
-         const onStateChange = this.helper.parseFunctionString(this.getAttribute('onstatechange'));
-         if (typeof onStateChange == 'function') onStateChange(state);
-         this.dispatchEvent(new CustomEvent('onStateChange', { detail: state }));
-      };
-
       onSubmit = formData => {
          const onSubmit = this.helper.parseFunctionString(this.getAttribute('onsubmit'));
          if (typeof onSubmit == 'function') onSubmit(formData);
@@ -44,6 +38,8 @@ export default function createWebComponent(Component, elementName) {
          if (typeof onSubmitError == 'function') onSubmitError(error);
          this.dispatchEvent(new CustomEvent('onSubmitError', { detail: error }));
       };
+
+      onVMContextStateChange = state => this.shouldEnterEditMode(state);
 
       connectedCallback() {
          this.vmContextElem = this.closest('d-vm-context');
@@ -59,6 +55,7 @@ export default function createWebComponent(Component, elementName) {
 
          if (this.vmContextElem) {
             this.vmContext = this.vmContextElem.context;
+            this.vmContextElem.addEventListener('onStateChange', this.onVMContextStateChange);
          }
 
          this.formElem = this.parentElement.closest('d-form');
@@ -75,6 +72,10 @@ export default function createWebComponent(Component, elementName) {
          setTimeout(() => this.formStore.init());
       }
 
+      disconnectedCallback() {
+         this.vmContextElem && this.vmContextElem.removeEventListener('onStateChange', this.onVMContextStateChange);
+      }
+
       attributeChangedCallback(name, oldValue, newValue) {
          const plainText = newValue === 'true';
          if (name === 'plaintext' && plainText !== this.formStore.plainText) this.formStore.plainText = plainText;
@@ -88,10 +89,14 @@ export default function createWebComponent(Component, elementName) {
       }
 
       setState(state) {
-         if (state.plainText !== 'true' && this.hasVMContextState) this.formStore.enterEditMode();
+         this.shouldEnterEditMode(state);
 
          this.state = Object.assign(this.state, state);
          this.dispatchEvent(new CustomEvent('onStateChange', state));
+      }
+
+      shouldEnterEditMode(state) {
+         if (!this.formStore.editMode && state.plainText !== 'true' && this.hasVMContextState) this.formStore.enterEditMode();
       }
    }
 

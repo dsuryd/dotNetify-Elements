@@ -21,8 +21,8 @@ export default function createWebComponent(Component, elementName, useShadowDom)
       }
 
       onVMContextStateChange = _ => this.renderComponent();
-      onVMContextLocalStateChange = _ => this.renderComponent();
-      onFormContextStateChange = _ => this.renderComponent();
+      onVMContextLocalStateChange = _ => this.component && this.renderComponent();
+      onFormContextStateChange = _ => this.component && this.renderComponent();
 
       connectedCallback() {
          this.vmContextElem = this.closest('d-vm-context');
