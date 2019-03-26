@@ -19,6 +19,9 @@ export class VMContext extends React.Component {
       // Connection options.
       options: PropTypes.object,
 
+      // Occurs on connected; the arguments are the dotNetify VM object and the initial state.
+      onConnected: PropTypes.func,
+
       // Occurs when view model state changes.
       onStateChange: PropTypes.func
    };
@@ -33,7 +36,7 @@ export class VMContext extends React.Component {
    }
 
    componentDidMount() {
-      this.store.connect(this.props.vm, this.props.options, this.props.onStateChange);
+      this.vm = this.store.connect(this.props.vm, this.props.options, state => this.onStateChange(state));
    }
 
    componentWillUnmount() {
@@ -50,6 +53,14 @@ export class VMContext extends React.Component {
    render() {
       const { children, placeholder } = this.props;
       return this.state ? children : placeholder || null;
+   }
+
+   onStateChange(state) {
+      if (!this.connected) {
+         this.connected = true;
+         typeof this.props.onConnected == 'function' && this.props.onConnected(this.vm, state);
+      }
+      typeof this.props.onStateChange == 'function' && this.props.onStateChange(state);
    }
 }
 

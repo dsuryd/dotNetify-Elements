@@ -8,7 +8,7 @@ _Elements_ incorporates and curates many other existing, widely-adopted open-sou
 
 #### The Basics
 
-Let's revisit the Hello World example (if you're not familiar with _dotNetify_, [read the overview first!](http://dotnetify.net/core/overview)) :
+Let's revisit the Hello World example (if you're not familiar with _dotNetify_, [read the overview first](http://dotnetify.net/core/overview)) :
 
 ```jsx
 import React from 'react';
@@ -212,10 +212,15 @@ public class RealtimeClock : BaseVM
 }
 ```
 
-#### State Change Notification
+#### Events
 
-In the case that you need to have direct access to the server state, _VMContext_ provides the __onStateChange__ attribute that takes a function.  The state object will be passed to this function on every incoming state change from the server.
+The _VMContext_ element provides the following events:
+- __onConnected__: occurs when the initial connection is established with the back-end view model.  The arguments passed are the dotNetify `vm` object, and the initial state.
+- __onStateChange__: occurs whenever there's incoming state change from the server.
 ```jsx
-<VMContext onStateChange={state => console.log(state)} />
+<VMContext 
+   onConnected={(vm, initialState) => { this.vm = vm; console.log(initialState) }} 
+   onStateChange={state => console.log(state)} 
+/>
 ```
 
