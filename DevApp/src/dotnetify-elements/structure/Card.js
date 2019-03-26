@@ -83,4 +83,5 @@ export class CardImage extends React.Component {
    }
 }
 
-createWebComponent(Card, 'd-card');
+let cardComponent = createWebComponent(Card, 'd-card');
+cardComponent.prototype.isContainer = true;

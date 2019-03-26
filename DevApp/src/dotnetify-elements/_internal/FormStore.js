@@ -57,7 +57,7 @@ export default class FormStore {
    }
 
    enterEditMode() {
-      if (!this.editMode) {
+      if (!this.editMode && this.inputs.length > 0) {
          this.editMode = true;
          this.preEditState = this.getPreEditState(this.host.vmContext.getState());
          this.subForms.forEach(form => form.enterEditMode());
@@ -86,9 +86,12 @@ export default class FormStore {
 
    getPreEditState(vmContextState) {
       // Get the pre-edit state of the input fields so we can restore them on Cancel.
-      return Object.entries(vmContextState)
-         .filter(pair => this.inputs.some(input => input.propId === pair[0]))
-         .reduce((aggregate, pair) => Object.assign(aggregate, { [pair[0]]: pair[1] }), {});
+      return (
+         vmContextState &&
+         Object.entries(vmContextState)
+            .filter(pair => this.inputs.some(input => input.propId === pair[0]))
+            .reduce((aggregate, pair) => Object.assign(aggregate, { [pair[0]]: pair[1] }), {})
+      );
    }
 
    getPropAttributes(vmContext, propId) {

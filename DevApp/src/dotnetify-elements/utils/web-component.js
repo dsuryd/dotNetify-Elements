@@ -69,9 +69,19 @@ export default function createWebComponent(Component, elementName, useShadowDom)
             formContext: this.formContext
          };
 
+         // If this is a nested container, mount only after the parent container is mounted.
+         if (this.isContainer) {
+            const container = helper.getContainerParent();
+            if (container && container.mountState !== 'mounted') return;
+         }
+
          this.childrenHtml = this.childrenHtml || this.innerHTML;
-         if (this.childrenHtml) Object.assign(this.props, { children: new htmlToReact.Parser().parse(this.childrenHtml) });
+         if (this.childrenHtml)
+            Object.assign(this.props, { children: new htmlToReact.Parser().parse(this.childrenHtml) });
+
+         this.mountState = 'mounting';
          this.component = ReactDOM.render(<Component {...this.props} />, this.mountRoot);
+         this.mountState = 'mounted';
       }
 
       unmountComponent() {
@@ -79,6 +89,7 @@ export default function createWebComponent(Component, elementName, useShadowDom)
             ReactDOM.unmountComponentAtNode(this.mountRoot);
             this.component = null;
          }
+         this.mountState = null;
       }
 
       renderComponent(remount) {
@@ -86,10 +97,8 @@ export default function createWebComponent(Component, elementName, useShadowDom)
          else if (this.vmContext && !remount) {
             if (typeof this.component.shouldComponentUpdate == 'function') {
                if (this.component.shouldComponentUpdate()) this.component.forceUpdate();
-            }
-            else this.component.forceUpdate();
-         }
-         else {
+            } else this.component.forceUpdate();
+         } else {
             this.unmountComponent();
             this.mountComponent();
          }

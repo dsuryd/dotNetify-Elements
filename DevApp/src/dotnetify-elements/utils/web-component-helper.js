@@ -56,6 +56,15 @@ export default class WebComponentHelper {
       );
    }
 
+   getContainerParent() {
+      let parent = this.host.parentElement;
+      while (parent) {
+         if (parent.isContainer) return parent;
+         parent = parent.parentElement;
+      }
+      return null;
+   }
+
    parseFunctionString(funcString) {
       return WebComponentHelper._parseFunctionString(funcString);
    }

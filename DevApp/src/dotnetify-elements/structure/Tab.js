@@ -131,7 +131,8 @@ export class TabItem extends React.Component {
    }
 }
 
-createWebComponent(Tab, 'd-tab');
+let tabComponent = createWebComponent(Tab, 'd-tab');
+tabComponent.prototype.isContainer = true;
 
 let tabItemComponent = createWebComponent(TabItem, 'd-tab-item');
 tabItemComponent.getKey = function() {
