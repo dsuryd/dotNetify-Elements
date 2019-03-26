@@ -1,5 +1,16 @@
 import React from 'react';
-import { Alert, DataGrid, Element, GridColumn, Markdown, Panel, TabItem, withTheme } from 'dotnetify-elements';
+import styled from 'styled-components';
+import {
+   Alert,
+   DataGrid,
+   Element,
+   GridColumn,
+   Markdown,
+   Panel,
+   RadioToggle,
+   TabItem,
+   withTheme
+} from 'dotnetify-elements';
 import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
 
 const DisplayDataGrid = props => (
@@ -21,6 +32,7 @@ const DisplayDataGrid = props => (
 const DateFormatter = props => new Date(props.value).toLocaleString();
 
 class DataGridExample extends React.Component {
+   state = { actions: false };
    render() {
       const buildCode = props => `
 \`\`\`jsx
@@ -28,6 +40,15 @@ import React from 'react';
 import { DataGrid, GridColumn, VMContext } from 'dotnetify-elements';
 
 const DateFormatter = props => new Date(props.value).toLocaleString();
+${this.state.actions
+         ? `
+const Icon = styled.i.attrs({ className: 'material-icons' })\`
+   cursor: pointer;
+   color: #bbb;
+\`;
+const EditItem = props => alert('Edit Id=' + props.dependentValues.key);
+const RemoveItem = props => alert('Remove Id=' + props.dependentValues.key);`
+         : ''}
 
 const MyApp = _ => (
    <VMContext vm="DataGridExample">
@@ -36,6 +57,15 @@ const MyApp = _ => (
       </Alert>
       <DataGrid id="Contacts"${props}>
          <GridColumn key="LastVisit" width="13rem" formatter={DateFormatter} />
+         ${this.state.actions
+            ? `<GridColumn key="_actions" label="Actions" width="5rem"
+            formatter={props => (
+               <React.Fragment>
+                  <Icon title="Edit" onMouseDown={() => EditItem(props)}>edit</Icon>
+                  <Icon title="Remove" onMouseDown={() => RemoveItem(props)}>delete_forever</Icon>
+               </React.Fragment>
+            )} />`
+            : ''}
       </DataGrid>
    </VMContext>
 );
@@ -60,9 +90,31 @@ const MyApp = _ => (
       const webComponent = this.state && this.state.webComponent;
       const selectBuildCode = webComponent ? buildWebComponentCode : buildCode;
 
+      const showActions = val => this.setState({ actions: val === 'true' });
+      const boolOptions = [ { Key: 'true', Value: 'True' }, { Key: 'false', Value: 'False' } ];
+
+      const extraToggles = (
+         <RadioToggle
+            id="_actions"
+            label="(actions:)"
+            css="padding-bottom: 1rem"
+            options={boolOptions}
+            value={this.state.actions ? 'true' : 'false'}
+            onChange={showActions}
+         />
+      );
+
+      const Icon = styled.i.attrs({ className: 'material-icons' })`
+         cursor: pointer;
+         color: #bbb;
+       `;
+      const EditItem = props => alert('Edit Id=' + props.dependentValues.key);
+      const RemoveItem = props => alert('Remove Id=' + props.dependentValues.key);
+
       return (
          <RenderExample
             vm="DataGridExample"
+            extraToggles={!webComponent && extraToggles}
             propTypes={propTypes}
             buildCode={selectBuildCode}
             onChange={setState}
@@ -76,6 +128,23 @@ const MyApp = _ => (
                      </Alert>
                      <DataGrid id="Contacts" {...this.state}>
                         <GridColumn key="LastVisit" width="13rem" formatter={DateFormatter} />
+                        {this.state.actions && (
+                           <GridColumn
+                              key="_actions"
+                              label="Actions"
+                              width="5rem"
+                              formatter={props => (
+                                 <React.Fragment>
+                                    <Icon title="Edit" onMouseDown={() => EditItem(props)}>
+                                       edit
+                                    </Icon>
+                                    <Icon title="Remove" onMouseDown={() => RemoveItem(props)}>
+                                       delete_forever
+                                    </Icon>
+                                 </React.Fragment>
+                              )}
+                           />
+                        )}
                      </DataGrid>
                   </React.Fragment>
                ) : (
@@ -84,7 +153,11 @@ const MyApp = _ => (
                         Selected contact email: <d-element id="SelectedEmail" />
                      </d-alert>
                      <d-data-grid id="Contacts" {...this.state}>
-                        <d-grid-column colkey="LastVisit" width="13rem" formatter="props => new Date(props.value).toLocaleString()" />
+                        <d-grid-column
+                           colkey="LastVisit"
+                           width="13rem"
+                           formatter="props => new Date(props.value).toLocaleString()"
+                        />
                      </d-data-grid>
                   </d-vm-context>
                )}

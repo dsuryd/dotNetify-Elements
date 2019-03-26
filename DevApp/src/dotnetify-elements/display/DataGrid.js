@@ -121,11 +121,37 @@ export class DataGrid extends Element {
    }
 
    mapColumns(children, columns) {
-      if (!columns) return [];
+      let [ gridColumns, rest ] = utils.filterChildren(
+         children,
+         child => child.type == GridColumn || child.type == 'd-grid-column'
+      );
+
+      // Map GridColumn attributes to React data grid column definition.
+      let mapGridColumn = gridCol => {
+         let { label, width, formatter, editor, columnChildren } = gridCol.props;
+         let key = gridCol.key;
+         if (gridCol.type == 'd-grid-column') {
+            formatter = WebComponentHelper._parseFunctionString(formatter);
+            key = gridCol.props.colkey;
+         }
+
+         let col = {
+            formatter: formatter || (columnChildren ? React.Children.only(columnChildren) : null),
+            getRowMetaData: row => {
+               const key = this.attrs.rowKey ? row[this.attrs.rowKey] : null;
+               return { key, row };
+            },
+            editor: editor
+         };
+         if (key) col.key = key;
+         if (label) col.name = label;
+         if (width) col.width = utils.toPixel(width);
+         return col;
+      };
 
       // For each column, find the GridColumn element with a matching name.  The element will provide information
       // to customize the column, such as width and the formatter to format the column text.
-      return columns.map(c => {
+      let result = (columns || []).map(c => {
          c = utils.toCamelCase(c);
          let col = {
             key: c.key,
@@ -136,24 +162,21 @@ export class DataGrid extends Element {
             width: c.width ? utils.toPixel(c.width) : null
          };
 
-         const [ gridColumns, rest ] = utils.filterChildren(
-            children,
-            child =>
-               (child.type == GridColumn && child.key === c.key) ||
-               (child.type == 'd-grid-column' && child.props.colkey === c.key)
+         const gridCol = gridColumns.find(
+            x => (x.type == GridColumn && x.key === c.key) || (x.type == 'd-grid-column' && x.props.colkey === c.key)
          );
-         const gridCol = gridColumns.shift();
          if (gridCol) {
-            let { width, formatter, editor, columnChildren } = gridCol.props;
-            if (gridCol.type == 'd-grid-column') formatter = WebComponentHelper._parseFunctionString(formatter);
-
-            col.width = utils.toPixel(width || col.width);
-            col.formatter = formatter || (columnChildren ? React.Children.only(columnChildren) : null);
-            col.editor = editor;
+            Object.assign(col, mapGridColumn(gridCol));
+            gridColumns = gridColumns.filter(x => x !== gridCol);
          }
 
          return col;
       });
+
+      if (gridColumns.length > 0) {
+         result = [ ...result, ...gridColumns.map(x => mapGridColumn(x)) ];
+      }
+      return result;
    }
 
    select(key) {
