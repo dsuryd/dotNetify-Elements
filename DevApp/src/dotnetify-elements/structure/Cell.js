@@ -40,7 +40,10 @@ export class Cell extends React.Component {
       const { header, center, middle, padding, right, children, borders, width, style, css, ...props } = this.props;
 
       const reservedTypes = [ 'header' ];
-      const [ sections, body ] = utils.filterChildren(children, child => child && reservedTypes.some(x => x === child.type));
+      const [ sections, body ] = utils.filterChildren(
+         children,
+         child => child && reservedTypes.some(x => x === child.type)
+      );
       const _header = header || sections.filter(section => section.type === 'header').shift();
       const headerCss = body ? '' : 'border-bottom: none';
 
@@ -61,4 +64,5 @@ export class Cell extends React.Component {
    }
 }
 
-createWebComponent(Cell, 'd-cell');
+let cellComponent = createWebComponent(Cell, 'd-cell');
+cellComponent.prototype.isContainer = true;

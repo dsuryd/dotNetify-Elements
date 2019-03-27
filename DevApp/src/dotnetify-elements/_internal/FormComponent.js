@@ -39,7 +39,7 @@ export default function createWebComponent(Component, elementName) {
          this.dispatchEvent(new CustomEvent('onSubmitError', { detail: error }));
       };
 
-      onVMContextStateChange = state => this.shouldEnterEditMode(state);
+      onVMContextStateChange = e => this.shouldEnterEditMode(e.detail);
 
       connectedCallback() {
          this.vmContextElem = this.closest('d-vm-context');
@@ -96,9 +96,11 @@ export default function createWebComponent(Component, elementName) {
       }
 
       shouldEnterEditMode(state) {
-         if (!this.formStore.editMode && state.plainText !== 'true' && this.hasVMContextState) this.formStore.enterEditMode();
+         if (!this.formStore.editMode && state.plainText !== 'true' && this.hasVMContextState)
+            this.formStore.enterEditMode();
       }
    }
 
-   if (!window.customElements.get(elementName)) window.customElements.define(elementName, CustomElement, { extends: 'form' });
+   if (!window.customElements.get(elementName))
+      window.customElements.define(elementName, CustomElement, { extends: 'form' });
 }

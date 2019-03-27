@@ -97,10 +97,15 @@ export class Collapsible extends React.Component {
    };
 
    render() {
-      const [ Container, HeaderContainer, Header, Label, AngleCollapseIcon, AngleExpandIcon, CollapsePanel ] = utils.resolveComponents(
-         Collapsible,
-         this.props
-      );
+      const [
+         Container,
+         HeaderContainer,
+         Header,
+         Label,
+         AngleCollapseIcon,
+         AngleExpandIcon,
+         CollapsePanel
+      ] = utils.resolveComponents(Collapsible, this.props);
       const { noIcon, label, children, style, css } = this.props;
       const icon = this.state.open ? <AngleCollapseIcon /> : <AngleExpandIcon />;
 
@@ -117,4 +122,5 @@ export class Collapsible extends React.Component {
    }
 }
 
-createWebComponent(Collapsible, 'd-collapsible');
+let collapsibleComponent = createWebComponent(Collapsible, 'd-collapsible');
+collapsibleComponent.prototype.isContainer = true;

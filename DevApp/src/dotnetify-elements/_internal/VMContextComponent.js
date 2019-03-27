@@ -25,8 +25,12 @@ export default function createWebComponent(Component, elementName) {
          const vmId = this.getAttribute('vm');
          const optionsStr = this.getAttribute('options');
 
+         // If this is nested inside a container element, connect only on container mounting.
+         const container = this.helper.getContainerParent();
+         if (container && container.mountState !== 'mounting') return;
+
          const options = /{.*}/.exec(optionsStr) ? JSON.parse(optionsStr) : null;
-         this.store.connect(vmId, options, this.onStateChange);
+         this.vm = this.store.connect(vmId, options, this.onStateChange);
 
          this.props = {
             ...this.helper.getProps(this.attributes, Component.propTypes),
@@ -35,7 +39,10 @@ export default function createWebComponent(Component, elementName) {
       }
 
       disconnectedCallback() {
-         this.store.destroy();
+         if (this.vm) {
+            this.store.destroy();
+            this.vm = null;
+         }
       }
 
       get context() {
