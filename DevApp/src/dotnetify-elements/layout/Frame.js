@@ -9,4 +9,4 @@ Frame.componentTypes = { ...Frame.componentTypes };
 Frame._isPanel = true;
 
 let frameComponent = createWebComponent(Frame, 'd-frame');
-frameComponent.prototype.isContainer = true;
+frameComponent.prototype._isContainer = true;

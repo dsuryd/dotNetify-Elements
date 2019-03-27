@@ -23,6 +23,7 @@ export default class WebComponentHelper {
    getProps(attributes, componentPropTypes) {
       componentPropTypes = componentPropTypes || {};
       return [ ...attributes ]
+         .filter(attr => attr.name !== 'style')
          .map(attr => this.convertAttributeToProp(componentPropTypes, attr.name, attr.value))
          .reduce((props, prop) => ({ ...props, [prop.name]: prop.value }), {});
    }
@@ -59,7 +60,7 @@ export default class WebComponentHelper {
    getContainerParent() {
       let parent = this.host.parentElement;
       while (parent) {
-         if (parent.isContainer) return parent;
+         if (parent._isContainer) return parent;
          parent = parent.parentElement;
       }
       return null;

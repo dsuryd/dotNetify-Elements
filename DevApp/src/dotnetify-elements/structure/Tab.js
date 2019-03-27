@@ -39,10 +39,12 @@ export class Tab extends React.Component {
    }
 
    componentDidMount() {
-      this.tabContents = React.Children.map(this.props.children, (child, idx) => ({
-         key: this.getItemKey(child, idx),
-         content: child.props.children
-      }));
+      this.tabContents = React.Children.map(this.props.children, (child, idx) => {
+         return {
+            key: this.getItemKey(child, idx),
+            content: child.content || child.props.children
+         };
+      });
 
       this.setActiveState(this.props.active);
    }
@@ -122,7 +124,7 @@ export class TabItem extends React.Component {
    render() {
       const [ TabItemComponent, LabelContainer ] = utils.resolveComponents(TabItem, this.props);
       const { key, label, onClick, active, children, ...props } = this.props;
-
+      this.content = children;
       return (
          <TabItemComponent active={active} onClick={onClick} {...props}>
             <LabelContainer>{label}</LabelContainer>
@@ -132,9 +134,7 @@ export class TabItem extends React.Component {
 }
 
 let tabComponent = createWebComponent(Tab, 'd-tab');
-tabComponent.prototype.isContainer = true;
+tabComponent.prototype._isContainer = true;
 
 let tabItemComponent = createWebComponent(TabItem, 'd-tab-item');
-tabItemComponent.getKey = function() {
-   return this.getAttribute('key');
-};
+tabItemComponent.prototype._isContainer = true;

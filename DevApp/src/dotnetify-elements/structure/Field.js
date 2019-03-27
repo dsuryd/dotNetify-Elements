@@ -134,9 +134,7 @@ export class Field extends React.Component {
                      {children}
                   </InputContainer>
                   {hasValidationMessage && (
-                     <ValidationMessageContainer horizontal={horizontal}>
-                        {validationMessages}
-                     </ValidationMessageContainer>
+                     <ValidationMessageContainer horizontal={horizontal}>{validationMessages}</ValidationMessageContainer>
                   )}
                </React.Fragment>
             )}
@@ -148,4 +146,4 @@ export class Field extends React.Component {
 export const validationKeyPrefix = 'validationMsg';
 
 let fieldComponent = createWebComponent(Field, 'd-field');
-fieldComponent.prototype.isContainer = true;
+fieldComponent.prototype._isContainer = true;

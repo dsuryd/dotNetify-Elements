@@ -25,6 +25,9 @@ export default function createWebComponent(Component, elementName, useShadowDom)
       onFormContextStateChange = _ => this.component && this.renderComponent();
 
       connectedCallback() {
+         // Backdoor for components to add their own specific initialization.
+         if (typeof this._connectedCallback == 'function') this._connectedCallback();
+
          this.vmContextElem = this.closest('d-vm-context');
 
          if (!this.vmContextElem) {
@@ -70,14 +73,13 @@ export default function createWebComponent(Component, elementName, useShadowDom)
          };
 
          // If this is a nested container, mount only after the parent container is mounted.
-         if (this.isContainer) {
+         if (this._isContainer) {
             const container = helper.getContainerParent();
             if (container && container.mountState !== 'mounted') return;
          }
 
          this.childrenHtml = this.childrenHtml || this.innerHTML;
-         if (this.childrenHtml)
-            Object.assign(this.props, { children: new htmlToReact.Parser().parse(this.childrenHtml) });
+         if (this.childrenHtml) Object.assign(this.props, { children: new htmlToReact.Parser().parse(this.childrenHtml) });
 
          this.mountState = 'mounting';
          this.component = ReactDOM.render(<Component {...this.props} />, this.mountRoot);
@@ -97,8 +99,10 @@ export default function createWebComponent(Component, elementName, useShadowDom)
          else if (this.vmContext && !remount) {
             if (typeof this.component.shouldComponentUpdate == 'function') {
                if (this.component.shouldComponentUpdate()) this.component.forceUpdate();
-            } else this.component.forceUpdate();
-         } else {
+            }
+            else this.component.forceUpdate();
+         }
+         else {
             this.unmountComponent();
             this.mountComponent();
          }
