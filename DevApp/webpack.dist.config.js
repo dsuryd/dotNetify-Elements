@@ -14,7 +14,22 @@ const baseExport = {
          { test: /\.(eot|svg|ttf|woff(2)?)(\?v=\d+\.\d+\.\d+)?/, loader: 'url-loader' }
       ]
    },
-   plugins: [ new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en/) ]
+   plugins: [ new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en/) ],
+   optimization: {
+      minimizer: [
+         new UglifyJSPlugin({
+            cache: true,
+            parallel: true,
+            uglifyOptions: {
+               compress: true,
+               ecma: 5,
+               keep_classnames: true,
+               keep_fnames: true
+            },
+            sourceMap: true
+         })
+      ]
+   }
 };
 
 let components = {};
@@ -58,21 +73,7 @@ const moduleConfig = {
    ],
    module: baseExport.module,
    plugins: baseExport.plugins,
-   optimization: {
-      minimizer: [
-         new UglifyJSPlugin({
-            cache: true,
-            parallel: true,
-            uglifyOptions: {
-               compress: true,
-               ecma: 5,
-               keep_classnames: true,
-               keep_fnames: true
-            },
-            sourceMap: true
-         })
-      ]
-   }
+   optimization: baseExport.optimization
 };
 
 module.exports = [
@@ -126,6 +127,7 @@ module.exports = [
          'styled-components': 'styled'
       },
       module: baseExport.module,
-      plugins: baseExport.plugins
+      plugins: baseExport.plugins,
+      optimization: baseExport.optimization
    }
 ];
