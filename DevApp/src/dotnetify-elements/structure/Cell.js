@@ -63,3 +63,7 @@ export class Cell extends React.Component {
 
 let cellComponent = createWebComponent(Cell, 'd-cell');
 cellComponent.prototype._isContainer = true;
+cellComponent.prototype._connectedCallback = function() {
+   this.style.display = 'flex';
+   this.style.flex = '1';
+};

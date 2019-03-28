@@ -231,7 +231,7 @@ export class Panel extends React.Component {
                      })
                   );
                }
-
+               console.log(flex, childFlex);
                return (
                   <ChildContainer
                      key={idx}
@@ -255,5 +255,6 @@ export class Panel extends React.Component {
 let panelComponent = createWebComponent(Panel, 'd-panel');
 panelComponent.prototype._isContainer = true;
 panelComponent.prototype._connectedCallback = function() {
+   this.style.display = 'flex';
    this.style.flex = '1';
 };

@@ -14,9 +14,8 @@ const BasicDemo = () => (
    <d-vm-context vm="CustomerForm">
       <d-panel>
          <d-data-grid id="Contacts" enable="true" />
-         <d-form plainText="true">
+         <d-form plaintext="true">
             <d-panel>
-               {/* Toolbar */}
                <d-panel horizontal="true">
                   <d-panel horizontal="true">
                      <d-button label="Edit" enable="true" />
@@ -27,9 +26,8 @@ const BasicDemo = () => (
                      <d-button label="New Customer" enable="true" />
                   </d-panel>
                </d-panel>
-               {/* Edit forms */}
                <d-tab margin="1.5rem 0">
-                  <d-tab-item label="Basic Info">
+                  <d-tab-item itemkey="basic" label="Basic Info">
                      <d-panel horizontal="true" nogap="true">
                         <d-panel>
                            <d-cell header="Person" borders="top, left, right">
@@ -46,7 +44,7 @@ const BasicDemo = () => (
                                  </d-form>
                               </d-vm-context>
                            </d-cell>
-                           <d-cell header="Phone" flex="true">
+                           <d-cell header="Phone" flex="1">
                               <d-vm-context vm="PhoneForm">
                                  <d-form id="Phone">
                                     <d-panel>
@@ -83,7 +81,7 @@ const BasicDemo = () => (
                                  </d-form>
                               </d-vm-context>
                            </d-cell>
-                           <d-cell header="Notes" flex="true" borders="top, right, bottom">
+                           <d-cell header="Notes" flex="1" borders="top, right, bottom">
                               <d-vm-context vm="NotesForm">
                                  <d-form id="Notes">
                                     <d-panel>
@@ -95,12 +93,11 @@ const BasicDemo = () => (
                         </d-panel>
                      </d-panel>
                   </d-tab-item>
-                  <d-tab-item label="Address">{/* <AddressForm /> */}</d-tab-item>
+                  <d-tab-item itemkey="address" label="Address" />
                </d-tab>
             </d-panel>
          </d-form>
       </d-panel>
-      {/* <NewCustomerDialog open={openDialog} onClose={this.toggleDialog} /> */}
    </d-vm-context>
 );
 export default withTheme(WebComponents);

@@ -29,6 +29,7 @@ export default class WebComponentHelper {
    }
 
    getEvents(attributes, componentPropTypes) {
+      componentPropTypes = componentPropTypes || {};
       // Look for attributes with camel-case names that start with 'on'.
       return Object.keys(componentPropTypes).filter(key => /on([A-Z].*)/.exec(key)).reduce(
          (events, e) => ({

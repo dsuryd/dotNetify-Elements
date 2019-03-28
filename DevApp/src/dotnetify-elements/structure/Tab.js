@@ -6,6 +6,7 @@ import { Label } from '../display/Label';
 import { Frame } from '../layout/Frame';
 import lightTheme from '../theme-light';
 import createWebComponent from '../utils/web-component';
+import { throws } from 'assert';
 
 const Container = styled.div`${props => props.theme.Tab.Container};`;
 
@@ -35,17 +36,9 @@ export class Tab extends React.Component {
    constructor(props) {
       super(props);
       this.state = { active: null };
-      this.tabContents = [];
    }
 
    componentDidMount() {
-      this.tabContents = React.Children.map(this.props.children, (child, idx) => {
-         return {
-            key: this.getItemKey(child, idx),
-            content: child.content || child.props.children
-         };
-      });
-
       this.setActiveState(this.props.active);
    }
 
@@ -55,10 +48,24 @@ export class Tab extends React.Component {
       if (this.props.active !== props.active && this.props.onActivate) this.setActiveState(props.active);
    }
 
+   get children() {
+      return React.Children.toArray(this.props.children).filter(child => child.type);
+   }
+
+   get tabContents() {
+      if (!this._tabContents)
+         this._tabContents = this.children.map((child, idx) => ({
+            key: this.getItemKey(child, idx),
+            content: child.props && child.props.children
+         }));
+      return this._tabContents;
+   }
+
    getItemKey = (child, idx) => {
       if (child.type === 'd-tab-item') return child.props.itemkey || `${idx}`;
-      return child.props.itemKey || child.key || `${idx}`;
+      return (child.props && child.props.itemKey) || child.key || `${idx}`;
    };
+
    getDisplayStyle = key => ({ display: this.state.active == key ? 'block' : 'none' });
 
    handleClick = (event, key, label) => {
@@ -75,11 +82,10 @@ export class Tab extends React.Component {
 
    render() {
       const [ Container, TabContainer, BodyContainer ] = utils.resolveComponents(Tab, this.props);
-      const { children, margin, noMargin, style, css, ...props } = this.props;
+      const { margin, noMargin, style, css, ...props } = this.props;
 
-      const tabItems = React.Children.map(children, (child, idx) => {
+      const tabItems = this.children.map((child, idx) => {
          const key = this.getItemKey(child, idx);
-
          return React.cloneElement(child, {
             key: key,
             active: this.state.active == key,
@@ -124,7 +130,6 @@ export class TabItem extends React.Component {
    render() {
       const [ TabItemComponent, LabelContainer ] = utils.resolveComponents(TabItem, this.props);
       const { key, label, onClick, active, children, ...props } = this.props;
-      this.content = children;
       return (
          <TabItemComponent active={active} onClick={onClick} {...props}>
             <LabelContainer>{label}</LabelContainer>
