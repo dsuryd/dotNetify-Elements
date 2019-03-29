@@ -231,7 +231,7 @@ export class Panel extends React.Component {
                      })
                   );
                }
-               console.log(flex, childFlex);
+
                return (
                   <ChildContainer
                      key={idx}
