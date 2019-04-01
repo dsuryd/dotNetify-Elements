@@ -1,3 +1,5 @@
+import htmlToReact from 'html-to-react';
+
 export default class WebComponentHelper {
    constructor(host) {
       this.host = host;
@@ -47,7 +49,7 @@ export default class WebComponentHelper {
                   }
                }
 
-               if (eventHandler && typeof eventHandler !== 'function') eventHandler = eval(eventHandler);
+               if (eventHandler && typeof eventHandler !== 'function') eventHandler = this._eval(eventHandler);
                let result = typeof eventHandler == 'function' ? eventHandler(args) : eventHandler;
 
                this.host.dispatchEvent(new CustomEvent(e, { ...args }));
@@ -71,11 +73,19 @@ export default class WebComponentHelper {
       return WebComponentHelper._parseFunctionString(funcString);
    }
 
+   parseHtmlToReact(html) {
+      return new htmlToReact.Parser().parse(html);
+   }
+
    static _parseFunctionString(funcString) {
       if (!funcString) return null;
       return args => {
-         const result = eval(`(${funcString})`);
+         const result = this._eval(`${funcString}`);
          return typeof result == 'function' ? result(args) : result;
       };
+   }
+
+   static _eval(funcString) {
+      return Function('"use strict";return (' + funcString + ')')();
    }
 }

@@ -1,4 +1,3 @@
-import htmlToReact from 'html-to-react';
 import WebComponentHelper from './web-component-helper';
 import * as utils from '../utils';
 
@@ -12,29 +11,35 @@ export default function createWebComponent(Component, elementName, useShadowDom)
          this.mountRoot = useShadowDom ? this.attachShadow({ mode: 'open' }) : this;
 
          // Watch for attribute change on the custom element to render the React component.
-         this.observer = new MutationObserver(() => {
-            // If the element is within a VMContext element, don't render the component until it has state.
-            const vmContextElem = this.closest('d-vm-context');
-            if (!vmContextElem || vmContextElem.context.getState()) this.renderComponent(true);
-         });
+         this.observer = new MutationObserver(() => this.onAttributeChange());
          this.observer.observe(this, { attributes: true });
       }
 
+      onAttributeChange = _ => {
+         // If the element is within a VMContext element, don't render the component until it has state.
+         const vmContextElem = this.closest('d-vm-context');
+         if (!vmContextElem || vmContextElem.context.getState()) this.renderComponent(true);
+      };
+
+      onFormContextStateChange = e => {
+         // Re-mount the component if it's nested inside a form component and its 'plainText'
+         // property changes, indicating edit mode is toggled.
+         this.component && this.renderComponent(e.detail.state.hasOwnProperty('plainText'));
+      };
+
       onVMContextStateChange = _ => this.renderComponent();
+
       onVMContextLocalStateChange = _ => this.component && this.renderComponent();
-      onFormContextStateChange = _ => this.component && this.renderComponent();
 
       connectedCallback() {
          // Backdoor for components to add their own specific initialization.
          if (typeof this._connectedCallback == 'function') this._connectedCallback();
 
          this.vmContextElem = this.closest('d-vm-context');
-
          if (!this.vmContextElem) {
             const modals = document.getElementsByTagName('d-modal');
             if (modals.length > 0) this.vmContextElem = modals[0].closest('d-vm-context');
          }
-
          if (this.vmContextElem) {
             this.vmContext = this.vmContextElem.context;
             this.vmContextElem.addEventListener('onStateChange', this.onVMContextStateChange);
@@ -47,6 +52,10 @@ export default function createWebComponent(Component, elementName, useShadowDom)
             this.formContext = this.formElem.context.formContext;
             this.formElem.addEventListener('onStateChange', this.onFormContextStateChange);
          }
+
+         // Enclose setTimeout to onclick event to ensure the event reaches any inner React component.
+         const onClick = this.getAttribute('onclick');
+         if (onClick && !onClick.trim().startsWith('setTimeout')) this.setAttribute('onclick', `setTimeout(() => { ${onClick} })`);
 
          // React render occurs when an attribute is set, but if there's no attribute, call
          // the render here, but use setTimeout to have it rendered after its parent.
@@ -79,7 +88,7 @@ export default function createWebComponent(Component, elementName, useShadowDom)
          }
 
          this.childrenHtml = this.childrenHtml || this.innerHTML;
-         if (this.childrenHtml) Object.assign(this.props, { children: new htmlToReact.Parser().parse(this.childrenHtml) });
+         if (this.childrenHtml) Object.assign(this.props, { children: helper.parseHtmlToReact(this.childrenHtml) });
 
          this.mountState = 'mounting';
          this.component = ReactDOM.render(<Component {...this.props} />, this.mountRoot);
