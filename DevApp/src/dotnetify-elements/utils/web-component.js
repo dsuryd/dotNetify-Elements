@@ -3,7 +3,7 @@ import WebComponentHelper from './web-component-helper';
 import * as utils from '../utils';
 
 export default function createWebComponent(Component, elementName, useShadowDom) {
-   if (utils.isIE11()) return;
+   if (utils.isIE11() || !window.hasOwnProperty('customElements')) return { prototype: {} };
 
    class CustomElement extends HTMLElement {
       constructor() {
@@ -79,7 +79,8 @@ export default function createWebComponent(Component, elementName, useShadowDom)
          }
 
          this.childrenHtml = this.childrenHtml || this.innerHTML;
-         if (this.childrenHtml) Object.assign(this.props, { children: new htmlToReact.Parser().parse(this.childrenHtml) });
+         if (this.childrenHtml)
+            Object.assign(this.props, { children: new htmlToReact.Parser().parse(this.childrenHtml) });
 
          this.mountState = 'mounting';
          this.component = ReactDOM.render(<Component {...this.props} />, this.mountRoot);
@@ -99,10 +100,8 @@ export default function createWebComponent(Component, elementName, useShadowDom)
          else if (this.vmContext && !remount) {
             if (typeof this.component.shouldComponentUpdate == 'function') {
                if (this.component.shouldComponentUpdate()) this.component.forceUpdate();
-            }
-            else this.component.forceUpdate();
-         }
-         else {
+            } else this.component.forceUpdate();
+         } else {
             this.unmountComponent();
             this.mountComponent();
          }
