@@ -73,10 +73,20 @@ export default class Element extends React.Component {
 
    componentDidMount() {
       this.props.onChange && this.props.onChange(this.vmProperty.value);
+      if (this.props.template) this.createTemplate(this.props.template);
    }
 
    componentWillUpdate(props) {
       if (props.id) this._vmProperty = null;
+   }
+
+   createTemplate(templateId) {
+      let templateElem = document.getElementById(templateId);
+      if (templateElem) {
+         templateElem = templateElem.cloneNode(true);
+         let template = templateElem.innerHTML;
+         this.setState({ content: template });
+      }
    }
 
    dispatch(value) {
@@ -94,8 +104,9 @@ export default class Element extends React.Component {
    render() {
       const { hidden, css } = this.attrs;
       const value = this.vmProperty.value;
-      const elem = css && value ? <Container css={css}>{value}</Container> : value;
-
+      let elem = css && value ? <Container css={css}>{value}</Container> : value;
+      if (this.state && this.state.content) elem = <span dangerouslySetInnerHTML={{ __html: this.state.content }} />;
+      console.warn(this.vmProperty);
       return !hidden ? elem : null;
    }
 }
