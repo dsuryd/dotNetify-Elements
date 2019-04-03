@@ -3,7 +3,7 @@ import WebComponentHelper from '../utils/web-component-helper';
 import * as utils from '../utils';
 
 export default function createWebComponent(Component, elementName) {
-   if (utils.isIE11()) return;
+   if (utils.isIE11() || !window.hasOwnProperty('customElements')) return { prototype: {} };
 
    class CustomElement extends HTMLElement {
       constructor() {
