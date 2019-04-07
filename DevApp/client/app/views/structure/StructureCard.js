@@ -122,7 +122,7 @@ const cardImageCss = \`
 const MyApp = _ => (
    <VMContext vm="CardExample">
       <Panel>
-         <Card>
+         <Card${props}>
             <CardImage css={cardImageCss}>
                <i className="material-icons">face</i>
             </CardImage>
@@ -136,22 +136,65 @@ const MyApp = _ => (
    </VMContext>
 );
 \`\`\``;
+      const buildWebComponentCode = props => `
+\`\`\`jsx
+   <d-vm-context vm="CardImageExample">
+      <d-card${props}>
+         <d-card-image css="color: white; background: #1c8adb; text-align: center; i { font-size: 4rem; padding: .6rem; }">
+            <i className="material-icons">face</i>
+         </d-card-image>
+         <h3>* 5000 Monthly Customers *</h3>
+      </d-card>         
+      <d-card${props != ' horizontal' ? ' width="360px"' : ''}${props} css="margin-top: 1rem">
+         <d-markdown id="Content"></d-markdown>
+         <d-image id="Picture"></d-image>
+      </d-card>         
+   </d-vm-context>
+\`\`\``;
       const setState = state => this.setState(state);
       const propTypes = { horizontal: null };
       const props = !this.state.horizontal ? { width: '360px' } : null;
+
+      const setWebComponent = show => this.setState({ webComponent: show });
+      const webComponent = this.state && this.state.webComponent;
+      const selectBuildCode = webComponent ? buildWebComponentCode : buildCode;
+
       return (
-         <RenderExample vm="CardImageExample" propTypes={propTypes} buildCode={buildCode} onChange={setState}>
+         <RenderExample
+            vm="CardImageExample"
+            propTypes={propTypes}
+            buildCode={selectBuildCode}
+            onChange={setState}
+            onWebComponent={setWebComponent}
+         >
             <Panel css="margin-bottom: 2rem" middle>
-               <Card {...this.state}>
-                  <CardImage css={cardImageCss}>
-                     <i className="material-icons">face</i>
-                  </CardImage>
-                  <h3>* 5000 Monthly Customers *</h3>
-               </Card>
-               <Card {...props} {...this.state}>
-                  <Markdown id="Content" />
-                  <Image id="Picture" />
-               </Card>
+               {!webComponent ? (
+                  <React.Fragment>
+                     <Card {...this.state}>
+                        <CardImage css={cardImageCss}>
+                           <i className="material-icons">face</i>
+                        </CardImage>
+                        <h3>* 5000 Monthly Customers *</h3>
+                     </Card>
+                     <Card {...props} {...this.state}>
+                        <Markdown id="Content" />
+                        <Image id="Picture" />
+                     </Card>
+                  </React.Fragment>
+               ) : (
+                  <d-vm-context vm="CardImageExample">
+                     <d-card {...this.state}>
+                        <d-card-image css="color: white; background: #1c8adb; text-align: center; i { font-size: 4rem; padding: .6rem; }">
+                           <i className="material-icons">face</i>
+                        </d-card-image>
+                        <h3>* 5000 Monthly Customers *</h3>
+                     </d-card>
+                     <d-card {...this.state} css="margin-top: 1rem">
+                        <d-markdown id="Content" />
+                        <d-image id="Picture" />
+                     </d-card>
+                  </d-vm-context>
+               )}
             </Panel>
          </RenderExample>
       );

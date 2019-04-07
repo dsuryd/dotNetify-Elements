@@ -73,20 +73,10 @@ export default class Element extends React.Component {
 
    componentDidMount() {
       this.props.onChange && this.props.onChange(this.vmProperty.value);
-      if (this.props.template) this.createTemplate(this.props.template);
    }
 
    componentWillUpdate(props) {
       if (props.id) this._vmProperty = null;
-   }
-
-   createTemplate(templateId) {
-      let templateElem = document.getElementById(templateId);
-      if (templateElem) {
-         templateElem = templateElem.cloneNode(true);
-         let template = templateElem.innerHTML;
-         this.setState({ content: template });
-      }
    }
 
    dispatch(value) {
@@ -97,6 +87,22 @@ export default class Element extends React.Component {
       return this.vmProperty.dispatchProp(propId, value);
    }
 
+   getTemplateContent(templateId) {
+      let templateElem = document.getElementById(templateId);
+      if (templateElem) {
+         templateElem = templateElem.cloneNode(true);
+
+         const attrs = this.attrs;
+         templateElem.content.querySelectorAll('[slot]').forEach(x => {
+            const attr = x.getAttribute('slot');
+            if (attr === 'value') x.innerText = this.value;
+            else if (attrs.hasOwnProperty(attr)) x.innerText = this.attrs[attr];
+         });
+         let template = templateElem.innerHTML.trim();
+         return template.length > 0 ? template : null;
+      }
+   }
+
    resolveComponents(componentType) {
       return utils.resolveComponents(componentType, this.props);
    }
@@ -105,8 +111,12 @@ export default class Element extends React.Component {
       const { hidden, css } = this.attrs;
       const value = this.vmProperty.value;
       let elem = css && value ? <Container css={css}>{value}</Container> : value;
-      if (this.state && this.state.content) elem = <span dangerouslySetInnerHTML={{ __html: this.state.content }} />;
-      console.warn(this.vmProperty);
+
+      if (this.props.template) {
+         const content = this.getTemplateContent(this.props.template);
+         if (content) elem = <span dangerouslySetInnerHTML={{ __html: content }} />;
+      }
+
       return !hidden ? elem : null;
    }
 }

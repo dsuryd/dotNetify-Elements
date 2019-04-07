@@ -31,13 +31,14 @@ export class Card extends React.Component {
       const [ Container, Image, Header, Body, Footer ] = utils.resolveComponents(Card, this.props);
       const { header, footer, horizontal, children, width, style, css, ...props } = this.props;
 
-      const reservedTypes = [ 'header', 'footer', 'img', 'Image', 'CardImage' ];
+      const reservedTypes = [ 'header', 'footer', 'img', 'Image', 'CardImage', 'd-image', 'd-card-image' ];
       const [ sections, body ] = utils.filterChildren(
          children,
          child => child && reservedTypes.some(x => x === child.type || x === child.type._typeName)
       );
 
-      const isImage = comp => [ 'img', 'Image', 'CardImage' ].some(x => x === comp.type || x === comp.type._typeName);
+      const isImage = comp =>
+         [ 'img', 'Image', 'CardImage', 'd-image', 'd-card-image' ].some(x => x === comp.type || x === comp.type._typeName);
       const img = sections.filter(section => isImage(section)).shift();
       const _header = header || sections.filter(section => section.type === 'header').shift();
       const _footer = footer || sections.filter(section => section.type === 'footer').shift();

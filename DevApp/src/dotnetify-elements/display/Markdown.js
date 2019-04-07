@@ -57,4 +57,5 @@ export class Markdown extends Element {
    }
 }
 
-createWebComponent(Markdown, 'd-markdown');
+let markdownComponent = createWebComponent(Markdown, 'd-markdown');
+markdownComponent.prototype._isContainer = true;
