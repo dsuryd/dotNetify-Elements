@@ -89,8 +89,14 @@ Nav.defaultProps = { theme: lightTheme };
 Footer.defaultProps = { theme: lightTheme };
 Section.defaultProps = { theme: lightTheme };
 
-createWebComponent(Main, 'd-main');
-createWebComponent(Header, 'd-header');
-createWebComponent(Nav, 'd-nav');
-createWebComponent(Footer, 'd-footer');
-createWebComponent(Section, 'd-section');
+let mainComponent = createWebComponent(Main, 'd-main');
+let headerComponent = createWebComponent(Header, 'd-header');
+let navComponent = createWebComponent(Nav, 'd-nav');
+let footerComponent = createWebComponent(Footer, 'd-footer');
+let sectionComponent = createWebComponent(Section, 'd-section');
+
+mainComponent.prototype._isContainer = true;
+headerComponent.prototype._isContainer = true;
+navComponent.prototype._isContainer = true;
+footerComponent.prototype._isContainer = true;
+sectionComponent.prototype._isContainer = true;
