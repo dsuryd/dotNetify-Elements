@@ -222,14 +222,18 @@ export class Panel extends React.Component {
                   let style = this.getStyle(idx);
                   const margin = this.numChildren <= 1 ? null : this.getMargin(idx, _gap, _horizontal, wrap);
                   if (margin) style = { ...style, margin: margin };
-                  return React.cloneElement(
-                     child,
-                     utils.mergeProps(child, childProps, {
-                        style: style,
-                        flex: childFlex,
-                        onShow: show => this.handleShow(idx, show)
-                     })
-                  );
+
+                  let mergedChildProps = utils.mergeProps(child, childProps, {
+                     style: style,
+                     flex: childFlex,
+                     onShow: show => this.handleShow(idx, show)
+                  });
+
+                  if (child.type == 'd-panel') {
+                     mergedChildProps._margin = margin;
+                  }
+
+                  return React.cloneElement(child, mergedChildProps);
                }
 
                return (
@@ -256,5 +260,6 @@ let panelComponent = createWebComponent(Panel, 'd-panel');
 panelComponent.prototype._isContainer = true;
 panelComponent.prototype._connectedCallback = function() {
    this.style.display = 'flex';
-   this.style.flex = '1';
+   this.style.flex = this.getAttribute('flex') || '1 1 0%';
+   this.style.margin = this.getAttribute('_margin');
 };
