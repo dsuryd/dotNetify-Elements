@@ -16,7 +16,6 @@
     <EmbeddedResource Include="Docs\Display\Markdown.md" />
     <EmbeddedResource Include="Docs\Examples\CustomerForm.md" />
     <EmbeddedResource Include="Docs\Examples\Dashboard.md" />
-    <EmbeddedResource Include="Docs\Examples\WebComponents.md" />
     <EmbeddedResource Include="Docs\Form\Button.md" />
     <EmbeddedResource Include="Docs\Form\Checkbox.md" />
     <EmbeddedResource Include="Docs\Form\CheckboxGroup.md" />
@@ -46,6 +45,7 @@
     <EmbeddedResource Include="Docs\Structure\Modal.md" />
     <EmbeddedResource Include="Docs\Structure\Tab.md" />
     <EmbeddedResource Include="Docs\WorkingWithForms.md" />
+    <EmbeddedResource Include="Docs\WebComponents.md" />
   </ItemGroup>
 
   <ItemGroup>

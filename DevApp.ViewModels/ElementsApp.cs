@@ -14,6 +14,7 @@ namespace dotNetify_Elements
          WorkingWithForms,
          LayoutSystem,
          Customization,
+         WebComponents,
          GetStarted,
          Form,
          FormDemo,
@@ -49,8 +50,7 @@ namespace dotNetify_Elements
 
          /* Examples */
          ExampleCustomerForm,
-         ExampleDashboard,
-         ExampleWebComponents
+         ExampleDashboard
       }
 
       public RoutingState RoutingState { get; set; }
@@ -64,6 +64,7 @@ namespace dotNetify_Elements
             new RouteTemplate(nameof(Route.WorkingWithForms))     { UrlPattern = "forms" },
             new RouteTemplate(nameof(Route.LayoutSystem))         { UrlPattern = "layout" },
             new RouteTemplate(nameof(Route.Customization))        { UrlPattern = "customize" },
+            new RouteTemplate(nameof(Route.WebComponents))        { UrlPattern = "webcomponent" },
             new RouteTemplate(nameof(Route.GetStarted))           { UrlPattern = "getstarted" },
 
             new RouteTemplate(nameof(Route.FormButton))           { UrlPattern = "form/button" },
@@ -101,7 +102,6 @@ namespace dotNetify_Elements
 
             new RouteTemplate(nameof(Route.ExampleCustomerForm))  { UrlPattern = "examples/customerform" },
             new RouteTemplate(nameof(Route.ExampleDashboard))     { UrlPattern = "examples/dashboard" },
-            new RouteTemplate(nameof(Route.ExampleWebComponents)) { UrlPattern = "webcomponent" },
          });
 
          AddProperty("NavMenu", new NavMenu(
@@ -111,6 +111,7 @@ namespace dotNetify_Elements
                new NavRoute("Working with Forms",        this.GetRoute(nameof(Route.WorkingWithForms))),
                new NavRoute("Layout System",             this.GetRoute(nameof(Route.LayoutSystem))),
                new NavRoute("Customization",             this.GetRoute(nameof(Route.Customization))),
+               //new NavRoute("Web Components",            this.GetRoute(nameof(Route.WebComponents))),
                new NavRoute("Get Started",               this.GetRoute(nameof(Route.GetStarted))),
 
                new NavGroup
@@ -120,8 +121,7 @@ namespace dotNetify_Elements
                   Routes = new NavRoute[]
                   {
                      new NavRoute("Customer Form",       this.GetRoute(nameof(Route.ExampleCustomerForm))),
-                     new NavRoute("Admin Dashboard",     this.GetRoute(nameof(Route.ExampleDashboard))),
-                     new NavRoute("Web Components",      this.GetRoute(nameof(Route.ExampleWebComponents))),
+                     new NavRoute("Admin Dashboard",     this.GetRoute(nameof(Route.ExampleDashboard)))
                   },
                   IsExpanded = false
                },
