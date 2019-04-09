@@ -26,7 +26,7 @@ const RouteContainer = styled.div`
    ${props => (props.isSelected ? props.theme.NavMenu.SelectedRoute : '')};
 `;
 
-const GroupHeaderContainer = Collapsible.componentTypes.HeaderContainer.extend`
+const GroupHeaderContainer = styled(Collapsible.componentTypes.HeaderContainer)`
     padding-right: 1rem;
     ${props => props.theme.NavMenu.GroupContainer}      
 `;
