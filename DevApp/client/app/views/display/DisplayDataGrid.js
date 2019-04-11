@@ -1,26 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
-import {
-   Alert,
-   DataGrid,
-   Element,
-   GridColumn,
-   Markdown,
-   Panel,
-   RadioToggle,
-   TabItem,
-   withTheme
-} from 'dotnetify-elements';
+import { Alert, DataGrid, Element, GridColumn, Markdown, Panel, RadioToggle, TabItem, withTheme } from 'dotnetify-elements';
 import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
 
 const DisplayDataGrid = props => (
    <TabsArticle vm="DisplayDataGrid" id="Overview">
-      <TabItem label="Overview" key="Overview">
+      <TabItem label="Overview" itemKey="Overview">
          <Markdown id="Overview">
             <DataGridExample />
          </Markdown>
       </TabItem>
-      <TabItem label="API" key="API">
+      <TabItem label="API" itemKey="API">
          <Markdown id="API" />
       </TabItem>
       <TabItem label="Customize">
@@ -56,9 +46,9 @@ const MyApp = _ => (
          Selected contact email: <Element id="SelectedEmail" />
       </Alert>
       <DataGrid id="Contacts"${props}>
-         <GridColumn key="LastVisit" width="13rem" formatter={DateFormatter} />
+         <GridColumn colKey="LastVisit" width="13rem" formatter={DateFormatter} />
          ${this.state.actions
-            ? `<GridColumn key="_actions" label="Actions" width="5rem"
+            ? `<GridColumn colKey="_actions" label="Actions" width="5rem"
             formatter={props => (
                <React.Fragment>
                   <Icon title="Edit" onMouseDown={() => EditItem(props)}>edit</Icon>
@@ -77,7 +67,7 @@ const MyApp = _ => (
       Selected contact email: <d-element id="SelectedEmail" />
    </d-alert>
    <d-data-grid id="Contacts"${props}>
-      <d-grid-column key="LastVisit" width="13rem" 
+      <d-grid-column colKey="LastVisit" width="13rem" 
         formatter="props => new Date(props.value).toLocaleString()" 
       />
    </d-data-grid>
@@ -127,10 +117,10 @@ const MyApp = _ => (
                         Selected contact email: <Element id="SelectedEmail" />
                      </Alert>
                      <DataGrid id="Contacts" {...this.state}>
-                        <GridColumn key="LastVisit" width="13rem" formatter={DateFormatter} />
+                        <GridColumn colKey="LastVisit" width="13rem" formatter={DateFormatter} />
                         {this.state.actions && (
                            <GridColumn
-                              key="_actions"
+                              colKey="_actions"
                               label="Actions"
                               width="5rem"
                               formatter={props => (
@@ -153,11 +143,7 @@ const MyApp = _ => (
                         Selected contact email: <d-element id="SelectedEmail" />
                      </d-alert>
                      <d-data-grid id="Contacts" {...this.state}>
-                        <d-grid-column
-                           colkey="LastVisit"
-                           width="13rem"
-                           formatter="props => new Date(props.value).toLocaleString()"
-                        />
+                        <d-grid-column colkey="LastVisit" width="13rem" formatter="props => new Date(props.value).toLocaleString()" />
                      </d-data-grid>
                   </d-vm-context>
                )}

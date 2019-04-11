@@ -6,12 +6,12 @@ import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
 
 const StructureModal = props => (
    <TabsArticle vm="StructureModal" id="Overview">
-      <TabItem label="Overview" key="Overview">
+      <TabItem label="Overview" itemKey="Overview">
          <Markdown id="Overview">
             <ModalExample />
          </Markdown>
       </TabItem>
-      <TabItem label="API" key="API">
+      <TabItem label="API" itemKey="API">
          <Markdown id="API" />
       </TabItem>
       <TabItem label="Customize">
@@ -96,9 +96,9 @@ class MyApp extends React.Component {
                label="Cancel"
                cancel="true"
                secondary="true"
-               onclick="document.getElementById('_modal').close()"
+               onclick="setTimeout(() => document.getElementById('_modal').close())"
             />
-            <d-button id="Submit" label="Register" submit="true" onclick="document.getElementById('_modal').close()" />
+            <d-button id="Submit" label="Register" submit="true" onclick="setTimeout(() => document.getElementById('_modal').close())" />
          </d-panel>
       </footer>
    </d-modal>
@@ -145,9 +145,14 @@ class MyApp extends React.Component {
                                     label="Cancel"
                                     cancel="true"
                                     secondary="true"
-                                    onclick="document.getElementById('_modal').close()"
+                                    onclick="setTimeout(() => document.getElementById('_modal').close())"
                                  />
-                                 <d-button id="Submit" label="Register" submit="true" onclick="document.getElementById('_modal').close()" />
+                                 <d-button
+                                    id="Submit"
+                                    label="Register"
+                                    submit="true"
+                                    onclick="setTimeout(() => document.getElementById('_modal').close())"
+                                 />
                               </d-panel>
                            </footer>
                         </d-modal>

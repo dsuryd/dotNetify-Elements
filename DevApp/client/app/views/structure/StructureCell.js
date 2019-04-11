@@ -5,13 +5,13 @@ import { BigIcon } from '../display/demo-helper';
 
 const StructureCell = props => (
    <TabsArticle vm="StructureCell" id="Overview">
-      <TabItem label="Overview" key="Overview">
+      <TabItem label="Overview" itemKey="Overview">
          <Markdown id="Overview">
             <CellExample />
             <CellGroupExample />
          </Markdown>
       </TabItem>
-      <TabItem label="API" key="API">
+      <TabItem label="API" itemKey="API">
          <Markdown id="API" />
       </TabItem>
       <TabItem label="Customize">

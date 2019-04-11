@@ -6,12 +6,12 @@ import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
 
 const StructureTab = props => (
    <TabsArticle vm="StructureTab" id="Overview">
-      <TabItem label="Overview" key="Overview">
+      <TabItem label="Overview" itemKey="Overview">
          <Markdown id="Overview">
             <TabExample />
          </Markdown>
       </TabItem>
-      <TabItem label="API" key="API">
+      <TabItem label="API" itemKey="API">
          <Markdown id="API" />
       </TabItem>
       <TabItem label="Customize">
@@ -31,15 +31,15 @@ const MyApp = _ => (
    <VMContext vm="TabExample">
       <Panel css="padding: 2rem; background: white">
          <Tab active="home">
-            <TabItem key="home" label="Home">
+            <TabItem itemKey="home" label="Home">
                <Markdown id="Home" />
             </TabItem>
-            <TabItem key="menu" label="Menu">
+            <TabItem itemKey="menu" label="Menu">
                <Markdown id="Menu">
                   <Image id="MenuPicture" />
                </Markdown>
             </TabItem>
-            <TabItem key="about" label="About">
+            <TabItem itemKey="about" label="About">
                <Markdown id="About" />
             </TabItem>
          </Tab>
@@ -83,15 +83,15 @@ const MyApp = _ => (
             <Panel css="padding: 2rem; margin-bottom: 2rem; background: white">
                {!webComponent ? (
                   <Tab active="home">
-                     <TabItem key="home" label="Home">
+                     <TabItem itemKey="home" label="Home">
                         <Markdown id="Home" />
                      </TabItem>
-                     <TabItem key="menu" label="Menu">
+                     <TabItem itemKey="menu" label="Menu">
                         <Markdown id="Menu">
                            <Image id="MenuPicture" />
                         </Markdown>
                      </TabItem>
-                     <TabItem key="about" label="About">
+                     <TabItem itemKey="about" label="About">
                         <Markdown id="About" />
                      </TabItem>
                   </Tab>

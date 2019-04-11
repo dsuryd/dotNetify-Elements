@@ -4,12 +4,12 @@ import { TabsArticle, RenderExample } from '../../components';
 
 const _Form = props => (
    <TabsArticle vm="Form" id="Overview">
-      <TabItem label="Overview" key="Overview">
+      <TabItem label="Overview" itemKey="Overview">
          <Markdown id="Overview">
             <FormExample />
          </Markdown>
       </TabItem>
-      <TabItem label="API" key="API">
+      <TabItem label="API" itemKey="API">
          <Markdown id="API" />
       </TabItem>
    </TabsArticle>

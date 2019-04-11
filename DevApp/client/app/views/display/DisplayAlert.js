@@ -4,12 +4,12 @@ import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
 
 const DisplayAlert = props => (
    <TabsArticle vm="DisplayAlert" id="Overview">
-      <TabItem label="Overview" key="Overview">
+      <TabItem label="Overview" itemKey="Overview">
          <Markdown id="Overview">
             <AlertExample />
          </Markdown>
       </TabItem>
-      <TabItem label="API" key="API">
+      <TabItem label="API" itemKey="API">
          <Markdown id="API" />
       </TabItem>
       <TabItem label="Customize">

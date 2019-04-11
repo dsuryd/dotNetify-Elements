@@ -5,14 +5,14 @@ import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
 
 const DisplayChart = props => (
    <TabsArticle vm="DisplayChart" id="Overview">
-      <TabItem label="Overview" key="Overview">
+      <TabItem label="Overview" itemKey="Overview">
          <Markdown id="Overview">
             <LineChartExample />
             <BarChartExample />
             <PieChartExample />
          </Markdown>
       </TabItem>
-      <TabItem label="API" key="API">
+      <TabItem label="API" itemKey="API">
          <Markdown id="API" />
       </TabItem>
       <TabItem label="Customize">

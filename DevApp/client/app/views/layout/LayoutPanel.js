@@ -5,14 +5,14 @@ import { Rectangle, Square } from './demo-helper';
 
 const LayoutPanel = props => (
    <TabsArticle vm="LayoutPanel" id="Overview">
-      <TabItem label="Overview" key="Overview">
+      <TabItem label="Overview" itemKey="Overview">
          <Markdown id="Overview">
             <PanelExample />
             <FlexLayoutExample />
             <ChildPropsExample />
          </Markdown>
       </TabItem>
-      <TabItem label="API" key="API">
+      <TabItem label="API" itemKey="API">
          <Markdown id="API" />
       </TabItem>
    </TabsArticle>

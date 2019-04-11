@@ -5,12 +5,12 @@ import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
 
 const FormRadioToggle = props => (
    <TabsArticle vm="FormRadioToggle" id="Overview">
-      <TabItem label="Overview" key="Overview">
+      <TabItem label="Overview" itemKey="Overview">
          <Markdown id="Overview">
             <RadioToggleExample />
          </Markdown>
       </TabItem>
-      <TabItem label="API" key="API">
+      <TabItem label="API" itemKey="API">
          <Markdown id="API" />
       </TabItem>
       <TabItem label="Customize">

@@ -9,12 +9,12 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 const StructureField = props => (
    <TabsArticle vm="StructureField" id="Overview">
-      <TabItem label="Overview" key="Overview">
+      <TabItem label="Overview" itemKey="Overview">
          <Markdown id="Overview">
             <FieldExample />
          </Markdown>
       </TabItem>
-      <TabItem label="API" key="API">
+      <TabItem label="API" itemKey="API">
          <Markdown id="API" />
       </TabItem>
       <TabItem label="Customize">
@@ -85,7 +85,7 @@ class FieldCustomize extends React.Component {
          <RenderCustomize name="Field" componentTypes={componentTypes} select={select} onSelected={handleSelected}>
             <Field label="Label:" plainText={plainText}>
                {plainText ? 'Plain text' : <input type="text" placeholder="Enter text..." />}
-               {validationMessage ? <div key="validationMsg">Validation message</div> : null}
+               {validationMessage ? <div itemKey="validationMsg">Validation message</div> : null}
             </Field>
          </RenderCustomize>
       );

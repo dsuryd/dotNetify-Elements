@@ -5,13 +5,13 @@ import { Square } from '../layout/demo-helper';
 
 const DisplayMarkdown = props => (
    <TabsArticle vm="DisplayMarkdown" id="Overview">
-      <TabItem label="Overview" key="Overview">
+      <TabItem label="Overview" itemKey="Overview">
          <Markdown id="Overview">
             <MarkdownExample />
             <InsetExample />
          </Markdown>
       </TabItem>
-      <TabItem label="API" key="API">
+      <TabItem label="API" itemKey="API">
          <Markdown id="API" />
       </TabItem>
       <TabItem label="Customize">

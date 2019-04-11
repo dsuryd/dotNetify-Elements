@@ -4,15 +4,15 @@ import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
 
 const FormTextField = props => (
    <TabsArticle vm="FormTextField" id="Overview">
-      <TabItem label="Overview" key="Overview">
+      <TabItem label="Overview" itemKey="Overview">
          <Markdown id="Overview">
             <TextFieldExample />
          </Markdown>
       </TabItem>
-      <TabItem label="Input Mask" key="Mask">
+      <TabItem label="Input Mask" itemKey="Mask">
          <Markdown id="Mask" />
       </TabItem>
-      <TabItem label="API" key="API">
+      <TabItem label="API" itemKey="API">
          <Markdown id="API" />
       </TabItem>
       <TabItem label="Customize">

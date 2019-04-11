@@ -5,12 +5,12 @@ import { Badge, BigIcon } from './demo-helper';
 
 const DisplayLabel = props => (
    <TabsArticle vm="DisplayLabel" id="Overview">
-      <TabItem label="Overview" key="Overview">
+      <TabItem label="Overview" itemKey="Overview">
          <Markdown id="Overview">
             <LabelExample />
          </Markdown>
       </TabItem>
-      <TabItem label="API" key="API">
+      <TabItem label="API" itemKey="API">
          <Markdown id="API" />
       </TabItem>
       <TabItem label="Customize">
