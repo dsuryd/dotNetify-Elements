@@ -143,7 +143,7 @@ export class TextField extends InputElement {
                      onKeyPress={this.handleKeyPress}
                      onChange={handleChange}
                      onBlur={handleBlur}
-                     innerRef={elem => (this.vmProperty.dom = elem)}
+                     ref={elem => (this.vmProperty.dom = elem)}
                      {...props}
                   />
                </InputGroup>
