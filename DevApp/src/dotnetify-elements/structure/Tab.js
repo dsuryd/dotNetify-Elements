@@ -82,12 +82,12 @@ export class Tab extends React.Component {
 
    render() {
       const [ Container, TabContainer, BodyContainer ] = utils.resolveComponents(Tab, this.props);
-      const { margin, noMargin, style, css, ...props } = this.props;
+      const { margin, noMargin, style, css, onActivate, ...props } = this.props;
 
       const tabItems = this.children.map((child, idx) => {
          const key = this.getItemKey(child, idx);
          return React.cloneElement(child, {
-            key: key,
+            itemKey: key,
             active: this.state.active == key,
             onClick: event => this.handleClick(event, key, child.props.label)
          });
@@ -112,6 +112,9 @@ export class Tab extends React.Component {
 
 export class TabItem extends React.Component {
    static propTypes = {
+      // Identifies the tab item.
+      itemKey: PropTypes.string,
+
       // Text or component for the tab item's label.
       label: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]).isRequired,
 
