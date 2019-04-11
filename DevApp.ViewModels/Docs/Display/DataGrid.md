@@ -89,6 +89,9 @@ static propTypes = {
 ##### GridColumn
 ```jsx
 static propTypes = {
+   // Identifies the column.
+   colKey: PropTypes.string,
+
    // Content formatter.
    formatter: PropTypes.func,
 

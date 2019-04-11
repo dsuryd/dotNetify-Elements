@@ -121,18 +121,15 @@ export class DataGrid extends Element {
    }
 
    mapColumns(children, columns) {
-      let [ gridColumns, rest ] = utils.filterChildren(
-         children,
-         child => child.type == GridColumn || child.type == 'd-grid-column'
-      );
+      let [ gridColumns, rest ] = utils.filterChildren(children, child => child.type == GridColumn || child.type == 'd-grid-column');
 
       // Map GridColumn attributes to React data grid column definition.
       let mapGridColumn = gridCol => {
-         let { label, width, formatter, editor, columnChildren } = gridCol.props;
-         let key = gridCol.key;
+         let { colKey, label, width, formatter, editor, columnChildren } = gridCol.props;
+         let key = colKey || gridCol.key;
          if (gridCol.type == 'd-grid-column') {
             formatter = WebComponentHelper._parseFunctionString(formatter);
-            key = gridCol.props.colkey;
+            key = colkey;
          }
 
          let col = {
@@ -163,7 +160,9 @@ export class DataGrid extends Element {
          };
 
          const gridCol = gridColumns.find(
-            x => (x.type == GridColumn && x.key === c.key) || (x.type == 'd-grid-column' && x.props.colkey === c.key)
+            x =>
+               (x.type == GridColumn && (x.props.colKey === c.key || x.key === c.key)) ||
+               (x.type == 'd-grid-column' && x.props.colkey === c.key)
          );
          if (gridCol) {
             Object.assign(col, mapGridColumn(gridCol));
@@ -264,10 +263,7 @@ export class DataGrid extends Element {
       if (this.gridDom && this.gridDom.getDataGridDOMNode) {
          var top = this.gridDom.getRowOffsetHeight() * idx;
          var gridCanvas = this.gridDom.getDataGridDOMNode().querySelector('.react-grid-Canvas');
-         if (
-            top < gridCanvas.scrollTop ||
-            top > gridCanvas.scrollTop + this.state.height - 2 * utils.toPixel(this.attrs.rowHeight)
-         ) {
+         if (top < gridCanvas.scrollTop || top > gridCanvas.scrollTop + this.state.height - 2 * utils.toPixel(this.attrs.rowHeight)) {
             gridCanvas.scrollTop = top;
 
             // Hack to fix row data not getting updated when programmatically selected.
@@ -276,7 +272,8 @@ export class DataGrid extends Element {
                this.emitEvent('click', row);
             });
          }
-      } else setTimeout(_ => this.handleScrollToRow(idx));
+      }
+      else setTimeout(_ => this.handleScrollToRow(idx));
    }
 
    handleSelectBy = _ => {
@@ -302,7 +299,7 @@ export class DataGrid extends Element {
       const editEnabled = this.props.enable !== false && columns.some(c => c.Editable);
 
       return (
-         <Container style={style} css={css} showCellOutline={editEnabled} innerRef={elem => (this.elem = elem)}>
+         <Container style={style} css={css} showCellOutline={editEnabled} ref={elem => (this.elem = elem)}>
             <_DataGrid
                id={fullId}
                columns={this.mapColumns(children, columns)}
@@ -331,6 +328,9 @@ export class DataGrid extends Element {
 
 export class GridColumn extends React.Component {
    static propTypes = {
+      // Identifies the column.
+      colKey: PropTypes.string,
+
       // Content formatter.
       formatter: PropTypes.func,
 
