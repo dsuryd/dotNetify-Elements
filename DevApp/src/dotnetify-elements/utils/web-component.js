@@ -53,10 +53,6 @@ export default function createWebComponent(Component, elementName, useShadowDom)
             this.formElem.addEventListener('onStateChange', this.onFormContextStateChange);
          }
 
-         // Enclose setTimeout to onclick event to ensure the event reaches any inner React component.
-         const onClick = this.getAttribute('onclick');
-         if (onClick && !onClick.trim().startsWith('setTimeout')) this.setAttribute('onclick', `setTimeout(() => { ${onClick} })`);
-
          // React render occurs when an attribute is set, but if there's no attribute, call
          // the render here, but use setTimeout to have it rendered after its parent.
          if (!this.hasAttributes()) setTimeout(() => this.renderComponent());
