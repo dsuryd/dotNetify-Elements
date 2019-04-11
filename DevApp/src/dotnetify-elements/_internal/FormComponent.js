@@ -103,5 +103,5 @@ export default function createWebComponent(Component, elementName) {
       }
    }
 
-   if (!window.customElements.get(elementName)) window.customElements.define(elementName, CustomElement, { extends: 'form' });
+   if (!window.customElements.get(elementName)) window.customElements.define(elementName, CustomElement);
 }
