@@ -129,7 +129,7 @@ export class DataGrid extends Element {
          let key = colKey || gridCol.key;
          if (gridCol.type == 'd-grid-column') {
             formatter = WebComponentHelper._parseFunctionString(formatter);
-            key = colkey;
+            key = colKey;
          }
 
          let col = {

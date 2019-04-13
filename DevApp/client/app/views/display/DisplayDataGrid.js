@@ -67,7 +67,7 @@ const MyApp = _ => (
       Selected contact email: <d-element id="SelectedEmail" />
    </d-alert>
    <d-data-grid id="Contacts"${props}>
-      <d-grid-column colKey="LastVisit" width="13rem" 
+      <d-grid-column colkey="LastVisit" width="13rem" 
         formatter="props => new Date(props.value).toLocaleString()" 
       />
    </d-data-grid>
