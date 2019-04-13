@@ -2,9 +2,13 @@ import React from 'react';
 import { TextField } from './TextField';
 import createWebComponent from '../utils/web-component';
 
-export const PasswordField = props => <TextField type="password" {...props} />;
+export class PasswordField extends React.Component {
+   static propTypes = { ...TextField.propTypes };
+   static componentTypes = { ...TextField.componentTypes };
 
-PasswordField.propTypes = { ...TextField.propTypes };
-PasswordField.componentTypes = { ...TextField.componentTypes };
+   render() {
+      return <TextField type="password" {...this.props} />;
+   }
+}
 
 createWebComponent(PasswordField, 'd-password-field');
