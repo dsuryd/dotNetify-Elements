@@ -26,7 +26,7 @@ import { VMContext, Form, Panel, Button, TextField } from 'dotnetify-elements';
 
 const MyApp = _ => (
    <VMContext vm="BasicForm">
-      <Form>
+      <Form${props}>
          <Alert id="ServerResponse" />
          <Panel>
             <TextField id="Name" horizontal />
@@ -43,7 +43,7 @@ const MyApp = _ => (
       const buildWebComponentCode = props => `
 \`\`\`jsx
 <d-vm-context vm="BasicForm">
-   <d-form>
+   <d-form${props}>
       <d-alert id="ServerResponse" />
       <d-panel>
          <d-text-field id="Name" horizontal="true" />
