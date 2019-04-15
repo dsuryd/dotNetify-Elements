@@ -125,8 +125,8 @@ Add **package.json** with the following content:
     "babel-preset-env": "~1.7.0",
     "babel-preset-react": "~6.24.1",
     "css-loader": "~0.28.11",
-    "dotnetify": "~3.0.1",
-    "dotnetify-elements": "~0.1.0",
+    "dotnetify": "~3.3.1",
+    "dotnetify-elements": "~0.5.0",
     "react": "~16.3.2",
     "react-dom": "~16.3.2",
     "url-loader": "~1.0.1",
@@ -306,7 +306,7 @@ Update **Views\Shared\_Layout.cshtml** by adding:
    <title>@ViewBag.Title - My ASP.NET Application</title>
 
    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" />
-   <link href="https://unpkg.com/dotnetify-elements@0.1.1/dotnetify-elements.css" rel="stylesheet"></link>
+   <link href="https://unpkg.com/dotnetify-elements@0/dotnetify-elements.css" rel="stylesheet"></link>
    <style>
       .navbar .container { flex-wrap: nowrap; }
       ul.navbar-nav { flex-direction: row; }
@@ -347,9 +347,9 @@ Update **Views\Shared\_Layout.cshtml** by adding:
    @Scripts.Render("~/bundles/bootstrap")
    @RenderSection("scripts", required: false)
 
-   <script src="https://unpkg.com/react@16.3.2/umd/react.production.min.js"></script>
-   <script src="https://unpkg.com/react-dom@16.3.2/umd/react-dom.production.min.js"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/styled-components/3.3.3/styled-components.min.js"></script>
+   <script src="https://unpkg.com/react@16.6/umd/react.production.min.js"></script>
+   <script src="https://unpkg.com/react-dom@16.6/umd/react-dom.production.min.js"></script>
+   <script src="https://unpkg.com/styled-components@4.1/dist/styled-components.min.j"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.js"></script>
    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
    <script src="https://ajax.aspnetcdn.com/ajax/signalr/jquery.signalr-2.2.2.min.js"></script>
@@ -447,6 +447,29 @@ module.exports = {
     new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en/),
   ],
 };
+```
+
+#### Web Component
+
+Use the following script tags before using web components:
+```html
+<script src="https://unpkg.com/@webcomponents/webcomponentsjs@2/custom-elements-es5-adapter.js"></script>
+<script src="https://unpkg.com/react@16.6/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@16.6/umd/react-dom.production.min.js"></script>        
+<script src="https://unpkg.com/styled-components@4.1/dist/styled-components.min.js"></script>
+
+<!-- .NET Core server -->
+<script src="https://cdn.jsdelivr.net/npm/@aspnet/signalr@1/dist/browser/signalr.min.js"></script>
+
+<!-- .NET FX server -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/signalr@2/jquery.signalR.min.js"></script>
+<script>
+   signalR = jQuery.signalR;
+</script>
+
+<script src="https://unpkg.com/dotnetify@3/dist/dotnetify-react.min.js"></script>  
+<script src="https://unpkg.com/dotnetify-elements@0/lib/dotnetify-elements.bundle.js"></script> 
 ```
 
 
