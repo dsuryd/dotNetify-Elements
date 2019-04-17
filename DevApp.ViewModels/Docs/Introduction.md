@@ -6,7 +6,7 @@
 
 _Elements_ incorporates and curates many other existing, widely-adopted open-source libraries to allow you to leverage the React community's tried-and-true favorites in your application with greater ease and speed.  The components are designed to plug-and-play with your C# view models, and use reactive programming paradigm to produce simple and maintainable code.
 
-If you're not using React, you can still use _Elements_ through HTML custom elements, which allow them be embedded on your page just like regular HTML tags.  
+If you're not using React, you can still use _Elements_ through HTML custom elements of the Web Component standard, which allow them be embedded on your page just like regular HTML tags.  
 
 #### The Basics
 

@@ -16,6 +16,7 @@ import {
    PasswordField,
    RadioGroup,
    RadioToggle,
+   RichTextEditor,
    VMContext
 } from 'dotnetify-elements';
 
@@ -33,6 +34,7 @@ const SampleForm = ({ vm, title, horizontal, plainText }) => (
                   <DropdownList id="MyDropdown" />
                   <MultiselectList id="MyMultiselect" />
                   <TextAreaField id="MyTextArea" />
+                  <RichTextEditor id="MyRichText" />
                   <RadioGroup id="MyRadio" />
                   <RadioToggle id="MyRadioToggle" />
                   <Checkbox id="MyCheckbox" />

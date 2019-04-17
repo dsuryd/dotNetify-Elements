@@ -19,6 +19,7 @@ namespace dotNetify_Elements
          public string MyDropdown { get; set; }
          public string[] MyMultiselect { get; set; }
          public string MyTextArea { get; set; }
+         public string MyRichText { get; set; }
          public string MyRadio { get; set; }
          public string MyRadioToggle { get; set; }
          public bool MyCheckbox { get; set; }
@@ -104,6 +105,9 @@ namespace dotNetify_Elements
          AddProperty(nameof(FormData.MyTextArea), "")
              .WithAttribute(new TextAreaFieldAttribute { Label = "Text area:", Placeholder = "Enter text", Rows = 3 });
 
+         AddProperty(nameof(FormData.MyRichText), "")
+         .WithAttribute(new RichTextEditorAttribute { Label = "Rich text editor:", Placeholder = "Enter rich text" });
+
          AddProperty(nameof(FormData.MyRadio), "R1")
              .WithAttribute(new RadioGroupAttribute
              {
@@ -159,6 +163,7 @@ namespace dotNetify_Elements
          MyDropdown: {Bold(data.MyDropdown)}<br/>
          MyMultiselect: {Bold(string.Join(", ", data.MyMultiselect))}<br/>
          MyTextArea: {Bold(data.MyTextArea)}<br/>
+         MyRichText: {Bold(data.MyRichText)}<br/>
          MyRadio: {Bold(data.MyRadio)}<br/>
          MyRadioToggle: {Bold(data.MyRadioToggle)}<br/>
          MyCheckbox: {Bold(data.MyCheckbox)}<br/>

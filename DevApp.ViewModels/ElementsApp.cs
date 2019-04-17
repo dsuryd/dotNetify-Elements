@@ -28,6 +28,7 @@ namespace dotNetify_Elements
          FormPasswordField,
          FormRadioGroup,
          FormRadioToggle,
+         FormRichTextEditor,
          FormTextAreaField,
          FormTextField,
          LayoutDemo,
@@ -78,6 +79,7 @@ namespace dotNetify_Elements
             new RouteTemplate(nameof(Route.FormPasswordField))    { UrlPattern = "form/passwordfield" },
             new RouteTemplate(nameof(Route.FormRadioGroup))       { UrlPattern = "form/radiogroup" },
             new RouteTemplate(nameof(Route.FormRadioToggle))      { UrlPattern = "form/radiotoggle" },
+            new RouteTemplate(nameof(Route.FormRichTextEditor))   { UrlPattern = "form/richtexteditor" },
             new RouteTemplate(nameof(Route.FormTextAreaField))    { UrlPattern = "form/textareafield" },
             new RouteTemplate(nameof(Route.FormTextField))        { UrlPattern = "form/textfield" },
             new RouteTemplate(nameof(Route.FormDemo))             { UrlPattern = "form/demo" },
@@ -111,7 +113,6 @@ namespace dotNetify_Elements
                new NavRoute("Working with Forms",        this.GetRoute(nameof(Route.WorkingWithForms))),
                new NavRoute("Layout System",             this.GetRoute(nameof(Route.LayoutSystem))),
                new NavRoute("Customization",             this.GetRoute(nameof(Route.Customization))),
-               //new NavRoute("Web Components",            this.GetRoute(nameof(Route.WebComponents))),
                new NavRoute("Get Started",               this.GetRoute(nameof(Route.GetStarted))),
 
                new NavGroup
@@ -143,6 +144,7 @@ namespace dotNetify_Elements
                      new NavRoute("PasswordField",       this.GetRoute(nameof(Route.FormPasswordField))),
                      new NavRoute("RadioGroup",          this.GetRoute(nameof(Route.FormRadioGroup))),
                      new NavRoute("RadioToggle",         this.GetRoute(nameof(Route.FormRadioToggle))),
+                     new NavRoute("RichTextEditor",      this.GetRoute(nameof(Route.FormRichTextEditor))),
                      new NavRoute("TextAreaField",       this.GetRoute(nameof(Route.FormTextAreaField))),
                      new NavRoute("TextField",           this.GetRoute(nameof(Route.FormTextField)))
                   },

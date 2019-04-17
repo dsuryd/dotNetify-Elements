@@ -118,6 +118,18 @@ namespace DotNetify.Elements
       public KeyValuePair<string, string>[] Options { get; set; }
    }
 
+   public class RichTextEditorAttribute
+   {
+      // Label text of the field.
+      public string Label { get; set; }
+
+      // Placeholder text to display when the field is empty.
+      public string Placeholder { get; set; }
+
+      // Input max length.
+      public int? MaxLength { get; set; }
+   }
+
    public class TextFieldAttribute
    {
       // Label text of the field.

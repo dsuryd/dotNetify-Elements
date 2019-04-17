@@ -27,6 +27,7 @@
     <EmbeddedResource Include="Docs\Form\PasswordField.md" />
     <EmbeddedResource Include="Docs\Form\RadioGroup.md" />
     <EmbeddedResource Include="Docs\Form\RadioToggle.md" />
+    <EmbeddedResource Include="Docs\Form\RichTextEditor.md" />
     <EmbeddedResource Include="Docs\Form\TextAreaField.md" />
     <EmbeddedResource Include="Docs\Form\TextField.md" />
     <EmbeddedResource Include="Docs\GetStarted.md" />

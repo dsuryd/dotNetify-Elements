@@ -22,6 +22,7 @@ import { NumberField } from './bootstrap/_components/NumberField';
 import { PasswordField } from './bootstrap/_components/PasswordField';
 import { RadioGroup } from './bootstrap/_components/RadioGroup';
 import { RadioToggle } from './bootstrap/_components/RadioToggle';
+import { RichTextEditor } from './bootstrap/_components/RichTextEditor';
 import { TextField } from './bootstrap/_components/TextField';
 import { TextAreaField } from './bootstrap/_components/TextAreaField';
 
@@ -86,6 +87,7 @@ let dotNetifyElements = {
    PieChart,
    RadioGroup,
    RadioToggle,
+   RichTextEditor,
    Section,
    Tab,
    TabItem,

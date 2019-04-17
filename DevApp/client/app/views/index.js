@@ -15,6 +15,7 @@ import FormNumberField from './form/FormNumberField';
 import FormPasswordField from './form/FormPasswordField';
 import FormRadioGroup from './form/FormRadioGroup';
 import FormRadioToggle from './form/FormRadioToggle';
+import FormRichTextEditor from './form/FormRichTextEditor';
 import FormTextAreaField from './form/FormTextAreaField';
 import FormTextField from './form/FormTextField';
 import FormDemo from './form/FormDemo';
@@ -61,6 +62,7 @@ export {
    FormPasswordField,
    FormRadioGroup,
    FormRadioToggle,
+   FormRichTextEditor,
    FormTextAreaField,
    FormTextField,
    FormDemo,

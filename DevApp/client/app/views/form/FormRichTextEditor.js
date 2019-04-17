@@ -1,40 +1,40 @@
 import React from 'react';
-import { Markdown, Panel, TabItem, TextAreaField, withTheme } from 'dotnetify-elements';
+import { Markdown, Panel, TabItem, RichTextEditor, withTheme } from 'dotnetify-elements';
 import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
 
-const FormTextAreaField = props => (
-   <TabsArticle vm="FormTextAreaField" id="Overview">
+const FormRichTextEditor = props => (
+   <TabsArticle vm="FormRichTextEditor" id="Overview">
       <TabItem label="Overview" itemKey="Overview">
          <Markdown id="Overview">
-            <TextAreaFieldExample />
+            <RichTextEditorExample />
          </Markdown>
       </TabItem>
       <TabItem label="API" itemKey="API">
          <Markdown id="API" />
       </TabItem>
       <TabItem label="Customize">
-         <TextAreaFieldCustomize />
+         <RichTextEditorCustomize />
       </TabItem>
    </TabsArticle>
 );
 
-class TextAreaFieldExample extends React.Component {
+class RichTextEditorExample extends React.Component {
    render() {
       const buildCode = props => `
 \`\`\`jsx
 import React from 'react';
-import { VMContext, TextAreaField } from 'dotnetify-elements';
+import { VMContext, RichTextEditor } from 'dotnetify-elements';
 
 const MyApp = _ => (
-   <VMContext vm="TextAreaFieldExample">
-      <TextAreaField id="Comment"${props} />
+   <VMContext vm="RichTextEditorExample">
+      <RichTextEditor id="Notes"${props} />
    </VMContext>
 );
 \`\`\``;
       const buildWebComponentCode = props => `
 \`\`\`jsx
-<d-vm-context vm="TextAreaFieldExample">
-   <d-text-area-field id="Comment"${props} />
+<d-vm-context vm="RichTextEditorExample">
+   <d-rich-text-editor id="Notes"${props} />
 </d-vm-context>
 \`\`\``;
       const setState = state => this.setState(state);
@@ -46,7 +46,7 @@ const MyApp = _ => (
 
       return (
          <RenderExample
-            vm="TextAreaFieldExample"
+            vm="RichTextEditorExample"
             propTypes={propTypes}
             buildCode={selectBuildCode}
             onChange={setState}
@@ -54,10 +54,10 @@ const MyApp = _ => (
          >
             <Panel style={{ minHeight: '11rem' }}>
                {!webComponent ? (
-                  <TextAreaField id="Comment" {...this.state} />
+                  <RichTextEditor id="Notes" {...this.state} />
                ) : (
-                  <d-vm-context vm="TextAreaFieldExample">
-                     <d-text-area-field id="Comment" {...this.state} />
+                  <d-vm-context vm="RichTextEditorExample">
+                     <d-rich-text-editor id="Comment" {...this.state} />
                   </d-vm-context>
                )}
             </Panel>
@@ -66,29 +66,28 @@ const MyApp = _ => (
    }
 }
 
-class TextAreaFieldCustomize extends React.Component {
+class RichTextEditorCustomize extends React.Component {
    state = { plainText: false, validationMessages: null };
 
    render() {
-      const { plainText, validationMessages } = this.state;
-      const componentTypes = TextAreaField.componentTypes;
+      const { plainText } = this.state;
+      const componentTypes = RichTextEditor.componentTypes;
       const handleSelected = state => this.setState(state);
       const select = value => ({
-         plainText: value === 'PlainTextComponent',
-         validationMessages: value === 'ValidationMessageComponent' ? [ 'Validation message' ] : null
+         plainText: value === 'PlainTextComponent'
       });
       return (
          <RenderCustomize
-            vm="TextAreaFieldCustomize"
-            name="TextAreaField"
+            vm="RichTextEditorCustomize"
+            name="RichTextEditor"
             componentTypes={componentTypes}
             select={select}
             onSelected={handleSelected}
          >
-            <TextAreaField id="MyField" prefix="Prefix-" suffix="-Suffix" plainText={plainText} validationMessages={validationMessages} />
+            <RichTextEditor id="MyField" plainText={plainText} />
          </RenderCustomize>
       );
    }
 }
 
-export default withTheme(FormTextAreaField);
+export default withTheme(FormRichTextEditor);
