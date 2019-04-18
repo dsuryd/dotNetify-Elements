@@ -125,9 +125,6 @@ namespace DotNetify.Elements
 
       // Placeholder text to display when the field is empty.
       public string Placeholder { get; set; }
-
-      // Input max length.
-      public int? MaxLength { get; set; }
    }
 
    public class TextFieldAttribute

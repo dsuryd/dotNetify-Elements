@@ -1,5 +1,5 @@
 import React from 'react';
-import { Markdown, Panel, TabItem, RichTextEditor, withTheme } from 'dotnetify-elements';
+import { Markdown, Panel, TabItem, RichTextEditor, VMContext, withTheme } from 'dotnetify-elements';
 import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
 
 const FormRichTextEditor = props => (
@@ -7,6 +7,7 @@ const FormRichTextEditor = props => (
       <TabItem label="Overview" itemKey="Overview">
          <Markdown id="Overview">
             <RichTextEditorExample />
+            <CustomToolbarExample />
          </Markdown>
       </TabItem>
       <TabItem label="API" itemKey="API">
@@ -65,6 +66,38 @@ const MyApp = _ => (
       );
    }
 }
+
+const toolbarOptions = [
+   [ 'bold', 'italic', 'underline', 'strike' ],
+   [ 'blockquote', 'code-block' ],
+
+   [ { header: 1 }, { header: 2 } ],
+   [ { list: 'ordered' }, { list: 'bullet' } ],
+   [ { script: 'sub' }, { script: 'super' } ],
+   [ { indent: '-1' }, { indent: '+1' } ],
+   [ { direction: 'rtl' } ],
+
+   [ { size: [ 'small', false, 'large', 'huge' ] } ],
+   [ { header: [ 1, 2, 3, 4, 5, 6, false ] } ],
+
+   [ { color: [] }, { background: [] } ],
+   [ { font: [] } ],
+   [ { align: [] } ],
+
+   [ 'clean' ]
+];
+
+const config = {
+   modules: {
+      toolbar: toolbarOptions
+   }
+};
+
+const CustomToolbarExample = () => (
+   <VMContext vm="CustomToolbarExample">
+      <RichTextEditor id="Notes" config={config} />
+   </VMContext>
+);
 
 class RichTextEditorCustomize extends React.Component {
    state = { plainText: false, validationMessages: null };

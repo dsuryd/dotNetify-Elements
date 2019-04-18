@@ -7,7 +7,7 @@ import 'quill/dist/quill.snow.css';
 import 'quill/dist/quill.bubble.css';
 import createWebComponent from '../utils/web-component';
 
-const PlainTextComponent = props => <span {...props} />;
+const PlainTextComponent = props => <span dangerouslySetInnerHTML={{ __html: props.children }} />;
 
 export class RichTextEditor extends InputElement {
    static propTypes = {
@@ -25,9 +25,6 @@ export class RichTextEditor extends InputElement {
 
       // Displays the label text horizontally to the left of the field.
       horizontal: PropTypes.bool,
-
-      // Max input length.
-      maxLength: PropTypes.number,
 
       // Placeholder text to display when the field is empty.
       placeholder: PropTypes.string,
@@ -60,14 +57,19 @@ export class RichTextEditor extends InputElement {
       this.value = value;
    };
 
+   componentDidMount() {
+      if (!this.attrs.plainText) this.initializeEditor();
+   }
+
    componentDidUpdate() {
+      if (this.attrs.plainText && this.editor) this.editor = null;
       this.initializeEditor();
    }
 
    initializeEditor() {
-      if (this.editorDom && !this.editor) {
-         const { placeholder, config } = this.attrs;
+      const { placeholder, enable, config } = this.attrs;
 
+      if (this.editorDom && !this.editor) {
          let options = config || {};
          options.placeholder = options.placeholder || placeholder;
          options.theme = options.theme || 'snow';
@@ -83,22 +85,18 @@ export class RichTextEditor extends InputElement {
             this.handleChange(this.editor.root.innerHTML);
          });
 
-         if (this.value) this.editor.root.innerHTML = this.value;
+         if (this.value) this.editor.clipboard.dangerouslyPasteHTML(this.value);
       }
+
+      if (this.editor) this.editor.enable(enable !== false);
    }
 
    render() {
       const [ Container, PlainText ] = this.resolveComponents(RichTextEditor);
-      const { fullId, label, maxLength, plainText, horizontal, enable, onChange, css, style, children, ...props } = this.attrs;
+      const { fullId, label, plainText, horizontal, css, style, children, ...props } = this.attrs;
 
-      let handleChange = e => {
-         this.handleChange(e.target.value);
-      };
-
-      const disabled = enable === false;
       const plainTextValue = `${this.value || ''}`;
       this.editorDom = null;
-      this.editor = plainText ? null : this.editor;
 
       return (
          <Container id={fullId} label={label} horizontal={horizontal} plainText={plainText} style={style} css={css}>

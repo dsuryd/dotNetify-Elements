@@ -23,11 +23,14 @@ namespace dotNetify_Elements
             .WithAttribute(new RichTextEditorAttribute
             {
                Label = "Notes:",
-               Placeholder = "Enter your notes here",
-               MaxLength = 200
+               Placeholder = "Enter your notes here"
             });
       }
    }
+
+   public class CustomToolbarExample : RichTextEditorExample
+   {
+   }   
 
    public class RichTextEditorCustomize : BaseVM
    {
