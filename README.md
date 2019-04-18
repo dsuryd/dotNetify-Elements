@@ -8,7 +8,7 @@
 
 A library of React components for cross-platform .NET back-end, communicating in real-time through WebSocket with SignalR.
 
-[**View documentation and live demo**](http://dotnetify.net/elements)  
+[**View documentation and live demo**](https://dotnetify.net/elements)  
 
 ### What's New
 
