@@ -58,7 +58,7 @@ const MyApp = _ => (
                   <RichTextEditor id="Notes" {...this.state} />
                ) : (
                   <d-vm-context vm="RichTextEditorExample">
-                     <d-rich-text-editor id="Comment" {...this.state} />
+                     <d-rich-text-editor id="Notes" {...this.state} />
                   </d-vm-context>
                )}
             </Panel>
