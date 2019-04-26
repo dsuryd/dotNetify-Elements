@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Blazor.Extensions.SignalR" Version="0.1.8" />
+    <PackageReference Include="DotNetify.Elements" Version="0.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\dotNetify\DotNetifyLib.Core\DotNetifyLib.Core.csproj" />
+  </ItemGroup>
+
+</Project>
