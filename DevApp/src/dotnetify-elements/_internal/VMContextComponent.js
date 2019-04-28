@@ -6,6 +6,14 @@ export default function createWebComponent(Component, elementName) {
    if (utils.isIE11() || !window.hasOwnProperty('customElements')) return { prototype: {} };
 
    class CustomElement extends HTMLElement {
+      static get observedAttributes() {
+         return [ 'vm', 'options' ];
+      }
+
+      get context() {
+         return { _type: 'custom', ...this.store.context };
+      }
+
       constructor() {
          super();
          this.store = new VMContextStore(this);
@@ -13,7 +21,7 @@ export default function createWebComponent(Component, elementName) {
       }
 
       onStateChange = state => {
-         const onStateChange = this.helper.parseFunctionString(this.getAttribute('onStateChange'));
+         const onStateChange = this.helper.parseFunctionString(this.getAttribute('onstatechange'));
          if (typeof onStateChange == 'function') onStateChange(state);
          this.dispatchEvent(new CustomEvent('onStateChange', { detail: state }));
       };
@@ -22,13 +30,27 @@ export default function createWebComponent(Component, elementName) {
          this.vmContextElem = this.parentElement.closest('d-vm-context');
          if (this.vmContextElem) this.vmContext = this.vmContextElem.context;
 
-         const vmId = this.getAttribute('vm');
-         const optionsStr = this.getAttribute('options');
-
          // If this is nested inside a container element, connect only on container mounting.
          const container = this.helper.getContainerParent();
          if (container && container.mountState !== 'mounting') return;
 
+         const vmId = this.getAttribute('vm');
+         if (vmId) this.connect(vmId, this.getAttribute('options'));
+      }
+
+      disconnectedCallback() {
+         this.disconnect();
+      }
+
+      attributeChangedCallback() {
+         const vmId = this.getAttribute('vm');
+         if (vmId) {
+            this.disconnect();
+            this.connect(vmId, this.getAttribute('options'));
+         }
+      }
+
+      connect(vmId, optionsStr) {
          const options = /{.*}/.exec(optionsStr) ? JSON.parse(optionsStr) : null;
          this.vm = this.store.connect(vmId, options, this.onStateChange);
 
@@ -38,15 +60,11 @@ export default function createWebComponent(Component, elementName) {
          };
       }
 
-      disconnectedCallback() {
+      disconnect() {
          if (this.vm) {
             this.store.destroy();
             this.vm = null;
          }
-      }
-
-      get context() {
-         return { _type: 'custom', ...this.store.context };
       }
 
       setState(state) {
