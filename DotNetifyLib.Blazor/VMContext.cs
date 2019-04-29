@@ -2,46 +2,44 @@
 using Microsoft.JSInterop;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace DotNetify.Blazor
 {
-   public interface IVMContext<T>
+   public interface IVMContext<TState>
    {
-      event EventHandler<T> StateChanged;
+      event EventHandler<TState> StateChanged;
 
       Task InitAsync(ElementRef elementRef);
+
+      Task DispatchAsync(string propertyName, object propertyValue = null);
    }
 
-   public class VMContext<T> : IVMContext<T>
+   public class VMContext<TState> : ComponentInterop, IVMContext<TState>
    {
-      private IJSRuntime _jsRuntime;
-      private JsCallback _jsCallback;
+      private ElementRef _vmContextElemRef;
+      private bool _init;
 
-      public event EventHandler<T> StateChanged;
+      public event EventHandler<TState> StateChanged;
 
-      public VMContext(IJSRuntime jsRuntime)
+      public VMContext(IJSRuntime jsRuntime) : base(jsRuntime)
       {
-         _jsRuntime = jsRuntime;
-         _jsCallback = new JsCallback(arg => Callback(arg));
       }
 
       public Task InitAsync(ElementRef vmContextElementRef)
       {
-         return _jsRuntime.InvokeAsync<object>("dotnetify_blazor.addEventListener", vmContextElementRef, "onStateChange", new DotNetObjectRef(_jsCallback));
+         if (_init) return Task.CompletedTask;
+
+         _init = true;
+         _vmContextElemRef = vmContextElementRef;
+         return AddEventListenerAsync<TState>("onStateChange", vmContextElementRef, state => StateChanged?.Invoke(this, state));
       }
 
-      private void Callback(object arg)
+      public Task DispatchAsync(string propertyName, object propertyValue = null)
       {
-         try
-         {
-            T eventArg = typeof(T) == typeof(string) ? (T)(object)$"{arg}" : JsonConvert.DeserializeObject<T>($"{arg}");
-            StateChanged?.Invoke(this, eventArg);
-         }
-         catch (Exception ex)
-         {
-            throw new JsonSerializationException($"Cannot deserialize {arg} to {typeof(T)}", ex);
-         }
+         var data = new Dictionary<string, object>() { { propertyName, propertyValue } };
+         return _jsRuntime.InvokeAsync<object>("dotnetify_blazor.dispatch", _vmContextElemRef, JsonConvert.SerializeObject(data));
       }
    }
 }
