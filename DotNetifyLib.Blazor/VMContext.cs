@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DotNetify.Blazor
 {
-   public interface IVMContext<TState>
+   public interface IVMContext<TState> : IDisposable
    {
       /// <summary>
       /// Reference to the associated 'd-vm-context' HTML markup.
@@ -15,11 +15,11 @@ namespace DotNetify.Blazor
       ElementRef ElementRef { get; set; }
 
       /// <summary>
-      /// Initializes the element.
+      /// Listens to the state changed event from the server-side view model.
       /// </summary>
       /// <param name="stateChangedEventHandler">Gets called when the client receives state change from the server-side view model.</param>
       /// <returns></returns>
-      Task InitAsync(EventHandler<TState> stateChangedEventHandler = null);
+      Task HandleStateChangedAsync(EventHandler<TState> stateChangedEventHandler);
 
       /// <summary>
       /// Dispatches property value to server-side view model.
@@ -27,6 +27,12 @@ namespace DotNetify.Blazor
       /// <param name="propertyName">Name that matches a server-side view model property.</param>
       /// <param name="propertyValue">Value to be dispatched.</param>
       Task DispatchAsync(string propertyName, object propertyValue = null);
+
+      /// <summary>
+      /// Disposes the element.
+      /// </summary>
+      /// <returns></returns>
+      Task DisposeAsync();
    }
 
    public class VMContext<TState> : ComponentInterop, IVMContext<TState>
@@ -51,7 +57,17 @@ namespace DotNetify.Blazor
       {
       }
 
-      public Task InitAsync(EventHandler<TState> stateChangedEventHandler = null)
+      public void Dispose()
+      {
+         DisposeAsync();
+      }
+
+      public Task DisposeAsync()
+      {
+         return _jsRuntime.InvokeAsync<object>("dotnetify_blazor.destroy", _vmContextElemRef);
+      }
+
+      public Task HandleStateChangedAsync(EventHandler<TState> stateChangedEventHandler)
       {
          if (_init)
             return Task.CompletedTask;
@@ -60,9 +76,7 @@ namespace DotNetify.Blazor
 
          _init = true;
 
-         if (stateChangedEventHandler != null)
-            StateChanged += stateChangedEventHandler;
-
+         StateChanged += stateChangedEventHandler;
          return AddEventListenerAsync<TState>("onStateChange", ElementRef, state => StateChanged?.Invoke(this, state));
       }
 
