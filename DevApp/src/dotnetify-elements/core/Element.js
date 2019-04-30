@@ -61,7 +61,8 @@ export default class Element extends React.Component {
       const propId = this.props.id || Math.random().toString(36).substring(2);
       this._vmProperty = new VMProperty(
          {
-            getState: id => (id === propId && this.props.hasOwnProperty('value') ? this.props.value : this.state && this.state[id]),
+            getState: id =>
+               id === propId && this.props.hasOwnProperty('value') ? this.props.value : this.state && this.state[id],
             setState: state => this.setState(state),
             getPropAttributes: _ => this.props.attrs || {},
             dispatchState: _ => {}
@@ -109,14 +110,14 @@ export default class Element extends React.Component {
 
    render() {
       const { hidden, css } = this.attrs;
-      const value = this.vmProperty.value;
-      let elem = css && value ? <Container css={css}>{value}</Container> : value;
+      let elem = this.vmProperty.value;
 
       if (this.props.template) {
          const content = this.getTemplateContent(this.props.template);
          if (content) elem = <span dangerouslySetInnerHTML={{ __html: content }} />;
       }
 
+      elem = css && elem ? <Container css={css}>{elem}</Container> : elem;
       return !hidden ? elem : null;
    }
 }
