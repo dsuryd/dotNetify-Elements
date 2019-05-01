@@ -53,6 +53,10 @@ export default function createWebComponent(Component, elementName, useShadowDom)
             this.formElem.addEventListener('onStateChange', this.onFormContextStateChange);
          }
 
+         // We may expect the child of <d-element> to be a template, in which case store it in a local
+         // variable so we can pass to the inner React component on mount.
+         if (this.nodeName === 'D-ELEMENT') this.setTemplate();
+
          // React render occurs when an attribute is set, but if there's no attribute, call
          // the render here, but use setTimeout to have it rendered after its parent.
          if (!this.hasAttributes()) setTimeout(() => this.renderComponent());
@@ -74,18 +78,7 @@ export default function createWebComponent(Component, elementName, useShadowDom)
       }
 
       getTemplateProp() {
-         if (!this.template && this.firstElementChild && this.firstElementChild.nodeName === 'TEMPLATE')
-            this.template = this.firstElementChild;
-
-         if (this.template) {
-            if (this.template.content.children.length == 0 && this.template.children.length > 0) {
-               // Workaround when template content ends up outside of #documentFragment.
-               const template = document.createElement('template');
-               while (this.template.children.length) template.content.appendChild(this.template.children[0]);
-               this.template = template;
-            }
-            return { template: this.template };
-         }
+         if (this.template) return { template: this.template };
       }
 
       mountComponent() {
@@ -123,10 +116,20 @@ export default function createWebComponent(Component, elementName, useShadowDom)
          else if (this.vmContext && !remount) {
             if (typeof this.component.shouldComponentUpdate == 'function') {
                if (this.component.shouldComponentUpdate()) this.component.forceUpdate();
-            } else this.component.forceUpdate();
-         } else {
+            }
+            else this.component.forceUpdate();
+         }
+         else {
             this.unmountComponent();
             this.mountComponent();
+         }
+      }
+
+      setTemplate() {
+         if (!this.template && this.children.length > 0) {
+            const elem = this.cloneNode(true);
+            this.template = document.createElement('template');
+            while (elem.children.length) this.template.content.appendChild(elem.children[0]);
          }
       }
    }
