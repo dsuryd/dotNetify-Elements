@@ -68,6 +68,26 @@ export default function createWebComponent(Component, elementName, useShadowDom)
          if (this.formElem) this.formElem.removeEventListener('onStateChange', this.onFormContextStateChange);
       }
 
+      getChildrenProp(helper) {
+         this.childrenHtml = this.childrenHtml || this.innerHTML;
+         if (this.childrenHtml) return { children: helper.parseHtmlToReact(this.childrenHtml) };
+      }
+
+      getTemplateProp() {
+         if (!this.template && this.firstElementChild && this.firstElementChild.nodeName === 'TEMPLATE')
+            this.template = this.firstElementChild;
+
+         if (this.template) {
+            if (this.template.content.children.length == 0 && this.template.children.length > 0) {
+               // Workaround when template content ends up outside of #documentFragment.
+               const template = document.createElement('template');
+               while (this.template.children.length) template.content.appendChild(this.template.children[0]);
+               this.template = template;
+            }
+            return { template: this.template };
+         }
+      }
+
       mountComponent() {
          const helper = new WebComponentHelper(this);
          this.props = {
@@ -83,8 +103,7 @@ export default function createWebComponent(Component, elementName, useShadowDom)
             if (container && container.mountState !== 'mounted') return;
          }
 
-         this.childrenHtml = this.childrenHtml || this.innerHTML;
-         if (this.childrenHtml) Object.assign(this.props, { children: helper.parseHtmlToReact(this.childrenHtml) });
+         Object.assign(this.props, this.getTemplateProp() || this.getChildrenProp(helper));
 
          this.mountState = 'mounting';
          this.component = ReactDOM.render(<Component {...this.props} />, this.mountRoot);
@@ -104,10 +123,8 @@ export default function createWebComponent(Component, elementName, useShadowDom)
          else if (this.vmContext && !remount) {
             if (typeof this.component.shouldComponentUpdate == 'function') {
                if (this.component.shouldComponentUpdate()) this.component.forceUpdate();
-            }
-            else this.component.forceUpdate();
-         }
-         else {
+            } else this.component.forceUpdate();
+         } else {
             this.unmountComponent();
             this.mountComponent();
          }

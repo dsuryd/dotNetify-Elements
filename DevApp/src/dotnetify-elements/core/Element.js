@@ -88,8 +88,12 @@ export default class Element extends React.Component {
       return this.vmProperty.dispatchProp(propId, value);
    }
 
-   getTemplateContent(templateId) {
-      let templateElem = document.getElementById(templateId);
+   getTemplateContent(template) {
+      // Input can either be HTML node or selector.
+      let templateElem =
+         template.nodeName === 'TEMPLATE'
+            ? template
+            : document.getElementById(template) || document.querySelector(template);
       if (templateElem) {
          templateElem = templateElem.cloneNode(true);
 
