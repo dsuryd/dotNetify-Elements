@@ -29,10 +29,15 @@ namespace DotNetify.Blazor
       Task DispatchAsync(string propertyName, object propertyValue = null);
 
       /// <summary>
-      /// Disposes the element.
+      /// Disposes the context element.
       /// </summary>
       /// <returns></returns>
       Task DisposeAsync();
+
+      /// <summary>
+      /// Redraws the elements within this context element on window resize event.
+      /// </summary>
+      void RedrawOnResize();
    }
 
    public class VMContext<TState> : ComponentInterop, IVMContext<TState>
@@ -84,6 +89,11 @@ namespace DotNetify.Blazor
       {
          var data = new Dictionary<string, object>() { { propertyName, propertyValue } };
          return _jsRuntime.InvokeAsync<object>("dotnetify_blazor.dispatch", _vmContextElemRef, JsonConvert.SerializeObject(data));
+      }
+
+      public void RedrawOnResize()
+      {
+         _jsRuntime.InvokeAsync<object>("dotnetify_blazor.redrawOn", "resize");
       }
    }
 }

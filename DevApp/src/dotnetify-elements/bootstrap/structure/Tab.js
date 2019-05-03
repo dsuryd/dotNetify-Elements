@@ -16,7 +16,7 @@ const TabNavItem = styled.li.attrs({
 
 const TabLink = styled.a.attrs({
    className: 'nav-link',
-   href: ''
+   href: 'javascript:void(0)'
 })``;
 
 export const TabItem = props => (
