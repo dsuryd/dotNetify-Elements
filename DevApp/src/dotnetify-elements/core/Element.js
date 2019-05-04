@@ -61,8 +61,7 @@ export default class Element extends React.Component {
       const propId = this.props.id || Math.random().toString(36).substring(2);
       this._vmProperty = new VMProperty(
          {
-            getState: id =>
-               id === propId && this.props.hasOwnProperty('value') ? this.props.value : this.state && this.state[id],
+            getState: id => (id === propId && this.props.hasOwnProperty('value') ? this.props.value : this.state && this.state[id]),
             setState: state => this.setState(state),
             getPropAttributes: _ => this.props.attrs || {},
             dispatchState: _ => {}
@@ -91,9 +90,7 @@ export default class Element extends React.Component {
    getTemplateContent(template) {
       // Input can either be HTML node or selector.
       let templateElem =
-         template.nodeName === 'TEMPLATE'
-            ? template
-            : document.getElementById(template) || document.querySelector(template);
+         template.nodeName === 'TEMPLATE' ? template : document.getElementById(template) || document.querySelector(template);
       if (templateElem) {
          templateElem = templateElem.cloneNode(true);
 
@@ -115,13 +112,15 @@ export default class Element extends React.Component {
    render() {
       const { hidden, css } = this.attrs;
       let elem = this.vmProperty.value;
+      if (!elem) return null;
+
+      elem = css ? <Container css={css}>{elem}</Container> : elem;
 
       if (this.props.template) {
          const content = this.getTemplateContent(this.props.template);
-         if (content) elem = <span dangerouslySetInnerHTML={{ __html: content }} />;
+         if (content) elem = <Container css={css} dangerouslySetInnerHTML={{ __html: content }} />;
       }
 
-      elem = css && elem ? <Container css={css}>{elem}</Container> : elem;
       return !hidden ? elem : null;
    }
 }

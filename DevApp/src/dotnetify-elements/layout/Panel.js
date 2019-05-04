@@ -259,7 +259,6 @@ export class Panel extends React.Component {
 let panelComponent = createWebComponent(Panel, 'd-panel');
 panelComponent.prototype._isContainer = true;
 panelComponent.prototype._connectedCallback = function() {
-   this.style.display = 'flex';
-   this.style.flex = this.getAttribute('flex') || '1 1 0%';
+   this.style.flex = this.getAttribute('flex') || '1 1 0';
    this.style.margin = this.getAttribute('_margin');
 };
