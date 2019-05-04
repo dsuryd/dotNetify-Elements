@@ -6,7 +6,7 @@ namespace DotNetify.Blazor
    {
       public static IServiceCollection UseDotNetifyBlazor(this IServiceCollection services)
       {
-         services.AddTransient(typeof(IVMContext<>), typeof(VMContext<>));
+         services.AddTransient(typeof(IVMProxy<>), typeof(VMProxy<>));
          return services;
       }
    }

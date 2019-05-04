@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DotNetify.Blazor
 {
-   public interface IVMContext<TState> : IDisposable
+   public interface IVMProxy<TState> : IDisposable
    {
       /// <summary>
       /// Reference to the associated 'd-vm-context' HTML markup.
@@ -33,14 +33,9 @@ namespace DotNetify.Blazor
       /// </summary>
       /// <returns></returns>
       Task DisposeAsync();
-
-      /// <summary>
-      /// Redraws the elements within this context element on window resize event.
-      /// </summary>
-      void RedrawOnResize();
    }
 
-   public class VMContext<TState> : ComponentInterop, IVMContext<TState>
+   public class VMProxy<TState> : ComponentInterop, IVMProxy<TState>
    {
       private ElementRef _vmContextElemRef;
       private bool _hasElementRef;
@@ -58,7 +53,7 @@ namespace DotNetify.Blazor
          }
       }
 
-      public VMContext(IJSRuntime jsRuntime) : base(jsRuntime)
+      public VMProxy(IJSRuntime jsRuntime) : base(jsRuntime)
       {
       }
 
@@ -89,11 +84,6 @@ namespace DotNetify.Blazor
       {
          var data = new Dictionary<string, object>() { { propertyName, propertyValue } };
          return _jsRuntime.InvokeAsync<object>("dotnetify_blazor.dispatch", _vmContextElemRef, JsonConvert.SerializeObject(data));
-      }
-
-      public void RedrawOnResize()
-      {
-         _jsRuntime.InvokeAsync<object>("dotnetify_blazor.redrawOn", "resize");
       }
    }
 }

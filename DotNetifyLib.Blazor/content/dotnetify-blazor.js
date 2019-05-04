@@ -16,17 +16,5 @@ dotnetify_blazor = {
         elem.vm.$destroy();
         dotnetify_blazor._eventListeners.filter(x => x.elem === elem).forEach(x => elem.removeEventListener(x.event, x.callback));
         dotnetify_blazor._eventListeners = dotnetify_blazor._eventListeners.filter(x => x.elem !== elem);
-    },
-    redrawOn: function (event) {
-        let debounce;
-        let callback = function () {
-            if (debounce) clearTimeout(debounce);
-            debounce = setTimeout(function () {
-                document.querySelector('[vm] > *').style.display = 'none';
-                document.querySelector('[vm] > *').style.display = 'block';
-            }, 100);
-        };
-        dotnetify_blazor._eventListeners.push({ window, event, callback });
-        window.addEventListener(event, callback);
     }
 };
