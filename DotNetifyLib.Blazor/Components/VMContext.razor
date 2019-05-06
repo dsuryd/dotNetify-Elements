@@ -1,7 +1,8 @@
 ﻿@using DotNetify.Blazor
+@using System.Linq
 @implements IDisposable
 @typeparam TState
-@inject IVMProxy<TState> vm
+@inject IVMProxy vm
 
 <d-vm-context ref="vm.ElementRef" vm="@VM">
     @ChildContent
@@ -12,9 +13,16 @@
     [Parameter] protected RenderFragment ChildContent { get; set; }
     [Parameter] protected Action<TState> OnStateChanged { get; set; }
 
+    private readonly string[] DomSelectorPrefixes = new string[] { "#", ".", "[" };
+
     protected override async Task OnAfterRenderAsync()
     {
-        await vm.HandleStateChangedAsync((sender, e) => OnStateChanged?.Invoke(e));
+        await vm.HandleStateChangedAsync<TState>((sender, e) => OnStateChanged?.Invoke(e));
+    }
+
+    public void Dispose()
+    {
+        vm.Dispose();
     }
 
     public async Task DispatchAsync(string propertyName, object propertyValue = null)
@@ -22,8 +30,19 @@
         await vm.DispatchAsync(propertyName, propertyValue);
     }
 
-    public void Dispose()
+    public void On(string eventName, string elementId, Action eventHandler)
     {
-        vm.Dispose();
+        var hasDomSelectorPrefix = DomSelectorPrefixes.Any(x => elementId.StartsWith(x));
+        elementId = hasDomSelectorPrefix ? elementId : "#" + elementId;
+
+        vm.HandleDomEventAsync<object>(eventName, elementId, (sender, e) => eventHandler?.Invoke());
+    }
+
+    public void On<TEventArg>(string eventName, string elementId, Action<TEventArg> eventHandler)
+    {
+        var hasDomSelectorPrefix = DomSelectorPrefixes.Any(x => elementId.StartsWith(x));
+        elementId = hasDomSelectorPrefix ? elementId : "#" + elementId;
+
+        vm.HandleDomEventAsync<TEventArg>(eventName, elementId, (sender, e) => eventHandler?.Invoke(e));
     }
 }

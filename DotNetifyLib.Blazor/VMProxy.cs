@@ -3,11 +3,12 @@ using Microsoft.JSInterop;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace DotNetify.Blazor
 {
-   public interface IVMProxy<TState> : IDisposable
+   public interface IVMProxy : IDisposable
    {
       /// <summary>
       /// Reference to the associated 'd-vm-context' HTML markup.
@@ -18,8 +19,16 @@ namespace DotNetify.Blazor
       /// Listens to the state changed event from the server-side view model.
       /// </summary>
       /// <param name="stateChangedEventHandler">Gets called when the client receives state change from the server-side view model.</param>
-      /// <returns></returns>
-      Task HandleStateChangedAsync(EventHandler<TState> stateChangedEventHandler);
+      Task HandleStateChangedAsync<TState>(EventHandler<TState> stateChangedEventHandler);
+
+      /// <summary>
+      /// Listens to an event from a DOM element.
+      /// </summary>
+      /// <typeparam name="TEventArg">Event argument type.</typeparam>
+      /// <param name="domSelector">Document element selector.</param>
+      /// <param name="eventName">Event name.</param>
+      /// <param name="eventHandler">Event handler.</param>
+      Task HandleDomEventAsync<TEventArg>(string eventName, string domSelector, EventHandler<TEventArg> eventHandler);
 
       /// <summary>
       /// Dispatches property value to server-side view model.
@@ -35,13 +44,11 @@ namespace DotNetify.Blazor
       Task DisposeAsync();
    }
 
-   public class VMProxy<TState> : ComponentInterop, IVMProxy<TState>
+   public class VMProxy : ComponentInterop, IVMProxy
    {
       private ElementRef _vmContextElemRef;
       private bool _hasElementRef;
       private bool _init;
-
-      private event EventHandler<TState> StateChanged;
 
       public ElementRef ElementRef
       {
@@ -67,7 +74,7 @@ namespace DotNetify.Blazor
          return _jsRuntime.InvokeAsync<object>("dotnetify_blazor.destroy", _vmContextElemRef);
       }
 
-      public Task HandleStateChangedAsync(EventHandler<TState> stateChangedEventHandler)
+      public Task HandleStateChangedAsync<TState>(EventHandler<TState> stateChanged)
       {
          if (_init)
             return Task.CompletedTask;
@@ -76,8 +83,16 @@ namespace DotNetify.Blazor
 
          _init = true;
 
-         StateChanged += stateChangedEventHandler;
-         return AddEventListenerAsync<TState>("onStateChange", ElementRef, state => StateChanged?.Invoke(this, state));
+         return AddEventListenerAsync<TState>("onStateChange", ElementRef, state => stateChanged?.Invoke(this, state));
+      }
+
+      public Task HandleDomEventAsync<TEventArg>(string eventName, string domSelector, EventHandler<TEventArg> eventHandler)
+      {
+         return AddEventListenerAsync<TEventArg>(eventName, domSelector, arg =>
+         {
+            System.Console.WriteLine("TEST");
+            eventHandler?.Invoke(this, arg);
+         });
       }
 
       public Task DispatchAsync(string propertyName, object propertyValue = null)

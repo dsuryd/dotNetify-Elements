@@ -1,11 +1,14 @@
 dotnetify_blazor = {
     version: 0.1,
     _eventListeners: [],
-    addEventListener: function (elem, event, callbackHelper) {
+    addEventListener: function (event, elem, callbackHelper) {
+        if (typeof elem === 'string') elem = document.querySelector(elem);
         if (!(elem && typeof elem.addEventListener === 'function')) throw "Invalid ElementRef";
         const callback = e => callbackHelper.invokeMethodAsync('Callback', e.detail);
-        dotnetify_blazor._eventListeners.push({ elem, event, callback });
-        elem.addEventListener(event, callback);
+        if (!dotnetify_blazor._eventListeners.some(x => x.elem === elem && x.event === x.event)) {
+            dotnetify_blazor._eventListeners.push({ elem, event, callback });
+            elem.addEventListener(event, callback);
+        }
     },
     dispatch: function (elem, state) {
         if (!(elem && elem.vm)) throw "ElementRef must reference 'd-vm-context'";

@@ -18,7 +18,13 @@ namespace DotNetify.Blazor
       public Task AddEventListenerAsync<TEventArg>(string eventName, ElementRef elementRef, Action<TEventArg> eventHandler)
       {
          var jsCallback = new JsCallback(arg => eventHandler?.Invoke(Callback<TEventArg>(arg)));
-         return _jsRuntime.InvokeAsync<object>("dotnetify_blazor.addEventListener", elementRef, eventName, new DotNetObjectRef(jsCallback));
+         return _jsRuntime.InvokeAsync<object>("dotnetify_blazor.addEventListener", eventName, elementRef, new DotNetObjectRef(jsCallback));
+      }
+
+      public Task AddEventListenerAsync<TEventArg>(string eventName, string elementSelector, Action<TEventArg> eventHandler)
+      {
+         var jsCallback = new JsCallback(arg => eventHandler?.Invoke(Callback<TEventArg>(arg)));
+         return _jsRuntime.InvokeAsync<object>("dotnetify_blazor.addEventListener", eventName, elementSelector, new DotNetObjectRef(jsCallback));
       }
 
       protected T Callback<T>(object arg)
