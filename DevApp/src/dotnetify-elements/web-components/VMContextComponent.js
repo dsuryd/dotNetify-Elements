@@ -1,4 +1,4 @@
-import VMContextStore from './VMContextStore';
+import VMContextStore from '../_internal/VMContextStore';
 import WebComponentHelper from '../utils/web-component-helper';
 import * as utils from '../utils';
 

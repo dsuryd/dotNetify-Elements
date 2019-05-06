@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import VMContextStore from '../_internal/VMContextStore';
-import createWebComponent from '../_internal/VMContextComponent';
+import createWebComponent from '../web-components/VMContextComponent';
 
 export const ContextTypes = {
    vmContext: PropTypes.object,

@@ -1,4 +1,4 @@
-import FormStore from './FormStore';
+import FormStore from '../_internal/FormStore';
 import WebComponentHelper from '../utils/web-component-helper';
 import * as utils from '../utils';
 
