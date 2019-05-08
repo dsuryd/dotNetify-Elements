@@ -74,7 +74,7 @@ export default class WebComponentHelper {
    }
 
    parseHtmlToReact(html) {
-      return new htmlToReact.Parser().parse(html);
+      return new htmlToReact.Parser().parse(html.trim());
    }
 
    static _parseFunctionString(funcString) {

@@ -16,6 +16,9 @@ export default function createWebComponent(Component, elementName, useShadowDom)
       }
 
       onAttributeChange = _ => {
+         // Handle when this is a <d-element> with a template.
+         this.setElementTemplate();
+
          // If the element is within a VMContext element, don't render the component until it has state.
          const vmContextElem = this.closest('d-vm-context');
          if (!vmContextElem || vmContextElem.context.getState()) this.renderComponent(true);
@@ -53,9 +56,8 @@ export default function createWebComponent(Component, elementName, useShadowDom)
             this.formElem.addEventListener('onStateChange', this.onFormContextStateChange);
          }
 
-         // We may expect the child of <d-element> to be a template, in which case store it in a local
-         // variable so we can pass to the inner React component on mount.
-         if (this.nodeName === 'D-ELEMENT') this.setTemplate();
+         // Handle when this is a <d-element> with a template.
+         this.setElementTemplate();
 
          // React render occurs when an attribute is set, but if there's no attribute, call
          // the render here, but use setTimeout to have it rendered after its parent.
@@ -125,8 +127,10 @@ export default function createWebComponent(Component, elementName, useShadowDom)
          }
       }
 
-      setTemplate() {
-         if (!this.template && this.children.length > 0) {
+      setElementTemplate() {
+         // We may expect the child of <d-element> to be a template, in which case store it in a local
+         // variable so we can pass to the inner React component on mount.
+         if (this.nodeName === 'D-ELEMENT' && !this.template && this.children.length > 0) {
             const elem = this.cloneNode(true);
             this.template = document.createElement('template');
             while (elem.children.length) this.template.content.appendChild(elem.children[0]);
