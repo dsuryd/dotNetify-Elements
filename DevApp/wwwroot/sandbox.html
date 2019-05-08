@@ -1,46 +1,157 @@
 ﻿<!DOCTYPE html>
 <html>
-    <head>
-       <title>DotNetify-Elements</title>
-       <meta charset="utf-8">
-       <meta name="viewport" content="initial-scale=1, width=device-width"/>
-       <link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
-       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-       <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
-       <link href="/dist/dotnetify-elements.css" rel="stylesheet" />
-       <link href="/dist/app.css" rel="stylesheet" />
-    </head>
-    <body>
-         <d-main>
-               <d-section css="width: 100vw;height:100vh;">
-                  <d-vm-context vm="HelloWorld">
-                     <d-frame>
-                        <d-panel>
-                           <d-element id="Greetings">
-                              <d-card>
-                                     
-                                 <h3 slot="value"></h3>
-                              </d-card>
-                           </d-element>
-                        </d-panel>
-         
-                     </d-frame>
-                  </d-vm-context>
-               </d-section>
-            </d-main>
-    
-        <!-- Polyfills for IE 11 -->
-        <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js"></script>
 
-        <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
-        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
-        <!-- <script crossorigin src="https://unpkg.com/react@16.3.2/umd/react.production.min.js"></script>
+<head>
+   <title>DotNetify-Elements</title>
+   <meta charset="utf-8">
+   <meta name="viewport" content="initial-scale=1, width=device-width" />
+   <link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
+   <link href="/dist/dotnetify-elements.css" rel="stylesheet" />
+   <link href="/dist/app.css" rel="stylesheet" />
+</head>
+
+<body>
+   <!-- <d-main>
+      <d-section css="width: 100vw;height:100vh;"> -->
+         <d-vm-context vm="CustomerForm">
+               <d-panel>
+                     <d-data-grid id="Contacts" enable="true"></d-data-grid>
+                     <d-form id="_form" plaintext="true">
+                         <d-panel>
+                             <d-panel horizontal="true">
+                                 <d-panel horizontal="true">
+                                     <d-button id="_edit" label="Edit" enable="true"></d-button>
+                                     <d-button id="Submit" label="Update" enable="true" submit="true" show="true"></d-button>
+                                     <d-button id="_cancel" label="Cancel" cancel="true" secondary="true" show="false"></d-button>
+                                 </d-panel>
+                                 <d-panel right="true">
+                                     <d-button id="_new" label="New Customer" enable="true"></d-button>
+                                 </d-panel>
+                             </d-panel>
+                             <d-tab margin="1.5rem 0">
+                                 <d-tab-item itemkey="basic" label="Basic Info">
+                                     <d-panel horizontal="true" nogap="true">
+                                         <d-panel horizontal="true">
+                                             <d-cell header="Person" flex="true">
+                                                 <d-vm-context vm="PersonForm">
+                                                     <d-form id="Person">
+                                                         <d-panel>
+                                                             <d-text-field id="FullName" plaintext="true" horizontal="true"></d-text-field>
+                                                             <d-dropdown-list id="Prefix" horizontal="true"></d-dropdown-list>
+                                                             <d-text-field id="FirstName" horizontal="true"></d-text-field>
+                                                             <d-text-field id="MiddleName" horizontal="true"></d-text-field>
+                                                             <d-text-field id="LastName" horizontal="true"></d-text-field>
+                                                             <d-dropdown-list id="Suffix" horizontal="true"></d-dropdown-list>
+                                                         </d-panel>
+                                                     </d-form>
+                                                 </d-vm-context>
+                                             </d-cell>
+                                             <d-cell header="Phone" flex="1" borders="top, right, bottom">
+                                                 <d-vm-context vm="PhoneForm">
+                                                     <d-form id="Phone">
+                                                         <d-panel>
+                                                             <d-text-field id="Work" horizontal="true"></d-text-field>
+                                                             <d-text-field id="Home" horizontal="true"></d-text-field>
+                                                             <d-text-field id="Mobile" horizontal="true"></d-text-field>
+                                                             <drop-down-list id="Primary" horizontal="true"></drop-down-list>
+                                                         </d-panel>
+                                                     </d-form>
+                                                 </d-vm-context>
+                                             </d-cell>
+                                         </d-panel>
+                                     </d-panel>
+                                 </d-tab-item>
+                                 <d-tab-item itemkey="address" label="Address">
+                                     <d-panel>
+                                         <d-cell header="Primary Address">
+                                             <d-vm-context vm="AddressForm">
+                                                 <d-form id="Address">
+                                                     <d-panel>
+                                                         <d-text-field id="Address1" horizontal="true"></d-text-field>
+                                                         <d-text-field id="Address2" horizontal="true"></d-text-field>
+                                                         <d-text-field id="City" horizontal="true"></d-text-field>
+                                                         <d-dropdown-list id="State" horizontal="true"></d-dropdown-list>
+                                                         <d-number-field id="ZipCode" horizontal="true"></d-number-field>
+                                                     </d-panel>
+                                                 </d-form>
+                                             </d-vm-context>
+                                         </d-cell>
+                                     </d-panel>
+                                 </d-tab-item>
+                             </d-tab>
+                         </d-panel>
+                         <d-vm-context vm="NewCustomerForm">
+                             <d-modal id="_dialog" header="New Customer" open="false" large="true">
+                                 <d-tab>
+                                     <d-tab-item key="Person" label="Person">
+                                         <d-vm-context vm="PersonForm">
+                                             <d-form id="Person">
+                                                 <d-panel>
+                                                     <d-dropdown-list id="Prefix"></d-dropdown-list>
+                                                     <d-text-field id="FirstName"></d-text-field>
+                                                     <d-text-field id="MiddleName"></d-text-field>
+                                                     <d-text-field id="LastName"></d-text-field>
+                                                     <d-dropdown-list id="Suffix"></d-dropdown-list>
+                                                 </d-panel>
+                                             </d-form>
+                                         </d-vm-context>
+                                     </d-tab-item>
+                                     <d-tab-item key="Phone" label="Phone">
+                                         <d-vm-context vm="PhoneForm">
+                                             <d-form id="Phone">
+                                                 <d-panel>
+                                                     <d-text-field id="Work"></d-text-field>
+                                                     <d-text-field id="Home"></d-text-field>
+                                                     <d-text-field id="Mobile"></d-text-field>
+                                                     <d-dropdown-list id="Primary"></d-dropdown-list>
+                                                 </d-panel>
+                                             </d-form>
+                                         </d-vm-context>
+                                     </d-tab-item>
+                                     <d-tab-item key="Address" label="Address">
+                                         <d-vm-context vm="AddressForm">
+                                             <d-form id="Address">
+                                                 <d-panel>
+                                                     <d-text-field id="Address1"></d-text-field>
+                                                     <d-text-field id="Address2"></d-text-field>
+                                                     <d-text-field id="City"></d-text-field>
+                                                     <d-dropdown-list id="State"></d-dropdown-list>
+                                                     <d-number-field id="ZipCode"></d-number-field>
+                                                 </d-panel>
+                                             </d-form>
+                                         </d-vm-context>
+                                     </d-tab-item>
+                                 </d-tab>
+                                 <footer>
+                                     <d-panel horizontal="true" right="true">
+                                         <d-button label="Cancel" cancel="true" secondary="true" onclick="closeDialog()"></d-button>
+                                         <d-button label="Submit" id="Submit" submit onclick="closeDialog()"></d-button>
+                                     </d-panel>
+                                 </footer>
+                             </d-modal>
+                         </d-vm-context>
+                     </d-form>
+                 </d-panel>
+         </d-vm-context>
+      <!-- </d-section>
+   </d-main> -->
+
+   <!-- Polyfills for IE 11 -->
+   <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js"></script>
+
+   <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+   <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+   <!-- <script crossorigin src="https://unpkg.com/react@16.3.2/umd/react.production.min.js"></script>
         <script crossorigin src="https://unpkg.com/react-dom@16.3.2/umd/react-dom.production.min.js"></script>         -->
-        <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/styled-components/4.1.3/styled-components.min.js"></script>
-        <script crossorigin src="https://cdn.jsdelivr.net/npm/@aspnet/signalr@1/dist/browser/signalr.min.js"></script>
-        <script crossorigin src="https://unpkg.com/@webcomponents/webcomponentsjs@2/custom-elements-es5-adapter.js"></script>
-        <script crossorigin src="https://unpkg.com/dotnetify@3/dist/dotnetify-react.min.js"></script>
+   <script crossorigin
+      src="https://cdnjs.cloudflare.com/ajax/libs/styled-components/4.1.3/styled-components.min.js"></script>
+   <script crossorigin src="https://cdn.jsdelivr.net/npm/@aspnet/signalr@1/dist/browser/signalr.min.js"></script>
+   <script crossorigin src="https://unpkg.com/@webcomponents/webcomponentsjs@2/custom-elements-es5-adapter.js"></script>
+   <script crossorigin src="https://unpkg.com/dotnetify@3/dist/dotnetify-react.min.js"></script>
 
-        <script src="/dist/dotnetify-elements.js"></script>
-    </body>
+   <script src="/dist/dotnetify-elements.js"></script>
+</body>
+
 </html>
