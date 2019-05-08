@@ -68,8 +68,10 @@ export default function createWebComponent(Component, elementName) {
          const styles = `
             display: flex;
             flex: ${props.flex ? props.flex : utils.flexAuto};
-            flex-wrap: ${props.flexWrap ? 'wrap' : 'nowrap'};
-            justify-content: ${props.apart ? 'space-between' : props.bottom ? 'flex-end' : props.center ? 'center' : 'flex-start'};
+            flex-wrap: ${props.wrap ? 'wrap' : 'nowrap'};
+            justify-content: ${props.apart
+               ? 'space-between'
+               : props.bottom ? 'flex-end' : props.center ? 'center' : 'flex-start'};
             flex-direction: ${_horizontal ? 'row' : 'column'};
             ${_margin !== '0rem' ? `margin: ${_margin};` : ''}
             ${props.padding ? `padding: ${props.padding};` : ''}
