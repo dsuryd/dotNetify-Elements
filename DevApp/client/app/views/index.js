@@ -43,7 +43,8 @@ import NavigationNavMenu from './navigation/NavigationNavMenu';
 
 import ExampleCustomerForm from './examples/customer-form/CustomerForm';
 import ExampleDashboard from './examples/dashboard/Dashboard';
-import ExampleWebComponents from './examples/web-components/WebComponents';
+
+import Sandbox from './Sandbox';
 
 export {
    Introduction,
@@ -85,5 +86,5 @@ export {
    NavigationNavMenu,
    ExampleCustomerForm,
    ExampleDashboard,
-   ExampleWebComponents
+   Sandbox
 };

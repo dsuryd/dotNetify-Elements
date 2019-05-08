@@ -14,7 +14,6 @@ namespace dotNetify_Elements
          WorkingWithForms,
          LayoutSystem,
          Customization,
-         WebComponents,
          GetStarted,
          Form,
          FormDemo,
@@ -51,7 +50,9 @@ namespace dotNetify_Elements
 
          /* Examples */
          ExampleCustomerForm,
-         ExampleDashboard
+         ExampleDashboard,
+
+         Sandbox,
       }
 
       public RoutingState RoutingState { get; set; }
@@ -65,7 +66,6 @@ namespace dotNetify_Elements
             new RouteTemplate(nameof(Route.WorkingWithForms))     { UrlPattern = "forms" },
             new RouteTemplate(nameof(Route.LayoutSystem))         { UrlPattern = "layout" },
             new RouteTemplate(nameof(Route.Customization))        { UrlPattern = "customize" },
-            new RouteTemplate(nameof(Route.WebComponents))        { UrlPattern = "webcomponent" },
             new RouteTemplate(nameof(Route.GetStarted))           { UrlPattern = "getstarted" },
 
             new RouteTemplate(nameof(Route.FormButton))           { UrlPattern = "form/button" },
@@ -104,6 +104,8 @@ namespace dotNetify_Elements
 
             new RouteTemplate(nameof(Route.ExampleCustomerForm))  { UrlPattern = "examples/customerform" },
             new RouteTemplate(nameof(Route.ExampleDashboard))     { UrlPattern = "examples/dashboard" },
+
+            new RouteTemplate(nameof(Route.Sandbox))              { UrlPattern = "sandbox" },            
          });
 
          AddProperty("NavMenu", new NavMenu(
