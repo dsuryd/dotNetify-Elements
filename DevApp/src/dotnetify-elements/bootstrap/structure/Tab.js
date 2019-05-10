@@ -11,6 +11,7 @@ export const Tab = styled.ul.attrs({
 const TabNavItem = styled.li.attrs({
    className: 'nav-item'
 })`
+   &.nav-item { padding-bottom: 0; }
    ${props => props.theme.Tab.TabItem}
 `;
 
