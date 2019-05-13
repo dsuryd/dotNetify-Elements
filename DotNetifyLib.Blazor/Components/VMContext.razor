@@ -1,5 +1,6 @@
 ﻿@using DotNetify.Blazor
 @using System.Linq
+@using Microsoft.AspNetCore.Components
 @implements IDisposable
 @typeparam TState
 @inject IVMProxy vm
@@ -17,7 +18,7 @@
 
     protected override async Task OnAfterRenderAsync()
     {
-        await vm.HandleStateChangedAsync<TState>((sender, e) => OnStateChanged?.Invoke(e));
+        await vm.HandleStateChangedAsync<TState>(state => OnStateChanged?.Invoke(state));
     }
 
     public void Dispose()
@@ -30,19 +31,19 @@
         await vm.DispatchAsync(propertyName, propertyValue);
     }
 
-    public void On(string eventName, string elementId, Action eventHandler)
+    public void HandleEvent(ElementRef elementRef, string eventName, Action eventHandler)
     {
-        var hasDomSelectorPrefix = DomSelectorPrefixes.Any(x => elementId.StartsWith(x));
-        elementId = hasDomSelectorPrefix ? elementId : "#" + elementId;
-
-        vm.HandleDomEventAsync<object>(eventName, elementId, (sender, e) => eventHandler?.Invoke());
+        vm.HandleDomEventAsync<object>(eventName, elementRef, e => eventHandler?.Invoke());
     }
 
-    public void On<TEventArg>(string eventName, string elementId, Action<TEventArg> eventHandler)
+    public void HandleEvent<TEventArg>(ElementRef elementRef, string eventName, Action<TEventArg> eventHandler)
+    {
+        vm.HandleDomEventAsync<TEventArg>(eventName, elementRef, e => eventHandler?.Invoke(e));
+    }
+
+    private string ToDomSelector(string elementId)
     {
         var hasDomSelectorPrefix = DomSelectorPrefixes.Any(x => elementId.StartsWith(x));
-        elementId = hasDomSelectorPrefix ? elementId : "#" + elementId;
-
-        vm.HandleDomEventAsync<TEventArg>(eventName, elementId, (sender, e) => eventHandler?.Invoke(e));
+        return hasDomSelectorPrefix ? elementId : "#" + elementId;
     }
 }

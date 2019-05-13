@@ -3,7 +3,7 @@ dotnetify_blazor = {
     _eventListeners: [],
     addEventListener: function (event, elem, callbackHelper) {
         if (typeof elem === 'string') elem = document.querySelector(elem);
-        if (!(elem && typeof elem.addEventListener === 'function')) throw "Invalid ElementRef";
+        if (!(elem && typeof elem.addEventListener === 'function')) throw "Cannot listen to event '" + event + "': invalid ElementRef";
         const callback = e => callbackHelper.invokeMethodAsync('Callback', e.detail);
         if (!dotnetify_blazor._eventListeners.some(x => x.elem === elem && x.event === x.event)) {
             dotnetify_blazor._eventListeners.push({ elem, event, callback });
