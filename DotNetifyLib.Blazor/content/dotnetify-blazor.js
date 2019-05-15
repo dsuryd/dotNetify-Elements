@@ -15,8 +15,6 @@ dotnetify_blazor = {
         elem.vm.$dispatch(JSON.parse(state));
     },
     destroy: function (elem) {
-        if (!(elem && elem.vm)) throw "ElementRef must reference 'd-vm-context'";
-        elem.vm.$destroy();
         dotnetify_blazor._eventListeners.filter(x => x.elem === elem).forEach(x => elem.removeEventListener(x.event, x.callback));
         dotnetify_blazor._eventListeners = dotnetify_blazor._eventListeners.filter(x => x.elem !== elem);
     }

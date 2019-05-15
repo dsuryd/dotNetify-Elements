@@ -40,10 +40,4 @@
     {
         vm.HandleDomEventAsync<TEventArg>(eventName, elementRef, e => eventHandler?.Invoke(e));
     }
-
-    private string ToDomSelector(string elementId)
-    {
-        var hasDomSelectorPrefix = DomSelectorPrefixes.Any(x => elementId.StartsWith(x));
-        return hasDomSelectorPrefix ? elementId : "#" + elementId;
-    }
 }
