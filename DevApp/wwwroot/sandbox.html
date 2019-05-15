@@ -189,7 +189,11 @@
    <script crossorigin src="https://unpkg.com/dotnetify@3/dist/dotnetify-react.min.js"></script>
 
    <script src="/dist/dotnetify-elements.js"></script>
-   <script>      dotnetify.debug = true;</script>
+   <script>
+      document.querySelectorAll("d-vm-context").forEach(element => {
+         element.addEventListener('onElementEvent', e => console.warn(e.detail))
+      });
+   </script>
 </body>
 
 </html>

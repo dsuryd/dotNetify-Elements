@@ -21,6 +21,12 @@ namespace DotNetify.Blazor
         Task HandleStateChangedAsync<TState>(Action<TState> stateChangedEventCallback);
 
         /// <summary>
+        /// Listens to the events from the web component elements under this VM context.
+        /// </summary>
+        /// <param name="eventCallback">Gets called when an element under this VM context raises an event.</param>
+        Task HandleElementEventAsync(Action<ElementEvent> eventCallback);
+
+        /// <summary>
         /// Listens to an event from a DOM element.
         /// </summary>
         /// <typeparam name="TEventArg">Event argument type.</typeparam>
@@ -28,15 +34,6 @@ namespace DotNetify.Blazor
         /// <param name="eventName">Event name.</param>
         /// <param name="eventHandler">Event callback.</param>
         Task HandleDomEventAsync<TEventArg>(string eventName, ElementRef domElement, Action<TEventArg> eventCallback);
-
-        /// <summary>
-        /// Listens to an event from a DOM element.
-        /// </summary>
-        /// <typeparam name="TEventArg">Event argument type.</typeparam>
-        /// <param name="domSelector">Document element selector.</param>
-        /// <param name="eventName">Event name.</param>
-        /// <param name="eventHandler">Event callback.</param>
-        Task HandleDomEventAsync<TEventArg>(string eventName, string domSelector, Action<TEventArg> eventCallback);
 
         /// <summary>
         /// Dispatches property value to server-side view model.
@@ -74,15 +71,23 @@ namespace DotNetify.Blazor
 
         public Task DisposeAsync()
         {
-            return _jsRuntime.InvokeAsync<object>("dotnetify_blazor.destroy", _vmContextElemRef);
+            return _jsRuntime.InvokeAsync<object>("dotnetify_blazor.removeAllEventListeners", _vmContextElemRef);
         }
 
-        public Task HandleStateChangedAsync<TState>(Action<TState> stateChanged)
+        public Task HandleStateChangedAsync<TState>(Action<TState> stateChangedCallback)
         {
             if (!_vmContextElemRef.HasValue)
                 throw new ArgumentNullException("ElementRef was not set. Make sure you assign it to the \"ref\" attribute of the \"d-vm-context\" tag.");
 
-            return HandleDomEventAsync<TState>("onStateChange", ElementRef, stateChanged);
+            return HandleDomEventAsync("onStateChange", ElementRef, stateChangedCallback);
+        }
+
+        public Task HandleElementEventAsync(Action<ElementEvent> eventCallback)
+        {
+            if (!_vmContextElemRef.HasValue)
+                throw new ArgumentNullException("ElementRef was not set. Make sure you assign it to the \"ref\" attribute of the \"d-vm-context\" tag.");
+
+            return HandleDomEventAsync<ElementEvent>("onElementEvent", ElementRef,  eventCallback);
         }
 
         public Task HandleDomEventAsync<TEventArg>(string eventName, ElementRef domElement, Action<TEventArg> eventCallback)
@@ -92,15 +97,6 @@ namespace DotNetify.Blazor
 
             _delegates.Add(eventCallback);
             return AddEventListenerAsync<TEventArg>(eventName, domElement, arg => eventCallback?.Invoke(arg));
-        }
-
-        public Task HandleDomEventAsync<TEventArg>(string eventName, string domSelector, Action<TEventArg> eventCallback)
-        {
-            if (_delegates.Contains(eventCallback))
-                return Task.CompletedTask;
-
-            _delegates.Add(eventCallback);
-            return AddEventListenerAsync<TEventArg>(eventName, domSelector, arg => eventCallback?.Invoke(arg));
         }
 
         public Task DispatchAsync(string propertyName, object propertyValue = null)

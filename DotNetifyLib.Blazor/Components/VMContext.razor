@@ -13,12 +13,15 @@
     [Parameter] protected string VM { get; set; }
     [Parameter] protected RenderFragment ChildContent { get; set; }
     [Parameter] protected Action<TState> OnStateChanged { get; set; }
+    [Parameter] protected Action<ElementEvent> OnElementEvent { get; set; }
+
 
     private readonly string[] DomSelectorPrefixes = new string[] { "#", ".", "[" };
 
     protected override async Task OnAfterRenderAsync()
     {
         await vm.HandleStateChangedAsync<TState>(state => OnStateChanged?.Invoke(state));
+        await vm.HandleElementEventAsync(args => HandleElementEvent(args));
     }
 
     public void Dispose()
@@ -39,5 +42,10 @@
     public void HandleEvent<TEventArg>(ElementRef elementRef, string eventName, Action<TEventArg> eventHandler)
     {
         vm.HandleDomEventAsync<TEventArg>(eventName, elementRef, e => eventHandler?.Invoke(e));
+    }
+
+    private void HandleElementEvent(ElementEvent args)
+    {
+        OnElementEvent?.Invoke(args);
     }
 }
