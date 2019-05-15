@@ -17,6 +17,7 @@ export default function createWebComponent(Component, elementName) {
       constructor() {
          super();
          this.state = {};
+         this.props = {};
          this.formStore = new FormStore(this);
          this.helper = new WebComponentHelper(this);
       }
@@ -69,6 +70,8 @@ export default function createWebComponent(Component, elementName) {
             onSubmitError: this.onSubmitError
          };
 
+         this.setPlainText(this.formElem ? this.formElem.props.plainText : this.getAttribute('plaintext') == 'true');
+
          setTimeout(() => this.formStore.init());
       }
 
@@ -77,10 +80,9 @@ export default function createWebComponent(Component, elementName) {
       }
 
       attributeChangedCallback(name, oldValue, newValue) {
-         const plainText = newValue === 'true';
-         if (name === 'plaintext' && plainText !== this.formStore.plainText) {
-            this.formStore.plainText = plainText;
-            this.setState({ plainText });
+         if (name === 'plaintext') {
+            const plainText = newValue === 'true';
+            plainText !== this.formStore.plainText && this.setPlainText(plainText);
          }
       }
 
@@ -91,6 +93,12 @@ export default function createWebComponent(Component, elementName) {
          };
       }
 
+      setPlainText(plainText) {
+         this.formStore.plainText = plainText;
+         this.props.plainText = plainText;
+         this.setState({ plainText });
+      }
+
       setState(state) {
          this.shouldEnterEditMode(state);
 
@@ -99,7 +107,8 @@ export default function createWebComponent(Component, elementName) {
       }
 
       shouldEnterEditMode(state) {
-         if (!this.formStore.editMode && state.plainText !== 'true' && this.hasVMContextState) this.formStore.enterEditMode();
+         if (!this.formStore.editMode && state.plainText !== 'true' && this.hasVMContextState)
+            this.formStore.enterEditMode();
       }
    }
 

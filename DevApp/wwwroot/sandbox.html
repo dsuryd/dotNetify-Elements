@@ -10,6 +10,43 @@
    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
    <link href="/dist/dotnetify-elements.css" rel="stylesheet" />
    <link href="/dist/app.css" rel="stylesheet" />
+   <script>
+      onEdit = function() {
+          setTimeout(function() {
+              document.getElementById('_form').setAttribute('plaintext', 'false');
+              document.getElementById('_edit').setAttribute('enable', 'false');
+              document.getElementById('_cancel').setAttribute('show', 'true');
+              document.getElementById('_cancel').setAttribute('enable', 'true');
+              document.getElementById('Submit').setAttribute('show', 'true');
+              document.getElementById('Submit').setAttribute('enable', 'true');
+              document.getElementById('_new').setAttribute('enable', 'false');
+          });
+      }
+
+      onUpdateOrCancel = function() {
+          setTimeout(function() {
+              document.getElementById('_cancel').setAttribute('show', 'false');
+              document.getElementById('_cancel').setAttribute('enable', 'false');
+              document.getElementById('Submit').setAttribute('show', 'false');
+              document.getElementById('Submit').setAttribute('enable', 'false');
+              document.getElementById('_form').setAttribute('plaintext', 'true');
+              document.getElementById('_edit').setAttribute('enable', 'true');
+              document.getElementById('_new').setAttribute('enable', 'true');
+          });
+      }
+
+      openDialog = function() {
+          setTimeout(function() {
+              document.getElementById('_dialog').setAttribute('open', 'true');
+          });
+      }
+
+      closeDialog = function() {
+          setTimeout(function() {
+              document.getElementById('_dialog').setAttribute('open', 'false');
+          });
+      }
+  </script>   
 </head>
 
 <body>
@@ -22,12 +59,12 @@
                          <d-panel>
                              <d-panel horizontal="true">
                                  <d-panel horizontal="true">
-                                     <d-button id="_edit" label="Edit" enable="true"></d-button>
-                                     <d-button id="Submit" label="Update" enable="true" submit="true" show="true"></d-button>
-                                     <d-button id="_cancel" label="Cancel" cancel="true" secondary="true" show="false"></d-button>
+                                     <d-button id="_edit" label="Edit" enable="true" onclick="onEdit()"></d-button>
+                                     <d-button id="Submit" label="Update" enable="true" submit="true" show="true" onclick="onUpdateOrCancel()"></d-button>
+                                     <d-button id="_cancel" label="Cancel" cancel="true" secondary="true" show="false" onclick="onUpdateOrCancel()"></d-button>
                                  </d-panel>
                                  <d-panel right="true">
-                                     <d-button id="_new" label="New Customer" enable="true"></d-button>
+                                     <d-button id="_new" label="New Customer" enable="true" onclick="openDialog()"></d-button>
                                  </d-panel>
                              </d-panel>
                              <d-tab margin="1.5rem 0">
@@ -152,6 +189,7 @@
    <script crossorigin src="https://unpkg.com/dotnetify@3/dist/dotnetify-react.min.js"></script>
 
    <script src="/dist/dotnetify-elements.js"></script>
+   <script>      dotnetify.debug = true;</script>
 </body>
 
 </html>

@@ -26,27 +26,36 @@ export default function createWebComponent(Component, elementName) {
          this.dispatchEvent(new CustomEvent('onStateChange', { detail: state }));
       };
 
+      onVMContextStateChange = _ => this.vmId && !this.vm && this.connect(this.vmId, this.getAttribute('options'));
+
       connectedCallback() {
          this.vmContextElem = this.parentElement.closest('d-vm-context');
-         if (this.vmContextElem) this.vmContext = this.vmContextElem.context;
+         if (this.vmContextElem) {
+            this.vmContext = this.vmContextElem.context;
+            this.vmContextElem.addEventListener('onStateChange', this.onVMContextStateChange);
+         }
 
          // If this is nested inside a container element, connect only on container mounting.
          const container = this.helper.getContainerParent();
          if (container && container.mountState !== 'mounting') return;
 
-         const vmId = this.getAttribute('vm');
-         if (vmId) this.connect(vmId, this.getAttribute('options'));
+         this.vmId = this.getAttribute('vm');
+         if (this.vmId && (!this.vmContextElem || this.vmContextElem.state))
+            this.connect(this.vmId, this.getAttribute('options'));
+
+         this.init = true;
       }
 
       disconnectedCallback() {
          this.disconnect();
+         this.vmContextElem && this.vmContextElem.removeEventListener('onStateChange', this.onVMContextStateChange);
       }
 
       attributeChangedCallback() {
-         const vmId = this.getAttribute('vm');
-         if (vmId) {
+         if (this.init) {
+            this.vmId = this.getAttribute('vm');
             this.disconnect();
-            this.connect(vmId, this.getAttribute('options'));
+            this.connect(this.vmId, this.getAttribute('options'));
          }
       }
 
