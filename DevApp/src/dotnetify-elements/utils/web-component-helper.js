@@ -52,7 +52,19 @@ export default class WebComponentHelper {
                if (eventHandler && typeof eventHandler !== 'function') eventHandler = this._eval(eventHandler);
                let result = typeof eventHandler == 'function' ? eventHandler(args) : eventHandler;
 
-               this.host.dispatchEvent(new CustomEvent(e, { ...args }));
+               this.host.dispatchEvent(new CustomEvent(e, { detail: args }));
+
+               if (this.host.vmContextElem)
+                  this.host.vmContextElem.dispatchEvent(
+                     new CustomEvent('onElementEvent', {
+                        detail: {
+                           targetId: this.host.getAttribute('id'),
+                           eventName: e,
+                           eventArgs: args
+                        }
+                     })
+                  );
+
                return result || null;
             }
          }),
