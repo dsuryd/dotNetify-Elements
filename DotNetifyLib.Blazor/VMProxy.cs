@@ -87,7 +87,7 @@ namespace DotNetify.Blazor
             if (!_vmContextElemRef.HasValue)
                 throw new ArgumentNullException("ElementRef was not set. Make sure you assign it to the \"ref\" attribute of the \"d-vm-context\" tag.");
 
-            return HandleDomEventAsync<ElementEvent>("onElementEvent", ElementRef,  eventCallback);
+            return HandleDomEventAsync<ElementEvent>("onElementEvent", ElementRef, eventCallback);
         }
 
         public Task HandleDomEventAsync<TEventArg>(string eventName, ElementRef domElement, Action<TEventArg> eventCallback)

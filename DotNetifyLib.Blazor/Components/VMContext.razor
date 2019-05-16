@@ -2,7 +2,6 @@
 @using System.Linq
 @using Microsoft.AspNetCore.Components
 @implements IDisposable
-@typeparam TState
 @inject IVMProxy vm
 
 <d-vm-context ref="vm.ElementRef" vm="@VM">
@@ -12,15 +11,14 @@
 @functions {
     [Parameter] protected string VM { get; set; }
     [Parameter] protected RenderFragment ChildContent { get; set; }
-    [Parameter] protected Action<TState> OnStateChanged { get; set; }
+    [Parameter] protected Action<object> OnStateChanged { get; set; }
     [Parameter] protected Action<ElementEvent> OnElementEvent { get; set; }
-
 
     private readonly string[] DomSelectorPrefixes = new string[] { "#", ".", "[" };
 
     protected override async Task OnAfterRenderAsync()
     {
-        await vm.HandleStateChangedAsync<TState>(state => OnStateChanged?.Invoke(state));
+        await vm.HandleStateChangedAsync<object>(state => OnStateChanged?.Invoke(state));
         await vm.HandleElementEventAsync(args => HandleElementEvent(args));
     }
 
