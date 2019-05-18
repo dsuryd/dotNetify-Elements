@@ -4,18 +4,20 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>DotNetify.Elements</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.4.0</Version>
+    <Version>0.5.0-alpha1</Version>
     <PackageId>DotNetify.Elements</PackageId>
     <Authors>Dicky Suryadi</Authors>
     <Company />
     <Product>DotNetify.Elements</Product>
-    <Description>Simple, lightweight, yet powerful way to build reactive, real-time web apps. Server-side counterpart of React component library.</Description>
-    <Copyright>Copyright 2018</Copyright>
+    <Description>Simple, lightweight, yet powerful way to build reactive, real-time web apps. Server-side counterpart of dotNetify web component library.</Description>
+    <Copyright>Copyright 2018-2019</Copyright>
     <PackageLicenseUrl>https://github.com/dsuryd/dotNetify/blob/master/LICENSE.md</PackageLicenseUrl>
     <PackageProjectUrl>http://dotnetify.net/elements</PackageProjectUrl>
     <PackageIconUrl>http://dotnetify.net/content/images/dotnetify.png</PackageIconUrl>
     <RepositoryUrl>https://github.com/dsuryd/dotNetify-Elements</RepositoryUrl>
     <PackageTags>react netcore reactive realtime signalr websocket</PackageTags>
+    <AssemblyVersion>0.5.0.0</AssemblyVersion>
+    <FileVersion>0.5.0.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>

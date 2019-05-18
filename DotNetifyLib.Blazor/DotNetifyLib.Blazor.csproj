@@ -11,6 +11,17 @@
     <RazorLangVersion>3.0</RazorLangVersion>
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
     <RootNamespace>DotNetify.Blazor</RootNamespace>
+    <Version>1.0.0-alpha1</Version>
+    <PackageId>DotNetify.Blazor</PackageId>
+    <Authors>Dicky Suryadi</Authors>
+    <Product>DotNetify.Blazor</Product>
+    <Description>Simple, lightweight, yet powerful way to build reactive, real-time client-side Blazor web apps.</Description>
+    <Copyright>Copyright 2019</Copyright>
+    <PackageProjectUrl>http://dotnetify.net/elements</PackageProjectUrl>
+    <PackageIconUrl>http://dotnetify.net/content/images/dotnetify.png</PackageIconUrl>
+    <RepositoryUrl>https://github.com/dsuryd/dotNetify-Elements</RepositoryUrl>
+    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,5 +35,12 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.Browser" Version="3.0.0-preview4-19216-03" />
     <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="2.1.1" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\dotNetify\LICENSE.md">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 </Project>
