@@ -1,4 +1,4 @@
-/* 
+/*
 Copyright 2018 Dicky Suryadi
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,7 +22,9 @@ namespace DotNetify.Elements
 {
    public class NavMenu : List<NavMenuItem>
    {
-      public NavMenu(NavMenuItem[] navMenuItems) : base(navMenuItems) { }
+      public NavMenu( NavMenuItem[] navMenuItems ) : base( navMenuItems )
+      {
+      }
    }
 
    public abstract class NavMenuItem
@@ -41,13 +43,19 @@ namespace DotNetify.Elements
    {
       public Route Route { get; set; }
 
-      public NavRoute() { }
+      public NavRoute()
+      {
+      }
 
-      public NavRoute(string label, Route route, string icon = null)
+      public NavRoute( string label, Route route, string icon = null )
       {
          Label = label;
          Route = route;
          Icon = icon;
+      }
+
+      public NavRoute( string label, string url, string icon = null ) : this( label, new Route { RedirectRoot = "/", Path = url }, icon )
+      {
       }
    }
 }
