@@ -81,7 +81,7 @@ export function toCamelCase(obj) {
 }
 
 export function toggleNavDrawer(open) {
-   const nav = document.getElementsByTagName('nav');
+   const nav = document.getElementsByTagName('nav') || document.getElementsByTagName('d-nav');
    if (nav.length > 0) {
       if (open === false) nav[0].classList.remove('open');
       else nav[0].classList.toggle('open');
