@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Theme } from './Theme';
 import lightTheme from '../theme-light';
-import createWebComponent from '../utils/web-component';
+import * as webComponent from '../web-components/LayoutGridComponent';
 
 const LayoutGrid = styled.main`
    display: grid;
@@ -89,14 +89,8 @@ Nav.defaultProps = { theme: lightTheme };
 Footer.defaultProps = { theme: lightTheme };
 Section.defaultProps = { theme: lightTheme };
 
-let mainComponent = createWebComponent(Main, 'd-main');
-let headerComponent = createWebComponent(Header, 'd-header');
-let navComponent = createWebComponent(Nav, 'd-nav');
-let footerComponent = createWebComponent(Footer, 'd-footer');
-let sectionComponent = createWebComponent(Section, 'd-section');
-
-mainComponent.prototype._isContainer = true;
-headerComponent.prototype._isContainer = true;
-navComponent.prototype._isContainer = true;
-footerComponent.prototype._isContainer = true;
-sectionComponent.prototype._isContainer = true;
+webComponent.createMainComponent(Main, 'd-main');
+webComponent.createHeaderComponent(Header, 'd-header');
+webComponent.createNavComponent(Nav, 'd-nav');
+webComponent.createFooterComponent(Footer, 'd-footer');
+webComponent.createSectionComponent(Section, 'd-section');
