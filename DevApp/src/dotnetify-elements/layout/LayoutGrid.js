@@ -54,6 +54,10 @@ export const Nav = styled.nav`
    @media (max-width: 768px) {
       margin-left: -${props => props.width || '251px'};
       visibility: hidden;
+      &.open {
+         margin-left: 0;
+         visibility: visible;
+      }
    }
    ${props => props.theme.Nav};
    ${props => props.css};

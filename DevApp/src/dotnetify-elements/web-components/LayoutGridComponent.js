@@ -58,6 +58,10 @@ export function createNavComponent(Component, elementName) {
          @media (max-width: 768px) {
             margin-left: -${props.width || '251px'};
             visibility: hidden;
+            &.open {
+               margin-left: 0;
+               visibility: visible;
+            }            
          }
          ${props.theme.Nav};
          ${props.css};

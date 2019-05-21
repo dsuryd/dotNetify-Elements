@@ -24,10 +24,3 @@ form {
 .pull-right {
    float: right;
 }
-
-@media (max-width: 768px) {
-   nav.open {
-      margin-left: 0;
-      visibility: visible;
-   }
-}

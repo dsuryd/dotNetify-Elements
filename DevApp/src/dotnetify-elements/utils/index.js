@@ -81,10 +81,10 @@ export function toCamelCase(obj) {
 }
 
 export function toggleNavDrawer(open) {
-   const nav = document.getElementsByTagName('nav') || document.getElementsByTagName('d-nav');
-   if (nav.length > 0) {
-      if (open === false) nav[0].classList.remove('open');
-      else nav[0].classList.toggle('open');
+   const nav = document.getElementsByTagName('nav')[0] || document.getElementsByTagName('d-nav')[0];
+   if (nav) {
+      if (open === false) nav.classList.remove('open');
+      else nav.classList.toggle('open');
    }
 }
 
