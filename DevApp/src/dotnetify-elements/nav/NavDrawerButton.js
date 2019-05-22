@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import * as utils from '../utils';
-import lightTheme from '../theme-light';
 import createWebComponent from '../utils/web-component';
 
 const IconContainer = styled.button`
@@ -21,7 +20,7 @@ const IconContainer = styled.button`
    ${props => props.css};
 `;
 
-IconContainer.defaultProps = { theme: lightTheme };
+IconContainer.defaultProps = { theme: utils.getDefaultTheme() };
 
 const HamburgerIcon = _ => (
    <span>

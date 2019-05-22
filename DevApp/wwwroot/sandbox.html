@@ -50,8 +50,8 @@
 </head>
 
 <body>
-   <!-- <d-main>
-      <d-section css="width: 100vw;height:100vh;"> -->
+   <d-main theme="dark">
+      <d-section css="width: 100vw;height:100vh;"> 
          <d-vm-context vm="CustomerForm">
                <d-panel>
                      <d-data-grid id="Contacts" enable="true"></d-data-grid>
@@ -164,7 +164,7 @@
                                  <footer>
                                      <d-panel horizontal="true" right="true">
                                          <d-button label="Cancel" cancel="true" secondary="true" onclick="closeDialog()"></d-button>
-                                         <d-button label="Submit" id="Submit" submit onclick="closeDialog()"></d-button>
+                                         <d-button label="Submit" id="Submit" submit="true" onclick="closeDialog()"></d-button>
                                      </d-panel>
                                  </footer>
                              </d-modal>
@@ -172,8 +172,8 @@
                      </d-form>
                  </d-panel>
          </d-vm-context>
-      <!-- </d-section>
-   </d-main> -->
+      </d-section>
+   </d-main> 
 
    <!-- Polyfills for IE 11 -->
    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js"></script>

@@ -1,3 +1,7 @@
+import { getDefaultTheme } from '../utils';
+
+export { getDefaultTheme };
+
 export function mapStyleToClass(props, prefix) {
    const {
       color,

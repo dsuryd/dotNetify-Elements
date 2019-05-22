@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Element from '../core/Element';
 import * as utils from '../utils';
-import lightTheme from '../theme-light';
 import createWebComponent from '../utils/web-component';
 
 const LabelContainer = styled.div`
@@ -42,9 +41,9 @@ const IconComponent = props => {
    return <Icon className={className}>{ligature}</Icon>;
 };
 
-LabelContainer.defaultProps = { theme: lightTheme };
-IconContainer.defaultProps = { theme: lightTheme };
-Icon.defaultProps = { theme: lightTheme };
+LabelContainer.defaultProps = { theme: utils.getDefaultTheme() };
+IconContainer.defaultProps = { theme: utils.getDefaultTheme() };
+Icon.defaultProps = { theme: utils.getDefaultTheme() };
 
 export class Label extends Element {
    static propTypes = {

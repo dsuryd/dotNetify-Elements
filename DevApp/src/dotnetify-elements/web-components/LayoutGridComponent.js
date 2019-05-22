@@ -1,9 +1,9 @@
 import createWebComponentCss from '../utils/web-component-css';
-import lightTheme from '../theme-light';
+import * as utils from '../utils';
 
 export function createMainComponent(Component, elementName) {
    return createWebComponentCss(Component, elementName, {}, host => {
-      let props = Object.assign({ theme: lightTheme }, host.props);
+      let props = Object.assign({ theme: utils.getDefaultTheme() }, host.props);
       return `
          display: grid;
          display: -ms-grid;
@@ -21,7 +21,7 @@ export function createMainComponent(Component, elementName) {
 
 export function createHeaderComponent(Component, elementName) {
    return createWebComponentCss(Component, elementName, {}, host => {
-      let props = Object.assign({ theme: lightTheme }, host.props);
+      let props = Object.assign({ theme: utils.getDefaultTheme() }, host.props);
       return `
          grid-area: header;
          -ms-grid-row: 1;
@@ -41,7 +41,7 @@ export function createHeaderComponent(Component, elementName) {
 
 export function createNavComponent(Component, elementName) {
    return createWebComponentCss(Component, elementName, {}, host => {
-      let props = Object.assign({ theme: lightTheme }, host.props);
+      let props = Object.assign({ theme: utils.getDefaultTheme() }, host.props);
       return `
          grid-area: nav;
          -ms-grid-column: 1;
@@ -71,7 +71,7 @@ export function createNavComponent(Component, elementName) {
 
 export function createFooterComponent(Component, elementName) {
    return createWebComponentCss(Component, elementName, {}, host => {
-      let props = Object.assign({ theme: lightTheme }, host.props);
+      let props = Object.assign({ theme: utils.getDefaultTheme() }, host.props);
       return `
          grid-area: footer;
          -ms-grid-row: 3;
@@ -86,7 +86,7 @@ export function createFooterComponent(Component, elementName) {
 
 export function createSectionComponent(Component, elementName) {
    return createWebComponentCss(Component, elementName, {}, host => {
-      let props = Object.assign({ theme: lightTheme }, host.props);
+      let props = Object.assign({ theme: utils.getDefaultTheme() }, host.props);
       return `
          grid-area: section;
          -ms-grid-column: 2;

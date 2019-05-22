@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Element from '../core/Element';
 import * as utils from '../utils';
-import lightTheme from '../theme-light';
 import createWebComponent from '../utils/web-component';
 import WebComponentHelper from './../utils/web-component-helper';
 
@@ -33,7 +32,7 @@ const Container = styled.div`
    ${props => props.css};
 `;
 
-Container.defaultProps = { theme: lightTheme };
+Container.defaultProps = { theme: utils.getDefaultTheme() };
 
 export class DataGrid extends Element {
    static propTypes = {

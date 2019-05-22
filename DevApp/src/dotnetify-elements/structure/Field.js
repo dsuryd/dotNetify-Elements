@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Label } from '../display/Label';
 import * as utils from '../utils';
-import lightTheme from '../theme-light';
 import createWebComponent from '../utils/web-component';
 
 const Container = styled.div`
@@ -56,11 +55,11 @@ const ValidationMessageContainer = styled.div`
    }
 `;
 
-Container.defaultProps = { theme: lightTheme };
-LabelContainer.defaultProps = { theme: lightTheme };
-InputContainer.defaultProps = { theme: lightTheme };
-PlainTextContainer.defaultProps = { theme: lightTheme };
-ValidationMessageContainer.defaultProps = { theme: lightTheme };
+Container.defaultProps = { theme: utils.getDefaultTheme() };
+LabelContainer.defaultProps = { theme: utils.getDefaultTheme() };
+InputContainer.defaultProps = { theme: utils.getDefaultTheme() };
+PlainTextContainer.defaultProps = { theme: utils.getDefaultTheme() };
+ValidationMessageContainer.defaultProps = { theme: utils.getDefaultTheme() };
 
 export class Field extends React.Component {
    static propTypes = {

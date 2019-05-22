@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import lightTheme from '../../theme-light';
+import * as utils from '../utils';
 
 export const Input = styled.input.attrs({
    className: 'form-control'
@@ -34,4 +34,4 @@ export const InputGroup = props => {
    );
 };
 
-Input.defaultProps = { theme: lightTheme };
+Input.defaultProps = { theme: utils.getDefaultTheme() };

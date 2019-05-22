@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import * as utils from '../../utils';
-import lightTheme from '../../theme-light';
 
 export const Card = styled.div.attrs({
    className: 'card'
@@ -40,8 +39,8 @@ export const CardFooter = styled.div.attrs({
    ${props => props.theme.Card.FooterContainer}
 `;
 
-Card.defaultProps = { theme: lightTheme };
-CardImage.defaultProps = { theme: lightTheme };
-CardHeader.defaultProps = { theme: lightTheme };
-CardBody.defaultProps = { theme: lightTheme };
-CardFooter.defaultProps = { theme: lightTheme };
+Card.defaultProps = { theme: utils.getDefaultTheme() };
+CardImage.defaultProps = { theme: utils.getDefaultTheme() };
+CardHeader.defaultProps = { theme: utils.getDefaultTheme() };
+CardBody.defaultProps = { theme: utils.getDefaultTheme() };
+CardFooter.defaultProps = { theme: utils.getDefaultTheme() };

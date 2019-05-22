@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { ThemeProvider } from 'styled-components';
-import lightTheme from '../theme-light';
 import * as utils from '../utils';
 
 const Container = styled.div`
@@ -23,7 +22,7 @@ export class Theme extends React.Component {
 
    static _root = null;
    static get currentTheme() {
-      return Theme._root ? Theme._root.currentTheme : lightTheme;
+      return Theme._root ? Theme._root.currentTheme : utils.getDefaultTheme();
    }
 
    constructor(props) {
@@ -36,11 +35,10 @@ export class Theme extends React.Component {
    }
 
    get theme() {
-      const theme = this.props.theme || lightTheme;
+      const theme = this.props.theme || utils.getDefaultTheme();
 
       if (this === Theme._root && Theme._root.currentTheme !== theme) {
-         if (Theme._root.currentTheme)
-            document.documentElement.classList.remove(`theme-${Theme._root.currentTheme.name}`);
+         if (Theme._root.currentTheme) document.documentElement.classList.remove(`theme-${Theme._root.currentTheme.name}`);
          document.documentElement.classList.add(`theme-${theme.name}`);
          Theme._root.currentTheme = theme;
 
@@ -72,7 +70,7 @@ export const withTheme = (Component, theme) =>
    class extends React.Component {
       constructor(props) {
          super(props);
-         this.state = { theme: theme || (Theme._root ? Theme._root.currentTheme : lightTheme) };
+         this.state = { theme: theme || (Theme._root ? Theme._root.currentTheme : utils.getDefaultTheme()) };
          if (!props.theme && Theme._root) {
             this.unsubscribe = Theme._root.onChange.subscribe(theme => this.setState({ theme: theme }));
          }

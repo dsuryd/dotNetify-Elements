@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import Element from '../core/Element';
 import * as utils from '../utils';
 import { toChartJsConfig } from './chart';
-import lightTheme from '../theme-light';
 import createWebComponent from '../utils/web-component';
 
 const ChartContainer = styled.div`
@@ -14,7 +13,7 @@ const ChartContainer = styled.div`
    ${props => props.css};
 `;
 
-ChartContainer.defaultProps = { theme: lightTheme };
+ChartContainer.defaultProps = { theme: utils.getDefaultTheme() };
 
 export class PieChart extends Element {
    static propTypes = {
@@ -60,7 +59,7 @@ export class PieChart extends Element {
       const { fullId, config, width, height, style, css, ...props } = this.attrs;
 
       let theme = this.context && this.context.theme;
-      if (!theme) theme = lightTheme;
+      if (!theme) theme = utils.getDefaultTheme();
 
       const _config = this.getConfig(config, theme);
       const { data, options } = toChartJsConfig(_config, props, this.value);

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import lightTheme from '../../theme-light';
+import * as utils from '../utils';
 
 export const TextArea = styled.textarea.attrs({
    className: 'form-control'
@@ -8,4 +8,4 @@ export const TextArea = styled.textarea.attrs({
    ${props => (props.valid === false ? props.theme.InputValidationError : '')};
 `;
 
-TextArea.defaultProps = { theme: lightTheme };
+TextArea.defaultProps = { theme: utils.getDefaultTheme() };

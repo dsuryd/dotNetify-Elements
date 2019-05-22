@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import lightTheme from '../../theme-light';
+import * as utils from '../utils';
 
 export const RadioToggleGroupContainer = styled.div.attrs({
    className: 'btn-group btn-group-toggle',
@@ -24,6 +24,6 @@ export const RadioToggleInput = styled.input.attrs({})`
    ${props => props.theme.RadioToggle.Input}
 `;
 
-RadioToggleGroupContainer.defaultProps = { theme: lightTheme };
-RadioToggleLabel.defaultProps = { theme: lightTheme };
-RadioToggleInput.defaultProps = { theme: lightTheme };
+RadioToggleGroupContainer.defaultProps = { theme: utils.getDefaultTheme() };
+RadioToggleLabel.defaultProps = { theme: utils.getDefaultTheme() };
+RadioToggleInput.defaultProps = { theme: utils.getDefaultTheme() };

@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import * as utils from '../utils';
-import lightTheme from '../theme-light';
 import createWebComponent from '../web-components/PanelComponent';
 
 const Container = styled.div`
@@ -31,8 +30,8 @@ const ChildContainer = styled.div`
    ${props => props.theme.Panel.ChildContainer};
 `;
 
-Container.defaultProps = { theme: lightTheme };
-ChildContainer.defaultProps = { theme: lightTheme };
+Container.defaultProps = { theme: utils.getDefaultTheme() };
+ChildContainer.defaultProps = { theme: utils.getDefaultTheme() };
 
 export class Panel extends React.Component {
    static contextTypes = {
@@ -173,8 +172,9 @@ export class Panel extends React.Component {
 
       const hasCell = this.children.some(x => x.type && (x.type._typeName === 'Cell' || x.type === 'd-cell'));
 
-      const Gap = this.context.theme ? this.context.theme.Panel.Gap : lightTheme.Panel.Gap;
-      const Margin = this.context.theme ? this.context.theme.Panel.Margin : lightTheme.Panel.Margin;
+      const theme = this.context.theme || utils.getDefaultTheme();
+      const Gap = theme.Panel.Gap;
+      const Margin = theme.Panel.Margin;
 
       const _gap = gap || (noGap || hasCell ? '0rem' : smallGap ? Gap.small : Gap.large);
       let _margin = margin || (noMargin ? '0rem' : smallMargin ? Margin.small : Margin.large);

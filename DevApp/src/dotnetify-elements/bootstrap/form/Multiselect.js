@@ -1,7 +1,7 @@
 import 'react-widgets/dist/css/react-widgets.css';
 import styled from 'styled-components';
 import rwMultiselect from 'react-widgets/lib/Multiselect';
-import lightTheme from '../../theme-light';
+import * as utils from '../utils';
 
 export const Multiselect = styled(rwMultiselect)`
 > .rw-widget-input {
@@ -10,4 +10,4 @@ export const Multiselect = styled(rwMultiselect)`
 }
 `;
 
-Multiselect.defaultProps = { theme: lightTheme };
+Multiselect.defaultProps = { theme: utils.getDefaultTheme() };

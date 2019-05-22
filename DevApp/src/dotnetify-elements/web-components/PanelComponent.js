@@ -1,13 +1,12 @@
 import createWebComponentCss from '../utils/web-component-css';
 import * as utils from '../utils';
-import lightTheme from '../theme-light';
 
 export default function createWebComponent(Component, elementName) {
    return createWebComponentCss(Component, elementName, { noMargin: true }, host => {
-      const props = host.props;
+      let props = Object.assign({ theme: utils.getDefaultTheme() }, host.props);
       const hasCell = [ ...host.children ].some(x => x.nodeName === 'D-CELL');
-      const Gap = lightTheme.Panel.Gap;
-      const Margin = lightTheme.Panel.Margin;
+      const Gap = props.theme.Panel.Gap;
+      const Margin = props.theme.Panel.Margin;
 
       const _horizontal = (props.horizontal && !props.bottom) || props.wrap || props.apart;
       const _gap = props.gap || (props.noGap || hasCell ? '0rem' : props.smallGap ? Gap.small : Gap.large);
@@ -46,7 +45,7 @@ export default function createWebComponent(Component, elementName) {
             ${props.right ? (props.horizontal ? 'justify-content: flex-end;' : 'align-items: flex-end;') : ''}
             ${props.css};
             ${childrenStyles};
-            ${props.theme ? props.theme.Panel.Container : ''}
+            ${props.theme.Panel.Container};
          `;
    });
 }

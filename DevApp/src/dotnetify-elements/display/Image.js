@@ -26,7 +26,7 @@ export class Image extends Element {
       const { fullId, src, children, ...props } = this.attrs;
       const _src = this.value || src;
 
-      return _src && <_Image id={fullId} src={_src} {...props} />;
+      return _src ? <_Image id={fullId} src={_src} {...props} /> : null;
    }
 }
 

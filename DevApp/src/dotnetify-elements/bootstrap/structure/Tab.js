@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import lightTheme from '../../theme-light';
+import * as utils from '../utils';
 
 export const Tab = styled.ul.attrs({
    className: 'nav nav-tabs'
@@ -28,5 +28,5 @@ export const TabItem = props => (
    </TabNavItem>
 );
 
-Tab.defaultProps = { theme: lightTheme };
-TabNavItem.defaultProps = { theme: lightTheme };
+Tab.defaultProps = { theme: utils.getDefaultTheme() };
+TabNavItem.defaultProps = { theme: utils.getDefaultTheme() };

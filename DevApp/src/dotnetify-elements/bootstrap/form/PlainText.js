@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import lightTheme from '../../theme-light';
+import * as utils from '../utils';
 
 export const PlainText = styled.div.attrs({
    className: 'form-control-plaintext'
@@ -8,4 +8,4 @@ export const PlainText = styled.div.attrs({
    ${props => props.theme.Field.PlainTextComponent}
 `;
 
-PlainText.defaultProps = { theme: lightTheme };
+PlainText.defaultProps = { theme: utils.getDefaultTheme() };

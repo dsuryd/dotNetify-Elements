@@ -1,6 +1,6 @@
 import 'react-widgets/dist/css/react-widgets.css';
 import styled from 'styled-components';
-import lightTheme from '../../theme-light';
+import * as utils from '../utils';
 import rwDateTimePicker from 'react-widgets/lib/DateTimePicker';
 import momentLocalizer from 'react-widgets-moment';
 import moment from 'moment';
@@ -16,4 +16,4 @@ export const DateTimePicker = styled(rwDateTimePicker)`
 }
 `;
 
-DateTimePicker.defaultProps = { theme: lightTheme };
+DateTimePicker.defaultProps = { theme: utils.getDefaultTheme() };

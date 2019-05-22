@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import * as utils from '../../utils';
-import lightTheme from '../../theme-light';
 
 const styleBorders = borders => {
    borders = borders.split(',').map(x => utils.toCamelCase(x.trim()));
@@ -44,6 +43,6 @@ export const CellBody = styled.div.attrs({
    ${props => props.theme.Cell.BodyContainer};
 `;
 
-Cell.defaultProps = { theme: lightTheme };
-CellHeader.defaultProps = { theme: lightTheme };
-CellBody.defaultProps = { theme: lightTheme };
+Cell.defaultProps = { theme: utils.getDefaultTheme() };
+CellHeader.defaultProps = { theme: utils.getDefaultTheme() };
+CellBody.defaultProps = { theme: utils.getDefaultTheme() };

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Element from '../core/Element';
 import markdown from '../utils/markdown';
-import lightTheme from '../theme-light';
+import * as utils from '../utils';
 import createWebComponent from '../utils/web-component';
 
 const ContainerComponent = styled.div`
@@ -11,7 +11,7 @@ const ContainerComponent = styled.div`
    ${props => props.css};
 `;
 
-ContainerComponent.defaultProps = { theme: lightTheme };
+ContainerComponent.defaultProps = { theme: utils.getDefaultTheme() };
 
 const MarkdownText = props => markdown(props.text);
 

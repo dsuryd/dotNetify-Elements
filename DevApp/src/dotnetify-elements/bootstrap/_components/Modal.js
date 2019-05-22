@@ -4,7 +4,7 @@ import rsModal from 'reactstrap/lib/Modal';
 import rsModalBody from 'reactstrap/lib/ModalBody';
 import rsModalFooter from 'reactstrap/lib/ModalFooter';
 import rsModalHeader from 'reactstrap/lib/ModalHeader';
-import lightTheme from './../../theme-light';
+import * as utils from '../utils';
 
 Object.assign(Modal.componentTypes, {
    Container: styled(rsModal)`${props => props.theme.Modal.Container}`,
@@ -13,10 +13,10 @@ Object.assign(Modal.componentTypes, {
    FooterContainer: styled(rsModalFooter)`${props => props.theme.Modal.FooterContainer}`
 });
 
-Modal.componentTypes.Container.defaultProps = { theme: lightTheme };
-Modal.componentTypes.HeaderContainer.defaultProps = { theme: lightTheme };
-Modal.componentTypes.BodyContainer.defaultProps = { theme: lightTheme };
-Modal.componentTypes.FooterContainer.defaultProps = { theme: lightTheme };
+Modal.componentTypes.Container.defaultProps = { theme: utils.getDefaultTheme() };
+Modal.componentTypes.HeaderContainer.defaultProps = { theme: utils.getDefaultTheme() };
+Modal.componentTypes.BodyContainer.defaultProps = { theme: utils.getDefaultTheme() };
+Modal.componentTypes.FooterContainer.defaultProps = { theme: utils.getDefaultTheme() };
 
 export default Modal;
 export { Modal };

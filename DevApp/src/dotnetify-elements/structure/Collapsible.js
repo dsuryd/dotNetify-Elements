@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import * as utils from '../utils';
 import { Label } from '../display/Label';
-import lightTheme from '../theme-light';
 import createWebComponent from '../utils/web-component';
 
 const Container = styled.div`
@@ -48,8 +47,8 @@ const AngleExpandIcon = props => (
    </IconContainer>
 );
 
-Container.defaultProps = { theme: lightTheme };
-HeaderContainer.defaultProps = { theme: lightTheme };
+Container.defaultProps = { theme: utils.getDefaultTheme() };
+HeaderContainer.defaultProps = { theme: utils.getDefaultTheme() };
 
 export class Collapsible extends React.Component {
    static propTypes = {

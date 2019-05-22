@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import lightTheme from '../../theme-light';
+import * as utils from '../utils';
 
 export const Select = styled.select.attrs({
    className: 'form-control'
@@ -8,4 +8,4 @@ export const Select = styled.select.attrs({
    ${props => (props.valid === false ? props.theme.InputValidationError : '')};
 `;
 
-Select.defaultProps = { theme: lightTheme };
+Select.defaultProps = { theme: utils.getDefaultTheme() };

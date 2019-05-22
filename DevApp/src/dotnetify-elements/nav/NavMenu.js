@@ -6,7 +6,6 @@ import { Label } from '../display/Label';
 import { RouteLink } from 'dotnetify';
 import Element from '../core/Element';
 import * as utils from '../utils';
-import lightTheme from '../theme-light';
 import createWebComponent from '../utils/web-component';
 
 const Container = styled.div`
@@ -49,8 +48,8 @@ const RouteLabel = ({ padding, navGroup, icon, children, style }) => (
    </div>
 );
 
-RouteContainer.defaultProps = { theme: lightTheme };
-GroupHeaderContainer.defaultProps = { theme: lightTheme };
+RouteContainer.defaultProps = { theme: utils.getDefaultTheme() };
+GroupHeaderContainer.defaultProps = { theme: utils.getDefaultTheme() };
 
 export class NavMenu extends Element {
    static propTypes = {

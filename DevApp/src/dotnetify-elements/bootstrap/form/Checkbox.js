@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import lightTheme from '../../theme-light';
+import * as utils from '../utils';
 
 export const CheckboxInput = styled.input.attrs({
    className: props => (props.switch || props.theme.Checkbox.style ? 'custom-control-input' : 'form-check-input')
@@ -14,7 +14,8 @@ export const CheckboxLabel = styled.label.attrs({
 `;
 
 export const CheckboxContainer = styled.div.attrs({
-   className: props => (props.switch ? 'custom-control custom-switch' : props.theme.Checkbox.style ? 'custom-control custom-checkbox' : 'form-check')
+   className: props =>
+      props.switch ? 'custom-control custom-switch' : props.theme.Checkbox.style ? 'custom-control custom-checkbox' : 'form-check'
 })`
    ${props => (props.checked ? props.theme.Checkbox.Container.Checked : props.theme.Checkbox.Container.Default)};
    ${props => props.css};
@@ -25,6 +26,6 @@ export const CheckboxPlainText = styled.b`
    ${props => (!props.checked ? 'text-decoration: line-through' : '')};
 `;
 
-CheckboxInput.defaultProps = { theme: lightTheme };
-CheckboxLabel.defaultProps = { theme: lightTheme };
-CheckboxContainer.defaultProps = { theme: lightTheme };
+CheckboxInput.defaultProps = { theme: utils.getDefaultTheme() };
+CheckboxLabel.defaultProps = { theme: utils.getDefaultTheme() };
+CheckboxContainer.defaultProps = { theme: utils.getDefaultTheme() };

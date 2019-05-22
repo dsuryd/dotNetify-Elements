@@ -1,4 +1,6 @@
 import React from 'react';
+import lightTheme from '../theme-light';
+import darkTheme from '../theme-dark';
 
 export const createEventEmitter = _ => {
    let subscribers = [];
@@ -28,6 +30,17 @@ export function filterChildren(children, predicate) {
       else return child;
    });
    return [ result, rest ];
+}
+
+export function getDefaultTheme() {
+   const mainElem = document.querySelector('d-main');
+   if (mainElem) {
+      const theme = mainElem.getAttribute('theme');
+      if (theme == 'dark') return darkTheme;
+      else if (theme == 'light') return lightTheme;
+      else if (/^{.*}/.exec(theme)) return JSON.parse(theme);
+   }
+   return lightTheme;
 }
 
 export const flexAuto = isIE11() ? '1 1 auto' : '1';

@@ -4,13 +4,11 @@ import styled from 'styled-components';
 import * as utils from '../utils';
 import { Label } from '../display/Label';
 import { Frame } from '../layout/Frame';
-import lightTheme from '../theme-light';
 import createWebComponent from '../utils/web-component';
-import { throws } from 'assert';
 
 const Container = styled.div`${props => props.theme.Tab.Container};`;
 
-Container.defaultProps = { theme: lightTheme };
+Container.defaultProps = { theme: utils.getDefaultTheme() };
 
 export class Tab extends React.Component {
    static propTypes = {

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Theme } from './Theme';
-import lightTheme from '../theme-light';
+import * as utils from '../utils';
 import * as webComponent from '../web-components/LayoutGridComponent';
 
 const LayoutGrid = styled.main`
@@ -87,11 +87,11 @@ export const Section = styled.section`
    ${props => props.css};
 `;
 
-LayoutGrid.defaultProps = { theme: lightTheme };
-Header.defaultProps = { theme: lightTheme };
-Nav.defaultProps = { theme: lightTheme };
-Footer.defaultProps = { theme: lightTheme };
-Section.defaultProps = { theme: lightTheme };
+LayoutGrid.defaultProps = { theme: utils.getDefaultTheme() };
+Header.defaultProps = { theme: utils.getDefaultTheme() };
+Nav.defaultProps = { theme: utils.getDefaultTheme() };
+Footer.defaultProps = { theme: utils.getDefaultTheme() };
+Section.defaultProps = { theme: utils.getDefaultTheme() };
 
 webComponent.createMainComponent(Main, 'd-main');
 webComponent.createHeaderComponent(Header, 'd-header');
