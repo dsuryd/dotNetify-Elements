@@ -11,7 +11,8 @@ export default class WebComponentHelper {
 
       // Convert attribute value type, which is always string, to the expected property type.
       let value = attrValue;
-      if (attrValue === 'true' || attrValue === 'false') value = attrValue == 'true';
+      if (attrName === 'css') value = attrValue;
+      else if (attrValue === 'true' || attrValue === 'false') value = attrValue == 'true';
       else if (!isNaN(attrValue) && attrValue !== '') value = +attrValue;
       else if (/^{.*}/.exec(attrValue)) value = JSON.parse(attrValue);
       else if (/([A-z0-9$_]*)\(.*\)/.exec(attrValue)) value = this.parseFunctionString(attrValue);
