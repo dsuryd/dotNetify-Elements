@@ -69,7 +69,9 @@ export default function createWebComponent(Component, elementName, useShadowDom)
 
       getChildrenProp(helper) {
          this.childrenHtml = this.childrenHtml || this.innerHTML;
-         if (this.childrenHtml) return { children: helper.parseHtmlToReact(this.childrenHtml) };
+         let children = helper.parseHtmlToReact(this.childrenHtml);
+         if (Array.isArray(children)) children = children.filter(x => typeof x !== 'string' || !!x.trim());
+         if (this.childrenHtml) return { children };
       }
 
       getTemplateProp() {
@@ -120,8 +122,10 @@ export default function createWebComponent(Component, elementName, useShadowDom)
          else if (this.vmContext && !remount) {
             if (typeof this.component.shouldComponentUpdate == 'function') {
                if (this.component.shouldComponentUpdate()) this.component.forceUpdate();
-            } else this.component.forceUpdate();
-         } else {
+            }
+            else this.component.forceUpdate();
+         }
+         else {
             this.unmountComponent();
             this.mountComponent();
          }

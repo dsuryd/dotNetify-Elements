@@ -51,6 +51,12 @@
 
 <body>
    <d-main theme="dark">
+      <d-vm-context vm="Introduction">
+      <d-markdown id="Content">
+         <div>Hi</div>
+         <div>Hello</div>
+      </d-markdown>
+   </d-vm-context>
       <d-section css="width: 100vw;height:100vh;"> 
          <d-vm-context vm="CustomerForm">
                <d-panel>
@@ -190,8 +196,10 @@
 
    <script src="/dist/dotnetify-elements.js"></script>
    <script>
+      document.addEventListener('CustomerForm_onElementEvent', e => console.warn(e, e.detail))
       document.querySelectorAll("d-vm-context").forEach(element => {
-         element.addEventListener('onElementEvent', e => console.warn(e.detail))
+         //element.addEventListener('onElementEvent', e => console.warn(e.detail))
+         
       });
    </script>
 </body>

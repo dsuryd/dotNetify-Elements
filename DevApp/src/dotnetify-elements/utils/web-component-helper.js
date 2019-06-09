@@ -55,16 +55,14 @@ export default class WebComponentHelper {
 
                this.host.dispatchEvent(new CustomEvent(e, { detail: args }));
 
-               if (this.host.vmContextElem)
-                  this.host.vmContextElem.dispatchEvent(
-                     new CustomEvent('onElementEvent', {
-                        detail: {
-                           targetId: this.host.getAttribute('id'),
-                           eventName: e,
-                           eventArgs: args
-                        }
-                     })
-                  );
+               if (typeof this.host.vmContextElem)
+                  this.host.vmContextElem.dispatchVMEvent('onElementEvent', {
+                     detail: {
+                        targetId: this.host.getAttribute('id'),
+                        eventName: e,
+                        eventArgs: args
+                     }
+                  });
 
                return result || null;
             }

@@ -23,11 +23,23 @@ export default function createWebComponent(Component, elementName) {
       onStateChange = state => {
          const onStateChange = this.helper.parseFunctionString(this.getAttribute('onstatechange'));
          if (typeof onStateChange == 'function') onStateChange(state);
-         this.dispatchEvent(new CustomEvent('onStateChange', { detail: state }));
+         this.dispatchVMEvent('onStateChange', { detail: state });
       };
+
+      dispatchVMEvent(eventName, eventArg) {
+         this.dispatchEvent(new CustomEvent(eventName, eventArg));
+         document.dispatchEvent(new CustomEvent(`${this.vmId}_${eventName}`, eventArg));
+      }
 
       onVMContextStateChange = _ => this.vmId && !this.vm && this.connect(this.vmId, this.getAttribute('options'));
 
+      attributeChangedCallback() {
+         if (this.init) {
+            this.vmId = this.getAttribute('vm');
+            this.disconnect();
+            this.connect(this.vmId, this.getAttribute('options'));
+         }
+      }
       connectedCallback() {
          this.vmContextElem = this.parentElement.closest('d-vm-context');
          if (this.vmContextElem) {
@@ -40,8 +52,7 @@ export default function createWebComponent(Component, elementName) {
          if (container && container.mountState !== 'mounting') return;
 
          this.vmId = this.getAttribute('vm');
-         if (this.vmId && (!this.vmContextElem || this.vmContextElem.state))
-            this.connect(this.vmId, this.getAttribute('options'));
+         if (this.vmId && (!this.vmContextElem || this.vmContextElem.state)) this.connect(this.vmId, this.getAttribute('options'));
 
          this.init = true;
       }
@@ -49,14 +60,6 @@ export default function createWebComponent(Component, elementName) {
       disconnectedCallback() {
          this.disconnect();
          this.vmContextElem && this.vmContextElem.removeEventListener('onStateChange', this.onVMContextStateChange);
-      }
-
-      attributeChangedCallback() {
-         if (this.init) {
-            this.vmId = this.getAttribute('vm');
-            this.disconnect();
-            this.connect(this.vmId, this.getAttribute('options'));
-         }
       }
 
       connect(vmId, optionsStr) {
