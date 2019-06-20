@@ -15,19 +15,28 @@ dotnetify_blazor = {
                     parent = parent.parentElement;
                 }
             };
-            if (insideContainer()) {
-                const id = 'tmp__' + elem.getAttribute('vm');
+            const parent = insideContainer();
+            if (parent) {
+                const vmId = elem.getAttribute('vm');
+                const id = 'tmp__' + vmId;
                 const placeholder = document.createElement("span");
                 placeholder.setAttribute('id', id);
                 elem = elem.parentElement.replaceChild(placeholder, elem);
+                elem.setAttribute('vm', '');
                 document.body.appendChild(elem);
 
+                let moved = false;
                 const restorePosition = () => {
-                    const placeholder = document.getElementById(id);
-                    placeholder.parentElement.replaceChild(elem, placeholder);
-                    elem.removeEventListener('onStateChange', restorePosition);
+                    if (!moved) {
+                        const placeholder = document.getElementById(id);
+                        placeholder.parentElement.replaceChild(elem, placeholder);
+                        elem.setAttribute('vm', vmId);
+                        moved = true;
+                    }
+                    parent.removeEventListener('mounted', restorePosition);
                 };
-                elem.addEventListener('onStateChange', restorePosition);
+                parent.addEventListener('mounted', restorePosition);
+                setTimeout(restorePosition, 750);
             }
         }
 
