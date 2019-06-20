@@ -107,6 +107,7 @@ export default function createWebComponent(Component, elementName, useShadowDom)
          this.mountState = 'mounting';
          this.component = ReactDOM.render(<Component {...this.props} />, this.mountRoot);
          this.mountState = 'mounted';
+         this.dispatchEvent(new CustomEvent('mounted'));
       }
 
       unmountComponent() {
@@ -121,7 +122,7 @@ export default function createWebComponent(Component, elementName, useShadowDom)
          if (!this.component) this.mountComponent();
          else if (this.vmContext && !remount) {
             if (typeof this.component.shouldComponentUpdate == 'function') {
-               if (this.component.shouldComponentUpdate()) this.component.forceUpdate();
+               if (this.component.shouldComponentUpdate({})) this.component.forceUpdate();
             }
             else this.component.forceUpdate();
          }
