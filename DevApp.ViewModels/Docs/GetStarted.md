@@ -126,7 +126,7 @@ Add **package.json** with the following content:
     "babel-preset-react": "~6.24.1",
     "css-loader": "~0.28.11",
     "dotnetify": "~3.3.1",
-    "dotnetify-elements": "~0.5.0",
+    "dotnetify-elements": "~1.0.0",
     "react": "~16.3.2",
     "react-dom": "~16.3.2",
     "url-loader": "~1.0.1",
