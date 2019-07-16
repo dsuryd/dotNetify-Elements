@@ -141,9 +141,9 @@ export class NavMenu extends Element {
    }
 }
 
-export const NavMenuTarget = styled.div.attrs({
+export const NavMenuTarget = styled.div.attrs(props => ({
    id: 'NavMenuTarget'
-})`
+}))`
     display: flex;
     flex: ${utils.flexAuto};       
     width: 100%;

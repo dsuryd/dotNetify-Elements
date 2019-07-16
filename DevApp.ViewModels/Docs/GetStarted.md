@@ -125,8 +125,8 @@ Add **package.json** with the following content:
     "babel-preset-env": "~1.7.0",
     "babel-preset-react": "~6.24.1",
     "css-loader": "~0.28.11",
-    "dotnetify": "~3.3.1",
-    "dotnetify-elements": "~1.0.0",
+    "dotnetify": "~3.4.0",
+    "dotnetify-elements": "~1.0.2",
     "react": "~16.3.2",
     "react-dom": "~16.3.2",
     "url-loader": "~1.0.1",
@@ -358,7 +358,7 @@ Update **Views\Shared\_Layout.cshtml** by adding:
       signalR = jQuery.signalR;
    </script>
    <script src="https://unpkg.com/dotnetify@3/dist/dotnetify-react.min.js"></script>
-   <script src="https://unpkg.com/dotnetify-elements@0/lib/dotnetify-elements.bundle.js"></script>   
+   <script src="https://unpkg.com/dotnetify-elements@1/lib/dotnetify-elements.bundle.js"></script>   
 </body>
 </html>
 ```
@@ -469,7 +469,7 @@ Use the following script tags before using web components:
 </script>
 
 <script src="https://unpkg.com/dotnetify@3/dist/dotnetify-react.min.js"></script>  
-<script src="https://unpkg.com/dotnetify-elements@0/lib/dotnetify-elements.bundle.js"></script> 
+<script src="https://unpkg.com/dotnetify-elements@1/lib/dotnetify-elements.bundle.js"></script> 
 ```
 
 

@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { Card, CardImage, Element } from 'dotnetify-elements';
 
-const InfoIcon = styled.i.attrs({
+const InfoIcon = styled.i.attrs(props => ({
    className: 'material-icons'
-})`
+}))`
    font-size: 3rem;
    padding: 1.5rem;
    color: white;   

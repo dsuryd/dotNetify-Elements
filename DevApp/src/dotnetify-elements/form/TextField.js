@@ -55,6 +55,7 @@ export class TextField extends InputElement {
       super(props);
       this.state = { validationMessages: [] };
       this.changed = false;
+      this.inputRef = React.createRef();
    }
 
    componentDidMount() {
@@ -68,6 +69,7 @@ export class TextField extends InputElement {
       if (this.props.validation) this.vmProperty.addValidation(this.props.validation);
 
       this.vmProperty.initMask();
+      this.vmProperty.dom = this.inputRef.current;
    }
 
    componentWillUnmount() {
@@ -143,7 +145,7 @@ export class TextField extends InputElement {
                      onKeyPress={this.handleKeyPress}
                      onChange={handleChange}
                      onBlur={handleBlur}
-                     ref={elem => (this.vmProperty.dom = elem)}
+                     ref={this.inputRef}
                      {...props}
                   />
                </InputGroup>

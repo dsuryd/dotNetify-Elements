@@ -53,9 +53,16 @@ import React from 'react';
 import { TextField, VMContext } from 'dotnetify-elements';
 import MuiTextField from '@material-ui/core/TextField';
 
+class MuiTextFieldAdapter extends React.Component {
+   render() {
+      const { muiLabel, inputComponent, ...props } = this.props;
+      return <MuiTextField label={muiLabel} {...props} />;
+   }
+}
+
 const SubComponentExample = _ => (
    <VMContext vm="SubComponentExample">
-      <TextField id="Name" label="" inputComponent={MuiTextField} />
+      <TextField id="Name" label="" inputComponent={MuiTextFieldAdapter} />
    </VMContext>
 );
 ```

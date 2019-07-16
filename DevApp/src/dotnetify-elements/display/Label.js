@@ -24,9 +24,9 @@ const IconContainer = styled.span`
    ${props => props.theme.Label.IconContainer};
 `;
 
-const Icon = styled.i.attrs({
-   className: props => props.className
-})`
+const Icon = styled.i.attrs(props => ({
+   className: props.className
+}))`
     ${props => props.theme.Label.IconComponent}    
 `;
 

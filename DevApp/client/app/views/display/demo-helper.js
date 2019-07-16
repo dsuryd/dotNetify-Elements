@@ -18,9 +18,9 @@ export class Badge extends Element {
    }
 }
 
-export const BigIcon = styled.i.attrs({
+export const BigIcon = styled.i.attrs(props => ({
    className: 'material-icons'
-})`
+}))`
    width:60px; 
    font-size: 4rem;
    color: #1c8adb;

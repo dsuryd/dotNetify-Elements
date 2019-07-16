@@ -9,9 +9,9 @@ const styleBorders = borders => {
       .reduce((aggregate, current) => aggregate + current, '');
 };
 
-export const Cell = styled.div.attrs({
+export const Cell = styled.div.attrs(props => ({
    className: 'card cell'
-})`
+}))`
    flex: ${utils.flexAuto};
    border-radius: 0;
    ${props => (props.borders ? styleBorders(props.borders) : null)}
@@ -19,9 +19,9 @@ export const Cell = styled.div.attrs({
    ${props => props.css};
 `;
 
-export const CellHeader = styled.div.attrs({
+export const CellHeader = styled.div.attrs(props => ({
    className: 'card-header cell-header'
-})`
+}))`
    display: flex;
    border-radius: 0 !important;
    ${props => (props.padding ? `padding: ${props.padding};` : ``)}   
@@ -31,9 +31,9 @@ export const CellHeader = styled.div.attrs({
    ${props => props.theme.Cell.HeaderContainer};
 `;
 
-export const CellBody = styled.div.attrs({
+export const CellBody = styled.div.attrs(props => ({
    className: 'card-body cell-body'
-})`
+}))`
    display: flex;
    border-radius: 0;
    ${props => (props.padding ? `padding: ${props.padding};` : ``)}

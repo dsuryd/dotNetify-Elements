@@ -5,6 +5,13 @@ import { Article } from '../components';
 
 import MuiTextField from '@material-ui/core/TextField';
 
+class MuiTextFieldAdapter extends React.Component {
+   render() {
+      const { muiLabel, inputComponent, ...props } = this.props;
+      return <MuiTextField label={muiLabel} {...props} />;
+   }
+}
+
 const Customization = props => (
    <Article vm="Customization" id="Content">
       <Markdown id="Content">
@@ -139,6 +146,7 @@ const HelloCard = _ => (
       </Panel>
    );
 };
+
 const SubComponentExample = _ => (
    <VMContext vm="SubComponentExample">
       <Card css="background: transparent">
@@ -149,7 +157,7 @@ const SubComponentExample = _ => (
             </Panel>
             <Panel>
                <div>Override:</div>
-               <TextField id="Name" label="" inputComponent={MuiTextField} />
+               <TextField id="Name" label="" inputComponent={MuiTextFieldAdapter} />
             </Panel>
          </Panel>
       </Card>
