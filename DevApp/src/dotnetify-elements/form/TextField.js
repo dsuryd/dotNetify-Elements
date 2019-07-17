@@ -78,6 +78,7 @@ export class TextField extends InputElement {
 
    componentDidUpdate() {
       this.vmProperty.initMask();
+      this.vmProperty.dom = this.inputRef.current;
    }
 
    handleBlur = _ => {
