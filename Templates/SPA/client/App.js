@@ -14,7 +14,7 @@ const App = _ => (
         <Panel>
           <NavMenu id="NavMenu" />
           <Panel flex bottom padding="1rem">
-            <Button stretch label="Logout" onClick={_ => auth.signOut()} />
+            <Button stretch label="Logout" css="> * { justify-content: center }" onClick={_ => auth.signOut()} />
           </Panel>
         </Panel>
       </Nav>

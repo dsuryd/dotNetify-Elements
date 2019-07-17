@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { Card, CardImage, Element } from 'dotnetify-elements';
 
-const InfoIcon = styled.i.attrs({
-  className: 'material-icons'
-})`
+const InfoIcon = styled.i.attrs(props => ({
+   className: 'material-icons'
+}))`
    font-size: 3rem;
    padding: 1.5rem;
    color: white;   
@@ -21,16 +21,16 @@ const cardCss = `
 `;
 
 export default class InfoCard extends Element {
-  render() {
-    const { color, icon, label } = this.attrs;
-    return (
-      <Card horizontal css={cardCss}>
-        <CardImage>
-          <InfoIcon color={color}>{icon}</InfoIcon>
-        </CardImage>
-        <label>{label}</label>
-        <h3>{this.value}</h3>
-      </Card>
-    );
-  }
+   render() {
+      const { color, icon, label } = this.attrs;
+      return (
+         <Card horizontal css={cardCss}>
+            <CardImage>
+               <InfoIcon color={color}>{icon}</InfoIcon>
+            </CardImage>
+            <label>{label}</label>
+            <h3>{this.value}</h3>
+         </Card>
+      );
+   }
 }

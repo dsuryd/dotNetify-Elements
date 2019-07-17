@@ -1,5 +1,6 @@
 'use strict';
 
+const path = require('path');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
@@ -16,7 +17,8 @@ module.exports = {
   },
   resolve: {
     modules: [ 'client', 'node_modules' ],
-    extensions: [ '.js', '.jsx', '.tsx' ]
+    extensions: [ '.js', '.jsx', '.tsx' ],
+    alias: { 'styled-components': path.resolve(__dirname, 'node_modules', 'styled-components') }
   },
   module: {
     rules: [
