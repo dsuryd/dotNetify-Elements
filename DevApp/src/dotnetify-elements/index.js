@@ -1,6 +1,5 @@
 import './bootstrap/override.css';
 
-import dotnetify from 'dotnetify';
 import { Element, VMContext, ContextTypes } from './core';
 
 // Display
@@ -42,9 +41,11 @@ import { Tab, TabItem } from './bootstrap/_components/Tab';
 // Navigation
 import { NavDrawerButton, NavMenu, NavMenuTarget } from './bootstrap/_components/NavMenu';
 
+// Web Component
+import createWebComponent from './utils/web-component';
+
 let dotNetifyElements = {
    /* Core */
-   dotnetify,
    ContextTypes,
    Element,
    VMContext,
@@ -96,7 +97,9 @@ let dotNetifyElements = {
    Theme,
    withTheme,
    lightTheme,
-   darkTheme
+   darkTheme,
+   /* Web Component */
+   createWebComponent
 };
 
 if (window) window.dotNetifyElements = dotNetifyElements;

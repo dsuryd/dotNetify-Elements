@@ -1,5 +1,6 @@
 import VMContextStore from '../_internal/VMContextStore';
 import WebComponentHelper from '../utils/web-component-helper';
+import '../utils/web-component-es5-adapter';
 import * as utils from '../utils';
 
 export default function createWebComponent(Component, elementName) {

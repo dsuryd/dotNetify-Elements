@@ -55,7 +55,7 @@ export default class WebComponentHelper {
 
                this.host.dispatchEvent(new CustomEvent(e, { detail: args }));
 
-               if (typeof this.host.vmContextElem)
+               if (this.host.vmContextElem && typeof this.host.vmContextElem.dispatchVMEvent == 'function')
                   this.host.vmContextElem.dispatchVMEvent('onElementEvent', {
                      detail: {
                         targetId: this.host.getAttribute('id'),

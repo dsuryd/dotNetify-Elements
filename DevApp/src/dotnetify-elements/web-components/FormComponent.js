@@ -1,5 +1,6 @@
 import FormStore from '../_internal/FormStore';
 import WebComponentHelper from '../utils/web-component-helper';
+import '../utils/web-component-es5-adapter';
 import * as utils from '../utils';
 
 export default function createWebComponent(Component, elementName) {
@@ -107,8 +108,7 @@ export default function createWebComponent(Component, elementName) {
       }
 
       shouldEnterEditMode(state) {
-         if (!this.formStore.editMode && state.plainText !== 'true' && this.hasVMContextState)
-            this.formStore.enterEditMode();
+         if (!this.formStore.editMode && state.plainText !== 'true' && this.hasVMContextState) this.formStore.enterEditMode();
       }
    }
 

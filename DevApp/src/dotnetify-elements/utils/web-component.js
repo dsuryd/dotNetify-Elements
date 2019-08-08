@@ -1,8 +1,8 @@
 import WebComponentHelper from './web-component-helper';
-import * as utils from '../utils';
+import './web-component-es5-adapter';
 
 export default function createWebComponent(Component, elementName, useShadowDom) {
-   if (utils.isIE11() || !window.hasOwnProperty('customElements')) return { prototype: {} };
+   if (!window.hasOwnProperty('customElements')) return { prototype: {} };
 
    class CustomElement extends HTMLElement {
       constructor() {

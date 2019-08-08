@@ -1,4 +1,5 @@
 import WebComponentHelper from './web-component-helper';
+import './web-component-es5-adapter';
 import * as utils from '.';
 import { css } from 'emotion';
 
