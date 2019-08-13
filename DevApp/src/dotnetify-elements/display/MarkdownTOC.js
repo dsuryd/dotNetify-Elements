@@ -94,7 +94,9 @@ export class MarkdownTOC extends Element {
                   isSelected={selected === header.link}
                   onClick={_ => select(header.link)}
                >
-                  <a href="javascript:void(0)">{header.title}</a>
+                  <a href={header.link} onClick={e => e.preventDefault()}>
+                     {header.title}
+                  </a>
                </ItemContainer>
             ))}
          </Container>

@@ -52,7 +52,13 @@ const Article = props => (
          <Panel css={panelCss} children={props.children} />
          <Sidebar>
             <Title show={props.tocTitle}>
-               <a href="javascript:void(0)" onClick={_ => scrollIntoView(props.title)}>
+               <a
+                  href="#"
+                  onClick={e => {
+                     e.preventDefault();
+                     scrollIntoView(props.title);
+                  }}
+               >
                   {props.tocTitle}
                </a>
             </Title>

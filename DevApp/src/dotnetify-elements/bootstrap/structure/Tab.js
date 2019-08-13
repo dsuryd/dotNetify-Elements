@@ -17,12 +17,18 @@ const TabNavItem = styled.li.attrs(props => ({
 
 const TabLink = styled.a.attrs(props => ({
    className: 'nav-link',
-   href: 'javascript:void(0)'
+   href: '#'
 }))``;
 
 export const TabItem = props => (
    <TabNavItem>
-      <TabLink className={props.active ? 'active' : ''} onClick={props.onClick}>
+      <TabLink
+         className={props.active ? 'active' : ''}
+         onClick={e => {
+            e.preventDefault();
+            props.onClick(e);
+         }}
+      >
          {props.children}
       </TabLink>
    </TabNavItem>
