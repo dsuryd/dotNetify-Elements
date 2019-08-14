@@ -13,7 +13,7 @@ A library of React components for cross-platform .NET back-end, communicating in
 
 - v1.0: Rich Text Editor, Web Component layout - [release notes](https://github.com/dsuryd/dotNetify-Elements/releases).
 
-- v0.5: support for Web Component standard. Use elements like regular HTML tags; no build system required. JSFiddle Demo: [Dashboard](https://jsfiddle.net/dsuryd/ygosxk8m/), [Reactive Form](https://jsfiddle.net/dsuryd/hmvwpjx0/4/), 
+- v0.5: support for Web Component standard. Use elements like regular HTML tags; no build system required. JSFiddle Demo: [Dashboard](https://jsfiddle.net/dsuryd/ygosxk8m/), [Reactive Form](https://jsfiddle.net/dsuryd/hmvwpjx0/4/).
 - v0.4: editable Data Grid.
 
 ### About This Repo
