@@ -147,6 +147,7 @@ export const NavMenuTarget = styled.div.attrs(props => ({
     display: flex;
     flex: ${utils.flexAuto};       
     width: 100%;
+    > * { width: inherit; }
 `;
 
 createWebComponent(NavMenu, 'd-nav-menu');
