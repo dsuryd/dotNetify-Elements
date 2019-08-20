@@ -1,10 +1,9 @@
 import VMContextStore from '../_internal/VMContextStore';
 import WebComponentHelper from '../utils/web-component-helper';
 import '../utils/web-component-es5-adapter';
-import * as utils from '../utils';
 
 export default function createWebComponent(Component, elementName) {
-   if (utils.isIE11() || !window.hasOwnProperty('customElements')) return { prototype: {} };
+   if (!window.hasOwnProperty('customElements')) return { prototype: {} };
 
    class CustomElement extends HTMLElement {
       static get observedAttributes() {

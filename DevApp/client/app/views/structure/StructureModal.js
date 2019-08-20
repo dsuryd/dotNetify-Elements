@@ -1,6 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import { Alert, Button, Modal, Markdown, Panel, TabItem, TextField, VMContext, withTheme } from 'dotnetify-elements';
 import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
 
@@ -96,9 +94,9 @@ class MyApp extends React.Component {
                label="Cancel"
                cancel="true"
                secondary="true"
-               onclick="setTimeout(() => document.getElementById('_modal').close())"
+               onclick="setTimeout(function() { document.getElementById('_modal').close() })"
             />
-            <d-button id="Submit" label="Register" submit="true" onclick="setTimeout(() => document.getElementById('_modal').close())" />
+            <d-button id="Submit" label="Register" submit="true" onclick="setTimeout(function() { document.getElementById('_modal').close() })" />
          </d-panel>
       </footer>
    </d-modal>
@@ -135,7 +133,7 @@ class MyApp extends React.Component {
                            id="_modal"
                            {...this.state}
                            open="false"
-                           onsubmit="data => document.getElementById('_alert').setAttribute('text', data.Email + ' has been registered!')"
+                           onsubmit="function(data) { document.getElementById('_alert').setAttribute('text', data.Email + ' has been registered!') }"
                         >
                            <header>Registration Dialog</header>
                            <d-text-field horizontal="true" id="Email" />
@@ -145,13 +143,13 @@ class MyApp extends React.Component {
                                     label="Cancel"
                                     cancel="true"
                                     secondary="true"
-                                    onclick="setTimeout(() => document.getElementById('_modal').close())"
+                                    onclick="setTimeout(function() { document.getElementById('_modal').close() })"
                                  />
                                  <d-button
                                     id="Submit"
                                     label="Register"
                                     submit="true"
-                                    onclick="setTimeout(() => document.getElementById('_modal').close())"
+                                    onclick="setTimeout(function() { document.getElementById('_modal').close() })"
                                  />
                               </d-panel>
                            </footer>

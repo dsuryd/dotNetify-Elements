@@ -1,10 +1,9 @@
 import WebComponentHelper from './web-component-helper';
 import './web-component-es5-adapter';
-import * as utils from '.';
 import { css } from 'emotion';
 
 export default function createWebComponent(Component, elementName, defaultProps, getCss) {
-   if (utils.isIE11() || !window.hasOwnProperty('customElements')) return { prototype: {} };
+   if (!window.hasOwnProperty('customElements')) return { prototype: {} };
 
    class CustomElement extends HTMLElement {
       constructor() {
