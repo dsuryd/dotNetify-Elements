@@ -1,6 +1,7 @@
 'use strict';
 
 const webpack = require('webpack');
+const CopyPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
@@ -38,7 +39,11 @@ module.exports = {
    },
    plugins: [
       new MiniCssExtractPlugin(),
-      new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en/)
+      new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en/),
+      new CopyPlugin([
+         { from: 'node_modules/dotnetify/dist/dotnetify-react.min.js' },
+         { from: 'node_modules/styled-components/dist/styled-components.min.js' }
+      ])
       //, new BundleAnalyzerPlugin()
    ]
 };
