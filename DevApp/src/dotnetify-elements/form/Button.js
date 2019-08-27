@@ -56,7 +56,8 @@ export class Button extends InputElement {
    };
 
    get shouldDisableSubmit() {
-      return this.props.enable === false || (this.formContext && !this.formContext.isChanged());
+      if (this.props.enable != null) return this.props.enable === false;
+      return this.formContext && !this.formContext.isChanged();
    }
 
    handleClick = _ => {

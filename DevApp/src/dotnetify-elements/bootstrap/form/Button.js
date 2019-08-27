@@ -6,6 +6,7 @@ export const Button = styled.button.attrs(props => ({
    type: props.submit ? 'submit' : 'button'
 }))`
    margin-left: 3px;
+   > * { justify-content: center; }
    ${props => (props.stretch ? 'width: calc(100% - 6px)' : '')};   
    ${props => props.theme.Button};
    ${props => props.css};
