@@ -115,6 +115,13 @@ Add **package.json** with the following content:
       "babel-plugin-transform-class-properties"
     ]
   },
+  "dependencies": {
+    "dotnetify": "~3.4.0",
+    "dotnetify-elements": "~1.0.2",
+    "react": "~16.3.2",
+    "react-dom": "~16.3.2",
+    "styled-components": "~4.1.3"
+  },
   "devDependencies": {
     "aspnet-webpack": "~3.0.0",
     "babel-core": "~6.26.3",
@@ -125,10 +132,6 @@ Add **package.json** with the following content:
     "babel-preset-env": "~1.7.0",
     "babel-preset-react": "~6.24.1",
     "css-loader": "~0.28.11",
-    "dotnetify": "~3.4.0",
-    "dotnetify-elements": "~1.0.2",
-    "react": "~16.3.2",
-    "react-dom": "~16.3.2",
     "url-loader": "~1.0.1",
     "webpack": "~4.12.0",
     "webpack-cli": "~3.0.8",
