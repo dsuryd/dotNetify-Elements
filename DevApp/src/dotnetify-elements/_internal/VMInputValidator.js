@@ -1,4 +1,3 @@
-import React from 'react';
 import VMProperty from './VMProperty';
 
 export default class VMInputValidator extends VMProperty {

@@ -79,6 +79,18 @@ export function nestedGet(obj, path) {
    return path.split('.').reduce((acc, current) => (typeof acc == 'undefined' || acc === null ? acc : acc[current]), obj);
 }
 
+export function parseFunctionString(funcString) {
+   if (!funcString) return null;
+
+   return args => {
+      const _eval = function(funcString) {
+         return Function('"use strict";return (' + funcString + ')')();
+      };
+      const result = _eval(`${funcString}`);
+      return typeof result == 'function' ? result(args) : result;
+   };
+}
+
 export function resolveComponents(type, props) {
    return Object.keys(type.componentTypes).map(key => props[toCamelCase(key)] || type.componentTypes[key]);
 }

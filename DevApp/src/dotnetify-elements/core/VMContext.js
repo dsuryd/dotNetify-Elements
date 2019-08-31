@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import VMContextStore from '../_internal/VMContextStore';
-import createWebComponent from '../web-components/VMContextComponent';
 
 export const ContextTypes = {
    vmContext: PropTypes.object,
@@ -63,5 +62,3 @@ export class VMContext extends React.Component {
       typeof this.props.onStateChange == 'function' && this.props.onStateChange(state);
    }
 }
-
-createWebComponent(VMContext, 'd-vm-context');

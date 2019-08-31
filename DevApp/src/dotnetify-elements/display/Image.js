@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Element from '../core/Element';
-import createWebComponent from '../utils/web-component';
 
 const ImageComponent = styled.img``;
 
@@ -29,5 +28,3 @@ export class Image extends Element {
       return _src ? <_Image id={fullId} src={_src} {...props} /> : null;
    }
 }
-
-createWebComponent(Image, 'd-image');

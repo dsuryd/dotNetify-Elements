@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import * as utils from '../utils';
-import createWebComponent from '../web-components/PanelComponent';
 
 const Container = styled.div`
    display: flex;
@@ -255,5 +254,3 @@ export class Panel extends React.Component {
       );
    }
 }
-
-let panelComponent = createWebComponent(Panel, 'd-panel');

@@ -40,6 +40,14 @@ fs.readdirSync(componentsFolder).forEach(file => {
    if (name === 'Core') components['index'] = componentsFolder + file;
 });
 
+let webComponents = {};
+let webComponentsFolder = './src/dotnetify-elements/bootstrap/_web-components/';
+fs.readdirSync(webComponentsFolder).forEach(file => {
+   const name = file.slice(0, -3);
+   webComponents[name] = webComponentsFolder + file;
+   if (name === 'Core') webComponents['index'] = webComponentsFolder + file;
+});
+
 const moduleConfig = {
    mode: 'production',
    output: {
@@ -83,34 +91,42 @@ const moduleConfig = {
    optimization: baseExport.optimization
 };
 
+const componentExternals = {
+   bootstrap: 'bootstrap',
+   dotnetify: 'dotnetify',
+   react: {
+      commonjs: 'react',
+      commonjs2: 'react',
+      amd: 'react',
+      root: 'React'
+   },
+   'react-dom': {
+      commonjs: 'react-dom',
+      commonjs2: 'react-dom',
+      amd: 'react-dom',
+      root: 'ReactDOM'
+   },
+   'styled-components': {
+      commonjs: 'styled-components',
+      commonjs2: 'styled-components',
+      amd: 'styled-components',
+      root: 'styled'
+   }
+};
+
 module.exports = [
    { ...moduleConfig, entry: { 'dotnetify-elements': './src/dotnetify-elements/index.js' } },
    {
       ...moduleConfig,
       entry: components,
       output: { ...moduleConfig.output, path: __dirname + '/dist/components', library: '[name]' },
-      externals: {
-         bootstrap: 'bootstrap',
-         dotnetify: 'dotnetify',
-         react: {
-            commonjs: 'react',
-            commonjs2: 'react',
-            amd: 'react',
-            root: 'React'
-         },
-         'react-dom': {
-            commonjs: 'react-dom',
-            commonjs2: 'react-dom',
-            amd: 'react-dom',
-            root: 'ReactDOM'
-         },
-         'styled-components': {
-            commonjs: 'styled-components',
-            commonjs2: 'styled-components',
-            amd: 'styled-components',
-            root: 'styled'
-         }
-      }
+      externals: { ...componentExternals }
+   },
+   {
+      ...moduleConfig,
+      entry: webComponents,
+      output: { ...moduleConfig.output, path: __dirname + '/dist/web-components', library: '[name]' },
+      externals: { ...componentExternals }
    },
    {
       mode: 'production',

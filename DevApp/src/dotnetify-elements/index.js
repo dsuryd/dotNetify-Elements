@@ -43,6 +43,7 @@ import { NavDrawerButton, NavMenu, NavMenuTarget } from './bootstrap/_components
 
 // Web Component
 import createWebComponent from './utils/web-component';
+import './bootstrap/_web-components';
 
 let dotNetifyElements = {
    /* Core */

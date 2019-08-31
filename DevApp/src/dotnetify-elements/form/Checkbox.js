@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import InputElement from '../core/InputElement';
-import createWebComponent from '../utils/web-component';
 
 export class Checkbox extends InputElement {
    static propTypes = {
@@ -61,5 +60,3 @@ export class Checkbox extends InputElement {
       );
    }
 }
-
-createWebComponent(Checkbox, 'd-checkbox');

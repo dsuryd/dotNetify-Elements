@@ -360,8 +360,8 @@ Update **Views\Shared\_Layout.cshtml** by adding:
       // Replace dotnetify-hub in bundle.min.js with the SignalR for .NET FX version.
       signalR = jQuery.signalR;
    </script>
-   <script src="https://unpkg.com/dotnetify@3/dist/dotnetify-react.min.js"></script>
-   <script src="https://unpkg.com/dotnetify-elements@1/lib/dotnetify-elements.bundle.js"></script>   
+   <script src="https://unpkg.com/dotnetify@latest/dist/dotnetify-react.min.js"></script>
+   <script src="https://unpkg.com/dotnetify-elements@latest/lib/dotnetify-elements.bundle.js"></script>   
 </body>
 </html>
 ```
@@ -471,8 +471,12 @@ Use the following script tags before using web components:
    signalR = jQuery.signalR;
 </script>
 
-<script src="https://unpkg.com/dotnetify@3/dist/dotnetify-react.min.js"></script>  
-<script src="https://unpkg.com/dotnetify-elements@1/lib/dotnetify-elements.bundle.js"></script> 
+<script src="https://unpkg.com/dotnetify@latest/dist/dotnetify-react.min.js"></script>  
+
+<!-- Get the whole bundle... -->
+<script src="https://unpkg.com/dotnetify-elements@latest/lib/dotnetify-elements.bundle.js"></script> 
+<!-- ...or individual components -->
+<script src="https://unpkg.com/dotnetify-elements@latest/web-components/[component-name].js"></script> 
 ```
 
 

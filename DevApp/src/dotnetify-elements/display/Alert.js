@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Element from '../core/Element';
 import markdown from '../utils/markdown';
-import createWebComponent from '../utils/web-component';
 
 export class Alert extends Element {
    static propTypes = {
@@ -50,5 +49,3 @@ export class Alert extends Element {
       );
    }
 }
-
-createWebComponent(Alert, 'd-alert');

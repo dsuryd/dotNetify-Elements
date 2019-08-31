@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Element from '../core/Element';
 import * as utils from '../utils';
-import createWebComponent from '../utils/web-component';
 
 const LabelContainer = styled.div`
    line-height: 1.7;
@@ -96,5 +95,3 @@ export class Label extends Element {
       );
    }
 }
-
-createWebComponent(Label, 'd-label');

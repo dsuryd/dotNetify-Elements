@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import * as utils from '../utils';
 import { Label } from '../display/Label';
-import createWebComponent from '../utils/web-component';
 
 const Container = styled.div`
    ${props => props.theme.Collapsible.Container};
@@ -115,6 +114,3 @@ export class Collapsible extends React.Component {
       );
    }
 }
-
-let collapsibleComponent = createWebComponent(Collapsible, 'd-collapsible');
-collapsibleComponent.prototype._isContainer = true;

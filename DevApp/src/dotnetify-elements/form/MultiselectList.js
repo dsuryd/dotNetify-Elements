@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import InputElement from '../core/InputElement';
 import { Field, validationKeyPrefix } from '../structure/Field';
 import { Label } from '../display/Label';
-import createWebComponent from '../utils/web-component';
 
 const PlainTextComponent = props => <span {...props}>{React.Children.toArray(props.children).join(', ')}</span>;
 
@@ -105,5 +104,3 @@ export class MultiselectList extends InputElement {
       );
    }
 }
-
-createWebComponent(MultiselectList, 'd-multiselect-list');

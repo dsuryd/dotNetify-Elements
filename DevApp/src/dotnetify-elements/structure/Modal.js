@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Form, FormContextTypes } from '../form/Form';
 import * as utils from '../utils';
-import createWebComponent from '../utils/web-component';
 
 export class Modal extends React.Component {
    static contextTypes = FormContextTypes;
@@ -80,16 +79,3 @@ export class Modal extends React.Component {
       );
    }
 }
-
-let modalComponent = createWebComponent(Modal, 'd-modal');
-
-modalComponent.prototype.open = function() {
-   this.setAttribute('open', 'true');
-};
-modalComponent.prototype.close = function() {
-   // Use setTimeout to allow the click event that triggers the modal close to bubble down first.
-   setTimeout(() => {
-      this.setAttribute('open', 'false');
-      this.dispatchEvent(new CustomEvent('onclose'));
-   });
-};

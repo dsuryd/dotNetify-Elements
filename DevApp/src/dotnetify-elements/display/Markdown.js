@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import Element from '../core/Element';
 import markdown from '../utils/markdown';
 import * as utils from '../utils';
-import createWebComponent from '../utils/web-component';
 
 const ContainerComponent = styled.div`
    ${props => props.theme.Markdown};
@@ -56,6 +55,3 @@ export class Markdown extends Element {
       );
    }
 }
-
-let markdownComponent = createWebComponent(Markdown, 'd-markdown');
-markdownComponent.prototype._isContainer = true;

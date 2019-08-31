@@ -5,7 +5,6 @@ import { Field } from '../structure/Field';
 import Quill from 'quill/dist/quill';
 import 'quill/dist/quill.snow.css';
 import 'quill/dist/quill.bubble.css';
-import createWebComponent from '../utils/web-component';
 
 const PlainTextComponent = props => <span dangerouslySetInnerHTML={{ __html: props.children }} />;
 
@@ -105,5 +104,3 @@ export class RichTextEditor extends InputElement {
       );
    }
 }
-
-createWebComponent(RichTextEditor, 'd-rich-text-editor');

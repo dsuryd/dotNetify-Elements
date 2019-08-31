@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as utils from '../utils';
-import createWebComponent from '../utils/web-component';
 
 export class Cell extends React.Component {
    static propTypes = {
@@ -60,10 +59,3 @@ export class Cell extends React.Component {
       );
    }
 }
-
-let cellComponent = createWebComponent(Cell, 'd-cell');
-cellComponent.prototype._isContainer = true;
-cellComponent.prototype._connectedCallback = function() {
-   this.style.display = 'flex';
-   this.style.flex = '1';
-};

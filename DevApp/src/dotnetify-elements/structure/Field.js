@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Label } from '../display/Label';
 import * as utils from '../utils';
-import createWebComponent from '../utils/web-component';
 
 const Container = styled.div`
    display: grid;
@@ -143,6 +142,3 @@ export class Field extends React.Component {
 }
 
 export const validationKeyPrefix = 'validationMsg';
-
-let fieldComponent = createWebComponent(Field, 'd-field');
-fieldComponent.prototype._isContainer = true;

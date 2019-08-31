@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import * as utils from '../utils';
 import { Label } from '../display/Label';
 import { Frame } from '../layout/Frame';
-import createWebComponent from '../utils/web-component';
 
 const Container = styled.div`${props => props.theme.Tab.Container};`;
 
@@ -138,9 +137,3 @@ export class TabItem extends React.Component {
       );
    }
 }
-
-let tabComponent = createWebComponent(Tab, 'd-tab');
-tabComponent.prototype._isContainer = true;
-
-let tabItemComponent = createWebComponent(TabItem, 'd-tab-item');
-tabItemComponent.prototype._isContainer = true;

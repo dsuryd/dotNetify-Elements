@@ -1,4 +1,3 @@
-import React from 'react';
 import VMProperty from './VMProperty';
 import VMInputValidator from './VMInputValidator';
 import * as utils from '../utils';

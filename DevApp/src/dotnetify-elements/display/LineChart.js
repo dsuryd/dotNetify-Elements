@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import Element from '../core/Element';
 import * as utils from '../utils';
 import { toChartJsConfig, toDataLabelPair } from './chart';
-import createWebComponent from '../utils/web-component';
 import 'chartjs-plugin-streaming';
 
 const ChartContainer = styled.div`
@@ -102,5 +101,3 @@ export class LineChart extends Element {
       );
    }
 }
-
-createWebComponent(LineChart, 'd-line-chart');

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import InputElement from '../core/InputElement';
 import { Field, validationKeyPrefix } from '../structure/Field';
 import { Label } from '../display/Label';
-import createWebComponent from '../utils/web-component';
 
 const PlainTextComponent = props => (props.type === 'password' ? '' : <span {...props} />);
 
@@ -156,5 +155,3 @@ export class TextField extends InputElement {
       );
    }
 }
-
-createWebComponent(TextField, 'd-text-field');

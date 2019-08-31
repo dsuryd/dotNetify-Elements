@@ -1,6 +1,5 @@
 import React from 'react';
 import { TextField } from './TextField';
-import createWebComponent from '../utils/web-component';
 
 export class NumberField extends React.Component {
    static propTypes = { ...TextField.propTypes };
@@ -10,5 +9,3 @@ export class NumberField extends React.Component {
       return <TextField type="number" {...this.props} />;
    }
 }
-
-createWebComponent(NumberField, 'd-number-field');

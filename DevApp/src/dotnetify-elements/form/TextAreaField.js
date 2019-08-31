@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import InputElement from '../core/InputElement';
 import { TextField } from './TextField';
-import createWebComponent from '../utils/web-component';
 
 export class TextAreaField extends InputElement {
    static propTypes = {
@@ -24,5 +23,3 @@ export class TextAreaField extends InputElement {
       return <TextField inputComponent={Input} rows={rows} {...props} />;
    }
 }
-
-createWebComponent(TextAreaField, 'd-text-area-field');

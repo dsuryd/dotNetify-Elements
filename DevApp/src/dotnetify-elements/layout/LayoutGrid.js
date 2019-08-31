@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { Theme } from './Theme';
 import * as utils from '../utils';
-import * as webComponent from '../web-components/LayoutGridComponent';
 
 const LayoutGrid = styled.main`
    display: grid;
@@ -92,9 +91,3 @@ Header.defaultProps = { theme: utils.getDefaultTheme() };
 Nav.defaultProps = { theme: utils.getDefaultTheme() };
 Footer.defaultProps = { theme: utils.getDefaultTheme() };
 Section.defaultProps = { theme: utils.getDefaultTheme() };
-
-webComponent.createMainComponent(Main, 'd-main');
-webComponent.createHeaderComponent(Header, 'd-header');
-webComponent.createNavComponent(Nav, 'd-nav');
-webComponent.createFooterComponent(Footer, 'd-footer');
-webComponent.createSectionComponent(Section, 'd-section');

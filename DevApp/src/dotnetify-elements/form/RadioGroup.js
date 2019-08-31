@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import InputElement from '../core/InputElement';
 import { Field } from '../structure/Field';
 import * as utils from '../utils';
-import createWebComponent from '../utils/web-component';
 
 const GroupContainer = styled.section`${props => props.theme.Radio.GroupContainer};`;
 
@@ -94,5 +93,3 @@ export class RadioGroup extends InputElement {
       );
    }
 }
-
-createWebComponent(RadioGroup, 'd-radio-group');

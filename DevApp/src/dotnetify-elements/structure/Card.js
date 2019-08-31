@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import * as utils from '../utils';
-import createWebComponent from '../utils/web-component';
 
 export class Card extends React.Component {
    static propTypes = {
@@ -83,9 +82,3 @@ export class CardImage extends React.Component {
       return <CardImageContainer {...this.props} />;
    }
 }
-
-let cardComponent = createWebComponent(Card, 'd-card');
-let cardImageComponent = createWebComponent(CardImage, 'd-card-image');
-
-cardComponent.prototype._isContainer = true;
-cardImageComponent.prototype._isContainer = true;

@@ -6,7 +6,6 @@ import { Label } from '../display/Label';
 import { RouteLink } from 'dotnetify';
 import Element from '../core/Element';
 import * as utils from '../utils';
-import createWebComponent from '../utils/web-component';
 
 const Container = styled.div`
    width: inherit;
@@ -149,6 +148,3 @@ export const NavMenuTarget = styled.div.attrs(props => ({
     width: 100%;
     > * { width: inherit; }
 `;
-
-createWebComponent(NavMenu, 'd-nav-menu');
-createWebComponent(NavMenuTarget, 'd-nav-menu-target');

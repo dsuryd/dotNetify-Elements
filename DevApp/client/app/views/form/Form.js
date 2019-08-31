@@ -85,7 +85,7 @@ const MyApp = _ => (
                         <Button label="Cancel" cancel secondary onClick={clearEmittedEvent} />
                         <Button id="Register" submit />
                      </Panel>
-                     <Markdown>{'```' + this.state.emittedEvent + '```'}</Markdown>
+                     {this.state.emittedEvent && <Markdown>{'```' + this.state.emittedEvent + '```'}</Markdown>}
                   </Panel>
                </Form>
             ) : (

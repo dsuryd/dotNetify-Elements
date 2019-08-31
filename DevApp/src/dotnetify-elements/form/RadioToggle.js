@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Field } from '../structure/Field';
 import { RadioGroup } from './RadioGroup';
 import * as utils from '../utils';
-import createWebComponent from '../utils/web-component';
 
 export class RadioToggle extends React.Component {
    static propTypes = {
@@ -51,5 +50,3 @@ export class RadioToggle extends React.Component {
       );
    }
 }
-
-createWebComponent(RadioToggle, 'd-radio-toggle');

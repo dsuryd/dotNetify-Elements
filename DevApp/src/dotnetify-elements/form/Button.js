@@ -4,7 +4,6 @@ import InputElement from '../core/InputElement';
 import { FormContextTypes } from './Form';
 import { Label } from '../display/Label';
 import * as utils from '../utils';
-import createWebComponent from '../utils/web-component';
 
 export class Button extends InputElement {
    static contextTypes = FormContextTypes;
@@ -106,5 +105,3 @@ export class Button extends InputElement {
       );
    }
 }
-
-createWebComponent(Button, 'd-button');

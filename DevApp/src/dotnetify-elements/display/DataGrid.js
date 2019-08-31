@@ -3,8 +3,6 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Element from '../core/Element';
 import * as utils from '../utils';
-import createWebComponent from '../utils/web-component';
-import WebComponentHelper from './../utils/web-component-helper';
 
 const Container = styled.div`
    display: flex;
@@ -127,7 +125,7 @@ export class DataGrid extends Element {
          let { colKey, label, width, formatter, editor, columnChildren } = gridCol.props;
          let key = colKey || gridCol.key;
          if (gridCol.type == 'd-grid-column') {
-            formatter = WebComponentHelper._parseFunctionString(formatter);
+            formatter = utils.parseFunctionString(formatter);
             key = colKey;
          }
 
@@ -344,6 +342,3 @@ export class GridColumn extends React.Component {
       return this.props.children;
    }
 }
-
-createWebComponent(DataGrid, 'd-data-grid');
-createWebComponent(GridColumn, 'd-grid-column');
