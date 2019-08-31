@@ -33,7 +33,7 @@ const baseExport = {
 };
 
 let components = {
-   _test: './src/dotnetify-elements/bootstrap/_components/Button.js'
+   _test: './src/dotnetify-elements/bootstrap/_components/MultiSelectList.js'
 };
 
 const moduleConfig = {

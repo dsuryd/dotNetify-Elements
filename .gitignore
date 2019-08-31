@@ -263,4 +263,5 @@ __pycache__/
 # Dist
 DevApp/wwwroot/dist
 DevApp/dist/components
+DevApp/dist/web-components
 DevApp/dist/lib
