@@ -24,6 +24,6 @@ import './PasswordField';
 import './RadioGroup';
 import './RadioToggle';
 import './RichTextEditor';
-import './Tabs';
+import './Tab';
 import './TextAreaField';
 import './TextField';
