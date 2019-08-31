@@ -1,9 +1,9 @@
 {
    "name": "dotnetify-elements",
-   "version": "1.1.0-dev5",
+   "version": "1.1.0-dev7",
    "description": "React components for reactive, real-time .NET web applications.",
    "main": "dotnetify-elements.js",
-   "files": [ "lib/*.*", "components/*.*",  "*.js", "*.css", "LICENSE.md", "README.md" ],
+   "files": [ "lib/*.*", "components/*.*", "web-components/*.*",  "*.js", "*.css", "LICENSE.md", "README.md" ],
    "peerDependencies": {
       "dotnetify": "~3.4.0",
       "react": "~16.6.0",
