@@ -14,7 +14,9 @@ module.exports = {
    output: {
       filename: '[name].js',
       path: __dirname + '/wwwroot/dist',
-      publicPath: '/dist/'
+      publicPath: '/dist/',
+      library: 'dotNetifyElements',
+      libraryTarget: 'umd'
    },
    devtool: 'source-map',
    resolve: {
