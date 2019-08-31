@@ -9,13 +9,13 @@ module.exports = {
    mode: 'development',
    entry: {
       app: './client/main.js',
-      'dotnetify-elements': './src/dotnetify-elements/index.js'
+      dotNetifyElements: './src/dotnetify-elements/index.js'
    },
    output: {
       filename: '[name].js',
       path: __dirname + '/wwwroot/dist',
       publicPath: '/dist/',
-      library: 'dotNetifyElements',
+      library: '[name]',
       libraryTarget: 'umd'
    },
    devtool: 'source-map',
