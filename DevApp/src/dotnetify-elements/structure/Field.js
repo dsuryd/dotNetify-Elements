@@ -103,7 +103,7 @@ export class Field extends React.Component {
          PlainText,
          ValidationMessageContainer
       ] = utils.resolveComponents(Field, this.props);
-      const { id, label, plainText, horizontal, right, width, style, css, ...props } = this.props;
+      const { id, label, plainText, horizontal, right, width, style, css, tabIndex } = this.props;
       const labelPadding = horizontal ? null : '0 0 .5rem 0';
 
       const [ validationMessages, children ] = utils.filterChildren(
@@ -114,14 +114,14 @@ export class Field extends React.Component {
       const hasValidationMessage = validationMessages && validationMessages.length > 0;
 
       return (
-         <Container width={width} style={style} css={css} horizontal={horizontal}>
-            <LabelContainer horizontal={horizontal}>
-               {label ? (
+         <Container width={width} style={style} css={css} horizontal={horizontal} tabIndex={tabIndex}>
+            {label && (
+               <LabelContainer horizontal={horizontal}>
                   <Label for={id} padding={labelPadding}>
                      {label}
                   </Label>
-               ) : null}
-            </LabelContainer>
+               </LabelContainer>
+            )}
             {plainText ? (
                <PlainTextContainer horizontal={horizontal}>
                   <PlainText>{children}</PlainText>
