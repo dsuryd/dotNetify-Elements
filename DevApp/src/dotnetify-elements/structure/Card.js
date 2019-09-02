@@ -28,7 +28,7 @@ export class Card extends React.Component {
 
    render() {
       const [ Container, Image, Header, Body, Footer ] = utils.resolveComponents(Card, this.props);
-      const { header, footer, horizontal, children, width, style, css, ...props } = this.props;
+      const { header, footer, horizontal, children, width, style, css, tabIndex } = this.props;
 
       const reservedTypes = [ 'header', 'footer', 'img', 'Image', 'CardImage', 'd-image', 'd-card-image' ];
       const [ sections, body ] = utils.filterChildren(
@@ -53,7 +53,7 @@ export class Card extends React.Component {
 
       if (horizontal)
          return (
-            <Container horizontal={horizontal} width={width} style={style} css={css}>
+            <Container horizontal={horizontal} width={width} style={style} css={css} tabIndex={tabIndex}>
                {img && leftImg ? <Image left>{img}</Image> : null}
                {_header ? <Header>{_header}</Header> : null}
                <Body>{body}</Body>
@@ -63,7 +63,7 @@ export class Card extends React.Component {
          );
 
       return (
-         <Container width={width} style={style} css={css}>
+         <Container width={width} style={style} css={css} tabIndex={tabIndex}>
             {img && topImg ? <Image>{img}</Image> : null}
             {_header ? <Header>{_header}</Header> : null}
             <Body>{body}</Body>

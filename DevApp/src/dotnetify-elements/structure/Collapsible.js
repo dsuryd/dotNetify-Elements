@@ -99,11 +99,11 @@ export class Collapsible extends React.Component {
          Collapsible,
          this.props
       );
-      const { noIcon, label, children, style, css } = this.props;
+      const { noIcon, label, children, style, css, tabIndex } = this.props;
       const icon = this.state.open ? <AngleCollapseIcon /> : <AngleExpandIcon />;
 
       return (
-         <Container style={style} css={css}>
+         <Container style={style} css={css} tabIndex={tabIndex}>
             <HeaderContainer onClick={this.handleClick}>
                <Header right={!noIcon} apart icon={noIcon ? null : icon}>
                   <Label isOpen={this.state.open}>{label}</Label>
