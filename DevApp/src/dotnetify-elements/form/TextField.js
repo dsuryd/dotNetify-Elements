@@ -9,7 +9,7 @@ const PlainTextComponent = props => (props.type === 'password' ? '' : <span {...
 export class TextField extends InputElement {
    static propTypes = {
       // Identifies the associated view model property.
-      id: PropTypes.string.isRequired,
+      id: PropTypes.string,
 
       // Enables the field.
       enable: PropTypes.bool,
@@ -19,6 +19,9 @@ export class TextField extends InputElement {
 
       // Displays the label text horizontally to the left of the field.
       horizontal: PropTypes.bool,
+
+      // Get input element ref.
+      inputRef: PropTypes.func,
 
       // Max input length.
       maxLength: PropTypes.number,
@@ -39,7 +42,10 @@ export class TextField extends InputElement {
       validation: PropTypes.oneOfType([ PropTypes.array, PropTypes.shape({ validate: PropTypes.func, message: PropTypes.string }) ]),
 
       // Occurs when the value changes.
-      onChange: PropTypes.func
+      onChange: PropTypes.func,
+
+      // Occurs when user is done typing (Enter keypress or blur event).
+      onDone: PropTypes.func
    };
 
    static componentTypes = {
@@ -54,7 +60,6 @@ export class TextField extends InputElement {
       super(props);
       this.state = { validationMessages: [] };
       this.changed = false;
-      this.inputRef = React.createRef();
    }
 
    componentDidMount() {
@@ -108,6 +113,7 @@ export class TextField extends InputElement {
          horizontal,
          enable,
          onChange,
+         onDone,
          type,
          css,
          style,
@@ -115,12 +121,17 @@ export class TextField extends InputElement {
          ...props
       } = this.attrs;
 
-      let handleChange = e => {
+      const handleChange = e => {
          this.handleChange(e.target.value);
+         onChange && onChange(e.target.value, e);
       };
-      const handleBlur = _ => {
-         this.handleBlur();
-         this.changed && onChange && onChange(this.value);
+      const handleBlur = event => {
+         onDone && onDone(this.value, { changed: this.changed, event });
+         this.handleBlur(event);
+      };
+      const handleKeyPress = event => {
+         event.key == 'Enter' && onDone && onDone(this.value, { changed: this.changed, event });
+         this.handleKeyPress(event);
       };
 
       const disabled = enable === false;
@@ -134,6 +145,7 @@ export class TextField extends InputElement {
             ) : (
                <InputGroup prefix={prefix} suffix={suffix}>
                   <Input
+                     ref={this.inputRef}
                      valid={this.state.valid}
                      id={fullId}
                      label={label}
@@ -142,10 +154,9 @@ export class TextField extends InputElement {
                      placeholder={placeholder}
                      value={this.value || ''}
                      disabled={disabled}
-                     onKeyPress={this.handleKeyPress}
+                     onKeyPress={handleKeyPress}
                      onChange={handleChange}
                      onBlur={handleBlur}
-                     ref={this.inputRef}
                      {...props}
                   />
                </InputGroup>

@@ -43,6 +43,12 @@ export default class InputElement extends Element {
       this._changed = value;
    }
 
+   constructor(props) {
+      super(props);
+      this.inputRef = React.createRef();
+      if (typeof props.inputRef == 'function') props.inputRef(this.inputRef);
+   }
+
    dispatch(value, toServer) {
       return this.vmProperty.dispatch(value, toServer);
    }
