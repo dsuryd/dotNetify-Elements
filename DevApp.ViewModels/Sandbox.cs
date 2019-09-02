@@ -19,11 +19,14 @@ namespace dotNetify_Elements
       {
           public int Id { get; set; }
           public string Text { get; set;}
+          public bool Done { get; set; }
       }
 
       public List<Todo> Todos => _todos;
 
       public string Todos_itemKey => nameof(Todo.Id);
+
+      public int ItemsLeft => _todos.Count(x => !x.Done);
 
       public Action<string> Add => text =>
       {
@@ -32,6 +35,7 @@ namespace dotNetify_Elements
         {
           _todos.Add(todo);
           this.AddList(nameof(Todos), todo);
+          Changed(nameof(ItemsLeft));
         }
       };
 
@@ -44,7 +48,9 @@ namespace dotNetify_Elements
                Remove(update.Id);
              else {
                todo.Text = update.Text;
-               this.UpdateList(nameof(Todos), todo);            
+               todo.Done = update.Done;
+               this.UpdateList(nameof(Todos), todo);    
+               Changed(nameof(ItemsLeft));        
              }
           }
       };
@@ -56,6 +62,7 @@ namespace dotNetify_Elements
           {
             _todos.Remove(todo);
             this.RemoveList(nameof(Todos), id);
+            Changed(nameof(ItemsLeft));
           }
       };
       

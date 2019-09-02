@@ -2,14 +2,9 @@ import React from 'react';
 import { Markdown, withTheme } from 'dotnetify-elements';
 import Article from '../components/Article';
 
-import { Frame, Button, Checkbox, Cell, Panel, TextField } from 'dotnetify-elements';
+import { Alert, Checkbox, Cell, Frame, Panel, TextField } from 'dotnetify-elements';
 
 dotnetify.debug = true;
-
-const cellCss = `
-  .cell-body { padding: 0 }
-  .item { width: 100%; padding: .5rem }
-`;
 
 class TodoList extends React.Component {
    constructor() {
@@ -27,7 +22,7 @@ class TodoList extends React.Component {
    }
 
    render() {
-      const { Todos, newTodo, editTodoId, editTodo } = this.state;
+      const { Todos, ItemsLeft, newTodo, editTodoId, editTodo } = this.state;
 
       // Control the new todo and existing todo input elements.
       const typeTodo = value => this.setState({ newTodo: value });
@@ -41,6 +36,11 @@ class TodoList extends React.Component {
          }
       };
 
+      // Called after edit's done / checkbox clicked.
+      const updateTodo = todo => {
+         this.vm.$dispatch({ Update: todo });
+      };
+
       // Called when existing todo is double-clicked.
       const startEditTodo = id => {
          const todo = this.state.Todos.find(x => x.Id === id);
@@ -52,11 +52,14 @@ class TodoList extends React.Component {
       };
 
       // Called when focus leaves or Enter keypress on the edited todo input.
-      const doneEditTodo = (id, value, changed) => {
+      const doneEditTodo = (todo, changed) => {
          this.setState({ editTodoId: 0, editTodo: '' });
          this.todoRef.current.focus();
-         if (changed) this.vm.$dispatch({ Update: { Id: id, Text: value } });
+         if (changed) updateTodo(todo);
       };
+
+      // Called when the remove icon is clicked.
+      const removeTodo = id => this.vm.$dispatch({ Remove: id });
 
       return (
          <Frame>
@@ -70,23 +73,31 @@ class TodoList extends React.Component {
             />
             <div>
                {Todos.map(todo => (
-                  <Cell key={todo.Id} css={cellCss} tabIndex="0">
+                  <Cell key={todo.Id} css=".cell-body { padding: 0 }" tabIndex="0">
                      {todo.Id !== editTodoId ? (
-                        <div className="item" onDoubleClick={_ => startEditTodo(todo.Id)}>
-                           <Checkbox label={todo.Text} />
-                        </div>
+                        <Panel horizontal apart middle padding=".5rem; i { cursor: pointer }">
+                           <Panel onDoubleClick={_ => startEditTodo(todo.Id)}>
+                              <Checkbox label={todo.Text} value={todo.Done} onChange={val => updateTodo({ ...todo, Done: val })} />
+                           </Panel>
+                           <i className="material-icons" onClick={_ => removeTodo(todo.Id)}>
+                              cancel
+                           </i>
+                        </Panel>
                      ) : (
                         <TextField
                            inputRef={ref => (this.editTodoRef = ref)}
                            value={editTodo}
                            onChange={typeEditTodo}
-                           onDone={(value, { changed }) => doneEditTodo(todo.Id, value, changed)}
+                           onDone={(value, { changed }) => doneEditTodo({ ...todo, Text: value }, changed)}
                            css="width: 100%"
                         />
                      )}
                   </Cell>
                ))}
             </div>
+            <Alert success={ItemsLeft === 0} warning={ItemsLeft > 0}>
+               {ItemsLeft} item{ItemsLeft > 1 && 's'} left
+            </Alert>
          </Frame>
       );
    }
