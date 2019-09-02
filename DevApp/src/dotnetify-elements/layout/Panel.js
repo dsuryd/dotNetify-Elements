@@ -166,7 +166,8 @@ export class Panel extends React.Component {
          wrap,
          flex,
          css,
-         style
+         style,
+         ...props
       } = this.props;
 
       const hasCell = this.children.some(x => x.type && (x.type._typeName === 'Cell' || x.type === 'd-cell'));
@@ -208,6 +209,7 @@ export class Panel extends React.Component {
             flex={_flex}
             style={style}
             css={css}
+            {...props}
          >
             {this.children.map((child, idx) => {
                const { flex, ..._childProps } = childProps || {};
