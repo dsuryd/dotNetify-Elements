@@ -14,7 +14,7 @@ GroupContainer.defaultProps = { theme: utils.getDefaultTheme() };
 export class RadioGroup extends InputElement {
    static propTypes = {
       // Identifies the associated view model property.
-      id: PropTypes.string.isRequired,
+      id: PropTypes.string,
 
       // Enables the field.
       enable: PropTypes.bool,
@@ -43,6 +43,7 @@ export class RadioGroup extends InputElement {
 
    handleChange = event => {
       let value = event.target.value;
+      this.props.onChange && this.props.onChange(value);
       this.dispatch(value);
    };
    render() {

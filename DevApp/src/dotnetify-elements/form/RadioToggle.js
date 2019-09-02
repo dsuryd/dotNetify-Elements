@@ -7,7 +7,7 @@ import * as utils from '../utils';
 export class RadioToggle extends React.Component {
    static propTypes = {
       // Identifies the associated view model property.
-      id: PropTypes.string.isRequired,
+      id: PropTypes.string,
 
       // Enables the field.
       enable: PropTypes.bool,

@@ -5,7 +5,7 @@ import InputElement from '../core/InputElement';
 export class Checkbox extends InputElement {
    static propTypes = {
       // Identifies the associated view model property.
-      id: PropTypes.string.isRequired,
+      id: PropTypes.string,
 
       // Enables the field.
       enable: PropTypes.bool,
@@ -34,7 +34,7 @@ export class Checkbox extends InputElement {
 
    render() {
       const [ Container, Label, Input, PlainText ] = this.resolveComponents(Checkbox);
-      const { fullId, label, plainText, enable, style, css } = this.attrs;
+      const { children, fullId, label, plainText, enable, style, css } = this.attrs;
 
       const checked = !!(this.value || this.props.value);
       const disabled = enable === false;
@@ -46,6 +46,7 @@ export class Checkbox extends InputElement {
             ) : (
                <React.Fragment>
                   <Input
+                     ref={this.inputRef}
                      type="checkbox"
                      id={`${fullId}__input`}
                      name={fullId}
@@ -53,7 +54,7 @@ export class Checkbox extends InputElement {
                      onChange={this.handleChange}
                      disabled={disabled}
                   />
-                  <Label htmlFor={`${fullId}__input`}>{label}</Label>
+                  <Label htmlFor={`${fullId}__input`}>{label || children}</Label>
                </React.Fragment>
             )}
          </Container>

@@ -9,7 +9,7 @@ const PlainTextComponent = props => <span {...props}>{React.Children.toArray(pro
 export class MultiselectList extends InputElement {
    static propTypes = {
       // Identifies the associated view model property.
-      id: PropTypes.string.isRequired,
+      id: PropTypes.string,
 
       // Enables the field.
       enable: PropTypes.bool,
@@ -67,11 +67,14 @@ export class MultiselectList extends InputElement {
       this.unsubOnValidated();
    }
 
-   handleChange = value => this.dispatch(value.map(val => val.Key));
+   handleChange = value => {
+      this.props.onChange && this.props.onChange(value);
+      this.dispatch(value.map(val => val.Key));
+   };
 
    render() {
       const [ Container, Input, Tag, Item, List, ValidationMessage, PlainText ] = this.resolveComponents(MultiselectList);
-      const { fullId, label, plainText, options, horizontal, enable, style, css, onChange, ...props } = this.attrs;
+      const { fullId, label, plainText, options, horizontal, enable, style, css, tabIndex, ...props } = this.attrs;
 
       const disabled = enable === false;
       const values = this.value ? this.value.map(x => `${x}`) : [];
@@ -80,11 +83,12 @@ export class MultiselectList extends InputElement {
       const validationMessages = this.props.validationMessages || this.state.validationMessages;
 
       return (
-         <Container id={fullId} label={label} horizontal={horizontal} plainText={plainText} style={style} css={css}>
+         <Container id={fullId} label={label} horizontal={horizontal} plainText={plainText} style={style} css={css} tabIndex={tabIndex}>
             {plainText ? (
                <PlainText>{plainTextValue}</PlainText>
             ) : (
                <Input
+                  ref={this.inputRef}
                   valid={this.state.valid}
                   id={fullId}
                   value={values}

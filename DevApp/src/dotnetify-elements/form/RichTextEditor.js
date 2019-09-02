@@ -54,6 +54,7 @@ export class RichTextEditor extends InputElement {
    handleChange = value => {
       this.changed = true;
       this.value = value;
+      this.props.onChange && this.props.onChange(value);
    };
 
    componentDidMount() {

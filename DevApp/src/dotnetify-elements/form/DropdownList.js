@@ -9,7 +9,7 @@ const PlainTextComponent = props => <span {...props} />;
 export class DropdownList extends InputElement {
    static propTypes = {
       // Identifies the associated view model property.
-      id: PropTypes.string.isRequired,
+      id: PropTypes.string,
 
       // Enables the field.
       enable: PropTypes.bool,
@@ -80,7 +80,7 @@ export class DropdownList extends InputElement {
 
    render() {
       const [ Container, Input, InputGroup, ValidationMessage, PlainText ] = this.resolveComponents(DropdownList);
-      let { fullId, label, placeholder, prefix, suffix, plainText, options, horizontal, enable, style, css, ...props } = this.attrs;
+      let { fullId, label, placeholder, prefix, suffix, plainText, options, horizontal, enable, style, css, tabIndex } = this.attrs;
 
       options = options || [];
       const listOptions = options.map(opt => (
@@ -101,12 +101,13 @@ export class DropdownList extends InputElement {
       const validationMessages = this.props.validationMessages || this.state.validationMessages;
 
       return (
-         <Container id={fullId} label={label} horizontal={horizontal} plainText={plainText} style={style} css={css}>
+         <Container id={fullId} label={label} horizontal={horizontal} plainText={plainText} style={style} css={css} tabIndex={tabIndex}>
             {plainText ? (
                <PlainText>{plainTextValue}</PlainText>
             ) : (
                <InputGroup prefix={prefix} suffix={suffix}>
                   <Input
+                     ref={this.inputRef}
                      id={fullId}
                      type="select"
                      valid={this.state.valid}
