@@ -23,7 +23,7 @@ public class CheckboxExample : BaseVM
 ```jsx
 static propTypes = {
    // Identifies the associated view model property.
-   id: PropTypes.string.isRequired,
+   id: PropTypes.string,
 
    // Enables the field.
    enable: PropTypes.bool,
@@ -35,7 +35,10 @@ static propTypes = {
    plainText: PropTypes.bool,
 
    // Appears as a switch.
-   switch: PropTypes.bool
+   switch: PropTypes.bool,
+
+   // Occurs when the value changes.
+   onChange: PropTypes.func   
 };
 ```
 

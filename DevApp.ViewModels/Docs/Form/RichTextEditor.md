@@ -71,7 +71,7 @@ https://github.com/quilljs/quill ([license: BSD 3-Clause (Revised)](https://gith
 ```jsx
 static propTypes = {
    // Identifies the associated view model property.
-   id: PropTypes.string.isRequired,
+   id: PropTypes.string,
 
    // Quill configuration (see quilljs.org).
    config: PropTypes.object,

@@ -104,7 +104,7 @@ https://github.com/text-mask/text-mask ([license: The Unlicense](https://github.
 ```jsx
 static propTypes = {
    // Identifies the associated view model property.
-   id: PropTypes.string.isRequired,
+   id: PropTypes.string,
 
    // Enables the field.
    enable: PropTypes.bool,
@@ -114,6 +114,9 @@ static propTypes = {
 
    // Displays the label text horizontally to the left of the field.
    horizontal: PropTypes.bool,
+
+   // Get input element ref.
+   inputRef: PropTypes.func,
 
    // Max input length.
    maxLength: PropTypes.number,
@@ -131,7 +134,13 @@ static propTypes = {
    suffix: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
 
    // Custom validation functions.
-   validation: PropTypes.oneOfType([ PropTypes.array, PropTypes.shape({ validate: PropTypes.func, message: PropTypes.string }) ])
+   validation: PropTypes.oneOfType([ PropTypes.array, PropTypes.shape({ validate: PropTypes.func, message: PropTypes.string }) ]),
+
+   // Occurs when the value changes.
+   onChange: PropTypes.func,
+
+   // Occurs when user is done typing (Enter keypress or blur event).
+   onDone: PropTypes.func
 };
 ```
 

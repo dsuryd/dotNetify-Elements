@@ -53,7 +53,7 @@ https://github.com/jquense/react-widgets ([license: MIT](https://github.com/jque
 ```jsx
 static propTypes = {
    // Identifies the associated view model property.
-   id: PropTypes.string.isRequired,
+   id: PropTypes.string,
 
    // Enables the field.
    enable: PropTypes.bool,

@@ -51,7 +51,7 @@ Add the default empty selection by providing an option with an empty string valu
 ```jsx
 static propTypes = {
    // Identifies the associated view model property.
-   id: PropTypes.string.isRequired,
+   id: PropTypes.string,
 
    // Enables the field.
    enable: PropTypes.bool,

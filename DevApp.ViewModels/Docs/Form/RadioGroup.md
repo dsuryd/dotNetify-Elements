@@ -41,7 +41,7 @@ public class RadioGroupExample : BaseVM
 ```jsx
 static propTypes = {
    // Identifies the associated view model property.
-   id: PropTypes.string.isRequired,
+   id: PropTypes.string,
 
    // Enables the field.
    enable: PropTypes.bool,
