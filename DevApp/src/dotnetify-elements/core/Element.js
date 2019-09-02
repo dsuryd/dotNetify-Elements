@@ -71,7 +71,7 @@ export default class Element extends React.Component {
    }
 
    componentDidMount() {
-      this.props.onChange && this.props.onChange(this.vmProperty.value);
+      if (this.props.onChange && this.isVMProperty) this.props.onChange(this.vmProperty.value);
    }
 
    componentWillUpdate(props) {
