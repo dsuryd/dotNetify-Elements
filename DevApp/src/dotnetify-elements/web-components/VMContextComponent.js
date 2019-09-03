@@ -41,7 +41,7 @@ export default function createWebComponent(Component, elementName) {
          }
       }
       connectedCallback() {
-         this.vmContextElem = this.parentElement.closest('d-vm-context');
+         this.vmContextElem = this.parentElement && this.parentElement.closest('d-vm-context');
          if (this.vmContextElem) {
             this.vmContext = this.vmContextElem.context;
             this.vmContextElem.addEventListener('onStateChange', this.onVMContextStateChange);

@@ -59,7 +59,7 @@ export default function createWebComponent(Component, elementName) {
             this.vmContextElem.addEventListener('onStateChange', this.onVMContextStateChange);
          }
 
-         this.formElem = this.parentElement.closest('d-form');
+         this.formElem = this.parentElement && this.parentElement.closest('d-form');
          if (this.formElem) this.formContext = this.formElem.context.formContext;
 
          this.props = {
