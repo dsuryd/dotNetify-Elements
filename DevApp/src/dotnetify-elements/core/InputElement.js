@@ -21,16 +21,18 @@ export default class InputElement extends Element {
       }
 
       // Fallback is this component isn't associated with a back-end view model.
-      const propId = this.props.id || Math.random().toString(36).substring(2);
       const vmContext = {
-         getState: id => (id === propId && this.props.hasOwnProperty('value') ? this.props.value : this.state && this.state[id]),
+         getState: id => this.state && this.state[id],
          setState: state => this.setState(state),
          getPropAttributes: _ => this.props.attrs || {},
          getPropValidations: _ => this.props.validations || null,
-         getValidator: _ => new VMInputValidator(vmContext, propId),
-         dispatchState: state => this.props.onChange && this.props.onChange(state[propId])
+         getValidator: _ => new VMInputValidator(vmContext, this.propId),
+         dispatchState: state => this.props.onChange && this.props.onChange(state[this.propId])
       };
-      this._vmInput = new VMInput(vmContext, propId);
+      this._vmInput = new VMInput(vmContext, this.propId);
+      if (this.props.hasOwnProperty('value') && !this.state.hasOwnProperty(this.propId)) {
+         this.setControlledValue(this.props.value);
+      }
       return this._vmInput;
    }
 
@@ -46,10 +48,17 @@ export default class InputElement extends Element {
    constructor(props) {
       super(props);
       this.inputRef = React.createRef();
+      this.propId = this.props.id || Math.random().toString(36).substring(2);
+
+      if (this.props.hasOwnProperty('value')) this.state = { [this.propId]: this.props.value };
       if (typeof props.inputRef == 'function') props.inputRef(this.inputRef);
    }
 
    dispatch(value, toServer) {
       return this.vmProperty.dispatch(value, toServer);
+   }
+
+   setControlledValue(value) {
+      this.setState({ [this.propId]: value });
    }
 }

@@ -38,7 +38,8 @@ export default class Element extends React.Component {
    }
 
    get attrs() {
-      return Object.assign({ fullId: this.vmProperty.fullId }, this.vmProperty.attrs, this.props);
+      const { value, ...props } = this.props;
+      return Object.assign({ fullId: this.vmProperty.fullId }, this.vmProperty.attrs, props);
    }
 
    get isVMProperty() {
@@ -60,7 +61,8 @@ export default class Element extends React.Component {
       const propId = this.props.id || Math.random().toString(36).substring(2);
       this._vmProperty = new VMProperty(
          {
-            getState: id => (id === propId && this.props.hasOwnProperty('value') ? this.props.value : this.state && this.state[id]),
+            getState: id =>
+               id === propId && this.props.hasOwnProperty('value') ? this.props.value : this.state && this.state[id],
             setState: state => this.setState(state),
             getPropAttributes: _ => this.props.attrs || {},
             dispatchState: _ => {}
@@ -89,7 +91,9 @@ export default class Element extends React.Component {
    getTemplateContent(template) {
       // Input can either be HTML node or selector.
       let templateElem =
-         template.nodeName === 'TEMPLATE' ? template : document.getElementById(template) || document.querySelector(template);
+         template.nodeName === 'TEMPLATE'
+            ? template
+            : document.getElementById(template) || document.querySelector(template);
       if (templateElem) {
          templateElem = templateElem.cloneNode(true);
 

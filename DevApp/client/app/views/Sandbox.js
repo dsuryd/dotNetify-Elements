@@ -11,6 +11,7 @@ class TodoList extends React.Component {
       super();
       this.vm = dotnetify.react.connect('TodoList', this);
       this.state = { Todos: [], newTodo: '', editTodoId: 0, editTodo: '' };
+      this.todoRef = React.createRef();
    }
 
    componentDidMount() {
@@ -27,6 +28,11 @@ class TodoList extends React.Component {
       // Control the new todo and existing todo input elements.
       const typeTodo = value => this.setState({ newTodo: value });
       const typeEditTodo = value => this.setState({ editTodo: value });
+
+      if (this.todoRef.current) {
+         this.todoRef.current.addEventListener('onChange', e => typeTodo(e.detail[0]));
+         this.todoRef.current.addEventListener('onDone', e => addTodo(...e.detail));
+      }
 
       // Called when focus leaves or Enter keypress on the new todo input.
       const addTodo = (value, { changed }) => {
@@ -64,20 +70,25 @@ class TodoList extends React.Component {
       return (
          <Frame>
             <h1>Todo List</h1>
-            <TextField
+            {/* <TextField
                inputRef={ref => (this.todoRef = ref)}
                value={newTodo}
                placeholder="What do you want to do?"
                onChange={typeTodo}
                onDone={addTodo}
-            />
+            /> */}
+            <d-text-field ref={this.todoRef} placeholder="What do you want to do?" value={newTodo} onDone={addTodo} />
             <div>
                {Todos.map(todo => (
                   <Cell key={todo.Id} css=".cell-body { padding: 0 }" tabIndex="0">
                      {todo.Id !== editTodoId ? (
                         <Panel horizontal apart middle padding=".5rem; i { cursor: pointer }">
                            <Panel onDoubleClick={_ => startEditTodo(todo.Id)}>
-                              <Checkbox label={todo.Text} value={todo.Done} onChange={val => updateTodo({ ...todo, Done: val })} />
+                              <Checkbox
+                                 label={todo.Text}
+                                 value={todo.Done}
+                                 onChange={val => updateTodo({ ...todo, Done: val })}
+                              />
                            </Panel>
                            <i className="material-icons" onClick={_ => removeTodo(todo.Id)}>
                               cancel

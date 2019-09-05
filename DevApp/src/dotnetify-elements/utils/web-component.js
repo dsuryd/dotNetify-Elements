@@ -11,20 +11,26 @@ export default function createWebComponent(Component, elementName, useShadowDom)
          this.mountRoot = useShadowDom ? this.attachShadow({ mode: 'open' }) : this;
 
          // Watch for attribute change on the custom element to render the React component.
-         this.observer = new MutationObserver(() => this.onAttributeChange());
+         this.observer = new MutationObserver(mutations => this.onAttributeChange(mutations));
          this.observer.observe(this, { attributes: true });
       }
 
-      onAttributeChange = _ => {
+      onAttributeChange = mutations => {
+         const props = mutations.reduce(
+            (prev, x) => ({ ...prev, [x.attributeName]: this.getAttribute(x.attributeName) }),
+            {}
+         );
+
          // If the element is within a VMContext element, don't render the component until it has state.
          const vmContextElem = this.closest('d-vm-context');
-         if (!vmContextElem || vmContextElem.context.getState()) this.renderComponent(true);
+         if (!vmContextElem || vmContextElem.context.getState()) this.renderComponent(props);
       };
 
       onFormContextStateChange = e => {
          // Re-mount the component if it's nested inside a form component and its 'plainText'
          // property changes, indicating edit mode is toggled.
-         this.component && this.renderComponent(e.detail.state.hasOwnProperty('plainText'));
+         const props = e.detail.state.hasOwnProperty('plainText') ? { plainText: e.detail.state.plainText } : null;
+         this.component && this.renderComponent(props);
       };
 
       onVMContextStateChange = _ => this.renderComponent();
@@ -118,15 +124,17 @@ export default function createWebComponent(Component, elementName, useShadowDom)
          this.mountState = null;
       }
 
-      renderComponent(remount) {
+      renderComponent(props) {
          if (!this.component) this.mountComponent();
-         else if (this.vmContext && !remount) {
+         else if (this.vmContext && props == null) {
             if (typeof this.component.shouldComponentUpdate == 'function') {
                if (this.component.shouldComponentUpdate({})) this.component.forceUpdate();
-            }
-            else this.component.forceUpdate();
-         }
-         else {
+            } else this.component.forceUpdate();
+         } else if (props && props.hasOwnProperty('value') && typeof this.component.setControlledValue == 'function') {
+            // If the 'value' property changes on a controlled component, use the provided function
+            // to set the value so that React can update the component.
+            this.component.setControlledValue(props.value);
+         } else {
             this.unmountComponent();
             this.mountComponent();
          }
