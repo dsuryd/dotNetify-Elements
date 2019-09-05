@@ -61,8 +61,7 @@ export default class Element extends React.Component {
       const propId = this.props.id || Math.random().toString(36).substring(2);
       this._vmProperty = new VMProperty(
          {
-            getState: id =>
-               id === propId && this.props.hasOwnProperty('value') ? this.props.value : this.state && this.state[id],
+            getState: id => (id === propId && this.props.hasOwnProperty('value') ? this.props.value : this.state && this.state[id]),
             setState: state => this.setState(state),
             getPropAttributes: _ => this.props.attrs || {},
             dispatchState: _ => {}
@@ -76,7 +75,7 @@ export default class Element extends React.Component {
       if (this.props.onChange && this.isVMProperty) this.props.onChange(this.vmProperty.value);
    }
 
-   componentWillUpdate(props) {
+   componentDidUpdate(props) {
       if (props.id) this._vmProperty = null;
    }
 
@@ -91,9 +90,7 @@ export default class Element extends React.Component {
    getTemplateContent(template) {
       // Input can either be HTML node or selector.
       let templateElem =
-         template.nodeName === 'TEMPLATE'
-            ? template
-            : document.getElementById(template) || document.querySelector(template);
+         template.nodeName === 'TEMPLATE' ? template : document.getElementById(template) || document.querySelector(template);
       if (templateElem) {
          templateElem = templateElem.cloneNode(true);
 
