@@ -37,7 +37,7 @@ export default class WebComponentHelper {
       return Object.keys(componentPropTypes).filter(key => /on([A-Z].*)/.exec(key)).reduce(
          (events, e) => ({
             ...events,
-            [e]: args => {
+            [e]: (...args) => {
                const eventName = e.toLowerCase();
 
                let eventHandler = this.host.__eventHandlers[eventName];
