@@ -40,7 +40,7 @@ export class Form extends React.Component {
 
    constructor(props) {
       super(props);
-      this.state = {};
+      this.state = { ...this.state };
       this.formStore = new FormStore(this);
    }
 
@@ -49,7 +49,8 @@ export class Form extends React.Component {
    }
 
    shouldComponentUpdate(props) {
-      if (props.hasOwnProperty('plainText') && props.plainText !== this.formStore.plainText) this.formStore.plainText = props.plainText;
+      if (props.hasOwnProperty('plainText') && props.plainText !== this.formStore.plainText)
+         this.formStore.plainText = props.plainText;
       if (props.plainText !== true) this.formStore.enterEditMode();
       return true;
    }

@@ -43,7 +43,7 @@ export class DropdownList extends InputElement {
 
    constructor(props) {
       super(props);
-      this.state = { validationMessages: [] };
+      this.state = { ...this.state, validationMessages: [] };
    }
 
    componentDidMount() {
@@ -80,7 +80,20 @@ export class DropdownList extends InputElement {
 
    render() {
       const [ Container, Input, InputGroup, ValidationMessage, PlainText ] = this.resolveComponents(DropdownList);
-      let { fullId, label, placeholder, prefix, suffix, plainText, options, horizontal, enable, style, css, tabIndex } = this.attrs;
+      let {
+         fullId,
+         label,
+         placeholder,
+         prefix,
+         suffix,
+         plainText,
+         options,
+         horizontal,
+         enable,
+         style,
+         css,
+         tabIndex
+      } = this.attrs;
 
       options = options || [];
       const listOptions = options.map(opt => (
@@ -101,7 +114,15 @@ export class DropdownList extends InputElement {
       const validationMessages = this.props.validationMessages || this.state.validationMessages;
 
       return (
-         <Container id={fullId} label={label} horizontal={horizontal} plainText={plainText} style={style} css={css} tabIndex={tabIndex}>
+         <Container
+            id={fullId}
+            label={label}
+            horizontal={horizontal}
+            plainText={plainText}
+            style={style}
+            css={css}
+            tabIndex={tabIndex}
+         >
             {plainText ? (
                <PlainText>{plainTextValue}</PlainText>
             ) : (
@@ -121,7 +142,9 @@ export class DropdownList extends InputElement {
                   </Input>
                </InputGroup>
             )}
-            {validationMessages.map((message, idx) => <ValidationMessage key={validationKeyPrefix + idx}>{message}</ValidationMessage>)}
+            {validationMessages.map((message, idx) => (
+               <ValidationMessage key={validationKeyPrefix + idx}>{message}</ValidationMessage>
+            ))}
          </Container>
       );
    }

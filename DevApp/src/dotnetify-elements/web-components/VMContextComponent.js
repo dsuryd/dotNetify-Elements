@@ -52,7 +52,8 @@ export default function createWebComponent(Component, elementName) {
          if (container && container.mountState !== 'mounting') return;
 
          this.vmId = this.getAttribute('vm');
-         if (this.vmId && (!this.vmContextElem || this.vmContextElem.state)) this.connect(this.vmId, this.getAttribute('options'));
+         if (this.vmId && (!this.vmContextElem || this.vmContextElem.state))
+            this.connect(this.vmId, this.getAttribute('options'));
 
          this.init = true;
       }
@@ -80,7 +81,7 @@ export default function createWebComponent(Component, elementName) {
       }
 
       setState(state) {
-         this.state = Object.assign(this.state || {}, state);
+         this.state = { ...this.state, state };
          this.dispatchEvent(new CustomEvent('onLocalStateChange', { detail: state }));
       }
    }

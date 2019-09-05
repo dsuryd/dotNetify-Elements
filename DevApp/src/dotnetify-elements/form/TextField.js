@@ -39,7 +39,10 @@ export class TextField extends InputElement {
       suffix: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
 
       // Custom validation functions.
-      validation: PropTypes.oneOfType([ PropTypes.array, PropTypes.shape({ validate: PropTypes.func, message: PropTypes.string }) ]),
+      validation: PropTypes.oneOfType([
+         PropTypes.array,
+         PropTypes.shape({ validate: PropTypes.func, message: PropTypes.string })
+      ]),
 
       // Occurs when the value changes.
       onChange: PropTypes.func,
@@ -58,7 +61,7 @@ export class TextField extends InputElement {
 
    constructor(props) {
       super(props);
-      this.state = { validationMessages: [] };
+      this.state = { ...this.state, validationMessages: [] };
       this.changed = false;
    }
 
@@ -161,7 +164,9 @@ export class TextField extends InputElement {
                   />
                </InputGroup>
             )}
-            {validationMessages.map((message, idx) => <ValidationMessage key={validationKeyPrefix + idx}>{message}</ValidationMessage>)}
+            {validationMessages.map((message, idx) => (
+               <ValidationMessage key={validationKeyPrefix + idx}>{message}</ValidationMessage>
+            ))}
          </Container>
       );
    }

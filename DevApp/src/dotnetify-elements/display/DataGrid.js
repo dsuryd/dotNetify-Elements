@@ -64,7 +64,7 @@ export class DataGrid extends Element {
 
    constructor(props) {
       super(props);
-      this.state = { height: this.props.height ? utils.toPixel(this.props.height) : null };
+      this.state = { ...this.state, height: this.props.height ? utils.toPixel(this.props.height) : null };
       this.redraw = true;
    }
 
@@ -118,7 +118,10 @@ export class DataGrid extends Element {
    }
 
    mapColumns(children, columns) {
-      let [ gridColumns, rest ] = utils.filterChildren(children, child => child.type == GridColumn || child.type == 'd-grid-column');
+      let [ gridColumns, rest ] = utils.filterChildren(
+         children,
+         child => child.type == GridColumn || child.type == 'd-grid-column'
+      );
 
       // Map GridColumn attributes to React data grid column definition.
       let mapGridColumn = gridCol => {
@@ -260,7 +263,10 @@ export class DataGrid extends Element {
       if (this.gridDom && this.gridDom.getDataGridDOMNode) {
          var top = this.gridDom.getRowOffsetHeight() * idx;
          var gridCanvas = this.gridDom.getDataGridDOMNode().querySelector('.react-grid-Canvas');
-         if (top < gridCanvas.scrollTop || top > gridCanvas.scrollTop + this.state.height - 2 * utils.toPixel(this.attrs.rowHeight)) {
+         if (
+            top < gridCanvas.scrollTop ||
+            top > gridCanvas.scrollTop + this.state.height - 2 * utils.toPixel(this.attrs.rowHeight)
+         ) {
             gridCanvas.scrollTop = top;
 
             // Hack to fix row data not getting updated when programmatically selected.
@@ -269,8 +275,7 @@ export class DataGrid extends Element {
                this.emitEvent('click', row);
             });
          }
-      }
-      else setTimeout(_ => this.handleScrollToRow(idx));
+      } else setTimeout(_ => this.handleScrollToRow(idx));
    }
 
    handleSelectBy = _ => {

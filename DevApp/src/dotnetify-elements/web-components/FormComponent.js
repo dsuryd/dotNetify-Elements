@@ -102,12 +102,13 @@ export default function createWebComponent(Component, elementName) {
       setState(state) {
          this.shouldEnterEditMode(state);
 
-         this.state = Object.assign(this.state, state);
+         this.state = { ...this.state, state };
          this.dispatchEvent(new CustomEvent('onStateChange', { detail: { state } }));
       }
 
       shouldEnterEditMode(state) {
-         if (!this.formStore.editMode && state.plainText !== 'true' && this.hasVMContextState) this.formStore.enterEditMode();
+         if (!this.formStore.editMode && state.plainText !== 'true' && this.hasVMContextState)
+            this.formStore.enterEditMode();
       }
    }
 

@@ -77,7 +77,7 @@ export class Collapsible extends React.Component {
    constructor(props) {
       super(props);
       this.collapsed = props.collapsed;
-      this.state = { open: !props.collapsed };
+      this.state = { ...this.state, open: !props.collapsed };
    }
 
    shouldComponentUpdate(props) {
@@ -95,10 +95,15 @@ export class Collapsible extends React.Component {
    };
 
    render() {
-      const [ Container, HeaderContainer, Header, Label, AngleCollapseIcon, AngleExpandIcon, CollapsePanel ] = utils.resolveComponents(
-         Collapsible,
-         this.props
-      );
+      const [
+         Container,
+         HeaderContainer,
+         Header,
+         Label,
+         AngleCollapseIcon,
+         AngleExpandIcon,
+         CollapsePanel
+      ] = utils.resolveComponents(Collapsible, this.props);
       const { noIcon, label, children, style, css, tabIndex } = this.props;
       const icon = this.state.open ? <AngleCollapseIcon /> : <AngleExpandIcon />;
 
