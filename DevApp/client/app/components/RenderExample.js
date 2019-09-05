@@ -52,7 +52,7 @@ export default class RenderExample extends React.Component {
 
    render() {
       const { vm, extraToggles, onWebComponent, children } = this.props;
-      const flags = [ { key: true, value: 'True' }, { key: false, value: 'False' } ];
+      const flags = [ { key: 'true', value: 'True' }, { key: 'false', value: 'False' } ];
       const set = (state, value) => {
          const newState = { [state]: value === 'true' || value === 'false' ? value === 'true' : value };
          this.setState(newState);
@@ -73,7 +73,7 @@ export default class RenderExample extends React.Component {
             id={'_' + x}
             label={x + ':'}
             options={flags}
-            value={this.state[x]}
+            value={`${this.state[x]}`}
             onChange={val => set(x, val)}
          />
       ));
