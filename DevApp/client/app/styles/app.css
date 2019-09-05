@@ -3,6 +3,18 @@ html {
    font-size: .9rem;
 }
 
+strong {
+   font-weight: 500;
+   color: #6aa828;
+   background-color: rgba(255, 255, 255, .6);
+   padding: 0 4px;
+   border-radius: 2px;
+}
+
+.theme-dark strong {
+   background-color: rgba(255, 255, 255, .2);
+}
+
 p,
 .markdown div > ul > li {
    font-size: 1.1rem;
