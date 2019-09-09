@@ -16,7 +16,7 @@ export default class InputElement extends Element {
       // Returns the object that provides data from the back-end view model, and manages input validation
       // and sending back of data to the back-end.
       if (this.isVMProperty) {
-         this._vmInput = new VMInput(this.vmContext, this.props.id);
+         this._vmInput = new VMInput(this.vmContext, this.props.id, this.props.onInputRef);
          return this._vmInput;
       }
 
@@ -29,7 +29,8 @@ export default class InputElement extends Element {
          getValidator: _ => new VMInputValidator(vmContext, this.propId),
          dispatchState: state => this.props.onChange && this.props.onChange(state[this.propId])
       };
-      this._vmInput = new VMInput(vmContext, this.propId);
+      this._vmInput = new VMInput(vmContext, this.propId, this.props.onInputRef);
+
       if (this.props.hasOwnProperty('value') && !this.state.hasOwnProperty(this.propId)) {
          this.setControlledValue(this.props.value);
       }
@@ -51,7 +52,6 @@ export default class InputElement extends Element {
       this.propId = this.props.id || Math.random().toString(36).substring(2);
 
       if (this.props.hasOwnProperty('value')) this.state = { [this.propId]: this.props.value };
-      if (typeof props.inputRef == 'function') props.inputRef(this.inputRef);
    }
 
    dispatch(value, toServer) {

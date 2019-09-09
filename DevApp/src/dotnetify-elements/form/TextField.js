@@ -20,9 +20,6 @@ export class TextField extends InputElement {
       // Displays the label text horizontally to the left of the field.
       horizontal: PropTypes.bool,
 
-      // Get input element ref.
-      inputRef: PropTypes.func,
-
       // Max input length.
       maxLength: PropTypes.number,
 
@@ -39,16 +36,16 @@ export class TextField extends InputElement {
       suffix: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
 
       // Custom validation functions.
-      validation: PropTypes.oneOfType([
-         PropTypes.array,
-         PropTypes.shape({ validate: PropTypes.func, message: PropTypes.string })
-      ]),
+      validation: PropTypes.oneOfType([ PropTypes.array, PropTypes.shape({ validate: PropTypes.func, message: PropTypes.string }) ]),
 
       // Occurs when the value changes.
       onChange: PropTypes.func,
 
       // Occurs when user is done typing (Enter keypress or blur event).
-      onDone: PropTypes.func
+      onDone: PropTypes.func,
+
+      // Provides input element ref.
+      onInputRef: PropTypes.func
    };
 
    static componentTypes = {
@@ -117,6 +114,7 @@ export class TextField extends InputElement {
          enable,
          onChange,
          onDone,
+         onInputRef,
          type,
          css,
          style,
@@ -164,9 +162,7 @@ export class TextField extends InputElement {
                   />
                </InputGroup>
             )}
-            {validationMessages.map((message, idx) => (
-               <ValidationMessage key={validationKeyPrefix + idx}>{message}</ValidationMessage>
-            ))}
+            {validationMessages.map((message, idx) => <ValidationMessage key={validationKeyPrefix + idx}>{message}</ValidationMessage>)}
          </Container>
       );
    }

@@ -5,8 +5,9 @@ import { createTextMaskInputElement } from 'text-mask-core';
 import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 
 export default class VMInput extends VMProperty {
-   constructor(vmContext, propId) {
+   constructor(vmContext, propId, onInputRef) {
       super(vmContext, propId);
+      this.onInputRef = onInputRef;
 
       // If this input field is inside the Form context, get the validator from the context
       // so that the Form can validate all its input fields.  Otherwise, create it here.
@@ -24,6 +25,7 @@ export default class VMInput extends VMProperty {
 
    set dom(elem) {
       this._inputElement = elem;
+      if (typeof this.onInputRef == 'function') this.onInputRef(elem);
    }
 
    get isRequired() {
