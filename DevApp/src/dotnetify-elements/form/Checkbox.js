@@ -36,7 +36,7 @@ export class Checkbox extends InputElement {
       const [ Container, Label, Input, PlainText ] = this.resolveComponents(Checkbox);
       const { children, fullId, label, plainText, enable, style, css } = this.attrs;
 
-      const checked = !!(this.value || this.props.value);
+      const checked = !!this.value;
       const disabled = enable === false;
 
       return (
