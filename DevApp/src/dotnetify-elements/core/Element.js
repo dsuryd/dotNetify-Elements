@@ -38,8 +38,7 @@ export default class Element extends React.Component {
    }
 
    get attrs() {
-      const { value, ...props } = this.props;
-      return Object.assign({ fullId: this.vmProperty.fullId }, this.vmProperty.attrs, props);
+      return Object.assign({ fullId: this.vmProperty.fullId }, this.vmProperty.attrs, this.props);
    }
 
    get isVMProperty() {
