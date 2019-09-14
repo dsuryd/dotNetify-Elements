@@ -11,11 +11,10 @@ class TodoList extends React.Component {
       super();
       this.vm = dotnetify.react.connect('TodoList', this);
       this.state = { Todos: [], newTodo: '', editTodoId: 0, editTodo: '' };
-      this.todoRef = React.createRef();
    }
 
    componentDidMount() {
-      setTimeout(() => this.todoRef.current.focus());
+      setTimeout(() => this.todoRef.focus());
    }
 
    componentWillUnmount() {
@@ -28,11 +27,6 @@ class TodoList extends React.Component {
       // Control the new todo and existing todo input elements.
       const typeTodo = value => this.setState({ newTodo: value });
       const typeEditTodo = value => this.setState({ editTodo: value });
-
-      if (this.todoRef.current) {
-         this.todoRef.current.addEventListener('onChange', e => typeTodo(e.detail[0]));
-         this.todoRef.current.addEventListener('onDone', e => addTodo(...e.detail));
-      }
 
       // Called when focus leaves or Enter keypress on the new todo input.
       const addTodo = (value, { changed }) => {
@@ -52,15 +46,15 @@ class TodoList extends React.Component {
          const todo = this.state.Todos.find(x => x.Id === id);
          this.setState({ editTodoId: id, editTodo: todo.Text });
          setTimeout(() => {
-            this.editTodoRef.current.focus();
-            this.editTodoRef.current.select();
+            this.editTodoRef.focus();
+            this.editTodoRef.select();
          });
       };
 
       // Called when focus leaves or Enter keypress on the edited todo input.
       const doneEditTodo = (todo, changed) => {
          this.setState({ editTodoId: 0, editTodo: '' });
-         this.todoRef.current.focus();
+         this.todoRef.focus();
          if (changed) updateTodo(todo);
       };
 
@@ -70,25 +64,21 @@ class TodoList extends React.Component {
       return (
          <Frame>
             <h1>Todo List</h1>
-            {/* <TextField
-               inputRef={ref => (this.todoRef = ref)}
+            <TextField
                value={newTodo}
                placeholder="What do you want to do?"
                onChange={typeTodo}
                onDone={addTodo}
-            /> */}
-            <d-text-field ref={this.todoRef} placeholder="What do you want to do?" value={newTodo} onDone={addTodo} />
+               onInputRef={ref => (this.todoRef = ref)}
+            />
+            {/* <d-text-field ref={this.todoRef} placeholder="What do you want to do?" value={newTodo} onDone={addTodo} /> */}
             <div>
                {Todos.map(todo => (
                   <Cell key={todo.Id} css=".cell-body { padding: 0 }" tabIndex="0">
                      {todo.Id !== editTodoId ? (
                         <Panel horizontal apart middle padding=".5rem; i { cursor: pointer }">
                            <Panel onDoubleClick={_ => startEditTodo(todo.Id)}>
-                              <Checkbox
-                                 label={todo.Text}
-                                 value={todo.Done}
-                                 onChange={val => updateTodo({ ...todo, Done: val })}
-                              />
+                              <Checkbox label={todo.Text} value={todo.Done} onChange={val => updateTodo({ ...todo, Done: val })} />
                            </Panel>
                            <i className="material-icons" onClick={_ => removeTodo(todo.Id)}>
                               cancel
@@ -96,11 +86,11 @@ class TodoList extends React.Component {
                         </Panel>
                      ) : (
                         <TextField
-                           inputRef={ref => (this.editTodoRef = ref)}
+                           css="width: 100%"
                            value={editTodo}
                            onChange={typeEditTodo}
                            onDone={(value, { changed }) => doneEditTodo({ ...todo, Text: value }, changed)}
-                           css="width: 100%"
+                           onInputRef={ref => (this.editTodoRef = ref)}
                         />
                      )}
                   </Cell>
