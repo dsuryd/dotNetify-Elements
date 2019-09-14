@@ -42,7 +42,7 @@ export class Tab extends React.Component {
    componentDidUpdate(props) {
       // Only make this a controlled tab if 'onActivate' is provided. We'd like to allow the use case where
       // the 'active' property is only used to set the initial active tab.
-      if (this.props.active !== props.active && this.props.onActivate) this.setActiveState(props.active);
+      if (this.props.active !== props.active && this.props.onActivate) this.setActiveState(this.props.active);
    }
 
    get children() {
