@@ -7,5 +7,8 @@ Object.assign(Cell.componentTypes, {
    BodyContainer: CellBody
 });
 
+const window = window || global || {};
+window.dotNetifyElements = { ...window.dotNetifyElements, Cell };
+
 export default Cell;
 export { Cell };

@@ -33,7 +33,7 @@ const baseExport = {
 };
 
 let components = {
-   _test: './src/dotnetify-elements/bootstrap/_components/MultiSelectList.js'
+   _test: './src/dotnetify-elements/bootstrap/_web-components/DataGrid.js'
 };
 
 const moduleConfig = {
@@ -83,7 +83,7 @@ module.exports = [
    {
       ...moduleConfig,
       entry: components,
-      output: { ...moduleConfig.output, path: __dirname + '/dist/components', library: '[name]' },
+      output: { ...moduleConfig.output, path: __dirname + '/dist/_web-components', library: [ 'dotNetifyElements', '[name]' ] },
       externals: {
          bootstrap: 'bootstrap',
          dotnetify: 'dotnetify',

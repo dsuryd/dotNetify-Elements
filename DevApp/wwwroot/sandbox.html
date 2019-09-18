@@ -10,7 +10,23 @@
    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
    <link href="/dist/dotnetify-elements.css" rel="stylesheet" />
    <link href="/dist/app.css" rel="stylesheet" />
-   <script>
+
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js"></script>
+
+   <!-- <script src="https://unpkg.com/react@latest/umd/react.development.js"></script>
+   <script src="https://unpkg.com/react-dom@latest/umd/react-dom.development.js"></script> -->
+   <script src="https://unpkg.com/react@latest/umd/react.production.min.js"></script>
+   <script src="https://unpkg.com/react-dom@latest/umd/react-dom.production.min.js"></script>        
+   
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/styled-components/4.1.3/styled-components.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/@aspnet/signalr@1/dist/browser/signalr.min.js"></script>
+   <script src="https://unpkg.com/dotnetify@latest/dist/dotnetify-react.min.js"></script>
+   
+   <script src="/dist/basic-web-components.bundle.js"></script>
+   <script src="/dist/web-components/datagrid.js"></script>
+   <!-- <script src="/dist/dotnetify-elements.js"></script> -->
+  
+   <script> 
       onEdit = function() {
           setTimeout(function() {
               document.getElementById('_form').setAttribute('plaintext', 'false');
@@ -46,162 +62,146 @@
               document.getElementById('_dialog').setAttribute('open', 'false');
           });
       }
-  </script>   
+  </script>  
 </head>
 
 <body>
    <d-main theme="dark">
-      <d-vm-context vm="Introduction">
-      <d-markdown id="Content">
-         <div>Hi</div>
-         <div>Hello</div>
-      </d-markdown>
-   </d-vm-context>
-      <d-section css="width: 100vw;height:100vh;"> 
-         <d-vm-context vm="CustomerForm">
-               <d-panel>
-                     <d-data-grid id="Contacts" enable="true"></d-data-grid>
-                     <d-form id="_form" plaintext="true">
-                         <d-panel>
-                             <d-panel horizontal="true">
+         <d-section>
+            <d-frame>
+               <d-vm-context vm="CustomerForm">
+                     <d-panel >
+                        <d-data-grid id="Contacts" enable="true"></d-data-grid>
+                        <d-form id="_form" plaintext="true">
+                           <d-panel>
                                  <d-panel horizontal="true">
-                                     <d-button id="_edit" label="Edit" enable="true" onclick="onEdit()"></d-button>
-                                     <d-button id="Submit" label="Update" enable="true" submit="true" show="true" onclick="onUpdateOrCancel()"></d-button>
-                                     <d-button id="_cancel" label="Cancel" cancel="true" secondary="true" show="false" onclick="onUpdateOrCancel()"></d-button>
+                                    <d-panel horizontal="true">
+                                       <d-button id="_edit" label="Edit" enable="true" onclick="onEdit()"></d-button>
+                                       <d-button id="Submit" label="Update" submit="true" show="false" onclick="onUpdateOrCancel()"></d-button>
+                                       <d-button id="_cancel" label="Cancel" cancel="true" secondary="true" show="false" onclick="onUpdateOrCancel()"></d-button>
+                                    </d-panel>
+                                    <d-panel right="true">
+                                       <d-button id="_new" label="New Customer" enable="true" onclick="openDialog()"></d-button>
+                                    </d-panel>
                                  </d-panel>
-                                 <d-panel right="true">
-                                     <d-button id="_new" label="New Customer" enable="true" onclick="openDialog()"></d-button>
-                                 </d-panel>
-                             </d-panel>
-                             <d-tab margin="1.5rem 0">
-                                 <d-tab-item itemkey="basic" label="Basic Info">
-                                     <d-panel horizontal="true" nogap="true">
-                                         <d-panel horizontal="true">
-                                             <d-cell header="Person" flex="true">
-                                                 <d-vm-context vm="PersonForm">
-                                                     <d-form id="Person">
+                                 <d-tab margin="1.5rem 0">
+                                    <d-tab-item itemkey="basic" label="Basic Info">
+                                       <d-panel horizontal="true" nogap="true">
+                                             <d-panel>
+                                                <d-cell header="Person" borders="top, left, right">
+                                                   <d-vm-context vm="PersonForm">
+                                                         <d-form id="Person">
+                                                            <d-panel>
+                                                               <d-text-field id="FullName" plaintext="true" horizontal="true"></d-text-field>
+                                                               <d-dropdown-list id="Prefix" horizontal="true"></d-dropdown-list>
+                                                               <d-text-field id="FirstName" horizontal="true"></d-text-field>
+                                                               <d-text-field id="MiddleName" horizontal="true"></d-text-field>
+                                                               <d-text-field id="LastName" horizontal="true"></d-text-field>
+                                                               <d-dropdown-list id="Suffix" horizontal="true"></d-dropdown-list>
+                                                            </d-panel>
+                                                         </d-form>
+                                                   </d-vm-context>
+                                                </d-cell>
+                                                <d-cell header="Phone" flex="1">
+                                                   <d-vm-context vm="PhoneForm">
+                                                         <d-form id="Phone">
+                                                            <d-panel>
+                                                               <d-text-field id="Work" horizontal="true"></d-text-field>
+                                                               <d-text-field id="Home" horizontal="true"></d-text-field>
+                                                               <d-text-field id="Mobile" horizontal="true"></d-text-field>
+                                                               <drop-down-list id="Primary" horizontal="true"></drop-down-list>
+                                                            </d-panel>
+                                                         </d-form>
+                                                   </d-vm-context>
+                                                </d-cell>
+                                             </d-panel>
+                                             <d-panel>
+                                                <d-cell header="Other Info" borders="top, right">
+                                                   <d-vm-context vm="OtherInfoForm">
+                                                         <d-form id="OtherInfo">
+                                                            <d-panel>
+                                                               <d-text-field id="SSN" horizontal="true"></d-text-field>
+                                                               <d-dropdown-list id="TaxFilingStatus" horizontal="true"></d-dropdown-list>
+                                                               <d-date-field id="DateOfBirth" horizontal="true"></d-date-field>
+                                                               <d-radio-group id="Gender" horizontal="true"></d-radio-group>
+                                                               <d-dropdown-list id="MaritalStatus" horizontal="true"></d-dropdown-list>
+                                                            </d-panel>
+                                                         </d-form>
+                                                   </d-vm-context>
+                                                </d-cell>
+                                                <d-cell header="Driver License" borders="top, right">
+                                                   <d-vm-context vm="DriverLicenseForm">
+                                                         <d-form id="DriverLicense">
+                                                            <d-panel>
+                                                               <d-text-field id="Number" horizontal="true"></d-text-field>
+                                                               <d-dropdown-list id="State" horizontal="true"></d-dropdown-list>
+                                                            </d-panel>
+                                                         </d-form>
+                                                   </d-vm-context>
+                                                </d-cell>
+                                                <d-cell header="Notes" flex="1" borders="top, right, bottom">
+                                                   <d-vm-context vm="NotesForm">
+                                                         <d-form id="Notes">
+                                                            <d-panel>
+                                                               <d-text-area-field id="Notes" horizontal="true"></d-text-area-field>
+                                                            </d-panel>
+                                                         </d-form>
+                                                   </d-vm-context>
+                                                </d-cell>
+                                             </d-panel>
+                                       </d-panel>
+                                    </d-tab-item>
+                                    <d-tab-item itemkey="address" label="Address">
+                                       <d-panel>
+                                             <d-cell header="Primary Address">
+                                                <d-vm-context vm="AddressForm">
+                                                   <d-form id="Address">
                                                          <d-panel>
-                                                             <d-text-field id="FullName" plaintext="true" horizontal="true"></d-text-field>
-                                                             <d-dropdown-list id="Prefix" horizontal="true"></d-dropdown-list>
-                                                             <d-text-field id="FirstName" horizontal="true"></d-text-field>
-                                                             <d-text-field id="MiddleName" horizontal="true"></d-text-field>
-                                                             <d-text-field id="LastName" horizontal="true"></d-text-field>
-                                                             <d-dropdown-list id="Suffix" horizontal="true"></d-dropdown-list>
+                                                            <d-text-field id="Address1" horizontal="true"></d-text-field>
+                                                            <d-text-field id="Address2" horizontal="true"></d-text-field>
+                                                            <d-text-field id="City" horizontal="true"></d-text-field>
+                                                            <d-dropdown-list id="State" horizontal="true"></d-dropdown-list>
+                                                            <d-number-field id="ZipCode" horizontal="true"></d-number-field>
                                                          </d-panel>
-                                                     </d-form>
-                                                 </d-vm-context>
+                                                   </d-form>
+                                                </d-vm-context>
                                              </d-cell>
-                                             <d-cell header="Phone" flex="1" borders="top, right, bottom">
-                                                 <d-vm-context vm="PhoneForm">
-                                                     <d-form id="Phone">
-                                                         <d-panel>
-                                                             <d-text-field id="Work" horizontal="true"></d-text-field>
-                                                             <d-text-field id="Home" horizontal="true"></d-text-field>
-                                                             <d-text-field id="Mobile" horizontal="true"></d-text-field>
-                                                             <drop-down-list id="Primary" horizontal="true"></drop-down-list>
-                                                         </d-panel>
-                                                     </d-form>
-                                                 </d-vm-context>
-                                             </d-cell>
-                                         </d-panel>
-                                     </d-panel>
-                                 </d-tab-item>
-                                 <d-tab-item itemkey="address" label="Address">
-                                     <d-panel>
-                                         <d-cell header="Primary Address">
-                                             <d-vm-context vm="AddressForm">
-                                                 <d-form id="Address">
-                                                     <d-panel>
-                                                         <d-text-field id="Address1" horizontal="true"></d-text-field>
-                                                         <d-text-field id="Address2" horizontal="true"></d-text-field>
-                                                         <d-text-field id="City" horizontal="true"></d-text-field>
-                                                         <d-dropdown-list id="State" horizontal="true"></d-dropdown-list>
-                                                         <d-number-field id="ZipCode" horizontal="true"></d-number-field>
-                                                     </d-panel>
-                                                 </d-form>
-                                             </d-vm-context>
-                                         </d-cell>
-                                     </d-panel>
-                                 </d-tab-item>
-                             </d-tab>
-                         </d-panel>
-                         <d-vm-context vm="NewCustomerForm">
-                             <d-modal id="_dialog" header="New Customer" open="false" large="true">
-                                 <d-tab>
-                                     <d-tab-item key="Person" label="Person">
-                                         <d-vm-context vm="PersonForm">
-                                             <d-form id="Person">
-                                                 <d-panel>
-                                                     <d-dropdown-list id="Prefix"></d-dropdown-list>
-                                                     <d-text-field id="FirstName"></d-text-field>
-                                                     <d-text-field id="MiddleName"></d-text-field>
-                                                     <d-text-field id="LastName"></d-text-field>
-                                                     <d-dropdown-list id="Suffix"></d-dropdown-list>
-                                                 </d-panel>
-                                             </d-form>
-                                         </d-vm-context>
-                                     </d-tab-item>
-                                     <d-tab-item key="Phone" label="Phone">
-                                         <d-vm-context vm="PhoneForm">
-                                             <d-form id="Phone">
-                                                 <d-panel>
-                                                     <d-text-field id="Work"></d-text-field>
-                                                     <d-text-field id="Home"></d-text-field>
-                                                     <d-text-field id="Mobile"></d-text-field>
-                                                     <d-dropdown-list id="Primary"></d-dropdown-list>
-                                                 </d-panel>
-                                             </d-form>
-                                         </d-vm-context>
-                                     </d-tab-item>
-                                     <d-tab-item key="Address" label="Address">
-                                         <d-vm-context vm="AddressForm">
-                                             <d-form id="Address">
-                                                 <d-panel>
-                                                     <d-text-field id="Address1"></d-text-field>
-                                                     <d-text-field id="Address2"></d-text-field>
-                                                     <d-text-field id="City"></d-text-field>
-                                                     <d-dropdown-list id="State"></d-dropdown-list>
-                                                     <d-number-field id="ZipCode"></d-number-field>
-                                                 </d-panel>
-                                             </d-form>
-                                         </d-vm-context>
-                                     </d-tab-item>
+                                       </d-panel>
+                                    </d-tab-item>
                                  </d-tab>
-                                 <footer>
-                                     <d-panel horizontal="true" right="true">
-                                         <d-button label="Cancel" cancel="true" secondary="true" onclick="closeDialog()"></d-button>
-                                         <d-button label="Submit" id="Submit" submit="true" onclick="closeDialog()"></d-button>
-                                     </d-panel>
-                                 </footer>
-                             </d-modal>
-                         </d-vm-context>
-                     </d-form>
-                 </d-panel>
-         </d-vm-context>
-      </d-section>
-   </d-main> 
+                           </d-panel>
+                           <d-vm-context vm="NewCustomerForm">
+                                 <d-modal id="_dialog" header="New Customer" open="false" large="true">
+                                    <d-tab>
+                                       <d-tab-item key="Person" label="Person">
+                                             <d-vm-context vm="PersonForm">
+                                                <d-form id="Person">
+                                                   <d-panel>
+                                                         <d-dropdown-list id="Prefix"></d-dropdown-list>
+                                                         <d-text-field id="FirstName"></d-text-field>
+                                                         <d-text-field id="MiddleName"></d-text-field>
+                                                         <d-text-field id="LastName"></d-text-field>
+                                                         <d-dropdown-list id="Suffix"></d-dropdown-list>
+                                                   </d-panel>
+                                                </d-form>
+                                             </d-vm-context>
+                                       </d-tab-item>
+                                    </d-tab>
+                                    <footer>
+                                       <d-panel horizontal="true" right="true">
+                                             <d-button label="Cancel" cancel="true" secondary="true" onclick="closeDialog()"></d-button>
+                                             <d-button label="Submit" id="Submit" submit onclick="closeDialog()"></d-button>
+                                       </d-panel>
+                                    </footer>
+                                 </d-modal>
+                           </d-vm-context>
+                        </d-form>
+                     </d-panel>
+               </d-vm-context>
+            </d-frame>
+         </d-section>
+   </d-main>
 
-   <!-- Polyfills for IE 11 -->
-   <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js"></script>
-
-   <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
-   <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
-   <!-- <script crossorigin src="https://unpkg.com/react@16.3.2/umd/react.production.min.js"></script>
-        <script crossorigin src="https://unpkg.com/react-dom@16.3.2/umd/react-dom.production.min.js"></script>         -->
-   <script crossorigin
-      src="https://cdnjs.cloudflare.com/ajax/libs/styled-components/4.1.3/styled-components.min.js"></script>
-   <script crossorigin src="https://cdn.jsdelivr.net/npm/@aspnet/signalr@1/dist/browser/signalr.min.js"></script>
-   <script crossorigin src="https://unpkg.com/@webcomponents/webcomponentsjs@2/custom-elements-es5-adapter.js"></script>
-   <script crossorigin src="https://unpkg.com/dotnetify@3/dist/dotnetify-react.min.js"></script>
-
-   <script src="/dist/dotnetify-elements.js"></script>
-   <script>
-      document.addEventListener('CustomerForm_onElementEvent', e => console.warn(e, e.detail))
-      document.querySelectorAll("d-vm-context").forEach(element => {
-         //element.addEventListener('onElementEvent', e => console.warn(e.detail))
-         
-      });
-   </script>
 </body>
 
 </html>

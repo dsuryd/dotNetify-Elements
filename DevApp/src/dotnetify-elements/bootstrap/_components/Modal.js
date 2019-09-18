@@ -18,5 +18,8 @@ Modal.componentTypes.HeaderContainer.defaultProps = { theme: utils.getDefaultThe
 Modal.componentTypes.BodyContainer.defaultProps = { theme: utils.getDefaultTheme() };
 Modal.componentTypes.FooterContainer.defaultProps = { theme: utils.getDefaultTheme() };
 
+const window = window || global || {};
+window.dotNetifyElements = { ...window.dotNetifyElements, Modal };
+
 export default Modal;
 export { Modal };

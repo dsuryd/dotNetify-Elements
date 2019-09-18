@@ -44,8 +44,10 @@ let webComponents = {};
 let webComponentsFolder = './src/dotnetify-elements/bootstrap/_web-components/';
 fs.readdirSync(webComponentsFolder).forEach(file => {
    const name = file.slice(0, -3);
-   webComponents[name] = webComponentsFolder + file;
-   if (name === 'Core') webComponents['index'] = webComponentsFolder + file;
+   if (name.match(/^[A-Z]+/g)) {
+      webComponents[name] = webComponentsFolder + file;
+      if (name === 'Core') webComponents['index'] = webComponentsFolder + file;
+   }
 });
 
 const moduleConfig = {
@@ -119,19 +121,21 @@ module.exports = [
    {
       ...moduleConfig,
       entry: components,
-      output: { ...moduleConfig.output, path: __dirname + '/dist/components', library: '[name]' },
+      output: { ...moduleConfig.output, path: __dirname + '/dist/components', library: [ 'dotNetifyElements', '[name]' ] },
       externals: { ...componentExternals }
    },
    {
       ...moduleConfig,
       entry: webComponents,
-      output: { ...moduleConfig.output, path: __dirname + '/dist/web-components', library: '[name]' },
+      output: { ...moduleConfig.output, path: __dirname + '/dist/web-components', library: [ 'dotNetifyElements', '[name]' ] },
       externals: { ...componentExternals }
    },
    {
       mode: 'production',
       entry: {
-         'dotnetify-elements': './src/dotnetify-elements/index.js'
+         'dotnetify-elements': './src/dotnetify-elements/index.js',
+         'basic-elements': './src/dotnetify-elements/bootstrap/_components/basic-bundle.js',
+         'basic-web-components': './src/dotnetify-elements/bootstrap/_web-components/basic-bundle.js'
       },
       output: {
          path: __dirname + '/dist',

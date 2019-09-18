@@ -13,3 +13,6 @@ modalComponent.prototype.close = function() {
       this.dispatchEvent(new CustomEvent('onclose'));
    });
 };
+
+export default Modal;
+export { Modal };

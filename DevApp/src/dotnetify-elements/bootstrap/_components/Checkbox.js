@@ -15,5 +15,8 @@ Object.assign(CheckboxGroup.componentTypes, {
    InputComponent: CheckboxInput
 });
 
+const window = window || global || {};
+window.dotNetifyElements = { ...window.dotNetifyElements, Checkbox, CheckboxGroup };
+
 export default Checkbox;
 export { Checkbox, CheckboxGroup };

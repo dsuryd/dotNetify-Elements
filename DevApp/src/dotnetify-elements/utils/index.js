@@ -65,6 +65,10 @@ export function mapChildren(children, predicate, mapper) {
 }
 
 export function mergeProps(elem, ...newProps) {
+   if (elem.type == null) {
+      console.error(`Cannot resolve the type of element with props '${JSON.stringify(elem.props)}'`);
+      return {};
+   }
    const propTypes = Object.keys(elem.type.propTypes || {});
    let props = newProps.reduce((aggregate, prop) => Object.assign(aggregate, prop), {});
 

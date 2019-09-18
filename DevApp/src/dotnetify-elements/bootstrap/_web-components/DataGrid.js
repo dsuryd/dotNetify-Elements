@@ -3,3 +3,6 @@ import createWebComponent from '../../utils/web-component';
 
 createWebComponent(DataGrid, 'd-data-grid');
 createWebComponent(GridColumn, 'd-grid-column');
+
+export default DataGrid;
+export { DataGrid, GridColumn };

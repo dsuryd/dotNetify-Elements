@@ -3,3 +3,6 @@ import createWebComponent from '../../utils/web-component';
 
 createWebComponent(Checkbox, 'd-checkbox');
 createWebComponent(CheckboxGroup, 'd-checkbox-group');
+
+export default Checkbox;
+export { Checkbox, CheckboxGroup };

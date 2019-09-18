@@ -9,5 +9,8 @@ Object.assign(Card.componentTypes, {
    FooterContainer: CardFooter
 });
 
+const window = window || global || {};
+window.dotNetifyElements = { ...window.dotNetifyElements, Card, CardImage };
+
 export default Card;
 export { Card, CardImage };

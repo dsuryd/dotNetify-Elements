@@ -6,3 +6,6 @@ let cardImageComponent = createWebComponent(CardImage, 'd-card-image');
 
 cardComponent.prototype._isContainer = true;
 cardImageComponent.prototype._isContainer = true;
+
+export default Card;
+export { Card, CardImage };

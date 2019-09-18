@@ -7,3 +7,6 @@ cellComponent.prototype._connectedCallback = function() {
    this.style.display = 'flex';
    this.style.flex = '1';
 };
+
+export default Cell;
+export { Cell };

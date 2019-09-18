@@ -7,5 +7,8 @@ Object.assign(PasswordField.componentTypes, {
    InputGroupComponent: InputGroup
 });
 
+const window = window || global || {};
+window.dotNetifyElements = { ...window.dotNetifyElements, PasswordField };
+
 export default PasswordField;
 export { PasswordField };

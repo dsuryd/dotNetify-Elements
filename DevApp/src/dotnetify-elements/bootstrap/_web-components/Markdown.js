@@ -5,3 +5,6 @@ let markdownComponent = createWebComponent(Markdown, 'd-markdown');
 markdownComponent.prototype._isContainer = true;
 
 createWebComponent(MarkdownTOC, 'd-markdown-toc');
+
+export default Markdown;
+export { Markdown, MarkdownTOC };

@@ -8,5 +8,8 @@ Object.assign(RadioToggle.componentTypes, {
    InputComponent: RadioToggleInput
 });
 
+const window = window || global || {};
+window.dotNetifyElements = { ...window.dotNetifyElements, RadioToggle };
+
 export default RadioToggle;
 export { RadioToggle };

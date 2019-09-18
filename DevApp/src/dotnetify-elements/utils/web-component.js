@@ -16,10 +16,7 @@ export default function createWebComponent(Component, elementName, useShadowDom)
       }
 
       onAttributeChange = mutations => {
-         const props = mutations.reduce(
-            (prev, x) => ({ ...prev, [x.attributeName]: this.getAttribute(x.attributeName) }),
-            {}
-         );
+         const props = mutations.reduce((prev, x) => ({ ...prev, [x.attributeName]: this.getAttribute(x.attributeName) }), {});
 
          // If the element is within a VMContext element, don't render the component until it has state.
          const vmContextElem = this.closest('d-vm-context');
@@ -129,12 +126,15 @@ export default function createWebComponent(Component, elementName, useShadowDom)
          else if (this.vmContext && props == null) {
             if (typeof this.component.shouldComponentUpdate == 'function') {
                if (this.component.shouldComponentUpdate({})) this.component.forceUpdate();
-            } else this.component.forceUpdate();
-         } else if (props && props.hasOwnProperty('value') && typeof this.component.setControlledValue == 'function') {
+            }
+            else this.component.forceUpdate();
+         }
+         else if (props && props.hasOwnProperty('value') && typeof this.component.setControlledValue == 'function') {
             // If the 'value' property changes on a controlled component, use the provided function
             // to set the value so that React can update the component.
             this.component.setControlledValue(props.value);
-         } else {
+         }
+         else {
             this.unmountComponent();
             this.mountComponent();
          }

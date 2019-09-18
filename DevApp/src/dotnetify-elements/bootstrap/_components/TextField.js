@@ -6,5 +6,8 @@ Object.assign(TextField.componentTypes, {
    InputGroupComponent: InputGroup
 });
 
+const window = window || global || {};
+window.dotNetifyElements = { ...window.dotNetifyElements, TextField };
+
 export default TextField;
 export { TextField };

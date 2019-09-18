@@ -7,4 +7,7 @@ BarChart.componentTypes.ChartComponent = Bar;
 LineChart.componentTypes.ChartComponent = Line;
 PieChart.componentTypes.ChartComponent = Doughnut;
 
+const window = window || global || {};
+window.dotNetifyElements = { ...window.dotNetifyElements, BarChart, LineChart, PieChart };
+
 export { BarChart, LineChart, PieChart };

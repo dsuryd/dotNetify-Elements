@@ -5,5 +5,8 @@ Object.assign(MultiselectList.componentTypes, {
    InputComponent: Multiselect
 });
 
+const window = window || global || {};
+window.dotNetifyElements = { ...window.dotNetifyElements, MultiselectList };
+
 export default MultiselectList;
 export { MultiselectList };

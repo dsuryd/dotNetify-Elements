@@ -8,5 +8,8 @@ Object.assign(TextAreaField.componentTypes, {
    InputGroupComponent: InputGroup
 });
 
+const window = window || global || {};
+window.dotNetifyElements = { ...window.dotNetifyElements, TextAreaField };
+
 export default TextAreaField;
 export { TextAreaField };

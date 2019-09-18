@@ -7,5 +7,8 @@ Object.assign(RadioGroup.componentTypes, {
    InputComponent: RadioInput
 });
 
+const window = window || global || {};
+window.dotNetifyElements = { ...window.dotNetifyElements, RadioGroup };
+
 export default RadioGroup;
 export { RadioGroup };

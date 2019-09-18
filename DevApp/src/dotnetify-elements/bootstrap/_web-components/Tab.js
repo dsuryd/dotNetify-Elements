@@ -6,3 +6,6 @@ tabComponent.prototype._isContainer = true;
 
 let tabItemComponent = createWebComponent(TabItem, 'd-tab-item');
 tabItemComponent.prototype._isContainer = true;
+
+export default Tab;
+export { Tab, TabItem };

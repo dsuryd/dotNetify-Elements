@@ -9,3 +9,6 @@ frameComponent.prototype._connectedCallback = function() {
       noMargin: false
    };
 };
+
+export default Panel;
+export { Frame, Panel };

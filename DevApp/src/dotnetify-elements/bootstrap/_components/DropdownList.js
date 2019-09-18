@@ -7,5 +7,8 @@ Object.assign(DropdownList.componentTypes, {
    InputGroupComponent: InputGroup
 });
 
+const window = window || global || {};
+window.dotNetifyElements = { ...window.dotNetifyElements, DropdownList };
+
 export default DropdownList;
 export { DropdownList };
