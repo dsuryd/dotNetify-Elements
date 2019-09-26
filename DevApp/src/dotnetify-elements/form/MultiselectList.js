@@ -73,10 +73,8 @@ export class MultiselectList extends InputElement {
    };
 
    render() {
-      const [ Container, Input, Tag, Item, List, ValidationMessage, PlainText ] = this.resolveComponents(
-         MultiselectList
-      );
-      const { fullId, label, plainText, options, horizontal, enable, style, css, tabIndex, ...props } = this.attrs;
+      const [ Container, Input, Tag, Item, List, ValidationMessage, PlainText ] = this.resolveComponents(MultiselectList);
+      const { fullId, label, plainText, options, horizontal, enable, style, css, tabIndex, onChange, ...props } = this.attrs;
 
       const disabled = enable === false;
       const values = this.value ? this.value.map(x => `${x}`) : [];
@@ -85,15 +83,7 @@ export class MultiselectList extends InputElement {
       const validationMessages = this.props.validationMessages || this.state.validationMessages;
 
       return (
-         <Container
-            id={fullId}
-            label={label}
-            horizontal={horizontal}
-            plainText={plainText}
-            style={style}
-            css={css}
-            tabIndex={tabIndex}
-         >
+         <Container id={fullId} label={label} horizontal={horizontal} plainText={plainText} style={style} css={css} tabIndex={tabIndex}>
             {plainText ? (
                <PlainText>{plainTextValue}</PlainText>
             ) : (
@@ -113,9 +103,7 @@ export class MultiselectList extends InputElement {
                   {...props}
                />
             )}
-            {validationMessages.map((message, idx) => (
-               <ValidationMessage key={validationKeyPrefix + idx}>{message}</ValidationMessage>
-            ))}
+            {validationMessages.map((message, idx) => <ValidationMessage key={validationKeyPrefix + idx}>{message}</ValidationMessage>)}
          </Container>
       );
    }
