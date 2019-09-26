@@ -1,6 +1,6 @@
 {
    "name": "dotnetify-elements",
-   "version": "1.1.0-dev16",
+   "version": "1.1.0",
    "description": "React components for reactive, real-time .NET web applications.",
    "main": "dotnetify-elements.js",
    "files": [ "lib/*.*", "components/*.*", "web-components/*.*",  "*.js", "*.css", "LICENSE.md", "README.md" ],

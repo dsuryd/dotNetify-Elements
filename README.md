@@ -5,16 +5,15 @@
 
 ## DotNetify-Elements
 
-A library of React components for cross-platform .NET back-end, communicating in real-time through WebSocket with SignalR.
+A library of React and native web components for cross-platform .NET back-end, communicating in real-time via WebSocket.
 
 [**View documentation and live demo**](https://dotnetify.net/elements)  
 
 ### What's New
 
-- v1.0: Rich Text Editor, Web Component layout - [release notes](https://github.com/dsuryd/dotNetify-Elements/releases).
-
+- v1.1: [release notes](https://github.com/dsuryd/dotNetify-Elements/releases/tag/v1.1).
+- v1.0: Rich text editor, layout web components.
 - v0.5: support for Web Component standard. Use elements like regular HTML tags; no build system required.<br/>JSFiddle Demo: [Live Dashboard](https://jsfiddle.net/dsuryd/ygosxk8m/), [Reactive Form](https://jsfiddle.net/dsuryd/hmvwpjx0/4/).
-- v0.4: editable Data Grid.
 
 ### About This Repo
 
