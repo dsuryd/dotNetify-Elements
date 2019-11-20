@@ -1,4 +1,4 @@
-<p align="center"><img width="400px" src="http://dotnetify.net/content/images/dotnetify-logo.png"></p>
+<p align="center"><img width="300px" src="http://dotnetify.net/content/images/dotnetify-logo.png"></p>
 
 [![npm version](https://badge.fury.io/js/dotnetify-elements.svg)](https://badge.fury.io/js/dotnetify-elements)
 [![NuGet version](https://badge.fury.io/nu/DotNetify.Elements.svg)](https://badge.fury.io/nu/DotNetify.Elements)
