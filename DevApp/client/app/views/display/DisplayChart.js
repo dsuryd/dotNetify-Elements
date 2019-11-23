@@ -59,7 +59,7 @@ const MyApp = _ => (
 \`\`\`jsx
 <d-vm-context vm="LineChartExample">
    <d-line-chart id="Waveform" ${this.state.streaming
-      ? 'config="options:{scales:{xAxes:[{type:\'realtime\',realtime:{delay:2000}}],yAxes:[{ticks:{suggestedMin:-1.5,suggestedMax:1.5}}]}}"'
+      ? 'config=\'{"options":{"scales":{"xAxes":[{"type":"realtime","realtime":{"delay":2000}}],"yAxes":[{"ticks":{"suggestedMin":-1.5,"suggestedMax":1.5}}]}}}\''
       : ''}/>
 </d-vm-context>
 \`\`\``;
