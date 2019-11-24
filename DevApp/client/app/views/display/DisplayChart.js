@@ -37,30 +37,17 @@ class LineChartExample extends React.Component {
 \`\`\`jsx
 import React from 'react';
 import { LineChart, VMContext } from 'dotnetify-elements';
-${this.state.streaming
-         ? `
-const realtimeConfig = {
-   options: {
-      scales: {
-         xAxes: [ { type: 'realtime', realtime: { delay: 2000 } } ],
-         yAxes: [ { ticks: { suggestedMin: -1.5, suggestedMax: 1.5 } } ]
-      }
-   }
-};
-`
-         : ''}
+
 const MyApp = _ => (
    <VMContext vm="LineChartExample">
-      <LineChart id="Waveform" ${this.state.streaming ? 'config={realtimeConfig}' : ''} />
+      <LineChart id="Waveform" ${this.state.streaming ? 'streaming="true"' : ''} tooltip={true}/>
    </VMContext>
 );
 \`\`\``;
       const buildWebComponentCode = props => `
 \`\`\`jsx
 <d-vm-context vm="LineChartExample">
-   <d-line-chart id="Waveform" ${this.state.streaming
-      ? 'config=\'{"options":{"scales":{"xAxes":[{"type":"realtime","realtime":{"delay":2000}}],"yAxes":[{"ticks":{"suggestedMin":-1.5,"suggestedMax":1.5}}]}}}\''
-      : ''}/>
+   <d-line-chart id="Waveform" ${this.state.streaming ? 'streaming="true"' : ''} tooltip="true" />
 </d-vm-context>
 \`\`\``;
       let propTypes = {};
@@ -91,10 +78,10 @@ const MyApp = _ => (
          >
             <Panel css="margin-bottom: 2rem">
                {!webComponent ? (
-                  <LineChart id="Waveform" key={this.state.streaming} config={this.state.streaming ? realtimeConfig : null} />
+                  <LineChart id="Waveform" key={this.state.streaming} streaming={this.state.streaming} tooltip={true} />
                ) : (
                   <d-vm-context vm="LineChartExample">
-                     <d-line-chart id="Waveform" config={this.state.streaming ? JSON.stringify(realtimeConfig) : null} />
+                     <d-line-chart id="Waveform" streaming={this.state.streaming} tooltip={true} />
                   </d-vm-context>
                )}
             </Panel>

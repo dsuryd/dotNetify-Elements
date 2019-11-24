@@ -5,6 +5,7 @@ import Element from '../core/Element';
 import * as utils from '../utils';
 import { toChartJsConfig, toDataLabelPair } from './chart';
 import 'chartjs-plugin-streaming';
+import 'chartjs-plugin-zoom';
 
 const ChartContainer = styled.div`
    overflow-x: hidden;
@@ -20,14 +21,20 @@ export class LineChart extends Element {
       // Identifies the associated view model property.
       id: PropTypes.string,
 
-      // Chart configuration.
+      // Chart.js configuration.
       config: PropTypes.object,
 
       // Sets custom height.
       height: PropTypes.string,
 
       // Sets custom width.
-      width: PropTypes.string
+      width: PropTypes.string,
+
+      // Enables streaming.
+      streaming: PropTypes.bool,
+
+      // Enables tooltip.
+      tooltip: PropTypes.bool
    };
 
    static componentTypes = {
@@ -37,16 +44,10 @@ export class LineChart extends Element {
 
    constructor(props) {
       super(props);
-      this.isStreaming = this.checkStreaming(props);
    }
 
    checkDate(value) {
       return value && value.length >= 8 && Date.parse(value) !== NaN;
-   }
-
-   checkStreaming(props) {
-      const xAxes = utils.nestedGet(props, 'config.options.scales.xAxes');
-      return Array.isArray(xAxes) && xAxes.length > 0 && xAxes[0].type === 'realtime';
    }
 
    getConfig = (config, theme) => ({
@@ -63,9 +64,14 @@ export class LineChart extends Element {
    });
 
    shouldComponentUpdate() {
-      if (this.isStreaming && this.value.length > 0) {
-         const { data, label } = toDataLabelPair(this.value[this.value.length - 1]);
-         this.chartData.datasets[0].data.push({ x: this.checkDate(label) ? new Date(label) : Date.now(), y: data });
+      if (this.props.streaming && this.value.length > 0) {
+         const lastValue = this.value[this.value.length - 1];
+         if (lastValue != this.lastValue) {
+            const { data, label } = toDataLabelPair(lastValue);
+            this.chartData.datasets[0].data.push({ x: this.checkDate(label) ? new Date(label) : Date.now(), y: data });
+            this.lastValue = lastValue;
+            this.chartRef.chartInstance.update();
+         }
          return false;
       }
       return true;
@@ -87,7 +93,7 @@ export class LineChart extends Element {
 
       // If using chartjs-plugin-streaming, data type is {x, y} where x is date.
       // Use label for x if it's date string, otherwise set Date.now() to latest data and works backward.
-      if (this.isStreaming) {
+      if (props.streaming) {
          const maxIdx = this.value.length - 1;
          if (this.checkDate(this.chartData.labels[0]))
             this.chartData.datasets[0].data = this.value.map((data, idx) => ({ x: new Date(data[0]), y: data[1] }));
@@ -96,7 +102,7 @@ export class LineChart extends Element {
 
       return (
          <Container id={fullId} width={width} style={style} css={css}>
-            <Chart data={this.chartData} options={options} height={utils.toPixel(height)} {...props} />
+            <Chart ref={ref => (this.chartRef = ref)} data={this.chartData} options={options} height={utils.toPixel(height)} {...props} />
          </Container>
       );
    }

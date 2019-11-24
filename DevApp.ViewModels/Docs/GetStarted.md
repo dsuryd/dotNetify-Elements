@@ -116,8 +116,8 @@ Add **package.json** with the following content:
     ]
   },
   "dependencies": {
-    "dotnetify": "~3.4.0",
-    "dotnetify-elements": "~1.0.2",
+    "dotnetify": "^3.5.0",
+    "dotnetify-elements": "^1.2.0",
     "react": "~16.3.2",
     "react-dom": "~16.3.2",
     "styled-components": "~4.1.3"

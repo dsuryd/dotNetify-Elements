@@ -44,12 +44,13 @@ function toChartJsData(config, props, value) {
    let { labels, maxDataSize } = props;
 
    let data;
+   let firstValue = value[0] || {};
    // Value type is array.
-   if (value[0].length == 2) {
+   if (firstValue.length == 2) {
       if (!labels) labels = value.map(x => x[0]);
       data = value.map(x => x[1]);
    }
-   else if (value[0].Key) {
+   else if (firstValue.Key) {
       // Value type is key-value pair.
       if (!labels) labels = value.map(x => x.Key);
       data = value.map(x => x.Value);
@@ -79,39 +80,53 @@ function toChartJsData(config, props, value) {
 }
 
 function toChartJsOptions(config, props) {
-   let { xAxisLabel, yAxisLabel } = props;
+   let { title, xAxisLabel, yAxisLabel, yAxisMin, yAxisMax, streaming, realtime, tooltip, zoom } = props;
+   zoom = typeof zoom == 'undefined' ? true : zoom;
 
    config = config || {};
    let configOptions = merge(
       {
+         title: { display: !!title, text: title },
          legend: { display: false },
-         scales: { xAxes: [], yAxes: [] }
+         scales: { xAxes: [], yAxes: [] },
+         tooltips: tooltip ? { mode: 'nearest', intersect: false } : {},
+         pan: zoom ? { enabled: true, mode: 'x' } : {},
+         zoom: zoom ? { enabled: true, mode: 'x' } : {}
       },
       config.options || {},
       { arrayMerge: combineMerge }
    );
 
-   if (yAxisLabel && !configOptions.scales.yAxes.length) {
+   if (!configOptions.scales.yAxes.length) {
       configOptions.scales = merge(configOptions.scales, {
          yAxes: [
             {
                scaleLabel: {
-                  display: true,
+                  display: !!yAxisLabel,
                   labelString: yAxisLabel
+               },
+               ticks: {
+                  suggestedMin: yAxisMin,
+                  suggestedMax: yAxisMax
                }
             }
          ]
       });
    }
 
-   if (xAxisLabel && !configOptions.scales.xAxes.length) {
+   if (!configOptions.scales.xAxes.length) {
+      realtime = realtime || {};
+      realtime.delay = realtime.delay || 2000;
+
       configOptions.scales = merge(configOptions.scales, {
          xAxes: [
             {
                scaleLabel: {
-                  display: true,
+                  display: !!xAxisLabel,
                   labelString: xAxisLabel
-               }
+               },
+               type: streaming ? 'realtime' : undefined,
+               realtime
             }
          ]
       });

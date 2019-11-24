@@ -28,7 +28,14 @@ namespace dotNetify_Elements
          var data = Enumerable.Range(1, 30).Select(x => new string[] { $"{x}", $"{Math.Sin(x / Math.PI)}" }).ToArray();
 
          AddProperty("Waveform", data)
-            .WithAttribute(new ChartAttribute { XAxisLabel = "Time (second)", YAxisLabel = "in/sec", MaxDataSize = 30 });
+            .WithAttribute(new ChartAttribute
+            {
+               XAxisLabel = "Time (second)",
+               YAxisLabel = "in/sec",
+               YAxisMin = -1,
+               YAxisMax = 1,
+               MaxDataSize = 30
+            });
 
          timer.Subscribe(x =>
          {

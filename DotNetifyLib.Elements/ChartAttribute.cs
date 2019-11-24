@@ -1,5 +1,5 @@
 ﻿/*
-Copyright 2018 Dicky Suryadi
+Copyright 2018-2019 Dicky Suryadi
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -14,12 +14,13 @@ See the License for the specific language governing permissions and
 limitations under the License.
  */
 
-using System;
-
 namespace DotNetify.Elements
 {
    public class ChartAttribute
    {
+      // Title.
+      public string Title { get; set; }
+
       // Data labels.
       public string[] Labels { get; set; }
 
@@ -29,7 +30,13 @@ namespace DotNetify.Elements
       // Y-axis label.
       public string YAxisLabel { get; set; }
 
+      // Minimum Y axis value.
+      public double YAxisMin { get; set; }
+
+      // Maximum Y axis value.
+      public double YAxisMax { get; set; }
+
       // Maximum number of data to display.  Overflow will be trimmed from start of array.
-      public int MaxDataSize { get; set;}
+      public int MaxDataSize { get; set; }
    }
 }

@@ -120,6 +120,30 @@ const showLegendAtTop = {
 
 #### Property Types
 
+##### Line Chart
+```jsx
+static propTypes = {
+   // Identifies the associated view model property.
+   id: PropTypes.string,
+
+   // Chart configuration (see chartjs.org).
+   config: PropTypes.object,
+
+   // Sets custom height.
+   height: PropTypes.string,
+
+   // Sets custom width.
+   width: PropTypes.string,
+
+   // Enables streaming.
+   streaming: PropTypes.bool,
+
+   // Enables tooltip.
+   tooltip: PropTypes.bool   
+};
+```
+
+##### Bar Chart
 ```jsx
 static propTypes = {
    // Identifies the associated view model property.
@@ -127,7 +151,17 @@ static propTypes = {
 
    // Chart configuration (see chartjs.org).
    config: PropTypes.object
-};
+}
+```
+
+##### Pie Chart
+```jsx
+static propTypes = {
+   // Identifies the associated view model property.
+   id: PropTypes.string,
+
+   // Chart configuration (see chartjs.org).
+   config: PropTypes.object
 ```
 
 #### Server-side Attribute
@@ -135,17 +169,26 @@ static propTypes = {
 ```csharp
 public class ChartAttribute
 {
-   // Data labels.
-   public string[] Labels { get; set; }
+      // Title.
+      public string Title { get; set; }
 
-   // X-axis label.
-   public string XAxisLabel { get; set; }
+      // Data labels.
+      public string[] Labels { get; set; }
 
-   // Y-axis label.
-   public string YAxisLabel { get; set; }
+      // X-axis label.
+      public string XAxisLabel { get; set; }
 
-   // Maximum number of data to display. 
-   // Overflow will be trimmed from start of array.
-   public int MaxDataSize { get; set;}
+      // Y-axis label.
+      public string YAxisLabel { get; set; }
+
+      // Minimum Y axis value.
+      public double YAxisMin { get; set; }
+
+      // Maximum Y axis value.
+      public double YAxisMax { get; set; }
+
+      // Maximum number of data to display.  
+      // Overflow will be trimmed from start of array.
+      public int MaxDataSize { get; set; }
 }
 ```
