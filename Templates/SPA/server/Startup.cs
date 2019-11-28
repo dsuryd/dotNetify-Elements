@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using DotNetify;
 using DotNetify.Security;
@@ -29,11 +30,10 @@ namespace spa_template
          services.AddScoped<ICustomerRepository, CustomerRepository>();
       }
 
-      public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+      public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
       {
          app.UseAuthentication();
          app.UseWebSockets();
-         app.UseSignalR(routes => routes.MapDotNetifyHub());
          app.UseDotNetify(config =>
          {
             // Middleware to do authenticate token in incoming request headers.
@@ -55,14 +55,18 @@ namespace spa_template
 
          if (env.IsDevelopment())
          {
+#pragma warning disable 618           
             app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
             {
                HotModuleReplacement = true,
                HotModuleReplacementClientOptions = new Dictionary<string, string> { { "reload", "true" } },
             });
          }
+#pragma warning restore 618         
 
          app.UseStaticFiles();
+         app.UseRouting();
+         app.UseEndpoints(endpoints => endpoints.MapHub<DotNetifyHub>("/dotnetify"));
 
          app.Run(async (context) =>
          {
