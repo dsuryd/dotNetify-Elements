@@ -70,7 +70,6 @@ namespace MyApp
       public void Configure(IApplicationBuilder app)
       {
          app.UseWebSockets();
-         app.UseSignalR(routes => routes.MapDotNetifyHub());
          app.UseDotNetify();
 
          app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
@@ -80,6 +79,14 @@ namespace MyApp
          });
 
          app.UseStaticFiles();
+         
+         // .NET Core 2.x only:
+         app.UseSignalR(routes => routes.MapDotNetifyHub());
+
+         // .NET Core 3.x only:
+         app.UseRouting();
+         app.UseEndpoints(endpoints => endpoints.MapHub<DotNetifyHub>("/dotnetify"));
+
          app.Run(async (context) =>
          {
             using (var reader = new StreamReader(File.OpenRead("wwwroot/index.html")))
@@ -116,7 +123,7 @@ Add **package.json** with the following content:
     ]
   },
   "dependencies": {
-    "dotnetify": "^3.5.0",
+    "dotnetify": "^3.6.1",
     "dotnetify-elements": "^1.2.0",
     "react": "~16.3.2",
     "react-dom": "~16.3.2",
@@ -167,6 +174,10 @@ module.exports = {
 		modules: [ 'client', 'node_modules' ],
 		extensions: [ '.js', '.jsx' ]
 	},
+  externals: {
+    react: 'React',
+    'react-dom': 'ReactDOM'
+  },  
 	module: {
 		rules: [
 			{ test: /\.jsx?$/, use: 'babel-loader', exclude: /node_modules/ },
@@ -192,6 +203,9 @@ Create a new file **/wwwroot/index.html** with the following content:
     </head>
     <body>
        <div id="App"></div>
+
+        <script src="https://unpkg.com/react@latest/umd/react.production.min.js"></script>
+        <script src="https://unpkg.com/react-dom@latest/umd/react-dom.production.min.js"></script>        
         <script src="/dist/app.js"></script>
     </body>
 </html>
