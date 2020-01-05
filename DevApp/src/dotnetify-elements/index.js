@@ -35,6 +35,7 @@ export { Card, CardImage } from './bootstrap/_components/Card';
 export { Cell } from './bootstrap/_components/Cell';
 export { Collapsible } from './bootstrap/_components/Collapsible';
 export { Field } from './bootstrap/_components/Field';
+export { Menu } from './bootstrap/_components/Menu';
 export { Modal } from './bootstrap/_components/Modal';
 export { Tab, TabItem } from './bootstrap/_components/Tab';
 

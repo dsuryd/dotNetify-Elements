@@ -1,13 +1,14 @@
-import React from "react";
-import PropTypes from "prop-types";
-import * as utils from "../utils";
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import * as utils from '../utils';
 
 const Container = styled.div`
    ${props => props.theme.Collapsible.Container};
    ${props => props.css};
 `;
 
-const Menu = styled.menu`
+const _Menu = styled.menu`
    position: absolute;
    width: 200px;
    padding: 2px;
@@ -165,43 +166,43 @@ export class Menu extends React.Component {
    configureContextMenu() {
       const onClick = e => {
          this.hideMenu();
-         document.removeEventListener("click", onClick);
+         document.removeEventListener('click', onClick);
       };
 
       const onContextMenu = e => {
          e.preventDefault();
          this.showMenu(e.pageX, e.pageY);
-         document.addEventListener("click", onClick, false);
+         document.addEventListener('click', onClick, false);
       };
 
-      document.addEventListener("contextmenu", onContextMenu, false);
-      this.removeEventListeners.push(() => document.removeEventListener("contextMenu", onContextMenu));
+      document.addEventListener('contextmenu', onContextMenu, false);
+      this.removeEventListeners.push(() => document.removeEventListener('contextMenu', onContextMenu));
    }
 
    configureTrigger() {
       const onClick = e => {
          if (e.target.parentElement.attributes.submenu) return;
          this.hideMenu();
-         this.menuElem.nativeElement.removeEventListener("click", onClick);
-         document.removeEventListener("click", onClick);
+         this.menuElem.nativeElement.removeEventListener('click', onClick);
+         document.removeEventListener('click', onClick);
       };
 
       const onClickTarget = e => {
          e.preventDefault();
          this.showMenu(e.target.pageX, e.target.pageY);
-         this.menuElem.nativeElement.addEventListener("click", onClick, false);
-         setTimeout(() => document.addEventListener("click", onClick, false));
+         this.menuElem.nativeElement.addEventListener('click', onClick, false);
+         setTimeout(() => document.addEventListener('click', onClick, false));
       };
-      this.triggerElem.nativeElement.addEventListener("click", onClickTarget, false);
+      this.triggerElem.nativeElement.addEventListener('click', onClickTarget, false);
    }
 
    hideMenu() {
-      const menu = this.menuElem.nativeElement.querySelector("menu");
-      menu.classList.remove("show-menu");
+      const menu = this.menuElem.nativeElement.querySelector('menu');
+      menu.classList.remove('show-menu');
    }
 
    initMenu() {
-      this.menuElem.nativeElement.querySelectorAll("menu").forEach(x => x.classList.add("menu"));
+      this.menuElem.nativeElement.querySelectorAll('menu').forEach(x => x.classList.add('menu'));
    }
 
    onSelected(key) {
@@ -209,15 +210,15 @@ export class Menu extends React.Component {
    }
 
    showMenu(x, y) {
-      const menu = this.menuElem.nativeElement.querySelector("menu");
-      menu.style.left = x + "px";
-      menu.style.top = y + "px";
-      menu.classList.add("show-menu");
+      const menu = this.menuElem.nativeElement.querySelector('menu');
+      menu.style.left = x + 'px';
+      menu.style.top = y + 'px';
+      menu.classList.add('show-menu');
    }
 
    render() {
       const [ Container ] = utils.resolveComponents(Menu, this.props);
-      const { ...props } = this.props;
+      const { tabIndex, css, style, ...props } = this.props;
 
       return <Container style={style} css={css} tabIndex={tabIndex} />;
    }

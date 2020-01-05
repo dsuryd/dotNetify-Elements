@@ -43,6 +43,7 @@
     <EmbeddedResource Include="Docs\Structure\Cell.md" />
     <EmbeddedResource Include="Docs\Structure\Collapsible.md" />
     <EmbeddedResource Include="Docs\Structure\Field.md" />
+    <EmbeddedResource Include="Docs\Structure\Menu.md" />
     <EmbeddedResource Include="Docs\Structure\Modal.md" />
     <EmbeddedResource Include="Docs\Structure\Tab.md" />
     <EmbeddedResource Include="Docs\WorkingWithForms.md" />

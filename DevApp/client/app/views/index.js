@@ -29,6 +29,7 @@ import StructureCard from './structure/StructureCard';
 import StructureCell from './structure/StructureCell';
 import StructureCollapsible from './structure/StructureCollapsible';
 import StructureField from './structure/StructureField';
+import StructureMenu from './structure/StructureMenu';
 import StructureModal from './structure/StructureModal';
 import StructureTab from './structure/StructureTab';
 
@@ -75,6 +76,7 @@ export {
    StructureCell,
    StructureCollapsible,
    StructureField,
+   StructureMenu,
    StructureModal,
    StructureTab,
    DisplayAlert,
