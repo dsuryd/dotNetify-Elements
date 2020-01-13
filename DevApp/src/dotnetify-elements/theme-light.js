@@ -198,6 +198,9 @@ const structureTheme = {
       PlainTextContainer: ``,
       PlainTextComponent: `font-weight: 500;`
    },
+   Menu: {
+      Container: ``
+   },
    Modal: {
       Container: ``,
       HeaderContainer: ``,

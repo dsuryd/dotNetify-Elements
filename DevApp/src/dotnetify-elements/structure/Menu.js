@@ -1,152 +1,152 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { Label } from '../display/Label';
 import * as utils from '../utils';
 
 const Container = styled.div`
-   ${props => props.theme.Collapsible.Container};
+   ${props => props.theme.Menu.Container};
    ${props => props.css};
-`;
-
-const _Menu = styled.menu`
-   position: absolute;
-   width: 200px;
-   padding: 2px;
-   margin: 0;
-   border: 1px solid black;
-   background: white;
-   z-index: 100;
-   border-radius: $mi-base-border-radius;
-   box-shadow: 1px 1px 4px rgba(0, 0, 0, .2);
-   opacity: 0;
-   -webkit-transform: translate(0, 15px) scale(.95);
-   transform: translate(0, 15px) scale(.95);
-   transition: transform 0.1s ease-out, opacity 0.1s ease-out;
-   pointer-events: none;
-
-   menu {
-      top: 0px;
-      left: 100%;
-   }
-
-   &.show-menu {
-      opacity: 1;
-      -webkit-transform: translate(0, 0) scale(1);
-      transform: translate(0, 0) scale(1);
-      pointer-events: auto;
-   }
-`;
-
-const MenuItem = styled.li`
-   display: block;
    position: relative;
-   margin: 0;
-   padding: 0;
-   white-space: nowrap;
-
-   &[menu-icon] {
+   ul {
       position: absolute;
-      padding-top: 2px;
-      color: black;
-   }
+      width: 200px;
+      padding: 2px;
+      margin: 0;
+      border: 1px solid black;
+      background: white;
+      z-index: 100;
+      border-radius: $mi-base-border-radius;
+      box-shadow: 1px 1px 4px rgba(0, 0, 0, .2);
+      opacity: 0;
+      -webkit-transform: translate(0, 15px) scale(.95);
+      transform: translate(0, 15px) scale(.95);
+      transition: transform 0.1s ease-out, opacity 0.1s ease-out;
+      pointer-events: none;
 
-   > button {
-      background: none;
-      line-height: normal;
-      overflow: visible;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      display: block;
-      width: 100%;
-      font-size: 12px;
-      text-align: left;
-      cursor: pointer;
-      border: 1px solid transparent;
-      white-space: nowrap;
-      padding: 6px 8px;
-      border-radius: 5px;
+      ul {
+         top: 0px;
+         left: 100%;
+      }
 
-      &::-moz-focus-inner,
-      &::-moz-focus-inner {
-         border: 0;
+      &.show {
+         opacity: 1;
+         -webkit-transform: translate(0, 0) scale(1);
+         transform: translate(0, 0) scale(1);
+         pointer-events: auto;
+      }
+
+      li {
+         display: block;
+         position: relative;
+         margin: 0;
          padding: 0;
-      }
+         white-space: nowrap;
 
-      label {
-         margin-left: 25px;
-         font-size: inherit;
-         color: inherit;
-      }
-   }
+         &[menu-icon] {
+            position: absolute;
+            padding-top: 2px;
+            color: black;
+         }
 
-   &:hover {
-      > button {
-         color: white;
-         outline: none;
-         background-color: silver;
+         > button {
+            background: none;
+            line-height: normal;
+            overflow: visible;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            display: block;
+            width: 100%;
+            text-align: left;
+            cursor: pointer;
+            border: 1px solid transparent;
+            white-space: nowrap;
+            padding: 6px 8px;
+            border-radius: 5px;
 
-         [menu-icon] {
-            color: white;
+            &::-moz-focus-inner,
+            &::-moz-focus-inner {
+               border: 0;
+               padding: 0;
+            }
+
+            label {
+               margin-left: 25px;
+               font-size: inherit;
+               color: inherit;
+            }
+         }
+
+         &:hover {
+            > button {
+               color: white;
+               outline: none;
+               background-color: silver;
+
+               [menu-icon] {
+                  color: white;
+               }
+            }
+         }
+
+         &[disabled] {
+            opacity: .5;
+            pointer-events: none;
+         }
+
+         &[disabled] > button {
+            cursor: default;
+         }
+
+         &.separator {
+            display: block;
+            margin: 7px 5px;
+            height: 1px;
+            border-bottom: 1px solid black;
+            background-color: black;
+         }
+
+         &.submenu::after {
+            content: "";
+            position: absolute;
+            right: 6px;
+            top: 50%;
+            -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+            border: 5px solid transparent;
+            border-left-color: gray;
+         }
+
+         &.submenu:hover {
+            margin-right: -2px;
+            > button {
+               border-top-right-radius: 0;
+               border-bottom-right-radius: 0;
+            }
+         }
+
+         &.submenu:hover::after {
+            border-left-color: gray;
+         }
+
+         ul ul {
+            top: 0px;
+            left: 100%;
+         }
+
+         &:hover > ul {
+            opacity: 1;
+            -webkit-transform: translate(0, 0) scale(1);
+            transform: translate(0, 0) scale(1);
+            pointer-events: auto;
+         }
+
+         &:hover > ul {
+            -webkit-transition-delay: 100ms;
+            transition-delay: 250ms;
          }
       }
-   }
-
-   &[submenu]:hover {
-      margin-right: -2px;
-      > button {
-         border-top-right-radius: 0;
-         border-bottom-right-radius: 0;
-      }
-   }
-
-   &[disabled] {
-      opacity: .5;
-      pointer-events: none;
-   }
-
-   &[disabled] > button {
-      cursor: default;
-   }
-
-   &[separator] {
-      display: block;
-      margin: 7px 5px;
-      height: 1px;
-      border-bottom: 1px solid $mi-color-mocha-03;
-      background-color: $mi-color-mocha-03;
-   }
-
-   &[submenu]::after {
-      content: "";
-      position: absolute;
-      right: 6px;
-      top: 50%;
-      -webkit-transform: translateY(-50%);
-      transform: translateY(-50%);
-      border: 5px solid transparent;
-      border-left-color: $mi-color-mocha-05;
-   }
-
-   &[submenu]:hover::after {
-      border-left-color: $mi-color-white;
-   }
-
-   menu menu {
-      top: 0px;
-      left: 100%;
-   }
-
-   &:hover > menu {
-      opacity: 1;
-      -webkit-transform: translate(0, 0) scale(1);
-      transform: translate(0, 0) scale(1);
-      pointer-events: auto;
-   }
-
-   &:hover > menu {
-      -webkit-transition-delay: 100ms;
-      transition-delay: 250ms;
    }
 `;
 
@@ -198,7 +198,7 @@ export class Menu extends React.Component {
 
    hideMenu() {
       const menu = this.menuElem.nativeElement.querySelector('menu');
-      menu.classList.remove('show-menu');
+      menu.classList.remove('show');
    }
 
    initMenu() {
@@ -213,13 +213,66 @@ export class Menu extends React.Component {
       const menu = this.menuElem.nativeElement.querySelector('menu');
       menu.style.left = x + 'px';
       menu.style.top = y + 'px';
-      menu.classList.add('show-menu');
+      menu.classList.add('show');
    }
 
    render() {
       const [ Container ] = utils.resolveComponents(Menu, this.props);
       const { tabIndex, css, style, ...props } = this.props;
 
-      return <Container style={style} css={css} tabIndex={tabIndex} />;
+      return (
+         <Container style={style} css={css} tabIndex={tabIndex}>
+            <ul className="show">
+               <li>
+                  <button>
+                     <Label>Introduction</Label>
+                  </button>
+               </li>
+               <li disabled={true}>
+                  <button>
+                     <Label>Disabled Menu</Label>
+                  </button>
+               </li>
+               <li className="separator" />
+               <li className="submenu">
+                  <button>
+                     <Label>Examples</Label>
+                  </button>
+                  <ul>
+                     <li>
+                        <button>
+                           <Label>Customer Form</Label>
+                        </button>
+                     </li>
+                     <li>
+                        <button>
+                           <Label>Admin Dashboard</Label>
+                        </button>
+                     </li>
+                  </ul>
+               </li>
+               <li className="separator" />
+               <li className="submenu">
+                  <button>
+                     <Label>Documentation</Label>
+                  </button>
+                  <ul>
+                     <li className="submenu">
+                        <button>
+                           <Label>Structure</Label>
+                        </button>
+                        <ul>
+                           <li>
+                              <button>
+                                 <Label>Menu</Label>
+                              </button>
+                           </li>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
+            </ul>
+         </Container>
+      );
    }
 }
