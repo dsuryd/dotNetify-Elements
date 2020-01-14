@@ -153,7 +153,9 @@ const Container = styled.div`
 Container.defaultProps = { theme: utils.getDefaultTheme() };
 
 export class Menu extends React.Component {
-   static propTypes = {};
+   static propTypes = {
+      for: PropTypes.string
+   };
 
    static componentTypes = {
       Container
@@ -161,6 +163,7 @@ export class Menu extends React.Component {
 
    constructor(props) {
       super(props);
+      this.elemRef = React.createRef();
    }
 
    configureContextMenu() {
@@ -179,30 +182,37 @@ export class Menu extends React.Component {
       this.removeEventListeners.push(() => document.removeEventListener('contextMenu', onContextMenu));
    }
 
-   configureTrigger() {
+   configureTrigger(triggerId) {
+      const triggerElem = document.getElementById(triggerId);
+
       const onClick = e => {
-         if (e.target.parentElement.attributes.submenu) return;
+         if (e.target.parentElement.parentElement.classList.contains('submenu')) return;
          this.hideMenu();
-         this.menuElem.nativeElement.removeEventListener('click', onClick);
+         this.elemRef.current.querySelector('ul').removeEventListener('click', onClick);
          document.removeEventListener('click', onClick);
       };
 
       const onClickTarget = e => {
          e.preventDefault();
          this.showMenu(e.target.pageX, e.target.pageY);
-         this.menuElem.nativeElement.addEventListener('click', onClick, false);
+         this.elemRef.current.querySelector('ul').addEventListener('click', onClick, false);
          setTimeout(() => document.addEventListener('click', onClick, false));
       };
-      this.triggerElem.nativeElement.addEventListener('click', onClickTarget, false);
+
+      this.initMenu();
+      triggerElem.addEventListener('click', onClickTarget, false);
+      return triggerElem;
    }
 
    hideMenu() {
-      const menu = this.menuElem.nativeElement.querySelector('menu');
-      menu.classList.remove('show');
+      this.elemRef.current.querySelector('ul').classList.remove('show');
    }
 
    initMenu() {
-      this.menuElem.nativeElement.querySelectorAll('menu').forEach(x => x.classList.add('menu'));
+      this.elemRef.current.querySelectorAll('li').forEach(x => {
+         if (x.querySelector('ul')) x.classList.add('submenu');
+         if (x.children.length == 0) x.classList.add('separator');
+      });
    }
 
    onSelected(key) {
@@ -210,68 +220,23 @@ export class Menu extends React.Component {
    }
 
    showMenu(x, y) {
-      const menu = this.menuElem.nativeElement.querySelector('menu');
+      const menu = this.elemRef.current.querySelector('ul');
       menu.style.left = x + 'px';
       menu.style.top = y + 'px';
       menu.classList.add('show');
    }
 
+   componentDidMount() {
+      this.triggerElem = this.triggerElem || this.configureTrigger(this.props.for);
+   }
+
    render() {
       const [ Container ] = utils.resolveComponents(Menu, this.props);
-      const { tabIndex, css, style, ...props } = this.props;
+      const { children, tabIndex, css, style, ...props } = this.props;
 
       return (
-         <Container style={style} css={css} tabIndex={tabIndex}>
-            <ul className="show">
-               <li>
-                  <button>
-                     <Label>Introduction</Label>
-                  </button>
-               </li>
-               <li disabled={true}>
-                  <button>
-                     <Label>Disabled Menu</Label>
-                  </button>
-               </li>
-               <li className="separator" />
-               <li className="submenu">
-                  <button>
-                     <Label>Examples</Label>
-                  </button>
-                  <ul>
-                     <li>
-                        <button>
-                           <Label>Customer Form</Label>
-                        </button>
-                     </li>
-                     <li>
-                        <button>
-                           <Label>Admin Dashboard</Label>
-                        </button>
-                     </li>
-                  </ul>
-               </li>
-               <li className="separator" />
-               <li className="submenu">
-                  <button>
-                     <Label>Documentation</Label>
-                  </button>
-                  <ul>
-                     <li className="submenu">
-                        <button>
-                           <Label>Structure</Label>
-                        </button>
-                        <ul>
-                           <li>
-                              <button>
-                                 <Label>Menu</Label>
-                              </button>
-                           </li>
-                        </ul>
-                     </li>
-                  </ul>
-               </li>
-            </ul>
+         <Container style={style} css={css} tabIndex={tabIndex} ref={this.elemRef}>
+            {children}
          </Container>
       );
    }
