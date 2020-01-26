@@ -1,169 +1,187 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { RouteLink } from 'dotnetify';
+import Element from '../core/Element';
 import { Label } from '../display/Label';
 import * as utils from '../utils';
 
 const Container = styled.div`
+   position: relative;
    ${props => props.theme.Menu.Container};
    ${props => props.css};
-   position: relative;
+`;
+
+const GroupContainer = styled.ul`
+   position: absolute;
+   width: 200px;
+   padding: 2px;
+   margin: 0;
+   z-index: 100;
+   background: #f8f8f8;
+   border: 1px solid #ccc;
+   border-radius: 5px;
+   box-shadow: 1px 1px 4px rgba(0, 0, 0, .2);
+   opacity: 0;
+   -webkit-transform: translate(0, 15px) scale(.95);
+   transform: translate(0, 15px) scale(.95);
+   transition: transform 0.1s ease-out, opacity 0.1s ease-out;
+   pointer-events: none;
+
    ul {
-      position: absolute;
-      width: 200px;
-      padding: 2px;
-      margin: 0;
-      border: 1px solid black;
-      background: white;
-      z-index: 100;
-      border-radius: $mi-base-border-radius;
-      box-shadow: 1px 1px 4px rgba(0, 0, 0, .2);
-      opacity: 0;
-      -webkit-transform: translate(0, 15px) scale(.95);
-      transform: translate(0, 15px) scale(.95);
-      transition: transform 0.1s ease-out, opacity 0.1s ease-out;
-      pointer-events: none;
+      top: 0px;
+      left: 100%;
+   }
 
-      ul {
-         top: 0px;
-         left: 100%;
-      }
+   &.show {
+      opacity: 1;
+      -webkit-transform: translate(0, 0) scale(1);
+      transform: translate(0, 0) scale(1);
+      pointer-events: auto;
+   }
+   ${props => props.theme.Menu.GroupContainer};
+`;
 
-      &.show {
-         opacity: 1;
-         -webkit-transform: translate(0, 0) scale(1);
-         transform: translate(0, 0) scale(1);
-         pointer-events: auto;
-      }
+const ItemContainer = styled.li`
+   font-size: inherit !important;
+   display: block;
+   position: relative;
+   margin: 0;
+   padding: 0;
+   white-space: nowrap;
 
-      li {
-         display: block;
-         position: relative;
-         margin: 0;
+   > button {
+      background: none;
+      line-height: normal;
+      overflow: visible;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      display: block;
+      width: 100%;
+      text-align: left;
+      cursor: pointer;
+      border: 1px solid transparent;
+      white-space: nowrap;
+      padding: 6px 8px;
+      border-radius: 5px;
+
+      &::-moz-focus-inner,
+      &::-moz-focus-inner {
+         border: 0;
          padding: 0;
-         white-space: nowrap;
-
-         &[menu-icon] {
-            position: absolute;
-            padding-top: 2px;
-            color: black;
-         }
-
-         > button {
-            background: none;
-            line-height: normal;
-            overflow: visible;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            display: block;
-            width: 100%;
-            text-align: left;
-            cursor: pointer;
-            border: 1px solid transparent;
-            white-space: nowrap;
-            padding: 6px 8px;
-            border-radius: 5px;
-
-            &::-moz-focus-inner,
-            &::-moz-focus-inner {
-               border: 0;
-               padding: 0;
-            }
-
-            label {
-               margin-left: 25px;
-               font-size: inherit;
-               color: inherit;
-            }
-         }
-
-         &:hover {
-            > button {
-               color: white;
-               outline: none;
-               background-color: silver;
-
-               [menu-icon] {
-                  color: white;
-               }
-            }
-         }
-
-         &[disabled] {
-            opacity: .5;
-            pointer-events: none;
-         }
-
-         &[disabled] > button {
-            cursor: default;
-         }
-
-         &.separator {
-            display: block;
-            margin: 7px 5px;
-            height: 1px;
-            border-bottom: 1px solid black;
-            background-color: black;
-         }
-
-         &.submenu::after {
-            content: "";
-            position: absolute;
-            right: 6px;
-            top: 50%;
-            -webkit-transform: translateY(-50%);
-            transform: translateY(-50%);
-            border: 5px solid transparent;
-            border-left-color: gray;
-         }
-
-         &.submenu:hover {
-            margin-right: -2px;
-            > button {
-               border-top-right-radius: 0;
-               border-bottom-right-radius: 0;
-            }
-         }
-
-         &.submenu:hover::after {
-            border-left-color: gray;
-         }
-
-         ul ul {
-            top: 0px;
-            left: 100%;
-         }
-
-         &:hover > ul {
-            opacity: 1;
-            -webkit-transform: translate(0, 0) scale(1);
-            transform: translate(0, 0) scale(1);
-            pointer-events: auto;
-         }
-
-         &:hover > ul {
-            -webkit-transition-delay: 100ms;
-            transition-delay: 250ms;
-         }
       }
    }
+
+   &:hover {
+      > button {
+         outline: none;
+         background-color: #f0f0f0;
+      }
+   }
+
+   &[disabled] {
+      opacity: .5;
+      pointer-events: none;
+   }
+
+   &[disabled] > button {
+      cursor: default;
+   }
+
+   &.separator {
+      display: block;
+      margin: 7px 5px;
+      height: 1px;
+      border-bottom: 1px solid #ccc;
+   }
+
+   &.submenu::after {
+      content: "";
+      position: absolute;
+      right: 6px;
+      top: 50%;
+      -webkit-transform: translateY(-50%);
+      transform: translateY(-50%);
+      border: 5px solid transparent;
+      border-left-color: #337ab7;
+   }
+
+   &.submenu:hover {
+      margin-right: -2px;
+      > button {
+         border-top-right-radius: 0;
+         border-bottom-right-radius: 0;
+      }
+   }
+
+   &.submenu:hover::after {
+      margin-right: 2px;
+      border-left-color: #337ab7;
+   }
+
+   ul ul {
+      top: 0px;
+      left: 100%;
+   }
+
+   &:hover > ul {
+      opacity: 1;
+      -webkit-transform: translate(0, 0) scale(1);
+      transform: translate(0, 0) scale(1);
+      pointer-events: auto;
+   }
+
+   &:hover > ul {
+      -webkit-transition-delay: 100ms;
+      transition-delay: 250ms;
+   }
+   ${props => props.theme.Menu.ItemContainer};
 `;
 
 Container.defaultProps = { theme: utils.getDefaultTheme() };
 
-export class Menu extends React.Component {
+export class Menu extends Element {
    static propTypes = {
       for: PropTypes.string
    };
 
    static componentTypes = {
-      Container
+      Container,
+      GroupContainer,
+      ItemContainer,
+      MenuLabelComponent: Label
    };
 
    constructor(props) {
       super(props);
       this.elemRef = React.createRef();
+   }
+
+   componentDidMount() {
+      this.triggerElem = this.triggerElem || this.configureTrigger(this.props.for);
+   }
+
+   buildMenu(menuItems) {
+      const [ , GroupContainer, ItemContainer, MenuLabel ] = utils.resolveComponents(Menu, this.props);
+      return (
+         <GroupContainer>
+            {menuItems.map((menuItem, idx) => {
+               return (
+                  <ItemContainer key={idx} disabled={menuItem.Disabled}>
+                     {menuItem.Label && (
+                        <button>
+                           <RouteLink vm={this.vm} route={menuItem.Route}>
+                              <MenuLabel icon={menuItem.Icon}>{menuItem.Label}</MenuLabel>
+                           </RouteLink>
+                        </button>
+                     )}
+                     {menuItem.SubMenu && this.buildMenu(menuItem.SubMenu)}
+                  </ItemContainer>
+               );
+            })}
+         </GroupContainer>
+      );
    }
 
    configureContextMenu() {
@@ -226,17 +244,15 @@ export class Menu extends React.Component {
       menu.classList.add('show');
    }
 
-   componentDidMount() {
-      this.triggerElem = this.triggerElem || this.configureTrigger(this.props.for);
-   }
-
    render() {
       const [ Container ] = utils.resolveComponents(Menu, this.props);
       const { children, tabIndex, css, style, ...props } = this.props;
 
+      const menu = Array.isArray(this.value) ? this.buildMenu(this.value) : children;
+
       return (
          <Container style={style} css={css} tabIndex={tabIndex} ref={this.elemRef}>
-            {children}
+            {menu}
          </Container>
       );
    }

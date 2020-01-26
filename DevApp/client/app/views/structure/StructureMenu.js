@@ -51,65 +51,14 @@ const MyApp = _ => (
             onWebComponent={setWebComponent}
          >
             <Panel style={{ minHeight: '4rem' }}>
-               <a id="OpenMenu" href="#">
+               <a id="open-menu" href="#">
                   Open Menu...
                </a>
                {!webComponent ? (
-                  <Menu {...this.state} for="OpenMenu">
-                     <ul>
-                        <li>
-                           <button>
-                              <Label>Introduction</Label>
-                           </button>
-                        </li>
-                        <li disabled={true}>
-                           <button>
-                              <Label>Disabled Menu</Label>
-                           </button>
-                        </li>
-                        <li />
-                        <li>
-                           <button>
-                              <Label>Examples</Label>
-                           </button>
-                           <ul>
-                              <li>
-                                 <button>
-                                    <Label>Customer Form</Label>
-                                 </button>
-                              </li>
-                              <li>
-                                 <button>
-                                    <Label>Admin Dashboard</Label>
-                                 </button>
-                              </li>
-                           </ul>
-                        </li>
-                        <li />
-                        <li>
-                           <button>
-                              <Label>Documentation</Label>
-                           </button>
-                           <ul>
-                              <li>
-                                 <button>
-                                    <Label>Structure</Label>
-                                 </button>
-                                 <ul>
-                                    <li>
-                                       <button>
-                                          <Label>Menu</Label>
-                                       </button>
-                                    </li>
-                                 </ul>
-                              </li>
-                           </ul>
-                        </li>
-                     </ul>
-                  </Menu>
+                  <Menu id="Menu" {...this.state} for="open-menu" />
                ) : (
                   <d-vm-context vm="MenuExample">
-                     <d-menu {...this.state} />
+                     <d-menu {...this.state} for="open-menu" />
                   </d-vm-context>
                )}
             </Panel>

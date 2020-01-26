@@ -193,13 +193,16 @@ const structureTheme = {
          }
       `,
       ValidationMessageContainer: `
-            color: red;
+         color: red;
       `,
       PlainTextContainer: ``,
       PlainTextComponent: `font-weight: 500;`
    },
    Menu: {
-      Container: ``
+      Container: ``,
+      GroupContainer: ``,
+      ItemContainer: `
+      `
    },
    Modal: {
       Container: ``,
