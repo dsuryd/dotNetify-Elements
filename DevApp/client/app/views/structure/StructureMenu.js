@@ -25,14 +25,16 @@ import { VMContext, Menu } from 'dotnetify-elements';
 
 const MyApp = _ => (
    <VMContext vm="MenuExample">
-      <Menu${props} />
+      <a id="open-menu" href="#">Open Menu...</a>   
+      <Menu id="Menu"${props} for="open-menu" />
    </VMContext>
 );
 \`\`\``;
       const buildWebComponentCode = props => `
 \`\`\`jsx
 <d-vm-context vm="MenuExample">
-   <d-menu${props} />
+   <a id="open-menu" href="#">Open Menu...</a>   
+   <d-menu id="Menu"${props} for="open-menu" />
 </d-vm-context>
 \`\`\``;
       const setState = state => this.setState(state);
@@ -58,7 +60,7 @@ const MyApp = _ => (
                   <Menu id="Menu" {...this.state} for="open-menu" />
                ) : (
                   <d-vm-context vm="MenuExample">
-                     <d-menu {...this.state} for="open-menu" />
+                     <d-menu id="Menu" {...this.state} for="open-menu" />
                   </d-vm-context>
                )}
             </Panel>

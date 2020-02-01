@@ -18,7 +18,6 @@ const GroupContainer = styled.ul`
    padding: 2px;
    margin: 0;
    z-index: 100;
-   background: #f8f8f8;
    border: 1px solid #ccc;
    border-radius: 5px;
    box-shadow: 1px 1px 4px rgba(0, 0, 0, .2);
@@ -76,7 +75,6 @@ const ItemContainer = styled.li`
    &:hover {
       > button {
          outline: none;
-         background-color: #f0f0f0;
       }
    }
 
@@ -104,7 +102,6 @@ const ItemContainer = styled.li`
       -webkit-transform: translateY(-50%);
       transform: translateY(-50%);
       border: 5px solid transparent;
-      border-left-color: #337ab7;
    }
 
    &.submenu:hover {
@@ -140,6 +137,8 @@ const ItemContainer = styled.li`
 `;
 
 Container.defaultProps = { theme: utils.getDefaultTheme() };
+GroupContainer.defaultProps = { theme: utils.getDefaultTheme() };
+ItemContainer.defaultProps = { theme: utils.getDefaultTheme() };
 
 export class Menu extends Element {
    static propTypes = {
@@ -202,19 +201,23 @@ export class Menu extends Element {
 
    configureTrigger(triggerId) {
       const triggerElem = document.getElementById(triggerId);
+      const getMenuElem = () => this.elemRef.current && this.elemRef.current.querySelector('ul');
 
       const onClick = e => {
          if (e.target.parentElement.parentElement.classList.contains('submenu')) return;
          this.hideMenu();
-         this.elemRef.current.querySelector('ul').removeEventListener('click', onClick);
+         getMenuElem().removeEventListener('click', onClick);
          document.removeEventListener('click', onClick);
       };
 
       const onClickTarget = e => {
          e.preventDefault();
-         this.showMenu(e.target.pageX, e.target.pageY);
-         this.elemRef.current.querySelector('ul').addEventListener('click', onClick, false);
-         setTimeout(() => document.addEventListener('click', onClick, false));
+         const menuElem = getMenuElem();
+         if (menuElem && !menuElem.classList.contains('show')) {
+            this.showMenu(e.target.pageX, e.target.pageY);
+            menuElem.addEventListener('click', onClick, false);
+            setTimeout(() => document.addEventListener('click', onClick, false));
+         }
       };
 
       this.initMenu();

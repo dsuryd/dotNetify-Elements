@@ -208,6 +208,24 @@ const structureTheme = {
          font-weight: 400;
       `
    },
+   Menu: {
+      Container: ``,
+      GroupContainer: `
+         background: #303030;
+         border-color: #444;
+      `,
+      ItemContainer: `
+         &:hover > button {
+            background-color: #1a1a1a;
+         }      
+         &.separator {
+            border-bottom-color: #444;
+         }        
+         &.submenu::after {
+            border-left-color: #444;
+         }          
+      `
+   },
    Modal: {
       Container: `
          .modal-content { 

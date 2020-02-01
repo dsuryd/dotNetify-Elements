@@ -200,8 +200,20 @@ const structureTheme = {
    },
    Menu: {
       Container: ``,
-      GroupContainer: ``,
+      GroupContainer: `
+         background: #f8f8f8;
+         border-color: #ccc;
+      `,
       ItemContainer: `
+         &:hover > button {
+            background-color: #f0f0f0;
+         }      
+         &.separator {
+            border-bottom-color: #ccc;
+         }        
+         &.submenu::after {
+            border-left-color: #337ab7;
+         }          
       `
    },
    Modal: {

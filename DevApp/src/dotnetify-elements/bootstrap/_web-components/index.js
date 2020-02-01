@@ -15,6 +15,7 @@ import './Image';
 import './Label';
 import './LayoutGrid';
 import './Markdown';
+import './Menu';
 import './Modal';
 import './MultiselectList';
 import './NavMenu';
