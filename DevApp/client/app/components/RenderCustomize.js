@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import { Card, Markdown, Panel, RadioGroup, TextField, VMContext } from 'dotnetify-elements';
 import * as utils from 'dotnetify-elements/utils';
 
-const withHighlight = Component => props => <Component {...props} style={{ border: '2px double red' }} />;
+const withHighlight = Component =>
+   React.forwardRef((props, ref) => <Component {...props} ref={ref} style={{ border: '2px double red' }} />);
 
 export default class RenderCustomize extends React.Component {
    constructor(props) {
