@@ -43,4 +43,25 @@ namespace dotNetify_Elements
          ));
       }
    }
+
+   public class MenuCustomize: BaseVM, IRoutable
+   {
+      public RoutingState RoutingState { get; set; }
+
+      public MenuCustomize()
+      {
+         AddProperty("MyMenu", new Menu(
+            new MenuItem[] {
+               new MenuItem("Menu item 1", this.Redirect("", "menuitem1")),
+               new MenuItem("Menu item 2") { Disabled = true },
+               new MenuSeparator(),
+               new MenuGroup("Menu group", new MenuItem[]
+               {
+                  new MenuItem("Menu item 3", this.Redirect("", "menuitem3")),
+                  new MenuItem("Menu item 4", this.Redirect("", "menuitem4"))
+               }) 
+            }
+         ));
+      }      
+   }
 }

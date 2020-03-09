@@ -12,7 +12,9 @@ const StructureMenu = props => (
       <TabItem label="API" itemKey="API">
          <Markdown id="API" />
       </TabItem>
-      <TabItem label="Customize">{/* <MenuCustomize /> */}</TabItem>
+      <TabItem label="Customize">
+         <MenuCustomize />
+      </TabItem>
    </TabsArticle>
 );
 
@@ -25,20 +27,20 @@ import { VMContext, Menu } from 'dotnetify-elements';
 
 const MyApp = _ => (
    <VMContext vm="MenuExample">
-      <a id="open-menu" href="#">Open Menu...</a>   
-      <Menu id="Menu"${props} for="open-menu" />
+      <Label id="open-menu" css="cursor: pointer">Open Menu...</Label>
+      <Menu id="Menu"${props} openFor="open-menu" width="12rem" />
    </VMContext>
 );
 \`\`\``;
       const buildWebComponentCode = props => `
 \`\`\`jsx
 <d-vm-context vm="MenuExample">
-   <a id="open-menu" href="#">Open Menu...</a>   
-   <d-menu id="Menu"${props} for="open-menu" />
+   <d-label id="open-menu" css="cursor: pointer">Open Menu...</d-label>
+   <d-menu id="Menu"${props} openfor="open-menu" width="12rem" />
 </d-vm-context>
 \`\`\``;
       const setState = state => this.setState(state);
-      const propTypes = { enable: null };
+      const propTypes = {};
 
       const setWebComponent = show => this.setState({ webComponent: show });
       const webComponent = this.state && this.state.webComponent;
@@ -53,14 +55,19 @@ const MyApp = _ => (
             onWebComponent={setWebComponent}
          >
             <Panel style={{ minHeight: '4rem' }}>
-               <a id="open-menu" href="#">
-                  Open Menu...
-               </a>
                {!webComponent ? (
-                  <Menu id="Menu" {...this.state} for="open-menu" />
+                  <div>
+                     <Label id="open-menu" css="cursor: pointer">
+                        Click to open...
+                     </Label>
+                     <Menu id="Menu" {...this.state} openFor="open-menu" width="12rem" />
+                  </div>
                ) : (
                   <d-vm-context vm="MenuExample">
-                     <d-menu id="Menu" {...this.state} for="open-menu" />
+                     <d-label id="open-menu" css="cursor: pointer">
+                        Click to open...
+                     </d-label>
+                     <d-menu id="Menu" {...this.state} openfor="open-menu" width="12rem" />
                   </d-vm-context>
                )}
             </Panel>
@@ -77,14 +84,14 @@ class MenuCustomize extends React.Component {
       const handleSelected = state => this.setState(state);
       const select = value => ({});
       return (
-         <RenderCustomize name="Menu" componentTypes={componentTypes} select={select} onSelected={handleSelected}>
-            <Panel>
-               <a id="Trigger" href="#">
-                  Show menu
-               </a>
-               <Menu id="MyMenu" for="Trigger" />
-            </Panel>
-         </RenderCustomize>
+         <Panel>
+            <a id="Trigger" href="#">
+               Show menu
+            </a>
+            <RenderCustomize name="Menu" vm="MenuCustomize" componentTypes={componentTypes} select={select} onSelected={handleSelected}>
+               <Menu id="MyMenu" openFor="Trigger" />
+            </RenderCustomize>
+         </Panel>
       );
    }
 }

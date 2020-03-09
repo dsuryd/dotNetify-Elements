@@ -14,9 +14,9 @@ const Container = styled.div`
 
 const GroupContainer = styled.ul`
    position: absolute;
-   width: 200px;
    padding: 2px;
    margin: 0;
+   ${props => props.width && `width: ${props.width}`};
    z-index: 100;
    border: 1px solid #ccc;
    border-radius: 5px;
@@ -94,6 +94,10 @@ const ItemContainer = styled.li`
       border-bottom: 1px solid #ccc;
    }
 
+   &.submenu {
+      padding-right: 1.2rem;
+   }
+
    &.submenu::after {
       content: "";
       position: absolute;
@@ -105,6 +109,7 @@ const ItemContainer = styled.li`
    }
 
    &.submenu:hover {
+      padding-right: calc(1.2rem + 2px);
       margin-right: -2px;
       > button {
          border-top-right-radius: 0;
@@ -142,7 +147,11 @@ ItemContainer.defaultProps = { theme: utils.getDefaultTheme() };
 
 export class Menu extends Element {
    static propTypes = {
-      for: PropTypes.string
+      // Id of the HTML element that opens the menu.
+      openFor: PropTypes.string,
+
+      // Width of the popup window.
+      width: PropTypes.string
    };
 
    static componentTypes = {
@@ -158,13 +167,18 @@ export class Menu extends Element {
    }
 
    componentDidMount() {
-      this.triggerElem = this.triggerElem || this.configureTrigger(this.props.for);
+      this.triggerElem = this.triggerElem || this.configureTrigger(this.props.openFor);
+      this.initMenu();
+   }
+
+   componentDidUpdate() {
+      this.initMenu();
    }
 
    buildMenu(menuItems) {
       const [ , GroupContainer, ItemContainer, MenuLabel ] = utils.resolveComponents(Menu, this.props);
       return (
-         <GroupContainer>
+         <GroupContainer width={this.props.width}>
             {menuItems.map((menuItem, idx) => {
                return (
                   <ItemContainer key={idx} disabled={menuItem.Disabled}>
@@ -220,7 +234,6 @@ export class Menu extends Element {
          }
       };
 
-      this.initMenu();
       triggerElem.addEventListener('click', onClickTarget, false);
       return triggerElem;
    }
@@ -230,10 +243,11 @@ export class Menu extends Element {
    }
 
    initMenu() {
-      this.elemRef.current.querySelectorAll('li').forEach(x => {
-         if (x.querySelector('ul')) x.classList.add('submenu');
-         if (x.children.length == 0) x.classList.add('separator');
-      });
+      this.elemRef.current &&
+         this.elemRef.current.querySelectorAll('li').forEach(x => {
+            if (x.querySelector('ul')) x.classList.add('submenu');
+            if (x.children.length == 0) x.classList.add('separator');
+         });
    }
 
    onSelected(key) {
