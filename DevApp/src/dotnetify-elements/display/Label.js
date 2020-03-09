@@ -76,13 +76,13 @@ export class Label extends Element {
 
    render() {
       const [ LabelContainer, IconContainer, Icon ] = utils.resolveComponents(Label, this.props);
-      const { right, apart, icon, rightIcon, bold, italic, style, css, children } = this.attrs;
+      const { right, apart, icon, rightIcon, bold, italic, style, css, children, ...props } = this.attrs;
       const _icon = typeof icon === 'string' ? <Icon name={icon} /> : icon;
       const _rightIcon = typeof rightIcon === 'string' ? <Icon name={rightIcon} /> : rightIcon;
       const hasLabel = !!(this.value || children);
 
       return (
-         <LabelContainer right={right} apart={apart} bold={bold} italic={italic} style={style} css={css}>
+         <LabelContainer right={right} apart={apart} bold={bold} italic={italic} style={style} css={css} {...props}>
             {_icon && (
                <IconContainer right={right} noMargin={!hasLabel}>
                   {_icon}
