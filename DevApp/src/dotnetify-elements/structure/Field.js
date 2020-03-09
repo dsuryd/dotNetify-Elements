@@ -117,7 +117,7 @@ export class Field extends React.Component {
          <Container width={width} style={style} css={css} horizontal={horizontal} tabIndex={tabIndex}>
             {label && (
                <LabelContainer horizontal={horizontal}>
-                  <Label for={id} padding={labelPadding}>
+                  <Label htmlFor={id} padding={labelPadding}>
                      {label}
                   </Label>
                </LabelContainer>
