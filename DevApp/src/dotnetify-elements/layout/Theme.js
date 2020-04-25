@@ -25,8 +25,8 @@ export class Theme extends React.Component {
       return Theme._root ? Theme._root.currentTheme : utils.getDefaultTheme();
    }
 
-   constructor(props) {
-      super(props);
+   constructor(props, context) {
+      super(props, context);
       if (!Theme._root) {
          Theme._root = this;
          Theme._root.currentTheme = null;

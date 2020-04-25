@@ -46,8 +46,8 @@ export default class InputElement extends Element {
       this._changed = value;
    }
 
-   constructor(props) {
-      super(props);
+   constructor(props, context) {
+      super(props, context);
       this.inputRef = React.createRef();
       this.propId = this.props.id || Math.random().toString(36).substring(2);
 

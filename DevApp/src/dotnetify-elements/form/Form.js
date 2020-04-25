@@ -38,8 +38,8 @@ export class Form extends React.Component {
       return this.context.vmContext || this.props.vmContext;
    }
 
-   constructor(props) {
-      super(props);
+   constructor(props, context) {
+      super(props, context);
       this.state = { ...this.state };
       this.formStore = new FormStore(this);
    }

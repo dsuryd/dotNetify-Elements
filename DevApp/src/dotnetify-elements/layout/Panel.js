@@ -118,8 +118,8 @@ export class Panel extends React.Component {
       return React.Children.count(this.children);
    }
 
-   constructor(props) {
-      super(props);
+   constructor(props, context) {
+      super(props, context);
       this.state = { ...this.state, showChildren: new Array(this.numChildren).fill(true) };
    }
 
