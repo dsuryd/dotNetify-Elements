@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { Collapsible } from '../structure/Collapsible';
 import { Label } from '../display/Label';
-import { RouteLink } from 'dotnetify';
+import { RouteLink, RouteTarget } from 'dotnetify';
 import Element from '../core/Element';
 import * as utils from '../utils';
 
@@ -124,7 +124,13 @@ export class NavMenu extends Element {
          const groupLabel = props => <GroupLabel icon={navItem.Icon} {...props} />;
          const collapsed = this.state.selectedPath.some(path => path === navItem.Label) ? false : !navItem.IsExpanded;
          return navItem.Routes ? (
-            <GroupContainer className="navmenu-group" key={idx} label={navItem.Label} labelComponent={groupLabel} collapsed={collapsed}>
+            <GroupContainer
+               className="navmenu-group"
+               key={idx}
+               label={navItem.Label}
+               labelComponent={groupLabel}
+               collapsed={collapsed}
+            >
                {navItem.Routes.map(navRoute => this.buildRoute(navRoute, navItem))}
             </GroupContainer>
          ) : (
@@ -140,7 +146,7 @@ export class NavMenu extends Element {
    }
 }
 
-export const NavMenuTarget = styled.div.attrs(props => ({
+export const NavMenuTarget = styled(RouteTarget).attrs(props => ({
    id: 'NavMenuTarget'
 }))`
     display: flex;
