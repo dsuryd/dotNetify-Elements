@@ -125,8 +125,8 @@ Add **package.json** with the following content:
   "dependencies": {
     "dotnetify": "^3.6.1",
     "dotnetify-elements": "^1.2.0",
-    "react": "~16.3.2",
-    "react-dom": "~16.3.2",
+    "react": "~16.8.0",
+    "react-dom": "~16.8.0",
     "styled-components": "~4.1.3"
   },
   "devDependencies": {
@@ -364,8 +364,8 @@ Update **Views\Shared\_Layout.cshtml** by adding:
    @Scripts.Render("~/bundles/bootstrap")
    @RenderSection("scripts", required: false)
 
-   <script src="https://unpkg.com/react@16.6/umd/react.production.min.js"></script>
-   <script src="https://unpkg.com/react-dom@16.6/umd/react-dom.production.min.js"></script>
+   <script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+   <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
    <script src="https://unpkg.com/styled-components@4.1/dist/styled-components.min.j"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.js"></script>
    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
