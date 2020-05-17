@@ -1,9 +1,17 @@
 {
    "name": "dotnetify-elements",
-   "version": "1.3.1",
+   "version": "1.4.0",
    "description": "React components for reactive, real-time .NET web applications.",
    "main": "dotnetify-elements.js",
-   "files": [ "lib/*.*", "components/*.*", "web-components/*.*",  "*.js", "*.css", "LICENSE.md", "README.md" ],
+   "files": [
+      "lib/*.*",
+      "components/*.*",
+      "web-components/*.*",
+      "*.js",
+      "*.css",
+      "LICENSE.md",
+      "README.md"
+   ],
    "peerDependencies": {
       "dotnetify": "^3.4.0",
       "react": "^16.8.0",
@@ -33,7 +41,15 @@
       "type": "git",
       "url": "https://github.com/dsuryd/dotNetify-elements.git"
    },
-   "keywords": [ "dotnetify", "signalr", "react", "web", "realtime", "reactive", "mvvm" ],
+   "keywords": [
+      "dotnetify",
+      "signalr",
+      "react",
+      "web",
+      "realtime",
+      "reactive",
+      "mvvm"
+   ],
    "author": "Dicky Suryadi",
    "license": "Apache 2.0",
    "bugs": {

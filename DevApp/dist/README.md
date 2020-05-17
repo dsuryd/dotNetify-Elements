@@ -5,13 +5,14 @@
 
 ## DotNetify-Elements
 
-A library of React and native web components for cross-platform .NET back-end, communicating in real-time via WebSocket.
+A library of React and native HTML5 web components for cross-platform .NET back-end, communicating in real-time via WebSocket.
 
-[**View documentation and live demo**](https://dotnetify.net/elements)  
+[**View documentation and live demo**](https://dotnetify.net/elements)
 
-JSFiddle Demo: 
-- [Live Dashboard](https://jsfiddle.net/dsuryd/ygosxk8m/)
-- [Reactive Form](https://jsfiddle.net/dsuryd/hmvwpjx0/4/).
+JSFiddle Demo:
+
+-  [Live Dashboard](https://jsfiddle.net/dsuryd/ygosxk8m/)
+-  [Reactive Form](https://jsfiddle.net/dsuryd/hmvwpjx0/4/).
 
 <br/>     
    
