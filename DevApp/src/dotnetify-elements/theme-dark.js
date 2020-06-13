@@ -259,7 +259,12 @@ const structureTheme = {
          }
       `,
       TabItemContainer: ``,
-      TabItem: ``
+      TabItem: `
+         color: #848c94;
+         &:hover { 
+            color: #c0c4c8;
+         }       
+      `
    }
 };
 

@@ -10,7 +10,7 @@ const chartAreaColors = [
 const displayTheme = {
    Alert: ``,
    BarChart: {
-      AreaColor: [ ...chartAreaColors, ...chartAreaColors ]
+      AreaColor: [...chartAreaColors, ...chartAreaColors]
    },
    DataGrid: {
       Container: ``,
@@ -47,7 +47,7 @@ const displayTheme = {
       `
    },
    PieChart: {
-      AreaColor: [ ...chartAreaColors, ...chartAreaColors ]
+      AreaColor: [...chartAreaColors, ...chartAreaColors]
    }
 };
 
@@ -226,7 +226,12 @@ const structureTheme = {
       Container: ``,
       BodyContainer: ``,
       TabItemContainer: ``,
-      TabItem: ``
+      TabItem: `
+         color: #337ab7;
+         &:hover { 
+            color: #0056b3;
+         }
+      `
    }
 };
 

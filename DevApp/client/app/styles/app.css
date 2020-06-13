@@ -1,22 +1,22 @@
 html {
    -webkit-font-smoothing: antialiased;
-   font-size: .9rem;
+   font-size: 0.9rem;
 }
 
 strong {
    font-weight: 500;
    color: #6aa828;
-   background-color: rgba(255, 255, 255, .6);
+   background-color: rgba(255, 255, 255, 0.6);
    padding: 0 4px;
    border-radius: 2px;
 }
 
 .theme-dark strong {
-   background-color: rgba(255, 255, 255, .2);
+   background-color: rgba(255, 255, 255, 0.2);
 }
 
 p,
-.markdown div > ul > li {
+.markdown div > ul > li:not(.nav-item) {
    font-size: 1.1rem;
    line-height: 1.8rem;
 }
@@ -27,7 +27,7 @@ div > h2 {
 
 .markdown pre {
    margin: 0;
-   font-size: .9rem;
+   font-size: 0.9rem;
 }
 
 .markdown pre .language-jsx {
@@ -49,7 +49,7 @@ div > h2 {
 
 .markdown h4 {
    margin-bottom: 1.5rem;
-   padding-bottom: .5rem;
+   padding-bottom: 0.5rem;
    border-bottom: 1px solid #ccc;
 }
 
@@ -59,7 +59,7 @@ div > h2 {
 }
 
 .markdown blockquote {
-   border-left: .5rem solid #ccc;
+   border-left: 0.5rem solid #ccc;
    padding-left: 1rem;
    margin-left: 3rem;
    font-style: italic;
@@ -74,6 +74,6 @@ div > h2 {
    html,
    .markdown pre,
    .markdown pre .language-jsx {
-      font-size: .9rem;
+      font-size: 0.9rem;
    }
 }

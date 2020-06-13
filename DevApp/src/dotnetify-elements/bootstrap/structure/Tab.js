@@ -11,14 +11,20 @@ export const Tab = styled.ul.attrs(props => ({
 const TabNavItem = styled.li.attrs(props => ({
    className: 'nav-item'
 }))`
-   &.nav-item { padding-bottom: 0; }
+   &.nav-item {
+      padding-bottom: 0;
+   }
    ${props => props.theme.Tab.TabItem}
 `;
 
-const TabLink = styled.a.attrs(props => ({
+const TabLink = styled.div.attrs(props => ({
    className: 'nav-link',
    href: '#'
-}))``;
+}))`
+   &:hover {
+      cursor: pointer;
+   }
+`;
 
 export const TabItem = props => (
    <TabNavItem>
