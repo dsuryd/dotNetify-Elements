@@ -15,7 +15,7 @@ modalComponent.prototype.close = function () {
 };
 
 // Don't unmount on re-render (due to setting 'open' attribute) so it can display closing animation.
-modalComponent.unmountOnRerender = false;
+modalComponent.prototype.unmountOnRerender = false;
 
 export default Modal;
 export { Modal };
