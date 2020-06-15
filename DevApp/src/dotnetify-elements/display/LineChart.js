@@ -44,6 +44,7 @@ export class LineChart extends Element {
 
    constructor(props) {
       super(props);
+      this.chartRef = React.createRef();
    }
 
    checkDate(value) {
@@ -70,7 +71,7 @@ export class LineChart extends Element {
             const { data, label } = toDataLabelPair(lastValue);
             this.chartData.datasets[0].data.push({ x: this.checkDate(label) ? new Date(label) : Date.now(), y: data });
             this.lastValue = lastValue;
-            this.chartRef.chartInstance.update();
+            this.chartRef.chartInstance && this.chartRef.chartInstance.update();
          }
          return false;
       }
@@ -80,7 +81,7 @@ export class LineChart extends Element {
    render() {
       if (!Array.isArray(this.value)) return null;
 
-      const [ Container, Chart ] = this.resolveComponents(LineChart);
+      const [Container, Chart] = this.resolveComponents(LineChart);
       const { fullId, config, width, height, style, css, ...props } = this.attrs;
 
       let theme = this.context && this.context.theme;
@@ -102,7 +103,7 @@ export class LineChart extends Element {
 
       return (
          <Container id={fullId} width={width} style={style} css={css}>
-            <Chart ref={ref => (this.chartRef = ref)} data={this.chartData} options={options} height={utils.toPixel(height)} {...props} />
+            <Chart ref={this.chartRef} data={this.chartData} options={options} height={utils.toPixel(height)} {...props} />
          </Container>
       );
    }
