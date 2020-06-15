@@ -3,23 +3,23 @@ import { Alert, Button, Markdown, Panel, RadioToggle, TabItem, withTheme } from 
 import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
 
 const DisplayAlert = props => (
-   <TabsArticle vm="DisplayAlert" id="Overview">
-      <TabItem label="Overview" itemKey="Overview">
-         <Markdown id="Overview">
+   <TabsArticle vm='DisplayAlert' id='Overview'>
+      <TabItem label='Overview' itemKey='Overview'>
+         <Markdown id='Overview'>
             <AlertExample />
          </Markdown>
       </TabItem>
-      <TabItem label="API" itemKey="API">
-         <Markdown id="API" />
+      <TabItem label='API' itemKey='API'>
+         <Markdown id='API' />
       </TabItem>
-      <TabItem label="Customize">
+      <TabItem label='Customize'>
          <AlertCustomize />
       </TabItem>
    </TabsArticle>
 );
 
 class AlertExample extends React.Component {
-   state = { color: 'success' };
+   state = { color: '' };
 
    render() {
       const buildCode = props => `
@@ -40,7 +40,7 @@ const MyApp = _ => (
       const buildWebComponentCode = props => `
 \`\`\`jsx
 <d-vm-context vm="AlertExample">
-   <d-alert id="Feedback"${props} ${this.state.color}="true">
+   <d-alert id="Feedback"${props} ${this.state.color}${this.state.color ? '="true"' : ''}>
       <d-panel right="true">
          <d-button label="Continue" />
       </d-panel>
@@ -50,13 +50,14 @@ const MyApp = _ => (
       const setState = state => this.setState(state);
       const setColor = color => this.setState({ color: color, [this.state.color]: false, [color]: true });
       const colorOptions = [
+         { Key: '', Value: 'Default' },
          { Key: 'success', Value: 'Success' },
          { Key: 'info', Value: 'Info' },
          { Key: 'warning', Value: 'Warning' },
          { Key: 'danger', Value: 'Danger' }
       ];
       const extraToggles = (
-         <RadioToggle id="_colors" label="(color:)" options={colorOptions} value={this.state.color} onChange={setColor} />
+         <RadioToggle id='_colors' label='(color:)' options={colorOptions} value={this.state.color} onChange={setColor} />
       );
       const setWebComponent = show => this.setState({ webComponent: show });
       const { color, webComponent } = this.state;
@@ -64,7 +65,7 @@ const MyApp = _ => (
       const propTypes = {};
       return (
          <RenderExample
-            vm="AlertExample"
+            vm='AlertExample'
             extraToggles={extraToggles}
             propTypes={propTypes}
             buildCode={webComponent ? buildWebComponentCode : buildCode}
@@ -72,23 +73,23 @@ const MyApp = _ => (
             onWebComponent={setWebComponent}
          >
             {!webComponent ? (
-               <Alert id="Feedback" css="margin-bottom: 3rem" {...this.state}>
+               <Alert id='Feedback' css='margin-bottom: 3rem' {...this.state}>
                   <Panel right>
-                     <Button label="Continue" />
+                     <Button label='Continue' />
                   </Panel>
                </Alert>
             ) : (
-               <d-vm-context vm="AlertExample">
+               <d-vm-context vm='AlertExample'>
                   <d-alert
-                     id="Feedback"
-                     css="margin-bottom: 3rem"
+                     id='Feedback'
+                     css='margin-bottom: 3rem'
                      success={color == 'success'}
                      info={color == 'info'}
                      warning={color == 'warning'}
                      danger={color == 'danger'}
                   >
-                     <d-panel right="true">
-                        <d-button label="Continue" />
+                     <d-panel right='true'>
+                        <d-button label='Continue' />
                      </d-panel>
                   </d-alert>
                </d-vm-context>
@@ -106,7 +107,7 @@ class AlertCustomize extends React.Component {
       const handleSelected = state => this.setState(state);
       const select = value => ({});
       return (
-         <RenderCustomize name="Alert" componentTypes={componentTypes} select={select} onSelected={handleSelected}>
+         <RenderCustomize name='Alert' componentTypes={componentTypes} select={select} onSelected={handleSelected}>
             <Alert>Content</Alert>
          </RenderCustomize>
       );
