@@ -122,22 +122,22 @@ export default function createWebComponent(Component, elementName, useShadowDom)
       }
 
       renderComponent(props) {
-         if (!this.component) this.mountComponent();
-         else if (this.vmContext && props == null) {
-            if (typeof this.component.shouldComponentUpdate == 'function') {
-               if (this.component.shouldComponentUpdate({})) this.component.forceUpdate();
+         if (this.component) {
+            if (this.vmContext && props == null) {
+               if (typeof this.component.shouldComponentUpdate == 'function') {
+                  if (this.component.shouldComponentUpdate({})) this.component.forceUpdate();
+               } else this.component.forceUpdate();
+               return;
+            } else if (props && props.hasOwnProperty('value') && typeof this.component.setControlledValue == 'function') {
+               // If the 'value' property changes on a controlled component, use the provided function
+               // to set the value so that React can update the component.
+               this.component.setControlledValue(props.value);
+               return;
+            } else if (this.unmountOnRerender !== false) {
+               this.unmountComponent();
             }
-            else this.component.forceUpdate();
          }
-         else if (props && props.hasOwnProperty('value') && typeof this.component.setControlledValue == 'function') {
-            // If the 'value' property changes on a controlled component, use the provided function
-            // to set the value so that React can update the component.
-            this.component.setControlledValue(props.value);
-         }
-         else {
-            this.unmountComponent();
-            this.mountComponent();
-         }
+         this.mountComponent();
       }
    }
 
