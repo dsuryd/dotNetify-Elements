@@ -6,9 +6,9 @@ import * as utils from "../utils";
 const Container = styled.div`
   display: flex;
   flex: ${utils.flexAuto};
-  ${(props) => props.flex && `flex: ${props.flex}`};
-  flex-wrap: ${(props) => (props.flexWrap ? "wrap" : "nowrap")};
-  justify-content: ${(props) =>
+  ${props => props.flex && `flex: ${props.flex}`};
+  flex-wrap: ${props => (props.flexWrap ? "wrap" : "nowrap")};
+  justify-content: ${props =>
     props.apart
       ? "space-between"
       : props.bottom
@@ -16,26 +16,26 @@ const Container = styled.div`
       : props.center
       ? "center"
       : "flex-start"};
-  flex-direction: ${(props) => (props.horizontal ? "row" : "column")};
-  margin: ${(props) => props.margin};
-  padding: ${(props) => props.padding};
-  height: ${(props) => props.height || (props.flex ? "auto" : "fit-content")};
-  width: ${(props) => props.width || (props.right ? "auto" : "inherit")};
-  overflow: ${(props) => (props.flex ? "auto" : "unset")};
-  ${(props) => props.middle && "align-items: center"};
-  ${(props) =>
+  flex-direction: ${props => (props.horizontal ? "row" : "column")};
+  margin: ${props => props.margin};
+  padding: ${props => props.padding};
+  height: ${props => props.height || (props.flex ? "auto" : "fit-content")};
+  width: ${props => props.width || (props.right ? "auto" : "inherit")};
+  overflow: ${props => (props.flex ? "auto" : "unset")};
+  ${props => props.middle && "align-items: center"};
+  ${props =>
     props.right &&
     (props.horizontal ? "justify-content: flex-end" : "align-items: flex-end")};
-  ${(props) => props.css};
-  ${(props) => props.theme.Panel.Container};
+  ${props => props.css};
+  ${props => props.theme.Panel.Container};
 `;
 
 const ChildContainer = styled.div`
-  ${(props) => props.flex && "display: flex; align-items: stretch"};
-  flex: ${(props) => props.flex};
-  margin: ${(props) => props.margin};
-  padding: ${(props) => props.padding};
-  ${(props) => props.theme.Panel.ChildContainer};
+  ${props => props.flex && "display: flex; align-items: stretch"};
+  flex: ${props => props.flex};
+  margin: ${props => props.margin};
+  padding: ${props => props.padding};
+  ${props => props.theme.Panel.ChildContainer};
 `;
 
 Container.defaultProps = { theme: utils.getDefaultTheme() };
@@ -120,8 +120,8 @@ export class Panel extends React.Component {
     }
 
     return children
-      .filter((x) => x)
-      .filter((x) => x.props && x.props.show !== false);
+      .filter(x => x)
+      .filter(x => x.props && x.props.show !== false);
   }
 
   get numChildren() {
@@ -143,7 +143,7 @@ export class Panel extends React.Component {
     return idx > 0 ? margin : 0;
   }
 
-  getStyle = (idx) => {
+  getStyle = idx => {
     const showChild = this.state.showChildren[idx] !== false;
     return !showChild ? { display: "none" } : null;
   };
@@ -188,7 +188,7 @@ export class Panel extends React.Component {
     } = this.props;
 
     const hasCell = this.children.some(
-      (x) => x.type && (x.type._typeName === "Cell" || x.type === "d-cell")
+      x => x.type && (x.type._typeName === "Cell" || x.type === "d-cell")
     );
 
     const theme = this.context.theme || utils.getDefaultTheme();
@@ -215,7 +215,7 @@ export class Panel extends React.Component {
     if (!_flex)
       _flex =
         (childProps && childProps.flex) ||
-        this.children.some((child) => child.props && child.props.flex)
+        this.children.some(child => child.props && child.props.flex)
           ? flexAuto
           : null;
 
@@ -248,7 +248,7 @@ export class Panel extends React.Component {
               : childFlex;
 
           // If child or its container is a derivative of Panel, don't wrap it.
-          const isPanel = (x) => x && (x._isPanel || x == "d-panel");
+          const isPanel = x => x && (x._isPanel || x == "d-panel");
           const childContainer =
             child.type && child.type.componentTypes
               ? child.type.componentTypes.Container
@@ -264,7 +264,7 @@ export class Panel extends React.Component {
             let mergedChildProps = utils.mergeProps(child, childProps, {
               style: style,
               flex: childFlex,
-              onShow: (show) => this.handleShow(idx, show)
+              onShow: show => this.handleShow(idx, show)
             });
 
             if (child.type == "d-panel") {
@@ -289,7 +289,7 @@ export class Panel extends React.Component {
                 ? React.cloneElement(
                     child,
                     utils.mergeProps(child, _childProps, {
-                      onShow: (show) => this.handleShow(idx, show)
+                      onShow: show => this.handleShow(idx, show)
                     })
                   )
                 : child}

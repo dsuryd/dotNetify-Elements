@@ -6,10 +6,10 @@ import { Field } from "../structure/Field";
 import * as utils from "../utils";
 
 const GroupContainer = styled.section`
-  ${(props) => props.theme.Radio.GroupContainer};
+  ${props => props.theme.Radio.GroupContainer};
 `;
 
-const PlainTextComponent = (props) => <span {...props} />;
+const PlainTextComponent = props => <span {...props} />;
 
 GroupContainer.defaultProps = { theme: utils.getDefaultTheme() };
 
@@ -43,7 +43,7 @@ export class RadioGroup extends InputElement {
     PlainTextComponent
   };
 
-  handleChange = (event) => {
+  handleChange = event => {
     let value = event.target.value;
     this.props.onChange && this.props.onChange(value);
     this.dispatch(value);
@@ -71,9 +71,9 @@ export class RadioGroup extends InputElement {
     } = this.attrs;
 
     const disabled = enable === false;
-    const radioOptions = (options || []).map((opt) => utils.toCamelCase(opt));
+    const radioOptions = (options || []).map(opt => utils.toCamelCase(opt));
     const radio = radioOptions
-      .filter((opt) => opt.value)
+      .filter(opt => opt.value)
       .map((opt, idx) => (
         <RadioContainer
           key={opt.key}
@@ -110,9 +110,7 @@ export class RadioGroup extends InputElement {
         </RadioContainer>
       ));
 
-    const selected = radioOptions
-      .filter((opt) => opt.key == this.value)
-      .shift();
+    const selected = radioOptions.filter(opt => opt.key == this.value).shift();
     const plainTextValue = selected ? selected.value : "";
 
     return (

@@ -6,52 +6,52 @@ import * as utils from "../utils";
 
 const Container = styled.div`
   display: grid;
-  ${(props) => props.horizontal && "display: -ms-grid"};
-  grid-template-columns: ${(props) => (props.horizontal ? "1fr 4fr" : "1fr")};
-  -ms-grid-columns: ${(props) => (props.horizontal ? "1fr 4fr" : "1fr")};
+  ${props => props.horizontal && "display: -ms-grid"};
+  grid-template-columns: ${props => (props.horizontal ? "1fr 4fr" : "1fr")};
+  -ms-grid-columns: ${props => (props.horizontal ? "1fr 4fr" : "1fr")};
   -ms-user-select: none;
   user-select: none;
-  ${(props) => props.width && `width: ${props.width}`};
-  ${(props) => props.theme.Field.Container};
-  ${(props) => props.css};
+  ${props => props.width && `width: ${props.width}`};
+  ${props => props.theme.Field.Container};
+  ${props => props.css};
 `;
 
 const LabelContainer = styled.div`
   display: flex;
   -ms-grid-column: 1;
   align-items: flex-start;
-  padding-top: ${(props) => (props.horizontal ? ".4rem" : "0")};
+  padding-top: ${props => (props.horizontal ? ".4rem" : "0")};
   padding-right: 1rem;
   padding-bottom: 0.25rem;
-  ${(props) => props.theme.Field.LabelContainer};
+  ${props => props.theme.Field.LabelContainer};
 `;
 
 const InputContainer = styled.div`
   width: calc(100% - 1px);
-  ${(props) => props.horizontal && "-ms-grid-column: 2"};
-  ${(props) => props.right && "display: flex; justify-content: flex-end"};
-  ${(props) => props.theme.Field.InputContainer};
+  ${props => props.horizontal && "-ms-grid-column: 2"};
+  ${props => props.right && "display: flex; justify-content: flex-end"};
+  ${props => props.theme.Field.InputContainer};
 `;
 
 const PlainTextContainer = styled.div`
-  ${(props) => props.horizontal && "-ms-grid-column: 2"};
-  ${(props) => props.theme.Field.PlainTextContainer};
+  ${props => props.horizontal && "-ms-grid-column: 2"};
+  ${props => props.theme.Field.PlainTextContainer};
 `;
 
 const ValidationMessageContainer = styled.div`
   display: flex;
   flex-direction: column;
-  grid-column: ${(props) => (props.horizontal ? "2" : "1")};
-  -ms-grid-column: ${(props) => (props.horizontal ? "2" : "1")};
-  ${(props) => props.theme.Field.ValidationMessageContainer};
+  grid-column: ${props => (props.horizontal ? "2" : "1")};
+  -ms-grid-column: ${props => (props.horizontal ? "2" : "1")};
+  ${props => props.theme.Field.ValidationMessageContainer};
   // Edge
   @supports (-ms-ime-align: auto) {
-    ${(props) => props.horizontal && "margin-top: 2.25rem"};
+    ${props => props.horizontal && "margin-top: 2.25rem"};
   }
   // IE11
   @media screen and (-ms-high-contrast: active),
     screen and (-ms-high-contrast: none) {
-    ${(props) => props.horizontal && "margin-top: 2.25rem"};
+    ${props => props.horizontal && "margin-top: 2.25rem"};
   }
 `;
 
@@ -119,7 +119,7 @@ export class Field extends React.Component {
 
     const [validationMessages, children] = utils.filterChildren(
       this.props.children,
-      (child) => child.key && child.key.startsWith(validationKeyPrefix)
+      child => child.key && child.key.startsWith(validationKeyPrefix)
     );
 
     const hasValidationMessage =

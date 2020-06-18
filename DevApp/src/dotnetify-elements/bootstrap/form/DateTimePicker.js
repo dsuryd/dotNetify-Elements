@@ -10,10 +10,9 @@ momentLocalizer();
 
 export const DateTimePicker = styled(rwDateTimePicker)`
   > .rw-widget-picker {
-    ${(props) => props.theme.Input}
-    ${(props) =>
-      props.valid === false ? props.theme.InputValidationError : ""};
-    ${(props) => props.css};
+    ${props => props.theme.Input}
+    ${props => (props.valid === false ? props.theme.InputValidationError : "")};
+    ${props => props.css};
   }
 `;
 

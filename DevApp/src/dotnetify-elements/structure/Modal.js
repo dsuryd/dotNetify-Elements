@@ -65,12 +65,12 @@ export class Modal extends React.Component {
 
     const [sections, body] = utils.filterChildren(
       children,
-      (child) => child && (child.type === "header" || child.type === "footer")
+      child => child && (child.type === "header" || child.type === "footer")
     );
     const _header =
-      header || sections.filter((section) => section.type === "header").shift();
+      header || sections.filter(section => section.type === "header").shift();
     const _footer =
-      footer || sections.filter((section) => section.type === "footer").shift();
+      footer || sections.filter(section => section.type === "footer").shift();
 
     let modalContent = (
       <React.Fragment>

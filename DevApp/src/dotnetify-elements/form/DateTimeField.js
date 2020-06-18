@@ -5,7 +5,7 @@ import { Field, validationKeyPrefix } from "../structure/Field";
 import { Label } from "../display/Label";
 import moment from "moment";
 
-const PlainTextComponent = (props) => <span {...props} />;
+const PlainTextComponent = props => <span {...props} />;
 
 export class DateTimeField extends InputElement {
   static propTypes = {
@@ -51,7 +51,7 @@ export class DateTimeField extends InputElement {
   }
 
   componentDidMount() {
-    this.unsubOnValidated = this.vmProperty.onValidated((result) =>
+    this.unsubOnValidated = this.vmProperty.onValidated(result =>
       this.setState({
         valid: result.valid ? null : false,
         validationMessages: result.messages
@@ -66,12 +66,12 @@ export class DateTimeField extends InputElement {
     this.unsubOnValidated();
   }
 
-  handleChange = (value) => {
+  handleChange = value => {
     this.setState({ changed: true });
     this.value = value ? moment(value).format() : null;
   };
 
-  handleBlur = (_) => {
+  handleBlur = _ => {
     if (this.state.changed) {
       this.dispatch();
       this.props.onChange && this.props.onChange(this.value);
@@ -162,10 +162,10 @@ export class DateTimeField extends InputElement {
   }
 }
 
-export const DateField = (props) => <DateTimeField time={false} {...props} />;
+export const DateField = props => <DateTimeField time={false} {...props} />;
 DateField.propTypes = { ...DateTimeField.propTypes };
 DateField.componentTypes = { ...DateTimeField.componentTypes };
 
-export const TimeField = (props) => <DateTimeField date={false} {...props} />;
+export const TimeField = props => <DateTimeField date={false} {...props} />;
 TimeField.propTypes = { ...DateTimeField.propTypes };
 TimeField.componentTypes = { ...DateTimeField.componentTypes };

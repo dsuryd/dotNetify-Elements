@@ -26,7 +26,7 @@ export default function createWebComponent(Component, elementName) {
       this.helper = new WebComponentHelper(this);
     }
 
-    onChanged = (field) => {
+    onChanged = field => {
       const onChanged = this.helper.parseFunctionString(
         this.getAttribute("onchanged")
       );
@@ -34,7 +34,7 @@ export default function createWebComponent(Component, elementName) {
       this.dispatchEvent(new CustomEvent("onChanged", { detail: field }));
     };
 
-    onSubmit = (formData) => {
+    onSubmit = formData => {
       const onSubmit = this.helper.parseFunctionString(
         this.getAttribute("onsubmit")
       );
@@ -42,7 +42,7 @@ export default function createWebComponent(Component, elementName) {
       this.dispatchEvent(new CustomEvent("onSubmit", { detail: formData }));
     };
 
-    onSubmitError = (error) => {
+    onSubmitError = error => {
       const onSubmitError = this.helper.parseFunctionString(
         this.getAttribute("onsubmiterror")
       );
@@ -50,7 +50,7 @@ export default function createWebComponent(Component, elementName) {
       this.dispatchEvent(new CustomEvent("onSubmitError", { detail: error }));
     };
 
-    onVMContextStateChange = (e) => this.shouldEnterEditMode(e.detail);
+    onVMContextStateChange = e => this.shouldEnterEditMode(e.detail);
 
     connectedCallback() {
       this.vmContextElem = this.closest("d-vm-context");

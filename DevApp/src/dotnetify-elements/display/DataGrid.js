@@ -10,24 +10,24 @@ const Container = styled.div`
   width: 100%;
   margin-bottom: 1px;
   .react-grid-Header {
-    ${(props) => props.theme.DataGrid.Header};
+    ${props => props.theme.DataGrid.Header};
   }
   .react-grid-HeaderCell {
     font-weight: 500;
-    ${(props) => props.theme.DataGrid.HeaderCell};
+    ${props => props.theme.DataGrid.HeaderCell};
   }
   .react-grid-Row {
-    ${(props) => props.theme.DataGrid.Row};
+    ${props => props.theme.DataGrid.Row};
   }
   .react-grid-Cell {
-    ${(props) => !props.showCellOutline && "&:focus { outline: none }"};
+    ${props => !props.showCellOutline && "&:focus { outline: none }"};
     .drag-handle {
       display: none;
     }
-    ${(props) => props.theme.DataGrid.Cell};
+    ${props => props.theme.DataGrid.Cell};
   }
-  ${(props) => props.theme.DataGrid.Container};
-  ${(props) => props.css};
+  ${props => props.theme.DataGrid.Container};
+  ${props => props.css};
 `;
 
 Container.defaultProps = { theme: utils.getDefaultTheme() };
@@ -79,14 +79,14 @@ export class DataGrid extends Element {
 
     this.updateSelectedKey();
 
-    this.handleResize = (_) => {
+    this.handleResize = _ => {
       // If window is resized while this is hidden, force redraw when it's visible.
       if (this.elem && !this.elem.offsetParent) this.redraw = true;
       this.updateHeight();
     };
 
     window.addEventListener("resize", this.handleResize);
-    setTimeout((_) => this.emitEvent("resize"), 100);
+    setTimeout(_ => this.emitEvent("resize"), 100);
   }
 
   componentDidUpdate(props, state) {
@@ -94,7 +94,7 @@ export class DataGrid extends Element {
 
     if (this.redraw) {
       this.redraw = null;
-      setTimeout((_) => this.emitEvent("resize"));
+      setTimeout(_ => this.emitEvent("resize"));
     }
   }
 
@@ -104,7 +104,7 @@ export class DataGrid extends Element {
 
   deselect(keys) {
     const selectedKey = this.isMultiselect
-      ? this.state.selectedKey.filter((key) => !keys.includes(key))
+      ? this.state.selectedKey.filter(key => !keys.includes(key))
       : null;
     this.dispatchSelection(selectedKey);
     this.setState({ selectedKey: selectedKey });
@@ -127,11 +127,11 @@ export class DataGrid extends Element {
   mapColumns(children, columns) {
     let [gridColumns, rest] = utils.filterChildren(
       children,
-      (child) => child.type == GridColumn || child.type == "d-grid-column"
+      child => child.type == GridColumn || child.type == "d-grid-column"
     );
 
     // Map GridColumn attributes to React data grid column definition.
-    let mapGridColumn = (gridCol) => {
+    let mapGridColumn = gridCol => {
       let {
         colKey,
         label,
@@ -150,7 +150,7 @@ export class DataGrid extends Element {
         formatter:
           formatter ||
           (columnChildren ? React.Children.only(columnChildren) : null),
-        getRowMetaData: (row) => {
+        getRowMetaData: row => {
           const key = this.attrs.rowKey ? row[this.attrs.rowKey] : null;
           return { key, row };
         },
@@ -164,7 +164,7 @@ export class DataGrid extends Element {
 
     // For each column, find the GridColumn element with a matching name.  The element will provide information
     // to customize the column, such as width and the formatter to format the column text.
-    let result = (columns || []).map((c) => {
+    let result = (columns || []).map(c => {
       c = utils.toCamelCase(c);
       let col = {
         key: c.key,
@@ -176,21 +176,21 @@ export class DataGrid extends Element {
       };
 
       const gridCol = gridColumns.find(
-        (x) =>
+        x =>
           (x.type == GridColumn &&
             (x.props.colKey === c.key || x.key === c.key)) ||
           (x.type == "d-grid-column" && x.props.colkey === c.key)
       );
       if (gridCol) {
         Object.assign(col, mapGridColumn(gridCol));
-        gridColumns = gridColumns.filter((x) => x !== gridCol);
+        gridColumns = gridColumns.filter(x => x !== gridCol);
       }
 
       return col;
     });
 
     if (gridColumns.length > 0) {
-      result = [...result, ...gridColumns.map((x) => mapGridColumn(x))];
+      result = [...result, ...gridColumns.map(x => mapGridColumn(x))];
     }
     return result;
   }
@@ -229,7 +229,7 @@ export class DataGrid extends Element {
         : [...this.unsortedValue];
   };
 
-  updateHeight = (_) => {
+  updateHeight = _ => {
     // Adjust the grid's height to the available space.
     if (
       this.elem &&
@@ -261,7 +261,7 @@ export class DataGrid extends Element {
           ? selectedKey.shift()
           : selectedKey;
         const rowIdx = this.value.findIndex(
-          (x) => x[this.attrs.rowKey] === visibleKey
+          x => x[this.attrs.rowKey] === visibleKey
         );
         this.handleScrollToRow(rowIdx);
       }
@@ -275,12 +275,12 @@ export class DataGrid extends Element {
     }
   };
 
-  handleRowsSelected = (rows) => {
-    rows.map((row) => this.handleRowClick(row.rowIdx, row.row));
+  handleRowsSelected = rows => {
+    rows.map(row => this.handleRowClick(row.rowIdx, row.row));
   };
 
-  handleRowsDeselected = (rows) => {
-    const deselectedKeys = rows.map((row) =>
+  handleRowsDeselected = rows => {
+    const deselectedKeys = rows.map(row =>
       this.attrs.rowKey ? row.row[this.attrs.rowKey] : row.rowIdx
     );
     this.deselect(deselectedKeys);
@@ -320,17 +320,17 @@ export class DataGrid extends Element {
         gridCanvas.scrollTop = top;
 
         // Hack to fix row data not getting updated when programmatically selected.
-        setTimeout((_) => {
+        setTimeout(_ => {
           var row = this.gridDom
             .getDataGridDOMNode()
             .querySelector(".react-grid-Cell.row-selected");
           this.emitEvent("click", row);
         });
       }
-    } else setTimeout((_) => this.handleScrollToRow(idx));
+    } else setTimeout(_ => this.handleScrollToRow(idx));
   }
 
-  handleSelectBy = (_) => {
+  handleSelectBy = _ => {
     return this.attrs.rowKey
       ? {
           keys: {
@@ -366,7 +366,7 @@ export class DataGrid extends Element {
     } = this.attrs;
 
     const rowsCount = this.value && this.value.length;
-    const rowGetter = (idx) => this.value[idx];
+    const rowGetter = idx => this.value[idx];
     let minHeight = rows
       ? (rows + 1) * utils.toPixel(rowHeight) + 2
       : this.state.height;
@@ -374,14 +374,14 @@ export class DataGrid extends Element {
       minHeight = (rowsCount + 1) * utils.toPixel(rowHeight) + 2;
 
     const editEnabled =
-      this.props.enable !== false && columns.some((c) => c.Editable);
+      this.props.enable !== false && columns.some(c => c.Editable);
 
     return (
       <Container
         style={style}
         css={css}
         showCellOutline={editEnabled}
-        ref={(elem) => (this.elem = elem)}
+        ref={elem => (this.elem = elem)}
       >
         <_DataGrid
           id={fullId}
@@ -401,7 +401,7 @@ export class DataGrid extends Element {
             onRowsDeselected: this.handleRowsDeselected,
             selectBy: this.handleSelectBy()
           }}
-          ref={(elem) => (this.gridDom = elem)}
+          ref={elem => (this.gridDom = elem)}
           {...props}
         />
       </Container>

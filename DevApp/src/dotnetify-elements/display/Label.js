@@ -8,29 +8,29 @@ const LabelContainer = styled.div`
   line-height: 1.7;
   display: flex;
   align-items: center;
-  flex-direction: ${(props) => (props.right ? "row-reverse" : "row")};
-  justify-content: ${(props) => (props.apart ? "space-between" : "flex-start")};
-  width: ${(props) => (props.apart ? "100%" : "unset")};
-  ${(props) => props.bold && "font-weight: 500"};
-  ${(props) => props.italic && "font-style: italic"};
-  ${(props) => props.theme.Label.Container};
-  ${(props) => props.css};
+  flex-direction: ${props => (props.right ? "row-reverse" : "row")};
+  justify-content: ${props => (props.apart ? "space-between" : "flex-start")};
+  width: ${props => (props.apart ? "100%" : "unset")};
+  ${props => props.bold && "font-weight: 500"};
+  ${props => props.italic && "font-style: italic"};
+  ${props => props.theme.Label.Container};
+  ${props => props.css};
 `;
 
 const IconContainer = styled.span`
   line-height: 0;
-  margin: ${(props) =>
+  margin: ${props =>
     props.noMargin ? "0" : props.right ? "0 0 0 .5rem " : "0 .5rem 0 0"};
-  ${(props) => props.theme.Label.IconContainer};
+  ${props => props.theme.Label.IconContainer};
 `;
 
-const Icon = styled.i.attrs((props) => ({
+const Icon = styled.i.attrs(props => ({
   className: props.className
 }))`
-  ${(props) => props.theme.Label.IconComponent}
+  ${props => props.theme.Label.IconComponent}
 `;
 
-const IconComponent = (props) => {
+const IconComponent = props => {
   let className = props.name;
   let ligature = "";
   if (props.name.startsWith("material-icons")) {

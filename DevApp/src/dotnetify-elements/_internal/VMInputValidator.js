@@ -10,7 +10,7 @@ export default class VMInputValidator extends VMProperty {
   get isRequired() {
     return (
       this.validations.filter(
-        (v) => v.type && v.type.toLowerCase() === "required"
+        v => v.type && v.type.toLowerCase() === "required"
       ).length > 0
     );
   }
@@ -43,18 +43,16 @@ export default class VMInputValidator extends VMProperty {
 
   validate(value) {
     // Not all validator may run synchronously, so we'll use promise for all.
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       value = typeof value == "undefined" ? this.value || null : value;
 
       // Run every validator of the input field and aggregate the results.
       Promise.all(
-        this.validations.map((validation) =>
-          this.runValidator(validation, value)
-        )
-      ).then((results) => {
+        this.validations.map(validation => this.runValidator(validation, value))
+      ).then(results => {
         const messages = results
-          .map((result) => (result.isValid === false ? result.message : null))
-          .filter((message) => message);
+          .map(result => (result.isValid === false ? result.message : null))
+          .filter(message => message);
 
         const result = {
           inputId: this.propId,
@@ -72,7 +70,7 @@ export default class VMInputValidator extends VMProperty {
     const result = this.getValidator(validation)(value);
     return result instanceof Promise
       ? result
-      : new Promise((resolve) =>
+      : new Promise(resolve =>
           resolve({ isValid: result, message: validation.message })
         );
   }
@@ -109,7 +107,7 @@ export default class VMInputValidator extends VMProperty {
 
     // Dispatch the server validation request to the server.
     this.vmContext.dispatchState({ [this.propId]: value }, true);
-    return promise.then((result) => ({
+    return promise.then(result => ({
       isValid: result,
       message: validation.message
     }));

@@ -2,22 +2,22 @@ import React from "react";
 import styled from "styled-components";
 import * as utils from "../utils";
 
-export const Tab = styled.ul.attrs((props) => ({
+export const Tab = styled.ul.attrs(props => ({
   className: "nav nav-tabs"
 }))`
-  ${(props) => props.theme.Tab.TabItemContainer}
+  ${props => props.theme.Tab.TabItemContainer}
 `;
 
-const TabNavItem = styled.li.attrs((props) => ({
+const TabNavItem = styled.li.attrs(props => ({
   className: "nav-item"
 }))`
   &.nav-item {
     padding-bottom: 0;
   }
-  ${(props) => props.theme.Tab.TabItem}
+  ${props => props.theme.Tab.TabItem}
 `;
 
-const TabLink = styled.div.attrs((props) => ({
+const TabLink = styled.div.attrs(props => ({
   className: "nav-link",
   href: "#"
 }))`
@@ -26,11 +26,11 @@ const TabLink = styled.div.attrs((props) => ({
   }
 `;
 
-export const TabItem = (props) => (
+export const TabItem = props => (
   <TabNavItem>
     <TabLink
       className={props.active ? "active" : ""}
-      onClick={(e) => {
+      onClick={e => {
         e.preventDefault();
         props.onClick(e);
       }}

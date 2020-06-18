@@ -6,10 +6,10 @@ import { Field } from "../structure/Field";
 import * as utils from "../utils";
 
 const GroupContainer = styled.section`
-  ${(props) => props.theme.Checkbox.GroupContainer};
+  ${props => props.theme.Checkbox.GroupContainer};
 `;
 
-const PlainTextComponent = (props) => (
+const PlainTextComponent = props => (
   <span {...props}>{React.Children.toArray(props.children).join(", ")}</span>
 );
 
@@ -45,11 +45,11 @@ export class CheckboxGroup extends InputElement {
     PlainTextComponent
   };
 
-  handleChange = (event) => {
+  handleChange = event => {
     let values = this.value || [];
     values = event.target.checked
       ? values.concat([event.target.value])
-      : values.filter((value) => value != event.target.value);
+      : values.filter(value => value != event.target.value);
     this.dispatch(values);
   };
 
@@ -96,8 +96,8 @@ export class CheckboxGroup extends InputElement {
       </CheckboxContainer>
     ));
 
-    const selected = checkboxOptions.filter((opt) => values.includes(opt.Key));
-    const plainTextValue = selected.map((x) => x.Value);
+    const selected = checkboxOptions.filter(opt => values.includes(opt.Key));
+    const plainTextValue = selected.map(x => x.Value);
 
     return (
       <Container

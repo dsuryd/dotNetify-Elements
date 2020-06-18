@@ -59,7 +59,7 @@ export class Button extends InputElement {
     return this.formContext && !this.formContext.isChanged();
   }
 
-  handleClick = (_) => {
+  handleClick = _ => {
     const { id, submit, cancel } = this.props;
     let onClick = this.props.onClick;
     if (!onClick) onClick = () => null;
@@ -67,7 +67,7 @@ export class Button extends InputElement {
     // If button is associated with a form action, invoke it.
     if ((submit || cancel) && this.formContext) {
       if (submit)
-        this.formContext.submit(id).then((canSubmit) => canSubmit && onClick());
+        this.formContext.submit(id).then(canSubmit => canSubmit && onClick());
       else if (cancel) {
         this.formContext.cancel();
         onClick();
@@ -101,7 +101,7 @@ export class Button extends InputElement {
     const _label =
       typeof label == "string" ? <Label icon={icon}>{label}</Label> : label;
 
-    const handleKeyPress = (event) =>
+    const handleKeyPress = event =>
       event.charCode == 13 ? this.handleClick() : null;
 
     if (show === false) return null;

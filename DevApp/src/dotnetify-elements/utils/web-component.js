@@ -17,13 +17,13 @@ export default function createWebComponent(
         : this;
 
       // Watch for attribute change on the custom element to render the React component.
-      this.observer = new MutationObserver((mutations) =>
+      this.observer = new MutationObserver(mutations =>
         this.onAttributeChange(mutations)
       );
       this.observer.observe(this, { attributes: true });
     }
 
-    onAttributeChange = (mutations) => {
+    onAttributeChange = mutations => {
       const props = mutations.reduce(
         (prev, x) => ({
           ...prev,
@@ -38,7 +38,7 @@ export default function createWebComponent(
         this.renderComponent(props);
     };
 
-    onFormContextStateChange = (e) => {
+    onFormContextStateChange = e => {
       // Re-mount the component if it's nested inside a form component and its 'plainText'
       // property changes, indicating edit mode is toggled.
       const props = e.detail.state.hasOwnProperty("plainText")
@@ -47,10 +47,9 @@ export default function createWebComponent(
       this.component && this.renderComponent(props);
     };
 
-    onVMContextStateChange = (_) => this.renderComponent();
+    onVMContextStateChange = _ => this.renderComponent();
 
-    onVMContextLocalStateChange = (_) =>
-      this.component && this.renderComponent();
+    onVMContextLocalStateChange = _ => this.component && this.renderComponent();
 
     connectedCallback() {
       // Backdoor for components to add their own specific initialization.
@@ -114,7 +113,7 @@ export default function createWebComponent(
       this.childrenHtml = this.childrenHtml || this.innerHTML;
       let children = helper.parseHtmlToReact(this.childrenHtml);
       if (Array.isArray(children))
-        children = children.filter((x) => typeof x !== "string" || !!x.trim());
+        children = children.filter(x => typeof x !== "string" || !!x.trim());
       if (this.childrenHtml) return { children };
     }
 

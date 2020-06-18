@@ -26,12 +26,12 @@ export default class InputElement extends Element {
 
     // Fallback is this component isn't associated with a back-end view model.
     const vmContext = {
-      getState: (id) => this.state && this.state[id],
-      setState: (state) => this.setState(state),
-      getPropAttributes: (_) => this.props.attrs || {},
-      getPropValidations: (_) => this.props.validations || null,
-      getValidator: (_) => new VMInputValidator(vmContext, this.propId),
-      dispatchState: (state) =>
+      getState: id => this.state && this.state[id],
+      setState: state => this.setState(state),
+      getPropAttributes: _ => this.props.attrs || {},
+      getPropValidations: _ => this.props.validations || null,
+      getValidator: _ => new VMInputValidator(vmContext, this.propId),
+      dispatchState: state =>
         this.props.onChange && this.props.onChange(state[this.propId])
     };
     this._vmInput = new VMInput(vmContext, this.propId, this.props.onInputRef);

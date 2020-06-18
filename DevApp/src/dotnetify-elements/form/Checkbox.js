@@ -30,7 +30,7 @@ export class Checkbox extends InputElement {
     PlainTextComponent: undefined
   };
 
-  handleChange = (event) => this.dispatch(event.target.checked);
+  handleChange = event => this.dispatch(event.target.checked);
 
   render() {
     const [Container, Label, Input, PlainText] = this.resolveComponents(

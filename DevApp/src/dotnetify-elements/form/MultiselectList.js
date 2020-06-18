@@ -4,7 +4,7 @@ import InputElement from "../core/InputElement";
 import { Field, validationKeyPrefix } from "../structure/Field";
 import { Label } from "../display/Label";
 
-const PlainTextComponent = (props) => (
+const PlainTextComponent = props => (
   <span {...props}>{React.Children.toArray(props.children).join(", ")}</span>
 );
 
@@ -45,7 +45,7 @@ export class MultiselectList extends InputElement {
   }
 
   componentDidMount() {
-    this.unsubOnValidated = this.vmProperty.onValidated((result) =>
+    this.unsubOnValidated = this.vmProperty.onValidated(result =>
       this.setState({
         valid: result.valid ? null : false,
         validationMessages: result.messages
@@ -55,11 +55,11 @@ export class MultiselectList extends InputElement {
     // If "required" validation is specified, add a custom validator to validate against an empty selection.
     if (this.vmProperty.validator && this.vmProperty.validator.validations) {
       const requiredValidation = this.vmProperty.validator.validations
-        .filter((x) => x.type === "Required")
+        .filter(x => x.type === "Required")
         .shift();
       if (requiredValidation) {
         this.vmProperty.addValidation({
-          validate: (val) => val && val.length > 0,
+          validate: val => val && val.length > 0,
           message: requiredValidation.message,
           category: requiredValidation.category
         });
@@ -71,9 +71,9 @@ export class MultiselectList extends InputElement {
     this.unsubOnValidated();
   }
 
-  handleChange = (value) => {
+  handleChange = value => {
     this.props.onChange && this.props.onChange(value);
-    this.dispatch(value.map((val) => val.Key));
+    this.dispatch(value.map(val => val.Key));
   };
 
   render() {
@@ -101,9 +101,9 @@ export class MultiselectList extends InputElement {
     } = this.attrs;
 
     const disabled = enable === false;
-    const values = this.value ? this.value.map((x) => `${x}`) : [];
-    const selected = (options || []).filter((opt) => values.includes(opt.Key));
-    const plainTextValue = selected.map((x) => x.Value);
+    const values = this.value ? this.value.map(x => `${x}`) : [];
+    const selected = (options || []).filter(opt => values.includes(opt.Key));
+    const plainTextValue = selected.map(x => x.Value);
     const validationMessages =
       this.props.validationMessages || this.state.validationMessages;
 

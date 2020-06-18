@@ -79,7 +79,7 @@ export const withTheme = (Component, theme) =>
           (Theme._root ? Theme._root.currentTheme : utils.getDefaultTheme())
       };
       if (!props.theme && Theme._root) {
-        this.unsubscribe = Theme._root.onChange.subscribe((theme) =>
+        this.unsubscribe = Theme._root.onChange.subscribe(theme =>
           this.setState({ theme: theme })
         );
       }

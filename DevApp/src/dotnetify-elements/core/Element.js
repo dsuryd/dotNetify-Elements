@@ -6,7 +6,7 @@ import VMProperty from "../_internal/VMProperty";
 import * as utils from "../utils";
 
 const Container = styled.span`
-  ${(props) => props.css};
+  ${props => props.css};
 `;
 
 export default class Element extends React.Component {
@@ -66,13 +66,13 @@ export default class Element extends React.Component {
     const propId = this.props.id || Math.random().toString(36).substring(2);
     this._vmProperty = new VMProperty(
       {
-        getState: (id) =>
+        getState: id =>
           id === propId && this.props.hasOwnProperty("value")
             ? this.props.value
             : this.state && this.state[id],
-        setState: (state) => this.setState(state),
-        getPropAttributes: (_) => this.props.attrs || {},
-        dispatchState: (_) => {}
+        setState: state => this.setState(state),
+        getPropAttributes: _ => this.props.attrs || {},
+        dispatchState: _ => {}
       },
       propId
     );
@@ -106,7 +106,7 @@ export default class Element extends React.Component {
       templateElem = templateElem.cloneNode(true);
 
       const attrs = this.attrs;
-      templateElem.content.querySelectorAll("[slot]").forEach((x) => {
+      templateElem.content.querySelectorAll("[slot]").forEach(x => {
         const attr = x.getAttribute("slot");
         if (attr === "value") x.innerText = this.value;
         else if (attrs.hasOwnProperty(attr)) x.innerText = this.attrs[attr];

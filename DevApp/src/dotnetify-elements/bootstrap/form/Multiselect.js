@@ -5,9 +5,8 @@ import * as utils from "../utils";
 
 export const Multiselect = styled(rwMultiselect)`
   > .rw-widget-input {
-    ${(props) => props.theme.Input}
-    ${(props) =>
-      props.valid === false ? props.theme.InputValidationError : ""};
+    ${props => props.theme.Input}
+    ${props => (props.valid === false ? props.theme.InputValidationError : "")};
   }
 `;
 

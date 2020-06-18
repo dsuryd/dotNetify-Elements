@@ -15,13 +15,13 @@ const IconContainer = styled.button`
   @media (max-width: 768px) {
     display: block;
   }
-  ${(props) => props.theme.NavDrawerButton};
-  ${(props) => props.css};
+  ${props => props.theme.NavDrawerButton};
+  ${props => props.css};
 `;
 
 IconContainer.defaultProps = { theme: utils.getDefaultTheme() };
 
-const HamburgerIcon = (_) => (
+const HamburgerIcon = _ => (
   <span>
     <svg
       style={{ width: "24px", height: "24px" }}
@@ -51,7 +51,7 @@ export class NavDrawerButton extends React.Component {
     );
 
     const { icon, ...props } = this.props;
-    const handleClick = (_) => utils.toggleNavDrawer();
+    const handleClick = _ => utils.toggleNavDrawer();
     return (
       <IconContainer onClick={handleClick} {...props}>
         {icon ? icon : <HamburgerIcon />}

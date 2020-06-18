@@ -12,8 +12,8 @@ const LayoutGrid = styled.main`
   -ms-grid-columns: auto 1fr;
   -ms-grid-rows: auto 1fr auto;
   grid-template-areas: "header header" "nav    section" "nav    footer";
-  ${(props) => props.theme.Main};
-  ${(props) => props.css};
+  ${props => props.theme.Main};
+  ${props => props.css};
 `;
 
 export const Main = ({ theme, ...props }) => (
@@ -28,13 +28,13 @@ export const Header = styled.header`
   -ms-grid-column-span: 2;
   display: flex;
   align-items: center;
-  height: ${(props) => props.height || "55px"};
+  height: ${props => props.height || "55px"};
   > * {
     height: inherit;
   }
   z-index: 999;
-  ${(props) => props.theme.Header};
-  ${(props) => props.css};
+  ${props => props.theme.Header};
+  ${props => props.css};
 `;
 
 export const Nav = styled.nav`
@@ -45,21 +45,21 @@ export const Nav = styled.nav`
   display: flex;
   box-sizing: content-box;
   width: 100%;
-  min-width: ${(props) => props.width || "250px"};
+  min-width: ${props => props.width || "250px"};
   overflow: auto;
   visibility: visible;
   transition: all 250ms;
   z-index: 998;
   @media (max-width: 768px) {
-    margin-left: -${(props) => props.width || "251px"};
+    margin-left: -${props => props.width || "251px"};
     visibility: hidden;
     &.open {
       margin-left: 0;
       visibility: visible;
     }
   }
-  ${(props) => props.theme.Nav};
-  ${(props) => props.css};
+  ${props => props.theme.Nav};
+  ${props => props.css};
 `;
 
 export const Footer = styled.footer`
@@ -67,9 +67,9 @@ export const Footer = styled.footer`
   -ms-grid-row: 3;
   -ms-grid-column-span: 2;
   display: flex;
-  height: ${(props) => props.height || "50px"};
-  ${(props) => props.theme.Footer};
-  ${(props) => props.css};
+  height: ${props => props.height || "50px"};
+  ${props => props.theme.Footer};
+  ${props => props.css};
 `;
 
 export const Section = styled.section`
@@ -82,8 +82,8 @@ export const Section = styled.section`
   > * {
     height: inherit;
   }
-  ${(props) => props.theme.Section};
-  ${(props) => props.css};
+  ${props => props.theme.Section};
+  ${props => props.css};
 `;
 
 LayoutGrid.defaultProps = { theme: utils.getDefaultTheme() };

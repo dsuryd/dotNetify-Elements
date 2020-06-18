@@ -8,15 +8,15 @@ import * as utils from "../utils";
 
 const Container = styled.div`
   position: relative;
-  ${(props) => props.theme.Menu.Container};
-  ${(props) => props.css};
+  ${props => props.theme.Menu.Container};
+  ${props => props.css};
 `;
 
 const GroupContainer = styled.ul`
   position: absolute;
   padding: 2px;
   margin: 0;
-  ${(props) => props.width && `width: ${props.width}`};
+  ${props => props.width && `width: ${props.width}`};
   z-index: 100;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -38,7 +38,7 @@ const GroupContainer = styled.ul`
     transform: translate(0, 0) scale(1);
     pointer-events: auto;
   }
-  ${(props) => props.theme.Menu.GroupContainer};
+  ${props => props.theme.Menu.GroupContainer};
 `;
 
 const ItemContainer = styled.li`
@@ -138,7 +138,7 @@ const ItemContainer = styled.li`
     -webkit-transition-delay: 100ms;
     transition-delay: 250ms;
   }
-  ${(props) => props.theme.Menu.ItemContainer};
+  ${props => props.theme.Menu.ItemContainer};
 `;
 
 Container.defaultProps = { theme: utils.getDefaultTheme() };
@@ -204,12 +204,12 @@ export class Menu extends Element {
   }
 
   configureContextMenu() {
-    const onClick = (e) => {
+    const onClick = e => {
       this.hideMenu();
       document.removeEventListener("click", onClick);
     };
 
-    const onContextMenu = (e) => {
+    const onContextMenu = e => {
       e.preventDefault();
       this.showMenu(e.pageX, e.pageY);
       document.addEventListener("click", onClick, false);
@@ -226,7 +226,7 @@ export class Menu extends Element {
     const getMenuElem = () =>
       this.elemRef.current && this.elemRef.current.querySelector("ul");
 
-    const onClick = (e) => {
+    const onClick = e => {
       if (e.target.parentElement.parentElement.classList.contains("submenu"))
         return;
       this.hideMenu();
@@ -234,7 +234,7 @@ export class Menu extends Element {
       document.removeEventListener("click", onClick);
     };
 
-    const onClickTarget = (e) => {
+    const onClickTarget = e => {
       e.preventDefault();
       const menuElem = getMenuElem();
       if (menuElem && !menuElem.classList.contains("show")) {
@@ -254,7 +254,7 @@ export class Menu extends Element {
 
   initMenu() {
     this.elemRef.current &&
-      this.elemRef.current.querySelectorAll("li").forEach((x) => {
+      this.elemRef.current.querySelectorAll("li").forEach(x => {
         if (x.querySelector("ul")) x.classList.add("submenu");
         if (x.children.length == 0) x.classList.add("separator");
       });

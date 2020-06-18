@@ -20,7 +20,7 @@ export default function createWebComponent(Component, elementName) {
       this.helper = new WebComponentHelper(this);
     }
 
-    onStateChange = (state) => {
+    onStateChange = state => {
       const onStateChange = this.helper.parseFunctionString(
         this.getAttribute("onstatechange")
       );
@@ -35,7 +35,7 @@ export default function createWebComponent(Component, elementName) {
       );
     }
 
-    onVMContextStateChange = (_) =>
+    onVMContextStateChange = _ =>
       this.vmId &&
       !this.vm &&
       this.connect(this.vmId, this.getAttribute("options"));

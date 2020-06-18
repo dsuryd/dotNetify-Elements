@@ -5,8 +5,8 @@ import * as utils from "../utils";
 import { Label } from "../display/Label";
 
 const Container = styled.div`
-  ${(props) => props.theme.Collapsible.Container};
-  ${(props) => props.css};
+  ${props => props.theme.Collapsible.Container};
+  ${props => props.css};
 `;
 
 const HeaderContainer = styled.div`
@@ -17,7 +17,7 @@ const HeaderContainer = styled.div`
   &:hover {
     cursor: pointer;
   }
-  ${(props) => props.theme.Collapsible.HeaderContainer};
+  ${props => props.theme.Collapsible.HeaderContainer};
 `;
 
 const IconContainer = styled.div`
@@ -26,7 +26,7 @@ const IconContainer = styled.div`
   width: 1.25rem;
 `;
 
-const AngleCollapseIcon = (props) => (
+const AngleCollapseIcon = props => (
   <IconContainer>
     <svg
       viewBox="0 0 40 40"
@@ -42,7 +42,7 @@ const AngleCollapseIcon = (props) => (
   </IconContainer>
 );
 
-const AngleExpandIcon = (props) => (
+const AngleExpandIcon = props => (
   <IconContainer>
     <svg
       viewBox="0 0 40 40"
@@ -100,7 +100,7 @@ export class Collapsible extends React.Component {
     return true;
   }
 
-  handleClick = (_) => {
+  handleClick = _ => {
     const open = !this.state.open;
     this.setState({ open: open });
     this.props.onToggled && this.props.onToggled(open);

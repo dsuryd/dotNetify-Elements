@@ -4,7 +4,7 @@ import InputElement from "../core/InputElement";
 import { Field, validationKeyPrefix } from "../structure/Field";
 import { Label } from "../display/Label";
 
-const PlainTextComponent = (props) =>
+const PlainTextComponent = props =>
   props.type === "password" ? "" : <span {...props} />;
 
 export class TextField extends InputElement {
@@ -67,7 +67,7 @@ export class TextField extends InputElement {
   }
 
   componentDidMount() {
-    this.unsubOnValidated = this.vmProperty.onValidated((result) => {
+    this.unsubOnValidated = this.vmProperty.onValidated(result => {
       this.setState({
         valid: result.valid ? null : false,
         validationMessages: result.messages
@@ -90,12 +90,12 @@ export class TextField extends InputElement {
     this.vmProperty.dom = this.inputRef.current;
   }
 
-  handleBlur = (_) => {
+  handleBlur = _ => {
     this.changed && this.dispatch();
     this.changed = false;
   };
 
-  handleChange = (value) => {
+  handleChange = value => {
     this.changed = true;
     this.value =
       typeof this.vmProperty.domValue != "undefined"
@@ -103,7 +103,7 @@ export class TextField extends InputElement {
         : value;
   };
 
-  handleKeyPress = (event) => {
+  handleKeyPress = event => {
     if (event.key == "Enter") this.handleBlur();
     if (this.attrs.type == "number" && (event.key == "." || event.key == ","))
       event.preventDefault();
@@ -137,15 +137,15 @@ export class TextField extends InputElement {
       ...props
     } = this.attrs;
 
-    const handleChange = (e) => {
+    const handleChange = e => {
       this.handleChange(e.target.value);
       onChange && onChange(e.target.value, e);
     };
-    const handleBlur = (event) => {
+    const handleBlur = event => {
       onDone && onDone(this.value, { changed: this.changed, event });
       this.handleBlur(event);
     };
-    const handleKeyPress = (event) => {
+    const handleKeyPress = event => {
       event.key == "Enter" &&
         onDone &&
         onDone(this.value, { changed: this.changed, event });

@@ -6,9 +6,9 @@ export default function createWebComponent(Component, elementName) {
     Component,
     elementName,
     { noMargin: true },
-    (host) => {
+    host => {
       let props = Object.assign({ theme: utils.getDefaultTheme() }, host.props);
-      const hasCell = [...host.children].some((x) => x.nodeName === "D-CELL");
+      const hasCell = [...host.children].some(x => x.nodeName === "D-CELL");
       const Gap = props.theme.Panel.Gap;
       const Margin = props.theme.Panel.Margin;
 

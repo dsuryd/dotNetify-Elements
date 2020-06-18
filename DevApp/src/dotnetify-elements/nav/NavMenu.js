@@ -10,23 +10,23 @@ import * as utils from "../utils";
 const Container = styled.div`
   width: inherit;
   padding: 0.75rem 0;
-  ${(props) => props.css};
+  ${props => props.css};
 `;
 
-const GroupContainer = (props) => (
+const GroupContainer = props => (
   <Collapsible headerContainer={GroupHeaderContainer} {...props}>
     {props.children}
   </Collapsible>
 );
 
 const RouteContainer = styled.div`
-  ${(props) => props.theme.NavMenu.RouteContainer};
-  ${(props) => (props.isSelected ? props.theme.NavMenu.SelectedRoute : "")};
+  ${props => props.theme.NavMenu.RouteContainer};
+  ${props => (props.isSelected ? props.theme.NavMenu.SelectedRoute : "")};
 `;
 
 const GroupHeaderContainer = styled(Collapsible.componentTypes.HeaderContainer)`
   padding-right: 1rem;
-  ${(props) => props.theme.NavMenu.GroupContainer}
+  ${props => props.theme.NavMenu.GroupContainer}
 `;
 
 const GroupLabel = ({ padding, icon, children, style }) => (
@@ -140,10 +140,8 @@ export class NavMenu extends Element {
 
     const value = this.value || [];
     const navMenu = value.map((navItem, idx) => {
-      const groupLabel = (props) => (
-        <GroupLabel icon={navItem.Icon} {...props} />
-      );
-      const collapsed = selectedPath.some((path) => path === navItem.Label)
+      const groupLabel = props => <GroupLabel icon={navItem.Icon} {...props} />;
+      const collapsed = selectedPath.some(path => path === navItem.Label)
         ? false
         : !navItem.IsExpanded;
       return navItem.Routes ? (
@@ -154,7 +152,7 @@ export class NavMenu extends Element {
           labelComponent={groupLabel}
           collapsed={collapsed}
         >
-          {navItem.Routes.map((navRoute) => this.buildRoute(navRoute, navItem))}
+          {navItem.Routes.map(navRoute => this.buildRoute(navRoute, navItem))}
         </GroupContainer>
       ) : (
         this.buildRoute(navItem)
@@ -169,7 +167,7 @@ export class NavMenu extends Element {
   }
 }
 
-export const NavMenuTarget = styled(RouteTarget).attrs((props) => ({
+export const NavMenuTarget = styled(RouteTarget).attrs(props => ({
   id: "NavMenuTarget"
 }))`
   display: flex;

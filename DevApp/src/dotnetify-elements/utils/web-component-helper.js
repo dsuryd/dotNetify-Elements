@@ -8,7 +8,7 @@ export default class WebComponentHelper {
 
   convertAttributeToProp(componentPropTypes, attrName, attrValue) {
     const propName = Object.keys(componentPropTypes).find(
-      (key) => key.toLowerCase() == attrName
+      key => key.toLowerCase() == attrName
     );
 
     // Convert attribute value type, which is always string, to the expected property type.
@@ -30,8 +30,8 @@ export default class WebComponentHelper {
   getProps(attributes, componentPropTypes) {
     componentPropTypes = componentPropTypes || {};
     return [...attributes]
-      .filter((attr) => attr.name !== "style")
-      .map((attr) =>
+      .filter(attr => attr.name !== "style")
+      .map(attr =>
         this.convertAttributeToProp(componentPropTypes, attr.name, attr.value)
       )
       .reduce((props, prop) => ({ ...props, [prop.name]: prop.value }), {});
@@ -41,7 +41,7 @@ export default class WebComponentHelper {
     componentPropTypes = componentPropTypes || {};
     // Look for attributes with camel-case names that start with 'on'.
     return Object.keys(componentPropTypes)
-      .filter((key) => /on([A-Z].*)/.exec(key))
+      .filter(key => /on([A-Z].*)/.exec(key))
       .reduce(
         (events, e) => ({
           ...events,
@@ -50,9 +50,7 @@ export default class WebComponentHelper {
 
             let eventHandler = this.host.__eventHandlers[eventName];
             if (!eventHandler) {
-              const attr = [...attributes].find(
-                (attr) => attr.name == eventName
-              );
+              const attr = [...attributes].find(attr => attr.name == eventName);
               if (attr) {
                 eventHandler = attr.value;
                 if (/([A-z0-9$_]*)\(.*\)/.exec(attr.value))
@@ -110,7 +108,7 @@ export default class WebComponentHelper {
 
   static _parseFunctionString(funcString) {
     if (!funcString) return null;
-    return (args) => {
+    return args => {
       const result = this._eval(`${funcString}`);
       return typeof result == "function" ? result(args) : result;
     };

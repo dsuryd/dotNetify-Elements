@@ -8,16 +8,16 @@ import * as utils from "../utils";
 
 Object.assign(Modal.componentTypes, {
   Container: styled(rsModal)`
-    ${(props) => props.theme.Modal.Container}
+    ${props => props.theme.Modal.Container}
   `,
   HeaderContainer: styled(rsModalHeader)`
-    ${(props) => props.theme.Modal.HeaderContainer}
+    ${props => props.theme.Modal.HeaderContainer}
   `,
   BodyContainer: styled(rsModalBody)`
-    ${(props) => props.theme.Modal.BodyContainer}
+    ${props => props.theme.Modal.BodyContainer}
   `,
   FooterContainer: styled(rsModalFooter)`
-    ${(props) => props.theme.Modal.FooterContainer}
+    ${props => props.theme.Modal.FooterContainer}
   `
 });
 

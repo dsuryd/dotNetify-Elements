@@ -16,7 +16,7 @@ export default function createWebComponent(
       this.helper = new WebComponentHelper(this);
       this.defaultProps = defaultProps || {};
 
-      this.observer = new MutationObserver((mutationList) =>
+      this.observer = new MutationObserver(mutationList =>
         this.onAttributeChange(mutationList)
       );
       this.observer.observe(this, { attributes: true });
@@ -37,7 +37,7 @@ export default function createWebComponent(
       this.addCssClass(getCss(this));
     }
 
-    onAttributeChange = (mutationList) => {
+    onAttributeChange = mutationList => {
       // Avoid infinite loop due to class name update.
       if (mutationList.length == 1 && mutationList[0].attributeName === "class")
         return;

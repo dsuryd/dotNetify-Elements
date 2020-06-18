@@ -7,9 +7,9 @@ import { toChartJsConfig } from "./chart";
 
 const ChartContainer = styled.div`
   overflow-x: hidden;
-  ${(props) => (props.width ? "width: " + props.width : "")};
-  ${(props) => props.theme.PieChart};
-  ${(props) => props.css};
+  ${props => (props.width ? "width: " + props.width : "")};
+  ${props => props.theme.PieChart};
+  ${props => props.css};
 `;
 
 ChartContainer.defaultProps = { theme: utils.getDefaultTheme() };

@@ -9,9 +9,9 @@ import "chartjs-plugin-zoom";
 
 const ChartContainer = styled.div`
   overflow-x: hidden;
-  ${(props) => (props.width ? "width: " + props.width : "")};
-  ${(props) => props.theme.LineChart};
-  ${(props) => props.css};
+  ${props => (props.width ? "width: " + props.width : "")};
+  ${props => props.theme.LineChart};
+  ${props => props.css};
 `;
 
 ChartContainer.defaultProps = { theme: utils.getDefaultTheme() };

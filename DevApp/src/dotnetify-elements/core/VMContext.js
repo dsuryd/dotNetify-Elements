@@ -28,7 +28,7 @@ export class VMContext extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.store = new VMContextStore(this);
-    this.vm = this.store.connect(this.props.vm, this.props.options, (state) =>
+    this.vm = this.store.connect(this.props.vm, this.props.options, state =>
       this.onStateChange(state)
     );
   }

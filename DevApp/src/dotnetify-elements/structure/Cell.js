@@ -53,10 +53,10 @@ export class Cell extends React.Component {
     const reservedTypes = ["header"];
     const [sections, body] = utils.filterChildren(
       children,
-      (child) => child && reservedTypes.some((x) => x === child.type)
+      child => child && reservedTypes.some(x => x === child.type)
     );
     const _header =
-      header || sections.filter((section) => section.type === "header").shift();
+      header || sections.filter(section => section.type === "header").shift();
     const headerCss = body ? "" : "border-bottom: none";
 
     return (

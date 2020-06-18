@@ -41,8 +41,8 @@ export default class FormStore {
 
   cancel() {
     this.host.vmContext.setState(this.preEditState);
-    this.subForms.forEach((form) => form.cancel());
-    this.validators.forEach((validator) => validator.clear());
+    this.subForms.forEach(form => form.cancel());
+    this.validators.forEach(validator => validator.clear());
     this.leaveEditMode();
   }
 
@@ -60,7 +60,7 @@ export default class FormStore {
     if (!this.editMode && this.inputs.length > 0) {
       this.editMode = true;
       this.preEditState = this.getPreEditState(this.host.vmContext.getState());
-      this.subForms.forEach((form) => form.enterEditMode());
+      this.subForms.forEach(form => form.enterEditMode());
     }
   }
 
@@ -69,8 +69,8 @@ export default class FormStore {
       subForms: this.subForms,
       isChanged: () => this.changed,
       isPlainText: () => this.plainText,
-      setChanged: (state) => this.setChanged(state),
-      submit: (propId) => this.handleSubmit(propId),
+      setChanged: state => this.setChanged(state),
+      submit: propId => this.handleSubmit(propId),
       cancel: () => this.cancel()
     };
 
@@ -78,8 +78,8 @@ export default class FormStore {
       formContext,
       vmContext: Object.assign({}, vmContext, {
         dispatchState: (state, toServer) => this.dispatchState(state, toServer),
-        getValidator: (vmInput) => this.getValidator(vmInput),
-        getPropAttributes: (propId) => this.getPropAttributes(vmContext, propId)
+        getValidator: vmInput => this.getValidator(vmInput),
+        getPropAttributes: propId => this.getPropAttributes(vmContext, propId)
       })
     };
   }
@@ -89,7 +89,7 @@ export default class FormStore {
     return (
       vmContextState &&
       Object.entries(vmContextState)
-        .filter((pair) => this.inputs.some((input) => input.propId === pair[0]))
+        .filter(pair => this.inputs.some(input => input.propId === pair[0]))
         .reduce(
           (aggregate, pair) => Object.assign(aggregate, { [pair[0]]: pair[1] }),
           {}
@@ -106,10 +106,8 @@ export default class FormStore {
 
   getValidator(vmInput) {
     // Make sure we're not storing duplicates.
-    this.validators = this.validators.filter(
-      (x) => x.propId !== vmInput.propId
-    );
-    this.inputs = this.inputs.filter((x) => x.propId !== vmInput.propId);
+    this.validators = this.validators.filter(x => x.propId !== vmInput.propId);
+    this.inputs = this.inputs.filter(x => x.propId !== vmInput.propId);
 
     // Create a validator for an input field.
     const validator = new VMInputValidator(vmInput.vmContext, vmInput.propId);
@@ -128,14 +126,14 @@ export default class FormStore {
       );
 
     return this.submitOnValidated(propId, submit)
-      .then((result) => {
+      .then(result => {
         if (!result.valid) {
           this.props.onSubmitError && this.props.onSubmitError(result);
           this.setInputFocus(result.failedIds[0]);
         }
         return result;
       })
-      .then((result) => result.valid);
+      .then(result => result.valid);
   }
 
   handleSubmitSubForms(propId, submit, onSubmitError) {
@@ -144,11 +142,11 @@ export default class FormStore {
       Object.assign(subFormData, id ? { [id]: data } : data);
 
     return Promise.all(
-      this.subForms.map((form) =>
+      this.subForms.map(form =>
         form.submitOnValidated(form.props.id, subFormSubmit)
       )
     )
-      .then((results) =>
+      .then(results =>
         results.reduce(
           (aggregate, current) => ({
             failedForms:
@@ -164,17 +162,17 @@ export default class FormStore {
           { valid: true, messages: [], failedForms: [] }
         )
       )
-      .then((result) => {
+      .then(result => {
         if (!result.valid) {
           onSubmitError && onSubmitError(result);
           const form = this.subForms.find(
-            (form) => form.props.id === result.failedForms[0].formId
+            form => form.props.id === result.failedForms[0].formId
           );
           form && form.setInputFocus(result.failedForms[0].failedIds[0]);
         }
         return result;
       })
-      .then((result) => {
+      .then(result => {
         result.valid && submit(propId, subFormData);
         return result.valid;
       });
@@ -187,7 +185,7 @@ export default class FormStore {
 
   leaveEditMode() {
     this.host.setState({ changed: false, edits: null });
-    this.subForms.forEach((form) => form.leaveEditMode());
+    this.subForms.forEach(form => form.leaveEditMode());
     this.editMode = false;
   }
 
@@ -202,9 +200,7 @@ export default class FormStore {
   }
 
   setInputFocus(inputId) {
-    const input = this.inputs
-      .filter((input) => input.propId === inputId)
-      .shift();
+    const input = this.inputs.filter(input => input.propId === inputId).shift();
     if (input && input.dom) input.dom.focus();
   }
 
@@ -227,10 +223,10 @@ export default class FormStore {
     const edits = this.edits;
     const isDirty = !!edits;
     const shouldValidate =
-      isDirty || this.validators.some((validator) => validator.isRequired);
+      isDirty || this.validators.some(validator => validator.isRequired);
 
     return shouldValidate
-      ? this.validate(this.formId).then((result) => {
+      ? this.validate(this.formId).then(result => {
           if (result.valid && isDirty) submit(propId, edits);
           return result;
         })
@@ -245,8 +241,8 @@ export default class FormStore {
   validate(formId) {
     // Run all the input validators and aggregate the results.
     return Promise.all(
-      this.validators.map((validator) => validator.validate())
-    ).then((results) =>
+      this.validators.map(validator => validator.validate())
+    ).then(results =>
       results.reduce(
         (aggregate, current) => ({
           formId: formId,

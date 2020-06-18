@@ -6,11 +6,11 @@ import * as utils from "../utils";
 
 const ContainerComponent = styled.div`
   white-space: nowrap;
-  ${(props) => props.theme.MarkdownTOC.Container};
+  ${props => props.theme.MarkdownTOC.Container};
 `;
 
 const ItemContainerComponent = styled.p`
-  ${(props) => (props.isSelected ? props.theme.MarkdownTOC.Selected : "")};
+  ${props => (props.isSelected ? props.theme.MarkdownTOC.Selected : "")};
 `;
 
 ContainerComponent.defaultProps = { theme: utils.getDefaultTheme() };
@@ -39,27 +39,27 @@ export class MarkdownTOC extends Element {
   addScrollEventListener() {
     // Find scroll position for all headers.
     const headerPos = this.getHeaders()
-      .map((header) => {
+      .map(header => {
         const elem = document.querySelector(header.link);
         return elem ? { link: header.link, pos: elem.offsetTop } : null;
       })
-      .filter((x) => x);
+      .filter(x => x);
 
-    this.handleScroll = ((e) => {
+    this.handleScroll = (e => {
       if (this.scrollingIntoView || this.removingListener) return;
       if (e.target.querySelector(`[id="${this.attrs.fullId}"]`) === null)
         return;
 
       // Find the closest header with current scroll position.
-      const relativePos = headerPos.map((header) => ({
+      const relativePos = headerPos.map(header => ({
         link: header.link,
         pos: Math.abs(header.pos - e.target.scrollTop)
       }));
       const min = Math.min.apply(
         Math,
-        relativePos.map((x) => x.pos)
+        relativePos.map(x => x.pos)
       );
-      const nearest = relativePos.filter((x) => x.pos === min).shift();
+      const nearest = relativePos.filter(x => x.pos === min).shift();
       if (nearest) this.setState({ selected: nearest.link });
     }).bind(this);
 
@@ -96,19 +96,18 @@ export class MarkdownTOC extends Element {
     const [Container, ItemContainer] = this.resolveComponents(MarkdownTOC);
     const { id, fullId, ...props } = this.attrs;
 
-    const select = (key) =>
-      this.setState({ selected: this.scrollIntoView(key) });
+    const select = key => this.setState({ selected: this.scrollIntoView(key) });
 
     return (
       <Container id={`${fullId}__toc`} {...props}>
-        {this.getHeaders().map((header) => (
+        {this.getHeaders().map(header => (
           <ItemContainer
             key={header.link}
             className={`toc-h${header.level}`}
             isSelected={selected === header.link}
-            onClick={(_) => select(header.link)}
+            onClick={_ => select(header.link)}
           >
-            <a href={header.link} onClick={(e) => e.preventDefault()}>
+            <a href={header.link} onClick={e => e.preventDefault()}>
               {header.title}
             </a>
           </ItemContainer>

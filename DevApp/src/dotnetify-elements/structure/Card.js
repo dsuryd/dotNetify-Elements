@@ -53,22 +53,20 @@ export class Card extends React.Component {
     ];
     const [sections, body] = utils.filterChildren(
       children,
-      (child) =>
+      child =>
         child &&
-        reservedTypes.some(
-          (x) => x === child.type || x === child.type._typeName
-        )
+        reservedTypes.some(x => x === child.type || x === child.type._typeName)
     );
 
-    const isImage = (comp) =>
+    const isImage = comp =>
       ["img", "Image", "CardImage", "d-image", "d-card-image"].some(
-        (x) => x === comp.type || x === comp.type._typeName
+        x => x === comp.type || x === comp.type._typeName
       );
-    const img = sections.filter((section) => isImage(section)).shift();
+    const img = sections.filter(section => isImage(section)).shift();
     const _header =
-      header || sections.filter((section) => section.type === "header").shift();
+      header || sections.filter(section => section.type === "header").shift();
     const _footer =
-      footer || sections.filter((section) => section.type === "footer").shift();
+      footer || sections.filter(section => section.type === "footer").shift();
 
     // Determine whether the image should be at the bottom.
     const childrenArray = React.Children.toArray(children);
@@ -110,7 +108,7 @@ export class Card extends React.Component {
 }
 
 const CardImageContainer = styled.div`
-  ${(props) => props.css};
+  ${props => props.css};
 `;
 
 export class CardImage extends React.Component {

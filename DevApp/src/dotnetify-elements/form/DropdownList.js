@@ -4,7 +4,7 @@ import InputElement from "../core/InputElement";
 import { Field, validationKeyPrefix } from "../structure/Field";
 import { Label } from "../display/Label";
 
-const PlainTextComponent = (props) => <span {...props} />;
+const PlainTextComponent = props => <span {...props} />;
 
 export class DropdownList extends InputElement {
   static propTypes = {
@@ -47,7 +47,7 @@ export class DropdownList extends InputElement {
   }
 
   componentDidMount() {
-    this.unsubOnValidated = this.vmProperty.onValidated((result) =>
+    this.unsubOnValidated = this.vmProperty.onValidated(result =>
       this.setState({
         valid: result.valid ? null : false,
         validationMessages: result.messages
@@ -57,13 +57,13 @@ export class DropdownList extends InputElement {
     // If "required" validation is specified, add a custom validator to validate against an empty selection.
     if (this.vmProperty.validator && this.vmProperty.validator.validations) {
       const requiredValidation = this.vmProperty.validator.validations.find(
-        (x) => x.type === "Required"
+        x => x.type === "Required"
       );
-      const emptySelection = (this.attrs.options || []).find((x) => !x.Value);
+      const emptySelection = (this.attrs.options || []).find(x => !x.Value);
 
       if (requiredValidation && emptySelection) {
         this.vmProperty.addValidation({
-          validate: (val) => val != emptySelection.Key,
+          validate: val => val != emptySelection.Key,
           message: requiredValidation.message,
           category: requiredValidation.category
         });
@@ -75,7 +75,7 @@ export class DropdownList extends InputElement {
     this.unsubOnValidated();
   }
 
-  handleChange = (event) => {
+  handleChange = event => {
     let value = event.target.value;
     this.dispatch(value);
   };
@@ -104,20 +104,20 @@ export class DropdownList extends InputElement {
     } = this.attrs;
 
     options = options || [];
-    const listOptions = options.map((opt) => (
+    const listOptions = options.map(opt => (
       <option key={opt.Key} value={opt.Key}>
         {opt.Value || placeholder}
       </option>
     ));
     let value = this.value;
     if (!this.value) {
-      let defaultOption = options.filter((x) => !x.Value).shift();
+      let defaultOption = options.filter(x => !x.Value).shift();
       if (!defaultOption) options.shift();
       value = defaultOption ? defaultOption.Key : "";
     }
 
     const disabled = enable === false;
-    const selected = options.filter((opt) => opt.Key == this.value).shift();
+    const selected = options.filter(opt => opt.Key == this.value).shift();
     const plainTextValue = selected ? selected.Value : "";
     const validationMessages =
       this.props.validationMessages || this.state.validationMessages;

@@ -6,7 +6,7 @@ import Quill from "quill/dist/quill";
 import "quill/dist/quill.snow.css";
 import "quill/dist/quill.bubble.css";
 
-const PlainTextComponent = (props) => (
+const PlainTextComponent = props => (
   <span dangerouslySetInnerHTML={{ __html: props.children }} />
 );
 
@@ -48,12 +48,12 @@ export class RichTextEditor extends InputElement {
     this.changed = false;
   }
 
-  handleBlur = (_) => {
+  handleBlur = _ => {
     this.changed && this.dispatch();
     this.changed = false;
   };
 
-  handleChange = (value) => {
+  handleChange = value => {
     this.changed = true;
     this.value = value;
     this.props.onChange && this.props.onChange(value);
@@ -77,13 +77,13 @@ export class RichTextEditor extends InputElement {
       options.theme = options.theme || "snow";
 
       this.editor = new Quill(this.editorDom, options);
-      this.editor.on("selection-change", (range) => {
+      this.editor.on("selection-change", range => {
         if (!range) {
           this.handleBlur();
           this.changed && onChange && onChange(this.value);
         }
       });
-      this.editor.on("text-change", (_) => {
+      this.editor.on("text-change", _ => {
         this.handleChange(this.editor.root.innerHTML);
       });
 
@@ -121,7 +121,7 @@ export class RichTextEditor extends InputElement {
         {plainText ? (
           <PlainText>{plainTextValue}</PlainText>
         ) : (
-          <div ref={(elem) => (this.editorDom = elem)} />
+          <div ref={elem => (this.editorDom = elem)} />
         )}
       </Container>
     );

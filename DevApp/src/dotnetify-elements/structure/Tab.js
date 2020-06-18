@@ -6,7 +6,7 @@ import { Label } from "../display/Label";
 import { Frame } from "../layout/Frame";
 
 const Container = styled.div`
-  ${(props) => props.theme.Tab.Container};
+  ${props => props.theme.Tab.Container};
 `;
 
 Container.defaultProps = { theme: utils.getDefaultTheme() };
@@ -50,7 +50,7 @@ export class Tab extends React.Component {
 
   get children() {
     return React.Children.toArray(this.props.children).filter(
-      (child) => child.type
+      child => child.type
     );
   }
 
@@ -68,7 +68,7 @@ export class Tab extends React.Component {
     return (child.props && child.props.itemKey) || child.key || `${idx}`;
   };
 
-  getDisplayStyle = (key) => ({
+  getDisplayStyle = key => ({
     display: this.state.active == key ? "block" : "none"
   });
 
@@ -98,7 +98,7 @@ export class Tab extends React.Component {
       return React.cloneElement(child, {
         itemKey: key,
         active: this.state.active == key,
-        onClick: (event) => this.handleClick(event, key, child.props.label)
+        onClick: event => this.handleClick(event, key, child.props.label)
       });
     });
 

@@ -1,6 +1,6 @@
 import merge from "deepmerge";
 
-const emptyTarget = (value) => (Array.isArray(value) ? [] : {});
+const emptyTarget = value => (Array.isArray(value) ? [] : {});
 const clone = (value, options) => merge(emptyTarget(value), value, options);
 
 // Combine array into one: https://github.com/KyleAMathews/deepmerge
@@ -43,17 +43,17 @@ function toChartJsData(config, props, value) {
   let firstValue = value[0] || {};
   // Value type is array.
   if (firstValue.length == 2) {
-    if (!labels) labels = value.map((x) => x[0]);
-    data = value.map((x) => x[1]);
+    if (!labels) labels = value.map(x => x[0]);
+    data = value.map(x => x[1]);
   } else if (firstValue.Key) {
     // Value type is key-value pair.
-    if (!labels) labels = value.map((x) => x.Key);
-    data = value.map((x) => x.Value);
+    if (!labels) labels = value.map(x => x.Key);
+    data = value.map(x => x.Value);
   } else {
     // Value is primitive type.
-    data = value.map((x) => x);
+    data = value.map(x => x);
   }
-  labels = labels || data.map((_) => "");
+  labels = labels || data.map(_ => "");
 
   if (maxDataSize > 0) {
     labels = labels.slice(-maxDataSize);

@@ -6,13 +6,13 @@ import markdown from "../utils/markdown";
 import * as utils from "../utils";
 
 const ContainerComponent = styled.div`
-  ${(props) => props.theme.Markdown};
-  ${(props) => props.css};
+  ${props => props.theme.Markdown};
+  ${props => props.css};
 `;
 
 ContainerComponent.defaultProps = { theme: utils.getDefaultTheme() };
 
-const MarkdownText = (props) => markdown(props.text);
+const MarkdownText = props => markdown(props.text);
 
 export class Markdown extends Element {
   static propTypes = {
@@ -33,7 +33,7 @@ export class Markdown extends Element {
 
     const _children = React.Children.toArray(children);
 
-    const renderText = (section) =>
+    const renderText = section =>
       typeof section == "string" ? <MarkdownText text={section} /> : section;
 
     let markdown = null;

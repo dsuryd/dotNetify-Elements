@@ -2,16 +2,16 @@ import React from "react";
 import lightTheme from "../theme-light";
 import darkTheme from "../theme-dark";
 
-export const createEventEmitter = (_) => {
+export const createEventEmitter = _ => {
   let subscribers = [];
   return {
     emit(...args) {
-      subscribers.forEach((subscriber) => subscriber(...args));
+      subscribers.forEach(subscriber => subscriber(...args));
     },
 
     subscribe(subscriber) {
       !subscribers.includes(subscriber) && subscribers.push(subscriber);
-      return () => (subscribers = subscribers.filter((x) => x !== subscriber));
+      return () => (subscribers = subscribers.filter(x => x !== subscriber));
     }
   };
 };
@@ -22,7 +22,7 @@ export function deepEqual(a, b) {
 
 export function filterChildren(children, predicate) {
   let result = [];
-  const rest = React.Children.map(children, (child) => {
+  const rest = React.Children.map(children, child => {
     if (child && child.type && predicate(child)) {
       result.push(child);
       return null;
@@ -53,7 +53,7 @@ export function isIE11() {
 }
 
 export function mapChildren(children, predicate, mapper) {
-  return React.Children.map(children, (child) => {
+  return React.Children.map(children, child => {
     if (!child) return;
 
     if (child.type && predicate(child)) return mapper(child);
@@ -84,9 +84,7 @@ export function mergeProps(elem, ...newProps) {
 
   // Only merge props that are part of the element's propTypes.
   let validProps = Object.keys(props)
-    .filter(
-      (key) => key === "style" || key === "css" || propTypes.includes(key)
-    )
+    .filter(key => key === "style" || key === "css" || propTypes.includes(key))
     .reduce(
       (aggregate, key) => Object.assign(aggregate, { [key]: props[key] }),
       {}
@@ -107,7 +105,7 @@ export function nestedGet(obj, path) {
 export function parseFunctionString(funcString) {
   if (!funcString) return null;
 
-  return (args) => {
+  return args => {
     const _eval = function (funcString) {
       return Function('"use strict";return (' + funcString + ")")();
     };
@@ -118,7 +116,7 @@ export function parseFunctionString(funcString) {
 
 export function resolveComponents(type, props) {
   return Object.keys(type.componentTypes).map(
-    (key) => props[toCamelCase(key)] || type.componentTypes[key]
+    key => props[toCamelCase(key)] || type.componentTypes[key]
   );
 }
 

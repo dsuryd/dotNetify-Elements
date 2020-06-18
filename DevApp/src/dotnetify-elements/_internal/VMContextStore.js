@@ -15,7 +15,7 @@ export default class VMContextStore {
 
     this.removeOrphan(vmId);
     this.vm = dotnetify.react.connect(vmId, this.host, {
-      setState: (state) => {
+      setState: state => {
         this.setState(state);
         this.notifyStateChange(state, onStateChange);
       },
@@ -36,25 +36,25 @@ export default class VMContextStore {
     return {
       vmId: this.vmId,
       vm: this.vm,
-      getState: (id) =>
+      getState: id =>
         id
           ? this.state.hasOwnProperty(id)
             ? this.state[id]
             : undefined
           : this.state,
-      setState: (state) => this.setState(state),
-      dispatchState: (state) => this.vm.$dispatch(state),
-      getPropAttributes: (propId) =>
+      setState: state => this.setState(state),
+      dispatchState: state => this.vm.$dispatch(state),
+      getPropAttributes: propId =>
         utils.toCamelCase(this.state[propId + "__attr"] || {}),
-      getPropValidations: (propId) =>
-        (this.state[propId + "__validation"] || []).map((v) =>
+      getPropValidations: propId =>
+        (this.state[propId + "__validation"] || []).map(v =>
           utils.toCamelCase(v)
         ),
       once: (propId, oldValue) =>
-        new Promise((resolve) =>
+        new Promise(resolve =>
           this.onceHandlers.push({
             propId: propId,
-            handler: (newValue) => resolve(newValue),
+            handler: newValue => resolve(newValue),
             value: oldValue
           })
         )
@@ -74,14 +74,14 @@ export default class VMContextStore {
     // Right now this only supports handing notification at most once, just to keep it simple.
     if (this.onceHandlers.length > 0) {
       const changedProps = this.onceHandlers.filter(
-        (o) =>
+        o =>
           !o.propId ||
           (state.hasOwnProperty(o.propId) && state[o.propId] !== o.value)
       );
       this.onceHandlers = this.onceHandlers.filter(
-        (o) => !changedProps.includes(o)
+        o => !changedProps.includes(o)
       );
-      changedProps.forEach((o) => o.handler(state[o.propId]));
+      changedProps.forEach(o => o.handler(state[o.propId]));
     }
 
     typeof onStateChange == "function" && onStateChange(state);
@@ -91,7 +91,7 @@ export default class VMContextStore {
     // Clear any existing connection to the same view model.
     dotnetify.react
       .getViewModels()
-      .filter((vm) => vm.$vmId === vmId)
-      .forEach((vm) => vm.$destroy());
+      .filter(vm => vm.$vmId === vmId)
+      .forEach(vm => vm.$destroy());
   }
 }

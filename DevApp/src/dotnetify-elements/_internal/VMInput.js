@@ -66,14 +66,14 @@ export default class VMInput extends VMProperty {
       if (type === "NumberMask") {
         if (inputMask.includeThousandsSeparator) {
           const regex = new RegExp(inputMask.thousandsSeparatorSymbol, "g");
-          this._unmask = (value) =>
+          this._unmask = value =>
             typeof value == "string" ? value.replace(regex, "") : value;
         }
         inputMask = createNumberMask(inputMask);
       } else
         inputMask = inputMask.mask
           .split("")
-          .map((c) => (maskMap.hasOwnProperty(c) ? maskMap[c] : c));
+          .map(c => (maskMap.hasOwnProperty(c) ? maskMap[c] : c));
 
       this._textMask = createTextMaskInputElement({
         inputElement: this._inputElement,
