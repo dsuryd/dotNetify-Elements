@@ -1,7 +1,7 @@
-import RadioGroup from '../_components/RadioGroup';
-import createWebComponent from '../../utils/web-component';
+import RadioGroup from "../_components/RadioGroup";
+import createWebComponent from "../../utils/web-component";
 
-createWebComponent(RadioGroup, 'd-radio-group');
+createWebComponent(RadioGroup, "d-radio-group");
 
 export default RadioGroup;
 export { RadioGroup };

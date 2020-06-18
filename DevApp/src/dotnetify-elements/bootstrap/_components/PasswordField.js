@@ -1,10 +1,10 @@
-import { Input, InputGroup } from '../form/Input';
-import { PasswordField } from '../../form/PasswordField';
-import './TextField';
+import { Input, InputGroup } from "../form/Input";
+import { PasswordField } from "../../form/PasswordField";
+import "./TextField";
 
 Object.assign(PasswordField.componentTypes, {
-   InputComponent: Input,
-   InputGroupComponent: InputGroup
+  InputComponent: Input,
+  InputGroupComponent: InputGroup
 });
 
 const window = window || global || {};

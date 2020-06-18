@@ -1,9 +1,9 @@
-import { Input, InputGroup } from '../form/Input';
-import { NumberField } from '../../form/NumberField';
+import { Input, InputGroup } from "../form/Input";
+import { NumberField } from "../../form/NumberField";
 
 Object.assign(NumberField.componentTypes, {
-   InputComponent: Input,
-   InputGroupComponent: InputGroup
+  InputComponent: Input,
+  InputGroupComponent: InputGroup
 });
 
 const window = window || global || {};

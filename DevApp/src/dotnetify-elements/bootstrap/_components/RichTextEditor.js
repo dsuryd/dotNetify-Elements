@@ -1,4 +1,4 @@
-import { RichTextEditor } from '../../form/RichTextEditor';
+import { RichTextEditor } from "../../form/RichTextEditor";
 
 const window = window || global || {};
 window.dotNetifyElements = { ...window.dotNetifyElements, RichTextEditor };

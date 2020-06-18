@@ -1,4 +1,4 @@
-import { Image } from '../../display/Image';
+import { Image } from "../../display/Image";
 
 const window = window || global || {};
 window.dotNetifyElements = { ...window.dotNetifyElements, Image };

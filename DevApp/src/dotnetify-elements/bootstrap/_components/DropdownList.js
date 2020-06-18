@@ -1,10 +1,10 @@
-import { InputGroup } from '../form/Input';
-import { Select } from '../form/Select';
-import { DropdownList } from '../../form/DropdownList';
+import { InputGroup } from "../form/Input";
+import { Select } from "../form/Select";
+import { DropdownList } from "../../form/DropdownList";
 
 Object.assign(DropdownList.componentTypes, {
-   InputComponent: Select,
-   InputGroupComponent: InputGroup
+  InputComponent: Select,
+  InputGroupComponent: InputGroup
 });
 
 const window = window || global || {};

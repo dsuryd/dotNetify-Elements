@@ -1,110 +1,147 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import InputElement from '../core/InputElement';
-import { Field, validationKeyPrefix } from '../structure/Field';
-import { Label } from '../display/Label';
+import React from "react";
+import PropTypes from "prop-types";
+import InputElement from "../core/InputElement";
+import { Field, validationKeyPrefix } from "../structure/Field";
+import { Label } from "../display/Label";
 
-const PlainTextComponent = props => <span {...props}>{React.Children.toArray(props.children).join(', ')}</span>;
+const PlainTextComponent = (props) => (
+  <span {...props}>{React.Children.toArray(props.children).join(", ")}</span>
+);
 
 export class MultiselectList extends InputElement {
-   static propTypes = {
-      // Identifies the associated view model property.
-      id: PropTypes.string,
+  static propTypes = {
+    // Identifies the associated view model property.
+    id: PropTypes.string,
 
-      // Enables the field.
-      enable: PropTypes.bool,
+    // Enables the field.
+    enable: PropTypes.bool,
 
-      // Displays the label text horizontally to the left of the field.
-      horizontal: PropTypes.bool,
+    // Displays the label text horizontally to the left of the field.
+    horizontal: PropTypes.bool,
 
-      // Text or component for the field's label.
-      label: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
+    // Text or component for the field's label.
+    label: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 
-      // Replaces the input field with plain text.
-      plainText: PropTypes.bool,
+    // Replaces the input field with plain text.
+    plainText: PropTypes.bool,
 
-      // Occurs when the value changes.
-      onChange: PropTypes.func
-   };
+    // Occurs when the value changes.
+    onChange: PropTypes.func
+  };
 
-   static componentTypes = {
-      Container: Field,
-      InputComponent: undefined,
-      TagComponent: undefined,
-      ItemComponent: undefined,
-      ListComponent: undefined,
-      ValidationMessageComponent: Label,
-      PlainTextComponent
-   };
+  static componentTypes = {
+    Container: Field,
+    InputComponent: undefined,
+    TagComponent: undefined,
+    ItemComponent: undefined,
+    ListComponent: undefined,
+    ValidationMessageComponent: Label,
+    PlainTextComponent
+  };
 
-   constructor(props) {
-      super(props);
-      this.state = { ...this.state, validationMessages: [] };
-   }
+  constructor(props) {
+    super(props);
+    this.state = { ...this.state, validationMessages: [] };
+  }
 
-   componentDidMount() {
-      this.unsubOnValidated = this.vmProperty.onValidated(result =>
-         this.setState({
-            valid: result.valid ? null : false,
-            validationMessages: result.messages
-         })
-      );
+  componentDidMount() {
+    this.unsubOnValidated = this.vmProperty.onValidated((result) =>
+      this.setState({
+        valid: result.valid ? null : false,
+        validationMessages: result.messages
+      })
+    );
 
-      // If "required" validation is specified, add a custom validator to validate against an empty selection.
-      if (this.vmProperty.validator && this.vmProperty.validator.validations) {
-         const requiredValidation = this.vmProperty.validator.validations.filter(x => x.type === 'Required').shift();
-         if (requiredValidation) {
-            this.vmProperty.addValidation({
-               validate: val => val && val.length > 0,
-               message: requiredValidation.message,
-               category: requiredValidation.category
-            });
-         }
+    // If "required" validation is specified, add a custom validator to validate against an empty selection.
+    if (this.vmProperty.validator && this.vmProperty.validator.validations) {
+      const requiredValidation = this.vmProperty.validator.validations
+        .filter((x) => x.type === "Required")
+        .shift();
+      if (requiredValidation) {
+        this.vmProperty.addValidation({
+          validate: (val) => val && val.length > 0,
+          message: requiredValidation.message,
+          category: requiredValidation.category
+        });
       }
-   }
+    }
+  }
 
-   componentWillUnmount() {
-      this.unsubOnValidated();
-   }
+  componentWillUnmount() {
+    this.unsubOnValidated();
+  }
 
-   handleChange = value => {
-      this.props.onChange && this.props.onChange(value);
-      this.dispatch(value.map(val => val.Key));
-   };
+  handleChange = (value) => {
+    this.props.onChange && this.props.onChange(value);
+    this.dispatch(value.map((val) => val.Key));
+  };
 
-   render() {
-      const [ Container, Input, Tag, Item, List, ValidationMessage, PlainText ] = this.resolveComponents(MultiselectList);
-      const { fullId, label, plainText, options, horizontal, enable, style, css, tabIndex, onChange, ...props } = this.attrs;
+  render() {
+    const [
+      Container,
+      Input,
+      Tag,
+      Item,
+      List,
+      ValidationMessage,
+      PlainText
+    ] = this.resolveComponents(MultiselectList);
+    const {
+      fullId,
+      label,
+      plainText,
+      options,
+      horizontal,
+      enable,
+      style,
+      css,
+      tabIndex,
+      onChange,
+      ...props
+    } = this.attrs;
 
-      const disabled = enable === false;
-      const values = this.value ? this.value.map(x => `${x}`) : [];
-      const selected = (options || []).filter(opt => values.includes(opt.Key));
-      const plainTextValue = selected.map(x => x.Value);
-      const validationMessages = this.props.validationMessages || this.state.validationMessages;
+    const disabled = enable === false;
+    const values = this.value ? this.value.map((x) => `${x}`) : [];
+    const selected = (options || []).filter((opt) => values.includes(opt.Key));
+    const plainTextValue = selected.map((x) => x.Value);
+    const validationMessages =
+      this.props.validationMessages || this.state.validationMessages;
 
-      return (
-         <Container id={fullId} label={label} horizontal={horizontal} plainText={plainText} style={style} css={css} tabIndex={tabIndex}>
-            {plainText ? (
-               <PlainText>{plainTextValue}</PlainText>
-            ) : (
-               <Input
-                  ref={this.inputRef}
-                  valid={this.state.valid}
-                  id={fullId}
-                  value={values}
-                  data={options}
-                  valueField="Key"
-                  textField="Value"
-                  tagComponent={Tag}
-                  itemComponent={Item}
-                  listComponent={List}
-                  disabled={disabled}
-                  onChange={this.handleChange}
-                  {...props}
-               />
-            )}
-            {validationMessages.map((message, idx) => <ValidationMessage key={validationKeyPrefix + idx}>{message}</ValidationMessage>)}
-         </Container>
-      );
-   }
+    return (
+      <Container
+        id={fullId}
+        label={label}
+        horizontal={horizontal}
+        plainText={plainText}
+        style={style}
+        css={css}
+        tabIndex={tabIndex}
+      >
+        {plainText ? (
+          <PlainText>{plainTextValue}</PlainText>
+        ) : (
+          <Input
+            ref={this.inputRef}
+            valid={this.state.valid}
+            id={fullId}
+            value={values}
+            data={options}
+            valueField="Key"
+            textField="Value"
+            tagComponent={Tag}
+            itemComponent={Item}
+            listComponent={List}
+            disabled={disabled}
+            onChange={this.handleChange}
+            {...props}
+          />
+        )}
+        {validationMessages.map((message, idx) => (
+          <ValidationMessage key={validationKeyPrefix + idx}>
+            {message}
+          </ValidationMessage>
+        ))}
+      </Container>
+    );
+  }
 }

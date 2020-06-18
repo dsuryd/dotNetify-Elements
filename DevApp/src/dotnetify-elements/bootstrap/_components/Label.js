@@ -1,4 +1,4 @@
-import { Label } from '../../display/Label';
+import { Label } from "../../display/Label";
 
 const window = window || global || {};
 window.dotNetifyElements = { ...window.dotNetifyElements, Label };

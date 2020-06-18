@@ -1,4 +1,4 @@
-import { Form } from '../../form/Form';
+import { Form } from "../../form/Form";
 
 const window = window || global || {};
 window.dotNetifyElements = { ...window.dotNetifyElements, Form };

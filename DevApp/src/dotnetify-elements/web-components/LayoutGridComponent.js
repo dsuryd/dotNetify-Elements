@@ -1,10 +1,10 @@
-import createWebComponentCss from '../utils/web-component-css';
-import * as utils from '../utils';
+import createWebComponentCss from "../utils/web-component-css";
+import * as utils from "../utils";
 
 export function createMainComponent(Component, elementName) {
-   return createWebComponentCss(Component, elementName, {}, host => {
-      let props = Object.assign({ theme: utils.getDefaultTheme() }, host.props);
-      return `
+  return createWebComponentCss(Component, elementName, {}, (host) => {
+    let props = Object.assign({ theme: utils.getDefaultTheme() }, host.props);
+    return `
          display: grid;
          display: -ms-grid;
          height: 100%;
@@ -16,19 +16,19 @@ export function createMainComponent(Component, elementName) {
          ${props.theme.Main};
          ${props.css};
       `;
-   });
+  });
 }
 
 export function createHeaderComponent(Component, elementName) {
-   return createWebComponentCss(Component, elementName, {}, host => {
-      let props = Object.assign({ theme: utils.getDefaultTheme() }, host.props);
-      return `
+  return createWebComponentCss(Component, elementName, {}, (host) => {
+    let props = Object.assign({ theme: utils.getDefaultTheme() }, host.props);
+    return `
          grid-area: header;
          -ms-grid-row: 1;
          -ms-grid-column-span: 2;
          display: flex;
          align-items: center;
-         height: ${props.height || '55px'};
+         height: ${props.height || "55px"};
          > * {
             height: inherit;
          }
@@ -36,13 +36,13 @@ export function createHeaderComponent(Component, elementName) {
          ${props.theme.Header};
          ${props.css};
       `;
-   });
+  });
 }
 
 export function createNavComponent(Component, elementName) {
-   return createWebComponentCss(Component, elementName, {}, host => {
-      let props = Object.assign({ theme: utils.getDefaultTheme() }, host.props);
-      return `
+  return createWebComponentCss(Component, elementName, {}, (host) => {
+    let props = Object.assign({ theme: utils.getDefaultTheme() }, host.props);
+    return `
          grid-area: nav;
          -ms-grid-column: 1;
          -ms-grid-row: 2;
@@ -50,13 +50,13 @@ export function createNavComponent(Component, elementName) {
          display: flex;
          box-sizing: content-box;
          width: 100%;
-         min-width: ${props.width || '250px'};
+         min-width: ${props.width || "250px"};
          overflow: auto;
          visibility: visible;
          transition: all 250ms;
          z-index: 998;
          @media (max-width: 768px) {
-            margin-left: -${props.width || '251px'};
+            margin-left: -${props.width || "251px"};
             visibility: hidden;
             &.open {
                margin-left: 0;
@@ -66,28 +66,28 @@ export function createNavComponent(Component, elementName) {
          ${props.theme.Nav};
          ${props.css};
    `;
-   });
+  });
 }
 
 export function createFooterComponent(Component, elementName) {
-   return createWebComponentCss(Component, elementName, {}, host => {
-      let props = Object.assign({ theme: utils.getDefaultTheme() }, host.props);
-      return `
+  return createWebComponentCss(Component, elementName, {}, (host) => {
+    let props = Object.assign({ theme: utils.getDefaultTheme() }, host.props);
+    return `
          grid-area: footer;
          -ms-grid-row: 3;
          -ms-grid-column-span: 2;
          display: flex;
-         height: ${props.height || '50px'};
+         height: ${props.height || "50px"};
          ${props.theme.Footer};
          ${props.css};
       `;
-   });
+  });
 }
 
 export function createSectionComponent(Component, elementName) {
-   return createWebComponentCss(Component, elementName, {}, host => {
-      let props = Object.assign({ theme: utils.getDefaultTheme() }, host.props);
-      return `
+  return createWebComponentCss(Component, elementName, {}, (host) => {
+    let props = Object.assign({ theme: utils.getDefaultTheme() }, host.props);
+    return `
          grid-area: section;
          -ms-grid-column: 2;
          -ms-grid-row: 2;
@@ -100,5 +100,5 @@ export function createSectionComponent(Component, elementName) {
          ${props.theme.Section};
          ${props.css};
       `;
-   });
+  });
 }

@@ -1,11 +1,16 @@
-import { RadioToggleInput, RadioToggleLabel, RadioToggleGroupContainer, RadioToggleContainer } from '../form/RadioToggle';
-import { RadioToggle } from '../../form/RadioToggle';
+import {
+  RadioToggleInput,
+  RadioToggleLabel,
+  RadioToggleGroupContainer,
+  RadioToggleContainer
+} from "../form/RadioToggle";
+import { RadioToggle } from "../../form/RadioToggle";
 
 Object.assign(RadioToggle.componentTypes, {
-   GroupContainer: RadioToggleGroupContainer,
-   ToggleContainer: RadioToggleContainer,
-   LabelComponent: RadioToggleLabel,
-   InputComponent: RadioToggleInput
+  GroupContainer: RadioToggleGroupContainer,
+  ToggleContainer: RadioToggleContainer,
+  LabelComponent: RadioToggleLabel,
+  InputComponent: RadioToggleInput
 });
 
 const window = window || global || {};

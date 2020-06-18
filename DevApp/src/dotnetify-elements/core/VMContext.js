@@ -1,61 +1,65 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import VMContextStore from '../_internal/VMContextStore';
+import React from "react";
+import PropTypes from "prop-types";
+import VMContextStore from "../_internal/VMContextStore";
 
 export const ContextTypes = {
-   vmContext: PropTypes.object,
-   theme: PropTypes.object
+  vmContext: PropTypes.object,
+  theme: PropTypes.object
 };
 
 export class VMContext extends React.Component {
-   static contextTypes = ContextTypes;
-   static childContextTypes = ContextTypes;
+  static contextTypes = ContextTypes;
+  static childContextTypes = ContextTypes;
 
-   static propTypes = {
-      // View model name to connect to.
-      vm: PropTypes.string,
+  static propTypes = {
+    // View model name to connect to.
+    vm: PropTypes.string,
 
-      // Connection options.
-      options: PropTypes.object,
+    // Connection options.
+    options: PropTypes.object,
 
-      // Occurs on connected; the arguments are the dotNetify VM object and the initial state.
-      onConnected: PropTypes.func,
+    // Occurs on connected; the arguments are the dotNetify VM object and the initial state.
+    onConnected: PropTypes.func,
 
-      // Occurs when view model state changes.
-      onStateChange: PropTypes.func
-   };
+    // Occurs when view model state changes.
+    onStateChange: PropTypes.func
+  };
 
-   constructor(props, context) {
-      super(props, context);
-      this.store = new VMContextStore(this);
-      this.vm = this.store.connect(this.props.vm, this.props.options, state => this.onStateChange(state));
-   }
+  constructor(props, context) {
+    super(props, context);
+    this.store = new VMContextStore(this);
+    this.vm = this.store.connect(this.props.vm, this.props.options, (state) =>
+      this.onStateChange(state)
+    );
+  }
 
-   get vmContext() {
-      return this.context && this.context.vmContext;
-   }
+  get vmContext() {
+    return this.context && this.context.vmContext;
+  }
 
-   componentWillUnmount() {
-      this.store.destroy();
-   }
+  componentWillUnmount() {
+    this.store.destroy();
+  }
 
-   getChildContext() {
-      return {
-         ...this.context,
-         vmContext: this.store.context
-      };
-   }
+  getChildContext() {
+    return {
+      ...this.context,
+      vmContext: this.store.context
+    };
+  }
 
-   render() {
-      const { children, placeholder } = this.props;
-      return this.state ? children : placeholder || null;
-   }
+  render() {
+    const { children, placeholder } = this.props;
+    return this.state ? children : placeholder || null;
+  }
 
-   onStateChange(state) {
-      if (!this.connected) {
-         this.connected = true;
-         typeof this.props.onConnected == 'function' && this.props.onConnected(this.vm, state);
-      }
-      typeof this.props.onStateChange == 'function' && this.props.onStateChange(state);
-   }
+  onStateChange(state) {
+    if (!this.connected) {
+      this.connected = true;
+      typeof this.props.onConnected == "function" &&
+        this.props.onConnected(this.vm, state);
+    }
+    typeof this.props.onStateChange == "function" &&
+      this.props.onStateChange(state);
+  }
 }

@@ -1,144 +1,144 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import { RouteLink } from 'dotnetify';
-import Element from '../core/Element';
-import { Label } from '../display/Label';
-import * as utils from '../utils';
+import React from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import { RouteLink } from "dotnetify";
+import Element from "../core/Element";
+import { Label } from "../display/Label";
+import * as utils from "../utils";
 
 const Container = styled.div`
-   position: relative;
-   ${props => props.theme.Menu.Container};
-   ${props => props.css};
+  position: relative;
+  ${(props) => props.theme.Menu.Container};
+  ${(props) => props.css};
 `;
 
 const GroupContainer = styled.ul`
-   position: absolute;
-   padding: 2px;
-   margin: 0;
-   ${props => props.width && `width: ${props.width}`};
-   z-index: 100;
-   border: 1px solid #ccc;
-   border-radius: 5px;
-   box-shadow: 1px 1px 4px rgba(0, 0, 0, .2);
-   opacity: 0;
-   -webkit-transform: translate(0, 15px) scale(.95);
-   transform: translate(0, 15px) scale(.95);
-   transition: transform 0.1s ease-out, opacity 0.1s ease-out;
-   pointer-events: none;
+  position: absolute;
+  padding: 2px;
+  margin: 0;
+  ${(props) => props.width && `width: ${props.width}`};
+  z-index: 100;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  -webkit-transform: translate(0, 15px) scale(0.95);
+  transform: translate(0, 15px) scale(0.95);
+  transition: transform 0.1s ease-out, opacity 0.1s ease-out;
+  pointer-events: none;
 
-   ul {
-      top: 0px;
-      left: 100%;
-   }
+  ul {
+    top: 0px;
+    left: 100%;
+  }
 
-   &.show {
-      opacity: 1;
-      -webkit-transform: translate(0, 0) scale(1);
-      transform: translate(0, 0) scale(1);
-      pointer-events: auto;
-   }
-   ${props => props.theme.Menu.GroupContainer};
+  &.show {
+    opacity: 1;
+    -webkit-transform: translate(0, 0) scale(1);
+    transform: translate(0, 0) scale(1);
+    pointer-events: auto;
+  }
+  ${(props) => props.theme.Menu.GroupContainer};
 `;
 
 const ItemContainer = styled.li`
-   font-size: inherit !important;
-   display: block;
-   position: relative;
-   margin: 0;
-   padding: 0;
-   white-space: nowrap;
+  font-size: inherit !important;
+  display: block;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  white-space: nowrap;
 
-   > button {
-      background: none;
-      line-height: normal;
-      overflow: visible;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      display: block;
-      width: 100%;
-      text-align: left;
-      cursor: pointer;
-      border: 1px solid transparent;
-      white-space: nowrap;
-      padding: 6px 8px;
-      border-radius: 5px;
+  > button {
+    background: none;
+    line-height: normal;
+    overflow: visible;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    display: block;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    padding: 6px 8px;
+    border-radius: 5px;
 
-      &::-moz-focus-inner,
-      &::-moz-focus-inner {
-         border: 0;
-         padding: 0;
-      }
-   }
+    &::-moz-focus-inner,
+    &::-moz-focus-inner {
+      border: 0;
+      padding: 0;
+    }
+  }
 
-   &:hover {
-      > button {
-         outline: none;
-      }
-   }
+  &:hover {
+    > button {
+      outline: none;
+    }
+  }
 
-   &[disabled] {
-      opacity: .5;
-      pointer-events: none;
-   }
+  &[disabled] {
+    opacity: 0.5;
+    pointer-events: none;
+  }
 
-   &[disabled] > button {
-      cursor: default;
-   }
+  &[disabled] > button {
+    cursor: default;
+  }
 
-   &.separator {
-      display: block;
-      margin: 7px 5px;
-      height: 1px;
-      border-bottom: 1px solid #ccc;
-   }
+  &.separator {
+    display: block;
+    margin: 7px 5px;
+    height: 1px;
+    border-bottom: 1px solid #ccc;
+  }
 
-   &.submenu {
-      padding-right: 1.2rem;
-   }
+  &.submenu {
+    padding-right: 1.2rem;
+  }
 
-   &.submenu::after {
-      content: "";
-      position: absolute;
-      right: 6px;
-      top: 50%;
-      -webkit-transform: translateY(-50%);
-      transform: translateY(-50%);
-      border: 5px solid transparent;
-   }
+  &.submenu::after {
+    content: "";
+    position: absolute;
+    right: 6px;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    border: 5px solid transparent;
+  }
 
-   &.submenu:hover {
-      padding-right: calc(1.2rem + 2px);
-      margin-right: -2px;
-      > button {
-         border-top-right-radius: 0;
-         border-bottom-right-radius: 0;
-      }
-   }
+  &.submenu:hover {
+    padding-right: calc(1.2rem + 2px);
+    margin-right: -2px;
+    > button {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
 
-   &.submenu:hover::after {
-      margin-right: 2px;
-      border-left-color: #337ab7;
-   }
+  &.submenu:hover::after {
+    margin-right: 2px;
+    border-left-color: #337ab7;
+  }
 
-   ul ul {
-      top: 0px;
-      left: 100%;
-   }
+  ul ul {
+    top: 0px;
+    left: 100%;
+  }
 
-   &:hover > ul {
-      opacity: 1;
-      -webkit-transform: translate(0, 0) scale(1);
-      transform: translate(0, 0) scale(1);
-      pointer-events: auto;
-   }
+  &:hover > ul {
+    opacity: 1;
+    -webkit-transform: translate(0, 0) scale(1);
+    transform: translate(0, 0) scale(1);
+    pointer-events: auto;
+  }
 
-   &:hover > ul {
-      -webkit-transition-delay: 100ms;
-      transition-delay: 250ms;
-   }
-   ${props => props.theme.Menu.ItemContainer};
+  &:hover > ul {
+    -webkit-transition-delay: 100ms;
+    transition-delay: 250ms;
+  }
+  ${(props) => props.theme.Menu.ItemContainer};
 `;
 
 Container.defaultProps = { theme: utils.getDefaultTheme() };
@@ -146,131 +146,143 @@ GroupContainer.defaultProps = { theme: utils.getDefaultTheme() };
 ItemContainer.defaultProps = { theme: utils.getDefaultTheme() };
 
 export class Menu extends Element {
-   static propTypes = {
-      // Id of the HTML element that opens the menu.
-      openFor: PropTypes.string,
+  static propTypes = {
+    // Id of the HTML element that opens the menu.
+    openFor: PropTypes.string,
 
-      // Width of the popup window.
-      width: PropTypes.string
-   };
+    // Width of the popup window.
+    width: PropTypes.string
+  };
 
-   static componentTypes = {
-      Container,
+  static componentTypes = {
+    Container,
+    GroupContainer,
+    ItemContainer,
+    MenuLabelComponent: Label
+  };
+
+  constructor(props) {
+    super(props);
+    this.elemRef = React.createRef();
+  }
+
+  componentDidMount() {
+    this.triggerElem =
+      this.triggerElem || this.configureTrigger(this.props.openFor);
+    this.initMenu();
+  }
+
+  componentDidUpdate() {
+    this.initMenu();
+  }
+
+  buildMenu(menuItems) {
+    const [
+      ,
       GroupContainer,
       ItemContainer,
-      MenuLabelComponent: Label
-   };
+      MenuLabel
+    ] = utils.resolveComponents(Menu, this.props);
+    return (
+      <GroupContainer width={this.props.width}>
+        {menuItems.map((menuItem, idx) => {
+          return (
+            <ItemContainer key={idx} disabled={menuItem.Disabled}>
+              {menuItem.Label && (
+                <button>
+                  <RouteLink vm={this.vm} route={menuItem.Route}>
+                    <MenuLabel icon={menuItem.Icon}>{menuItem.Label}</MenuLabel>
+                  </RouteLink>
+                </button>
+              )}
+              {menuItem.SubMenu && this.buildMenu(menuItem.SubMenu)}
+            </ItemContainer>
+          );
+        })}
+      </GroupContainer>
+    );
+  }
 
-   constructor(props) {
-      super(props);
-      this.elemRef = React.createRef();
-   }
+  configureContextMenu() {
+    const onClick = (e) => {
+      this.hideMenu();
+      document.removeEventListener("click", onClick);
+    };
 
-   componentDidMount() {
-      this.triggerElem = this.triggerElem || this.configureTrigger(this.props.openFor);
-      this.initMenu();
-   }
+    const onContextMenu = (e) => {
+      e.preventDefault();
+      this.showMenu(e.pageX, e.pageY);
+      document.addEventListener("click", onClick, false);
+    };
 
-   componentDidUpdate() {
-      this.initMenu();
-   }
+    document.addEventListener("contextmenu", onContextMenu, false);
+    this.removeEventListeners.push(() =>
+      document.removeEventListener("contextMenu", onContextMenu)
+    );
+  }
 
-   buildMenu(menuItems) {
-      const [ , GroupContainer, ItemContainer, MenuLabel ] = utils.resolveComponents(Menu, this.props);
-      return (
-         <GroupContainer width={this.props.width}>
-            {menuItems.map((menuItem, idx) => {
-               return (
-                  <ItemContainer key={idx} disabled={menuItem.Disabled}>
-                     {menuItem.Label && (
-                        <button>
-                           <RouteLink vm={this.vm} route={menuItem.Route}>
-                              <MenuLabel icon={menuItem.Icon}>{menuItem.Label}</MenuLabel>
-                           </RouteLink>
-                        </button>
-                     )}
-                     {menuItem.SubMenu && this.buildMenu(menuItem.SubMenu)}
-                  </ItemContainer>
-               );
-            })}
-         </GroupContainer>
-      );
-   }
+  configureTrigger(triggerId) {
+    const triggerElem = document.getElementById(triggerId);
+    const getMenuElem = () =>
+      this.elemRef.current && this.elemRef.current.querySelector("ul");
 
-   configureContextMenu() {
-      const onClick = e => {
-         this.hideMenu();
-         document.removeEventListener('click', onClick);
-      };
+    const onClick = (e) => {
+      if (e.target.parentElement.parentElement.classList.contains("submenu"))
+        return;
+      this.hideMenu();
+      getMenuElem().removeEventListener("click", onClick);
+      document.removeEventListener("click", onClick);
+    };
 
-      const onContextMenu = e => {
-         e.preventDefault();
-         this.showMenu(e.pageX, e.pageY);
-         document.addEventListener('click', onClick, false);
-      };
+    const onClickTarget = (e) => {
+      e.preventDefault();
+      const menuElem = getMenuElem();
+      if (menuElem && !menuElem.classList.contains("show")) {
+        this.showMenu(e.target.pageX, e.target.pageY);
+        menuElem.addEventListener("click", onClick, false);
+        setTimeout(() => document.addEventListener("click", onClick, false));
+      }
+    };
 
-      document.addEventListener('contextmenu', onContextMenu, false);
-      this.removeEventListeners.push(() => document.removeEventListener('contextMenu', onContextMenu));
-   }
+    triggerElem.addEventListener("click", onClickTarget, false);
+    return triggerElem;
+  }
 
-   configureTrigger(triggerId) {
-      const triggerElem = document.getElementById(triggerId);
-      const getMenuElem = () => this.elemRef.current && this.elemRef.current.querySelector('ul');
+  hideMenu() {
+    this.elemRef.current.querySelector("ul").classList.remove("show");
+  }
 
-      const onClick = e => {
-         if (e.target.parentElement.parentElement.classList.contains('submenu')) return;
-         this.hideMenu();
-         getMenuElem().removeEventListener('click', onClick);
-         document.removeEventListener('click', onClick);
-      };
+  initMenu() {
+    this.elemRef.current &&
+      this.elemRef.current.querySelectorAll("li").forEach((x) => {
+        if (x.querySelector("ul")) x.classList.add("submenu");
+        if (x.children.length == 0) x.classList.add("separator");
+      });
+  }
 
-      const onClickTarget = e => {
-         e.preventDefault();
-         const menuElem = getMenuElem();
-         if (menuElem && !menuElem.classList.contains('show')) {
-            this.showMenu(e.target.pageX, e.target.pageY);
-            menuElem.addEventListener('click', onClick, false);
-            setTimeout(() => document.addEventListener('click', onClick, false));
-         }
-      };
+  onSelected(key) {
+    this.selected.emit(key);
+  }
 
-      triggerElem.addEventListener('click', onClickTarget, false);
-      return triggerElem;
-   }
+  showMenu(x, y) {
+    const menu = this.elemRef.current.querySelector("ul");
+    menu.style.left = x + "px";
+    menu.style.top = y + "px";
+    menu.classList.add("show");
+  }
 
-   hideMenu() {
-      this.elemRef.current.querySelector('ul').classList.remove('show');
-   }
+  render() {
+    const [Container] = utils.resolveComponents(Menu, this.props);
+    const { children, tabIndex, css, style, ...props } = this.props;
 
-   initMenu() {
-      this.elemRef.current &&
-         this.elemRef.current.querySelectorAll('li').forEach(x => {
-            if (x.querySelector('ul')) x.classList.add('submenu');
-            if (x.children.length == 0) x.classList.add('separator');
-         });
-   }
+    const menu = Array.isArray(this.value)
+      ? this.buildMenu(this.value)
+      : children;
 
-   onSelected(key) {
-      this.selected.emit(key);
-   }
-
-   showMenu(x, y) {
-      const menu = this.elemRef.current.querySelector('ul');
-      menu.style.left = x + 'px';
-      menu.style.top = y + 'px';
-      menu.classList.add('show');
-   }
-
-   render() {
-      const [ Container ] = utils.resolveComponents(Menu, this.props);
-      const { children, tabIndex, css, style, ...props } = this.props;
-
-      const menu = Array.isArray(this.value) ? this.buildMenu(this.value) : children;
-
-      return (
-         <Container style={style} css={css} tabIndex={tabIndex} ref={this.elemRef}>
-            {menu}
-         </Container>
-      );
-   }
+    return (
+      <Container style={style} css={css} tabIndex={tabIndex} ref={this.elemRef}>
+        {menu}
+      </Container>
+    );
+  }
 }

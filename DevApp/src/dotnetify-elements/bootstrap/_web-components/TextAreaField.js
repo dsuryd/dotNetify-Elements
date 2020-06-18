@@ -1,7 +1,7 @@
-import TextAreaField from '../_components/TextAreaField';
-import createWebComponent from '../../utils/web-component';
+import TextAreaField from "../_components/TextAreaField";
+import createWebComponent from "../../utils/web-component";
 
-createWebComponent(TextAreaField, 'd-text-area-field');
+createWebComponent(TextAreaField, "d-text-area-field");
 
 export default TextAreaField;
 export { TextAreaField };
