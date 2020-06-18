@@ -84,17 +84,14 @@ const githubSponsorCss = `
    padding: 3px 12px; 
    background: #fafbfc;
    text-align: center;
-   line-height: 1rem;
    max-width: 8rem;
    box-shadow: 0 1px 0 rgba(27,31,35,.04), inset 0 1px 0 hsla(0,0%,100%,.25);
-   svg {
-      color: #ea4aaa;
-      fill: currentColor;
-   }
+   a { display: flex; align-items: center; justify-content: center; }
+   svg { color: #ea4aaa; fill: currentColor; margin-right: 5px; }
 `;
 
 export const GitHubLink = _ => (
-   <Panel padding='1rem 1rem .5rem 1rem; &:hover { background: #efefef; }' horizontal>
+   <Panel padding='1rem 1rem .5rem 1rem; &:hover { background: #efefef; }' horizontal middle>
       <a href='https://github.com/dsuryd/dotNetify-Elements'>
          <Label icon={<GitHubIcon />} css='cursor: pointer'>
             GitHub
