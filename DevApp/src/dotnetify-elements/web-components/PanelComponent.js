@@ -43,10 +43,12 @@ export default function createWebComponent(Component, elementName) {
       };
 
       const childrenStyles = `
-            > *:first-child { ${
+            > *:first-child /* emotion-disable-server-rendering-unsafe-selector-warning-please-do-not-use-this-the-warning-exists-for-a-reason */ { ${
               props.wrap ? `margin: ${childrenMargin()}` : ""
             } }
-            > *:not(:first-child) { margin: ${childrenMargin()}; }
+            > *:not(:first-child) /* emotion-disable-server-rendering-unsafe-selector-warning-please-do-not-use-this-the-warning-exists-for-a-reason */ { 
+               margin: ${childrenMargin()}; 
+            }
          `;
 
       return `

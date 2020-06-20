@@ -1,26 +1,26 @@
 html {
-   height: 100%;
+  height: 100%;
 }
 
 body {
-   -webkit-overflow-scrolling: touch;
-   font-family: Segoe UI, Arial, sans-serif;
-   margin: 0;
-   height: inherit;
+  -webkit-overflow-scrolling: touch;
+  font-family: Segoe UI, Arial, sans-serif;
+  margin: 0;
+  height: inherit;
 }
 
-body > *:first-child {
-   height: inherit;
+body > *:first-child /* emotion-disable-server-rendering-unsafe-selector-warning-please-do-not-use-this-the-warning-exists-for-a-reason */ {
+  height: inherit;
 }
 
 form {
-   margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 [class^="Alert"] p {
-   margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 .pull-right {
-   float: right;
+  float: right;
 }
