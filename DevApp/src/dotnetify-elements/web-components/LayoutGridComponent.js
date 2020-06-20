@@ -14,7 +14,7 @@ export function createMainComponent(Component, elementName) {
          -ms-grid-rows: auto 1fr auto;
          grid-template-areas: "header header" "nav    section" "nav    footer";
          ${props.theme.Main};
-         ${props.css};
+         ${props.css || ""};
       `;
   });
 }
@@ -34,7 +34,7 @@ export function createHeaderComponent(Component, elementName) {
          }
          z-index: 999;
          ${props.theme.Header};
-         ${props.css};
+         ${props.css || ""};
       `;
   });
 }
@@ -64,7 +64,7 @@ export function createNavComponent(Component, elementName) {
             }            
          }
          ${props.theme.Nav};
-         ${props.css};
+         ${props.css || ""};
    `;
   });
 }
@@ -79,7 +79,7 @@ export function createFooterComponent(Component, elementName) {
          display: flex;
          height: ${props.height || "50px"};
          ${props.theme.Footer};
-         ${props.css};
+         ${props.css || ""};
       `;
   });
 }
@@ -98,7 +98,7 @@ export function createSectionComponent(Component, elementName) {
             height: inherit;
          }
          ${props.theme.Section};
-         ${props.css};
+         ${props.css || ""};
       `;
   });
 }
