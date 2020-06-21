@@ -1,5 +1,5 @@
-import createWebComponentCss from "../utils/web-component-css";
-import * as utils from "../utils";
+import createWebComponentCss from "../../utils/web-component-css";
+import * as utils from "../../utils";
 
 export function createMainComponent(Component, elementName) {
   return createWebComponentCss(Component, elementName, {}, host => {

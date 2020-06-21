@@ -1,5 +1,5 @@
 import { Footer, Header, Main, Nav, Section } from "../_components/LayoutGrid";
-import * as webComponent from "../../web-components/LayoutGridComponent";
+import * as webComponent from "../../web-components/layout/LayoutGridComponent";
 
 webComponent.createMainComponent(Main, "d-main");
 webComponent.createHeaderComponent(Header, "d-header");

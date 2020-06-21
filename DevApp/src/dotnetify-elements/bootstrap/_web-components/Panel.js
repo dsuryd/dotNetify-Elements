@@ -1,5 +1,5 @@
 import { Frame, Panel } from "../_components/Panel";
-import createWebComponent from "../../web-components/PanelComponent";
+import createWebComponent from "../../web-components/layout/PanelComponent";
 
 createWebComponent(Panel, "d-panel");
 

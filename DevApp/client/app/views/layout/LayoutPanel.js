@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  Button,
-  Frame,
-  Markdown,
-  Panel,
-  TabItem,
-  withTheme
-} from "dotnetify-elements";
+import { Button, Frame, Markdown, Panel, TabItem, withTheme } from "dotnetify-elements";
 import { TabsArticle, RenderExample } from "../../components";
 import { Rectangle, Square } from "./demo-helper";
 
@@ -166,9 +159,7 @@ import React from 'react';
 import { Panel, Button } from 'dotnetify-elements';
 
 const MyApp = _ => (
-   <Panel horizontal childProps={{ css: 'border: 2px dashed red', ${Object.keys(
-     this.state
-   )
+   <Panel horizontal childProps={{ css: 'border: 2px dashed red', ${Object.keys(this.state)
      .map(key => `${key}: ${this.state[key]}`)
      .join(", ")}}}>
       <Panel>
@@ -183,16 +174,9 @@ const MyApp = _ => (
     const setState = state => this.setState(state);
     let propTypes = { middle: null, right: null };
     return (
-      <RenderExample
-        propTypes={propTypes}
-        buildCode={buildCode}
-        onChange={setState}
-      >
+      <RenderExample propTypes={propTypes} buildCode={buildCode} onChange={setState}>
         <Panel css="margin-bottom: 2rem">
-          <Panel
-            horizontal
-            childProps={{ ...this.state, css: "border: 2px dashed red" }}
-          >
+          <Panel horizontal childProps={{ ...this.state, css: "border: 2px dashed red" }}>
             <Panel>
               <Button label="Button 1" primary />
             </Panel>
