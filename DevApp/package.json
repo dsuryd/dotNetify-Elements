@@ -7,7 +7,7 @@
     "prod": "webpack -p --progress && dotnet publish -c Release",
     "dist": "webpack --config ./webpack.dist.config.js",
     "test": "webpack --config ./webpack.test.config.js",
-    "pretty": "prettier --write src/**/*.js"
+    "pretty": "prettier --write \"./{src,client}/**/*.{ts,tsx,js,jsx,json}\""
   },
   "babel": {
     "presets": [

@@ -1,26 +1,26 @@
-import React from 'react';
-import { DateField, DateTimeField, TimeField, Markdown, Panel, TabItem, withTheme } from 'dotnetify-elements';
-import { TabsArticle, RenderCustomize, RenderExample } from '../../components';
+import React from "react";
+import { DateField, DateTimeField, TimeField, Markdown, Panel, TabItem, withTheme } from "dotnetify-elements";
+import { TabsArticle, RenderCustomize, RenderExample } from "../../components";
 
 const FormDateTimeField = props => (
-   <TabsArticle vm="FormDateTimeField" id="Overview">
-      <TabItem label="Overview" itemKey="Overview">
-         <Markdown id="Overview">
-            <DateTimeFieldExample />
-         </Markdown>
-      </TabItem>
-      <TabItem label="API" itemKey="API">
-         <Markdown id="API" />
-      </TabItem>
-      <TabItem label="Customize">
-         <DateTimeFieldCustomize />
-      </TabItem>
-   </TabsArticle>
+  <TabsArticle vm="FormDateTimeField" id="Overview">
+    <TabItem label="Overview" itemKey="Overview">
+      <Markdown id="Overview">
+        <DateTimeFieldExample />
+      </Markdown>
+    </TabItem>
+    <TabItem label="API" itemKey="API">
+      <Markdown id="API" />
+    </TabItem>
+    <TabItem label="Customize">
+      <DateTimeFieldCustomize />
+    </TabItem>
+  </TabsArticle>
 );
 
 class DateTimeFieldExample extends React.Component {
-   render() {
-      const buildCode = props => `
+  render() {
+    const buildCode = props => `
 \`\`\`jsx
 import React from 'react';
 import { VMContext, DateTimeField } from 'dotnetify-elements';
@@ -35,7 +35,7 @@ const MyApp = _ => (
    </VMContext>
 );
 \`\`\``;
-      const buildWebComponentCode = props => `
+    const buildWebComponentCode = props => `
 \`\`\`jsx
 <d-vm-context vm="DateTimeFieldExample">
    <div style="display: flex">
@@ -45,66 +45,66 @@ const MyApp = _ => (
    </div>
 </d-vm-context>
 \`\`\``;
-      const setState = state => this.setState(state);
-      const propTypes = { enable: null, horizontal: null, plainText: null };
+    const setState = state => this.setState(state);
+    const propTypes = { enable: null, horizontal: null, plainText: null };
 
-      const setWebComponent = show => this.setState({ webComponent: show });
-      const webComponent = this.state && this.state.webComponent;
-      const selectBuildCode = webComponent ? buildWebComponentCode : buildCode;
+    const setWebComponent = show => this.setState({ webComponent: show });
+    const webComponent = this.state && this.state.webComponent;
+    const selectBuildCode = webComponent ? buildWebComponentCode : buildCode;
 
-      return (
-         <RenderExample
-            vm="DateTimeFieldExample"
-            propTypes={propTypes}
-            buildCode={selectBuildCode}
-            onChange={setState}
-            onWebComponent={setWebComponent}
-         >
-            <Panel css="margin-bottom: 3rem">
-               {!webComponent ? (
-                  <Panel horizontal>
-                     <DateField id="Date" {...this.state} />
-                     <TimeField id="Time" {...this.state} />
-                     <DateTimeField id="DateTime" {...this.state} />
-                  </Panel>
-               ) : (
-                  <d-vm-context vm="DateTimeFieldExample">
-                     <div style={{ display: 'flex' }}>
-                        <d-date-field id="Date" {...this.state} />
-                        <d-time-field id="Time" {...this.state} css="margin: 0 1rem" />
-                        <d-date-time-field id="DateTime" {...this.state} />
-                     </div>
-                  </d-vm-context>
-               )}
+    return (
+      <RenderExample
+        vm="DateTimeFieldExample"
+        propTypes={propTypes}
+        buildCode={selectBuildCode}
+        onChange={setState}
+        onWebComponent={setWebComponent}
+      >
+        <Panel css="margin-bottom: 3rem">
+          {!webComponent ? (
+            <Panel horizontal>
+              <DateField id="Date" {...this.state} />
+              <TimeField id="Time" {...this.state} />
+              <DateTimeField id="DateTime" {...this.state} />
             </Panel>
-         </RenderExample>
-      );
-   }
+          ) : (
+            <d-vm-context vm="DateTimeFieldExample">
+              <div style={{ display: "flex" }}>
+                <d-date-field id="Date" {...this.state} />
+                <d-time-field id="Time" {...this.state} css="margin: 0 1rem" />
+                <d-date-time-field id="DateTime" {...this.state} />
+              </div>
+            </d-vm-context>
+          )}
+        </Panel>
+      </RenderExample>
+    );
+  }
 }
 
 class DateTimeFieldCustomize extends React.Component {
-   state = { plainText: false, validationMessages: null };
+  state = { plainText: false, validationMessages: null };
 
-   render() {
-      const { plainText, validationMessages } = this.state;
-      const componentTypes = DateTimeField.componentTypes;
-      const handleSelected = state => this.setState(state);
-      const select = value => ({
-         plainText: value === 'PlainTextComponent',
-         validationMessages: value === 'ValidationMessageComponent' ? [ 'Validation message' ] : null
-      });
-      return (
-         <RenderCustomize
-            vm="DateTimeFieldCustomize"
-            name="DateTimeField"
-            componentTypes={componentTypes}
-            select={select}
-            onSelected={handleSelected}
-         >
-            <DateTimeField id="MyDateTimeField" plainText={plainText} validationMessages={validationMessages} />
-         </RenderCustomize>
-      );
-   }
+  render() {
+    const { plainText, validationMessages } = this.state;
+    const componentTypes = DateTimeField.componentTypes;
+    const handleSelected = state => this.setState(state);
+    const select = value => ({
+      plainText: value === "PlainTextComponent",
+      validationMessages: value === "ValidationMessageComponent" ? ["Validation message"] : null
+    });
+    return (
+      <RenderCustomize
+        vm="DateTimeFieldCustomize"
+        name="DateTimeField"
+        componentTypes={componentTypes}
+        select={select}
+        onSelected={handleSelected}
+      >
+        <DateTimeField id="MyDateTimeField" plainText={plainText} validationMessages={validationMessages} />
+      </RenderCustomize>
+    );
+  }
 }
 
 export default withTheme(FormDateTimeField);

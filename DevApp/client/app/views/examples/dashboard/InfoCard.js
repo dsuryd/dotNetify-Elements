@@ -1,15 +1,15 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Card, CardImage, Element } from 'dotnetify-elements';
+import React from "react";
+import styled from "styled-components";
+import { Card, CardImage, Element } from "dotnetify-elements";
 
 const InfoIcon = styled.i.attrs(props => ({
-   className: 'material-icons'
+  className: "material-icons"
 }))`
-   font-size: 3rem;
-   padding: 1.5rem;
-   color: white;   
-   background: ${props => props.color};
-   opacity: .8;
+  font-size: 3rem;
+  padding: 1.5rem;
+  color: white;
+  background: ${props => props.color};
+  opacity: 0.8;
 `;
 
 const cardCss = `
@@ -18,16 +18,16 @@ const cardCss = `
 `;
 
 export default class InfoCard extends Element {
-   render() {
-      const { color, icon, label } = this.attrs;
-      return (
-         <Card horizontal css={cardCss}>
-            <CardImage>
-               <InfoIcon color={color}>{icon}</InfoIcon>
-            </CardImage>
-            <label>{label}</label>
-            <h3>{this.value}</h3>
-         </Card>
-      );
-   }
+  render() {
+    const { color, icon, label } = this.attrs;
+    return (
+      <Card horizontal css={cardCss}>
+        <CardImage>
+          <InfoIcon color={color}>{icon}</InfoIcon>
+        </CardImage>
+        <label>{label}</label>
+        <h3>{this.value}</h3>
+      </Card>
+    );
+  }
 }
