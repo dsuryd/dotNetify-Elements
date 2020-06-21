@@ -78,7 +78,7 @@ export default function createWebComponent(Component, elementName) {
                   : "align-items: flex-end;"
                 : ""
             }
-            ${props.css || ""};
+            ${props.css};
             ${childrenStyles};
             ${props.theme.Panel.Container};
          `;
