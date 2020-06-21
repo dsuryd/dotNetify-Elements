@@ -45,18 +45,15 @@ export default function createCardComponent(Component, elementName) {
       }
 
       [...cardDiv.childNodes].forEach(x => !x.childNodes.length && cardDiv.removeChild(x));
-    } else {
-      host.classList.add("card");
     }
 
     return `
-         &.card,
          .card {
+            height: inherit;
             flex: ${utils.flexAuto};
             ${props.horizontal ? "flex-direction: row;" : ""}
             width: ${props.width ? props.width : "inherit"};
             ${props.theme.Card.Container};
-            ${props.css};
          }
          .card-header {
             ${props.theme.Card.HeaderContainer};
@@ -73,6 +70,7 @@ export default function createCardComponent(Component, elementName) {
             }
              ${props.theme.Card.ImageContainer};
          }                       
+         ${props.css};
       `;
   });
 }

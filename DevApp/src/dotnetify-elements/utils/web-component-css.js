@@ -27,13 +27,16 @@ export default function createWebComponent(Component, elementName, defaultProps,
       // Backdoor for components to add their own specific initialization.
       if (typeof this._connectedCallback == "function") this._connectedCallback();
 
-      this.addCssClass(getCss(this));
+      this.cssString = getCss(this);
+      this.addCssClass(this.cssString);
     }
 
-    onAttributeChange = mutationList => {
-      // Avoid infinite loop due to class name update.
-      if (mutationList.length && mutationList.every(x => x.attributeName === "class")) return;
-      this.addCssClass(getCss(this));
+    onAttributeChange = _ => {
+      const css = getCss(this);
+      if (this.cssString !== css) {
+        this.cssString = css;
+        this.addCssClass(this.cssString);
+      }
     };
 
     addCssClass(styles) {
