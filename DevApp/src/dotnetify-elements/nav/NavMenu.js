@@ -71,10 +71,7 @@ export class NavMenu extends Element {
       this.vm.onRouteEnter = (path, template) => {
         this.setState({ selected: template.Id });
         template.Target = this.props.target || "NavMenuTarget";
-        if (
-          template.Target == "NavMenuTarget" &&
-          !document.getElementById("NavMenuTarget")
-        ) {
+        if (template.Target == "NavMenuTarget" && !document.getElementById("NavMenuTarget")) {
           console.error("ERROR: NavMenu requires NavMenuTarget placement.");
           throw "error";
         }
@@ -83,20 +80,11 @@ export class NavMenu extends Element {
   }
 
   buildRoute(navRoute, navGroup) {
-    const [, , RouteContainer, , RouteLabel] = utils.resolveComponents(
-      NavMenu,
-      this.props
-    );
-    const key =
-      navRoute.Route.TemplateId ||
-      `${navRoute.Route.Redirect || ""}${navRoute.Route.Path}`;
+    const [, , RouteContainer, , RouteLabel] = utils.resolveComponents(NavMenu, this.props);
+    const key = navRoute.Route.TemplateId || `${navRoute.Route.Redirect || ""}${navRoute.Route.Path}`;
     const isSelected = key === this.state.selected;
     return (
-      <RouteContainer
-        className="navmenu-route"
-        key={key}
-        isSelected={isSelected}
-      >
+      <RouteContainer className="navmenu-route" key={key} isSelected={isSelected}>
         <RouteLink vm={this.vm} route={navRoute.Route}>
           <RouteLabel icon={navRoute.Icon} navGroup={navGroup}>
             {navRoute.Label}
@@ -119,8 +107,7 @@ export class NavMenu extends Element {
         const routeItem = stackRoutes.pop();
         path.push(routeItem.Label);
         stack.push(routeItem);
-        if ((routeItem.Route.TemplateId || routeItem.Route.Path) === key)
-          return path;
+        if ((routeItem.Route.TemplateId || routeItem.Route.Path) === key) return path;
         path.pop();
       }
       path.pop();
@@ -129,21 +116,15 @@ export class NavMenu extends Element {
   }
 
   render() {
-    const [Container, GroupContainer, , GroupLabel] = this.resolveComponents(
-      NavMenu
-    );
+    const [Container, GroupContainer, , GroupLabel] = this.resolveComponents(NavMenu);
     const { style, css } = this.props;
 
-    const selectedPath = this.state.selected
-      ? this.getSelectedPath(this.state.selected)
-      : [];
+    const selectedPath = this.state.selected ? this.getSelectedPath(this.state.selected) : [];
 
     const value = this.value || [];
     const navMenu = value.map((navItem, idx) => {
       const groupLabel = props => <GroupLabel icon={navItem.Icon} {...props} />;
-      const collapsed = selectedPath.some(path => path === navItem.Label)
-        ? false
-        : !navItem.IsExpanded;
+      const collapsed = selectedPath.some(path => path === navItem.Label) ? false : !navItem.IsExpanded;
       return navItem.Routes ? (
         <GroupContainer
           className="navmenu-group"

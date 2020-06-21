@@ -44,14 +44,11 @@ export class Tab extends React.Component {
   componentDidUpdate(props) {
     // Only make this a controlled tab if 'onActivate' is provided. We'd like to allow the use case where
     // the 'active' property is only used to set the initial active tab.
-    if (this.props.active !== props.active && this.props.onActivate)
-      this.setActiveState(this.props.active);
+    if (this.props.active !== props.active && this.props.onActivate) this.setActiveState(this.props.active);
   }
 
   get children() {
-    return React.Children.toArray(this.props.children).filter(
-      child => child.type
-    );
+    return React.Children.toArray(this.props.children).filter(child => child.type);
   }
 
   get tabContents() {
@@ -75,22 +72,17 @@ export class Tab extends React.Component {
   handleClick = (event, key, label) => {
     event.preventDefault();
     let canActivate = true;
-    if (this.props.onActivate)
-      canActivate = this.props.onActivate(key, label) !== false;
+    if (this.props.onActivate) canActivate = this.props.onActivate(key, label) !== false;
     canActivate && this.setState({ active: key });
   };
 
   setActiveState(key) {
     if (typeof key !== "undefined") this.setState({ active: key });
-    else if (this.tabContents.length > 0)
-      this.setState({ active: this.tabContents[0].key });
+    else if (this.tabContents.length > 0) this.setState({ active: this.tabContents[0].key });
   }
 
   render() {
-    const [Container, TabContainer, BodyContainer] = utils.resolveComponents(
-      Tab,
-      this.props
-    );
+    const [Container, TabContainer, BodyContainer] = utils.resolveComponents(Tab, this.props);
     const { margin, noMargin, style, css, onActivate, ...props } = this.props;
 
     const tabItems = this.children.map((child, idx) => {
@@ -104,12 +96,7 @@ export class Tab extends React.Component {
 
     const tabContents = this.tabContents.map(({ key, content }) => (
       <div key={key} style={this.getDisplayStyle(key)}>
-        <BodyContainer
-          style={style}
-          css={css}
-          noMargin={noMargin}
-          margin={margin}
-        >
+        <BodyContainer style={style} css={css} noMargin={noMargin} margin={margin}>
           {content}
         </BodyContainer>
       </div>
@@ -145,10 +132,7 @@ export class TabItem extends React.Component {
   };
 
   render() {
-    const [TabItemComponent, LabelContainer] = utils.resolveComponents(
-      TabItem,
-      this.props
-    );
+    const [TabItemComponent, LabelContainer] = utils.resolveComponents(TabItem, this.props);
     const { key, label, onClick, active, children, ...props } = this.props;
     return (
       <TabItemComponent active={active} onClick={onClick} {...props}>

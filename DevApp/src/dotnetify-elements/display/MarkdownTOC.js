@@ -47,8 +47,7 @@ export class MarkdownTOC extends Element {
 
     this.handleScroll = (e => {
       if (this.scrollingIntoView || this.removingListener) return;
-      if (e.target.querySelector(`[id="${this.attrs.fullId}"]`) === null)
-        return;
+      if (e.target.querySelector(`[id="${this.attrs.fullId}"]`) === null) return;
 
       // Find the closest header with current scroll position.
       const relativePos = headerPos.map(header => ({
@@ -86,8 +85,7 @@ export class MarkdownTOC extends Element {
 
   removeScrollEventListener() {
     this.removingListener = true;
-    this.handleScroll &&
-      document.removeEventListener("scroll", this.handleScroll);
+    this.handleScroll && document.removeEventListener("scroll", this.handleScroll);
     this.handleScroll = null;
   }
 
@@ -118,10 +116,7 @@ export class MarkdownTOC extends Element {
 
   scrollIntoView(key) {
     if (this.scrollingIntoView) clearTimeout(this.scrollingIntoView);
-    this.scrollingIntoView = setTimeout(
-      () => (this.scrollingIntoView = null),
-      3000
-    );
+    this.scrollingIntoView = setTimeout(() => (this.scrollingIntoView = null), 3000);
 
     const elem = document.querySelector(key);
     if (elem) elem.scrollIntoView({ behavior: "smooth" });

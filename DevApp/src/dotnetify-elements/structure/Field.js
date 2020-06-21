@@ -49,8 +49,7 @@ const ValidationMessageContainer = styled.div`
     ${props => props.horizontal && "margin-top: 2.25rem"};
   }
   // IE11
-  @media screen and (-ms-high-contrast: active),
-    screen and (-ms-high-contrast: none) {
+  @media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {
     ${props => props.horizontal && "margin-top: 2.25rem"};
   }
 `;
@@ -104,17 +103,7 @@ export class Field extends React.Component {
       PlainText,
       ValidationMessageContainer
     ] = utils.resolveComponents(Field, this.props);
-    const {
-      id,
-      label,
-      plainText,
-      horizontal,
-      right,
-      width,
-      style,
-      css,
-      tabIndex
-    } = this.props;
+    const { id, label, plainText, horizontal, right, width, style, css, tabIndex } = this.props;
     const labelPadding = horizontal ? null : "0 0 .5rem 0";
 
     const [validationMessages, children] = utils.filterChildren(
@@ -122,17 +111,10 @@ export class Field extends React.Component {
       child => child.key && child.key.startsWith(validationKeyPrefix)
     );
 
-    const hasValidationMessage =
-      validationMessages && validationMessages.length > 0;
+    const hasValidationMessage = validationMessages && validationMessages.length > 0;
 
     return (
-      <Container
-        width={width}
-        style={style}
-        css={css}
-        horizontal={horizontal}
-        tabIndex={tabIndex}
-      >
+      <Container width={width} style={style} css={css} horizontal={horizontal} tabIndex={tabIndex}>
         {label && (
           <LabelContainer horizontal={horizontal}>
             <Label htmlFor={id} padding={labelPadding}>
@@ -150,9 +132,7 @@ export class Field extends React.Component {
               {children}
             </InputContainer>
             {hasValidationMessage && (
-              <ValidationMessageContainer horizontal={horizontal}>
-                {validationMessages}
-              </ValidationMessageContainer>
+              <ValidationMessageContainer horizontal={horizontal}>{validationMessages}</ValidationMessageContainer>
             )}
           </React.Fragment>
         )}

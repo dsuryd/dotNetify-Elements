@@ -36,45 +36,20 @@ export class Cell extends React.Component {
 
   render() {
     const [Container, Header, Body] = utils.resolveComponents(Cell, this.props);
-    const {
-      header,
-      center,
-      middle,
-      padding,
-      right,
-      children,
-      borders,
-      width,
-      style,
-      css,
-      tabIndex
-    } = this.props;
+    const { header, center, middle, padding, right, children, borders, width, style, css, tabIndex } = this.props;
 
     const reservedTypes = ["header"];
     const [sections, body] = utils.filterChildren(
       children,
       child => child && reservedTypes.some(x => x === child.type)
     );
-    const _header =
-      header || sections.filter(section => section.type === "header").shift();
+    const _header = header || sections.filter(section => section.type === "header").shift();
     const headerCss = body ? "" : "border-bottom: none";
 
     return (
-      <Container
-        tabIndex={tabIndex}
-        borders={borders}
-        width={width}
-        style={style}
-        css={css}
-      >
+      <Container tabIndex={tabIndex} borders={borders} width={width} style={style} css={css}>
         {_header ? (
-          <Header
-            padding={padding}
-            center={center}
-            right={right}
-            middle={middle}
-            css={headerCss}
-          >
+          <Header padding={padding} center={center} right={right} middle={middle} css={headerCss}>
             {_header}
           </Header>
         ) : null}

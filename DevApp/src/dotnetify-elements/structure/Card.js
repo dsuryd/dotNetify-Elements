@@ -27,51 +27,24 @@ export class Card extends React.Component {
   };
 
   render() {
-    const [Container, Image, Header, Body, Footer] = utils.resolveComponents(
-      Card,
-      this.props
-    );
-    const {
-      header,
-      footer,
-      horizontal,
-      children,
-      width,
-      style,
-      css,
-      tabIndex
-    } = this.props;
+    const [Container, Image, Header, Body, Footer] = utils.resolveComponents(Card, this.props);
+    const { header, footer, horizontal, children, width, style, css, tabIndex } = this.props;
 
-    const reservedTypes = [
-      "header",
-      "footer",
-      "img",
-      "Image",
-      "CardImage",
-      "d-image",
-      "d-card-image"
-    ];
+    const reservedTypes = ["header", "footer", "img", "Image", "CardImage", "d-image", "d-card-image"];
     const [sections, body] = utils.filterChildren(
       children,
-      child =>
-        child &&
-        reservedTypes.some(x => x === child.type || x === child.type._typeName)
+      child => child && reservedTypes.some(x => x === child.type || x === child.type._typeName)
     );
 
     const isImage = comp =>
-      ["img", "Image", "CardImage", "d-image", "d-card-image"].some(
-        x => x === comp.type || x === comp.type._typeName
-      );
+      ["img", "Image", "CardImage", "d-image", "d-card-image"].some(x => x === comp.type || x === comp.type._typeName);
     const img = sections.filter(section => isImage(section)).shift();
-    const _header =
-      header || sections.filter(section => section.type === "header").shift();
-    const _footer =
-      footer || sections.filter(section => section.type === "footer").shift();
+    const _header = header || sections.filter(section => section.type === "header").shift();
+    const _footer = footer || sections.filter(section => section.type === "footer").shift();
 
     // Determine whether the image should be at the bottom.
     const childrenArray = React.Children.toArray(children);
-    const lastChild =
-      childrenArray.length > 1 ? childrenArray[childrenArray.length - 1] : null;
+    const lastChild = childrenArray.length > 1 ? childrenArray[childrenArray.length - 1] : null;
     const isBottomImg = lastChild && lastChild.type && isImage(lastChild);
     const leftImg = !isBottomImg && horizontal;
     const rightImg = isBottomImg && horizontal;
@@ -80,13 +53,7 @@ export class Card extends React.Component {
 
     if (horizontal)
       return (
-        <Container
-          horizontal={horizontal}
-          width={width}
-          style={style}
-          css={css}
-          tabIndex={tabIndex}
-        >
+        <Container horizontal={horizontal} width={width} style={style} css={css} tabIndex={tabIndex}>
           {img && leftImg ? <Image left>{img}</Image> : null}
           {_header ? <Header>{_header}</Header> : null}
           <Body>{body}</Body>

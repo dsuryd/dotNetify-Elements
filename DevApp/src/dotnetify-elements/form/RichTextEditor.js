@@ -6,9 +6,7 @@ import Quill from "quill/dist/quill";
 import "quill/dist/quill.snow.css";
 import "quill/dist/quill.bubble.css";
 
-const PlainTextComponent = props => (
-  <span dangerouslySetInnerHTML={{ __html: props.children }} />
-);
+const PlainTextComponent = props => <span dangerouslySetInnerHTML={{ __html: props.children }} />;
 
 export class RichTextEditor extends InputElement {
   static propTypes = {
@@ -95,34 +93,14 @@ export class RichTextEditor extends InputElement {
 
   render() {
     const [Container, PlainText] = this.resolveComponents(RichTextEditor);
-    const {
-      fullId,
-      label,
-      plainText,
-      horizontal,
-      css,
-      style,
-      children,
-      ...props
-    } = this.attrs;
+    const { fullId, label, plainText, horizontal, css, style, children, ...props } = this.attrs;
 
     const plainTextValue = `${this.value || ""}`;
     this.editorDom = null;
 
     return (
-      <Container
-        id={fullId}
-        label={label}
-        horizontal={horizontal}
-        plainText={plainText}
-        style={style}
-        css={css}
-      >
-        {plainText ? (
-          <PlainText>{plainTextValue}</PlainText>
-        ) : (
-          <div ref={elem => (this.editorDom = elem)} />
-        )}
+      <Container id={fullId} label={label} horizontal={horizontal} plainText={plainText} style={style} css={css}>
+        {plainText ? <PlainText>{plainTextValue}</PlainText> : <div ref={elem => (this.editorDom = elem)} />}
       </Container>
     );
   }

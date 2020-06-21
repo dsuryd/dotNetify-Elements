@@ -65,12 +65,7 @@ export class PieChart extends Element {
 
     return (
       <Container id={fullId} style={style} css={css}>
-        <Chart
-          data={data}
-          height={utils.toPixel(height)}
-          options={options}
-          {...props}
-        />
+        <Chart data={data} height={utils.toPixel(height)} options={options} {...props} />
       </Container>
     );
   }

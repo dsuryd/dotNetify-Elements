@@ -49,37 +49,15 @@ export class RadioGroup extends InputElement {
     this.dispatch(value);
   };
   render() {
-    const [
-      Container,
-      GroupContainer,
-      RadioContainer,
-      Label,
-      Input,
-      PlainText
-    ] = this.resolveComponents(RadioGroup);
-    const {
-      fullId,
-      label,
-      options,
-      plainText,
-      right,
-      horizontal,
-      enable,
-      style,
-      css,
-      isToggle
-    } = this.attrs;
+    const [Container, GroupContainer, RadioContainer, Label, Input, PlainText] = this.resolveComponents(RadioGroup);
+    const { fullId, label, options, plainText, right, horizontal, enable, style, css, isToggle } = this.attrs;
 
     const disabled = enable === false;
     const radioOptions = (options || []).map(opt => utils.toCamelCase(opt));
     const radio = radioOptions
       .filter(opt => opt.value)
       .map((opt, idx) => (
-        <RadioContainer
-          key={opt.key}
-          id={fullId}
-          checked={opt.key == this.value}
-        >
+        <RadioContainer key={opt.key} id={fullId} checked={opt.key == this.value}>
           {isToggle ? (
             <Label htmlFor={`${fullId}__input${idx}`}>
               <Input
@@ -123,11 +101,7 @@ export class RadioGroup extends InputElement {
         style={style}
         css={css}
       >
-        {plainText ? (
-          <PlainText>{plainTextValue}</PlainText>
-        ) : (
-          <GroupContainer>{radio}</GroupContainer>
-        )}
+        {plainText ? <PlainText>{plainTextValue}</PlainText> : <GroupContainer>{radio}</GroupContainer>}
       </Container>
     );
   }

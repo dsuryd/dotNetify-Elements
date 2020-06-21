@@ -7,19 +7,15 @@ export default class WebComponentHelper {
   }
 
   convertAttributeToProp(componentPropTypes, attrName, attrValue) {
-    const propName = Object.keys(componentPropTypes).find(
-      key => key.toLowerCase() == attrName
-    );
+    const propName = Object.keys(componentPropTypes).find(key => key.toLowerCase() == attrName);
 
     // Convert attribute value type, which is always string, to the expected property type.
     let value = attrValue;
     if (attrName === "css") value = attrValue;
-    else if (attrValue === "true" || attrValue === "false")
-      value = attrValue == "true";
+    else if (attrValue === "true" || attrValue === "false") value = attrValue == "true";
     else if (!isNaN(attrValue) && attrValue !== "") value = +attrValue;
     else if (/^{.*}/.exec(attrValue)) value = JSON.parse(attrValue);
-    else if (/([A-z0-9$_]*)\(.*\)/.exec(attrValue))
-      value = this.parseFunctionString(attrValue);
+    else if (/([A-z0-9$_]*)\(.*\)/.exec(attrValue)) value = this.parseFunctionString(attrValue);
 
     return {
       name: propName ? propName : attrName,
@@ -31,9 +27,7 @@ export default class WebComponentHelper {
     componentPropTypes = componentPropTypes || {};
     return [...attributes]
       .filter(attr => attr.name !== "style")
-      .map(attr =>
-        this.convertAttributeToProp(componentPropTypes, attr.name, attr.value)
-      )
+      .map(attr => this.convertAttributeToProp(componentPropTypes, attr.name, attr.value))
       .reduce((props, prop) => ({ ...props, [prop.name]: prop.value }), {});
   }
 
@@ -53,25 +47,17 @@ export default class WebComponentHelper {
               const attr = [...attributes].find(attr => attr.name == eventName);
               if (attr) {
                 eventHandler = attr.value;
-                if (/([A-z0-9$_]*)\(.*\)/.exec(attr.value))
-                  eventHandler = this.parseFunctionString(attr.value);
+                if (/([A-z0-9$_]*)\(.*\)/.exec(attr.value)) eventHandler = this.parseFunctionString(attr.value);
                 this.host.__eventHandlers[eventName] = eventHandler;
               }
             }
 
-            if (eventHandler && typeof eventHandler !== "function")
-              eventHandler = this._eval(eventHandler);
-            let result =
-              typeof eventHandler == "function"
-                ? eventHandler(args)
-                : eventHandler;
+            if (eventHandler && typeof eventHandler !== "function") eventHandler = this._eval(eventHandler);
+            let result = typeof eventHandler == "function" ? eventHandler(args) : eventHandler;
 
             this.host.dispatchEvent(new CustomEvent(e, { detail: args }));
 
-            if (
-              this.host.vmContextElem &&
-              typeof this.host.vmContextElem.dispatchVMEvent == "function"
-            )
+            if (this.host.vmContextElem && typeof this.host.vmContextElem.dispatchVMEvent == "function")
               this.host.vmContextElem.dispatchVMEvent("onElementEvent", {
                 detail: {
                   targetId: this.host.getAttribute("id"),
@@ -101,9 +87,7 @@ export default class WebComponentHelper {
   }
 
   parseHtmlToReact(html) {
-    return (
-      typeof html == "string" && new htmlToReact.Parser().parse(html.trim())
-    );
+    return typeof html == "string" && new htmlToReact.Parser().parse(html.trim());
   }
 
   static _parseFunctionString(funcString) {
@@ -121,9 +105,7 @@ export default class WebComponentHelper {
 
 // IE11 polyfill for matches and closest.
 if (!Element.prototype.matches) {
-  Element.prototype.matches =
-    Element.prototype.msMatchesSelector ||
-    Element.prototype.webkitMatchesSelector;
+  Element.prototype.matches = Element.prototype.msMatchesSelector || Element.prototype.webkitMatchesSelector;
 }
 if (!Element.prototype.closest) {
   Element.prototype.closest = function (s) {

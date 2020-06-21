@@ -35,14 +35,10 @@ export class RadioToggle extends React.Component {
   };
 
   render() {
-    const [
-      Container,
-      GroupContainer,
-      ToggleContainer,
-      Label,
-      Input,
-      PlainText
-    ] = utils.resolveComponents(RadioToggle, this.props);
+    const [Container, GroupContainer, ToggleContainer, Label, Input, PlainText] = utils.resolveComponents(
+      RadioToggle,
+      this.props
+    );
     return (
       <RadioGroup
         container={Container}

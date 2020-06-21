@@ -1,25 +1,17 @@
 import WebComponentHelper from "./web-component-helper";
 import "./web-component-es5-adapter";
 
-export default function createWebComponent(
-  Component,
-  elementName,
-  useShadowDom
-) {
+export default function createWebComponent(Component, elementName, useShadowDom) {
   if (!window.hasOwnProperty("customElements")) return { prototype: {} };
 
   class CustomElement extends HTMLElement {
     constructor() {
       super();
 
-      this.mountRoot = useShadowDom
-        ? this.attachShadow({ mode: "open" })
-        : this;
+      this.mountRoot = useShadowDom ? this.attachShadow({ mode: "open" }) : this;
 
       // Watch for attribute change on the custom element to render the React component.
-      this.observer = new MutationObserver(mutations =>
-        this.onAttributeChange(mutations)
-      );
+      this.observer = new MutationObserver(mutations => this.onAttributeChange(mutations));
       this.observer.observe(this, { attributes: true });
     }
 
@@ -34,16 +26,13 @@ export default function createWebComponent(
 
       // If the element is within a VMContext element, don't render the component until it has state.
       const vmContextElem = this.closest("d-vm-context");
-      if (!vmContextElem || vmContextElem.context.getState())
-        this.renderComponent(props);
+      if (!vmContextElem || vmContextElem.context.getState()) this.renderComponent(props);
     };
 
     onFormContextStateChange = e => {
       // Re-mount the component if it's nested inside a form component and its 'plainText'
       // property changes, indicating edit mode is toggled.
-      const props = e.detail.state.hasOwnProperty("plainText")
-        ? { plainText: e.detail.state.plainText }
-        : null;
+      const props = e.detail.state.hasOwnProperty("plainText") ? { plainText: e.detail.state.plainText } : null;
       this.component && this.renderComponent(props);
     };
 
@@ -53,67 +42,44 @@ export default function createWebComponent(
 
     connectedCallback() {
       // Backdoor for components to add their own specific initialization.
-      if (typeof this._connectedCallback == "function")
-        this._connectedCallback();
+      if (typeof this._connectedCallback == "function") this._connectedCallback();
 
       this.vmContextElem = this.closest("d-vm-context");
       if (!this.vmContextElem) {
         const modals = document.getElementsByTagName("d-modal");
-        if (modals.length > 0)
-          this.vmContextElem = modals[0].closest("d-vm-context");
+        if (modals.length > 0) this.vmContextElem = modals[0].closest("d-vm-context");
       }
       if (this.vmContextElem) {
         this.vmContext = this.vmContextElem.context;
-        this.vmContextElem.addEventListener(
-          "onStateChange",
-          this.onVMContextStateChange
-        );
-        this.vmContextElem.addEventListener(
-          "onLocalStateChange",
-          this.onVMContextLocalStateChange
-        );
+        this.vmContextElem.addEventListener("onStateChange", this.onVMContextStateChange);
+        this.vmContextElem.addEventListener("onLocalStateChange", this.onVMContextLocalStateChange);
       }
 
       this.formElem = this.closest("d-form");
       if (this.formElem) {
         this.vmContext = this.formElem.context.vmContext;
         this.formContext = this.formElem.context.formContext;
-        this.formElem.addEventListener(
-          "onStateChange",
-          this.onFormContextStateChange
-        );
+        this.formElem.addEventListener("onStateChange", this.onFormContextStateChange);
       }
 
       // Use setTimeout to have this element rendered after its parent.
-      if (!this.vmContextElem || this.vmContextElem.state)
-        setTimeout(() => this.renderComponent());
+      if (!this.vmContextElem || this.vmContextElem.state) setTimeout(() => this.renderComponent());
     }
 
     disconnectedCallback() {
       this.unmountComponent();
       this.observer.disconnect();
       if (this.vmContextElem) {
-        this.vmContextElem.removeEventListener(
-          "onStateChange",
-          this.onVMContextStateChange
-        );
-        this.vmContextElem.removeEventListener(
-          "onLocalStateChange",
-          this.onVMContextLocalStateChange
-        );
+        this.vmContextElem.removeEventListener("onStateChange", this.onVMContextStateChange);
+        this.vmContextElem.removeEventListener("onLocalStateChange", this.onVMContextLocalStateChange);
       }
-      if (this.formElem)
-        this.formElem.removeEventListener(
-          "onStateChange",
-          this.onFormContextStateChange
-        );
+      if (this.formElem) this.formElem.removeEventListener("onStateChange", this.onFormContextStateChange);
     }
 
     getChildrenProp(helper) {
       this.childrenHtml = this.childrenHtml || this.innerHTML;
       let children = helper.parseHtmlToReact(this.childrenHtml);
-      if (Array.isArray(children))
-        children = children.filter(x => typeof x !== "string" || !!x.trim());
+      if (Array.isArray(children)) children = children.filter(x => typeof x !== "string" || !!x.trim());
       if (this.childrenHtml) return { children };
     }
 
@@ -125,15 +91,10 @@ export default function createWebComponent(
     loadElementTemplate() {
       // We may expect the child of <d-element> to be a template, in which case store it in a local
       // variable so we can pass to the inner React component on mount.
-      if (
-        this.nodeName === "D-ELEMENT" &&
-        !this.template &&
-        this.children.length > 0
-      ) {
+      if (this.nodeName === "D-ELEMENT" && !this.template && this.children.length > 0) {
         const elem = this.cloneNode(true);
         this.template = document.createElement("template");
-        while (elem.children.length)
-          this.template.content.appendChild(elem.children[0]);
+        while (elem.children.length) this.template.content.appendChild(elem.children[0]);
       }
     }
 
@@ -150,16 +111,10 @@ export default function createWebComponent(
       const container = helper.getContainerParent();
       if (container && container.mountState !== "mounted") return;
 
-      Object.assign(
-        this.props,
-        this.getTemplateProp() || this.getChildrenProp(helper)
-      );
+      Object.assign(this.props, this.getTemplateProp() || this.getChildrenProp(helper));
 
       this.mountState = "mounting";
-      this.component = ReactDOM.render(
-        <Component {...this.props} />,
-        this.mountRoot
-      );
+      this.component = ReactDOM.render(<Component {...this.props} />, this.mountRoot);
       this.mountState = "mounted";
       this.dispatchEvent(new CustomEvent("mounted"));
     }
@@ -176,15 +131,10 @@ export default function createWebComponent(
       if (this.component) {
         if (this.vmContext && props == null) {
           if (typeof this.component.shouldComponentUpdate == "function") {
-            if (this.component.shouldComponentUpdate({}))
-              this.component.forceUpdate();
+            if (this.component.shouldComponentUpdate({})) this.component.forceUpdate();
           } else this.component.forceUpdate();
           return;
-        } else if (
-          props &&
-          props.hasOwnProperty("value") &&
-          typeof this.component.setControlledValue == "function"
-        ) {
+        } else if (props && props.hasOwnProperty("value") && typeof this.component.setControlledValue == "function") {
           // If the 'value' property changes on a controlled component, use the provided function
           // to set the value so that React can update the component.
           this.component.setControlledValue(props.value);
@@ -197,7 +147,6 @@ export default function createWebComponent(
     }
   }
 
-  if (!window.customElements.get(elementName))
-    window.customElements.define(elementName, CustomElement);
+  if (!window.customElements.get(elementName)) window.customElements.define(elementName, CustomElement);
   return CustomElement;
 }

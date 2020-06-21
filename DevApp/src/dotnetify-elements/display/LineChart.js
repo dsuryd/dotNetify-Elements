@@ -113,13 +113,7 @@ export class LineChart extends Element {
 
     return (
       <Container id={fullId} width={width} style={style} css={css}>
-        <Chart
-          ref={this.chartRef}
-          data={this.chartData}
-          options={options}
-          height={utils.toPixel(height)}
-          {...props}
-        />
+        <Chart ref={this.chartRef} data={this.chartData} options={options} height={utils.toPixel(height)} {...props} />
       </Container>
     );
   }

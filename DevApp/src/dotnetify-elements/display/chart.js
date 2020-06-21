@@ -74,17 +74,7 @@ function toChartJsData(config, props, value) {
 }
 
 function toChartJsOptions(config, props) {
-  let {
-    title,
-    xAxisLabel,
-    yAxisLabel,
-    yAxisMin,
-    yAxisMax,
-    streaming,
-    realtime,
-    tooltip,
-    zoom
-  } = props;
+  let { title, xAxisLabel, yAxisLabel, yAxisMin, yAxisMax, streaming, realtime, tooltip, zoom } = props;
   zoom = typeof zoom == "undefined" ? true : zoom;
 
   config = config || {};

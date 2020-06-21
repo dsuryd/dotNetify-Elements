@@ -8,11 +8,7 @@ export default class VMInputValidator extends VMProperty {
   }
 
   get isRequired() {
-    return (
-      this.validations.filter(
-        v => v.type && v.type.toLowerCase() === "required"
-      ).length > 0
-    );
+    return this.validations.filter(v => v.type && v.type.toLowerCase() === "required").length > 0;
   }
 
   addValidation(validation) {
@@ -31,9 +27,7 @@ export default class VMInputValidator extends VMProperty {
     // Pre-defined client-side validator.
     const funcName = "validate" + validation.type;
     const prototype = Object.getPrototypeOf(this);
-    return prototype.hasOwnProperty(funcName)
-      ? prototype[funcName].bind(this, validation)
-      : () => true;
+    return prototype.hasOwnProperty(funcName) ? prototype[funcName].bind(this, validation) : () => true;
   }
 
   onValidated(handler) {
@@ -47,9 +41,7 @@ export default class VMInputValidator extends VMProperty {
       value = typeof value == "undefined" ? this.value || null : value;
 
       // Run every validator of the input field and aggregate the results.
-      Promise.all(
-        this.validations.map(validation => this.runValidator(validation, value))
-      ).then(results => {
+      Promise.all(this.validations.map(validation => this.runValidator(validation, value))).then(results => {
         const messages = results
           .map(result => (result.isValid === false ? result.message : null))
           .filter(message => message);
@@ -70,9 +62,7 @@ export default class VMInputValidator extends VMProperty {
     const result = this.getValidator(validation)(value);
     return result instanceof Promise
       ? result
-      : new Promise(resolve =>
-          resolve({ isValid: result, message: validation.message })
-        );
+      : new Promise(resolve => resolve({ isValid: result, message: validation.message }));
   }
 
   validatePattern(validation, value) {
@@ -81,20 +71,13 @@ export default class VMInputValidator extends VMProperty {
 
   validateRange(validation, value) {
     const num = parseFloat(value);
-    const validMin = !(
-      typeof validation.min == "number" && num < validation.min
-    );
-    const validMax = !(
-      typeof validation.max == "number" && num > validation.max
-    );
+    const validMin = !(typeof validation.min == "number" && num < validation.min);
+    const validMax = !(typeof validation.max == "number" && num > validation.max);
     return validMin && validMax;
   }
 
   validateRequired(validation, value) {
-    return (
-      !(typeof value == "undefined" || value == null) &&
-      !(typeof value == "string" && value.trim().length == 0)
-    );
+    return !(typeof value == "undefined" || value == null) && !(typeof value == "string" && value.trim().length == 0);
   }
 
   validateServer(validation, value) {

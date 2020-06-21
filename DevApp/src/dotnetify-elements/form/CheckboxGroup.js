@@ -9,9 +9,7 @@ const GroupContainer = styled.section`
   ${props => props.theme.Checkbox.GroupContainer};
 `;
 
-const PlainTextComponent = props => (
-  <span {...props}>{React.Children.toArray(props.children).join(", ")}</span>
-);
+const PlainTextComponent = props => <span {...props}>{React.Children.toArray(props.children).join(", ")}</span>;
 
 GroupContainer.defaultProps = { theme: utils.getDefaultTheme() };
 
@@ -54,36 +52,16 @@ export class CheckboxGroup extends InputElement {
   };
 
   render() {
-    const [
-      Container,
-      GroupContainer,
-      CheckboxContainer,
-      Label,
-      Input,
-      PlainText
-    ] = this.resolveComponents(CheckboxGroup);
-    const {
-      fullId,
-      label,
-      plainText,
-      options,
-      inline,
-      horizontal,
-      enable,
-      style,
-      css,
-      tabIndex
-    } = this.attrs;
+    const [Container, GroupContainer, CheckboxContainer, Label, Input, PlainText] = this.resolveComponents(
+      CheckboxGroup
+    );
+    const { fullId, label, plainText, options, inline, horizontal, enable, style, css, tabIndex } = this.attrs;
     const disabled = enable === false;
     const values = this.value || [];
 
     let checkboxOptions = options || [];
     const checkboxes = checkboxOptions.map((opt, idx) => (
-      <CheckboxContainer
-        key={opt.Key}
-        inline={inline}
-        checked={values.includes(opt.Key)}
-      >
+      <CheckboxContainer key={opt.Key} inline={inline} checked={values.includes(opt.Key)}>
         <Input
           type="checkbox"
           id={`${fullId}__input${idx}`}

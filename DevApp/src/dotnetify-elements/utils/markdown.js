@@ -13,10 +13,7 @@ export default function markdown(text) {
             var language = !lang || lang === "html" ? "markup" : lang;
             if (!Prism.languages[language]) language = "markup";
 
-            return `<span class='prism-code'>${Prism.highlight(
-              code,
-              Prism.languages[language]
-            )}</span>`;
+            return `<span class='prism-code'>${Prism.highlight(code, Prism.languages[language])}</span>`;
           }
         })
       }}

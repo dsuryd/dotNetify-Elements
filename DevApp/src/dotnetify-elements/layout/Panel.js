@@ -9,13 +9,7 @@ const Container = styled.div`
   ${props => props.flex && `flex: ${props.flex}`};
   flex-wrap: ${props => (props.flexWrap ? "wrap" : "nowrap")};
   justify-content: ${props =>
-    props.apart
-      ? "space-between"
-      : props.bottom
-      ? "flex-end"
-      : props.center
-      ? "center"
-      : "flex-start"};
+    props.apart ? "space-between" : props.bottom ? "flex-end" : props.center ? "center" : "flex-start"};
   flex-direction: ${props => (props.horizontal ? "row" : "column")};
   margin: ${props => props.margin};
   padding: ${props => props.padding};
@@ -23,9 +17,7 @@ const Container = styled.div`
   width: ${props => props.width || (props.right ? "auto" : "inherit")};
   overflow: ${props => (props.flex ? "auto" : "unset")};
   ${props => props.middle && "align-items: center"};
-  ${props =>
-    props.right &&
-    (props.horizontal ? "justify-content: flex-end" : "align-items: flex-end")};
+  ${props => props.right && (props.horizontal ? "justify-content: flex-end" : "align-items: flex-end")};
   ${props => props.css};
   ${props => props.theme.Panel.Container};
 `;
@@ -119,9 +111,7 @@ export class Panel extends React.Component {
       children = React.Children.toArray(children[0].props.children);
     }
 
-    return children
-      .filter(x => x)
-      .filter(x => x.props && x.props.show !== false);
+    return children.filter(x => x).filter(x => x.props && x.props.show !== false);
   }
 
   get numChildren() {
@@ -159,10 +149,7 @@ export class Panel extends React.Component {
   };
 
   render() {
-    const [Container, ChildContainer] = utils.resolveComponents(
-      Panel,
-      this.props
-    );
+    const [Container, ChildContainer] = utils.resolveComponents(Panel, this.props);
     const {
       childProps,
       apart,
@@ -187,18 +174,14 @@ export class Panel extends React.Component {
       ...props
     } = this.props;
 
-    const hasCell = this.children.some(
-      x => x.type && (x.type._typeName === "Cell" || x.type === "d-cell")
-    );
+    const hasCell = this.children.some(x => x.type && (x.type._typeName === "Cell" || x.type === "d-cell"));
 
     const theme = this.context.theme || utils.getDefaultTheme();
     const Gap = theme.Panel.Gap;
     const Margin = theme.Panel.Margin;
 
-    const _gap =
-      gap || (noGap || hasCell ? "0rem" : smallGap ? Gap.small : Gap.large);
-    let _margin =
-      margin || (noMargin ? "0rem" : smallMargin ? Margin.small : Margin.large);
+    const _gap = gap || (noGap || hasCell ? "0rem" : smallGap ? Gap.small : Gap.large);
+    let _margin = margin || (noMargin ? "0rem" : smallMargin ? Margin.small : Margin.large);
     let _width = width;
 
     // If wrap is enabled, use negative margin on the outer container to counter the full margin
@@ -214,8 +197,7 @@ export class Panel extends React.Component {
     let _flex = typeof flex == "boolean" ? (flex ? flexAuto : "0") : flex;
     if (!_flex)
       _flex =
-        (childProps && childProps.flex) ||
-        this.children.some(child => child.props && child.props.flex)
+        (childProps && childProps.flex) || this.children.some(child => child.props && child.props.flex)
           ? flexAuto
           : null;
 
@@ -240,25 +222,14 @@ export class Panel extends React.Component {
         {this.children.map((child, idx) => {
           const { flex, ..._childProps } = childProps || {};
           let childFlex = flex || (child.props && child.props.flex);
-          childFlex =
-            typeof childFlex == "boolean"
-              ? childFlex
-                ? flexAuto
-                : null
-              : childFlex;
+          childFlex = typeof childFlex == "boolean" ? (childFlex ? flexAuto : null) : childFlex;
 
           // If child or its container is a derivative of Panel, don't wrap it.
           const isPanel = x => x && (x._isPanel || x == "d-panel");
-          const childContainer =
-            child.type && child.type.componentTypes
-              ? child.type.componentTypes.Container
-              : null;
+          const childContainer = child.type && child.type.componentTypes ? child.type.componentTypes.Container : null;
           if (isPanel(child.type) || isPanel(childContainer)) {
             let style = this.getStyle(idx);
-            const margin =
-              this.numChildren <= 1
-                ? null
-                : this.getMargin(idx, _gap, _horizontal, wrap);
+            const margin = this.numChildren <= 1 ? null : this.getMargin(idx, _gap, _horizontal, wrap);
             if (margin) style = { ...style, margin: margin };
 
             let mergedChildProps = utils.mergeProps(child, childProps, {
@@ -279,11 +250,7 @@ export class Panel extends React.Component {
               key={idx}
               style={this.getStyle(idx)}
               flex={childFlex}
-              margin={
-                this.numChildren <= 1
-                  ? 0
-                  : this.getMargin(idx, _gap, _horizontal, wrap)
-              }
+              margin={this.numChildren <= 1 ? 0 : this.getMargin(idx, _gap, _horizontal, wrap)}
             >
               {child.props
                 ? React.cloneElement(

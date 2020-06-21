@@ -56,9 +56,7 @@ export class DropdownList extends InputElement {
 
     // If "required" validation is specified, add a custom validator to validate against an empty selection.
     if (this.vmProperty.validator && this.vmProperty.validator.validations) {
-      const requiredValidation = this.vmProperty.validator.validations.find(
-        x => x.type === "Required"
-      );
+      const requiredValidation = this.vmProperty.validator.validations.find(x => x.type === "Required");
       const emptySelection = (this.attrs.options || []).find(x => !x.Value);
 
       if (requiredValidation && emptySelection) {
@@ -81,13 +79,7 @@ export class DropdownList extends InputElement {
   };
 
   render() {
-    const [
-      Container,
-      Input,
-      InputGroup,
-      ValidationMessage,
-      PlainText
-    ] = this.resolveComponents(DropdownList);
+    const [Container, Input, InputGroup, ValidationMessage, PlainText] = this.resolveComponents(DropdownList);
     let {
       fullId,
       label,
@@ -119,8 +111,7 @@ export class DropdownList extends InputElement {
     const disabled = enable === false;
     const selected = options.filter(opt => opt.Key == this.value).shift();
     const plainTextValue = selected ? selected.Value : "";
-    const validationMessages =
-      this.props.validationMessages || this.state.validationMessages;
+    const validationMessages = this.props.validationMessages || this.state.validationMessages;
 
     return (
       <Container
@@ -152,9 +143,7 @@ export class DropdownList extends InputElement {
           </InputGroup>
         )}
         {validationMessages.map((message, idx) => (
-          <ValidationMessage key={validationKeyPrefix + idx}>
-            {message}
-          </ValidationMessage>
+          <ValidationMessage key={validationKeyPrefix + idx}>{message}</ValidationMessage>
         ))}
       </Container>
     );

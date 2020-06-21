@@ -66,8 +66,7 @@ export class Button extends InputElement {
 
     // If button is associated with a form action, invoke it.
     if ((submit || cancel) && this.formContext) {
-      if (submit)
-        this.formContext.submit(id).then(canSubmit => canSubmit && onClick());
+      if (submit) this.formContext.submit(id).then(canSubmit => canSubmit && onClick());
       else if (cancel) {
         this.formContext.cancel();
         onClick();
@@ -81,28 +80,12 @@ export class Button extends InputElement {
 
   render() {
     const [_Button, Label] = utils.resolveComponents(Button, this.props);
-    const {
-      label,
-      icon,
-      submit,
-      show,
-      enable,
-      onClick,
-      children,
-      style,
-      stretch,
-      css,
-      ...props
-    } = this.attrs;
-    const disabled = submit
-      ? this.shouldDisableSubmit
-      : this.props.enable === false;
+    const { label, icon, submit, show, enable, onClick, children, style, stretch, css, ...props } = this.attrs;
+    const disabled = submit ? this.shouldDisableSubmit : this.props.enable === false;
 
-    const _label =
-      typeof label == "string" ? <Label icon={icon}>{label}</Label> : label;
+    const _label = typeof label == "string" ? <Label icon={icon}>{label}</Label> : label;
 
-    const handleKeyPress = event =>
-      event.charCode == 13 ? this.handleClick() : null;
+    const handleKeyPress = event => (event.charCode == 13 ? this.handleClick() : null);
 
     if (show === false) return null;
     return (

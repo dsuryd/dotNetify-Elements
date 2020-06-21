@@ -4,9 +4,7 @@ import InputElement from "../core/InputElement";
 import { Field, validationKeyPrefix } from "../structure/Field";
 import { Label } from "../display/Label";
 
-const PlainTextComponent = props => (
-  <span {...props}>{React.Children.toArray(props.children).join(", ")}</span>
-);
+const PlainTextComponent = props => <span {...props}>{React.Children.toArray(props.children).join(", ")}</span>;
 
 export class MultiselectList extends InputElement {
   static propTypes = {
@@ -54,9 +52,7 @@ export class MultiselectList extends InputElement {
 
     // If "required" validation is specified, add a custom validator to validate against an empty selection.
     if (this.vmProperty.validator && this.vmProperty.validator.validations) {
-      const requiredValidation = this.vmProperty.validator.validations
-        .filter(x => x.type === "Required")
-        .shift();
+      const requiredValidation = this.vmProperty.validator.validations.filter(x => x.type === "Required").shift();
       if (requiredValidation) {
         this.vmProperty.addValidation({
           validate: val => val && val.length > 0,
@@ -77,15 +73,7 @@ export class MultiselectList extends InputElement {
   };
 
   render() {
-    const [
-      Container,
-      Input,
-      Tag,
-      Item,
-      List,
-      ValidationMessage,
-      PlainText
-    ] = this.resolveComponents(MultiselectList);
+    const [Container, Input, Tag, Item, List, ValidationMessage, PlainText] = this.resolveComponents(MultiselectList);
     const {
       fullId,
       label,
@@ -104,8 +92,7 @@ export class MultiselectList extends InputElement {
     const values = this.value ? this.value.map(x => `${x}`) : [];
     const selected = (options || []).filter(opt => values.includes(opt.Key));
     const plainTextValue = selected.map(x => x.Value);
-    const validationMessages =
-      this.props.validationMessages || this.state.validationMessages;
+    const validationMessages = this.props.validationMessages || this.state.validationMessages;
 
     return (
       <Container
@@ -137,9 +124,7 @@ export class MultiselectList extends InputElement {
           />
         )}
         {validationMessages.map((message, idx) => (
-          <ValidationMessage key={validationKeyPrefix + idx}>
-            {message}
-          </ValidationMessage>
+          <ValidationMessage key={validationKeyPrefix + idx}>{message}</ValidationMessage>
         ))}
       </Container>
     );

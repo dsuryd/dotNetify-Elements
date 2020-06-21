@@ -21,24 +21,17 @@ export default function createWebComponent(Component, elementName) {
     }
 
     onStateChange = state => {
-      const onStateChange = this.helper.parseFunctionString(
-        this.getAttribute("onstatechange")
-      );
+      const onStateChange = this.helper.parseFunctionString(this.getAttribute("onstatechange"));
       if (typeof onStateChange == "function") onStateChange(state);
       this.dispatchVMEvent("onStateChange", { detail: state });
     };
 
     dispatchVMEvent(eventName, eventArg) {
       this.dispatchEvent(new CustomEvent(eventName, eventArg));
-      document.dispatchEvent(
-        new CustomEvent(`${this.vmId}_${eventName}`, eventArg)
-      );
+      document.dispatchEvent(new CustomEvent(`${this.vmId}_${eventName}`, eventArg));
     }
 
-    onVMContextStateChange = _ =>
-      this.vmId &&
-      !this.vm &&
-      this.connect(this.vmId, this.getAttribute("options"));
+    onVMContextStateChange = _ => this.vmId && !this.vm && this.connect(this.vmId, this.getAttribute("options"));
 
     attributeChangedCallback() {
       const vmAttrValue = this.getAttribute("vm");
@@ -49,14 +42,10 @@ export default function createWebComponent(Component, elementName) {
       }
     }
     connectedCallback() {
-      this.vmContextElem =
-        this.parentElement && this.parentElement.closest("d-vm-context");
+      this.vmContextElem = this.parentElement && this.parentElement.closest("d-vm-context");
       if (this.vmContextElem) {
         this.vmContext = this.vmContextElem.context;
-        this.vmContextElem.addEventListener(
-          "onStateChange",
-          this.onVMContextStateChange
-        );
+        this.vmContextElem.addEventListener("onStateChange", this.onVMContextStateChange);
       }
 
       // If this is nested inside a container element, connect only on container mounting.
@@ -72,11 +61,7 @@ export default function createWebComponent(Component, elementName) {
 
     disconnectedCallback() {
       this.disconnect();
-      this.vmContextElem &&
-        this.vmContextElem.removeEventListener(
-          "onStateChange",
-          this.onVMContextStateChange
-        );
+      this.vmContextElem && this.vmContextElem.removeEventListener("onStateChange", this.onVMContextStateChange);
     }
 
     connect(vmId, optionsStr) {
@@ -98,12 +83,9 @@ export default function createWebComponent(Component, elementName) {
 
     setState(state) {
       this.state = { ...this.state, ...state };
-      this.dispatchEvent(
-        new CustomEvent("onLocalStateChange", { detail: state })
-      );
+      this.dispatchEvent(new CustomEvent("onLocalStateChange", { detail: state }));
     }
   }
 
-  if (!window.customElements.get(elementName))
-    window.customElements.define(elementName, CustomElement);
+  if (!window.customElements.get(elementName)) window.customElements.define(elementName, CustomElement);
 }

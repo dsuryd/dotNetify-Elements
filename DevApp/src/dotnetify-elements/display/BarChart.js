@@ -59,12 +59,7 @@ export class BarChart extends Element {
 
     return (
       <Container id={fullId} width={width} style={style} css={css}>
-        <Chart
-          data={data}
-          height={utils.toPixel(height)}
-          options={options}
-          {...props}
-        />
+        <Chart data={data} height={utils.toPixel(height)} options={options} {...props} />
       </Container>
     );
   }

@@ -1,9 +1,4 @@
-import {
-  CheckboxInput,
-  CheckboxLabel,
-  CheckboxContainer,
-  CheckboxPlainText
-} from "../form/Checkbox";
+import { CheckboxInput, CheckboxLabel, CheckboxContainer, CheckboxPlainText } from "../form/Checkbox";
 import { Checkbox } from "../../form/Checkbox";
 import { CheckboxGroup } from "../../form/CheckboxGroup";
 

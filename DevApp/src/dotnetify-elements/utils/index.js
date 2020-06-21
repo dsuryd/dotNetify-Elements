@@ -65,48 +65,30 @@ export function mapChildren(children, predicate, mapper) {
 
     if (child.type && predicate(child)) return mapper(child);
     else if (child.props && child.props.children)
-      return React.cloneElement(
-        child,
-        child.props,
-        this.mapChildren(child.props.children, predicate, mapper)
-      );
+      return React.cloneElement(child, child.props, this.mapChildren(child.props.children, predicate, mapper));
     return child;
   });
 }
 
 export function mergeProps(elem, ...newProps) {
   if (elem.type == null) {
-    console.error(
-      `Cannot resolve the type of element with props '${JSON.stringify(
-        elem.props
-      )}'`
-    );
+    console.error(`Cannot resolve the type of element with props '${JSON.stringify(elem.props)}'`);
     return {};
   }
   const propTypes = Object.keys(elem.type.propTypes || {});
-  let props = newProps.reduce(
-    (aggregate, prop) => Object.assign(aggregate, prop),
-    {}
-  );
+  let props = newProps.reduce((aggregate, prop) => Object.assign(aggregate, prop), {});
 
   // Only merge props that are part of the element's propTypes.
   let validProps = Object.keys(props)
     .filter(key => key === "style" || key === "css" || propTypes.includes(key))
-    .reduce(
-      (aggregate, key) => Object.assign(aggregate, { [key]: props[key] }),
-      {}
-    );
+    .reduce((aggregate, key) => Object.assign(aggregate, { [key]: props[key] }), {});
   return Object.assign({}, validProps, elem.props);
 }
 
 export function nestedGet(obj, path) {
   return path
     .split(".")
-    .reduce(
-      (acc, current) =>
-        typeof acc == "undefined" || acc === null ? acc : acc[current],
-      obj
-    );
+    .reduce((acc, current) => (typeof acc == "undefined" || acc === null ? acc : acc[current]), obj);
 }
 
 export function parseFunctionString(funcString) {
@@ -122,14 +104,11 @@ export function parseFunctionString(funcString) {
 }
 
 export function resolveComponents(type, props) {
-  return Object.keys(type.componentTypes).map(
-    key => props[toCamelCase(key)] || type.componentTypes[key]
-  );
+  return Object.keys(type.componentTypes).map(key => props[toCamelCase(key)] || type.componentTypes[key]);
 }
 
 export function toCamelCase(obj) {
-  if (typeof obj == "string")
-    return obj.substr(0, 1).toLowerCase() + obj.substr(1);
+  if (typeof obj == "string") return obj.substr(0, 1).toLowerCase() + obj.substr(1);
   else if (typeof obj === "object") {
     let newObj = {};
     for (let key of Object.keys(obj)) newObj[toCamelCase(key)] = obj[key];
@@ -139,9 +118,7 @@ export function toCamelCase(obj) {
 }
 
 export function toggleNavDrawer(open) {
-  const nav =
-    document.getElementsByTagName("nav")[0] ||
-    document.getElementsByTagName("d-nav")[0];
+  const nav = document.getElementsByTagName("nav")[0] || document.getElementsByTagName("d-nav")[0];
   if (nav) {
     if (open === false) nav.classList.remove("open");
     else nav.classList.toggle("open");
@@ -153,7 +130,5 @@ export function toPixel(unit) {
   if (typeof unit == "string" && unit.endsWith("px")) return parseInt(unit);
   // Assume unit is rem.
   const fontSize = window.getComputedStyle(document.body, null)["font-size"];
-  return fontSize.endsWith("px")
-    ? parseInt(unit) * parseInt(fontSize)
-    : parseInt(unit);
+  return fontSize.endsWith("px") ? parseInt(unit) * parseInt(fontSize) : parseInt(unit);
 }

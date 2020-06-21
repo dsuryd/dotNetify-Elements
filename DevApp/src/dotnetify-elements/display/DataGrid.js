@@ -103,18 +103,14 @@ export class DataGrid extends Element {
   }
 
   deselect(keys) {
-    const selectedKey = this.isMultiselect
-      ? this.state.selectedKey.filter(key => !keys.includes(key))
-      : null;
+    const selectedKey = this.isMultiselect ? this.state.selectedKey.filter(key => !keys.includes(key)) : null;
     this.dispatchSelection(selectedKey);
     this.setState({ selectedKey: selectedKey });
-    if (this.selectedKeyProperty)
-      this.vmProperty.vmState[this.selectedKeyProperty] = selectedKey;
+    if (this.selectedKeyProperty) this.vmProperty.vmState[this.selectedKeyProperty] = selectedKey;
   }
 
   dispatchSelection(value) {
-    this.selectedKeyProperty &&
-      this.dispatchProp(this.selectedKeyProperty, value);
+    this.selectedKeyProperty && this.dispatchProp(this.selectedKeyProperty, value);
     this.props.onSelect && this.props.onSelect(value);
   }
 
@@ -132,14 +128,7 @@ export class DataGrid extends Element {
 
     // Map GridColumn attributes to React data grid column definition.
     let mapGridColumn = gridCol => {
-      let {
-        colKey,
-        label,
-        width,
-        formatter,
-        editor,
-        columnChildren
-      } = gridCol.props;
+      let { colKey, label, width, formatter, editor, columnChildren } = gridCol.props;
       let key = colKey || gridCol.key;
       if (gridCol.type == "d-grid-column") {
         formatter = utils.parseFunctionString(formatter);
@@ -147,9 +136,7 @@ export class DataGrid extends Element {
       }
 
       let col = {
-        formatter:
-          formatter ||
-          (columnChildren ? React.Children.only(columnChildren) : null),
+        formatter: formatter || (columnChildren ? React.Children.only(columnChildren) : null),
         getRowMetaData: row => {
           const key = this.attrs.rowKey ? row[this.attrs.rowKey] : null;
           return { key, row };
@@ -177,8 +164,7 @@ export class DataGrid extends Element {
 
       const gridCol = gridColumns.find(
         x =>
-          (x.type == GridColumn &&
-            (x.props.colKey === c.key || x.key === c.key)) ||
+          (x.type == GridColumn && (x.props.colKey === c.key || x.key === c.key)) ||
           (x.type == "d-grid-column" && x.props.colkey === c.key)
       );
       if (gridCol) {
@@ -196,17 +182,12 @@ export class DataGrid extends Element {
   }
 
   select(key) {
-    const isChanged = this.isMultiselect
-      ? !this.state.selectedKey.includes(key)
-      : this.state.selectedKey != key;
+    const isChanged = this.isMultiselect ? !this.state.selectedKey.includes(key) : this.state.selectedKey != key;
     if (isChanged) {
-      const selectedKey = this.isMultiselect
-        ? [key, ...this.state.selectedKey]
-        : key;
+      const selectedKey = this.isMultiselect ? [key, ...this.state.selectedKey] : key;
       this.dispatchSelection(selectedKey);
       this.setState({ selectedKey: selectedKey });
-      if (this.selectedKeyProperty)
-        this.vmProperty.vmState[this.selectedKeyProperty] = selectedKey;
+      if (this.selectedKeyProperty) this.vmProperty.vmState[this.selectedKeyProperty] = selectedKey;
     }
   }
 
@@ -223,26 +204,17 @@ export class DataGrid extends Element {
         : null;
 
     if (!this.unsortedValue) this.unsortedValue = [...this.value];
-    this.value =
-      sortDirection !== "NONE"
-        ? this.value.sort(comparer)
-        : [...this.unsortedValue];
+    this.value = sortDirection !== "NONE" ? this.value.sort(comparer) : [...this.unsortedValue];
   };
 
   updateHeight = _ => {
     // Adjust the grid's height to the available space.
-    if (
-      this.elem &&
-      this.elem.offsetParent &&
-      this.elem.offsetHeight !== this.state.height
-    ) {
+    if (this.elem && this.elem.offsetParent && this.elem.offsetHeight !== this.state.height) {
       this.setState({ height: this.elem.offsetHeight });
 
       // Hack to force refresh.
       if (this.gridDom && this.gridDom.getDataGridDOMNode) {
-        var gridCanvas = this.gridDom
-          .getDataGridDOMNode()
-          .querySelector(".react-grid-Canvas");
+        var gridCanvas = this.gridDom.getDataGridDOMNode().querySelector(".react-grid-Canvas");
         gridCanvas.scrollTop = gridCanvas.scrollTop + 1;
       }
     }
@@ -257,12 +229,8 @@ export class DataGrid extends Element {
         this.vmProperty.vmState[this.selectedKeyProperty] = selectedKey;
 
         // Make sure the selected row is visible.
-        const visibleKey = this.isMultiselect
-          ? selectedKey.shift()
-          : selectedKey;
-        const rowIdx = this.value.findIndex(
-          x => x[this.attrs.rowKey] === visibleKey
-        );
+        const visibleKey = this.isMultiselect ? selectedKey.shift() : selectedKey;
+        const rowIdx = this.value.findIndex(x => x[this.attrs.rowKey] === visibleKey);
         this.handleScrollToRow(rowIdx);
       }
     }
@@ -280,9 +248,7 @@ export class DataGrid extends Element {
   };
 
   handleRowsDeselected = rows => {
-    const deselectedKeys = rows.map(row =>
-      this.attrs.rowKey ? row.row[this.attrs.rowKey] : row.rowIdx
-    );
+    const deselectedKeys = rows.map(row => (this.attrs.rowKey ? row.row[this.attrs.rowKey] : row.rowIdx));
     this.deselect(deselectedKeys);
   };
 
@@ -292,9 +258,7 @@ export class DataGrid extends Element {
     if (this.value[fromRow][key] === value) return;
 
     let isValid = true;
-    const id = this.attrs.rowKey
-      ? this.value[fromRow][this.attrs.rowKey]
-      : fromRow;
+    const id = this.attrs.rowKey ? this.value[fromRow][this.attrs.rowKey] : fromRow;
     const keyValue = { Id: id, Key: key, Value: value };
     if (this.props.onEdit) isValid = this.props.onEdit(keyValue) !== false;
 
@@ -307,23 +271,16 @@ export class DataGrid extends Element {
   handleScrollToRow(idx) {
     if (this.gridDom && this.gridDom.getDataGridDOMNode) {
       var top = this.gridDom.getRowOffsetHeight() * idx;
-      var gridCanvas = this.gridDom
-        .getDataGridDOMNode()
-        .querySelector(".react-grid-Canvas");
+      var gridCanvas = this.gridDom.getDataGridDOMNode().querySelector(".react-grid-Canvas");
       if (
         top < gridCanvas.scrollTop ||
-        top >
-          gridCanvas.scrollTop +
-            this.state.height -
-            2 * utils.toPixel(this.attrs.rowHeight)
+        top > gridCanvas.scrollTop + this.state.height - 2 * utils.toPixel(this.attrs.rowHeight)
       ) {
         gridCanvas.scrollTop = top;
 
         // Hack to fix row data not getting updated when programmatically selected.
         setTimeout(_ => {
-          var row = this.gridDom
-            .getDataGridDOMNode()
-            .querySelector(".react-grid-Cell.row-selected");
+          var row = this.gridDom.getDataGridDOMNode().querySelector(".react-grid-Cell.row-selected");
           this.emitEvent("click", row);
         });
       }
@@ -335,54 +292,27 @@ export class DataGrid extends Element {
       ? {
           keys: {
             rowKey: this.attrs.rowKey,
-            values: this.isMultiselect
-              ? this.state.selectedKey
-              : [this.state.selectedKey]
+            values: this.isMultiselect ? this.state.selectedKey : [this.state.selectedKey]
           }
         }
       : {
-          indexes: this.isMultiselect
-            ? this.state.selectedKey
-            : [this.state.selectedKey]
+          indexes: this.isMultiselect ? this.state.selectedKey : [this.state.selectedKey]
         };
   };
 
   render() {
-    const [Container, _DataGrid] = utils.resolveComponents(
-      DataGrid,
-      this.props
-    );
-    const {
-      fullId,
-      rowKey,
-      columns,
-      rows,
-      height,
-      rowHeight,
-      style,
-      css,
-      children,
-      ...props
-    } = this.attrs;
+    const [Container, _DataGrid] = utils.resolveComponents(DataGrid, this.props);
+    const { fullId, rowKey, columns, rows, height, rowHeight, style, css, children, ...props } = this.attrs;
 
     const rowsCount = this.value && this.value.length;
     const rowGetter = idx => this.value[idx];
-    let minHeight = rows
-      ? (rows + 1) * utils.toPixel(rowHeight) + 2
-      : this.state.height;
-    if (minHeight === null)
-      minHeight = (rowsCount + 1) * utils.toPixel(rowHeight) + 2;
+    let minHeight = rows ? (rows + 1) * utils.toPixel(rowHeight) + 2 : this.state.height;
+    if (minHeight === null) minHeight = (rowsCount + 1) * utils.toPixel(rowHeight) + 2;
 
-    const editEnabled =
-      this.props.enable !== false && columns.some(c => c.Editable);
+    const editEnabled = this.props.enable !== false && columns.some(c => c.Editable);
 
     return (
-      <Container
-        style={style}
-        css={css}
-        showCellOutline={editEnabled}
-        ref={elem => (this.elem = elem)}
-      >
+      <Container style={style} css={css} showCellOutline={editEnabled} ref={elem => (this.elem = elem)}>
         <_DataGrid
           id={fullId}
           columns={this.mapColumns(children, columns)}

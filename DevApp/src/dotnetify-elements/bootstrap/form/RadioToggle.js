@@ -17,10 +17,7 @@ export const RadioToggleContainer = props => {
 export const RadioToggleLabel = styled.label.attrs(props => ({
   className: props.checked ? "btn btn-primary" : "btn btn-outline-secondary"
 }))`
-  ${props =>
-    props.checked
-      ? props.theme.RadioToggle.Label.Checked
-      : props.theme.RadioToggle.Label.Default}
+  ${props => (props.checked ? props.theme.RadioToggle.Label.Checked : props.theme.RadioToggle.Label.Default)}
 `;
 
 export const RadioToggleInput = styled.input`

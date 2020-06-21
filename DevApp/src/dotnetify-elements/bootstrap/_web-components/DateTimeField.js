@@ -1,8 +1,4 @@
-import {
-  DateTimeField,
-  DateField,
-  TimeField
-} from "../_components/DateTimeField";
+import { DateTimeField, DateField, TimeField } from "../_components/DateTimeField";
 import createWebComponent from "../../utils/web-component";
 
 createWebComponent(DateTimeField, "d-date-time-field");

@@ -38,10 +38,7 @@ export class Theme extends React.Component {
     const theme = this.props.theme || utils.getDefaultTheme();
 
     if (this === Theme._root && Theme._root.currentTheme !== theme) {
-      if (Theme._root.currentTheme)
-        document.documentElement.classList.remove(
-          `theme-${Theme._root.currentTheme.name}`
-        );
+      if (Theme._root.currentTheme) document.documentElement.classList.remove(`theme-${Theme._root.currentTheme.name}`);
       document.documentElement.classList.add(`theme-${theme.name}`);
       Theme._root.currentTheme = theme;
 
@@ -74,14 +71,10 @@ export const withTheme = (Component, theme) =>
     constructor(props) {
       super(props);
       this.state = {
-        theme:
-          theme ||
-          (Theme._root ? Theme._root.currentTheme : utils.getDefaultTheme())
+        theme: theme || (Theme._root ? Theme._root.currentTheme : utils.getDefaultTheme())
       };
       if (!props.theme && Theme._root) {
-        this.unsubscribe = Theme._root.onChange.subscribe(theme =>
-          this.setState({ theme: theme })
-        );
+        this.unsubscribe = Theme._root.onChange.subscribe(theme => this.setState({ theme: theme }));
       }
     }
     componentWillUnmount() {

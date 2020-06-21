@@ -23,12 +23,7 @@ IconContainer.defaultProps = { theme: utils.getDefaultTheme() };
 
 const HamburgerIcon = _ => (
   <span>
-    <svg
-      style={{ width: "24px", height: "24px" }}
-      focusable="false"
-      viewBox="0 0 24 24"
-      aria-hidden="true"
-    >
+    <svg style={{ width: "24px", height: "24px" }} focusable="false" viewBox="0 0 24 24" aria-hidden="true">
       <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
     </svg>
   </span>
@@ -45,10 +40,7 @@ export class NavDrawerButton extends React.Component {
   };
 
   render() {
-    const [IconContainer] = utils.resolveComponents(
-      NavDrawerButton,
-      this.props
-    );
+    const [IconContainer] = utils.resolveComponents(NavDrawerButton, this.props);
 
     const { icon, ...props } = this.props;
     const handleClick = _ => utils.toggleNavDrawer();

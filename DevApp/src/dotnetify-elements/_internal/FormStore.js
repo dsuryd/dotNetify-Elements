@@ -90,17 +90,12 @@ export default class FormStore {
       vmContextState &&
       Object.entries(vmContextState)
         .filter(pair => this.inputs.some(input => input.propId === pair[0]))
-        .reduce(
-          (aggregate, pair) => Object.assign(aggregate, { [pair[0]]: pair[1] }),
-          {}
-        )
+        .reduce((aggregate, pair) => Object.assign(aggregate, { [pair[0]]: pair[1] }), {})
     );
   }
 
   getPropAttributes(vmContext, propId) {
-    const plainText = this.host.formContext
-      ? this.host.formContext.isPlainText()
-      : this.plainText;
+    const plainText = this.host.formContext ? this.host.formContext.isPlainText() : this.plainText;
     return Object.assign({ plainText }, vmContext.getPropAttributes(propId));
   }
 
@@ -118,12 +113,7 @@ export default class FormStore {
 
   handleSubmit(propId) {
     const submit = (_propId, data) => this.submit(_propId, data);
-    if (this.subForms.length > 0)
-      return this.handleSubmitSubForms(
-        propId,
-        submit,
-        this.props.onSubmitError
-      );
+    if (this.subForms.length > 0) return this.handleSubmitSubForms(propId, submit, this.props.onSubmitError);
 
     return this.submitOnValidated(propId, submit)
       .then(result => {
@@ -138,23 +128,15 @@ export default class FormStore {
 
   handleSubmitSubForms(propId, submit, onSubmitError) {
     let subFormData = {};
-    const subFormSubmit = (id, data) =>
-      Object.assign(subFormData, id ? { [id]: data } : data);
+    const subFormSubmit = (id, data) => Object.assign(subFormData, id ? { [id]: data } : data);
 
-    return Promise.all(
-      this.subForms.map(form =>
-        form.submitOnValidated(form.props.id, subFormSubmit)
-      )
-    )
+    return Promise.all(this.subForms.map(form => form.submitOnValidated(form.props.id, subFormSubmit)))
       .then(results =>
         results.reduce(
           (aggregate, current) => ({
             failedForms:
               current.failedIds.length > 0
-                ? [
-                    ...aggregate.failedForms,
-                    { formId: current.formId, failedIds: current.failedIds }
-                  ]
+                ? [...aggregate.failedForms, { formId: current.formId, failedIds: current.failedIds }]
                 : aggregate.failedForms,
             valid: aggregate.valid && current.valid,
             messages: [...aggregate.messages, ...current.messages]
@@ -165,9 +147,7 @@ export default class FormStore {
       .then(result => {
         if (!result.valid) {
           onSubmitError && onSubmitError(result);
-          const form = this.subForms.find(
-            form => form.props.id === result.failedForms[0].formId
-          );
+          const form = this.subForms.find(form => form.props.id === result.failedForms[0].formId);
           form && form.setInputFocus(result.failedForms[0].failedIds[0]);
         }
         return result;
@@ -195,8 +175,7 @@ export default class FormStore {
       this.props.onChanged && this.props.onChanged(state);
     }
 
-    if (this.host.formContext && !this.host.formContext.isChanged())
-      this.host.formContext.setChanged(state);
+    if (this.host.formContext && !this.host.formContext.isChanged()) this.host.formContext.setChanged(state);
   }
 
   setInputFocus(inputId) {
@@ -222,8 +201,7 @@ export default class FormStore {
   submitOnValidated(propId, submit) {
     const edits = this.edits;
     const isDirty = !!edits;
-    const shouldValidate =
-      isDirty || this.validators.some(validator => validator.isRequired);
+    const shouldValidate = isDirty || this.validators.some(validator => validator.isRequired);
 
     return shouldValidate
       ? this.validate(this.formId).then(result => {
@@ -240,17 +218,13 @@ export default class FormStore {
 
   validate(formId) {
     // Run all the input validators and aggregate the results.
-    return Promise.all(
-      this.validators.map(validator => validator.validate())
-    ).then(results =>
+    return Promise.all(this.validators.map(validator => validator.validate())).then(results =>
       results.reduce(
         (aggregate, current) => ({
           formId: formId,
           valid: aggregate.valid && current.valid,
           messages: [...aggregate.messages, ...current.messages],
-          failedIds: !current.valid
-            ? [...aggregate.failedIds, current.inputId]
-            : aggregate.failedIds
+          failedIds: !current.valid ? [...aggregate.failedIds, current.inputId] : aggregate.failedIds
         }),
         { valid: true, messages: [], failedIds: [] }
       )

@@ -13,9 +13,7 @@ export default class VMProperty {
   }
 
   get fullId() {
-    return this.vmContext.vmId
-      ? `${this.vmContext.vmId}.${this.propId}`
-      : this.propId;
+    return this.vmContext.vmId ? `${this.vmContext.vmId}.${this.propId}` : this.propId;
   }
 
   get attrs() {
@@ -35,8 +33,7 @@ export default class VMProperty {
   }
 
   dispatchProp(propId, value) {
-    if (this.vmContext.getState(propId) !== undefined)
-      this.vmContext.setState({ [propId]: value });
+    if (this.vmContext.getState(propId) !== undefined) this.vmContext.setState({ [propId]: value });
     this.vmContext.dispatchState({ [propId]: value });
   }
 }

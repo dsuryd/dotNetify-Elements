@@ -19,8 +19,7 @@ const LabelContainer = styled.div`
 
 const IconContainer = styled.span`
   line-height: 0;
-  margin: ${props =>
-    props.noMargin ? "0" : props.right ? "0 0 0 .5rem " : "0 .5rem 0 0"};
+  margin: ${props => (props.noMargin ? "0" : props.right ? "0 0 0 .5rem " : "0 .5rem 0 0")};
   ${props => props.theme.Label.IconContainer};
 `;
 
@@ -76,37 +75,14 @@ export class Label extends Element {
   };
 
   render() {
-    const [LabelContainer, IconContainer, Icon] = utils.resolveComponents(
-      Label,
-      this.props
-    );
-    const {
-      right,
-      apart,
-      icon,
-      rightIcon,
-      bold,
-      italic,
-      style,
-      css,
-      children,
-      ...props
-    } = this.attrs;
+    const [LabelContainer, IconContainer, Icon] = utils.resolveComponents(Label, this.props);
+    const { right, apart, icon, rightIcon, bold, italic, style, css, children, ...props } = this.attrs;
     const _icon = typeof icon === "string" ? <Icon name={icon} /> : icon;
-    const _rightIcon =
-      typeof rightIcon === "string" ? <Icon name={rightIcon} /> : rightIcon;
+    const _rightIcon = typeof rightIcon === "string" ? <Icon name={rightIcon} /> : rightIcon;
     const hasLabel = !!(this.value || children);
 
     return (
-      <LabelContainer
-        right={right}
-        apart={apart}
-        bold={bold}
-        italic={italic}
-        style={style}
-        css={css}
-        {...props}
-      >
+      <LabelContainer right={right} apart={apart} bold={bold} italic={italic} style={style} css={css} {...props}>
         {_icon && (
           <IconContainer right={right} noMargin={!hasLabel}>
             {_icon}
@@ -114,9 +90,7 @@ export class Label extends Element {
         )}
         {this.value}
         {children}
-        {_rightIcon && (
-          <IconContainer right={!right}>{_rightIcon}</IconContainer>
-        )}
+        {_rightIcon && <IconContainer right={!right}>{_rightIcon}</IconContainer>}
       </LabelContainer>
     );
   }

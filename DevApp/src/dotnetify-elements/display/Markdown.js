@@ -33,8 +33,7 @@ export class Markdown extends Element {
 
     const _children = React.Children.toArray(children);
 
-    const renderText = section =>
-      typeof section == "string" ? <MarkdownText text={section} /> : section;
+    const renderText = section => (typeof section == "string" ? <MarkdownText text={section} /> : section);
 
     let markdown = null;
     let rawText = this.props.text || this.value;
@@ -45,19 +44,11 @@ export class Markdown extends Element {
         idx < _children.length && markdowns.push(_children[idx]);
       });
 
-      markdown = markdowns.map((section, idx) => (
-        <React.Fragment key={idx}>{renderText(section)}</React.Fragment>
-      ));
+      markdown = markdowns.map((section, idx) => <React.Fragment key={idx}>{renderText(section)}</React.Fragment>);
     } else if (_children.length > 0) markdown = renderText(_children[0]);
 
     return (
-      <Container
-        id={fullId}
-        style={style}
-        css={css}
-        className="markdown"
-        {...props}
-      >
+      <Container id={fullId} style={style} css={css} className="markdown" {...props}>
         {markdown}
       </Container>
     );

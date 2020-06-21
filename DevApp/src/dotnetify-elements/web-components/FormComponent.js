@@ -11,11 +11,7 @@ export default function createWebComponent(Component, elementName) {
     }
 
     get hasVMContextState() {
-      return !!(
-        this.vmContext &&
-        this.vmContext.getState() &&
-        Object.entries(this.vmContext.getState()).length > 0
-      );
+      return !!(this.vmContext && this.vmContext.getState() && Object.entries(this.vmContext.getState()).length > 0);
     }
 
     constructor() {
@@ -27,25 +23,19 @@ export default function createWebComponent(Component, elementName) {
     }
 
     onChanged = field => {
-      const onChanged = this.helper.parseFunctionString(
-        this.getAttribute("onchanged")
-      );
+      const onChanged = this.helper.parseFunctionString(this.getAttribute("onchanged"));
       if (typeof onChanged == "function") onChanged(field);
       this.dispatchEvent(new CustomEvent("onChanged", { detail: field }));
     };
 
     onSubmit = formData => {
-      const onSubmit = this.helper.parseFunctionString(
-        this.getAttribute("onsubmit")
-      );
+      const onSubmit = this.helper.parseFunctionString(this.getAttribute("onsubmit"));
       if (typeof onSubmit == "function") onSubmit(formData);
       this.dispatchEvent(new CustomEvent("onSubmit", { detail: formData }));
     };
 
     onSubmitError = error => {
-      const onSubmitError = this.helper.parseFunctionString(
-        this.getAttribute("onsubmiterror")
-      );
+      const onSubmitError = this.helper.parseFunctionString(this.getAttribute("onsubmiterror"));
       if (typeof onSubmitError == "function") onSubmitError(error);
       this.dispatchEvent(new CustomEvent("onSubmitError", { detail: error }));
     };
@@ -60,23 +50,16 @@ export default function createWebComponent(Component, elementName) {
         if (modals.length > 0) {
           this.vmContextElem = modals[0].closest("d-vm-context");
           this.setAttribute("onsubmit", modals[0].getAttribute("onsubmit"));
-          this.setAttribute(
-            "onsubmiterror",
-            modals[0].getAttribute("onsubmiterror")
-          );
+          this.setAttribute("onsubmiterror", modals[0].getAttribute("onsubmiterror"));
         }
       }
 
       if (this.vmContextElem) {
         this.vmContext = this.vmContextElem.context;
-        this.vmContextElem.addEventListener(
-          "onStateChange",
-          this.onVMContextStateChange
-        );
+        this.vmContextElem.addEventListener("onStateChange", this.onVMContextStateChange);
       }
 
-      this.formElem =
-        this.parentElement && this.parentElement.closest("d-form");
+      this.formElem = this.parentElement && this.parentElement.closest("d-form");
       if (this.formElem) this.formContext = this.formElem.context.formContext;
 
       this.props = {
@@ -87,21 +70,13 @@ export default function createWebComponent(Component, elementName) {
         onSubmitError: this.onSubmitError
       };
 
-      this.setPlainText(
-        this.formElem
-          ? this.formElem.props.plainText
-          : this.getAttribute("plaintext") == "true"
-      );
+      this.setPlainText(this.formElem ? this.formElem.props.plainText : this.getAttribute("plaintext") == "true");
 
       setTimeout(() => this.formStore.init());
     }
 
     disconnectedCallback() {
-      this.vmContextElem &&
-        this.vmContextElem.removeEventListener(
-          "onStateChange",
-          this.onVMContextStateChange
-        );
+      this.vmContextElem && this.vmContextElem.removeEventListener("onStateChange", this.onVMContextStateChange);
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
@@ -128,21 +103,14 @@ export default function createWebComponent(Component, elementName) {
       this.shouldEnterEditMode(state);
 
       this.state = { ...this.state, ...state };
-      this.dispatchEvent(
-        new CustomEvent("onStateChange", { detail: { state } })
-      );
+      this.dispatchEvent(new CustomEvent("onStateChange", { detail: { state } }));
     }
 
     shouldEnterEditMode(state) {
-      if (
-        !this.formStore.editMode &&
-        state.plainText !== "true" &&
-        this.hasVMContextState
-      )
+      if (!this.formStore.editMode && state.plainText !== "true" && this.hasVMContextState)
         this.formStore.enterEditMode();
     }
   }
 
-  if (!window.customElements.get(elementName))
-    window.customElements.define(elementName, CustomElement);
+  if (!window.customElements.get(elementName)) window.customElements.define(elementName, CustomElement);
 }

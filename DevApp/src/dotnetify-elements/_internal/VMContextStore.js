@@ -36,20 +36,11 @@ export default class VMContextStore {
     return {
       vmId: this.vmId,
       vm: this.vm,
-      getState: id =>
-        id
-          ? this.state.hasOwnProperty(id)
-            ? this.state[id]
-            : undefined
-          : this.state,
+      getState: id => (id ? (this.state.hasOwnProperty(id) ? this.state[id] : undefined) : this.state),
       setState: state => this.setState(state),
       dispatchState: state => this.vm.$dispatch(state),
-      getPropAttributes: propId =>
-        utils.toCamelCase(this.state[propId + "__attr"] || {}),
-      getPropValidations: propId =>
-        (this.state[propId + "__validation"] || []).map(v =>
-          utils.toCamelCase(v)
-        ),
+      getPropAttributes: propId => utils.toCamelCase(this.state[propId + "__attr"] || {}),
+      getPropValidations: propId => (this.state[propId + "__validation"] || []).map(v => utils.toCamelCase(v)),
       once: (propId, oldValue) =>
         new Promise(resolve =>
           this.onceHandlers.push({
@@ -74,13 +65,9 @@ export default class VMContextStore {
     // Right now this only supports handing notification at most once, just to keep it simple.
     if (this.onceHandlers.length > 0) {
       const changedProps = this.onceHandlers.filter(
-        o =>
-          !o.propId ||
-          (state.hasOwnProperty(o.propId) && state[o.propId] !== o.value)
+        o => !o.propId || (state.hasOwnProperty(o.propId) && state[o.propId] !== o.value)
       );
-      this.onceHandlers = this.onceHandlers.filter(
-        o => !changedProps.includes(o)
-      );
+      this.onceHandlers = this.onceHandlers.filter(o => !changedProps.includes(o));
       changedProps.forEach(o => o.handler(state[o.propId]));
     }
 

@@ -4,8 +4,7 @@ import InputElement from "../core/InputElement";
 import { Field, validationKeyPrefix } from "../structure/Field";
 import { Label } from "../display/Label";
 
-const PlainTextComponent = props =>
-  props.type === "password" ? "" : <span {...props} />;
+const PlainTextComponent = props => (props.type === "password" ? "" : <span {...props} />);
 
 export class TextField extends InputElement {
   static propTypes = {
@@ -74,8 +73,7 @@ export class TextField extends InputElement {
       });
     });
 
-    if (this.props.validation)
-      this.vmProperty.addValidation(this.props.validation);
+    if (this.props.validation) this.vmProperty.addValidation(this.props.validation);
 
     this.vmProperty.initMask();
     this.vmProperty.dom = this.inputRef.current;
@@ -97,26 +95,16 @@ export class TextField extends InputElement {
 
   handleChange = value => {
     this.changed = true;
-    this.value =
-      typeof this.vmProperty.domValue != "undefined"
-        ? this.vmProperty.domValue
-        : value;
+    this.value = typeof this.vmProperty.domValue != "undefined" ? this.vmProperty.domValue : value;
   };
 
   handleKeyPress = event => {
     if (event.key == "Enter") this.handleBlur();
-    if (this.attrs.type == "number" && (event.key == "." || event.key == ","))
-      event.preventDefault();
+    if (this.attrs.type == "number" && (event.key == "." || event.key == ",")) event.preventDefault();
   };
 
   render() {
-    const [
-      Container,
-      Input,
-      InputGroup,
-      ValidationMessage,
-      PlainText
-    ] = this.resolveComponents(TextField);
+    const [Container, Input, InputGroup, ValidationMessage, PlainText] = this.resolveComponents(TextField);
     const {
       fullId,
       label,
@@ -146,26 +134,16 @@ export class TextField extends InputElement {
       this.handleBlur(event);
     };
     const handleKeyPress = event => {
-      event.key == "Enter" &&
-        onDone &&
-        onDone(this.value, { changed: this.changed, event });
+      event.key == "Enter" && onDone && onDone(this.value, { changed: this.changed, event });
       this.handleKeyPress(event);
     };
 
     const disabled = enable === false;
     const plainTextValue = `${prefix || ""}${this.value || ""}${suffix || ""}`;
-    const validationMessages =
-      this.props.validationMessages || this.state.validationMessages;
+    const validationMessages = this.props.validationMessages || this.state.validationMessages;
 
     return (
-      <Container
-        id={fullId}
-        label={label}
-        horizontal={horizontal}
-        plainText={plainText}
-        style={style}
-        css={css}
-      >
+      <Container id={fullId} label={label} horizontal={horizontal} plainText={plainText} style={style} css={css}>
         {plainText ? (
           <PlainText type={type}>{plainTextValue}</PlainText>
         ) : (
@@ -188,9 +166,7 @@ export class TextField extends InputElement {
           </InputGroup>
         )}
         {validationMessages.map((message, idx) => (
-          <ValidationMessage key={validationKeyPrefix + idx}>
-            {message}
-          </ValidationMessage>
+          <ValidationMessage key={validationKeyPrefix + idx}>{message}</ValidationMessage>
         ))}
       </Container>
     );

@@ -167,8 +167,7 @@ export class Menu extends Element {
   }
 
   componentDidMount() {
-    this.triggerElem =
-      this.triggerElem || this.configureTrigger(this.props.openFor);
+    this.triggerElem = this.triggerElem || this.configureTrigger(this.props.openFor);
     this.initMenu();
   }
 
@@ -177,12 +176,7 @@ export class Menu extends Element {
   }
 
   buildMenu(menuItems) {
-    const [
-      ,
-      GroupContainer,
-      ItemContainer,
-      MenuLabel
-    ] = utils.resolveComponents(Menu, this.props);
+    const [, GroupContainer, ItemContainer, MenuLabel] = utils.resolveComponents(Menu, this.props);
     return (
       <GroupContainer width={this.props.width}>
         {menuItems.map((menuItem, idx) => {
@@ -216,19 +210,15 @@ export class Menu extends Element {
     };
 
     document.addEventListener("contextmenu", onContextMenu, false);
-    this.removeEventListeners.push(() =>
-      document.removeEventListener("contextMenu", onContextMenu)
-    );
+    this.removeEventListeners.push(() => document.removeEventListener("contextMenu", onContextMenu));
   }
 
   configureTrigger(triggerId) {
     const triggerElem = document.getElementById(triggerId);
-    const getMenuElem = () =>
-      this.elemRef.current && this.elemRef.current.querySelector("ul");
+    const getMenuElem = () => this.elemRef.current && this.elemRef.current.querySelector("ul");
 
     const onClick = e => {
-      if (e.target.parentElement.parentElement.classList.contains("submenu"))
-        return;
+      if (e.target.parentElement.parentElement.classList.contains("submenu")) return;
       this.hideMenu();
       getMenuElem().removeEventListener("click", onClick);
       document.removeEventListener("click", onClick);
@@ -275,9 +265,7 @@ export class Menu extends Element {
     const [Container] = utils.resolveComponents(Menu, this.props);
     const { children, tabIndex, css, style, ...props } = this.props;
 
-    const menu = Array.isArray(this.value)
-      ? this.buildMenu(this.value)
-      : children;
+    const menu = Array.isArray(this.value) ? this.buildMenu(this.value) : children;
 
     return (
       <Container style={style} css={css} tabIndex={tabIndex} ref={this.elemRef}>

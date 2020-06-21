@@ -28,9 +28,7 @@ export class VMContext extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.store = new VMContextStore(this);
-    this.vm = this.store.connect(this.props.vm, this.props.options, state =>
-      this.onStateChange(state)
-    );
+    this.vm = this.store.connect(this.props.vm, this.props.options, state => this.onStateChange(state));
   }
 
   get vmContext() {
@@ -56,10 +54,8 @@ export class VMContext extends React.Component {
   onStateChange(state) {
     if (!this.connected) {
       this.connected = true;
-      typeof this.props.onConnected == "function" &&
-        this.props.onConnected(this.vm, state);
+      typeof this.props.onConnected == "function" && this.props.onConnected(this.vm, state);
     }
-    typeof this.props.onStateChange == "function" &&
-      this.props.onStateChange(state);
+    typeof this.props.onStateChange == "function" && this.props.onStateChange(state);
   }
 }

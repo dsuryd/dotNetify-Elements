@@ -16,11 +16,7 @@ export default class InputElement extends Element {
     // Returns the object that provides data from the back-end view model, and manages input validation
     // and sending back of data to the back-end.
     if (this.isVMProperty) {
-      this._vmInput = new VMInput(
-        this.vmContext,
-        this.props.id,
-        this.props.onInputRef
-      );
+      this._vmInput = new VMInput(this.vmContext, this.props.id, this.props.onInputRef);
       return this._vmInput;
     }
 
@@ -31,15 +27,11 @@ export default class InputElement extends Element {
       getPropAttributes: _ => this.props.attrs || {},
       getPropValidations: _ => this.props.validations || null,
       getValidator: _ => new VMInputValidator(vmContext, this.propId),
-      dispatchState: state =>
-        this.props.onChange && this.props.onChange(state[this.propId])
+      dispatchState: state => this.props.onChange && this.props.onChange(state[this.propId])
     };
     this._vmInput = new VMInput(vmContext, this.propId, this.props.onInputRef);
 
-    if (
-      this.props.hasOwnProperty("value") &&
-      !this.state.hasOwnProperty(this.propId)
-    ) {
+    if (this.props.hasOwnProperty("value") && !this.state.hasOwnProperty(this.propId)) {
       this.setControlledValue(this.props.value);
     }
     return this._vmInput;
@@ -50,8 +42,7 @@ export default class InputElement extends Element {
   }
 
   set changed(value) {
-    if (value && !this._changed && this.formContext)
-      this.formContext.setChanged(value);
+    if (value && !this._changed && this.formContext) this.formContext.setChanged(value);
     this._changed = value;
   }
 
@@ -60,8 +51,7 @@ export default class InputElement extends Element {
     this.inputRef = React.createRef();
     this.propId = this.props.id || Math.random().toString(36).substring(2);
 
-    if (this.props.hasOwnProperty("value"))
-      this.state = { [this.propId]: this.props.value };
+    if (this.props.hasOwnProperty("value")) this.state = { [this.propId]: this.props.value };
   }
 
   dispatch(value, toServer) {

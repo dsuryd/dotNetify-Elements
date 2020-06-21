@@ -40,11 +40,7 @@ export default class Element extends React.Component {
   }
 
   get attrs() {
-    return Object.assign(
-      { fullId: this.vmProperty.fullId },
-      this.vmProperty.attrs,
-      this.props
-    );
+    return Object.assign({ fullId: this.vmProperty.fullId }, this.vmProperty.attrs, this.props);
   }
 
   get isVMProperty() {
@@ -67,9 +63,7 @@ export default class Element extends React.Component {
     this._vmProperty = new VMProperty(
       {
         getState: id =>
-          id === propId && this.props.hasOwnProperty("value")
-            ? this.props.value
-            : this.state && this.state[id],
+          id === propId && this.props.hasOwnProperty("value") ? this.props.value : this.state && this.state[id],
         setState: state => this.setState(state),
         getPropAttributes: _ => this.props.attrs || {},
         dispatchState: _ => {}
@@ -80,8 +74,7 @@ export default class Element extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.onChange && this.isVMProperty)
-      this.props.onChange(this.vmProperty.value);
+    if (this.props.onChange && this.isVMProperty) this.props.onChange(this.vmProperty.value);
   }
 
   componentDidUpdate(props) {
@@ -129,10 +122,7 @@ export default class Element extends React.Component {
 
     if (this.props.template) {
       const content = this.getTemplateContent(this.props.template);
-      if (content)
-        elem = (
-          <Container css={css} dangerouslySetInnerHTML={{ __html: content }} />
-        );
+      if (content) elem = <Container css={css} dangerouslySetInnerHTML={{ __html: content }} />;
     }
 
     return !hidden ? elem : null;

@@ -44,22 +44,8 @@ export class Modal extends React.Component {
   };
 
   render() {
-    const [Container, Header, Body, Footer] = utils.resolveComponents(
-      Modal,
-      this.props
-    );
-    const {
-      open,
-      small,
-      large,
-      width,
-      header,
-      footer,
-      children,
-      onSubmit,
-      onSubmitError,
-      ...props
-    } = this.props;
+    const [Container, Header, Body, Footer] = utils.resolveComponents(Modal, this.props);
+    const { open, small, large, width, header, footer, children, onSubmit, onSubmitError, ...props } = this.props;
     const centered = true;
     const size = small ? "sm" : large ? "lg" : null;
 
@@ -67,20 +53,14 @@ export class Modal extends React.Component {
       children,
       child => child && (child.type === "header" || child.type === "footer")
     );
-    const _header =
-      header || sections.filter(section => section.type === "header").shift();
-    const _footer =
-      footer || sections.filter(section => section.type === "footer").shift();
+    const _header = header || sections.filter(section => section.type === "header").shift();
+    const _footer = footer || sections.filter(section => section.type === "footer").shift();
 
     let modalContent = (
       <React.Fragment>
-        {_header && (
-          <Header>{_header.props ? _header.props.children : _header}</Header>
-        )}
+        {_header && <Header>{_header.props ? _header.props.children : _header}</Header>}
         <Body>{body}</Body>
-        {_footer && (
-          <Footer>{_footer.props ? _footer.props.children : _footer}</Footer>
-        )}
+        {_footer && <Footer>{_footer.props ? _footer.props.children : _footer}</Footer>}
       </React.Fragment>
     );
 
@@ -96,12 +76,7 @@ export class Modal extends React.Component {
     }
 
     return (
-      <Container
-        isOpen={open}
-        centered={centered}
-        size={size}
-        style={{ maxWidth: width }}
-      >
+      <Container isOpen={open} centered={centered} size={size} style={{ maxWidth: width }}>
         {modalContent}
       </Container>
     );

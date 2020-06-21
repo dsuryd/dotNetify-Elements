@@ -58,8 +58,7 @@ export class DateTimeField extends InputElement {
       })
     );
 
-    if (this.props.validation)
-      this.vmProperty.addValidation(this.props.validation);
+    if (this.props.validation) this.vmProperty.addValidation(this.props.validation);
   }
 
   componentWillUnmount() {
@@ -80,13 +79,7 @@ export class DateTimeField extends InputElement {
   };
 
   render() {
-    const [
-      Container,
-      Input,
-      InputGroup,
-      ValidationMessage,
-      PlainText
-    ] = this.resolveComponents(DateTimeField);
+    const [Container, Input, InputGroup, ValidationMessage, PlainText] = this.resolveComponents(DateTimeField);
     const {
       fullId,
       label,
@@ -118,19 +111,11 @@ export class DateTimeField extends InputElement {
             : moment(dateValue).format("LLL")
         }`
       : "";
-    const validationMessages =
-      this.props.validationMessages || this.state.validationMessages;
+    const validationMessages = this.props.validationMessages || this.state.validationMessages;
     const disabled = enable === false;
 
     return (
-      <Container
-        id={fullId}
-        label={label}
-        horizontal={horizontal}
-        plainText={plainText}
-        style={style}
-        css={css}
-      >
+      <Container id={fullId} label={label} horizontal={horizontal} plainText={plainText} style={style} css={css}>
         {plainText ? (
           <PlainText>{plainTextValue}</PlainText>
         ) : (
@@ -153,9 +138,7 @@ export class DateTimeField extends InputElement {
           </InputGroup>
         )}
         {validationMessages.map((message, idx) => (
-          <ValidationMessage key={validationKeyPrefix + idx}>
-            {message}
-          </ValidationMessage>
+          <ValidationMessage key={validationKeyPrefix + idx}>{message}</ValidationMessage>
         ))}
       </Container>
     );
