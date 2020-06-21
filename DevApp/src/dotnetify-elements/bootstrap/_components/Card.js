@@ -1,10 +1,4 @@
-import {
-  Card as _Card,
-  CardImage as _CardImage,
-  CardHeader,
-  CardBody,
-  CardFooter
-} from "../structure/Card";
+import { Card as _Card, CardImage as _CardImage, CardHeader, CardBody, CardFooter } from "../structure/Card";
 import { Card, CardImage } from "../../structure/Card";
 
 Object.assign(Card.componentTypes, {

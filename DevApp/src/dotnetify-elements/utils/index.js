@@ -2,6 +2,13 @@ import React from "react";
 import lightTheme from "../theme-light";
 import darkTheme from "../theme-dark";
 
+export const addChildNode = (parent, nodeType, className) => {
+  let child = document.createElement(nodeType || "div");
+  if (className) child.classList.add(className);
+  parent.appendChild(child);
+  return child;
+};
+
 export const createEventEmitter = _ => {
   let subscribers = [];
   return {
