@@ -128,7 +128,7 @@ namespace dotNetify_Elements
                      new NavRoute("Customer Form",       this.GetRoute(nameof(Route.ExampleCustomerForm))),
                      new NavRoute("Admin Dashboard",     this.GetRoute(nameof(Route.ExampleDashboard)))
                   },
-                  IsExpanded = false
+                  IsExpanded = true
                },
 
                new NavGroup
@@ -152,7 +152,7 @@ namespace dotNetify_Elements
                      new NavRoute("TextAreaField",       this.GetRoute(nameof(Route.FormTextAreaField))),
                      new NavRoute("TextField",           this.GetRoute(nameof(Route.FormTextField)))
                   },
-                  IsExpanded = false
+                  IsExpanded = true
                },
                new NavGroup
                {
@@ -164,7 +164,7 @@ namespace dotNetify_Elements
                      new NavRoute("Panel",               this.GetRoute(nameof(Route.LayoutPanel))),
                      new NavRoute("Theme",               this.GetRoute(nameof(Route.LayoutTheme))),
                   },
-                  IsExpanded = false
+                  IsExpanded = true
                },
                new NavGroup
                {
@@ -179,7 +179,7 @@ namespace dotNetify_Elements
                      new NavRoute("Modal",               this.GetRoute(nameof(Route.StructureModal))),
                      new NavRoute("Tab",                 this.GetRoute(nameof(Route.StructureTab))),
                   },
-                  IsExpanded = false
+                  IsExpanded = true
                },
                new NavGroup
                {
@@ -193,7 +193,7 @@ namespace dotNetify_Elements
                      new NavRoute("Label",               this.GetRoute(nameof(Route.DisplayLabel))),
                      new NavRoute("Markdown",            this.GetRoute(nameof(Route.DisplayMarkdown))),
                   },
-                  IsExpanded = false
+                  IsExpanded = true
                },
                new NavGroup
                {
@@ -202,7 +202,7 @@ namespace dotNetify_Elements
                   {
                      new NavRoute("NavMenu",             this.GetRoute(nameof(Route.NavigationNavMenu))),
                   },
-                  IsExpanded = false
+                  IsExpanded = true
                }
             }));
       }
