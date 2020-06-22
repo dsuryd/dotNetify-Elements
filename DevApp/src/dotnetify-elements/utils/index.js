@@ -2,11 +2,12 @@ import React from "react";
 import lightTheme from "../theme-light";
 import darkTheme from "../theme-dark";
 
-export const addChildNode = (parent, nodeType, className) => {
-  let child = document.createElement(nodeType || "div");
-  if (className) child.classList.add(className);
-  parent.appendChild(child);
-  return child;
+export const addChildNode = (parent, nodeType, className, prepend) => {
+  let child = document.createElement(nodeType);
+  if (className) className.split(" ").forEach(x => child.classList.add(x));
+  return prepend && parent.childNodes.length > 0
+    ? parent.insertBefore(child, parent.childNodes[0])
+    : parent.appendChild(child);
 };
 
 export const createEventEmitter = _ => {

@@ -1,11 +1,8 @@
 import { Tab, TabItem } from "../_components/Tab";
-import createWebComponent from "../../utils/web-component";
+import createTabComponent, { createTabItemComponent } from "../../web-components/structure/TabComponent";
 
-let tabComponent = createWebComponent(Tab, "d-tab");
-tabComponent.prototype._isContainer = true;
-
-let tabItemComponent = createWebComponent(TabItem, "d-tab-item");
-tabItemComponent.prototype._isContainer = true;
+createTabComponent(Tab, "d-tab");
+createTabItemComponent(TabItem, "d-tab-item");
 
 export default Tab;
 export { Tab, TabItem };

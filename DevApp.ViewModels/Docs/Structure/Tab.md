@@ -2,7 +2,7 @@
 
 The element to display other elements in a tabbed container. The content of each tab must be placed inside a _TabItem_ element.
 
-To give each tab item a unique identifier, set the _itemKey_ property; otherwise the the tab index will be used.  The active tab can be configured by setting the _active_ property to a tab item's key or index.
+To give each tab item a unique identifier, set the _itemKey_ property; otherwise the the tab index will be used. The active tab can be configured by setting the _active_ property to a tab item's key or index.
 
 [inset]
 
@@ -23,6 +23,7 @@ public class TabExample : BaseVM
 #### Property Types
 
 ##### Tab
+
 ```jsx
 static propTypes = {
    // Sets default active tab.
@@ -34,6 +35,7 @@ static propTypes = {
 ```
 
 ##### TabItem
+
 ```jsx
 static propTypes = {
    // Identifies the tab item.
@@ -41,9 +43,6 @@ static propTypes = {
 
    // Text or component for the tab item's label.
    label: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]).isRequired,
-
-   // Tab item name.
-   name: PropTypes.string,
 
    // Sets the tab item appearance to active.
    active: PropTypes.bool,

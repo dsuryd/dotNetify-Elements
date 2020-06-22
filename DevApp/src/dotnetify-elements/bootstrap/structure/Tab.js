@@ -18,8 +18,7 @@ const TabNavItem = styled.li.attrs(props => ({
 `;
 
 const TabLink = styled.div.attrs(props => ({
-  className: "nav-link",
-  href: "#"
+  className: "nav-link"
 }))`
   &:hover {
     cursor: pointer;
