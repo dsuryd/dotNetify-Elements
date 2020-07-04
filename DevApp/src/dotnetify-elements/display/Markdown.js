@@ -42,7 +42,7 @@ export class Markdown extends Element {
   }
 
   processConditions(rawText, condition) {
-    const regex = /<if\s(.*)>((.|\r?\n)*?)<\/if>/g;
+    const regex = /<if\s(.*?)>((.|\r?\n?)*?)<\/if>/g;
     let conditionBlocks = [];
     let match;
     while ((match = regex.exec(rawText)) !== null) {
