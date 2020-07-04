@@ -25,18 +25,27 @@ export class VMContext extends React.Component {
     onStateChange: PropTypes.func
   };
 
-  constructor(props, context) {
-    super(props, context);
-    this.store = new VMContextStore(this);
-    this.vm = this.store.connect(this.props.vm, this.props.options, state => this.onStateChange(state));
-  }
-
   get vmContext() {
     return this.context && this.context.vmContext;
   }
 
+  constructor(props, context) {
+    super(props, context);
+    this.store = new VMContextStore(this);
+
+    if (window.__dotnetify_ssr__) this.connect();
+  }
+
+  componentDidMount() {
+    if (!window.__dotnetify_ssr__) this.connect();
+  }
+
   componentWillUnmount() {
     this.store.destroy();
+  }
+
+  connect() {
+    this.vm = this.store.connect(this.props.vm, this.props.options, state => this.onStateChange(state));
   }
 
   getChildContext() {
