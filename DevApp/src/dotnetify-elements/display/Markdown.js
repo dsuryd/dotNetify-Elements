@@ -13,6 +13,7 @@ const ContainerComponent = styled.div`
 ContainerComponent.defaultProps = { theme: utils.getDefaultTheme() };
 
 const MarkdownText = props => markdown(props.text);
+const renderText = section => (typeof section == "string" ? <MarkdownText text={section} /> : section);
 
 export class Markdown extends Element {
   static propTypes = {
@@ -20,32 +21,58 @@ export class Markdown extends Element {
     id: PropTypes.string,
 
     // Markdown text.
-    text: PropTypes.string
+    text: PropTypes.string,
+
+    // Comma-delimited condition constants.
+    condition: PropTypes.string
   };
 
   static componentTypes = {
     ContainerComponent: ContainerComponent
   };
 
+  mergeInsets(rawText, children) {
+    let markdowns = [];
+    rawText.split("[inset]").forEach((section, idx) => {
+      markdowns.push(section);
+      idx < children.length && markdowns.push(children[idx]);
+    });
+
+    return markdowns.map((section, idx) => <React.Fragment key={idx}>{renderText(section)}</React.Fragment>);
+  }
+
+  processConditions(rawText, condition) {
+    const regex = /<if\s(.*)>((.|\r?\n)*?)<\/if>/g;
+    let conditionBlocks = [];
+    let match;
+    while ((match = regex.exec(rawText)) !== null) {
+      if (match.index === regex.lastIndex) regex.lastIndex++; // avoid infinite loops with zero-width matches.
+      conditionBlocks.push({ all: match[0], arg: match[1], body: match[2] });
+    }
+
+    if (conditionBlocks.length > 0) {
+      const conditions = (condition && condition.split(",")) || [];
+      conditionBlocks.forEach(
+        block => (rawText = rawText.replace(block.all, conditions.includes(block.arg) ? block.body : ""))
+      );
+    }
+
+    return rawText;
+  }
+
   render() {
     const [Container] = this.resolveComponents(Markdown);
-    const { id, fullId, children, style, css, ...props } = this.attrs;
-
+    const { id, fullId, condition, children, style, css, ...props } = this.attrs;
     const _children = React.Children.toArray(children);
-
-    const renderText = section => (typeof section == "string" ? <MarkdownText text={section} /> : section);
 
     let markdown = null;
     let rawText = this.props.text || this.value;
     if (rawText) {
-      let markdowns = [];
-      rawText.split("[inset]").forEach((section, idx) => {
-        markdowns.push(section);
-        idx < _children.length && markdowns.push(_children[idx]);
-      });
-
-      markdown = markdowns.map((section, idx) => <React.Fragment key={idx}>{renderText(section)}</React.Fragment>);
-    } else if (_children.length > 0) markdown = renderText(_children[0]);
+      rawText = this.processConditions(rawText, condition);
+      markdown = this.mergeInsets(rawText, _children);
+    } else if (_children.length > 0) {
+      markdown = renderText(_children[0]);
+    }
 
     return (
       <Container id={fullId} style={style} css={css} className="markdown" {...props}>
