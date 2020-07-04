@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Element, Frame, MarkdownTOC, Panel, Tab, VMContext } from "dotnetify-elements";
+import { FrameworkContext, currentFramework, frameworkSelectEvent } from "../components/SelectFramework";
 
 const Sidebar = styled.div`
   position: fixed;
@@ -46,47 +47,71 @@ const panelCss = `
 
 const scrollIntoView = id => document.getElementById(id).scrollIntoView({ behavior: "smooth" });
 
-const Article = props => (
-  <VMContext vm={props.vm}>
-    <Frame horizontal css={frameCss} gap="10%">
-      <Panel css={panelCss} children={props.children} />
-      <Sidebar>
-        <Title show={props.tocTitle}>
-          <a
-            href="#"
-            onClick={e => {
-              e.preventDefault();
-              scrollIntoView(props.title);
-            }}
-          >
-            {props.tocTitle}
-          </a>
-        </Title>
-        {props.id && <MarkdownTOC id={props.id} />}
-      </Sidebar>
-    </Frame>
-  </VMContext>
-);
+const Article = props => {
+  const [framework, setFramework] = useState(currentFramework);
+  useEffect(() => frameworkSelectEvent.subscribe(framework => setFramework(framework)), []);
 
-export class TabsArticle extends React.Component {
-  state = { id: this.props.id, tocTitle: null, title: null };
-  render() {
-    const { vm, children } = this.props;
-    const { id, title, tocTitle } = this.state;
-    const handleActivate = (key, label) =>
-      this.setState({ id: key.length > 1 ? key : null, tocTitle: key.length > 1 ? label : null });
-    const handleTitle = title => this.setState({ title: title, tocTitle: this.props.id });
-    return (
-      <Article vm={vm} id={id} title={title} tocTitle={tocTitle}>
-        <h2 id={this.state.title}>
-          <Element id="Title" onChange={handleTitle} />
-        </h2>
-        <Tab css="margin: 0 .5rem; margin-top: 2rem" onActivate={handleActivate}>
-          {children}
-        </Tab>
-      </Article>
-    );
-  }
-}
+  return (
+    <FrameworkContext.Provider value={framework}>
+      <VMContext vm={props.vm}>
+        <Frame horizontal css={frameCss} gap="10%">
+          <Panel css={panelCss} children={props.children} />
+          <Sidebar>
+            <Title show={props.tocTitle}>
+              <a
+                href="#"
+                onClick={e => {
+                  e.preventDefault();
+                  scrollIntoView(props.title);
+                }}
+              >
+                {props.tocTitle}
+              </a>
+            </Title>
+            {props.id && <MarkdownTOC id={props.id} />}
+          </Sidebar>
+        </Frame>
+      </VMContext>
+    </FrameworkContext.Provider>
+  );
+};
+
+export const TabsArticle = props => {
+  const [id, setId] = useState(props.id);
+  const [tocTitle, setTocTitle] = useState();
+  const [title, setTitle] = useState();
+  const [framework, setFramework] = useState(currentFramework);
+  useEffect(
+    () =>
+      frameworkSelectEvent.subscribe(framework => {
+        setFramework(framework);
+        props.onChangeFramework(framework);
+      }),
+    []
+  );
+
+  const { vm, children } = props;
+
+  const handleActivate = (key, label) => {
+    setId(key.length > 1 ? key : null);
+    setTocTitle(key.length > 1 ? label : null);
+  };
+
+  const handleTitle = title => {
+    setTitle(title);
+    setTocTitle(props.id);
+  };
+
+  return (
+    <Article vm={vm} id={id} title={title} tocTitle={tocTitle}>
+      <h2 id={title}>
+        <Element id="Title" onChange={handleTitle} />
+      </h2>
+      <Tab key={framework} css="margin: 0 .5rem; margin-top: 2rem" onActivate={handleActivate}>
+        {children}
+      </Tab>
+    </Article>
+  );
+};
 
 export default Article;

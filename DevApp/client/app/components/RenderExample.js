@@ -20,9 +20,10 @@ export default class RenderExample extends React.Component {
   }
 
   buildCode = state => {
+    const { buildCode } = this.props;
     let props = this.showWebComponent ? this.formatAttrsForDisplay(state) : this.formatPropsForDisplay(state);
     if (props.length > 0) props = props + " ";
-    return this.props.buildCode(props ? " " + props.trim() : ``);
+    return buildCode && buildCode(props ? " " + props.trim() : ``);
   };
 
   // For web component attributes display.
@@ -59,7 +60,7 @@ export default class RenderExample extends React.Component {
   };
 
   render() {
-    const { vm, extraToggles, onWebComponent, children } = this.props;
+    const { vm, extraToggles, webComponent, onWebComponent, children } = this.props;
     const flags = [
       { key: "true", value: "True" },
       { key: "false", value: "False" }
@@ -103,6 +104,7 @@ export default class RenderExample extends React.Component {
             id={"_webComponent__" + this.random()}
             label={<span style={{ fontWeight: "500" }}>Web component</span>}
             switch={true}
+            value={webComponent}
             onChange={showWebComponent}
           />
         )}

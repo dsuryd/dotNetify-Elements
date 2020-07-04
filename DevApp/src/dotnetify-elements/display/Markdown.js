@@ -47,11 +47,11 @@ export class Markdown extends Element {
     let match;
     while ((match = regex.exec(rawText)) !== null) {
       if (match.index === regex.lastIndex) regex.lastIndex++; // avoid infinite loops with zero-width matches.
-      conditionBlocks.push({ all: match[0], arg: match[1], body: match[2] });
+      if (match[1]) conditionBlocks.push({ all: match[0], arg: match[1].toLowerCase(), body: match[2] });
     }
 
     if (conditionBlocks.length > 0) {
-      const conditions = (condition && condition.split(",")) || [];
+      const conditions = (condition && condition.toLowerCase().split(",")) || [];
       conditionBlocks.forEach(
         block => (rawText = rawText.replace(block.all, conditions.includes(block.arg) ? block.body : ""))
       );

@@ -1,80 +1,64 @@
-import React from "react";
-import { Markdown, Panel, TabItem, VMContext, withTheme } from "dotnetify-elements";
-import { TabsArticle, RenderCustomize, RenderExample } from "../../components";
+import React, { useState, useContext } from "react";
+import { Checkbox, Markdown, Panel, TabItem, VMContext, withTheme } from "dotnetify-elements";
+import { currentFramework, TabsArticle, RenderCustomize, RenderExample, FrameworkContext } from "../../components";
 import { Square } from "../layout/demo-helper";
 
-const DisplayMarkdown = props => (
-  <TabsArticle vm="DisplayMarkdown" id="Overview">
-    <TabItem label="Overview" itemKey="Overview">
-      <Markdown id="Overview">
-        <MarkdownExample />
-        <InsetExample />
+const DisplayMarkdown = () => {
+  const [framework, setFramework] = useState(currentFramework);
+  return (
+    <TabsArticle vm="DisplayMarkdown" id="Overview" onChangeFramework={x => setFramework(x)}>
+      <TabItem label="Overview" itemKey="Overview">
+        <Markdown id="Overview" condition={framework}>
+          <MarkdownExample />
+          <InsetExample />
+        </Markdown>
+      </TabItem>
+      <TabItem label="API" itemKey="API">
+        <Markdown id="API" />
+      </TabItem>
+      <TabItem label="Customize">
+        <MarkdownCustomize />
+      </TabItem>
+    </TabsArticle>
+  );
+};
+
+const MarkdownExample = () => {
+  const [state, setState] = useState({});
+  const framework = useContext(FrameworkContext);
+  let propTypes = {};
+
+  return (
+    <RenderExample vm="MarkdownExample" propTypes={propTypes} onChange={setState}>
+      <Panel css="margin-bottom: 2rem">
+        {framework === "React" ? (
+          <Markdown id="Content" css="padding: 1rem; color: #000; background: #fff" {...state} />
+        ) : (
+          <d-vm-context vm="MarkdownExample">
+            <d-markdown id="Content" css="padding: 1rem; background: #fff" {...state} />
+          </d-vm-context>
+        )}
+      </Panel>
+    </RenderExample>
+  );
+};
+
+const InsetExample = () => {
+  const framework = useContext(FrameworkContext);
+  return framework === "React" ? (
+    <VMContext vm="InsetExample">
+      <Markdown id="Content">
+        <Checkbox switch={true} value={true} label="Toggle Me"></Checkbox>
       </Markdown>
-    </TabItem>
-    <TabItem label="API" itemKey="API">
-      <Markdown id="API" />
-    </TabItem>
-    <TabItem label="Customize">
-      <MarkdownCustomize />
-    </TabItem>
-  </TabsArticle>
-);
-
-class MarkdownExample extends React.Component {
-  render() {
-    const buildCode = props => `
-\`\`\`jsx
-import React from 'react';
-import { Markdown, VMContext } from 'dotnetify-elements';
-
-const MyApp = _ => (
-   <VMContext vm="MarkdownExample">
-      <Markdown id="Content" css="padding: 1rem; background: #fff"${props} />
-   </VMContext>
-);
-\`\`\``;
-    const buildWebComponentCode = props => `
-\`\`\`jsx
-<d-vm-context vm="MarkdownExample">
-   <d-markdown id="Content" css="padding: 1rem; background: #fff"${props} />
-</d-vm-context>
-\`\`\``;
-    const setState = state => this.setState(state);
-    let propTypes = {};
-
-    const setWebComponent = show => this.setState({ webComponent: show });
-    const webComponent = this.state && this.state.webComponent;
-    const selectBuildCode = webComponent ? buildWebComponentCode : buildCode;
-
-    return (
-      <RenderExample
-        vm="MarkdownExample"
-        propTypes={propTypes}
-        buildCode={selectBuildCode}
-        onChange={setState}
-        onWebComponent={setWebComponent}
-      >
-        <Panel css="margin-bottom: 2rem">
-          {!webComponent ? (
-            <Markdown id="Content" css="padding: 1rem; color: #000; background: #fff" {...this.state} />
-          ) : (
-            <d-vm-context vm="MarkdownExample">
-              <d-markdown id="Content" css="padding: 1rem; background: #fff" {...this.state} />
-            </d-vm-context>
-          )}
-        </Panel>
-      </RenderExample>
-    );
-  }
-}
-
-const InsetExample = props => (
-  <VMContext vm="InsetExample">
-    <Markdown id="Content">
-      <Square />
-    </Markdown>
-  </VMContext>
-);
+    </VMContext>
+  ) : (
+    <d-vm-context vm="InsetExample">
+      <d-markdown id="Content">
+        <d-checkbox switch="true" value="true" label="Toggle Me"></d-checkbox>
+      </d-markdown>
+    </d-vm-context>
+  );
+};
 
 class MarkdownCustomize extends React.Component {
   state = {};

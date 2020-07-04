@@ -12,6 +12,7 @@ import {
   VMContext
 } from "dotnetify-elements";
 import DotNetifyLogo, { GitHubLink, TwitterLink, ThemeToggle, LicenseNotice } from "../components/DotNetifyLogo";
+import SelectFramework, { currentFramework } from "../components/SelectFramework";
 import MenuLinks from "../components/MenuLinks";
 import lightTheme from "dotnetify-elements/theme-light";
 import darkTheme from "dotnetify-elements/theme-dark";
@@ -59,6 +60,7 @@ class App extends React.Component {
             <Panel noGap>
               <MenuLinks nav={true} active="elements" />
               <GitHubLink />
+              <SelectFramework id="Framework" onChange={value => this.setState({ framework: value })} />
               <NavMenu id="NavMenu" />
             </Panel>
           </Nav>
