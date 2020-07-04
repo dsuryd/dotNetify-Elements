@@ -1,6 +1,6 @@
 import React from "react";
 import { Alert, Button, Markdown, Panel, RadioToggle, TabItem, withTheme } from "dotnetify-elements";
-import { TabsArticle, RenderCustomize, RenderExample } from "../../components";
+import { FrameworkContext, TabsArticle, RenderCustomize, RenderExample } from "../../components";
 
 const DisplayAlert = props => (
   <TabsArticle vm="DisplayAlert" id="Overview">
@@ -19,6 +19,7 @@ const DisplayAlert = props => (
 );
 
 class AlertExample extends React.Component {
+  static contextType = FrameworkContext;
   state = { color: "" };
 
   render() {
@@ -59,8 +60,8 @@ const MyApp = _ => (
     const extraToggles = (
       <RadioToggle id="_colors" label="(color:)" options={colorOptions} value={this.state.color} onChange={setColor} />
     );
-    const setWebComponent = show => this.setState({ webComponent: show });
-    const { color, webComponent } = this.state;
+    const webComponent = this.context !== "React";
+    const { color } = this.state;
 
     const propTypes = {};
     return (
@@ -70,7 +71,6 @@ const MyApp = _ => (
         propTypes={propTypes}
         buildCode={webComponent ? buildWebComponentCode : buildCode}
         onChange={setState}
-        onWebComponent={setWebComponent}
       >
         {!webComponent ? (
           <Alert id="Feedback" css="margin-bottom: 3rem" {...this.state}>

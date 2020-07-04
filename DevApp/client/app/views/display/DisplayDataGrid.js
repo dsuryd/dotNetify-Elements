@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import {
   Alert,
@@ -11,27 +11,31 @@ import {
   TabItem,
   withTheme
 } from "dotnetify-elements";
-import { TabsArticle, RenderCustomize, RenderExample } from "../../components";
+import { currentFramework, FrameworkContext, TabsArticle, RenderCustomize, RenderExample } from "../../components";
 
-const DisplayDataGrid = props => (
-  <TabsArticle vm="DisplayDataGrid" id="Overview">
-    <TabItem label="Overview" itemKey="Overview">
-      <Markdown id="Overview">
-        <DataGridExample />
-      </Markdown>
-    </TabItem>
-    <TabItem label="API" itemKey="API">
-      <Markdown id="API" />
-    </TabItem>
-    <TabItem label="Customize">
-      <DataGridCustomize />
-    </TabItem>
-  </TabsArticle>
-);
+const DisplayDataGrid = () => {
+  const [framework, setFramework] = useState(currentFramework);
+  return (
+    <TabsArticle vm="DisplayDataGrid" id="Overview" onChangeFramework={x => setFramework(x)}>
+      <TabItem label="Overview" itemKey="Overview">
+        <Markdown id="Overview" condition={framework}>
+          <DataGridExample />
+        </Markdown>
+      </TabItem>
+      <TabItem label="API" itemKey="API">
+        <Markdown id="API" />
+      </TabItem>
+      <TabItem label="Customize">
+        <DataGridCustomize />
+      </TabItem>
+    </TabsArticle>
+  );
+};
 
 const DateFormatter = props => new Date(props.value).toLocaleString();
 
 class DataGridExample extends React.Component {
+  static contextType = FrameworkContext;
   state = { actions: false };
   render() {
     const buildCode = props => `
@@ -90,8 +94,7 @@ const MyApp = _ => (
     const setState = state => this.setState(state);
     let propTypes = { enable: null };
 
-    const setWebComponent = show => this.setState({ webComponent: show });
-    const webComponent = this.state && this.state.webComponent;
+    const webComponent = this.context !== "React";
     const selectBuildCode = webComponent ? buildWebComponentCode : buildCode;
 
     const showActions = val => this.setState({ actions: val === "true" });
@@ -125,7 +128,6 @@ const MyApp = _ => (
         propTypes={propTypes}
         buildCode={selectBuildCode}
         onChange={setState}
-        onWebComponent={setWebComponent}
       >
         <Panel css="margin-bottom: 2rem">
           {!webComponent ? (

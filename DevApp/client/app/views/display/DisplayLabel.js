@@ -1,25 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import { Element, Label, Markdown, Panel, TabItem, withTheme } from "dotnetify-elements";
-import { TabsArticle, RenderCustomize, RenderExample } from "../../components";
+import { TabsArticle, RenderCustomize, RenderExample, FrameworkContext, currentFramework } from "../../components";
 import { Badge, BigIcon } from "./demo-helper";
 
-const DisplayLabel = props => (
-  <TabsArticle vm="DisplayLabel" id="Overview">
-    <TabItem label="Overview" itemKey="Overview">
-      <Markdown id="Overview">
-        <LabelExample />
-      </Markdown>
-    </TabItem>
-    <TabItem label="API" itemKey="API">
-      <Markdown id="API" />
-    </TabItem>
-    <TabItem label="Customize">
-      <LabelCustomize />
-    </TabItem>
-  </TabsArticle>
-);
+const DisplayLabel = () => {
+  const [framework, setFramework] = useState(currentFramework);
+  return (
+    <TabsArticle vm="DisplayLabel" id="Overview" onChangeFramework={x => setFramework(x)}>
+      <TabItem label="Overview" itemKey="Overview">
+        <Markdown id="Overview" condition={framework}>
+          <LabelExample />
+        </Markdown>
+      </TabItem>
+      <TabItem label="API" itemKey="API">
+        <Markdown id="API" />
+      </TabItem>
+      <TabItem label="Customize">
+        <LabelCustomize />
+      </TabItem>
+    </TabsArticle>
+  );
+};
 
 class LabelExample extends React.Component {
+  static contextType = FrameworkContext;
   render() {
     const buildCode = props => `
 \`\`\`jsx
@@ -65,18 +69,11 @@ const MyApp = _ => (
     const setState = state => this.setState(state);
     let propTypes = { apart: null, bold: null, italic: null, right: null };
 
-    const setWebComponent = show => this.setState({ webComponent: show });
-    const webComponent = this.state && this.state.webComponent;
+    const webComponent = this.context !== "React";
     const selectBuildCode = webComponent ? buildWebComponentCode : buildCode;
 
     return (
-      <RenderExample
-        vm="LabelExample"
-        propTypes={propTypes}
-        buildCode={selectBuildCode}
-        onChange={setState}
-        onWebComponent={setWebComponent}
-      >
+      <RenderExample vm="LabelExample" propTypes={propTypes} buildCode={selectBuildCode} onChange={setState}>
         <Panel css="margin-bottom: 2rem">
           {!webComponent ? (
             <React.Fragment>

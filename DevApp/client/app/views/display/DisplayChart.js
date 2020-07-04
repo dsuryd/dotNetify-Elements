@@ -1,25 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import { BarChart, LineChart, PieChart } from "dotnetify-elements";
 import { Button, Checkbox, Markdown, Panel, TabItem, withTheme } from "dotnetify-elements";
-import { TabsArticle, RenderCustomize, RenderExample } from "../../components";
+import { currentFramework, FrameworkContext, TabsArticle, RenderCustomize, RenderExample } from "../../components";
 
-const DisplayChart = props => (
-  <TabsArticle vm="DisplayChart" id="Overview">
-    <TabItem label="Overview" itemKey="Overview">
-      <Markdown id="Overview">
-        <LineChartExample />
-        <BarChartExample />
-        <PieChartExample />
-      </Markdown>
-    </TabItem>
-    <TabItem label="API" itemKey="API">
-      <Markdown id="API" />
-    </TabItem>
-    <TabItem label="Customize">
-      <ChartCustomize />
-    </TabItem>
-  </TabsArticle>
-);
+const DisplayChart = () => {
+  const [framework, setFramework] = useState(currentFramework);
+  return (
+    <TabsArticle vm="DisplayChart" id="Overview" onChangeFramework={x => setFramework(x)}>
+      <TabItem label="Overview" itemKey="Overview">
+        <Markdown id="Overview" condition={framework}>
+          <LineChartExample />
+          <BarChartExample />
+          <PieChartExample />
+        </Markdown>
+      </TabItem>
+      <TabItem label="API" itemKey="API">
+        <Markdown id="API" />
+      </TabItem>
+      <TabItem label="Customize">
+        <ChartCustomize />
+      </TabItem>
+    </TabsArticle>
+  );
+};
 
 const realtimeConfig = {
   options: {
@@ -31,6 +34,7 @@ const realtimeConfig = {
 };
 
 class LineChartExample extends React.Component {
+  static contextType = FrameworkContext;
   state = { streaming: true };
   render() {
     const buildCode = props => `
@@ -62,8 +66,7 @@ const MyApp = _ => (
       />
     );
 
-    const { webComponent } = this.state;
-    const setWebComponent = show => this.setState({ webComponent: show });
+    const webComponent = this.context !== "React";
     const selectBuildCode = webComponent ? buildWebComponentCode : buildCode;
 
     return (
@@ -74,7 +77,6 @@ const MyApp = _ => (
         extraToggles={extraToggles}
         buildCode={selectBuildCode}
         onChange={setState}
-        onWebComponent={setWebComponent}
       >
         <Panel css="margin-bottom: 2rem">
           {!webComponent ? (
@@ -91,6 +93,7 @@ const MyApp = _ => (
 }
 
 class BarChartExample extends React.Component {
+  static contextType = FrameworkContext;
   render() {
     const buildCode = props => `
 \`\`\`jsx
@@ -112,8 +115,7 @@ const MyApp = _ => (
     const setState = state => this.setState(state);
     let propTypes = {};
 
-    const setWebComponent = show => this.setState({ webComponent: show });
-    const webComponent = this.state && this.state.webComponent;
+    const webComponent = this.context !== "React";
     const selectBuildCode = webComponent ? buildWebComponentCode : buildCode;
 
     return (
@@ -123,7 +125,6 @@ const MyApp = _ => (
         propTypes={propTypes}
         buildCode={selectBuildCode}
         onChange={setState}
-        onWebComponent={setWebComponent}
       >
         {!webComponent ? (
           <Panel css="margin-bottom: 2rem">
@@ -140,6 +141,7 @@ const MyApp = _ => (
 }
 
 class PieChartExample extends React.Component {
+  static contextType = FrameworkContext;
   render() {
     const buildCode = props => `
 \`\`\`jsx
@@ -163,8 +165,7 @@ const MyApp = _ => (
     const setState = state => this.setState(state);
     let propTypes = {};
 
-    const setWebComponent = show => this.setState({ webComponent: show });
-    const webComponent = this.state && this.state.webComponent;
+    const webComponent = this.context !== "React";
     const selectBuildCode = webComponent ? buildWebComponentCode : buildCode;
 
     return (
@@ -174,7 +175,6 @@ const MyApp = _ => (
         propTypes={propTypes}
         buildCode={selectBuildCode}
         onChange={setState}
-        onWebComponent={setWebComponent}
       >
         <Panel css="margin-bottom: 2rem">
           {!webComponent ? (

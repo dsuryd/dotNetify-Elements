@@ -85,7 +85,7 @@ export const TabsArticle = props => {
     () =>
       frameworkSelectEvent.subscribe(framework => {
         setFramework(framework);
-        props.onChangeFramework(framework);
+        props.onChangeFramework && props.onChangeFramework(framework);
       }),
     []
   );
@@ -102,13 +102,17 @@ export const TabsArticle = props => {
     setTocTitle(props.id);
   };
 
+  // Remove "Customize" tab if not React component.
+  let _children = React.Children.toArray(children);
+  if (framework !== "React") _children = _children.filter(x => x.props && x.props.label !== "Customize");
+
   return (
     <Article vm={vm} id={id} title={title} tocTitle={tocTitle}>
       <h2 id={title}>
         <Element id="Title" onChange={handleTitle} />
       </h2>
       <Tab key={framework} css="margin: 0 .5rem; margin-top: 2rem" onActivate={handleActivate}>
-        {children}
+        {_children}
       </Tab>
     </Article>
   );

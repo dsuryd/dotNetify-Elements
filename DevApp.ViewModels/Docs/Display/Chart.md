@@ -1,13 +1,14 @@
 ﻿## Chart
 
-The elements to display a chart; based on the popular [Chart.js](https://www.chartjs.org/). 
+The elements to display a chart; based on the popular [Chart.js](https://www.chartjs.org/).
 
 There are several ways to specify the view model property values:
+
 - as an array of values; can be any type.
 - as a two-dimensional string array of labels and values.
 - as an array of key-value pairs.
 
-You can use the [CRUD APIs](http://dotnetify.net/react/crud) on the array to update the chart.  For updates and deletes, use the array of key-value pairs and set the _&lt;prop-name&gt;&#95;itemKey_ property to "Key".
+You can use the [CRUD APIs](http://dotnetify.net/react/crud) on the array to update the chart. For updates and deletes, use the array of key-value pairs and set the _&lt;prop-name&gt;\_itemKey_ property to "Key".
 
 #### Line Chart
 
@@ -23,14 +24,14 @@ public class LineChartExample : BaseVM
          .Select(x => new string[] { $"{x}", $"{Math.Sin(x / Math.PI)}" }).ToArray();
 
       AddProperty("Waveform", data)
-         .WithAttribute(new ChartAttribute 
-         { 
-            XAxisLabel = "Time (second)", 
-            YAxisLabel = "in/sec", 
-            MaxDataSize = 30 
+         .WithAttribute(new ChartAttribute
+         {
+            XAxisLabel = "Time (second)",
+            YAxisLabel = "in/sec",
+            MaxDataSize = 30
          });
 
-      timer.Subscribe(x => 
+      timer.Subscribe(x =>
       {
          x += 31;
          this.AddList("Waveform", new string[] { $"{x}", $"{Math.Sin(x / Math.PI)}" });
@@ -52,10 +53,10 @@ public class BarChartExample : BaseVM
       int[] data = [ /* data array */ ];
 
       AddProperty("MonthlySales", data)
-         .WithAttribute(new ChartAttribute 
-         { 
+         .WithAttribute(new ChartAttribute
+         {
             YAxisLabel = "Revenue (US$)",
-            Labels = new string[] { "Jan", "Feb", "Mar", /* ... */ } 
+            Labels = new string[] { "Jan", "Feb", "Mar", /* ... */ }
          });
    }
 }
@@ -86,10 +87,10 @@ public class PieChartExample : BaseVM
       AddProperty("Utilization_itemKey", "Key");
 
       AddProperty<object>("Refresh")
-         .Subscribe(_ => this.UpdateList("Utilization", new 
-         { 
-            Key = "mem", 
-            Value = random.NextDouble() 
+         .Subscribe(_ => this.UpdateList("Utilization", new
+         {
+            Key = "mem",
+            Value = random.NextDouble()
          }));
    }
 }
@@ -97,7 +98,7 @@ public class PieChartExample : BaseVM
 
 #### Customization
 
-The chart's line and area colors are themeable.  If you need further customization, override the configuration through the _config_ property.  For example:
+The chart's line and area colors are themeable. If you need further customization, override the configuration through the _config_ property. For example:
 
 ```jsx
 const showLegendAtTop = {
@@ -108,8 +109,14 @@ const showLegendAtTop = {
       }
    }
 };
+<if react>
 /* ... */
 <PieChart id="Utilization" config={showLegendAtTop} />
+</if>
+<if webcomponent>const config = JSON.stringify(showLegendAtTop);
+/* ... */
+<d-pie-chart id="Utilization" config="config" />
+</if>
 ```
 
 #### Source
@@ -121,6 +128,7 @@ const showLegendAtTop = {
 #### Property Types
 
 ##### Line Chart
+
 ```jsx
 static propTypes = {
    // Identifies the associated view model property.
@@ -139,11 +147,12 @@ static propTypes = {
    streaming: PropTypes.bool,
 
    // Enables tooltip.
-   tooltip: PropTypes.bool   
+   tooltip: PropTypes.bool
 };
 ```
 
 ##### Bar Chart
+
 ```jsx
 static propTypes = {
    // Identifies the associated view model property.
@@ -155,6 +164,7 @@ static propTypes = {
 ```
 
 ##### Pie Chart
+
 ```jsx
 static propTypes = {
    // Identifies the associated view model property.
@@ -187,7 +197,7 @@ public class ChartAttribute
       // Maximum Y axis value.
       public double YAxisMax { get; set; }
 
-      // Maximum number of data to display.  
+      // Maximum number of data to display.
       // Overflow will be trimmed from start of array.
       public int MaxDataSize { get; set; }
 }

@@ -1,8 +1,8 @@
 import React from "react";
 import { Image, Markdown, Panel, TabItem, withTheme } from "dotnetify-elements";
-import { TabsArticle, RenderCustomize, RenderExample } from "../../components";
+import { FrameworkContext, TabsArticle, RenderCustomize, RenderExample } from "../../components";
 
-const DisplayImage = props => (
+const DisplayImage = () => (
   <TabsArticle vm="DisplayImage" id="Overview">
     <TabItem label="Overview" itemKey="Overview">
       <Markdown id="Overview">
@@ -19,6 +19,7 @@ const DisplayImage = props => (
 );
 
 class ImageExample extends React.Component {
+  static contextType = FrameworkContext;
   render() {
     const buildCode = props => `
 \`\`\`jsx
@@ -40,18 +41,11 @@ const MyApp = _ => (
     const setState = state => this.setState(state);
     let propTypes = {};
 
-    const setWebComponent = show => this.setState({ webComponent: show });
-    const webComponent = this.state && this.state.webComponent;
+    const webComponent = this.context !== "React";
     const selectBuildCode = webComponent ? buildWebComponentCode : buildCode;
 
     return (
-      <RenderExample
-        vm="ImageExample"
-        propTypes={propTypes}
-        buildCode={selectBuildCode}
-        onChange={setState}
-        onWebComponent={setWebComponent}
-      >
+      <RenderExample vm="ImageExample" propTypes={propTypes} buildCode={selectBuildCode} onChange={setState}>
         <Panel css="margin-bottom: 2rem">
           {!webComponent ? (
             <Image id="Picture" {...this.state} />

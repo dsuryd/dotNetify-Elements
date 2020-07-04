@@ -1,6 +1,6 @@
 ﻿## Label
 
-The element to display a label text.  It can include an icon to the side of the text.  
+The element to display a label text. It can include an icon to the side of the text.
 
 [inset]
 
@@ -27,11 +27,11 @@ The element to display a label text.  It can include an icon to the side of the 
 
 #### Getting Icons
 
-Icons are not included with the _Elements_ library; if you want to use them, you will have to install them yourself.  The good news is, there are plenty of options out there.
+Icons are not included with the _Elements_ library; if you want to use them, you will have to install them yourself. The good news is, there are plenty of options out there.
 
-The icons that you see here came from [Material Icons](https://material.io/tools/icons/).  After you link to the font's stylesheet, you can simply set the "material-icons [icon-name]" to the _Label_'s icon attribute; for example: `<Label icon="material-icons face" />`.  
+The icons that you see here came from [Material Icons](https://material.io/tools/icons/). After you link to the font's stylesheet, you can simply set the "material-icons [icon-name]" to the _Label_'s icon attribute; for example: <if react>`<Label icon="material-icons face" />`</if><if webcomponent>`<d-label icon="material-icons face" />`</if>.
 
-If you use [Font Awesome](https://fontawesome.com/get-started), set the icon's class name, for example:  `<Label icon="far fa-times-circle" />`.  
+If you use [Font Awesome](https://fontawesome.com/get-started), set the icon's class name, for example: <if react>`<Label icon="far fa-times-circle" />`</if><if webcomponent>`<d-label icon="far fa-times-circle" />`</if>.
 
 #### Property Types
 

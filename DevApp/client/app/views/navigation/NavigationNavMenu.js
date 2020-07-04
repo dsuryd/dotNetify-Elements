@@ -1,10 +1,8 @@
 import React from "react";
-import PropTypes from "prop-types";
-import styled from "styled-components";
-import { Card, Element, NavMenu, Markdown, Panel, TabItem, withTheme } from "dotnetify-elements";
-import { TabsArticle, RenderCustomize, RenderExample } from "../../components";
+import { Card, NavMenu, Markdown, Panel, TabItem, withTheme } from "dotnetify-elements";
+import { FrameworkContext, TabsArticle, RenderCustomize, RenderExample } from "../../components";
 
-const NavigationNavMenu = props => (
+const NavigationNavMenu = () => (
   <TabsArticle vm="NavigationNavMenu" id="Overview">
     <TabItem label="Overview" itemKey="Overview">
       <Markdown id="Overview">
@@ -21,6 +19,7 @@ const NavigationNavMenu = props => (
 );
 
 class NavMenuExample extends React.Component {
+  static contextType = FrameworkContext;
   render() {
     const buildCode = props => `
 \`\`\`jsx
@@ -46,18 +45,11 @@ const MyApp = _ => (
     const setState = state => this.setState(state);
     const propTypes = {};
 
-    const setWebComponent = show => this.setState({ webComponent: show });
-    const webComponent = this.state && this.state.webComponent;
+    const webComponent = this.context !== "React";
     const selectBuildCode = webComponent ? buildWebComponentCode : buildCode;
 
     return (
-      <RenderExample
-        vm="NavMenuExample"
-        propTypes={propTypes}
-        buildCode={selectBuildCode}
-        onChange={setState}
-        onWebComponent={setWebComponent}
-      >
+      <RenderExample vm="NavMenuExample" propTypes={propTypes} buildCode={selectBuildCode} onChange={setState}>
         <Panel css="margin-bottom: 2rem">
           {!webComponent ? (
             <Card>

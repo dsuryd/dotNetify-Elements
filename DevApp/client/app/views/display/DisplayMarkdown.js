@@ -1,7 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Checkbox, Markdown, Panel, TabItem, VMContext, withTheme } from "dotnetify-elements";
 import { currentFramework, TabsArticle, RenderCustomize, RenderExample, FrameworkContext } from "../../components";
-import { Square } from "../layout/demo-helper";
 
 const DisplayMarkdown = () => {
   const [framework, setFramework] = useState(currentFramework);
