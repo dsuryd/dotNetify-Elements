@@ -33,15 +33,16 @@ export class Markdown extends Element {
 
   mergeInsets(rawText, children) {
     let markdowns = [];
-    rawText.split("[inset]").forEach((section, idx) => {
+    const sections = rawText.split("[inset]");
+    sections.forEach((section, idx) => {
       markdowns.push(section);
-      idx < children.length && markdowns.push(children[idx]);
+      idx < children.length && idx < sections.length - 1 && markdowns.push(children[idx]);
     });
 
     return markdowns.map((section, idx) => <React.Fragment key={idx}>{renderText(section)}</React.Fragment>);
   }
 
-  processConditions(rawText, condition) {
+  static processConditions(rawText, condition) {
     const regex = /<if\s(.*?)>((.|\r?\n?)*?)<\/if>/g;
     let conditionBlocks = [];
     let match;
@@ -68,7 +69,7 @@ export class Markdown extends Element {
     let markdown = null;
     let rawText = this.props.text || this.value;
     if (rawText) {
-      rawText = this.processConditions(rawText, condition);
+      rawText = Markdown.processConditions(rawText, condition);
       markdown = this.mergeInsets(rawText, _children);
     } else if (_children.length > 0) {
       markdown = renderText(_children[0]);
