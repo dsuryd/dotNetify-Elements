@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Linq;
+using System.Reactive.Linq;
 using DotNetify;
 using DotNetify.Elements;
 using DotNetify.Routing;
@@ -58,6 +60,8 @@ namespace dotNetify_Elements
 
       public RoutingState RoutingState { get; set; }
 
+      private NavMenuItem[] _navMenuItems;
+
       public ElementsApp()
       {
          this.RegisterRoutes("elements", new List<RouteTemplate>
@@ -107,104 +111,132 @@ namespace dotNetify_Elements
             new RouteTemplate(nameof(Route.ExampleCustomerForm))  { UrlPattern = "examples/customerform" },
             new RouteTemplate(nameof(Route.ExampleDashboard))     { UrlPattern = "examples/dashboard" },
 
-            new RouteTemplate(nameof(Route.Sandbox))              { UrlPattern = "sandbox" },            
+            new RouteTemplate(nameof(Route.Sandbox))              { UrlPattern = "sandbox" },
          });
 
-         AddProperty("NavMenu", new NavMenu(
-            new NavMenuItem[]
+         _navMenuItems = new NavMenuItem[]
+         {
+            new NavRoute("Introduction",              this.GetRoute(nameof(Route.Introduction))),
+            new NavRoute("Working with Forms",        this.GetRoute(nameof(Route.WorkingWithForms))),
+            new NavRoute("Layout System",             this.GetRoute(nameof(Route.LayoutSystem))),
+            new NavRoute("Customization",             this.GetRoute(nameof(Route.Customization))),
+            new NavRoute("Get Started",               this.GetRoute(nameof(Route.GetStarted))),
+
+            new NavGroup
             {
-               new NavRoute("Introduction",              this.GetRoute(nameof(Route.Introduction))),
-               new NavRoute("Working with Forms",        this.GetRoute(nameof(Route.WorkingWithForms))),
-               new NavRoute("Layout System",             this.GetRoute(nameof(Route.LayoutSystem))),
-               new NavRoute("Customization",             this.GetRoute(nameof(Route.Customization))),
-               new NavRoute("Get Started",               this.GetRoute(nameof(Route.GetStarted))),
+               Label = "Examples",
+               Icon = "material-icons web",
+               Routes = new NavRoute[]
+               {
+                  new NavRoute("Customer Form",       this.GetRoute(nameof(Route.ExampleCustomerForm))),
+                  new NavRoute("Admin Dashboard",     this.GetRoute(nameof(Route.ExampleDashboard)))
+               },
+               IsExpanded = true
+            },
 
-               new NavGroup
+            new NavGroup
+            {
+               Label = "Form",
+               Routes = new NavRoute[]
                {
-                  Label = "Examples",
-                  Icon = "material-icons web",
-                  Routes = new NavRoute[]
-                  {
-                     new NavRoute("Customer Form",       this.GetRoute(nameof(Route.ExampleCustomerForm))),
-                     new NavRoute("Admin Dashboard",     this.GetRoute(nameof(Route.ExampleDashboard)))
-                  },
-                  IsExpanded = true
+                  new NavRoute("Basic Demo",          this.GetRoute(nameof(Route.FormDemo))),
+                  new NavRoute("Button",              this.GetRoute(nameof(Route.FormButton))),
+                  new NavRoute("Checkbox",            this.GetRoute(nameof(Route.FormCheckbox))),
+                  new NavRoute("CheckboxGroup",       this.GetRoute(nameof(Route.FormCheckboxGroup))),
+                  new NavRoute("DateTimeField",       this.GetRoute(nameof(Route.FormDateTimeField))),
+                  new NavRoute("DropdownList",        this.GetRoute(nameof(Route.FormDropdownList))),
+                  new NavRoute("Form",                this.GetRoute(nameof(Route.Form))),
+                  new NavRoute("MultiselectList",     this.GetRoute(nameof(Route.FormMultiselectList))),
+                  new NavRoute("NumberField",         this.GetRoute(nameof(Route.FormNumberField))),
+                  new NavRoute("PasswordField",       this.GetRoute(nameof(Route.FormPasswordField))),
+                  new NavRoute("RadioGroup",          this.GetRoute(nameof(Route.FormRadioGroup))),
+                  new NavRoute("RadioToggle",         this.GetRoute(nameof(Route.FormRadioToggle))),
+                  new NavRoute("RichTextEditor",      this.GetRoute(nameof(Route.FormRichTextEditor))),
+                  new NavRoute("TextAreaField",       this.GetRoute(nameof(Route.FormTextAreaField))),
+                  new NavRoute("TextField",           this.GetRoute(nameof(Route.FormTextField)))
                },
+               IsExpanded = true
+            },
+            new NavGroup
+            {
+               Label = "Layout",
+               Routes = new NavRoute[]
+               {
+                  new NavRoute("Basic Demo",          this.GetRoute(nameof(Route.LayoutDemo))),
+                  new NavRoute("Layout Grid",         this.GetRoute(nameof(Route.LayoutGrid))),
+                  new NavRoute("Panel",               this.GetRoute(nameof(Route.LayoutPanel))),
+                  new NavRoute("Theme",               this.GetRoute(nameof(Route.LayoutTheme))),
+               },
+               IsExpanded = true
+            },
+            new NavGroup
+            {
+               Label = "Structure",
+               Routes = new NavRoute[]
+               {
+                  new NavRoute("Card",                this.GetRoute(nameof(Route.StructureCard))),
+                  new NavRoute("Cell",                this.GetRoute(nameof(Route.StructureCell))),
+                  new NavRoute("Collapsible",         this.GetRoute(nameof(Route.StructureCollapsible))),
+                  new NavRoute("Field",               this.GetRoute(nameof(Route.StructureField))),
+                  new NavRoute("Menu",                this.GetRoute(nameof(Route.StructureMenu))),
+                  new NavRoute("Modal",               this.GetRoute(nameof(Route.StructureModal))),
+                  new NavRoute("Tab",                 this.GetRoute(nameof(Route.StructureTab))),
+               },
+               IsExpanded = true
+            },
+            new NavGroup
+            {
+               Label = "Display",
+               Routes = new NavRoute[]
+               {
+                  new NavRoute("Alert",               this.GetRoute(nameof(Route.DisplayAlert))),
+                  new NavRoute("Chart",               this.GetRoute(nameof(Route.DisplayChart))),
+                  new NavRoute("DataGrid",            this.GetRoute(nameof(Route.DisplayDataGrid))),
+                  new NavRoute("Image",               this.GetRoute(nameof(Route.DisplayImage))),
+                  new NavRoute("Label",               this.GetRoute(nameof(Route.DisplayLabel))),
+                  new NavRoute("Markdown",            this.GetRoute(nameof(Route.DisplayMarkdown))),
+               },
+               IsExpanded = true
+            },
+            new NavGroup
+            {
+               Label = "Navigation",
+               Routes = new NavRoute[]
+               {
+                  new NavRoute("NavMenu",             this.GetRoute(nameof(Route.NavigationNavMenu))),
+               },
+               IsExpanded = true
+            }
+         };
 
-               new NavGroup
-               {
-                  Label = "Form",
-                  Routes = new NavRoute[]
-                  {
-                     new NavRoute("Basic Demo",          this.GetRoute(nameof(Route.FormDemo))),
-                     new NavRoute("Button",              this.GetRoute(nameof(Route.FormButton))),
-                     new NavRoute("Checkbox",            this.GetRoute(nameof(Route.FormCheckbox))),
-                     new NavRoute("CheckboxGroup",       this.GetRoute(nameof(Route.FormCheckboxGroup))),
-                     new NavRoute("DateTimeField",       this.GetRoute(nameof(Route.FormDateTimeField))),
-                     new NavRoute("DropdownList",        this.GetRoute(nameof(Route.FormDropdownList))),
-                     new NavRoute("Form",                this.GetRoute(nameof(Route.Form))),
-                     new NavRoute("MultiselectList",     this.GetRoute(nameof(Route.FormMultiselectList))),
-                     new NavRoute("NumberField",         this.GetRoute(nameof(Route.FormNumberField))),
-                     new NavRoute("PasswordField",       this.GetRoute(nameof(Route.FormPasswordField))),
-                     new NavRoute("RadioGroup",          this.GetRoute(nameof(Route.FormRadioGroup))),
-                     new NavRoute("RadioToggle",         this.GetRoute(nameof(Route.FormRadioToggle))),
-                     new NavRoute("RichTextEditor",      this.GetRoute(nameof(Route.FormRichTextEditor))),
-                     new NavRoute("TextAreaField",       this.GetRoute(nameof(Route.FormTextAreaField))),
-                     new NavRoute("TextField",           this.GetRoute(nameof(Route.FormTextField)))
-                  },
-                  IsExpanded = true
-               },
-               new NavGroup
-               {
-                  Label = "Layout",
-                  Routes = new NavRoute[]
-                  {
-                     new NavRoute("Basic Demo",          this.GetRoute(nameof(Route.LayoutDemo))),
-                     new NavRoute("Layout Grid",         this.GetRoute(nameof(Route.LayoutGrid))),
-                     new NavRoute("Panel",               this.GetRoute(nameof(Route.LayoutPanel))),
-                     new NavRoute("Theme",               this.GetRoute(nameof(Route.LayoutTheme))),
-                  },
-                  IsExpanded = true
-               },
-               new NavGroup
-               {
-                  Label = "Structure",
-                  Routes = new NavRoute[]
-                  {
-                     new NavRoute("Card",                this.GetRoute(nameof(Route.StructureCard))),
-                     new NavRoute("Cell",                this.GetRoute(nameof(Route.StructureCell))),
-                     new NavRoute("Collapsible",         this.GetRoute(nameof(Route.StructureCollapsible))),
-                     new NavRoute("Field",               this.GetRoute(nameof(Route.StructureField))),
-                     new NavRoute("Menu",                this.GetRoute(nameof(Route.StructureMenu))),
-                     new NavRoute("Modal",               this.GetRoute(nameof(Route.StructureModal))),
-                     new NavRoute("Tab",                 this.GetRoute(nameof(Route.StructureTab))),
-                  },
-                  IsExpanded = true
-               },
-               new NavGroup
-               {
-                  Label = "Display",
-                  Routes = new NavRoute[]
-                  {
-                     new NavRoute("Alert",               this.GetRoute(nameof(Route.DisplayAlert))),
-                     new NavRoute("Chart",               this.GetRoute(nameof(Route.DisplayChart))),
-                     new NavRoute("DataGrid",            this.GetRoute(nameof(Route.DisplayDataGrid))),
-                     new NavRoute("Image",               this.GetRoute(nameof(Route.DisplayImage))),
-                     new NavRoute("Label",               this.GetRoute(nameof(Route.DisplayLabel))),
-                     new NavRoute("Markdown",            this.GetRoute(nameof(Route.DisplayMarkdown))),
-                  },
-                  IsExpanded = true
-               },
-               new NavGroup
-               {
-                  Label = "Navigation",
-                  Routes = new NavRoute[]
-                  {
-                     new NavRoute("NavMenu",             this.GetRoute(nameof(Route.NavigationNavMenu))),
-                  },
-                  IsExpanded = true
-               }
-            }));
+         AddProperty("NavMenu", new NavMenu(_navMenuItems))
+            .SubscribeTo(AddProperty<string>("Framework").Select(framework => GetNavMenu(framework)));
+      }
+
+      private NavMenu GetNavMenu(string framework)
+      {
+         var navMenuItems = new List<NavMenuItem>(_navMenuItems);
+         if (framework == "WebComponent")
+         {
+            //navMenuItems.RemoveAt(navMenuItems.FindIndex(x => (x as NavRoute)?.Route.TemplateId == nameof(Route.DataFlow)));
+
+            int idx = navMenuItems.FindIndex(x => x.Label == "Layout");
+            navMenuItems[idx] = new NavGroup
+            {
+               Label = navMenuItems[idx].Label,
+               Routes = (navMenuItems[idx] as NavGroup).Routes.Where(x => x.Label != "Layout Grid" && x.Label != "Basic Demo").ToArray(),
+               IsExpanded = true
+            };
+
+            idx = navMenuItems.FindIndex(x => x.Label == "Structure");
+            navMenuItems[idx] = new NavGroup
+            {
+               Label = navMenuItems[idx].Label,
+               Routes = (navMenuItems[idx] as NavGroup).Routes.Where(x => x.Label != "Field").ToArray(),
+               IsExpanded = true
+            };
+         }
+         return new NavMenu(navMenuItems.ToArray());
       }
    }
 }
