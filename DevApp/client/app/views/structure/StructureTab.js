@@ -1,10 +1,8 @@
 import React from "react";
-import PropTypes from "prop-types";
-import styled from "styled-components";
-import { Frame, Image, Markdown, Panel, Tab, TabItem, withTheme } from "dotnetify-elements";
-import { TabsArticle, RenderCustomize, RenderExample } from "../../components";
+import { Image, Markdown, Panel, Tab, TabItem, withTheme } from "dotnetify-elements";
+import { FrameworkContext, TabsArticle, RenderCustomize, RenderExample } from "../../components";
 
-const StructureTab = props => (
+const StructureTab = () => (
   <TabsArticle vm="StructureTab" id="Overview">
     <TabItem label="Overview" itemKey="Overview">
       <Markdown id="Overview">
@@ -21,6 +19,7 @@ const StructureTab = props => (
 );
 
 class TabExample extends React.Component {
+  static contextType = FrameworkContext;
   render() {
     const buildCode = props => `
 \`\`\`jsx
@@ -68,18 +67,11 @@ const MyApp = _ => (
     const setState = state => this.setState(state);
     const propTypes = {};
 
-    const setWebComponent = show => this.setState({ webComponent: show });
-    const webComponent = this.state && this.state.webComponent;
+    const webComponent = this.context !== "React";
     const selectBuildCode = webComponent ? buildWebComponentCode : buildCode;
 
     return (
-      <RenderExample
-        vm="TabExample"
-        propTypes={propTypes}
-        buildCode={selectBuildCode}
-        onChange={setState}
-        onWebComponent={setWebComponent}
-      >
+      <RenderExample vm="TabExample" propTypes={propTypes} buildCode={selectBuildCode} onChange={setState}>
         <Panel css="padding: 2rem; margin-bottom: 2rem; background: white">
           {!webComponent ? (
             <Tab active="home">

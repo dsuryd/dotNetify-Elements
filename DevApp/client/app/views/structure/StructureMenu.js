@@ -1,6 +1,6 @@
 import React from "react";
 import { Label, Menu, Markdown, Panel, TabItem, withTheme } from "dotnetify-elements";
-import { TabsArticle, RenderCustomize, RenderExample } from "../../components";
+import { FrameworkContext, TabsArticle, RenderCustomize, RenderExample } from "../../components";
 
 const StructureMenu = props => (
   <TabsArticle vm="StructureMenu" id="Overview">
@@ -19,6 +19,7 @@ const StructureMenu = props => (
 );
 
 class MenuExample extends React.Component {
+  static contextType = FrameworkContext;
   render() {
     const buildCode = props => `
 \`\`\`jsx
@@ -42,18 +43,11 @@ const MyApp = _ => (
     const setState = state => this.setState(state);
     const propTypes = {};
 
-    const setWebComponent = show => this.setState({ webComponent: show });
-    const webComponent = this.state && this.state.webComponent;
+    const webComponent = this.context !== "React";
     const selectBuildCode = webComponent ? buildWebComponentCode : buildCode;
 
     return (
-      <RenderExample
-        vm="MenuExample"
-        propTypes={propTypes}
-        buildCode={selectBuildCode}
-        onChange={setState}
-        onWebComponent={setWebComponent}
-      >
+      <RenderExample vm="MenuExample" propTypes={propTypes} buildCode={selectBuildCode} onChange={setState}>
         <Panel style={{ minHeight: "4rem" }}>
           {!webComponent ? (
             <div>

@@ -1,26 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import { Cell, Markdown, Panel, TabItem, VMContext, withTheme } from "dotnetify-elements";
-import { TabsArticle, RenderCustomize, RenderExample } from "../../components";
+import { currentFramework, FrameworkContext, TabsArticle, RenderCustomize, RenderExample } from "../../components";
 import { BigIcon } from "../display/demo-helper";
 
-const StructureCell = props => (
-  <TabsArticle vm="StructureCell" id="Overview">
-    <TabItem label="Overview" itemKey="Overview">
-      <Markdown id="Overview">
-        <CellExample />
-        <CellGroupExample />
-      </Markdown>
-    </TabItem>
-    <TabItem label="API" itemKey="API">
-      <Markdown id="API" />
-    </TabItem>
-    <TabItem label="Customize">
-      <CellCustomize />
-    </TabItem>
-  </TabsArticle>
-);
+const StructureCell = () => {
+  const [framework, setFramework] = useState(currentFramework);
+  return (
+    <TabsArticle vm="StructureCell" id="Overview">
+      <TabItem label="Overview" itemKey="Overview">
+        <Markdown id="Overview">
+          <CellExample />
+          <CellGroupExample />
+        </Markdown>
+      </TabItem>
+      <TabItem label="API" itemKey="API">
+        <Markdown id="API" />
+      </TabItem>
+      <TabItem label="Customize">
+        <CellCustomize />
+      </TabItem>
+    </TabsArticle>
+  );
+};
 
 class CellExample extends React.Component {
+  static contextType = FrameworkContext;
   render() {
     const buildCode = props => `
 \`\`\`jsx
@@ -49,17 +53,11 @@ const MyApp = _ => (
     const setState = state => this.setState(state);
     const propTypes = { center: null, middle: null, right: null };
 
-    const setWebComponent = show => this.setState({ webComponent: show });
-    const webComponent = this.state && this.state.webComponent;
+    const webComponent = this.context !== "React";
     const selectBuildCode = webComponent ? buildWebComponentCode : buildCode;
 
     return (
-      <RenderExample
-        propTypes={propTypes}
-        buildCode={selectBuildCode}
-        onChange={setState}
-        onWebComponent={setWebComponent}
-      >
+      <RenderExample propTypes={propTypes} buildCode={selectBuildCode} onChange={setState}>
         <Panel css="margin-bottom: 2rem">
           {!webComponent ? (
             <Cell {...this.state}>

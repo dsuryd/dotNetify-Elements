@@ -49,7 +49,14 @@ const scrollIntoView = id => document.getElementById(id).scrollIntoView({ behavi
 
 const Article = props => {
   const [framework, setFramework] = useState(currentFramework);
-  useEffect(() => frameworkSelectEvent.subscribe(framework => setFramework(framework)), []);
+  useEffect(
+    () =>
+      frameworkSelectEvent.subscribe(framework => {
+        setFramework(framework);
+        props.onChangeFramework && props.onChangeFramework(framework);
+      }),
+    []
+  );
 
   return (
     <FrameworkContext.Provider value={framework}>
@@ -68,7 +75,7 @@ const Article = props => {
                 {props.tocTitle}
               </a>
             </Title>
-            {props.id && <MarkdownTOC id={props.id} />}
+            {props.id && <MarkdownTOC id={props.id} condition={framework} />}
           </Sidebar>
         </Frame>
       </VMContext>

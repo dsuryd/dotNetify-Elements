@@ -1,6 +1,6 @@
 import React from "react";
 import { Cell, Collapsible, Markdown, Panel, TabItem, withTheme } from "dotnetify-elements";
-import { TabsArticle, RenderCustomize, RenderExample } from "../../components";
+import { FrameworkContext, TabsArticle, RenderCustomize, RenderExample } from "../../components";
 
 const StructureCollapsible = props => (
   <TabsArticle vm="StructureCollapsible" id="Overview">
@@ -19,6 +19,7 @@ const StructureCollapsible = props => (
 );
 
 class CollapsibleExample extends React.Component {
+  static contextType = FrameworkContext;
   render() {
     const buildCode = props => `
 \`\`\`jsx
@@ -54,17 +55,11 @@ sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit 
     const setState = state => this.setState(state);
     const propTypes = { collapsed: null, noIcon: null };
 
-    const setWebComponent = show => this.setState({ webComponent: show });
-    const webComponent = this.state && this.state.webComponent;
+    const webComponent = this.context !== "React";
     const selectBuildCode = webComponent ? buildWebComponentCode : buildCode;
 
     return (
-      <RenderExample
-        propTypes={propTypes}
-        buildCode={selectBuildCode}
-        onChange={setState}
-        onWebComponent={setWebComponent}
-      >
+      <RenderExample propTypes={propTypes} buildCode={selectBuildCode} onChange={setState}>
         <Panel css="padding-bottom: 2rem">
           {!webComponent ? (
             <Collapsible label={<b>Lorem Ipsum</b>} {...this.state}>

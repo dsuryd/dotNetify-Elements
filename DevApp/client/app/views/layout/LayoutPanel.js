@@ -1,24 +1,29 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import { Button, Frame, Markdown, Panel, TabItem, withTheme } from "dotnetify-elements";
-import { TabsArticle, RenderExample } from "../../components";
+import { currentFramework, FrameworkContext, TabsArticle, RenderExample } from "../../components";
 import { Rectangle, Square } from "./demo-helper";
 
-const LayoutPanel = props => (
-  <TabsArticle vm="LayoutPanel" id="Overview">
-    <TabItem label="Overview" itemKey="Overview">
-      <Markdown id="Overview">
-        <PanelExample />
-        <FlexLayoutExample />
-        <ChildPropsExample />
-      </Markdown>
-    </TabItem>
-    <TabItem label="API" itemKey="API">
-      <Markdown id="API" />
-    </TabItem>
-  </TabsArticle>
-);
+const LayoutPanel = () => {
+  const [framework, setFramework] = useState(currentFramework);
+  return (
+    <TabsArticle vm="LayoutPanel" id="Overview" onChangeFramework={x => setFramework(x)}>
+      <TabItem label="Overview" itemKey="Overview">
+        <Markdown id="Overview" condition={framework}>
+          <PanelExample />
+          <FlexLayoutExample />
+          <ChildPropsExample />
+        </Markdown>
+      </TabItem>
+      <TabItem label="API" itemKey="API">
+        <Markdown id="API" />
+      </TabItem>
+    </TabsArticle>
+  );
+};
 
 class PanelExample extends React.Component {
+  static contextType = FrameworkContext;
+  state = {};
   render() {
     const buildCode = props => `
 \`\`\`jsx
@@ -61,8 +66,7 @@ const MyApp = _ => (
       wrap: null
     };
 
-    const setWebComponent = show => this.setState({ webComponent: show });
-    const webComponent = this.state && this.state.webComponent;
+    const webComponent = this.context !== "React";
 
     return (
       <RenderExample
@@ -70,7 +74,6 @@ const MyApp = _ => (
         defaultProps={Panel.defaultProps}
         buildCode={webComponent ? buildWebComponentCode : buildCode}
         onChange={setState}
-        onWebComponent={setWebComponent}
       >
         {!webComponent ? (
           <Panel height="16rem">
@@ -116,38 +119,72 @@ const MyApp = _ => (
   }
 }
 
-const FlexLayoutExample = props => (
-  <Panel css="border: 2px dashed #ccc">
-    <Frame>
-      <Panel horizontal>
-        <Panel horizontal flex css="border: 2px dashed red">
-          <Square>1</Square>
-          <Square>2</Square>
+const FlexLayoutExample = props => {
+  const framework = useContext(FrameworkContext);
+  return framework === "React" ? (
+    <Panel css="border: 2px dashed #ccc">
+      <Frame>
+        <Panel horizontal>
+          <Panel horizontal flex css="border: 2px dashed red">
+            <Square>1</Square>
+            <Square>2</Square>
+          </Panel>
+          <Panel horizontal css="border: 2px dashed aquamarine">
+            <Square>3</Square>
+            <Square>4</Square>
+          </Panel>
+          <Panel css="border: 2px dashed green">
+            <Rectangle>5</Rectangle>
+            <Rectangle>6</Rectangle>
+          </Panel>
         </Panel>
-        <Panel horizontal css="border: 2px dashed aquamarine">
-          <Square>3</Square>
-          <Square>4</Square>
+        <Panel horizontal>
+          <Panel flex="20%" right css="border: 2px dashed blue">
+            <Square>7</Square>
+          </Panel>
+          <Panel middle css="border: 2px dashed orange">
+            <Square>8</Square>
+            <Rectangle>9</Rectangle>
+          </Panel>
+          <Panel flex="30%" css="border: 2px dashed purple">
+            <Square>10</Square>
+          </Panel>
         </Panel>
-        <Panel css="border: 2px dashed green">
-          <Rectangle>5</Rectangle>
-          <Rectangle>6</Rectangle>
-        </Panel>
-      </Panel>
-      <Panel horizontal>
-        <Panel flex="20%" right css="border: 2px dashed blue">
-          <Square>7</Square>
-        </Panel>
-        <Panel middle css="border: 2px dashed orange">
-          <Square>8</Square>
-          <Rectangle>9</Rectangle>
-        </Panel>
-        <Panel flex="30%" css="border: 2px dashed purple">
-          <Square>10</Square>
-        </Panel>
-      </Panel>
-    </Frame>
-  </Panel>
-);
+      </Frame>
+    </Panel>
+  ) : (
+    <d-panel css="border: 2px dashed #ccc">
+      <d-frame>
+        <d-panel horizontal>
+          <d-panel horizontal flex="1" css="border: 2px dashed red">
+            <Square>1</Square>
+            <Square>2</Square>
+          </d-panel>
+          <d-panel horizontal css="border: 2px dashed aquamarine">
+            <Square>3</Square>
+            <Square>4</Square>
+          </d-panel>
+          <d-panel css="border: 2px dashed green">
+            <Rectangle>5</Rectangle>
+            <Rectangle>6</Rectangle>
+          </d-panel>
+        </d-panel>
+        <d-panel horizontal>
+          <d-panel flex="20%" right css="border: 2px dashed blue">
+            <Square>7</Square>
+          </d-panel>
+          <d-panel middle css="border: 2px dashed orange">
+            <Square>8</Square>
+            <Rectangle>9</Rectangle>
+          </d-panel>
+          <d-panel flex="30%" css="border: 2px dashed purple">
+            <Square>10</Square>
+          </d-panel>
+        </d-panel>
+      </d-frame>
+    </d-panel>
+  );
+};
 
 class ChildPropsExample extends React.Component {
   state = {};

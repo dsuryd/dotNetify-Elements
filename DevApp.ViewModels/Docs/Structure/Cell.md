@@ -1,15 +1,17 @@
 ﻿## Cell
 
-The elements to display other elements in a container similar to a table cell.  It can include a header, either as passed as a property value, or nested along with the content and marked with HTML tags `<header>`.
+The elements to display other elements in a container similar to a table cell. It can include a header, either as passed as a property value, or nested along with the content and marked with HTML tags `<header>`.
 
 [inset]
 
 #### Cell Grouping
 
-Cell elements are intended to be grouped together on a _Panel_ element to form a grid layout.  When a Panel directly encloses Cell elements, it will set itself with no gap by default.
+Cell elements are intended to be grouped together on a _Panel_ element to form a grid layout. When a Panel directly encloses Cell elements, it will set itself with no gap by default.
 
 [inset]
 <br/>
+
+<if react>
 
 ```jsx
 import React from 'react';
@@ -25,25 +27,25 @@ const tableCss = `
 `;
 
 class CellGroupExample extends React.Component {
-   state = { Customers: [] };
-   render() {
-      return (
-         <VMContext vm="CellGroupExample" onStateChange={state => this.setState(state)}>
-            <Panel horizontal childProps={{ flex: true }} css={tableCss}>
-               <Cell header="Name" />
-               <Cell header="Address" />
-               <Cell header="City" />
-            </Panel>
-            {this.state.Customers.map(customer => (
-               <Panel key={customer.Id} horizontal childProps={{ flex: true }} css={tableCss}>
-                  <Cell>{customer.Name.FullName}</Cell>
-                  <Cell>{customer.Address.Address1}</Cell>
-                  <Cell>{customer.Address.City}</Cell>
-               </Panel>
-            ))}
-         </VMContext>
-      );
-   }
+  state = { Customers: [] };
+  render() {
+    return (
+      <VMContext vm='CellGroupExample' onStateChange={state => this.setState(state)}>
+        <Panel horizontal childProps={{ flex: true }} css={tableCss}>
+          <Cell header='Name' />
+          <Cell header='Address' />
+          <Cell header='City' />
+        </Panel>
+        {this.state.Customers.map(customer => (
+          <Panel key={customer.Id} horizontal childProps={{ flex: true }} css={tableCss}>
+            <Cell>{customer.Name.FullName}</Cell>
+            <Cell>{customer.Address.Address1}</Cell>
+            <Cell>{customer.Address.City}</Cell>
+          </Panel>
+        ))}
+      </VMContext>
+    );
+  }
 }
 ```
 
@@ -56,6 +58,8 @@ public class CellGroupExample : BaseVM
    }
 }
 ```
+
+</if>
 
 #### Property Types
 

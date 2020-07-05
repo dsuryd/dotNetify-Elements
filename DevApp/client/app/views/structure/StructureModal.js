@@ -1,6 +1,6 @@
 import React from "react";
 import { Alert, Button, Modal, Markdown, Panel, TabItem, TextField, VMContext, withTheme } from "dotnetify-elements";
-import { TabsArticle, RenderCustomize, RenderExample } from "../../components";
+import { FrameworkContext, TabsArticle, RenderCustomize, RenderExample } from "../../components";
 
 const StructureModal = props => (
   <TabsArticle vm="StructureModal" id="Overview">
@@ -34,6 +34,7 @@ const MyDialog = props => (
 );
 
 class ModalExample extends React.Component {
+  static contextType = FrameworkContext;
   state = { openDialog: false, formData: null };
 
   render() {
@@ -106,20 +107,14 @@ class MyApp extends React.Component {
     const setState = state => this.setState(state);
     const propTypes = { small: null, large: null };
 
-    const setWebComponent = show => this.setState({ webComponent: show });
-    const webComponent = this.state && this.state.webComponent;
+    const webComponent = this.context !== "React";
     const selectBuildCode = webComponent ? buildWebComponentCode : buildCode;
 
     const handleClick = _ => this.setState({ formData: null, openDialog: true });
     const handleClose = _ => this.setState({ openDialog: false });
     const handleSubmit = data => this.setState({ formData: data.Email + " has been registered!" });
     return (
-      <RenderExample
-        propTypes={propTypes}
-        buildCode={selectBuildCode}
-        onChange={setState}
-        onWebComponent={setWebComponent}
-      >
+      <RenderExample propTypes={propTypes} buildCode={selectBuildCode} onChange={setState}>
         <Panel css="margin-bottom: 1rem">
           {!webComponent ? (
             <React.Fragment>
