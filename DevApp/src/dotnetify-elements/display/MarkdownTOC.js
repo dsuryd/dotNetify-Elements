@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import Element from "../core/Element";
+import { Markdown } from "./Markdown";
 import * as utils from "../utils";
 
 const ContainerComponent = styled.div`
@@ -18,7 +19,8 @@ ItemContainerComponent.defaultProps = { theme: utils.getDefaultTheme() };
 
 export class MarkdownTOC extends Element {
   static propTypes = {
-    id: PropTypes.string.isRequired
+    id: PropTypes.string.isRequired,
+    condition: PropTypes.string
   };
 
   static componentTypes = {
@@ -70,8 +72,10 @@ export class MarkdownTOC extends Element {
     let headers = [];
     const regex = /^(#+) (.+)/gm;
 
+    const rawText = Markdown.processConditions(this.value, this.props.condition);
+
     // Parse the markdown document for headers.
-    while ((m = regex.exec(this.value)) !== null) {
+    while ((m = regex.exec(rawText)) !== null) {
       // This is necessary to avoid infinite loops with zero-width matches
       if (m.index === regex.lastIndex) regex.lastIndex++;
       headers.push({
