@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Element, Label, Markdown, Panel, RadioToggle, TabItem, withTheme } from "dotnetify-elements";
-import { TabsArticle, RenderCustomize, RenderExample } from "../../components";
+import { FrameworkContext, TabsArticle, RenderCustomize, RenderExample } from "../../components";
 
 const FormButton = props => (
   <TabsArticle vm="FormButton" id="Overview">
@@ -19,6 +19,7 @@ const FormButton = props => (
 );
 
 class ButtonExample extends React.Component {
+  static contextType = FrameworkContext;
   state = { color: "primary" };
 
   render() {
@@ -78,8 +79,7 @@ const MyApp = _ => (
     const removeLabel = <Label icon="material-icons highlight_off">Remove</Label>;
     const propTypes = { enable: null, show: null };
 
-    const setWebComponent = show => this.setState({ webComponent: show });
-    const webComponent = this.state && this.state.webComponent;
+    const webComponent = this.context !== "React";
     const selectBuildCode = webComponent ? buildWebComponentCode : buildCode;
 
     return (
@@ -89,7 +89,6 @@ const MyApp = _ => (
         propTypes={propTypes}
         buildCode={selectBuildCode}
         onChange={setState}
-        onWebComponent={setWebComponent}
       >
         {!webComponent ? (
           <Panel horizontal middle style={{ paddingBottom: "2rem" }}>

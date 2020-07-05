@@ -1,6 +1,6 @@
 import React from "react";
 import { Alert, Button, Form, Markdown, Panel, TabItem, TextField, withTheme } from "dotnetify-elements";
-import { TabsArticle, RenderExample } from "../../components";
+import { FrameworkContext, TabsArticle, RenderExample } from "../../components";
 
 const _Form = props => (
   <TabsArticle vm="Form" id="Overview">
@@ -16,6 +16,7 @@ const _Form = props => (
 );
 
 class FormExample extends React.Component {
+  static contextType = FrameworkContext;
   state = { emittedEvent: "" };
 
   render() {
@@ -63,18 +64,11 @@ const MyApp = _ => (
     const handleSubmitError = arg => this.setState({ emittedEvent: `onSubmitError: ${JSON.stringify(arg)}` });
     const propTypes = { plainText: null };
 
-    const setWebComponent = show => this.setState({ webComponent: show });
-    const webComponent = this.state && this.state.webComponent;
+    const webComponent = this.context !== "React";
     const selectBuildCode = webComponent ? buildWebComponentCode : buildCode;
 
     return (
-      <RenderExample
-        vm="BasicForm"
-        propTypes={propTypes}
-        buildCode={selectBuildCode}
-        onChange={setState}
-        onWebComponent={setWebComponent}
-      >
+      <RenderExample vm="BasicForm" propTypes={propTypes} buildCode={selectBuildCode} onChange={setState}>
         {!webComponent ? (
           <Form {...this.state} onChanged={handleChanged} onSubmit={handleSubmit} onSubmitError={handleSubmitError}>
             <Alert id="ServerResponse" />

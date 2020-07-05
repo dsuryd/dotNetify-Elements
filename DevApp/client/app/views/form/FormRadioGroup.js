@@ -1,7 +1,6 @@
 import React from "react";
-import styled from "styled-components";
-import { Frame, Markdown, Panel, Tab, TabItem, RadioGroup, VMContext, withTheme } from "dotnetify-elements";
-import { TabsArticle, RenderCustomize, RenderExample } from "../../components";
+import { Markdown, Panel, TabItem, RadioGroup, VMContext, withTheme } from "dotnetify-elements";
+import { FrameworkContext, TabsArticle, RenderCustomize, RenderExample } from "../../components";
 
 const FormRadioGroup = props => (
   <TabsArticle vm="FormRadioGroup" id="Overview">
@@ -20,6 +19,8 @@ const FormRadioGroup = props => (
 );
 
 class RadioGroupExample extends React.Component {
+  static contextType = FrameworkContext;
+  state = {};
   render() {
     const buildCode = props => `
 \`\`\`jsx
@@ -41,18 +42,11 @@ const MyApp = _ => (
     const setState = state => this.setState(state);
     const propTypes = { enable: null, horizontal: null, plainText: null };
 
-    const setWebComponent = show => this.setState({ webComponent: show });
-    const webComponent = this.state && this.state.webComponent;
+    const webComponent = this.context !== "React";
     const selectBuildCode = webComponent ? buildWebComponentCode : buildCode;
 
     return (
-      <RenderExample
-        vm="RadioGroupExample"
-        propTypes={propTypes}
-        buildCode={selectBuildCode}
-        onChange={setState}
-        onWebComponent={setWebComponent}
-      >
+      <RenderExample vm="RadioGroupExample" propTypes={propTypes} buildCode={selectBuildCode} onChange={setState}>
         <Panel style={{ minHeight: "10rem" }}>
           {!webComponent ? (
             <RadioGroup id="Weather" {...this.state} />

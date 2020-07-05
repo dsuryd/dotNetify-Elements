@@ -1,6 +1,6 @@
 import React from "react";
-import { Markdown, Panel, Tab, TabItem, TextField, withTheme } from "dotnetify-elements";
-import { TabsArticle, RenderCustomize, RenderExample } from "../../components";
+import { Markdown, Panel, TabItem, TextField, withTheme } from "dotnetify-elements";
+import { FrameworkContext, TabsArticle, RenderCustomize, RenderExample } from "../../components";
 
 const FormTextField = props => (
   <TabsArticle vm="FormTextField" id="Overview">
@@ -22,6 +22,8 @@ const FormTextField = props => (
 );
 
 class TextFieldExample extends React.Component {
+  static contextType = FrameworkContext;
+  state = {};
   render() {
     const buildCode = props => `
 \`\`\`jsx
@@ -49,18 +51,11 @@ const MyApp = _ => (
     const setState = state => this.setState(state);
     const propTypes = { enable: null, horizontal: null, plainText: null };
 
-    const setWebComponent = show => this.setState({ webComponent: show });
-    const webComponent = this.state && this.state.webComponent;
+    const webComponent = this.context !== "React";
     const selectBuildCode = webComponent ? buildWebComponentCode : buildCode;
 
     return (
-      <RenderExample
-        vm="TextFieldExample"
-        propTypes={propTypes}
-        buildCode={selectBuildCode}
-        onChange={setState}
-        onWebComponent={setWebComponent}
-      >
+      <RenderExample vm="TextFieldExample" propTypes={propTypes} buildCode={selectBuildCode} onChange={setState}>
         {!webComponent ? (
           <Panel style={{ minHeight: "17rem" }}>
             <TextField id="Name" {...this.state} />

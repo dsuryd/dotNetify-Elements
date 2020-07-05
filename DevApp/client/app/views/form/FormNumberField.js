@@ -1,6 +1,6 @@
 import React from "react";
 import { Markdown, NumberField, Panel, TabItem, withTheme } from "dotnetify-elements";
-import { TabsArticle, RenderCustomize, RenderExample } from "../../components";
+import { FrameworkContext, TabsArticle, RenderCustomize, RenderExample } from "../../components";
 
 const FormNumberField = props => (
   <TabsArticle vm="FormNumberField" id="Overview">
@@ -19,6 +19,8 @@ const FormNumberField = props => (
 );
 
 class NumberFieldExample extends React.Component {
+  static contextType = FrameworkContext;
+  state = {};
   render() {
     const buildCode = props => `
 \`\`\`jsx
@@ -49,18 +51,11 @@ const MyApp = _ => (
     const propTypes = { enable: null, horizontal: null, plainText: null };
     const css = "min-width: 14rem; max-width: 20rem; white-space: nowrap";
 
-    const setWebComponent = show => this.setState({ webComponent: show });
-    const webComponent = this.state && this.state.webComponent;
+    const webComponent = this.context !== "React";
     const selectBuildCode = webComponent ? buildWebComponentCode : buildCode;
 
     return (
-      <RenderExample
-        vm="NumberFieldExample"
-        propTypes={propTypes}
-        buildCode={selectBuildCode}
-        onChange={setState}
-        onWebComponent={setWebComponent}
-      >
+      <RenderExample vm="NumberFieldExample" propTypes={propTypes} buildCode={selectBuildCode} onChange={setState}>
         {!webComponent ? (
           <Panel horizontal css="min-height: 7rem; align-items: flex-start" childProps={{ css: css }}>
             <NumberField id="HeightFeet" {...this.state} />

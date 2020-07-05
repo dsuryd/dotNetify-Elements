@@ -1,6 +1,6 @@
 import React from "react";
 import { DateField, DateTimeField, TimeField, Markdown, Panel, TabItem, withTheme } from "dotnetify-elements";
-import { TabsArticle, RenderCustomize, RenderExample } from "../../components";
+import { FrameworkContext, TabsArticle, RenderCustomize, RenderExample } from "../../components";
 
 const FormDateTimeField = props => (
   <TabsArticle vm="FormDateTimeField" id="Overview">
@@ -19,6 +19,8 @@ const FormDateTimeField = props => (
 );
 
 class DateTimeFieldExample extends React.Component {
+  static contextType = FrameworkContext;
+  state = {};
   render() {
     const buildCode = props => `
 \`\`\`jsx
@@ -48,18 +50,11 @@ const MyApp = _ => (
     const setState = state => this.setState(state);
     const propTypes = { enable: null, horizontal: null, plainText: null };
 
-    const setWebComponent = show => this.setState({ webComponent: show });
-    const webComponent = this.state && this.state.webComponent;
+    const webComponent = this.context !== "React";
     const selectBuildCode = webComponent ? buildWebComponentCode : buildCode;
 
     return (
-      <RenderExample
-        vm="DateTimeFieldExample"
-        propTypes={propTypes}
-        buildCode={selectBuildCode}
-        onChange={setState}
-        onWebComponent={setWebComponent}
-      >
+      <RenderExample vm="DateTimeFieldExample" propTypes={propTypes} buildCode={selectBuildCode} onChange={setState}>
         <Panel css="margin-bottom: 3rem">
           {!webComponent ? (
             <Panel horizontal>

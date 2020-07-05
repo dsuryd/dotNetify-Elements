@@ -1,7 +1,6 @@
 import React from "react";
-import styled from "styled-components";
 import { Frame, Markdown, Panel, PasswordField, Tab, TabItem, VMContext, withTheme } from "dotnetify-elements";
-import { TabsArticle, RenderCustomize, RenderExample } from "../../components";
+import { FrameworkContext, TabsArticle, RenderCustomize, RenderExample } from "../../components";
 
 const FormPasswordField = props => (
   <TabsArticle vm="FormPasswordField" id="Overview">
@@ -20,6 +19,8 @@ const FormPasswordField = props => (
 );
 
 class PasswordFieldExample extends React.Component {
+  static contextType = FrameworkContext;
+  state = {};
   render() {
     const buildCode = props => `
 \`\`\`jsx
@@ -41,18 +42,11 @@ const MyApp = _ => (
     const setState = state => this.setState(state);
     const propTypes = { enable: null, horizontal: null, plainText: null };
 
-    const setWebComponent = show => this.setState({ webComponent: show });
-    const webComponent = this.state && this.state.webComponent;
+    const webComponent = this.context !== "React";
     const selectBuildCode = webComponent ? buildWebComponentCode : buildCode;
 
     return (
-      <RenderExample
-        vm="PasswordFieldExample"
-        propTypes={propTypes}
-        buildCode={selectBuildCode}
-        onChange={setState}
-        onWebComponent={setWebComponent}
-      >
+      <RenderExample vm="PasswordFieldExample" propTypes={propTypes} buildCode={selectBuildCode} onChange={setState}>
         <Panel style={{ minHeight: "7rem" }}>
           {!webComponent ? (
             <PasswordField id="Password" {...this.state} />
