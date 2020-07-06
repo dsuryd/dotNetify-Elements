@@ -109,7 +109,7 @@ export class MarkdownTOC extends Element {
             isSelected={selected === header.link}
             onClick={_ => select(header.link)}
           >
-            <a href={header.link} onClick={e => e.preventDefault()}>
+            <a href={window.location.href + header.link} onClick={e => e.preventDefault()}>
               {header.title}
             </a>
           </ItemContainer>
