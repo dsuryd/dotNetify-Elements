@@ -17,6 +17,7 @@ export default function createTabComponent(Component, elementName) {
 
         const panelElem = utils.addChildNode(host, "d-panel");
         panelElem.setAttribute("nomargin", "false");
+        panelElem.setAttribute("nogap", "true");
 
         tabItems.forEach(node => {
           const itemKey = node.getAttribute("itemkey");
