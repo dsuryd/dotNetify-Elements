@@ -5,11 +5,12 @@ export default function createTabComponent(Component, elementName) {
   return createWebComponentCss(Component, elementName, {}, host => {
     const props = Object.assign({ theme: utils.getDefaultTheme() }, host.props);
 
-    if (host.childNodes.length > 0) {
-      let tabElem = host.querySelector(".nav-tabs");
+    if (host.children.length > 0) {
+      const children = [...host.children];
+      let tabElem = children.find(x => x.classList.contains("nav-tabs"));
       if (!tabElem) {
         const active = host.getAttribute("active");
-        const tabItems = [...host.childNodes].filter(x => x.nodeName === "D-TAB-ITEM");
+        const tabItems = children.filter(x => x.nodeName === "D-TAB-ITEM");
         const activeNode = tabItems.find(x => x.getAttribute("itemkey") === active) || tabItems[0];
 
         tabElem = utils.addChildNode(host, "ul", "nav nav-tabs", true);
