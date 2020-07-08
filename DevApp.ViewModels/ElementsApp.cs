@@ -218,7 +218,7 @@ namespace dotNetify_Elements
          var navMenuItems = new List<NavMenuItem>(_navMenuItems);
          if (framework == "WebComponent")
          {
-            //navMenuItems.RemoveAt(navMenuItems.FindIndex(x => (x as NavRoute)?.Route.TemplateId == nameof(Route.DataFlow)));
+            navMenuItems.RemoveAt(navMenuItems.FindIndex(x => (x as NavRoute)?.Route.TemplateId == nameof(Route.Customization)));
 
             int idx = navMenuItems.FindIndex(x => x.Label == "Layout");
             navMenuItems[idx] = new NavGroup

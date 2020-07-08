@@ -1,20 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Markdown, VMContext, withTheme } from "dotnetify-elements";
-import { Button, DropdownList, Element, NumberField, TextField } from "dotnetify-elements";
-import Expander from "../components/Expander";
-import Article from "../components/Article";
+import { DropdownList, Element, NumberField, TextField } from "dotnetify-elements";
+import { currentFramework, Expander, Article } from "../components";
 
-const Introduction = props => (
-  <Article vm="Introduction" id="Content">
-    <Markdown id="Content">
-      <Expander label={<SeeItLive />} content={<NameInput />} />
-      <Expander label={<SeeItLive />} content={<NameGenderInput />} />
-      <Expander label={<SeeItLive />} content={<PrimeInput />} />
-      <Expander label={<SeeItLive />} content={<RealtimeClock />} connectOnExpand />
-    </Markdown>
-  </Article>
-);
+const Introduction = () => {
+  const [framework, setFramework] = useState(currentFramework);
+  return (
+    <Article vm="Introduction" id="Content" onChangeFramework={x => setFramework(x)}>
+      <Markdown id="Content" condition={framework}>
+        <Expander label={<SeeItLive />} content={<NameInput />} />
+        <Expander label={<SeeItLive />} content={<NameGenderInput />} />
+        <Expander label={<SeeItLive />} content={<PrimeInput />} />
+        <Expander label={<SeeItLive />} content={<RealtimeClock />} connectOnExpand />
+      </Markdown>
+    </Article>
+  );
+};
 
 const SeeItLive = _ => <b>See It Live!</b>;
 

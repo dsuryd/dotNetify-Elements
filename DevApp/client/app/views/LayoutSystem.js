@@ -1,18 +1,21 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import { Markdown, Panel, withTheme } from "dotnetify-elements";
-import Article from "../components/Article";
+import { currentFramework, Article, FrameworkContext } from "../components";
 
-const LayoutSystem = _ => (
-  <Article vm="LayoutSystem" id="Content">
-    <Markdown id="Content">
-      <DefaultPanelLayout />
-      <HorizontalPanelLayout />
-      <FlexPanelLayout />
-      <CssPanelLayout />
-    </Markdown>
-  </Article>
-);
+const LayoutSystem = _ => {
+  const [framework, setFramework] = useState(currentFramework);
+  return (
+    <Article vm="LayoutSystem" id="Content" onChangeFramework={x => setFramework(x)}>
+      <Markdown id="Content" condition={framework}>
+        <DefaultPanelLayout />
+        <HorizontalPanelLayout />
+        <FlexPanelLayout />
+        <CssPanelLayout />
+      </Markdown>
+    </Article>
+  );
+};
 
 const Item = styled.div`
   display: flex;
@@ -27,7 +30,10 @@ const Item = styled.div`
 
 const SourceCode = props => <Markdown css=".prism-code { margin:0 !important }" {...props} />;
 
-const panelSource = props => `
+const panelSource = props => {
+  const framework = useContext(FrameworkContext);
+  if (framework === "React") {
+    return `
 \`\`\`jsx
 const MyApp = _ => (
    <Panel${props ? " " + props : ""}>
@@ -37,6 +43,17 @@ const MyApp = _ => (
    </Panel>
 );
 \`\`\``;
+  } else {
+    return `
+\`\`\`jsx
+<d-panel${props ? " " + props + '="true"' : ""}>
+  <div>1</div>
+  <div>2</div>
+  <div>3</div>
+</d-panel>
+\`\`\``;
+  }
+};
 
 const DefaultPanelLayout = _ => (
   <Panel horizontal css="margin: 2rem 0">
@@ -66,7 +83,10 @@ const HorizontalPanelLayout = _ => (
   </Panel>
 );
 
-const flexPanelSource = props => `
+const flexPanelSource = _ => {
+  const framework = useContext(FrameworkContext);
+  if (framework === "React") {
+    return `
 \`\`\`jsx
 const MyApp = _ => (
    <Panel horizontal>
@@ -78,6 +98,19 @@ const MyApp = _ => (
    </Panel>
 );
 \`\`\``;
+  } else {
+    return `
+\`\`\`jsx
+<d-panel horizontal="true">
+  <div flex="1">1</div>
+  <div>2</div>
+  <d-panel right="true">
+      <div>3</div>
+  </d-panel>
+</d-panel>
+\`\`\``;
+  }
+};
 
 const FlexPanelLayout = _ => (
   <Panel horizontal css="margin: 2rem 0">
@@ -94,7 +127,10 @@ const FlexPanelLayout = _ => (
   </Panel>
 );
 
-const cssPanelSource = props => `
+const cssPanelSource = _ => {
+  const framework = useContext(FrameworkContext);
+  if (framework === "React") {
+    return `
 \`\`\`jsx
 const customCss = \`
    padding: 1rem; 
@@ -111,6 +147,20 @@ const MyApp = _ => (
    </Panel>
 );
 \`\`\``;
+  } else {
+    return `
+\`\`\`jsx
+<d-panel horizontal="true" 
+         css=".make-me-red { background:red }">
+  <div flex="1">1</div>
+  <div>2</div>
+  <d-panel right="true">
+      <div class="make-me-red">3</div>
+  </d-panel>
+</d-panel>
+\`\`\``;
+  }
+};
 
 const customCss = `
    padding: 1rem; 

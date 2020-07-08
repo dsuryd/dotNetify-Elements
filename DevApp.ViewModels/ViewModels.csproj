@@ -47,7 +47,6 @@
     <EmbeddedResource Include="Docs\Structure\Modal.md" />
     <EmbeddedResource Include="Docs\Structure\Tab.md" />
     <EmbeddedResource Include="Docs\WorkingWithForms.md" />
-    <EmbeddedResource Include="Docs\WebComponents.md" />
   </ItemGroup>
 
   <ItemGroup>
