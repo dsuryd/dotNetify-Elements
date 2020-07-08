@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Card, Frame, Panel, Markdown, Tab, TabItem, VMContext, withTheme } from "dotnetify-elements";
 import { BarChart, LineChart, PieChart } from "dotnetify-elements";
 import InfoCard from "./InfoCard";
 import ActivitiesCard from "./ActivitiesCard";
+import { currentFramework, frameworkSelectEvent } from "../../../components";
 
 const frameCss = `
    margin-left: 3rem; 
@@ -65,26 +66,32 @@ const Dashboard = _ => (
   </VMContext>
 );
 
-const DashboardExample = _ => (
-  <VMContext vm="DashboardExample">
-    <Frame css={frameCss}>
-      <Tab margin="1.5rem 0">
-        <TabItem label="Output">
-          <Dashboard />
-        </TabItem>
-        <TabItem label="Source">
-          <Tab margin="1.5rem 0">
-            <TabItem label="View">
-              <Markdown id="ViewSource" css="max-width: 80rem" />
+const DashboardExample = _ => {
+  const [framework, setFramework] = useState(currentFramework);
+  useEffect(() => frameworkSelectEvent.subscribe(framework => setFramework(framework)), []);
+  return (
+    <VMContext vm="DashboardExample">
+      <Frame css={frameCss}>
+        <Tab margin="1.5rem 0">
+          <TabItem label="Output">
+            <Dashboard />
+          </TabItem>
+          {framework === "React" && (
+            <TabItem label="Source">
+              <Tab margin="1.5rem 0">
+                <TabItem label="View">
+                  <Markdown id="ViewSource" css="max-width: 80rem" />
+                </TabItem>
+                <TabItem label="View Model">
+                  <Markdown id="ViewModelSource" css="max-width: 80rem" />
+                </TabItem>
+              </Tab>
             </TabItem>
-            <TabItem label="View Model">
-              <Markdown id="ViewModelSource" css="max-width: 80rem" />
-            </TabItem>
-          </Tab>
-        </TabItem>
-      </Tab>
-    </Frame>
-  </VMContext>
-);
+          )}
+        </Tab>
+      </Frame>
+    </VMContext>
+  );
+};
 
 export default withTheme(DashboardExample);
