@@ -32,6 +32,8 @@ export class MarkdownTOC extends Element {
 
   componentDidMount() {
     this.addScrollEventListener();
+    const fragment = window.location.href.split("#")[1];
+    if (fragment) this.scrollIntoView("#" + fragment);
   }
 
   componentWillUnmount() {
@@ -109,7 +111,7 @@ export class MarkdownTOC extends Element {
             isSelected={selected === header.link}
             onClick={_ => select(header.link)}
           >
-            <a href={window.location.href + header.link} onClick={e => e.preventDefault()}>
+            <a href={window.location.href.split("#")[0] + header.link} onClick={e => e.preventDefault()}>
               {header.title}
             </a>
           </ItemContainer>
