@@ -3,7 +3,9 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import Element from "../core/Element";
 
-const ImageComponent = styled.img``;
+const ImageComponent = styled.img`
+  ${props => props.css};
+`;
 
 export class Image extends Element {
   static propTypes = {
