@@ -33,7 +33,7 @@ export class MarkdownTOC extends Element {
   componentDidMount() {
     this.addScrollEventListener();
     const fragment = window.location.href.split("#")[1];
-    if (fragment) this.scrollIntoView("#" + fragment);
+    setTimeout(() => fragment && this.scrollIntoView("#" + fragment));
   }
 
   componentWillUnmount() {
