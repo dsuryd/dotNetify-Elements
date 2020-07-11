@@ -65,7 +65,10 @@ export default function createWebComponent(Component, elementName) {
     }
 
     connect(vmId, optionsStr) {
-      const options = /{.*}/.exec(optionsStr) ? JSON.parse(optionsStr) : null;
+      const options = /{.*}/.exec(optionsStr) ? JSON.parse(optionsStr) : {};
+      if (!options.exceptionHandler)
+        options.exceptionHandler = ex => this.dispatchEvent(new CustomEvent("onException", { detail: ex }));
+
       this.vm = this.store.connect(vmId, options, this.onStateChange);
 
       this.props = {
