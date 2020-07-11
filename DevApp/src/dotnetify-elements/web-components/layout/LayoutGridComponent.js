@@ -102,3 +102,12 @@ export function createSectionComponent(Component, elementName) {
       `;
   });
 }
+
+export function createStyleComponent(Component, elementName) {
+  return createWebComponentCss(Component, elementName, {}, host => {
+    let props = Object.assign({ theme: utils.getDefaultTheme() }, host.props);
+    return `
+         ${props.css};
+      `;
+  });
+}

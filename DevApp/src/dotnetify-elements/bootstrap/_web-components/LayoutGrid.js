@@ -6,6 +6,7 @@ webComponent.createHeaderComponent(Header, "d-header");
 webComponent.createNavComponent(Nav, "d-nav");
 webComponent.createFooterComponent(Footer, "d-footer");
 webComponent.createSectionComponent(Section, "d-section");
+webComponent.createStyleComponent({ propTypes: {} }, "d-style");
 
 export default Main;
 export { Footer, Header, Main, Nav, Section };
