@@ -30,6 +30,7 @@ export { Card, CardImage } from "./Card";
 export { Cell } from "./Cell";
 export { Collapsible } from "./Collapsible";
 export { Field } from "./Field";
+export { Menu } from "./Menu";
 export { Modal } from "./Modal";
 export { Tab, TabItem } from "./Tab";
 
