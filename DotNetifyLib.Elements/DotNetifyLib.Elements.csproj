@@ -11,17 +11,24 @@
     <Product>DotNetify.Elements</Product>
     <Description>Simple, lightweight, yet powerful way to build reactive, real-time web apps. Server-side counterpart of dotNetify web component library.</Description>
     <Copyright>Copyright 2018-2020</Copyright>
-    <PackageLicenseUrl>https://github.com/dsuryd/dotNetify/blob/master/LICENSE.md</PackageLicenseUrl>
     <PackageProjectUrl>http://dotnetify.net/elements</PackageProjectUrl>
     <PackageIconUrl>http://dotnetify.net/content/images/dotnetify.png</PackageIconUrl>
     <RepositoryUrl>https://github.com/dsuryd/dotNetify-Elements</RepositoryUrl>
     <PackageTags>react netcore reactive realtime signalr websocket</PackageTags>
     <AssemblyVersion>1.5.0.0</AssemblyVersion>
     <FileVersion>1.5.0.0</FileVersion>
+    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="DotNetify.Core" Version="3.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\LICENSE.md">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
