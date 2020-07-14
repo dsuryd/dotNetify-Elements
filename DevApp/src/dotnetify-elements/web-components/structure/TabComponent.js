@@ -78,10 +78,11 @@ export function handleTabClick(e) {
   if (e.key && e.key !== "Enter") return true;
   const elemItemKey = e.target.id;
   const host = e.target.closest("d-tab");
-  Array.from(host.querySelectorAll("d-tab-item")).forEach(x => {
-    x.classList.remove("active");
-    x.removeAttribute("active");
-  });
+
+  let active = host.querySelector("d-tab-item.active");
+  active && active.classList.remove("active");
+  active = host.querySelector("d-tab-item[active]");
+  active && active.removeAttribute("active");
   host.querySelector(`d-tab-item[itemkey="${elemItemKey}"]`).classList.add("active");
   host.querySelector(".nav-link.active").classList.remove("active");
   host.querySelector(`#${elemItemKey}.nav-link`).classList.add("active");
