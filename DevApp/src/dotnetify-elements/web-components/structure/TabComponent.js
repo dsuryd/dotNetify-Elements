@@ -24,15 +24,15 @@ export default function createTabComponent(Component, elementName) {
           const itemElem = utils.addChildNode(tabElem, "li", "nav-item");
           const activeCss = node === activeNode ? "active" : "";
           itemElem.innerHTML = `<div id=${itemKey} class='nav-link ${activeCss}'>${node.getAttribute("label")}</div>`;
-          itemElem.onclick = () => {
-            tabItems.forEach(x => {
-              x.style.display = x === node ? "block" : "none";
-            });
-            tabElem.querySelector(".nav-link.active").classList.remove("active");
-            tabElem.querySelector(`#${itemKey}.nav-link`).classList.add("active");
-          };
+          itemElem.onclick = handleTabClick;
+          itemElem.onkeydown = handleTabClick;
 
-          node.style.display = node === activeNode ? "block" : "none";
+          if (node === activeNode) node.classList.add("active");
+          if (node === activeNode) {
+            document.createAttribute("active");
+            // Have to use attribute because when inside React modal, cannot do querySelector with class (it changes to classname).
+            node.setAttribute("active", "true");
+          }
           panelElem.appendChild(node);
         });
       }
@@ -52,16 +52,37 @@ export default function createTabComponent(Component, elementName) {
             cursor: pointer;
           }
         }
+        d-tab-item {
+          display: none;
+          &.active, &[active] { display: block }
+        }
         ${props.css};
       `;
   });
 }
 
 export function createTabItemComponent(Component, elementName) {
-  return createWebComponentCss(Component, elementName, {}, host => {
+  const component = createWebComponentCss(Component, elementName, {}, host => {
     const props = Object.assign({ theme: utils.getDefaultTheme() }, host.props);
     return `
          ${props.css};
       `;
   });
+  component.prototype.handleClick = () => {
+    alert(this);
+  };
+  return component;
+}
+
+export function handleTabClick(e) {
+  if (e.key && e.key !== "Enter") return true;
+  const elemItemKey = e.target.id;
+  const host = e.target.closest("d-tab");
+  Array.from(host.querySelectorAll("d-tab-item")).forEach(x => {
+    x.classList.remove("active");
+    x.removeAttribute("active");
+  });
+  host.querySelector(`d-tab-item[itemkey="${elemItemKey}"]`).classList.add("active");
+  host.querySelector(".nav-link.active").classList.remove("active");
+  host.querySelector(`#${elemItemKey}.nav-link`).classList.add("active");
 }

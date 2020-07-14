@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Form, FormContextTypes } from "../form/Form";
 import * as utils from "../utils";
+import { handleTabClick } from "../web-components/structure/TabComponent";
 
 export class Modal extends React.Component {
   static contextTypes = FormContextTypes;
@@ -42,6 +43,16 @@ export class Modal extends React.Component {
     BodyContainer: undefined,
     FooterContainer: undefined
   };
+
+  componentDidMount() {
+    // Hack to make tab web component works inside modal.
+    if (this.props.open) {
+      Array.from(document.querySelectorAll(".modal li.nav-item")).forEach(x => {
+        x.onclick = handleTabClick;
+        x.onkeydown = handleTabClick;
+      });
+    }
+  }
 
   render() {
     const [Container, Header, Body, Footer] = utils.resolveComponents(Modal, this.props);
