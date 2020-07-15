@@ -224,7 +224,7 @@ namespace dotNetify_Elements
             navMenuItems[idx] = new NavGroup
             {
                Label = navMenuItems[idx].Label,
-               Routes = (navMenuItems[idx] as NavGroup).Routes.Where(x => x.Label != "Layout Grid" && x.Label != "Basic Demo").ToArray(),
+               Routes = (navMenuItems[idx] as NavGroup).Routes.Where(x => x.Label != "Theme" && x.Label != "Basic Demo").ToArray(),
                IsExpanded = true
             };
 

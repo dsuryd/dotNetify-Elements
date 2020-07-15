@@ -9,8 +9,8 @@ Use the layout grid elements to structure the application layout. Start with the
 <if react>
 
 ```jsx
-import React from 'react';
-import { Main, Header, Footer, Nav, Section } from 'dotnetify-elements';
+import React from "react";
+import { Main, Header, Footer, Nav, Section } from "dotnetify-elements";
 
 const MyApp = _ => (
   <Main>
@@ -24,12 +24,14 @@ const MyApp = _ => (
 
 </if>
 <if webcomponent>
+```jsx
 <d-main>
     <d-header />
     <d-nav />
     <d-section />
     <d-footer />
 </d-main>
+```
 </if>
 
 You can provide custom theme to the _Main_ element. See [LayoutGrid](layout/grid) for details.
