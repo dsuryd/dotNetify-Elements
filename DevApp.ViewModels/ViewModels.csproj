@@ -51,7 +51,7 @@
 
   <ItemGroup>
     <PackageReference Include="Bogus" Version="22.1.3" />
-    <PackageReference Include="DotNetify.Core" Version="3.4.0" />
+    <PackageReference Include="DotNetify.Core" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>

@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>DotNetify.Elements</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.5.0</Version>
+    <Version>1.5.1</Version>
     <PackageId>DotNetify.Elements</PackageId>
     <Authors>Dicky Suryadi</Authors>
     <Company />
@@ -15,13 +15,11 @@
     <PackageIconUrl>http://dotnetify.net/content/images/dotnetify.png</PackageIconUrl>
     <RepositoryUrl>https://github.com/dsuryd/dotNetify-Elements</RepositoryUrl>
     <PackageTags>react netcore reactive realtime signalr websocket</PackageTags>
-    <AssemblyVersion>1.5.0.0</AssemblyVersion>
-    <FileVersion>1.5.0.0</FileVersion>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DotNetify.Core" Version="3.4.0" />
+    <PackageReference Include="DotNetify.Core" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
