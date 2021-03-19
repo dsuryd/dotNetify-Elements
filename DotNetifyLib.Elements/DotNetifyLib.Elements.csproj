@@ -10,7 +10,7 @@
     <Company />
     <Product>DotNetify.Elements</Product>
     <Description>Simple, lightweight, yet powerful way to build reactive, real-time web apps. Server-side counterpart of dotNetify web component library.</Description>
-    <Copyright>Copyright 2018-2020</Copyright>
+    <Copyright>Copyright 2018-2021</Copyright>
     <PackageProjectUrl>http://dotnetify.net/elements</PackageProjectUrl>
     <PackageIconUrl>http://dotnetify.net/content/images/dotnetify.png</PackageIconUrl>
     <RepositoryUrl>https://github.com/dsuryd/dotNetify-Elements</RepositoryUrl>
