@@ -2,25 +2,14 @@
 
 <if react>
 
-#### SPA Template
-
 The easiest way to get started to use the basic SPA template that contains some of the examples from this website, and also include a functional login page with JWT authentication.
 
 Prerequisites:
 
 - Node.js
-- .NET Core SDK (v2.1 and up)
+- .NET Core SDK
 
-Download the template from nuget from the command line, then create your project:
-
-```js
-dotnet new -i dotnetify.react.template
-
-dotnet new elements -o MyApp
-cd MyApp
-npm i
-dotnet watch run
-```
+[inset]
 
 </if>
 
@@ -128,32 +117,32 @@ npm i
 Add **webpack.config.js** with the following content:
 
 ```js
-'use strict';
+"use strict";
 
 module.exports = {
-  mode: 'development',
+  mode: "development",
   entry: {
-    app: './client/main.js'
+    app: "./client/main.js"
   },
   output: {
-    filename: '[name].js',
-    path: __dirname + '/wwwroot/dist',
-    publicPath: '/dist/'
+    filename: "[name].js",
+    path: __dirname + "/wwwroot/dist",
+    publicPath: "/dist/"
   },
   resolve: {
-    modules: ['client', 'node_modules'],
-    extensions: ['.js', '.jsx']
+    modules: ["client", "node_modules"],
+    extensions: [".js", ".jsx"]
   },
   externals: {
-    react: 'React',
-    'react-dom': 'ReactDOM'
+    react: "React",
+    "react-dom": "ReactDOM"
   },
   module: {
     rules: [
-      { test: /\.jsx?$/, use: 'babel-loader', exclude: /node_modules/ },
-      { test: /\.css$/, use: 'css-loader' },
-      { test: /\.(png|jpg|jpeg|gif|svg)$/, use: 'url-loader?limit=25000' },
-      { test: /\.(eot|svg|ttf|woff(2)?)(\?v=\d+\.\d+\.\d+)?/, loader: 'url-loader' }
+      { test: /\.jsx?$/, use: "babel-loader", exclude: /node_modules/ },
+      { test: /\.css$/, use: "css-loader" },
+      { test: /\.(png|jpg|jpeg|gif|svg)$/, use: "url-loader?limit=25000" },
+      { test: /\.(eot|svg|ttf|woff(2)?)(\?v=\d+\.\d+\.\d+)?/, loader: "url-loader" }
     ]
   }
 };
@@ -186,17 +175,17 @@ Create a new file **/wwwroot/index.html** with the following content:
 Add a new source code **client/main.js** with the following content:
 
 ```jsx
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Main, Section, Card, Element, Frame, VMContext } from 'dotnetify-elements';
+import React from "react";
+import ReactDOM from "react-dom";
+import { Main, Section, Card, Element, Frame, VMContext } from "dotnetify-elements";
 
 const MyApp = _ => (
-  <VMContext vm='MyApp'>
+  <VMContext vm="MyApp">
     <Main>
       <Section>
         <Frame>
           <Card>
-            <Element id='Greetings' />
+            <Element id="Greetings" />
           </Card>
         </Frame>
       </Section>
@@ -204,7 +193,7 @@ const MyApp = _ => (
   </VMContext>
 );
 
-ReactDOM.render(<MyApp />, document.getElementById('App'));
+ReactDOM.render(<MyApp />, document.getElementById("App"));
 ```
 
 **Add View Model Source Code**
@@ -246,15 +235,15 @@ Open the browser to _http://localhost:5000_. If you make changes on client- or s
 Importing the root module is convenient, but will significantly increase the application bundle size. When this is a concern, you can import just the components you need, for example:
 
 ```jsx
-import { Element, VMContext } from 'dotnetify-elements/components';
-import { Alert } from 'dotnetify-elements/components/Alert';
-import { TextField } from 'dotnetify-elements/components/TextField';
+import { Element, VMContext } from "dotnetify-elements/components";
+import { Alert } from "dotnetify-elements/components/Alert";
+import { TextField } from "dotnetify-elements/components/TextField";
 ```
 
 Dependency to `moment.js` will bring all the locale files into the bundle. To include only the locales you need, set your webpack to use `ContextReplacementPlugin`:
 
 ```jsx
-const webpack = require('webpack');
+const webpack = require("webpack");
 module.exports = {
   //...
   plugins: [
