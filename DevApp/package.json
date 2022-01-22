@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "build": "webpack",
-    "build-prod": "webpack -p",
-    "prod": "webpack -p --progress && dotnet publish -c Release",
-    "dist": "webpack --config ./webpack.dist.config.js",
+    "build-prod": "webpack --mode=production",
+    "prod": "webpack --mode=production --progress && dotnet publish -c Release",
+    "dist": "webpack --config ./webpack.dist.config.js --mode=production",
     "test": "webpack --config ./webpack.test.config.js",
     "pretty": "prettier --write \"./{src,client}/**/*.{ts,tsx,js,jsx,json}\""
   },
