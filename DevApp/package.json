@@ -8,7 +8,8 @@
     "prod": "webpack --mode=production --progress && dotnet publish -c Release",
     "dist": "webpack --config ./webpack.dist.config.js --mode=production",
     "test": "webpack --config ./webpack.test.config.js",
-    "pretty": "prettier --write \"./{src,client}/**/*.{ts,tsx,js,jsx,json}\""
+    "pretty": "prettier --write \"./{src,client}/**/*.{ts,tsx,js,jsx,json}\"",
+    "analyze": "source-map-explorer 'wwwroot/dist/*.js'"
   },
   "babel": {
     "presets": [
@@ -69,6 +70,7 @@
     "mini-css-extract-plugin": "~0.4.0",
     "prettier": "2.0.5",
     "raw-loader": "^2.0.0",
+    "source-map-explorer": "^2.5.2",
     "style-loader": "0.21.0",
     "url-loader": "1.0.1",
     "webpack": "4.12.0",
