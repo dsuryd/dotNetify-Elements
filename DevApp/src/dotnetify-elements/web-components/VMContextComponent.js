@@ -14,6 +14,10 @@ export default function createWebComponent(Component, elementName) {
       return { _type: "custom", ...this.store.context };
     }
 
+    get vmContext() {
+      return this.vmContextElem ? this.vmContextElem.context : null;
+    }
+
     constructor() {
       super();
       this.store = new VMContextStore(this);
@@ -44,7 +48,6 @@ export default function createWebComponent(Component, elementName) {
     connectedCallback() {
       this.vmContextElem = this.parentElement && this.parentElement.closest("d-vm-context");
       if (this.vmContextElem) {
-        this.vmContext = this.vmContextElem.context;
         this.vmContextElem.addEventListener("onStateChange", this.onVMContextStateChange);
       }
 

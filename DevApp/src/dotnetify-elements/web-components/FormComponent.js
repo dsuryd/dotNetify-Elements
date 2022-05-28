@@ -10,6 +10,10 @@ export default function createWebComponent(Component, elementName) {
       return ["plaintext"];
     }
 
+    get vmContext() {
+      return this.vmContextElem ? this.vmContextElem.context : null;
+    }
+
     get hasVMContextState() {
       return !!(this.vmContext && this.vmContext.getState() && Object.entries(this.vmContext.getState()).length > 0);
     }
@@ -55,7 +59,6 @@ export default function createWebComponent(Component, elementName) {
       }
 
       if (this.vmContextElem) {
-        this.vmContext = this.vmContextElem.context;
         this.vmContextElem.addEventListener("onStateChange", this.onVMContextStateChange);
       }
 

@@ -5,6 +5,16 @@ export default function createWebComponent(Component, elementName, useShadowDom)
   if (!window.hasOwnProperty("customElements")) return { prototype: {} };
 
   class CustomElement extends HTMLElement {
+    get vmContext() {
+      if (this.formElem) return this.formElem.context.vmContext;
+      else if (this.vmContextElem) return this.vmContextElem.context;
+      return null;
+    }
+
+    get formContext() {
+      return this.formElem ? this.formElem.context.formContext : null;
+    }
+
     constructor() {
       super();
 
@@ -50,15 +60,12 @@ export default function createWebComponent(Component, elementName, useShadowDom)
         if (modals.length > 0) this.vmContextElem = modals[0].closest("d-vm-context");
       }
       if (this.vmContextElem) {
-        this.vmContext = this.vmContextElem.context;
         this.vmContextElem.addEventListener("onStateChange", this.onVMContextStateChange);
         this.vmContextElem.addEventListener("onLocalStateChange", this.onVMContextLocalStateChange);
       }
 
       this.formElem = this.closest("d-form");
       if (this.formElem) {
-        this.vmContext = this.formElem.context.vmContext;
-        this.formContext = this.formElem.context.formContext;
         this.formElem.addEventListener("onStateChange", this.onFormContextStateChange);
       }
 
